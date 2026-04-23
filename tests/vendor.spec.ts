@@ -56,3 +56,25 @@ test.describe("Vendor — List smoke", () => {
     await expect(vendor.list.addButton()).toBeVisible();
   });
 });
+
+test.describe("Vendor — Create happy path", () => {
+  test("TC-VEN06 เปิดหน้า new form สำเร็จ", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await expect(page).toHaveURL(/vendor-management\/vendor\/new/);
+    await expect(vendor.codeInput()).toBeVisible({ timeout: 10_000 });
+    await expect(vendor.nameInput()).toBeVisible();
+    await expect(vendor.saveButton()).toBeVisible();
+  });
+});
+
+test.describe("Vendor — Tabs & dynamic arrays", () => {
+  test("TC-VEN11 สลับ tab ทั้ง 4 tabs ได้", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    for (const tab of ["general", "info", "address", "contact"] as const) {
+      await vendor.switchTab(tab);
+      await expect(vendor.tabTrigger(tab)).toHaveAttribute("data-state", "active");
+    }
+  });
+});

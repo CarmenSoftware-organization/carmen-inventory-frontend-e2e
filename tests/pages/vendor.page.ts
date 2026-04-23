@@ -1,4 +1,5 @@
 import type { Page, Locator } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { ConfigListPage } from "./config-list.page";
 
 export interface VendorAddressInput {
@@ -46,5 +47,65 @@ export class VendorPage {
 
   constructor(private page: Page) {
     this.list = new ConfigListPage(page, LIST_PATH);
+  }
+
+  // ── Navigation ────────────────────────────────────────────────────────
+  async gotoList() {
+    await this.page.goto(LIST_PATH);
+    await this.page.waitForLoadState("networkidle");
+  }
+
+  async gotoNew() {
+    await this.page.goto(NEW_PATH);
+    await this.page.waitForLoadState("networkidle");
+  }
+
+  // ── Form — General tab ────────────────────────────────────────────────
+  codeInput(): Locator {
+    return this.page.locator("#vendor-code");
+  }
+
+  nameInput(): Locator {
+    return this.page.locator("#vendor-name");
+  }
+
+  descriptionInput(): Locator {
+    return this.page.locator("#vendor-description");
+  }
+
+  activeSwitch(): Locator {
+    return this.page.locator("#vendor-is-active");
+  }
+
+  saveButton(): Locator {
+    // FormToolbar submit button — text is "Create" in add mode, "Save" in edit mode
+    return this.page
+      .getByRole("button", { name: /^(Create|Save)$/i })
+      .and(this.page.locator('[type="submit"]'));
+  }
+
+  cancelButton(): Locator {
+    return this.page.getByRole("button", { name: /^Cancel$/i });
+  }
+
+  editButton(): Locator {
+    return this.page.getByRole("button", { name: /^Edit$/i });
+  }
+
+  // ── Tabs ──────────────────────────────────────────────────────────────
+  tabTrigger(tab: "general" | "info" | "address" | "contact"): Locator {
+    const labelMap: Record<string, RegExp> = {
+      general: /general|ทั่วไป/i,
+      info: /info|ข้อมูล/i,
+      address: /address|ที่อยู่/i,
+      contact: /contact|ผู้ติดต่อ/i,
+    };
+    return this.page.getByRole("tab", { name: labelMap[tab] });
+  }
+
+  async switchTab(tab: "general" | "info" | "address" | "contact") {
+    const trigger = this.tabTrigger(tab);
+    await trigger.click();
+    await expect(trigger).toHaveAttribute("data-state", "active", { timeout: 5_000 });
   }
 }
