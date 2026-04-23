@@ -80,6 +80,25 @@ test.describe("Vendor — Create happy path", () => {
     // Verify the selected badge appears on the trigger
     await expect(vendor.businessTypeTrigger()).toContainText(label, { timeout: 5_000 });
   });
+
+  test("TC-VEN08 สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ", async ({
+    page,
+  }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.fillGeneral({ code: CODE, name: NAME });
+    const btCount = await vendor.businessTypeOptionCount();
+    if (btCount > 0) {
+      await vendor.pickBusinessType();
+    }
+    await vendor.saveButton().click();
+    await vendor.expectSaved();
+
+    // Verify it appears in the list
+    await vendor.list.goto();
+    await vendor.list.search(NAME);
+    await expect(page.getByText(NAME).first()).toBeVisible({ timeout: 10_000 });
+  });
 });
 
 test.describe("Vendor — Tabs & dynamic arrays", () => {

@@ -158,4 +158,80 @@ export class VendorPage {
     await this.page.keyboard.press("Escape");
     return count;
   }
+
+  // ── Fill helpers ──────────────────────────────────────────────────────
+  async fillGeneral(data: Pick<VendorFormData, "code" | "name" | "description" | "businessType">) {
+    await this.switchTab("general");
+    await this.codeInput().fill(data.code);
+    await this.nameInput().fill(data.name);
+    if (data.description !== undefined) {
+      await this.descriptionInput().fill(data.description);
+    }
+    if (data.businessType !== undefined) {
+      const count = await this.businessTypeOptionCount();
+      if (count > 0) {
+        await this.pickBusinessType(data.businessType || undefined);
+      }
+    }
+  }
+
+  /**
+   * High-level flow: fill general (+ optional tabs) and save.
+   * Does not wait for redirect — caller uses expectSaved().
+   */
+  async createVendor(data: VendorFormData) {
+    await this.fillGeneral(data);
+    if (data.addresses) {
+      await this.switchTab("address");
+      for (const a of data.addresses) {
+        await this.addAddressRow();
+        await this.fillAddress(0, a);
+      }
+    }
+    if (data.contacts) {
+      await this.switchTab("contact");
+      for (const c of data.contacts) {
+        await this.addContactRow();
+        await this.fillContact(0, c);
+      }
+    }
+    if (data.info) {
+      await this.switchTab("info");
+      for (const i of data.info) {
+        await this.addInfoRow();
+        await this.fillInfo(0, i);
+      }
+    }
+    await this.saveButton().click();
+  }
+
+  /** Wait for the success toast and redirect back to list. */
+  async expectSaved() {
+    await expect(
+      this.page.getByText(/success|สำเร็จ|created|updated/i).first(),
+    ).toBeVisible({ timeout: 10_000 });
+    await expect(this.page).toHaveURL(new RegExp(`${LIST_PATH}(?!/new)`), {
+      timeout: 10_000,
+    });
+  }
+
+  // ── Address tab stubs (implemented in Task 5) ────────────────────────
+  async addAddressRow() { throw new Error("not implemented yet"); }
+  async fillAddress(_index: number, _data: VendorAddressInput) { throw new Error("not implemented yet"); }
+  async removeAddressRow(_index: number) { throw new Error("not implemented yet"); }
+  addressCount(): Promise<number> { throw new Error("not implemented yet"); }
+  addressRow(_index: number): Locator { throw new Error("not implemented yet"); }
+
+  // ── Contact tab stubs (implemented in Task 6) ────────────────────────
+  async addContactRow() { throw new Error("not implemented yet"); }
+  async fillContact(_index: number, _data: VendorContactInput) { throw new Error("not implemented yet"); }
+  async removeContactRow(_index: number) { throw new Error("not implemented yet"); }
+  async setPrimaryContact(_index: number) { throw new Error("not implemented yet"); }
+  contactCount(): Promise<number> { throw new Error("not implemented yet"); }
+  contactRow(_index: number): Locator { throw new Error("not implemented yet"); }
+
+  // ── Info tab stubs (implemented in Task 7) ───────────────────────────
+  async addInfoRow() { throw new Error("not implemented yet"); }
+  async fillInfo(_index: number, _data: VendorInfoInput) { throw new Error("not implemented yet"); }
+  async removeInfoRow(_index: number) { throw new Error("not implemented yet"); }
 }
