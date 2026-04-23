@@ -132,6 +132,27 @@ test.describe("Vendor — Create happy path", () => {
       // Cleanup is best-effort; vendor may remain but test save succeeded.
     }
   });
+
+  test("TC-VEN10 สร้าง vendor พร้อม contact 1 รายการ (primary)", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    const code = `${CODE.slice(0, 9)}C`;
+    const name = `${NAME} ctc`;
+    await vendor.fillGeneral({ code, name });
+    if ((await vendor.businessTypeOptionCount()) > 0) await vendor.pickBusinessType();
+    await vendor.addContactRow();
+    await vendor.fillContact(0, {
+      name: "Primary Person",
+      email: "primary@example.com",
+      phone: "0123456789",
+      is_primary: true,
+    });
+    await vendor.saveButton().click();
+    await vendor.expectSaved();
+    await vendor.gotoList();
+    await vendor.list.search(name);
+    await expect(page.getByText(name).first()).toBeVisible({ timeout: 10_000 });
+  });
 });
 
 test.describe("Vendor — Tabs & dynamic arrays", () => {
@@ -164,5 +185,42 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     expect(await vendor.addressCount()).toBe(2);
     await vendor.removeAddressRow(0);
     expect(await vendor.addressCount()).toBe(1);
+  });
+
+  test("TC-VEN14 เพิ่ม contact row ได้หลาย row", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.switchTab("contact");
+    expect(await vendor.contactCount()).toBe(0);
+    await vendor.addContactRow();
+    await vendor.addContactRow();
+    expect(await vendor.contactCount()).toBe(2);
+  });
+
+  test("TC-VEN15 ลบ contact row ได้", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.switchTab("contact");
+    await vendor.addContactRow();
+    await vendor.addContactRow();
+    await vendor.fillContact(0, { name: "Will Remove" });
+    expect(await vendor.contactCount()).toBe(2);
+    await vendor.removeContactRow(0);
+    expect(await vendor.contactCount()).toBe(1);
+  });
+
+  test("TC-VEN16 เปลี่ยน primary contact ได้ (radio exclusive)", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.switchTab("contact");
+    await vendor.addContactRow();
+    await vendor.addContactRow();
+    await vendor.fillContact(0, { name: "A" });
+    await vendor.fillContact(1, { name: "B" });
+    await vendor.setPrimaryContact(0);
+    await expect(vendor.contactRow(0).getByRole("checkbox")).toBeChecked();
+    await vendor.setPrimaryContact(1);
+    await expect(vendor.contactRow(1).getByRole("checkbox")).toBeChecked();
+    await expect(vendor.contactRow(0).getByRole("checkbox")).not.toBeChecked();
   });
 });

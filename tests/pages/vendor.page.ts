@@ -304,13 +304,75 @@ export class VendorPage {
     }
   }
 
-  // ── Contact tab stubs (implemented in Task 6) ────────────────────────
-  async addContactRow() { throw new Error("not implemented yet"); }
-  async fillContact(_index: number, _data: VendorContactInput) { throw new Error("not implemented yet"); }
-  async removeContactRow(_index: number) { throw new Error("not implemented yet"); }
-  async setPrimaryContact(_index: number) { throw new Error("not implemented yet"); }
-  contactCount(): Promise<number> { throw new Error("not implemented yet"); }
-  contactRow(_index: number): Locator { throw new Error("not implemented yet"); }
+  // ── Contact tab ───────────────────────────────────────────────────────
+  private contactPanel(): Locator {
+    return this.page.getByRole("tabpanel", { name: /contact|ผู้ติดต่อ/i });
+  }
+
+  /**
+   * A contact row is a <tr> in the contact tab's DataGrid tbody that contains
+   * the name input. Filtering by `input` excludes the empty-state `<tr>` which
+   * the DataGrid renders with a single colspanned cell and `<EmptyComponent />`.
+   */
+  contactRow(index: number): Locator {
+    return this.contactPanel()
+      .locator("tbody tr")
+      .filter({ has: this.page.locator("input") })
+      .nth(index);
+  }
+
+  async addContactRow() {
+    await this.switchTab("contact");
+    const before = await this.contactCount();
+    const addButton = this.contactPanel().getByRole("button", { name: /add.*contact|เพิ่ม/i }).first();
+    await addButton.click();
+    await expect
+      .poll(() => this.contactCount(), { timeout: 5_000 })
+      .toBe(before + 1);
+  }
+
+  async contactCount(): Promise<number> {
+    return await this.contactPanel()
+      .locator("tbody tr")
+      .filter({ has: this.page.locator("input") })
+      .count();
+  }
+
+  async removeContactRow(index: number) {
+    const row = this.contactRow(index);
+    const before = await this.contactCount();
+    await row.getByRole("button").last().click();        // trash button in the row
+    // DeleteDialog confirmation
+    await this.page
+      .getByRole("alertdialog")
+      .getByRole("button", { name: /confirm|delete|ลบ|ok/i })
+      .click();
+    await expect
+      .poll(() => this.contactCount(), { timeout: 5_000 })
+      .toBe(before - 1);
+  }
+
+  async fillContact(index: number, data: VendorContactInput) {
+    const row = this.contactRow(index);
+    if (data.name !== undefined) {
+      await row.getByPlaceholder(/name/i).first().fill(data.name);
+    }
+    if (data.email !== undefined) {
+      await row.locator('input[type="email"]').fill(data.email);
+    }
+    if (data.phone !== undefined) {
+      await row.getByPlaceholder(/phone/i).fill(data.phone);
+    }
+    if (data.is_primary) {
+      await this.setPrimaryContact(index);
+    }
+  }
+
+  async setPrimaryContact(index: number) {
+    const row = this.contactRow(index);
+    const checkbox = row.getByRole("checkbox");
+    await checkbox.check({ force: true });
+  }
 
   // ── Info tab stubs (implemented in Task 7) ───────────────────────────
   async addInfoRow() { throw new Error("not implemented yet"); }
