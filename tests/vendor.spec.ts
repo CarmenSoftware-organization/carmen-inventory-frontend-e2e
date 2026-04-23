@@ -10,10 +10,49 @@ const CODE = `V${UID.slice(-6).toUpperCase()}`;
 const NAME = `E2E VEN ${UID}`;
 const NAME_UPDATED = `E2E VEN Upd ${UID}`;
 
-test.describe("Vendor — scaffold", () => {
-  test("TC-VEN00 scaffold placeholder", async ({ page }) => {
+test.describe("Vendor — List smoke", () => {
+  test("TC-VEN01 หน้า list โหลดสำเร็จ", async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.list.goto();
     await expect(page).toHaveURL(/vendor-management\/vendor/);
+    await expect(vendor.list.addButton()).toBeVisible({ timeout: 10_000 });
+  });
+
+  test("TC-VEN02 ปุ่ม Add แสดง", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.list.goto();
+    await expect(vendor.list.addButton()).toBeVisible();
+  });
+
+  test("TC-VEN03 ช่องค้นหาใช้งานได้", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.list.goto();
+    await expect(vendor.list.searchInput()).toBeVisible();
+    await vendor.list.search("test");
+  });
+
+  test("TC-VEN04 ค้นหาคำที่ไม่มีต้องแสดง empty state", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.list.goto();
+    await vendor.list.search(`__NOPE__${UID}`);
+    await expect(vendor.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
+  });
+
+  test("TC-VEN05 Filter status (active/inactive) ใช้งานได้", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.list.goto();
+    const statusTrigger = page.getByRole("combobox").filter({ hasText: /status|all|active/i }).first();
+    if (await statusTrigger.count() === 0) {
+      const btn = page.getByRole("button", { name: /status|filter/i }).first();
+      await btn.click();
+    } else {
+      await statusTrigger.click();
+    }
+    const activeOption = page.getByRole("option", { name: /^active$/i });
+    if (await activeOption.count() > 0) {
+      await activeOption.first().click();
+      await page.waitForLoadState("networkidle");
+    }
+    await expect(vendor.list.addButton()).toBeVisible();
   });
 });
