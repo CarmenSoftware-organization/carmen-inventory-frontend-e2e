@@ -18,33 +18,68 @@ const opts = {
 test.describe.configure({ mode: "serial" });
 
 test.describe("Business Type — Smoke & CRUD", () => {
-  test("TC-BT01 หน้า list โหลดสำเร็จ", async ({ page }) => {
+  test(
+    "TC-BT01 หน้า list โหลดสำเร็จ",
+    {
+      annotation: [
+        { type: "expected", description: "หน้า list โหลดสำเร็จ" },
+      ],
+    },
+    async ({ page }) => {
     const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await expect(page).toHaveURL(new RegExp(PATH));
   });
 
-  test("TC-BT02 ปุ่ม Add แสดง", async ({ page }) => {
+  test(
+    "TC-BT02 ปุ่ม Add แสดง",
+    {
+      annotation: [
+        { type: "expected", description: "ปุ่ม Add แสดง" },
+      ],
+    },
+    async ({ page }) => {
     const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await expect(h.list.addButton()).toBeVisible();
   });
 
-  test("TC-BT03 ช่องค้นหาใช้งานได้", async ({ page }) => {
+  test(
+    "TC-BT03 ช่องค้นหาใช้งานได้",
+    {
+      annotation: [
+        { type: "expected", description: "ช่องค้นหาใช้งานได้" },
+      ],
+    },
+    async ({ page }) => {
     const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await expect(h.list.searchInput()).toBeVisible();
     await h.list.search("test");
   });
 
-  test("TC-BT04 ค้นหาคำที่ไม่มีต้องแสดง empty state", async ({ page }) => {
+  test(
+    "TC-BT04 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    {
+      annotation: [
+        { type: "expected", description: "ค้นหาคำที่ไม่มีต้องแสดง empty state" },
+      ],
+    },
+    async ({ page }) => {
     const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(`__NOPE__${UID}`);
     await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
-  test("TC-BT05 บันทึกโดยไม่กรอกชื่อต้องแสดง error", async ({ page }) => {
+  test(
+    "TC-BT05 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
+    {
+      annotation: [
+        { type: "expected", description: "บันทึกโดยไม่กรอกชื่อต้องแสดง error" },
+      ],
+    },
+    async ({ page }) => {
     const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await h.openAddDialog();
@@ -53,7 +88,14 @@ test.describe("Business Type — Smoke & CRUD", () => {
     await h.cancelButton().click();
   });
 
-  test("TC-BT06 สร้างรายการใหม่และปรากฏในตาราง", async ({ page }) => {
+  test(
+    "TC-BT06 สร้างรายการใหม่และปรากฏในตาราง",
+    {
+      annotation: [
+        { type: "expected", description: "สร้างรายการใหม่และปรากฏในตาราง" },
+      ],
+    },
+    async ({ page }) => {
     const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await h.openAddDialog();
@@ -66,7 +108,14 @@ test.describe("Business Type — Smoke & CRUD", () => {
     await expect(page.getByRole("cell", { name: NAME })).toBeVisible();
   });
 
-  test("TC-BT07 แก้ไขชื่อและบันทึก", async ({ page }) => {
+  test(
+    "TC-BT07 แก้ไขชื่อและบันทึก",
+    {
+      annotation: [
+        { type: "expected", description: "แก้ไขชื่อและบันทึก" },
+      ],
+    },
+    async ({ page }) => {
     const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(NAME);
@@ -83,7 +132,14 @@ test.describe("Business Type — Smoke & CRUD", () => {
     ).toBeVisible({ timeout: 10_000 });
   });
 
-  test("TC-BT13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error", async ({ page }) => {
+  test(
+    "TC-BT13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
+    {
+      annotation: [
+        { type: "expected", description: "แก้ไข: clear name แล้วบันทึก ต้องแสดง error" },
+      ],
+    },
+    async ({ page }) => {
     const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(NAME_UPDATED);
@@ -94,7 +150,14 @@ test.describe("Business Type — Smoke & CRUD", () => {
     await h.cancelButton().click();
   });
 
-  test("TC-BT08 ลบรายการ", async ({ page }) => {
+  test(
+    "TC-BT08 ลบรายการ",
+    {
+      annotation: [
+        { type: "expected", description: "ลบรายการ" },
+      ],
+    },
+    async ({ page }) => {
     const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(NAME_UPDATED);

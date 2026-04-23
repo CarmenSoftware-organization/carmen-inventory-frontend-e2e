@@ -11,34 +11,69 @@ const NAME = `E2E VEN ${UID}`;
 const NAME_UPDATED = `E2E VEN Upd ${UID}`;
 
 test.describe("Vendor — List smoke", () => {
-  test("TC-VEN01 หน้า list โหลดสำเร็จ", async ({ page }) => {
+  test(
+    "TC-VEN01 หน้า list โหลดสำเร็จ",
+    {
+      annotation: [
+        { type: "expected", description: "หน้า list โหลดสำเร็จ" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.list.goto();
     await expect(page).toHaveURL(/vendor-management\/vendor/);
     await expect(vendor.list.addButton()).toBeVisible({ timeout: 10_000 });
   });
 
-  test("TC-VEN02 ปุ่ม Add แสดง", async ({ page }) => {
+  test(
+    "TC-VEN02 ปุ่ม Add แสดง",
+    {
+      annotation: [
+        { type: "expected", description: "ปุ่ม Add แสดง" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.list.goto();
     await expect(vendor.list.addButton()).toBeVisible();
   });
 
-  test("TC-VEN03 ช่องค้นหาใช้งานได้", async ({ page }) => {
+  test(
+    "TC-VEN03 ช่องค้นหาใช้งานได้",
+    {
+      annotation: [
+        { type: "expected", description: "ช่องค้นหาใช้งานได้" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.list.goto();
     await expect(vendor.list.searchInput()).toBeVisible();
     await vendor.list.search("test");
   });
 
-  test("TC-VEN04 ค้นหาคำที่ไม่มีต้องแสดง empty state", async ({ page }) => {
+  test(
+    "TC-VEN04 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    {
+      annotation: [
+        { type: "expected", description: "ค้นหาคำที่ไม่มีต้องแสดง empty state" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.list.goto();
     await vendor.list.search(`__NOPE__${UID}`);
     await expect(vendor.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
-  test("TC-VEN05 Filter status (active/inactive) ใช้งานได้", async ({ page }) => {
+  test(
+    "TC-VEN05 Filter status (active/inactive) ใช้งานได้",
+    {
+      annotation: [
+        { type: "expected", description: "Filter status (active/inactive) ใช้งานได้" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.list.goto();
 
@@ -73,7 +108,14 @@ test.describe("Vendor — List smoke", () => {
 });
 
 test.describe("Vendor — Create happy path", () => {
-  test("TC-VEN06 เปิดหน้า new form สำเร็จ", async ({ page }) => {
+  test(
+    "TC-VEN06 เปิดหน้า new form สำเร็จ",
+    {
+      annotation: [
+        { type: "expected", description: "เปิดหน้า new form สำเร็จ" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await expect(page).toHaveURL(/vendor-management\/vendor\/new/);
@@ -82,7 +124,14 @@ test.describe("Vendor — Create happy path", () => {
     await expect(vendor.saveButton()).toBeVisible();
   });
 
-  test("TC-VEN07 เลือก business type จาก dropdown ได้", async ({ page }) => {
+  test(
+    "TC-VEN07 เลือก business type จาก dropdown ได้",
+    {
+      annotation: [
+        { type: "expected", description: "เลือก business type จาก dropdown ได้" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     const count = await vendor.businessTypeOptionCount();
@@ -96,7 +145,14 @@ test.describe("Vendor — Create happy path", () => {
     await expect(vendor.businessTypeTrigger()).toContainText(label, { timeout: 5_000 });
   });
 
-  test("TC-VEN08 สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ", async ({
+  test(
+    "TC-VEN08 สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ",
+    {
+      annotation: [
+        { type: "expected", description: "สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ" },
+      ],
+    },
+    async ({
     page,
   }) => {
     const vendor = new VendorPage(page);
@@ -115,7 +171,14 @@ test.describe("Vendor — Create happy path", () => {
     await expect(page.getByText(NAME).first()).toBeVisible({ timeout: 10_000 });
   });
 
-  test("TC-VEN09 สร้าง vendor พร้อม address 1 รายการ", async ({ page }) => {
+  test(
+    "TC-VEN09 สร้าง vendor พร้อม address 1 รายการ",
+    {
+      annotation: [
+        { type: "expected", description: "สร้าง vendor พร้อม address 1 รายการ" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     const code = `${CODE}A`.slice(0, 10);
@@ -148,7 +211,14 @@ test.describe("Vendor — Create happy path", () => {
     }
   });
 
-  test("TC-VEN10 สร้าง vendor พร้อม contact 1 รายการ (primary)", async ({ page }) => {
+  test(
+    "TC-VEN10 สร้าง vendor พร้อม contact 1 รายการ (primary)",
+    {
+      annotation: [
+        { type: "expected", description: "สร้าง vendor พร้อม contact 1 รายการ (primary)" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     const code = `${CODE.slice(0, 9)}C`;
@@ -171,7 +241,14 @@ test.describe("Vendor — Create happy path", () => {
 });
 
 test.describe("Vendor — Tabs & dynamic arrays", () => {
-  test("TC-VEN11 สลับ tab ทั้ง 4 tabs ได้", async ({ page }) => {
+  test(
+    "TC-VEN11 สลับ tab ทั้ง 4 tabs ได้",
+    {
+      annotation: [
+        { type: "expected", description: "สลับ tab ทั้ง 4 tabs ได้" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     for (const tab of ["general", "info", "address", "contact"] as const) {
@@ -180,7 +257,14 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     }
   });
 
-  test("TC-VEN12 เพิ่ม address row ได้หลาย row", async ({ page }) => {
+  test(
+    "TC-VEN12 เพิ่ม address row ได้หลาย row",
+    {
+      annotation: [
+        { type: "expected", description: "เพิ่ม address row ได้หลาย row" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await vendor.switchTab("address");
@@ -191,7 +275,14 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     expect(await vendor.addressCount()).toBe(2);
   });
 
-  test("TC-VEN13 ลบ address row ได้", async ({ page }) => {
+  test(
+    "TC-VEN13 ลบ address row ได้",
+    {
+      annotation: [
+        { type: "expected", description: "ลบ address row ได้" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await vendor.switchTab("address");
@@ -202,7 +293,14 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     expect(await vendor.addressCount()).toBe(1);
   });
 
-  test("TC-VEN14 เพิ่ม contact row ได้หลาย row", async ({ page }) => {
+  test(
+    "TC-VEN14 เพิ่ม contact row ได้หลาย row",
+    {
+      annotation: [
+        { type: "expected", description: "เพิ่ม contact row ได้หลาย row" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await vendor.switchTab("contact");
@@ -212,7 +310,14 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     expect(await vendor.contactCount()).toBe(2);
   });
 
-  test("TC-VEN15 ลบ contact row ได้", async ({ page }) => {
+  test(
+    "TC-VEN15 ลบ contact row ได้",
+    {
+      annotation: [
+        { type: "expected", description: "ลบ contact row ได้" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await vendor.switchTab("contact");
@@ -224,7 +329,14 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     expect(await vendor.contactCount()).toBe(1);
   });
 
-  test("TC-VEN16 เปลี่ยน primary contact ได้ (radio exclusive)", async ({ page }) => {
+  test(
+    "TC-VEN16 เปลี่ยน primary contact ได้ (radio exclusive)",
+    {
+      annotation: [
+        { type: "expected", description: "เปลี่ยน primary contact ได้ (radio exclusive)" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await vendor.switchTab("contact");
@@ -239,7 +351,14 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     await expect(vendor.contactRow(0).getByRole("checkbox")).not.toBeChecked();
   });
 
-  test("TC-VEN17 เพิ่ม info row (label/value) ได้", async ({ page }) => {
+  test(
+    "TC-VEN17 เพิ่ม info row (label/value) ได้",
+    {
+      annotation: [
+        { type: "expected", description: "เพิ่ม info row (label/value) ได้" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await vendor.switchTab("info");
@@ -249,7 +368,14 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     expect(await vendor.infoCount()).toBe(1);
   });
 
-  test("TC-VEN18 ลบ info row ได้", async ({ page }) => {
+  test(
+    "TC-VEN18 ลบ info row ได้",
+    {
+      annotation: [
+        { type: "expected", description: "ลบ info row ได้" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await vendor.switchTab("info");
@@ -262,7 +388,14 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
 });
 
 test.describe("Vendor — Validation", () => {
-  test("TC-VEN19 บันทึกโดยไม่กรอก code ต้องแสดง error", async ({ page }) => {
+  test(
+    "TC-VEN19 บันทึกโดยไม่กรอก code ต้องแสดง error",
+    {
+      annotation: [
+        { type: "expected", description: "บันทึกโดยไม่กรอก code ต้องแสดง error" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await vendor.switchTab("general");
@@ -272,7 +405,14 @@ test.describe("Vendor — Validation", () => {
     await expect(page).toHaveURL(/\/new$/);
   });
 
-  test("TC-VEN20 บันทึกโดยไม่กรอก name ต้องแสดง error", async ({ page }) => {
+  test(
+    "TC-VEN20 บันทึกโดยไม่กรอก name ต้องแสดง error",
+    {
+      annotation: [
+        { type: "expected", description: "บันทึกโดยไม่กรอก name ต้องแสดง error" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await vendor.switchTab("general");
@@ -282,7 +422,14 @@ test.describe("Vendor — Validation", () => {
     await expect(page).toHaveURL(/\/new$/);
   });
 
-  test("TC-VEN21 code เกิน 10 ตัวอักษรต้องถูก reject", async ({ page }) => {
+  test(
+    "TC-VEN21 code เกิน 10 ตัวอักษรต้องถูก reject",
+    {
+      annotation: [
+        { type: "expected", description: "code เกิน 10 ตัวอักษรต้องถูก reject" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await vendor.switchTab("general");
@@ -292,7 +439,14 @@ test.describe("Vendor — Validation", () => {
     expect(value.length).toBeLessThanOrEqual(10);
   });
 
-  test("TC-VEN22 name เกิน 100 ตัวอักษรต้องถูก reject", async ({ page }) => {
+  test(
+    "TC-VEN22 name เกิน 100 ตัวอักษรต้องถูก reject",
+    {
+      annotation: [
+        { type: "expected", description: "name เกิน 100 ตัวอักษรต้องถูก reject" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await vendor.switchTab("general");
@@ -302,7 +456,14 @@ test.describe("Vendor — Validation", () => {
     expect(value.length).toBeLessThanOrEqual(100);
   });
 
-  test("TC-VEN23 address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement)", async ({
+  test(
+    "TC-VEN23 address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement)",
+    {
+      annotation: [
+        { type: "expected", description: "address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement)" },
+      ],
+    },
+    async ({
     page,
   }) => {
     const vendor = new VendorPage(page);
@@ -320,7 +481,14 @@ test.describe("Vendor — Validation", () => {
     await expect(page).toHaveURL(/\/new$/);
   });
 
-  test("TC-VEN24 contact email รูปแบบผิดต้องแสดง error", async ({ page }) => {
+  test(
+    "TC-VEN24 contact email รูปแบบผิดต้องแสดง error",
+    {
+      annotation: [
+        { type: "expected", description: "contact email รูปแบบผิดต้องแสดง error" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await vendor.fillGeneral({ code: `${CODE.slice(0, 9)}E`, name: `${NAME} v24` });
@@ -336,7 +504,14 @@ test.describe("Vendor — Validation", () => {
 });
 
 test.describe("Vendor — Edit, delete, cleanup", () => {
-  test("TC-VEN25 แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ", async ({ page }) => {
+  test(
+    "TC-VEN25 แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ",
+    {
+      annotation: [
+        { type: "expected", description: "แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoList();
     await vendor.openDetailByName(NAME);
@@ -351,7 +526,14 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
     await expect(page.getByText(NAME_UPDATED).first()).toBeVisible({ timeout: 10_000 });
   });
 
-  test("TC-VEN26 เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่", async ({ page }) => {
+  test(
+    "TC-VEN26 เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่",
+    {
+      annotation: [
+        { type: "expected", description: "เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoList();
     await vendor.list.search(NAME_UPDATED);
@@ -371,7 +553,14 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
     await expect(page.getByText(NAME_UPDATED).first()).toBeVisible();
   });
 
-  test("TC-VEN27 ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก)", async ({ page }) => {
+  test(
+    "TC-VEN27 ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก)",
+    {
+      annotation: [
+        { type: "expected", description: "ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก)" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoList();
     await vendor.list.search(NAME_UPDATED);
@@ -393,7 +582,14 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
     ).toBeVisible({ timeout: 10_000 });
   });
 
-  test("TC-VEN28 หลังลบแล้วค้นหาไม่พบ row นั้นอีก", async ({ page }) => {
+  test(
+    "TC-VEN28 หลังลบแล้วค้นหาไม่พบ row นั้นอีก",
+    {
+      annotation: [
+        { type: "expected", description: "หลังลบแล้วค้นหาไม่พบ row นั้นอีก" },
+      ],
+    },
+    async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoList();
     await vendor.list.search(NAME_UPDATED);

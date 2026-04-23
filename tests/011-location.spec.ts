@@ -24,40 +24,82 @@ const opts = {
 test.describe.configure({ mode: "serial" });
 
 test.describe("Location — Smoke & CRUD", () => {
-  test("TC-LOC01 หน้า list โหลดสำเร็จ", async ({ page }) => {
+  test(
+    "TC-LOC01 หน้า list โหลดสำเร็จ",
+    {
+      annotation: [
+        { type: "expected", description: "หน้า list โหลดสำเร็จ" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await expect(page).toHaveURL(new RegExp(PATH));
   });
 
-  test("TC-LOC02 ปุ่ม Add แสดง", async ({ page }) => {
+  test(
+    "TC-LOC02 ปุ่ม Add แสดง",
+    {
+      annotation: [
+        { type: "expected", description: "ปุ่ม Add แสดง" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await expect(h.list.addButton()).toBeVisible();
   });
 
-  test("TC-LOC03 ช่องค้นหาใช้งานได้", async ({ page }) => {
+  test(
+    "TC-LOC03 ช่องค้นหาใช้งานได้",
+    {
+      annotation: [
+        { type: "expected", description: "ช่องค้นหาใช้งานได้" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await expect(h.list.searchInput()).toBeVisible();
     await h.list.search("test");
   });
 
-  test("TC-LOC04 ค้นหาคำที่ไม่มีต้องแสดง empty state", async ({ page }) => {
+  test(
+    "TC-LOC04 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    {
+      annotation: [
+        { type: "expected", description: "ค้นหาคำที่ไม่มีต้องแสดง empty state" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(`__NOPE__${UID}`);
     await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
-  test("TC-LOC05 บันทึกโดยไม่กรอก code/name ต้องแสดง error", async ({ page }) => {
+  test(
+    "TC-LOC05 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
+    {
+      annotation: [
+        { type: "expected", description: "บันทึกโดยไม่กรอก code/name ต้องแสดง error" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.gotoNew();
     await h.saveButton().click();
     await expect(page).toHaveURL(/\/new/);
   });
 
-  test("TC-LOC06 สร้างรายการใหม่และปรากฏในตาราง", async ({ page }) => {
+  test(
+    "TC-LOC06 สร้างรายการใหม่และปรากฏในตาราง",
+    {
+      annotation: [
+        { type: "expected", description: "สร้างรายการใหม่และปรากฏในตาราง" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.gotoNew();
     await h.codeInput().fill(CODE);
@@ -81,7 +123,14 @@ test.describe("Location — Smoke & CRUD", () => {
     await expect(page.getByRole("cell", { name: NAME })).toBeVisible();
   });
 
-  test("TC-LOC07 แก้ไขชื่อและบันทึก", async ({ page }) => {
+  test(
+    "TC-LOC07 แก้ไขชื่อและบันทึก",
+    {
+      annotation: [
+        { type: "expected", description: "แก้ไขชื่อและบันทึก" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(NAME);
@@ -95,7 +144,14 @@ test.describe("Location — Smoke & CRUD", () => {
     });
   });
 
-  test("TC-LOC13 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error", async ({ page }) => {
+  test(
+    "TC-LOC13 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error",
+    {
+      annotation: [
+        { type: "expected", description: "แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(NAME_UPDATED);
@@ -107,7 +163,14 @@ test.describe("Location — Smoke & CRUD", () => {
     await expect(h.saveButton()).toBeVisible();
   });
 
-  test("TC-LOC08 ลบรายการ", async ({ page }) => {
+  test(
+    "TC-LOC08 ลบรายการ",
+    {
+      annotation: [
+        { type: "expected", description: "ลบรายการ" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(NAME_UPDATED);
@@ -120,7 +183,14 @@ test.describe("Location — Smoke & CRUD", () => {
     });
   });
 
-  test("TC-LOC14 สร้าง location_type = Direct และลบ", async ({ page }) => {
+  test(
+    "TC-LOC14 สร้าง location_type = Direct และลบ",
+    {
+      annotation: [
+        { type: "expected", description: "สร้าง location_type = Direct และลบ" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.gotoNew();
     await h.codeInput().fill(CODE_DIRECT);
@@ -151,7 +221,14 @@ test.describe("Location — Smoke & CRUD", () => {
     });
   });
 
-  test("TC-LOC15 สร้าง location_type = Consignment และลบ", async ({ page }) => {
+  test(
+    "TC-LOC15 สร้าง location_type = Consignment และลบ",
+    {
+      annotation: [
+        { type: "expected", description: "สร้าง location_type = Consignment และลบ" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.gotoNew();
     await h.codeInput().fill(CODE_CONSIGN);

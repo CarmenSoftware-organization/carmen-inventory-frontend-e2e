@@ -20,33 +20,68 @@ const opts = {
 test.describe.configure({ mode: "serial" });
 
 test.describe("Department — Smoke & CRUD", () => {
-  test("TC-DEP01 หน้า list โหลดสำเร็จ", async ({ page }) => {
+  test(
+    "TC-DEP01 หน้า list โหลดสำเร็จ",
+    {
+      annotation: [
+        { type: "expected", description: "หน้า list โหลดสำเร็จ" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await expect(page).toHaveURL(new RegExp(PATH));
   });
 
-  test("TC-DEP02 ปุ่ม Add แสดง", async ({ page }) => {
+  test(
+    "TC-DEP02 ปุ่ม Add แสดง",
+    {
+      annotation: [
+        { type: "expected", description: "ปุ่ม Add แสดง" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await expect(h.list.addButton()).toBeVisible();
   });
 
-  test("TC-DEP03 ช่องค้นหาใช้งานได้", async ({ page }) => {
+  test(
+    "TC-DEP03 ช่องค้นหาใช้งานได้",
+    {
+      annotation: [
+        { type: "expected", description: "ช่องค้นหาใช้งานได้" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await expect(h.list.searchInput()).toBeVisible();
     await h.list.search("test");
   });
 
-  test("TC-DEP04 ค้นหาคำที่ไม่มีต้องแสดง empty state", async ({ page }) => {
+  test(
+    "TC-DEP04 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    {
+      annotation: [
+        { type: "expected", description: "ค้นหาคำที่ไม่มีต้องแสดง empty state" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(`__NOPE__${UID}`);
     await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
-  test("TC-DEP05 บันทึกโดยไม่กรอก code/name ต้องแสดง error", async ({ page }) => {
+  test(
+    "TC-DEP05 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
+    {
+      annotation: [
+        { type: "expected", description: "บันทึกโดยไม่กรอก code/name ต้องแสดง error" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.gotoNew();
     await h.saveButton().click();
@@ -54,7 +89,14 @@ test.describe("Department — Smoke & CRUD", () => {
     await expect(page).toHaveURL(/\/new/);
   });
 
-  test("TC-DEP06 สร้างรายการใหม่และปรากฏในตาราง", async ({ page }) => {
+  test(
+    "TC-DEP06 สร้างรายการใหม่และปรากฏในตาราง",
+    {
+      annotation: [
+        { type: "expected", description: "สร้างรายการใหม่และปรากฏในตาราง" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.gotoNew();
     await h.codeInput().fill(CODE);
@@ -68,7 +110,14 @@ test.describe("Department — Smoke & CRUD", () => {
     await expect(page.getByRole("cell", { name: NAME })).toBeVisible();
   });
 
-  test("TC-DEP07 แก้ไขชื่อและบันทึก", async ({ page }) => {
+  test(
+    "TC-DEP07 แก้ไขชื่อและบันทึก",
+    {
+      annotation: [
+        { type: "expected", description: "แก้ไขชื่อและบันทึก" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(NAME);
@@ -82,7 +131,14 @@ test.describe("Department — Smoke & CRUD", () => {
     });
   });
 
-  test("TC-DEP13 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error", async ({ page }) => {
+  test(
+    "TC-DEP13 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error",
+    {
+      annotation: [
+        { type: "expected", description: "แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(NAME_UPDATED);
@@ -95,7 +151,14 @@ test.describe("Department — Smoke & CRUD", () => {
     await expect(h.saveButton()).toBeVisible();
   });
 
-  test("TC-DEP08 ลบรายการ", async ({ page }) => {
+  test(
+    "TC-DEP08 ลบรายการ",
+    {
+      annotation: [
+        { type: "expected", description: "ลบรายการ" },
+      ],
+    },
+    async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(NAME_UPDATED);

@@ -148,7 +148,14 @@ test.describe("เข้าสู่ระบบ", () => {
     },
   );
 
-  test("TC-L18 แสดง error เมื่อ credentials ไม่ถูกต้อง", async ({ page }) => {
+  test(
+    "TC-L18 แสดง error เมื่อ credentials ไม่ถูกต้อง",
+    {
+      annotation: [
+        { type: "expected", description: "แสดง error เมื่อ credentials ไม่ถูกต้อง" },
+      ],
+    },
+    async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login("invalid@test.com", "wrongpassword");
@@ -159,7 +166,14 @@ test.describe("เข้าสู่ระบบ", () => {
     await expect(page).toHaveURL(/login/);
   });
 
-  test("TC-L19 แสดง error เมื่ออีเมลถูกแต่รหัสผ่านผิด", async ({ page }) => {
+  test(
+    "TC-L19 แสดง error เมื่ออีเมลถูกแต่รหัสผ่านผิด",
+    {
+      annotation: [
+        { type: "expected", description: "แสดง error เมื่ออีเมลถูกแต่รหัสผ่านผิด" },
+      ],
+    },
+    async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login("requestor@blueledgers.com", "wrong-password-xyz");
@@ -171,14 +185,28 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   // ── Edge cases ────────────────────────────────────────────────────────────
-  test("TC-L20 อีเมลไม่สนใจตัวพิมพ์ใหญ่-เล็ก", async ({ page }) => {
+  test(
+    "TC-L20 อีเมลไม่สนใจตัวพิมพ์ใหญ่-เล็ก",
+    {
+      annotation: [
+        { type: "expected", description: "อีเมลไม่สนใจตัวพิมพ์ใหญ่-เล็ก" },
+      ],
+    },
+    async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login("REQUESTOR@BLUELEDGERS.COM", TEST_PASSWORD);
     await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
   });
 
-  test("TC-L21 รหัสผ่านแยกตัวพิมพ์ใหญ่-เล็ก (พิมพ์ผิดเคสต้อง fail)", async ({ page }) => {
+  test(
+    "TC-L21 รหัสผ่านแยกตัวพิมพ์ใหญ่-เล็ก (พิมพ์ผิดเคสต้อง fail)",
+    {
+      annotation: [
+        { type: "expected", description: "รหัสผ่านแยกตัวพิมพ์ใหญ่-เล็ก (พิมพ์ผิดเคสต้อง fail)" },
+      ],
+    },
+    async ({ page }) => {
     // tt@blueledgers.com password "Qaz123!@#" → lower-cased variant must fail
     const loginPage = new LoginPage(page);
     await loginPage.goto();
@@ -186,20 +214,41 @@ test.describe("เข้าสู่ระบบ", () => {
     await expect(page).toHaveURL(/login/);
   });
 
-  test("TC-L22 รองรับช่องว่างหน้า/หลังอีเมล", async ({ page }) => {
+  test(
+    "TC-L22 รองรับช่องว่างหน้า/หลังอีเมล",
+    {
+      annotation: [
+        { type: "expected", description: "รองรับช่องว่างหน้า/หลังอีเมล" },
+      ],
+    },
+    async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login("  requestor@blueledgers.com  ", TEST_PASSWORD);
     await expect(page).toHaveURL(/dashboard|login/, { timeout: 15_000 });
   });
 
-  test("TC-L23 ช่องรหัสผ่านถูก mask", async ({ page }) => {
+  test(
+    "TC-L23 ช่องรหัสผ่านถูก mask",
+    {
+      annotation: [
+        { type: "expected", description: "ช่องรหัสผ่านถูก mask" },
+      ],
+    },
+    async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await expect(loginPage.passwordInput()).toHaveAttribute("type", "password");
   });
 
-  test("TC-L24 กด Enter เพื่อ submit form ได้", async ({ page }) => {
+  test(
+    "TC-L24 กด Enter เพื่อ submit form ได้",
+    {
+      annotation: [
+        { type: "expected", description: "กด Enter เพื่อ submit form ได้" },
+      ],
+    },
+    async ({ page }) => {
     const loginPage = new LoginPage(page);
     for (let attempt = 0; attempt < 4; attempt++) {
       await loginPage.goto();
@@ -222,7 +271,14 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   // ── Auth-guard redirects ──────────────────────────────────────────────────
-  test("TC-L25 เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login", async ({ page, context }) => {
+  test(
+    "TC-L25 เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login",
+    {
+      annotation: [
+        { type: "expected", description: "เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login" },
+      ],
+    },
+    async ({ page, context }) => {
     await context.clearCookies();
     await page.goto("/dashboard");
     await expect(page).toHaveURL(/login/, { timeout: 10_000 });
@@ -242,14 +298,28 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   // ── Security ──────────────────────────────────────────────────────────────
-  test("TC-L27 อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย", async ({ page }) => {
+  test(
+    "TC-L27 อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย",
+    {
+      annotation: [
+        { type: "expected", description: "อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย" },
+      ],
+    },
+    async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login("admin' OR '1'='1", "anything");
     await expect(page).toHaveURL(/login/);
   });
 
-  test("TC-L28 อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย", async ({ page }) => {
+  test(
+    "TC-L28 อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย",
+    {
+      annotation: [
+        { type: "expected", description: "อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย" },
+      ],
+    },
+    async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     page.on("dialog", () => {
@@ -259,7 +329,14 @@ test.describe("เข้าสู่ระบบ", () => {
     await expect(page).toHaveURL(/login/);
   });
 
-  test("TC-L29 login username ผิดต้องได้รับ HTTP 401", async ({ page }) => {
+  test(
+    "TC-L29 login username ผิดต้องได้รับ HTTP 401",
+    {
+      annotation: [
+        { type: "expected", description: "login username ผิดต้องได้รับ HTTP 401" },
+      ],
+    },
+    async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
 
@@ -275,7 +352,14 @@ test.describe("เข้าสู่ระบบ", () => {
     await expect(page).toHaveURL(/login/);
   });
 
-  test("TC-L30 login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429", async ({ page }) => {
+  test(
+    "TC-L30 login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429",
+    {
+      annotation: [
+        { type: "expected", description: "login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429" },
+      ],
+    },
+    async ({ page }) => {
     const loginPage = new LoginPage(page);
     const wrongEmail = `brute-${Date.now()}@nonexistent.com`;
 

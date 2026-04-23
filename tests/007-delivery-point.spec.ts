@@ -27,7 +27,14 @@ test.describe.configure({ mode: "serial" });
 // ─── Read (TC-DP01..TC-DP26) ──────────────────────────────────────────────────
 
 test.describe("จุดส่งของ — อ่าน", () => {
-  test("TC-DP01 อ่านค่า table ของ delivery point ได้", async ({ page }) => {
+  test(
+    "TC-DP01 อ่านค่า table ของ delivery point ได้",
+    {
+      annotation: [
+        { type: "expected", description: "อ่านค่า table ของ delivery point ได้" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     await expect(page).toHaveURL(/config\/delivery-point/);
@@ -35,7 +42,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await expect(list.addButton()).toBeVisible();
   });
 
-  test("TC-DP02 แสดงข้อมูล default 10 รายการต่อหน้า", async ({ page }) => {
+  test(
+    "TC-DP02 แสดงข้อมูล default 10 รายการต่อหน้า",
+    {
+      annotation: [
+        { type: "expected", description: "แสดงข้อมูล default 10 รายการต่อหน้า" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const rows = await list.tableRows().count();
@@ -43,7 +57,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     expect(rows).toBeLessThanOrEqual(10);
   });
 
-  test("TC-DP03 เปลี่ยน per page เป็น 25 / 50 / 100 ได้", async ({ page }) => {
+  test(
+    "TC-DP03 เปลี่ยน per page เป็น 25 / 50 / 100 ได้",
+    {
+      annotation: [
+        { type: "expected", description: "เปลี่ยน per page เป็น 25 / 50 / 100 ได้" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const select = list.perPageSelect();
@@ -57,7 +78,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     }
   });
 
-  test("TC-DP04 per page เกิน 100 ไม่ได้", async ({ page }) => {
+  test(
+    "TC-DP04 per page เกิน 100 ไม่ได้",
+    {
+      annotation: [
+        { type: "expected", description: "per page เกิน 100 ไม่ได้" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const select = list.perPageSelect();
@@ -67,7 +95,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await page.keyboard.press("Escape");
   });
 
-  test("TC-DP05 กด next/prev page แล้วข้อมูลเปลี่ยน", async ({ page }) => {
+  test(
+    "TC-DP05 กด next/prev page แล้วข้อมูลเปลี่ยน",
+    {
+      annotation: [
+        { type: "expected", description: "กด next/prev page แล้วข้อมูลเปลี่ยน" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     if (!(await list.nextPageButton().isEnabled().catch(() => false))) test.skip();
@@ -80,7 +115,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await page.waitForLoadState("networkidle");
   });
 
-  test("TC-DP06 search ชื่อ delivery point แล้วกรองได้ถูก", async ({ page }) => {
+  test(
+    "TC-DP06 search ชื่อ delivery point แล้วกรองได้ถูก",
+    {
+      annotation: [
+        { type: "expected", description: "search ชื่อ delivery point แล้วกรองได้ถูก" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const sample = await list.tableRows().first().innerText().catch(() => "");
@@ -91,7 +133,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     expect(count).toBeGreaterThan(0);
   });
 
-  test("TC-DP07 search ด้วยคำที่ไม่มีในระบบ แสดง empty state", async ({ page }) => {
+  test(
+    "TC-DP07 search ด้วยคำที่ไม่มีในระบบ แสดง empty state",
+    {
+      annotation: [
+        { type: "expected", description: "search ด้วยคำที่ไม่มีในระบบ แสดง empty state" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     await list.search(`__NOPE__${UID}`);
@@ -105,7 +154,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await expect(list.addButton()).toBeVisible();
   });
 
-  test("TC-DP09 filter ตาม field ที่กำหนด แล้วผลตรง", async ({ page }) => {
+  test(
+    "TC-DP09 filter ตาม field ที่กำหนด แล้วผลตรง",
+    {
+      annotation: [
+        { type: "expected", description: "filter ตาม field ที่กำหนด แล้วผลตรง" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     // Filter by is_active status if available
@@ -123,7 +179,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     expect(count).toBeGreaterThanOrEqual(0);
   });
 
-  test("TC-DP10 กด sort column แล้วเรียงจาก A→Z ได้", async ({ page }) => {
+  test(
+    "TC-DP10 กด sort column แล้วเรียงจาก A→Z ได้",
+    {
+      annotation: [
+        { type: "expected", description: "กด sort column แล้วเรียงจาก A→Z ได้" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const sortButton = list
@@ -137,7 +200,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     expect(rows).toBeGreaterThan(0);
   });
 
-  test("TC-DP11 กด sort ซ้ำแล้วเรียงกลับ Z→A ได้", async ({ page }) => {
+  test(
+    "TC-DP11 กด sort ซ้ำแล้วเรียงกลับ Z→A ได้",
+    {
+      annotation: [
+        { type: "expected", description: "กด sort ซ้ำแล้วเรียงกลับ Z→A ได้" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const sortButton = list
@@ -157,7 +227,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     expect(descAll).not.toEqual(ascAll);
   });
 
-  test("TC-DP12 filter + search + sort พร้อมกันไม่พัง", async ({ page }) => {
+  test(
+    "TC-DP12 filter + search + sort พร้อมกันไม่พัง",
+    {
+      annotation: [
+        { type: "expected", description: "filter + search + sort พร้อมกันไม่พัง" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     // Search first
@@ -177,7 +254,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await expect(list.addButton()).toBeVisible();
   });
 
-  test("TC-DP13 กด toggle เปลี่ยนจาก table → card view ได้", async ({ page }) => {
+  test(
+    "TC-DP13 กด toggle เปลี่ยนจาก table → card view ได้",
+    {
+      annotation: [
+        { type: "expected", description: "กด toggle เปลี่ยนจาก table → card view ได้" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const cardToggle = list.viewToggleCard();
@@ -188,7 +272,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await expect(list.addButton()).toBeVisible();
   });
 
-  test("TC-DP14 กด toggle เปลี่ยนจาก card → table view ได้", async ({ page }) => {
+  test(
+    "TC-DP14 กด toggle เปลี่ยนจาก card → table view ได้",
+    {
+      annotation: [
+        { type: "expected", description: "กด toggle เปลี่ยนจาก card → table view ได้" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const cardToggle = list.viewToggleCard();
@@ -200,7 +291,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await expect(list.table()).toBeVisible();
   });
 
-  test("TC-DP15 ข้อมูลที่แสดงใน card กับ table ตรงกัน", async ({ page }) => {
+  test(
+    "TC-DP15 ข้อมูลที่แสดงใน card กับ table ตรงกัน",
+    {
+      annotation: [
+        { type: "expected", description: "ข้อมูลที่แสดงใน card กับ table ตรงกัน" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const tableFirst = await list.tableRows().first().innerText().catch(() => "");
@@ -215,7 +313,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await list.viewToggleTable().click();
   });
 
-  test("TC-DP16 เปลี่ยน view mode แล้ว filter/search/sort ยังทำงานอยู่", async ({ page }) => {
+  test(
+    "TC-DP16 เปลี่ยน view mode แล้ว filter/search/sort ยังทำงานอยู่",
+    {
+      annotation: [
+        { type: "expected", description: "เปลี่ยน view mode แล้ว filter/search/sort ยังทำงานอยู่" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const cardToggle = list.viewToggleCard();
@@ -233,7 +338,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await list.viewToggleTable().click();
   });
 
-  test("TC-DP17 เปลี่ยน view mode แล้ว pagination ยังทำงานอยู่", async ({ page }) => {
+  test(
+    "TC-DP17 เปลี่ยน view mode แล้ว pagination ยังทำงานอยู่",
+    {
+      annotation: [
+        { type: "expected", description: "เปลี่ยน view mode แล้ว pagination ยังทำงานอยู่" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const cardToggle = list.viewToggleCard();
@@ -246,7 +358,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await expect(list.addButton()).toBeVisible();
   });
 
-  test("TC-DP18 refresh หน้าแล้ว view mode กลับมาเป็น default", async ({ page }) => {
+  test(
+    "TC-DP18 refresh หน้าแล้ว view mode กลับมาเป็น default",
+    {
+      annotation: [
+        { type: "expected", description: "refresh หน้าแล้ว view mode กลับมาเป็น default" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const cardToggle = list.viewToggleCard();
@@ -259,7 +378,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await expect(list.table()).toBeVisible();
   });
 
-  test("TC-DP19 กด toggle column แล้ว panel แสดงรายการ column ได้", async ({ page }) => {
+  test(
+    "TC-DP19 กด toggle column แล้ว panel แสดงรายการ column ได้",
+    {
+      annotation: [
+        { type: "expected", description: "กด toggle column แล้ว panel แสดงรายการ column ได้" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const btn = list.columnVisibilityButton();
@@ -270,7 +396,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await page.keyboard.press("Escape");
   });
 
-  test("TC-DP20 ซ่อน column แล้ว column หายออกจาก table", async ({ page }) => {
+  test(
+    "TC-DP20 ซ่อน column แล้ว column หายออกจาก table",
+    {
+      annotation: [
+        { type: "expected", description: "ซ่อน column แล้ว column หายออกจาก table" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const btn = list.columnVisibilityButton();
@@ -286,7 +419,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await page.keyboard.press("Escape");
   });
 
-  test("TC-DP21 แสดง column กลับแล้ว column โผล่ใน table", async ({ page }) => {
+  test(
+    "TC-DP21 แสดง column กลับแล้ว column โผล่ใน table",
+    {
+      annotation: [
+        { type: "expected", description: "แสดง column กลับแล้ว column โผล่ใน table" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const btn = list.columnVisibilityButton();
@@ -304,7 +444,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await expect(list.headerCell(/^name$/i)).toBeVisible();
   });
 
-  test("TC-DP22 ซ่อนทุก column ไม่ได้ ต้องเหลืออย่างน้อย 1 column", async ({ page }) => {
+  test(
+    "TC-DP22 ซ่อนทุก column ไม่ได้ ต้องเหลืออย่างน้อย 1 column",
+    {
+      annotation: [
+        { type: "expected", description: "ซ่อนทุก column ไม่ได้ ต้องเหลืออย่างน้อย 1 column" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const btn = list.columnVisibilityButton();
@@ -327,7 +474,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await page.waitForLoadState("networkidle");
   });
 
-  test("TC-DP23 column ที่ซ่อนอยู่ยังค้นหาและ filter ได้ปกติ", async ({ page }) => {
+  test(
+    "TC-DP23 column ที่ซ่อนอยู่ยังค้นหาและ filter ได้ปกติ",
+    {
+      annotation: [
+        { type: "expected", description: "column ที่ซ่อนอยู่ยังค้นหาและ filter ได้ปกติ" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const btn = list.columnVisibilityButton();
@@ -351,7 +505,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await page.keyboard.press("Escape");
   });
 
-  test("TC-DP24 เปลี่ยน view mode แล้ว column visibility ยังคงอยู่", async ({ page }) => {
+  test(
+    "TC-DP24 เปลี่ยน view mode แล้ว column visibility ยังคงอยู่",
+    {
+      annotation: [
+        { type: "expected", description: "เปลี่ยน view mode แล้ว column visibility ยังคงอยู่" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const btn = list.columnVisibilityButton();
@@ -376,7 +537,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await page.keyboard.press("Escape");
   });
 
-  test("TC-DP25 refresh หน้าแล้ว column ที่ซ่อนไว้กลับมาเป็น default", async ({ page }) => {
+  test(
+    "TC-DP25 refresh หน้าแล้ว column ที่ซ่อนไว้กลับมาเป็น default",
+    {
+      annotation: [
+        { type: "expected", description: "refresh หน้าแล้ว column ที่ซ่อนไว้กลับมาเป็น default" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const btn = list.columnVisibilityButton();
@@ -394,7 +562,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await expect(list.headerCell(/^name$/i)).toBeVisible();
   });
 
-  test("TC-DP26 card view ไม่มี column toggle เพราะไม่มี column", async ({ page }) => {
+  test(
+    "TC-DP26 card view ไม่มี column toggle เพราะไม่มี column",
+    {
+      annotation: [
+        { type: "expected", description: "card view ไม่มี column toggle เพราะไม่มี column" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     const cardToggle = list.viewToggleCard();
@@ -409,7 +584,14 @@ test.describe("จุดส่งของ — อ่าน", () => {
 // ─── Create (TC-DP27..TC-DP36) ────────────────────────────────────────────────
 
 test.describe("จุดส่งของ — สร้าง", () => {
-  test("TC-DP27 กด Add แล้ว dialog เปิดขึ้นมา", async ({ page }) => {
+  test(
+    "TC-DP27 กด Add แล้ว dialog เปิดขึ้นมา",
+    {
+      annotation: [
+        { type: "expected", description: "กด Add แล้ว dialog เปิดขึ้นมา" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -418,7 +600,14 @@ test.describe("จุดส่งของ — สร้าง", () => {
     await dialog.cancelButton().click();
   });
 
-  test("TC-DP28 dialog เปิดมา field name เป็น empty string", async ({ page }) => {
+  test(
+    "TC-DP28 dialog เปิดมา field name เป็น empty string",
+    {
+      annotation: [
+        { type: "expected", description: "dialog เปิดมา field name เป็น empty string" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -427,7 +616,14 @@ test.describe("จุดส่งของ — สร้าง", () => {
     await dialog.cancelButton().click();
   });
 
-  test("TC-DP29 dialog เปิดมา is active default เป็น true", async ({ page }) => {
+  test(
+    "TC-DP29 dialog เปิดมา is active default เป็น true",
+    {
+      annotation: [
+        { type: "expected", description: "dialog เปิดมา is active default เป็น true" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -436,7 +632,14 @@ test.describe("จุดส่งของ — สร้าง", () => {
     await dialog.cancelButton().click();
   });
 
-  test("TC-DP30 กรอก name แล้ว save ได้ ข้อมูลขึ้น table", async ({ page }) => {
+  test(
+    "TC-DP30 กรอก name แล้ว save ได้ ข้อมูลขึ้น table",
+    {
+      annotation: [
+        { type: "expected", description: "กรอก name แล้ว save ได้ ข้อมูลขึ้น table" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -450,7 +653,14 @@ test.describe("จุดส่งของ — สร้าง", () => {
     await expect(page.getByRole("cell", { name: DP_NAME })).toBeVisible();
   });
 
-  test("TC-DP31 กด save โดยไม่กรอก name ระบบต้องด่า", async ({ page }) => {
+  test(
+    "TC-DP31 กด save โดยไม่กรอก name ระบบต้องด่า",
+    {
+      annotation: [
+        { type: "expected", description: "กด save โดยไม่กรอก name ระบบต้องด่า" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -460,7 +670,14 @@ test.describe("จุดส่งของ — สร้าง", () => {
     await dialog.cancelButton().click();
   });
 
-  test("TC-DP32 กรอก name ซ้ำกับที่มีอยู่แล้ว ระบบต้องห้าม", async ({ page }) => {
+  test(
+    "TC-DP32 กรอก name ซ้ำกับที่มีอยู่แล้ว ระบบต้องห้าม",
+    {
+      annotation: [
+        { type: "expected", description: "กรอก name ซ้ำกับที่มีอยู่แล้ว ระบบต้องห้าม" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -474,7 +691,14 @@ test.describe("จุดส่งของ — สร้าง", () => {
     }
   });
 
-  test("TC-DP33 กรอก name ยาวเกิน limit ระบบต้องห้าม", async ({ page }) => {
+  test(
+    "TC-DP33 กรอก name ยาวเกิน limit ระบบต้องห้าม",
+    {
+      annotation: [
+        { type: "expected", description: "กรอก name ยาวเกิน limit ระบบต้องห้าม" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -485,7 +709,14 @@ test.describe("จุดส่งของ — สร้าง", () => {
     await dialog.cancelButton().click();
   });
 
-  test("TC-DP34 กรอก name เป็น space ล้วน ระบบต้องด่า", async ({ page }) => {
+  test(
+    "TC-DP34 กรอก name เป็น space ล้วน ระบบต้องด่า",
+    {
+      annotation: [
+        { type: "expected", description: "กรอก name เป็น space ล้วน ระบบต้องด่า" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -497,7 +728,14 @@ test.describe("จุดส่งของ — สร้าง", () => {
     await dialog.cancelButton().click();
   });
 
-  test("TC-DP35 กด cancel แล้ว dialog ปิด ไม่มีข้อมูลขึ้น table", async ({ page }) => {
+  test(
+    "TC-DP35 กด cancel แล้ว dialog ปิด ไม่มีข้อมูลขึ้น table",
+    {
+      annotation: [
+        { type: "expected", description: "กด cancel แล้ว dialog ปิด ไม่มีข้อมูลขึ้น table" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -509,7 +747,14 @@ test.describe("จุดส่งของ — สร้าง", () => {
     await expect(list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
-  test("TC-DP36 สร้างด้วย is active = false แล้วค่าบันทึกถูก", async ({ page }) => {
+  test(
+    "TC-DP36 สร้างด้วย is active = false แล้วค่าบันทึกถูก",
+    {
+      annotation: [
+        { type: "expected", description: "สร้างด้วย is active = false แล้วค่าบันทึกถูก" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -527,7 +772,14 @@ test.describe("จุดส่งของ — สร้าง", () => {
 // ─── Update (TC-DP37..TC-DP44) ────────────────────────────────────────────────
 
 test.describe("จุดส่งของ — แก้ไข", () => {
-  test("TC-DP37 กดที่ column name แล้ว dialog เปิดขึ้นมา", async ({ page }) => {
+  test(
+    "TC-DP37 กดที่ column name แล้ว dialog เปิดขึ้นมา",
+    {
+      annotation: [
+        { type: "expected", description: "กดที่ column name แล้ว dialog เปิดขึ้นมา" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -537,7 +789,14 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     await dialog.cancelButton().click();
   });
 
-  test("TC-DP38 dialog เปิดมา field name แสดงค่าเดิมถูกต้อง", async ({ page }) => {
+  test(
+    "TC-DP38 dialog เปิดมา field name แสดงค่าเดิมถูกต้อง",
+    {
+      annotation: [
+        { type: "expected", description: "dialog เปิดมา field name แสดงค่าเดิมถูกต้อง" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -547,7 +806,14 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     await dialog.cancelButton().click();
   });
 
-  test("TC-DP39 dialog เปิดมา is active แสดงค่าเดิมถูกต้อง", async ({ page }) => {
+  test(
+    "TC-DP39 dialog เปิดมา is active แสดงค่าเดิมถูกต้อง",
+    {
+      annotation: [
+        { type: "expected", description: "dialog เปิดมา is active แสดงค่าเดิมถูกต้อง" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -557,7 +823,14 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     await dialog.cancelButton().click();
   });
 
-  test("TC-DP40 แก้ name แล้ว save ข้อมูลใน table อัพเดท", async ({ page }) => {
+  test(
+    "TC-DP40 แก้ name แล้ว save ข้อมูลใน table อัพเดท",
+    {
+      annotation: [
+        { type: "expected", description: "แก้ name แล้ว save ข้อมูลใน table อัพเดท" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -573,7 +846,14 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     await expect(page.getByRole("cell", { name: DP_NAME_UPDATED })).toBeVisible();
   });
 
-  test("TC-DP41 ลบ name ออกทั้งหมดแล้ว save ระบบต้องด่า", async ({ page }) => {
+  test(
+    "TC-DP41 ลบ name ออกทั้งหมดแล้ว save ระบบต้องด่า",
+    {
+      annotation: [
+        { type: "expected", description: "ลบ name ออกทั้งหมดแล้ว save ระบบต้องด่า" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -585,7 +865,14 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     await dialog.cancelButton().click();
   });
 
-  test("TC-DP42 แก้ name เป็นค่าเดิมแล้ว save ได้ปกติ", async ({ page }) => {
+  test(
+    "TC-DP42 แก้ name เป็นค่าเดิมแล้ว save ได้ปกติ",
+    {
+      annotation: [
+        { type: "expected", description: "แก้ name เป็นค่าเดิมแล้ว save ได้ปกติ" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -600,7 +887,14 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     });
   });
 
-  test("TC-DP43 กด cancel ระหว่าง edit ข้อมูลเดิมไม่เปลี่ยน", async ({ page }) => {
+  test(
+    "TC-DP43 กด cancel ระหว่าง edit ข้อมูลเดิมไม่เปลี่ยน",
+    {
+      annotation: [
+        { type: "expected", description: "กด cancel ระหว่าง edit ข้อมูลเดิมไม่เปลี่ยน" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -613,7 +907,14 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     await expect(page.getByRole("cell", { name: DP_NAME_UPDATED })).toBeVisible();
   });
 
-  test("TC-DP44 toggle is active แล้ว save ค่าเปลี่ยนถูก", async ({ page }) => {
+  test(
+    "TC-DP44 toggle is active แล้ว save ค่าเปลี่ยนถูก",
+    {
+      annotation: [
+        { type: "expected", description: "toggle is active แล้ว save ค่าเปลี่ยนถูก" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
@@ -636,7 +937,14 @@ test.describe("จุดส่งของ — แก้ไข", () => {
 // ─── Delete (TC-DP45..TC-DP49) ────────────────────────────────────────────────
 
 test.describe("จุดส่งของ — ลบ", () => {
-  test("TC-DP45 กด trash icon แล้ว confirm dialog เปิดขึ้นมา", async ({ page }) => {
+  test(
+    "TC-DP45 กด trash icon แล้ว confirm dialog เปิดขึ้นมา",
+    {
+      annotation: [
+        { type: "expected", description: "กด trash icon แล้ว confirm dialog เปิดขึ้นมา" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const confirm = new DeleteConfirmDialog(page);
     await list.goto();
@@ -646,7 +954,14 @@ test.describe("จุดส่งของ — ลบ", () => {
     await confirm.cancelButton().click();
   });
 
-  test("TC-DP46 กด confirm แล้วข้อมูลหายออกจาก table", async ({ page }) => {
+  test(
+    "TC-DP46 กด confirm แล้วข้อมูลหายออกจาก table",
+    {
+      annotation: [
+        { type: "expected", description: "กด confirm แล้วข้อมูลหายออกจาก table" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const confirm = new DeleteConfirmDialog(page);
     await list.goto();
@@ -660,7 +975,14 @@ test.describe("จุดส่งของ — ลบ", () => {
     await expect(page.getByRole("cell", { name: DP_NAME_UPDATED })).not.toBeVisible();
   });
 
-  test("TC-DP47 กด cancel ใน confirm dialog ข้อมูลยังอยู่", async ({ page }) => {
+  test(
+    "TC-DP47 กด cancel ใน confirm dialog ข้อมูลยังอยู่",
+    {
+      annotation: [
+        { type: "expected", description: "กด cancel ใน confirm dialog ข้อมูลยังอยู่" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const confirm = new DeleteConfirmDialog(page);
     await list.goto();
@@ -674,7 +996,14 @@ test.describe("จุดส่งของ — ลบ", () => {
     await expect(page.getByRole("cell", { name: DP_NAME_INACTIVE })).toBeVisible();
   });
 
-  test("TC-DP48 ลบแล้ว total count ใน table ลดลง 1", async ({ page }) => {
+  test(
+    "TC-DP48 ลบแล้ว total count ใน table ลดลง 1",
+    {
+      annotation: [
+        { type: "expected", description: "ลบแล้ว total count ใน table ลดลง 1" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     const confirm = new DeleteConfirmDialog(page);
     await list.goto();
@@ -695,7 +1024,14 @@ test.describe("จุดส่งของ — ลบ", () => {
     expect(countAfter).toBeLessThan(countBefore);
   });
 
-  test("TC-DP49 ลบรายการสุดท้ายในหน้า ระบบ paginate กลับหน้าก่อนหน้า", async ({ page }) => {
+  test(
+    "TC-DP49 ลบรายการสุดท้ายในหน้า ระบบ paginate กลับหน้าก่อนหน้า",
+    {
+      annotation: [
+        { type: "expected", description: "ลบรายการสุดท้ายในหน้า ระบบ paginate กลับหน้าก่อนหน้า" },
+      ],
+    },
+    async ({ page }) => {
     // This test requires specific data conditions — skip if not applicable
     const list = new DeliveryPointListPage(page);
     await list.goto();
