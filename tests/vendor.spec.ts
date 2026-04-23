@@ -331,4 +331,53 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
     await vendor.list.search(NAME_UPDATED);
     await expect(page.getByText(NAME_UPDATED).first()).toBeVisible({ timeout: 10_000 });
   });
+
+  test("TC-VEN26 เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoList();
+    await vendor.list.search(NAME_UPDATED);
+    const row = page.getByRole("row").filter({ hasText: NAME_UPDATED }).first();
+
+    // Open row actions (dropdown)
+    const actionsBtn = row.getByRole("button", { name: /row actions|actions|more/i }).first();
+    await actionsBtn.click();
+    await page.getByRole("menuitem", { name: /delete|ลบ/i }).first().click();
+
+    const dialog = page.getByRole("alertdialog");
+    await expect(dialog).toBeVisible({ timeout: 5_000 });
+    await dialog.getByRole("button", { name: /cancel|ยกเลิก/i }).click();
+    await expect(dialog).not.toBeVisible({ timeout: 5_000 });
+
+    // Row should still be there
+    await expect(page.getByText(NAME_UPDATED).first()).toBeVisible();
+  });
+
+  test("TC-VEN27 ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก)", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoList();
+    await vendor.list.search(NAME_UPDATED);
+    const row = page.getByRole("row").filter({ hasText: NAME_UPDATED }).first();
+
+    const actionsBtn = row.getByRole("button", { name: /row actions|actions|more/i }).first();
+    await actionsBtn.click();
+    await page.getByRole("menuitem", { name: /delete|ลบ/i }).first().click();
+
+    const dialog = page.getByRole("alertdialog");
+    await expect(dialog).toBeVisible({ timeout: 5_000 });
+    await dialog.getByRole("button", { name: /^(delete|confirm|ลบ|ok)$/i }).click();
+
+    // Success toast
+    await expect(
+      page.locator('[data-sonner-toast], [role="status"]')
+        .filter({ hasText: /success|deleted|ลบ.*สำเร็จ|สำเร็จ/i })
+        .first(),
+    ).toBeVisible({ timeout: 10_000 });
+  });
+
+  test("TC-VEN28 หลังลบแล้วค้นหาไม่พบ row นั้นอีก", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoList();
+    await vendor.list.search(NAME_UPDATED);
+    await expect(vendor.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
+  });
 });
