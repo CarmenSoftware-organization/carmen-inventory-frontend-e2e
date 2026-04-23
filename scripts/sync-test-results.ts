@@ -65,26 +65,35 @@ const SYNC_TARGETS: SyncTarget[] = [
 
 const RESULTS_DIR = resolve(process.cwd(), "tests/results");
 
+/**
+ * Parse a CSV document into rows. Quote-aware across newlines: a quoted cell
+ * may contain `\n`, `\r`, `,`, or escaped quotes (`""`) and it will be kept as
+ * a single logical cell.
+ */
 function parseCsv(content: string): Record<string, string>[] {
-  const lines = content.trim().split(/\r?\n/);
-  if (lines.length < 2) return [];
-  const headers = splitCsvLine(lines[0]);
-  return lines.slice(1).map((line) => {
-    const cells = splitCsvLine(line);
+  const rows = parseCsvRows(content.replace(/^﻿/, "")); // strip BOM if any
+  if (rows.length < 2) return [];
+  const headers = rows[0];
+  return rows.slice(1).map((cells) => {
     const row: Record<string, string> = {};
     headers.forEach((h, i) => (row[h] = cells[i] ?? ""));
     return row;
   });
 }
 
-function splitCsvLine(line: string): string[] {
-  const out: string[] = [];
+/**
+ * Core CSV tokenizer. Returns a 2-D array of cells, one inner array per
+ * logical row. Newlines inside quoted cells are preserved verbatim.
+ */
+function parseCsvRows(content: string): string[][] {
+  const rows: string[][] = [];
   let cur = "";
+  let row: string[] = [];
   let inQuotes = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
+  for (let i = 0; i < content.length; i++) {
+    const ch = content[i];
     if (inQuotes) {
-      if (ch === '"' && line[i + 1] === '"') {
+      if (ch === '"' && content[i + 1] === '"') {
         cur += '"';
         i++;
       } else if (ch === '"') {
@@ -92,17 +101,42 @@ function splitCsvLine(line: string): string[] {
       } else {
         cur += ch;
       }
-    } else if (ch === '"') {
+      continue;
+    }
+    if (ch === '"') {
       inQuotes = true;
     } else if (ch === ",") {
-      out.push(cur);
+      row.push(cur);
       cur = "";
+    } else if (ch === "\n") {
+      row.push(cur);
+      rows.push(row);
+      cur = "";
+      row = [];
+    } else if (ch === "\r") {
+      // swallow — handled as part of CRLF by the \n branch, or at EOL alone
+      if (content[i + 1] === "\n") {
+        // no-op; let \n finalize the row
+      } else {
+        row.push(cur);
+        rows.push(row);
+        cur = "";
+        row = [];
+      }
     } else {
       cur += ch;
     }
   }
-  out.push(cur);
-  return out;
+  // Flush trailing cell/row if the file doesn't end with a newline
+  if (cur.length > 0 || row.length > 0) {
+    row.push(cur);
+    rows.push(row);
+  }
+  // Drop any pure-empty trailing rows
+  while (rows.length > 0 && rows[rows.length - 1].every((c) => c === "")) {
+    rows.pop();
+  }
+  return rows;
 }
 
 function loadResults(csvFile: string): ResultRow[] {
