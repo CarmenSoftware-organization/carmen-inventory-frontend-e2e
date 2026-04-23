@@ -1,50 +1,50 @@
 Test ID,Title,Status,Duration (ms),Error,Test Date
-TC-001,TC-001 อ่านค่า table ของ delivery point ได้,Pass,7959,,2026-04-23T04:23:14.259Z
-TC-002,TC-002 แสดงข้อมูล default 10 รายการต่อหน้า,Pass,23140,,2026-04-23T04:23:37.408Z
-TC-003,TC-003 เปลี่ยน per page เป็น 25 / 50 / 100 ได้,Pass,12619,,2026-04-23T04:23:50.037Z
-TC-004,TC-004 per page เกิน 100 ไม่ได้,Pass,11836,,2026-04-23T04:24:01.880Z
-TC-005,TC-005 กด next/prev page แล้วข้อมูลเปลี่ยน,Pass,2066,,2026-04-23T04:24:03.952Z
-TC-006,TC-006 search ชื่อ delivery point แล้วกรองได้ถูก,Pass,1976,,2026-04-23T04:24:05.932Z
-TC-007,TC-007 search ด้วยคำที่ไม่มีในระบบ แสดง empty state,Pass,2277,,2026-04-23T04:24:08.215Z
-TC-008,"TC-008 search ด้วย special char เช่น %, ' ไม่พัง",Pass,12037,,2026-04-23T04:24:20.257Z
-TC-009,TC-009 filter ตาม field ที่กำหนด แล้วผลตรง,Skipped,2127,,2026-04-23T04:24:22.388Z
-TC-010,TC-010 กด sort column แล้วเรียงจาก A→Z ได้,Pass,2340,,2026-04-23T04:24:24.734Z
-TC-011,TC-011 กด sort ซ้ำแล้วเรียงกลับ Z→A ได้,Pass,2192,,2026-04-23T04:24:26.930Z
-TC-012,TC-012 filter + search + sort พร้อมกันไม่พัง,Pass,2337,,2026-04-23T04:24:29.271Z
-TC-013,TC-013 กด toggle เปลี่ยนจาก table → card view ได้,Skipped,1855,,2026-04-23T04:24:31.131Z
-TC-014,TC-014 กด toggle เปลี่ยนจาก card → table view ได้,Skipped,1864,,2026-04-23T04:24:33.000Z
-TC-015,TC-015 ข้อมูลที่แสดงใน card กับ table ตรงกัน,Skipped,1927,,2026-04-23T04:24:34.932Z
-TC-016,TC-016 เปลี่ยน view mode แล้ว filter/search/sort ยังทำงานอยู่,Skipped,1901,,2026-04-23T04:24:36.838Z
-TC-017,TC-017 เปลี่ยน view mode แล้ว pagination ยังทำงานอยู่,Skipped,1844,,2026-04-23T04:24:38.687Z
-TC-018,TC-018 refresh หน้าแล้ว view mode กลับมาเป็น default,Skipped,1833,,2026-04-23T04:24:40.525Z
-TC-019,TC-019 กด toggle column แล้ว panel แสดงรายการ column ได้,Pass,1898,,2026-04-23T04:24:42.428Z
-TC-020,TC-020 ซ่อน column แล้ว column หายออกจาก table,Pass,1938,,2026-04-23T04:24:44.372Z
-TC-021,TC-021 แสดง column กลับแล้ว column โผล่ใน table,Pass,1945,,2026-04-23T04:24:46.321Z
-TC-022,TC-022 ซ่อนทุก column ไม่ได้ ต้องเหลืออย่างน้อย 1 column,Pass,2779,,2026-04-23T04:24:49.105Z
-TC-023,TC-023 column ที่ซ่อนอยู่ยังค้นหาและ filter ได้ปกติ,Pass,2202,,2026-04-23T04:24:51.312Z
-TC-024,TC-024 เปลี่ยน view mode แล้ว column visibility ยังคงอยู่,Skipped,1870,,2026-04-23T04:24:53.187Z
-TC-025,TC-025 refresh หน้าแล้ว column ที่ซ่อนไว้กลับมาเป็น default,Pass,2868,,2026-04-23T04:24:56.060Z
-TC-026,TC-026 card view ไม่มี column toggle เพราะไม่มี column,Skipped,1846,,2026-04-23T04:24:57.911Z
-TC-027,TC-027 กด Add แล้ว dialog เปิดขึ้นมา,Pass,1910,,2026-04-23T04:24:59.826Z
-TC-028,TC-028 dialog เปิดมา field name เป็น empty string,Pass,1883,,2026-04-23T04:25:01.713Z
-TC-029,TC-029 dialog เปิดมา is active default เป็น true,Pass,1953,,2026-04-23T04:25:03.671Z
-TC-030,TC-030 กรอก name แล้ว save ได้ ข้อมูลขึ้น table,Pass,2436,,2026-04-23T04:25:06.111Z
-TC-031,TC-031 กด save โดยไม่กรอก name ระบบต้องด่า,Pass,1984,,2026-04-23T04:25:08.099Z
-TC-032,TC-032 กรอก name ซ้ำกับที่มีอยู่แล้ว ระบบต้องห้าม,Pass,2052,,2026-04-23T04:25:10.156Z
-TC-033,TC-033 กรอก name ยาวเกิน limit ระบบต้องห้าม,Pass,3321,,2026-04-23T04:25:13.481Z
-TC-034,TC-034 กรอก name เป็น space ล้วน ระบบต้องด่า,Pass,2150,,2026-04-23T04:25:15.635Z
-TC-035,TC-035 กด cancel แล้ว dialog ปิด ไม่มีข้อมูลขึ้น table,Pass,2603,,2026-04-23T04:25:18.242Z
-TC-036,TC-036 สร้างด้วย is active = false แล้วค่าบันทึกถูก,Pass,2195,,2026-04-23T04:25:20.442Z
-TC-037,TC-037 กดที่ column name แล้ว dialog เปิดขึ้นมา,Pass,2506,,2026-04-23T04:25:22.952Z
-TC-038,TC-038 dialog เปิดมา field name แสดงค่าเดิมถูกต้อง,Pass,2785,,2026-04-23T04:25:25.741Z
-TC-039,TC-039 dialog เปิดมา is active แสดงค่าเดิมถูกต้อง,Pass,2424,,2026-04-23T04:25:28.169Z
-TC-040,TC-040 แก้ name แล้ว save ข้อมูลใน table อัพเดท,Pass,3322,,2026-04-23T04:25:31.496Z
-TC-041,TC-041 ลบ name ออกทั้งหมดแล้ว save ระบบต้องด่า,Pass,2659,,2026-04-23T04:25:34.159Z
-TC-042,TC-042 แก้ name เป็นค่าเดิมแล้ว save ได้ปกติ,Pass,2817,,2026-04-23T04:25:36.980Z
-TC-043,TC-043 กด cancel ระหว่าง edit ข้อมูลเดิมไม่เปลี่ยน,Pass,2980,,2026-04-23T04:25:39.964Z
-TC-044,TC-044 toggle is active แล้ว save ค่าเปลี่ยนถูก,Pass,3287,,2026-04-23T04:25:43.256Z
-TC-045,TC-045 กด trash icon แล้ว confirm dialog เปิดขึ้นมา,Pass,2591,,2026-04-23T04:25:45.851Z
-TC-046,TC-046 กด confirm แล้วข้อมูลหายออกจาก table,Pass,3336,,2026-04-23T04:25:49.192Z
-TC-047,TC-047 กด cancel ใน confirm dialog ข้อมูลยังอยู่,Skipped,2308,,2026-04-23T04:25:51.504Z
-TC-048,TC-048 ลบแล้ว total count ใน table ลดลง 1,Skipped,2410,,2026-04-23T04:25:53.920Z
-TC-049,TC-049 ลบรายการสุดท้ายในหน้า ระบบ paginate กลับหน้าก่อนหน้า,Skipped,1987,,2026-04-23T04:25:55.911Z
+TC-DP01,TC-DP01 อ่านค่า table ของ delivery point ได้,Pass,7959,,2026-04-23T04:23:14.259Z
+TC-DP02,TC-DP02 แสดงข้อมูล default 10 รายการต่อหน้า,Pass,23140,,2026-04-23T04:23:37.408Z
+TC-DP03,TC-DP03 เปลี่ยน per page เป็น 25 / 50 / 100 ได้,Pass,12619,,2026-04-23T04:23:50.037Z
+TC-DP04,TC-DP04 per page เกิน 100 ไม่ได้,Pass,11836,,2026-04-23T04:24:01.880Z
+TC-DP05,TC-DP05 กด next/prev page แล้วข้อมูลเปลี่ยน,Pass,2066,,2026-04-23T04:24:03.952Z
+TC-DP06,TC-DP06 search ชื่อ delivery point แล้วกรองได้ถูก,Pass,1976,,2026-04-23T04:24:05.932Z
+TC-DP07,TC-DP07 search ด้วยคำที่ไม่มีในระบบ แสดง empty state,Pass,2277,,2026-04-23T04:24:08.215Z
+TC-DP08,"TC-DP08 search ด้วย special char เช่น %, ' ไม่พัง",Pass,12037,,2026-04-23T04:24:20.257Z
+TC-DP09,TC-DP09 filter ตาม field ที่กำหนด แล้วผลตรง,Skipped,2127,,2026-04-23T04:24:22.388Z
+TC-DP10,TC-DP10 กด sort column แล้วเรียงจาก A→Z ได้,Pass,2340,,2026-04-23T04:24:24.734Z
+TC-DP11,TC-DP11 กด sort ซ้ำแล้วเรียงกลับ Z→A ได้,Pass,2192,,2026-04-23T04:24:26.930Z
+TC-DP12,TC-DP12 filter + search + sort พร้อมกันไม่พัง,Pass,2337,,2026-04-23T04:24:29.271Z
+TC-DP13,TC-DP13 กด toggle เปลี่ยนจาก table → card view ได้,Skipped,1855,,2026-04-23T04:24:31.131Z
+TC-DP14,TC-DP14 กด toggle เปลี่ยนจาก card → table view ได้,Skipped,1864,,2026-04-23T04:24:33.000Z
+TC-DP15,TC-DP15 ข้อมูลที่แสดงใน card กับ table ตรงกัน,Skipped,1927,,2026-04-23T04:24:34.932Z
+TC-DP16,TC-DP16 เปลี่ยน view mode แล้ว filter/search/sort ยังทำงานอยู่,Skipped,1901,,2026-04-23T04:24:36.838Z
+TC-DP17,TC-DP17 เปลี่ยน view mode แล้ว pagination ยังทำงานอยู่,Skipped,1844,,2026-04-23T04:24:38.687Z
+TC-DP18,TC-DP18 refresh หน้าแล้ว view mode กลับมาเป็น default,Skipped,1833,,2026-04-23T04:24:40.525Z
+TC-DP19,TC-DP19 กด toggle column แล้ว panel แสดงรายการ column ได้,Pass,1898,,2026-04-23T04:24:42.428Z
+TC-DP20,TC-DP20 ซ่อน column แล้ว column หายออกจาก table,Pass,1938,,2026-04-23T04:24:44.372Z
+TC-DP21,TC-DP21 แสดง column กลับแล้ว column โผล่ใน table,Pass,1945,,2026-04-23T04:24:46.321Z
+TC-DP22,TC-DP22 ซ่อนทุก column ไม่ได้ ต้องเหลืออย่างน้อย 1 column,Pass,2779,,2026-04-23T04:24:49.105Z
+TC-DP23,TC-DP23 column ที่ซ่อนอยู่ยังค้นหาและ filter ได้ปกติ,Pass,2202,,2026-04-23T04:24:51.312Z
+TC-DP24,TC-DP24 เปลี่ยน view mode แล้ว column visibility ยังคงอยู่,Skipped,1870,,2026-04-23T04:24:53.187Z
+TC-DP25,TC-DP25 refresh หน้าแล้ว column ที่ซ่อนไว้กลับมาเป็น default,Pass,2868,,2026-04-23T04:24:56.060Z
+TC-DP26,TC-DP26 card view ไม่มี column toggle เพราะไม่มี column,Skipped,1846,,2026-04-23T04:24:57.911Z
+TC-DP27,TC-DP27 กด Add แล้ว dialog เปิดขึ้นมา,Pass,1910,,2026-04-23T04:24:59.826Z
+TC-DP28,TC-DP28 dialog เปิดมา field name เป็น empty string,Pass,1883,,2026-04-23T04:25:01.713Z
+TC-DP29,TC-DP29 dialog เปิดมา is active default เป็น true,Pass,1953,,2026-04-23T04:25:03.671Z
+TC-DP30,TC-DP30 กรอก name แล้ว save ได้ ข้อมูลขึ้น table,Pass,2436,,2026-04-23T04:25:06.111Z
+TC-DP31,TC-DP31 กด save โดยไม่กรอก name ระบบต้องด่า,Pass,1984,,2026-04-23T04:25:08.099Z
+TC-DP32,TC-DP32 กรอก name ซ้ำกับที่มีอยู่แล้ว ระบบต้องห้าม,Pass,2052,,2026-04-23T04:25:10.156Z
+TC-DP33,TC-DP33 กรอก name ยาวเกิน limit ระบบต้องห้าม,Pass,3321,,2026-04-23T04:25:13.481Z
+TC-DP34,TC-DP34 กรอก name เป็น space ล้วน ระบบต้องด่า,Pass,2150,,2026-04-23T04:25:15.635Z
+TC-DP35,TC-DP35 กด cancel แล้ว dialog ปิด ไม่มีข้อมูลขึ้น table,Pass,2603,,2026-04-23T04:25:18.242Z
+TC-DP36,TC-DP36 สร้างด้วย is active = false แล้วค่าบันทึกถูก,Pass,2195,,2026-04-23T04:25:20.442Z
+TC-DP37,TC-DP37 กดที่ column name แล้ว dialog เปิดขึ้นมา,Pass,2506,,2026-04-23T04:25:22.952Z
+TC-DP38,TC-DP38 dialog เปิดมา field name แสดงค่าเดิมถูกต้อง,Pass,2785,,2026-04-23T04:25:25.741Z
+TC-DP39,TC-DP39 dialog เปิดมา is active แสดงค่าเดิมถูกต้อง,Pass,2424,,2026-04-23T04:25:28.169Z
+TC-DP40,TC-DP40 แก้ name แล้ว save ข้อมูลใน table อัพเดท,Pass,3322,,2026-04-23T04:25:31.496Z
+TC-DP41,TC-DP41 ลบ name ออกทั้งหมดแล้ว save ระบบต้องด่า,Pass,2659,,2026-04-23T04:25:34.159Z
+TC-DP42,TC-DP42 แก้ name เป็นค่าเดิมแล้ว save ได้ปกติ,Pass,2817,,2026-04-23T04:25:36.980Z
+TC-DP43,TC-DP43 กด cancel ระหว่าง edit ข้อมูลเดิมไม่เปลี่ยน,Pass,2980,,2026-04-23T04:25:39.964Z
+TC-DP44,TC-DP44 toggle is active แล้ว save ค่าเปลี่ยนถูก,Pass,3287,,2026-04-23T04:25:43.256Z
+TC-DP45,TC-DP45 กด trash icon แล้ว confirm dialog เปิดขึ้นมา,Pass,2591,,2026-04-23T04:25:45.851Z
+TC-DP46,TC-DP46 กด confirm แล้วข้อมูลหายออกจาก table,Pass,3336,,2026-04-23T04:25:49.192Z
+TC-DP47,TC-DP47 กด cancel ใน confirm dialog ข้อมูลยังอยู่,Skipped,2308,,2026-04-23T04:25:51.504Z
+TC-DP48,TC-DP48 ลบแล้ว total count ใน table ลดลง 1,Skipped,2410,,2026-04-23T04:25:53.920Z
+TC-DP49,TC-DP49 ลบรายการสุดท้ายในหน้า ระบบ paginate กลับหน้าก่อนหน้า,Skipped,1987,,2026-04-23T04:25:55.911Z

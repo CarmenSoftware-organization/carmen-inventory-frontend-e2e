@@ -128,7 +128,7 @@ bun e2e -g "TCS-.*09"            # security XSS ของทุก module (TCS- 
 
 | Prefix | Module | Path |
 |---|---|---|
-| `TC-` (numeric) | Delivery Point | `/config/delivery-point` |
+| `TC-DP` | Delivery Point | `/config/delivery-point` |
 | `TC-L` | Login / Logout | `/login`, `/dashboard` |
 | `TC-AT` | Adjustment Type | `/config/adjustment-type` |
 | `TC-BT` | Business Type | `/config/business-type` |
@@ -148,7 +148,7 @@ bun e2e -g "TCS-.*09"            # security XSS ของทุก module (TCS- 
 
 | Module | Smoke | CRUD | Security | หมายเหตุ |
 |---|:---:|:---:|:---:|---|
-| delivery-point | ✅ | ✅ | — | TC-001..049 (legacy) |
+| delivery-point | ✅ | ✅ | — | TC-DP01..DP49 |
 | login | — | ✅ | ✅ | TC-L01..32 มี XSS/SQL อยู่แล้ว |
 | business-type | ✅ | ✅ | ✅ | dialog-based |
 | credit-note-reason | ✅ | ✅ | ✅ | dialog (ไม่มี is_active) |
@@ -320,7 +320,7 @@ HTML report อยู่ที่ `playwright-report/` (เปิดผ่าน
 - Tab ไม่มีในสเปรดชีต — สร้างเองพร้อม header row
 
 ### Test ID ไม่ถูกจับโดย reporter
-- เช็คว่า test title ขึ้นต้นด้วย `TC-` ตามด้วยตัวอักษร 0-4 ตัวและตัวเลข ≥ 2 หลัก เช่น `TC-001`, `TC-L01`, `TC-CNR12`
+- เช็คว่า test title ขึ้นต้นด้วย `TC-` ตามด้วยตัวอักษร 0-4 ตัวและตัวเลข ≥ 2 หลัก เช่น `TC-L01`, `TC-DP01`, `TC-CNR12`
 
 ### Authorization test (XX12) fail
 - บาง module อาจเปิดให้ Requestor เข้าได้ → ปรับ assertion ใน `e2e/helpers/security-cases.ts` ตามจริง
