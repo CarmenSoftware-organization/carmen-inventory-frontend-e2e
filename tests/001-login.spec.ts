@@ -7,7 +7,8 @@ import { TEST_USERS, TEST_PASSWORD } from "./test-users";
  * Login & Logout E2E suite
  *
  * TC ranges
- *   TC-L01..TC-L07  Login success per role (then logout to release session)
+ *   TC-L01..TC-L06  Login success per role (Requestor/HOD/Purchase/FC/GM/Owner), then logout
+ *   TC-L07          TT (user without department) → dialog แจ้งยังไม่กำหนด department
  *   TC-L08..TC-L13  Logout success per role
  *   TC-L14..TC-L22  Validation / error handling
  *   TC-L23..TC-L26  Edge cases (case-sensitivity, trim, mask, Enter key)
@@ -22,7 +23,9 @@ const LOGIN_TC: Record<string, string> = {
   FC: "TC-L04",
   GM: "TC-L05",
   Owner: "TC-L06",
-  TT: "TC-L07",
+  // TT intentionally omitted — handled by dedicated TC-L07 below
+  // (user has no department → login should surface a "ยังไม่กำหนด department" dialog
+  // instead of redirecting to /dashboard).
 };
 
 const LOGOUT_TC: Record<string, string> = {
@@ -68,6 +71,35 @@ test.describe("เข้าสู่ระบบ", () => {
       },
     );
   }
+
+  // ── TT: user without department → dialog ─────────────────────────────────
+  test(
+    "TC-L07 TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department",
+    {
+      annotation: [
+        { type: "preconditions", description: "User tt@blueledgers.com มีอยู่จริงและ active แต่ยังไม่ถูกกำหนด department ในระบบ; browser logged out" },
+        { type: "steps", description: "1. เปิด /login\n2. กรอก email = tt@blueledgers.com, password = Qaz123!@#\n3. กด Sign In" },
+        { type: "expected", description: "แสดง alertdialog/modal ข้อความประมาณ 'ยังไม่กำหนด department' (หรือ 'department' + 'not set/required'); ไม่ redirect ไป /dashboard" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Auth-guard" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.login("tt@blueledgers.com", "Qaz123!@#");
+
+      // Expect a dialog/alertdialog surfacing the missing-department state.
+      const dialog = page.getByRole("alertdialog").or(page.getByRole("dialog"));
+      await expect(dialog.first()).toBeVisible({ timeout: 15_000 });
+      await expect(dialog.first()).toContainText(
+        /department|แผนก|ยังไม่กำหนด|not set|required/i,
+      );
+
+      // Should NOT have reached the dashboard.
+      await expect(page).not.toHaveURL(/dashboard/);
+    },
+  );
 
   // ── Validation / error handling ───────────────────────────────────────────
   test(
