@@ -224,12 +224,73 @@ export class VendorPage {
     await expect(this.page).not.toHaveURL(/\/new(\?|$|#)/, { timeout: 10_000 });
   }
 
-  // ── Address tab stubs (implemented in Task 5) ────────────────────────
-  async addAddressRow() { throw new Error("not implemented yet"); }
-  async fillAddress(_index: number, _data: VendorAddressInput) { throw new Error("not implemented yet"); }
-  async removeAddressRow(_index: number) { throw new Error("not implemented yet"); }
-  addressCount(): Promise<number> { throw new Error("not implemented yet"); }
-  addressRow(_index: number): Locator { throw new Error("not implemented yet"); }
+  // ── Address tab ───────────────────────────────────────────────────────
+  /** Locator scoped to the address tab panel. */
+  private addressPanel(): Locator {
+    return this.page.getByRole("tabpanel", { name: /address|ที่อยู่/i });
+  }
+
+  addressRow(index: number): Locator {
+    // Each row wraps in a div — rely on structural anchors (address type Select + inputs)
+    return this.addressPanel().locator("div.space-y-6").nth(index);
+  }
+
+  async addAddressRow() {
+    await this.switchTab("address");
+    const addButton = this.addressPanel().getByRole("button", { name: /^Add$|^เพิ่ม$/i });
+    await addButton.click();
+    // Wait for a new row to mount
+    await this.page.waitForTimeout(200);
+  }
+
+  async addressCount(): Promise<number> {
+    return await this.addressPanel().locator("div.space-y-6").count();
+  }
+
+  async removeAddressRow(index: number) {
+    const row = this.addressRow(index);
+    const removeBtn = row.getByRole("button", { name: /remove/i }).first();
+    await removeBtn.click();
+  }
+
+  async fillAddress(index: number, data: VendorAddressInput) {
+    const row = this.addressRow(index);
+
+    // 1) address_type Select (first combobox in the row)
+    if (data.address_type) {
+      const typeTrigger = row.getByRole("combobox").first();
+      await typeTrigger.click();
+      const labelMap: Record<string, RegExp> = {
+        contact_address: /contact/i,
+        mailing_address: /mailing/i,
+        register_address: /register/i,
+      };
+      await this.page.getByRole("option", { name: labelMap[data.address_type] }).first().click();
+    }
+
+    // 2) Thai vs International radio
+    const mode = data.mode ?? "international";
+    const radio = row.getByRole("radio", { name: mode === "thai" ? /thai/i : /international/i });
+    await radio.check({ force: true });
+
+    // 3) Address lines
+    if (data.address_line1 !== undefined) {
+      await row.getByPlaceholder(/address line 1/i).fill(data.address_line1);
+    }
+    if (data.address_line2 !== undefined) {
+      await row.getByPlaceholder(/address line 2/i).fill(data.address_line2);
+    }
+
+    // 4) International fields (city/district/sub_district/province/postal/country)
+    if (mode === "international") {
+      if (data.city !== undefined) await row.getByPlaceholder(/^city$/i).fill(data.city);
+      if (data.district !== undefined) await row.getByPlaceholder(/^district$/i).fill(data.district);
+      if (data.sub_district !== undefined) await row.getByPlaceholder(/sub.?district/i).fill(data.sub_district);
+      if (data.province !== undefined) await row.getByPlaceholder(/province|state/i).fill(data.province);
+      if (data.postal_code !== undefined) await row.getByPlaceholder(/postal code/i).first().fill(data.postal_code);
+      if (data.country !== undefined) await row.getByPlaceholder(/country/i).fill(data.country);
+    }
+  }
 
   // ── Contact tab stubs (implemented in Task 6) ────────────────────────
   async addContactRow() { throw new Error("not implemented yet"); }

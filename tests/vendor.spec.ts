@@ -99,6 +99,39 @@ test.describe("Vendor — Create happy path", () => {
     await vendor.list.search(NAME);
     await expect(page.getByText(NAME).first()).toBeVisible({ timeout: 10_000 });
   });
+
+  test("TC-VEN09 สร้าง vendor พร้อม address 1 รายการ", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    const code = `${CODE}A`.slice(0, 10);
+    const name = `${NAME} addr`;
+    await vendor.fillGeneral({ code, name });
+    if ((await vendor.businessTypeOptionCount()) > 0) await vendor.pickBusinessType();
+    await vendor.addAddressRow();
+    await vendor.fillAddress(0, {
+      address_type: "mailing_address",
+      mode: "international",
+      address_line1: "123 Test Ave",
+      city: "Testville",
+      country: "USA",
+    });
+    await vendor.saveButton().click();
+    await vendor.expectSaved();
+
+    // Cleanup: delete this transient vendor so it doesn't pollute later tests.
+    // Best-effort — if the row-actions dropdown or confirm dialog isn't matched,
+    // swallow the error so the test still passes on the save assertion above.
+    try {
+      await vendor.gotoList();
+      await vendor.list.search(name);
+      const row = page.getByRole("row").filter({ hasText: name }).first();
+      await row.getByRole("button", { name: /row actions|actions|more/i }).first().click({ timeout: 5_000 });
+      await page.getByRole("menuitem", { name: /delete|trash|ลบ/i }).first().click({ timeout: 5_000 });
+      await page.getByRole("alertdialog").getByRole("button", { name: /confirm|delete|ลบ|ok/i }).first().click({ timeout: 5_000 });
+    } catch {
+      // Cleanup is best-effort; vendor may remain but test save succeeded.
+    }
+  });
 });
 
 test.describe("Vendor — Tabs & dynamic arrays", () => {
@@ -109,5 +142,27 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
       await vendor.switchTab(tab);
       await expect(vendor.tabTrigger(tab)).toHaveAttribute("data-state", "active");
     }
+  });
+
+  test("TC-VEN12 เพิ่ม address row ได้หลาย row", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.switchTab("address");
+    expect(await vendor.addressCount()).toBe(0);
+    await vendor.addAddressRow();
+    expect(await vendor.addressCount()).toBe(1);
+    await vendor.addAddressRow();
+    expect(await vendor.addressCount()).toBe(2);
+  });
+
+  test("TC-VEN13 ลบ address row ได้", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.switchTab("address");
+    await vendor.addAddressRow();
+    await vendor.addAddressRow();
+    expect(await vendor.addressCount()).toBe(2);
+    await vendor.removeAddressRow(0);
+    expect(await vendor.addressCount()).toBe(1);
   });
 });
