@@ -53,6 +53,7 @@ const SYNC_TARGETS: SyncTarget[] = [
   { csvFile: "location-results.csv", sheetTab: "Location" },
   { csvFile: "tax-profile-results.csv", sheetTab: "Tax Profile" },
   { csvFile: "unit-results.csv", sheetTab: "Unit" },
+  { csvFile: "vendor-results.csv", sheetTab: "Vendor" },
 ];
 
 const RESULTS_DIR = resolve(process.cwd(), "tests/results");
