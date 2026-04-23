@@ -69,10 +69,12 @@ export class VendorPage {
     return this.page.locator("#vendor-name");
   }
 
+  /** Reserved for future specs that exercise the optional description field. */
   descriptionInput(): Locator {
     return this.page.locator("#vendor-description");
   }
 
+  /** Reserved for future specs that toggle the active/inactive switch. */
   activeSwitch(): Locator {
     return this.page.locator("#vendor-is-active");
   }
@@ -84,6 +86,7 @@ export class VendorPage {
       .and(this.page.locator('[type="submit"]'));
   }
 
+  /** Reserved for future specs that cancel out of the form. */
   cancelButton(): Locator {
     return this.page.getByRole("button", { name: /^Cancel$/i });
   }

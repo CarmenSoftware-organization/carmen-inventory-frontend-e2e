@@ -41,18 +41,33 @@ test.describe("Vendor — List smoke", () => {
   test("TC-VEN05 Filter status (active/inactive) ใช้งานได้", async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.list.goto();
-    const statusTrigger = page.getByRole("combobox").filter({ hasText: /status|all|active/i }).first();
-    if (await statusTrigger.count() === 0) {
-      const btn = page.getByRole("button", { name: /status|filter/i }).first();
-      await btn.click();
-    } else {
-      await statusTrigger.click();
-    }
-    const activeOption = page.getByRole("option", { name: /^active$/i });
-    if (await activeOption.count() > 0) {
-      await activeOption.first().click();
+
+    // Locate a status filter control — combobox first, button fallback
+    const statusTrigger = page
+      .getByRole("combobox")
+      .filter({ hasText: /status|all|active/i })
+      .first();
+    const fallbackBtn = page.getByRole("button", { name: /status|filter/i }).first();
+    const trigger = (await statusTrigger.count()) > 0 ? statusTrigger : fallbackBtn;
+
+    // Must find at least one status filter control on the page
+    await expect(trigger).toBeVisible({ timeout: 5_000 });
+
+    await trigger.click();
+    // After clicking, at least one option should be reachable — otherwise the
+    // filter isn't wired up. Accept Active / Inactive / All.
+    const options = page.getByRole("option", { name: /^(active|inactive|all)$/i });
+    await expect(options.first()).toBeVisible({ timeout: 5_000 });
+
+    const activeOption = options.filter({ hasText: /^active$/i }).first();
+    if ((await activeOption.count()) > 0) {
+      await activeOption.click();
       await page.waitForLoadState("networkidle");
+    } else {
+      // Close the menu by pressing Escape so subsequent assertions aren't covered
+      await page.keyboard.press("Escape");
     }
+
     await expect(vendor.list.addButton()).toBeVisible();
   });
 });
@@ -301,6 +316,7 @@ test.describe("Vendor — Validation", () => {
       address_line1: "Line 1 only",
     });
     await vendor.saveButton().click();
+    await expect(vendor.anyError().first()).toBeVisible({ timeout: 5_000 });
     await expect(page).toHaveURL(/\/new$/);
   });
 
@@ -312,6 +328,9 @@ test.describe("Vendor — Validation", () => {
     await vendor.addContactRow();
     await vendor.fillContact(0, { name: "Bad Email", email: "not-an-email" });
     await vendor.saveButton().click();
+    // Note: contact email uses input[type="email"] → HTML5 native validation blocks
+    // submit before React Hook Form's zod runs, so no aria-invalid / text-destructive
+    // is painted. The best DOM signal remaining is that the form didn't navigate.
     await expect(page).toHaveURL(/\/new$/);
   });
 });
@@ -380,4 +399,49 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
     await vendor.list.search(NAME_UPDATED);
     await expect(vendor.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
+});
+
+// Mop-up: best-effort cleanup of any vendors this run created via UID prefix.
+// Uses the same row-actions dropdown pattern as TC-VEN27. Silent on failure —
+// the suite's actual assertions already ran; this is hygiene, not a check.
+test.afterAll(async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  try {
+    // Authenticate
+    const { LoginPage } = await import("./pages/login.page");
+    const { getPasswordFor } = await import("./test-users");
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.loginWithRetry(
+      "purchase@blueledgers.com",
+      getPasswordFor("purchase@blueledgers.com"),
+    );
+
+    const vendor = new VendorPage(page);
+    for (const suffix of ["addr", "ctc"]) {
+      const name = `${NAME} ${suffix}`;
+      try {
+        await vendor.gotoList();
+        await vendor.list.search(name);
+        const row = page.getByRole("row").filter({ hasText: name }).first();
+        if ((await row.count()) === 0) continue;
+
+        const actionsBtn = row
+          .getByRole("button", { name: /row actions|actions|more/i })
+          .first();
+        await actionsBtn.click({ timeout: 3_000 });
+        await page.getByRole("menuitem", { name: /delete|ลบ/i }).first().click({ timeout: 3_000 });
+        await page
+          .getByRole("alertdialog")
+          .getByRole("button", { name: /^(delete|confirm|ลบ|ok)$/i })
+          .click({ timeout: 3_000 });
+        await page.waitForLoadState("networkidle").catch(() => null);
+      } catch {
+        // Ignore — best-effort only
+      }
+    }
+  } finally {
+    await context.close();
+  }
 });
