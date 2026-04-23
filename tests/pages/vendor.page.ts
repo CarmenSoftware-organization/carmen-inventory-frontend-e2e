@@ -205,14 +205,23 @@ export class VendorPage {
     await this.saveButton().click();
   }
 
-  /** Wait for the success toast and redirect back to list. */
+  /**
+   * Wait for the success toast and for navigation to leave the `/new` form.
+   *
+   * - Create flow redirects to the detail page (`/vendor-management/vendor/{id}`).
+   * - Edit flow redirects back to the list (`/vendor-management/vendor`).
+   *
+   * Both are acceptable — callers that need to verify the row appears on the
+   * list should explicitly call `gotoList()` afterwards.
+   */
   async expectSaved() {
     await expect(
-      this.page.getByText(/success|สำเร็จ|created|updated/i).first(),
+      this.page
+        .locator('[data-sonner-toast], [role="status"]')
+        .filter({ hasText: /success|สำเร็จ|created|updated/i })
+        .first(),
     ).toBeVisible({ timeout: 10_000 });
-    await expect(this.page).toHaveURL(new RegExp(`${LIST_PATH}(?!/new)`), {
-      timeout: 10_000,
-    });
+    await expect(this.page).not.toHaveURL(/\/new(\?|$|#)/, { timeout: 10_000 });
   }
 
   // ── Address tab stubs (implemented in Task 5) ────────────────────────
