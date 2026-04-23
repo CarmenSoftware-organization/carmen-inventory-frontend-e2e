@@ -1,5 +1,0 @@
-Seq,Test ID,Title,Preconditions,Steps,Expected Result,Priority,Test Type,Status,Run Date,Duration (ms),Error,Note
-1,TC-UN01,TC-UN01 หน้า list โหลดสำเร็จ,,,,,,Pass,2026-04-23T04:23:16.046Z,8281,,
-2,TC-UN02,TC-UN02 ปุ่ม Add แสดง,,,,,,Fail,2026-04-23T04:23:46.292Z,30213,"[31mTest timeout of 30000ms exceeded while setting up ""authenticatedPage"".[39m",
-3,TC-UN03,TC-UN03 ช่องค้นหาใช้งานได้,,,,,,Skipped,2026-04-23T04:23:46.292Z,0,,
-4,TC-UN04,TC-UN04 ค้นหาคำที่ไม่มีต้องแสดง empty state,,,,,,Skipped,2026-04-23T04:23:46.292Z,0,,

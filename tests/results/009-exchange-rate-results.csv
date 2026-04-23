@@ -1,3 +1,0 @@
-Seq,Test ID,Title,Preconditions,Steps,Expected Result,Priority,Test Type,Status,Run Date,Duration (ms),Error,Note
-1,TC-ER01,TC-ER01 หน้า list โหลดสำเร็จ,,,,,,Pass,2026-04-23T04:23:14.326Z,7198,,
-2,TC-ER02,TC-ER02 ปุ่ม Add แสดง,,,,,,Fail,2026-04-23T04:23:44.577Z,30188,"[31mTest timeout of 30000ms exceeded while setting up ""authenticatedPage"".[39m",
