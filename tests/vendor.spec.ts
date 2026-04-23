@@ -66,6 +66,19 @@ test.describe("Vendor — Create happy path", () => {
     await expect(vendor.nameInput()).toBeVisible();
     await expect(vendor.saveButton()).toBeVisible();
   });
+
+  test("TC-VEN07 เลือก business type จาก dropdown ได้", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    const count = await vendor.businessTypeOptionCount();
+    if (count === 0) {
+      test.skip(true, "No business types seeded in backend — skipping TC-VEN07..");
+    }
+    const label = await vendor.pickBusinessType();
+    expect(label.length).toBeGreaterThan(0);
+    // Verify the selected badge appears on the trigger
+    await expect(vendor.businessTypeTrigger()).toContainText(label, { timeout: 5_000 });
+  });
 });
 
 test.describe("Vendor — Tabs & dynamic arrays", () => {
