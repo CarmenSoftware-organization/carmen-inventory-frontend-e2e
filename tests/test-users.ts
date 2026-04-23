@@ -1,11 +1,10 @@
 export const TEST_USERS = [
-  { role: "Requestor", email: "requestor@blueledgers.com", password: "12345678" },
-  { role: "HOD", email: "hod@blueledgers.com", password: "12345678" },
-  { role: "Purchase", email: "purchase@blueledgers.com", password: "12345678" },
-  { role: "FC", email: "fc@blueledgers.com", password: "12345678" },
-  { role: "GM", email: "gm@blueledgers.com", password: "12345678" },
-  { role: "Owner", email: "owner@blueledgers.com", password: "12345678" },
-  { role: "TT", email: "tt@blueledgers.com", password: "Qaz123!@#" },
+  { role: "Requestor", email: "requestor@zebra.com", password: "12345678" },
+  { role: "HOD", email: "hod@zebra.com", password: "12345678" },
+  { role: "Purchase", email: "purchase@zebra.com", password: "12345678" },
+  { role: "FC", email: "fc@zebra.com", password: "12345678" },
+  { role: "GM", email: "gm@zebra.com", password: "12345678" },
+  { role: "Owner", email: "owner@zebra.com", password: "12345678" },
 ] as const;
 
 /** Default password used by most test users — kept for backward compatibility. */

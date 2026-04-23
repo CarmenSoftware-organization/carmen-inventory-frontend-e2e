@@ -176,7 +176,7 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { DialogCrudHelper } from "./pages/dialog-crud.helper";
 import { addDialogSecurityCases } from "./helpers/security-cases";
 
-const test = createAuthTest("purchase@blueledgers.com");
+const test = createAuthTest("purchase@zebra.com");
 const PATH = "/config/my-module";
 const UID = Date.now().toString(36);
 const NAME = `E2E MM ${UID}`;
@@ -286,15 +286,15 @@ Done.
 
 | Role | Email | Password |
 |---|---|---|
-| Requestor | `requestor@blueledgers.com` | `12345678` |
-| HOD | `hod@blueledgers.com` | `12345678` |
-| Purchase | `purchase@blueledgers.com` | `12345678` |
-| FC | `fc@blueledgers.com` | `12345678` |
-| GM | `gm@blueledgers.com` | `12345678` |
-| Owner | `owner@blueledgers.com` | `12345678` |
+| Requestor | `requestor@zebra.com` | `12345678` |
+| HOD | `hod@zebra.com` | `12345678` |
+| Purchase | `purchase@zebra.com` | `12345678` |
+| FC | `fc@zebra.com` | `12345678` |
+| GM | `gm@zebra.com` | `12345678` |
+| Owner | `owner@zebra.com` | `12345678` |
 
-- **Default ของ config tests:** `purchase@blueledgers.com` (มีสิทธิ์ admin config)
-- **Authorization tests (TC-XX12):** `requestor@blueledgers.com` (สิทธิ์ต่ำ)
+- **Default ของ config tests:** `purchase@zebra.com` (มีสิทธิ์ admin config)
+- **Authorization tests (TC-XX12):** `requestor@zebra.com` (สิทธิ์ต่ำ)
 
 ---
 

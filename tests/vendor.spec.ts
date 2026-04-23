@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { VendorPage } from "./pages/vendor.page";
 
-const test = createAuthTest("purchase@blueledgers.com");
+const test = createAuthTest("purchase@zebra.com");
 test.describe.configure({ mode: "serial" });
 
 const UID = Date.now().toString(36);
@@ -414,8 +414,8 @@ test.afterAll(async ({ browser }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.loginWithRetry(
-      "purchase@blueledgers.com",
-      getPasswordFor("purchase@blueledgers.com"),
+      "purchase@zebra.com",
+      getPasswordFor("purchase@zebra.com"),
     );
 
     const vendor = new VendorPage(page);
