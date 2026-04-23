@@ -10,9 +10,13 @@
  *   Priority | Test Type | Status | Run Date | Duration (ms) | Error | Note
  *
  * Reporter-populated: Seq, Test ID, Title, Status, Run Date, Duration (ms), Error.
- * Human-authored (left blank; filled manually in the spreadsheet): Preconditions,
- * Steps, Expected Result, Priority, Test Type, Note. The sync script preserves
- * these cells — it only overwrites the reporter-populated columns.
+ *
+ * Optionally populated via Playwright `annotation` (test option):
+ *   Preconditions, Steps, Expected Result, Priority, Test Type, Note.
+ * Annotation type names (case-insensitive):
+ *   preconditions | steps | expected (or expectedResult) | priority | testType | note
+ * When absent, those cells are blank in the CSV and the sync script preserves
+ * whatever is in the sheet (so manual authoring is fine).
  *
  * `Seq` is a 1-based running number per module. Rows are sorted by Test ID
  * before numbering, so Seq mirrors the sorted TC-<area><NN> order.
@@ -34,6 +38,67 @@ interface Row {
   duration: number;
   error: string;
   date: string;
+  preconditions: string;
+  steps: string;
+  expected: string;
+  priority: string;
+  testType: string;
+  note: string;
+}
+
+/**
+ * Map Playwright test annotations → CSV column values.
+ * Supported annotation `type` values (case-insensitive):
+ *   preconditions | steps | expected | expectedResult | priority | testType | note
+ */
+function readAnnotations(test: TestCase): {
+  preconditions: string;
+  steps: string;
+  expected: string;
+  priority: string;
+  testType: string;
+  note: string;
+} {
+  const out = {
+    preconditions: "",
+    steps: "",
+    expected: "",
+    priority: "",
+    testType: "",
+    note: "",
+  };
+  for (const a of test.annotations) {
+    const type = a.type?.toLowerCase() ?? "";
+    const desc = a.description ?? "";
+    switch (type) {
+      case "preconditions":
+      case "precondition":
+        out.preconditions = out.preconditions ? `${out.preconditions}\n${desc}` : desc;
+        break;
+      case "steps":
+      case "step":
+        out.steps = out.steps ? `${out.steps}\n${desc}` : desc;
+        break;
+      case "expected":
+      case "expectedresult":
+      case "expected result":
+        out.expected = out.expected ? `${out.expected}\n${desc}` : desc;
+        break;
+      case "priority":
+        out.priority = desc;
+        break;
+      case "testtype":
+      case "test type":
+      case "type":
+        out.testType = desc;
+        break;
+      case "note":
+      case "notes":
+        out.note = out.note ? `${out.note}\n${desc}` : desc;
+        break;
+    }
+  }
+  return out;
 }
 
 const TC_REGEX = /\b(TCS?-[A-Z]{0,4}\d{2,})\b/g;
@@ -84,6 +149,7 @@ export default class TCCsvReporter implements Reporter {
     const error = result.error?.message?.split("\n")[0] ?? "";
     const key = specKey(test.location.file);
     const bucket = this.rowsBySpec.get(key) ?? [];
+    const meta = readAnnotations(test);
     for (const id of ids) {
       bucket.push({
         id,
@@ -92,6 +158,7 @@ export default class TCCsvReporter implements Reporter {
         duration: Math.round(result.duration),
         error,
         date,
+        ...meta,
       });
     }
     this.rowsBySpec.set(key, bucket);
@@ -123,16 +190,16 @@ export default class TCCsvReporter implements Reporter {
             String(i + 1),
             r.id,
             r.title,
-            "", // Preconditions
-            "", // Steps
-            "", // Expected Result
-            "", // Priority
-            "", // Test Type
+            r.preconditions,
+            r.steps,
+            r.expected,
+            r.priority,
+            r.testType,
             r.status,
             r.date,
             String(r.duration),
             r.error,
-            "", // Note
+            r.note,
           ]
             .map(csvEscape)
             .join(","),

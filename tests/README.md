@@ -242,8 +242,32 @@ Custom reporter อยู่ที่ `e2e/reporters/tc-csv-reporter.ts` — เ
 - Regex: `/\b(TC-[A-Z]{0,4}\d{2,})\b/g` — รองรับ prefix 0-4 ตัวอักษร
 - Output: `tests/results/{specName}-results.csv` (specName includes the NNN- prefix)
 - Columns: `Seq, Test ID, Title, Preconditions, Steps, Expected Result, Priority, Test Type, Status, Run Date, Duration (ms), Error, Note`
-  - Reporter-populated: `Seq, Test ID, Title, Status, Run Date, Duration (ms), Error`
-  - Human-authored (blank in CSV; preserved in sheet): `Preconditions, Steps, Expected Result, Priority, Test Type, Note`
+  - Reporter-populated automatically: `Seq, Test ID, Title, Status, Run Date, Duration (ms), Error`
+  - Populated from Playwright `annotation` if present: `Preconditions, Steps, Expected Result, Priority, Test Type, Note`
+  - Left blank → preserved manually in the spreadsheet
+
+### Annotating test-case metadata in spec files
+
+Use Playwright's native `annotation` option (3rd arg of `test()`):
+
+```ts
+test(
+  "TC-L14 แสดง error เมื่อไม่กรอกรหัสผ่าน",
+  {
+    annotation: [
+      { type: "preconditions", description: "Logged out; on /login" },
+      { type: "steps", description: "1. เปิด /login\n2. กรอกเฉพาะ email\n3. กด Sign In" },
+      { type: "expected", description: "Stay on /login; no dashboard redirect" },
+      { type: "priority", description: "Medium" },
+      { type: "testType", description: "Validation" },
+      // { type: "note", description: "..." },   // optional
+    ],
+  },
+  async ({ page }) => { /* test body */ },
+);
+```
+
+Accepted annotation `type` values (case-insensitive): `preconditions`, `steps`, `expected` (or `expectedResult`), `priority`, `testType`, `note`. Multiple annotations of the same type are joined with newlines. Unannotated tests leave the cells blank — the sync script preserves whatever is manually entered in the sheet.
 
 ตั้งใน `playwright.config.ts`:
 ```ts

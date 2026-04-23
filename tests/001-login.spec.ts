@@ -43,50 +43,110 @@ test.describe("เข้าสู่ระบบ", () => {
   // ── Login success per role ────────────────────────────────────────────────
   for (const user of TEST_USERS) {
     if (!LOGIN_TC[user.role]) continue;
-    test(`${LOGIN_TC[user.role]} ${user.role} เข้าสู่ระบบสำเร็จ`, async ({ page }) => {
-      const loginPage = new LoginPage(page);
-      await loginPage.goto();
-      await loginPage.login(user.email, user.password);
-      await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
+    test(
+      `${LOGIN_TC[user.role]} ${user.role} เข้าสู่ระบบสำเร็จ`,
+      {
+        annotation: [
+          { type: "preconditions", description: `User ${user.email} exists and is active; browser is logged out` },
+          { type: "steps", description: "1. เปิด /login\n2. กรอก email + password\n3. กด Sign In\n4. กด logout จาก user menu" },
+          { type: "expected", description: "หลัง Sign In ไปที่ /dashboard และหลัง logout กลับมา /login" },
+          { type: "priority", description: "High" },
+          { type: "testType", description: "Smoke" },
+        ],
+      },
+      async ({ page }) => {
+        const loginPage = new LoginPage(page);
+        await loginPage.goto();
+        await loginPage.login(user.email, user.password);
+        await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
 
-      // Logout immediately to release the session
-      const dashboardPage = new DashboardPage(page);
-      await dashboardPage.userMenuTrigger().waitFor({ state: "visible", timeout: 15_000 });
-      await dashboardPage.logout();
-      await expect(page).toHaveURL(/login/, { timeout: 10_000 });
-    });
+        // Logout immediately to release the session
+        const dashboardPage = new DashboardPage(page);
+        await dashboardPage.userMenuTrigger().waitFor({ state: "visible", timeout: 15_000 });
+        await dashboardPage.logout();
+        await expect(page).toHaveURL(/login/, { timeout: 10_000 });
+      },
+    );
   }
 
   // ── Validation / error handling ───────────────────────────────────────────
-  test("TC-L14 แสดง error เมื่อไม่กรอกรหัสผ่าน", async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.emailInput().fill("requestor@blueledgers.com");
-    await loginPage.submitButton().click();
-    await expect(page).toHaveURL(/login/);
-  });
+  test(
+    "TC-L14 แสดง error เมื่อไม่กรอกรหัสผ่าน",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged out; on /login" },
+        { type: "steps", description: "1. เปิด /login\n2. กรอกเฉพาะ email\n3. กด Sign In" },
+        { type: "expected", description: "Stay on /login; no dashboard redirect" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.emailInput().fill("requestor@blueledgers.com");
+      await loginPage.submitButton().click();
+      await expect(page).toHaveURL(/login/);
+    },
+  );
 
-  test("TC-L15 แสดง error เมื่อไม่กรอกอีเมล", async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.passwordInput().fill(TEST_PASSWORD);
-    await loginPage.submitButton().click();
-    await expect(page).toHaveURL(/login/);
-  });
+  test(
+    "TC-L15 แสดง error เมื่อไม่กรอกอีเมล",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged out; on /login" },
+        { type: "steps", description: "1. เปิด /login\n2. กรอกเฉพาะ password\n3. กด Sign In" },
+        { type: "expected", description: "Stay on /login; no dashboard redirect" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.passwordInput().fill(TEST_PASSWORD);
+      await loginPage.submitButton().click();
+      await expect(page).toHaveURL(/login/);
+    },
+  );
 
-  test("TC-L16 แสดง error เมื่อไม่กรอกข้อมูลทั้งสองช่อง", async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.submitButton().click();
-    await expect(page).toHaveURL(/login/);
-  });
+  test(
+    "TC-L16 แสดง error เมื่อไม่กรอกข้อมูลทั้งสองช่อง",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged out; on /login" },
+        { type: "steps", description: "1. เปิด /login\n2. ปล่อย form ว่าง\n3. กด Sign In" },
+        { type: "expected", description: "Stay on /login" },
+        { type: "priority", description: "Low" },
+        { type: "testType", description: "Validation" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.submitButton().click();
+      await expect(page).toHaveURL(/login/);
+    },
+  );
 
-  test("TC-L17 แสดง error เมื่อรูปแบบอีเมลไม่ถูกต้อง", async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.login("not-an-email", TEST_PASSWORD);
-    await expect(page).toHaveURL(/login/);
-  });
+  test(
+    "TC-L17 แสดง error เมื่อรูปแบบอีเมลไม่ถูกต้อง",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged out; on /login" },
+        { type: "steps", description: "1. กรอก email = 'not-an-email'\n2. กรอก password\n3. กด Sign In" },
+        { type: "expected", description: "Stay on /login; HTML5/Zod validation blocks submit" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.login("not-an-email", TEST_PASSWORD);
+      await expect(page).toHaveURL(/login/);
+    },
+  );
 
   test("TC-L18 แสดง error เมื่อ credentials ไม่ถูกต้อง", async ({ page }) => {
     const loginPage = new LoginPage(page);
