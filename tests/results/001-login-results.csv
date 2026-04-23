@@ -1,31 +1,60 @@
 Seq,Test ID,Title,Preconditions,Steps,Expected Result,Priority,Test Type,Status,Run Date,Duration (ms),Error,Note
-1,TC-L01,TC-L01 Requestor เข้าสู่ระบบสำเร็จ,,,,,,Pass,2026-04-23T10:26:48.136Z,2499,,
-2,TC-L02,TC-L02 HOD เข้าสู่ระบบสำเร็จ,,,,,,Pass,2026-04-23T10:26:49.365Z,1222,,
-3,TC-L03,TC-L03 Purchase เข้าสู่ระบบสำเร็จ,,,,,,Pass,2026-04-23T10:26:50.585Z,1214,,
-4,TC-L04,TC-L04 FC เข้าสู่ระบบสำเร็จ,,,,,,Pass,2026-04-23T10:26:51.860Z,1269,,
-5,TC-L05,TC-L05 GM เข้าสู่ระบบสำเร็จ,,,,,,Pass,2026-04-23T10:26:53.126Z,1260,,
-6,TC-L06,TC-L06 Owner เข้าสู่ระบบสำเร็จ,,,,,,Pass,2026-04-23T10:26:54.398Z,1266,,
-7,TC-L07,TC-L07 TT เข้าสู่ระบบสำเร็จ,,,,,,Fail,2026-04-23T10:27:24.543Z,30113,[31mTest timeout of 30000ms exceeded.[39m,
-8,TC-L08,TC-L08 Requestor ออกจากระบบสำเร็จ,,,,,,Pass,2026-04-23T10:27:31.980Z,857,,
-9,TC-L09,TC-L09 HOD ออกจากระบบสำเร็จ,,,,,,Pass,2026-04-23T10:27:32.810Z,824,,
-10,TC-L10,TC-L10 Purchase ออกจากระบบสำเร็จ,,,,,,Pass,2026-04-23T10:27:33.648Z,833,,
-11,TC-L11,TC-L11 FC ออกจากระบบสำเร็จ,,,,,,Pass,2026-04-23T10:27:34.493Z,838,,
-12,TC-L12,TC-L12 GM ออกจากระบบสำเร็จ,,,,,,Pass,2026-04-23T10:27:35.315Z,816,,
-13,TC-L13,TC-L13 Owner ออกจากระบบสำเร็จ,,,,,,Pass,2026-04-23T10:27:36.197Z,876,,
-14,TC-L14,TC-L14 แสดง error เมื่อไม่กรอกรหัสผ่าน,,,,,,Pass,2026-04-23T10:27:25.315Z,266,,
-15,TC-L15,TC-L15 แสดง error เมื่อไม่กรอกอีเมล,,,,,,Pass,2026-04-23T10:27:25.556Z,236,,
-16,TC-L16,TC-L16 แสดง error เมื่อไม่กรอกข้อมูลทั้งสองช่อง,,,,,,Pass,2026-04-23T10:27:25.754Z,191,,
-17,TC-L17,TC-L17 แสดง error เมื่อรูปแบบอีเมลไม่ถูกต้อง,,,,,,Pass,2026-04-23T10:27:25.991Z,231,,
-18,TC-L18,TC-L18 แสดง error เมื่อ credentials ไม่ถูกต้อง,,,,,,Pass,2026-04-23T10:27:26.334Z,338,,
-19,TC-L19,TC-L19 แสดง error เมื่ออีเมลถูกแต่รหัสผ่านผิด,,,,,,Pass,2026-04-23T10:27:26.677Z,338,,
-20,TC-L20,TC-L20 อีเมลไม่สนใจตัวพิมพ์ใหญ่-เล็ก,,,,,,Pass,2026-04-23T10:27:27.810Z,1125,,
-21,TC-L21,TC-L21 รหัสผ่านแยกตัวพิมพ์ใหญ่-เล็ก (พิมพ์ผิดเคสต้อง fail),,,,,,Pass,2026-04-23T10:27:28.058Z,242,,
-22,TC-L22,TC-L22 รองรับช่องว่างหน้า/หลังอีเมล,,,,,,Pass,2026-04-23T10:27:28.293Z,229,,
-23,TC-L23,TC-L23 ช่องรหัสผ่านถูก mask,,,,,,Pass,2026-04-23T10:27:28.463Z,165,,
-24,TC-L24,TC-L24 กด Enter เพื่อ submit form ได้,,,,,,Pass,2026-04-23T10:27:29.185Z,716,,
-25,TC-L25,TC-L25 เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login,,,,,,Pass,2026-04-23T10:27:29.353Z,163,,
-26,TC-L26,TC-L26 user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard,,,,,,Skipped,2026-04-23T10:27:29.353Z,0,,
-27,TC-L27,TC-L27 อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย,,,,,,Pass,2026-04-23T10:27:29.591Z,233,,
-28,TC-L28,TC-L28 อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย,,,,,,Pass,2026-04-23T10:27:29.826Z,230,,
-29,TC-L29,TC-L29 login username ผิดต้องได้รับ HTTP 401,,,,,,Pass,2026-04-23T10:27:30.105Z,273,,
-30,TC-L30,TC-L30 login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429,,,,,,Fail,2026-04-23T10:27:30.676Z,549,Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m,
+1,TC-L01,TC-L01 Requestor เข้าสู่ระบบสำเร็จ,User requestor@blueledgers.com exists and is active; browser is logged out,"1. เปิด /login
+2. กรอก email + password
+3. กด Sign In
+4. กด logout จาก user menu",หลัง Sign In ไปที่ /dashboard และหลัง logout กลับมา /login,High,Smoke,Pass,2026-04-23T10:34:17.250Z,2521,,
+2,TC-L02,TC-L02 HOD เข้าสู่ระบบสำเร็จ,User hod@blueledgers.com exists and is active; browser is logged out,"1. เปิด /login
+2. กรอก email + password
+3. กด Sign In
+4. กด logout จาก user menu",หลัง Sign In ไปที่ /dashboard และหลัง logout กลับมา /login,High,Smoke,Pass,2026-04-23T10:34:18.490Z,1234,,
+3,TC-L03,TC-L03 Purchase เข้าสู่ระบบสำเร็จ,User purchase@blueledgers.com exists and is active; browser is logged out,"1. เปิด /login
+2. กรอก email + password
+3. กด Sign In
+4. กด logout จาก user menu",หลัง Sign In ไปที่ /dashboard และหลัง logout กลับมา /login,High,Smoke,Pass,2026-04-23T10:34:19.694Z,1198,,
+4,TC-L04,TC-L04 FC เข้าสู่ระบบสำเร็จ,User fc@blueledgers.com exists and is active; browser is logged out,"1. เปิด /login
+2. กรอก email + password
+3. กด Sign In
+4. กด logout จาก user menu",หลัง Sign In ไปที่ /dashboard และหลัง logout กลับมา /login,High,Smoke,Pass,2026-04-23T10:34:20.903Z,1202,,
+5,TC-L05,TC-L05 GM เข้าสู่ระบบสำเร็จ,User gm@blueledgers.com exists and is active; browser is logged out,"1. เปิด /login
+2. กรอก email + password
+3. กด Sign In
+4. กด logout จาก user menu",หลัง Sign In ไปที่ /dashboard และหลัง logout กลับมา /login,High,Smoke,Pass,2026-04-23T10:34:22.224Z,1311,,
+6,TC-L06,TC-L06 Owner เข้าสู่ระบบสำเร็จ,User owner@blueledgers.com exists and is active; browser is logged out,"1. เปิด /login
+2. กรอก email + password
+3. กด Sign In
+4. กด logout จาก user menu",หลัง Sign In ไปที่ /dashboard และหลัง logout กลับมา /login,High,Smoke,Pass,2026-04-23T10:34:23.463Z,1234,,
+7,TC-L07,TC-L07 TT เข้าสู่ระบบสำเร็จ,User tt@blueledgers.com exists and is active; browser is logged out,"1. เปิด /login
+2. กรอก email + password
+3. กด Sign In
+4. กด logout จาก user menu",หลัง Sign In ไปที่ /dashboard และหลัง logout กลับมา /login,High,Smoke,Fail,2026-04-23T10:34:53.580Z,30090,[31mTest timeout of 30000ms exceeded.[39m,
+8,TC-L08,TC-L08 Requestor ออกจากระบบสำเร็จ,,,,,,Pass,2026-04-23T10:35:02.002Z,1012,,
+9,TC-L09,TC-L09 HOD ออกจากระบบสำเร็จ,,,,,,Pass,2026-04-23T10:35:03.009Z,1001,,
+10,TC-L10,TC-L10 Purchase ออกจากระบบสำเร็จ,,,,,,Pass,2026-04-23T10:35:04.027Z,1008,,
+11,TC-L11,TC-L11 FC ออกจากระบบสำเร็จ,,,,,,Pass,2026-04-23T10:35:05.016Z,984,,
+12,TC-L12,TC-L12 GM ออกจากระบบสำเร็จ,,,,,,Pass,2026-04-23T10:35:05.996Z,974,,
+13,TC-L13,TC-L13 Owner ออกจากระบบสำเร็จ,,,,,,Pass,2026-04-23T10:35:06.988Z,982,,
+14,TC-L14,TC-L14 แสดง error เมื่อไม่กรอกรหัสผ่าน,Logged out; on /login,"1. เปิด /login
+2. กรอกเฉพาะ email
+3. กด Sign In",Stay on /login; no dashboard redirect,Medium,Validation,Pass,2026-04-23T10:34:54.336Z,264,,
+15,TC-L15,TC-L15 แสดง error เมื่อไม่กรอกอีเมล,Logged out; on /login,"1. เปิด /login
+2. กรอกเฉพาะ password
+3. กด Sign In",Stay on /login; no dashboard redirect,Medium,Validation,Pass,2026-04-23T10:34:54.573Z,231,,
+16,TC-L16,TC-L16 แสดง error เมื่อไม่กรอกข้อมูลทั้งสองช่อง,Logged out; on /login,"1. เปิด /login
+2. ปล่อย form ว่าง
+3. กด Sign In",Stay on /login,Low,Validation,Pass,2026-04-23T10:34:54.768Z,189,,
+17,TC-L17,TC-L17 แสดง error เมื่อรูปแบบอีเมลไม่ถูกต้อง,Logged out; on /login,"1. กรอก email = 'not-an-email'
+2. กรอก password
+3. กด Sign In",Stay on /login; HTML5/Zod validation blocks submit,Medium,Validation,Pass,2026-04-23T10:34:55.007Z,234,,
+18,TC-L18,TC-L18 แสดง error เมื่อ credentials ไม่ถูกต้อง,,,,,,Pass,2026-04-23T10:34:55.593Z,581,,
+19,TC-L19,TC-L19 แสดง error เมื่ออีเมลถูกแต่รหัสผ่านผิด,,,,,,Pass,2026-04-23T10:34:56.183Z,584,,
+20,TC-L20,TC-L20 อีเมลไม่สนใจตัวพิมพ์ใหญ่-เล็ก,,,,,,Pass,2026-04-23T10:34:57.304Z,1114,,
+21,TC-L21,TC-L21 รหัสผ่านแยกตัวพิมพ์ใหญ่-เล็ก (พิมพ์ผิดเคสต้อง fail),,,,,,Pass,2026-04-23T10:34:57.567Z,257,,
+22,TC-L22,TC-L22 รองรับช่องว่างหน้า/หลังอีเมล,,,,,,Pass,2026-04-23T10:34:57.803Z,229,,
+23,TC-L23,TC-L23 ช่องรหัสผ่านถูก mask,,,,,,Pass,2026-04-23T10:34:57.983Z,174,,
+24,TC-L24,TC-L24 กด Enter เพื่อ submit form ได้,,,,,,Pass,2026-04-23T10:34:58.808Z,819,,
+25,TC-L25,TC-L25 เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login,,,,,,Pass,2026-04-23T10:34:58.977Z,162,,
+26,TC-L26,TC-L26 user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard,,,,,,Skipped,2026-04-23T10:34:58.977Z,0,,
+27,TC-L27,TC-L27 อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย,,,,,,Pass,2026-04-23T10:34:59.204Z,222,,
+28,TC-L28,TC-L28 อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย,,,,,,Pass,2026-04-23T10:34:59.438Z,228,,
+29,TC-L29,TC-L29 login username ผิดต้องได้รับ HTTP 401,,,,,,Pass,2026-04-23T10:34:59.825Z,382,,
+30,TC-L30,TC-L30 login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429,,,,,,Fail,2026-04-23T10:35:00.575Z,728,Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m,

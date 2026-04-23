@@ -32,6 +32,12 @@ interface ResultRow {
   date: string;
   error: string;
   duration: string;
+  preconditions: string;
+  steps: string;
+  expected: string;
+  priority: string;
+  testType: string;
+  note: string;
 }
 
 interface SyncTarget {
@@ -117,6 +123,12 @@ function loadResults(csvFile: string): ResultRow[] {
       date: r["Run Date"] ?? r["Test Date"] ?? "",
       error: r["Error"] ?? "",
       duration: r["Duration (ms)"] ?? "",
+      preconditions: r["Preconditions"] ?? "",
+      steps: r["Steps"] ?? "",
+      expected: r["Expected Result"] ?? "",
+      priority: r["Priority"] ?? "",
+      testType: r["Test Type"] ?? "",
+      note: r["Note"] ?? "",
     }));
 }
 
@@ -175,23 +187,17 @@ async function syncTab(
     const i = header.indexOf("Title");
     return i >= 0 ? i : header.indexOf("Description");
   })();
-  // Human-authored columns — never overwrite; only write if the CSV happens to
-  // carry a value (it won't today, but future test-annotation features can
-  // populate them without changing this script).
+  // Metadata columns populated from Playwright annotations (via the CSV
+  // reporter). Policy: write a CSV value into the sheet only when the CSV has
+  // a non-empty value AND the sheet cell is currently empty — this way,
+  // manual edits in the sheet are preserved, but un-filled sheet cells get
+  // backfilled from the next annotated test run.
   const preconditionsCol = header.indexOf("Preconditions");
   const stepsCol = header.indexOf("Steps");
   const expectedCol = header.indexOf("Expected Result");
   const priorityCol = header.indexOf("Priority");
   const testTypeCol = header.indexOf("Test Type");
   const noteCol = header.indexOf("Note");
-  // Deliberately reference the lookups so the TypeScript "unused" check is
-  // happy even though current payloads don't populate them.
-  void preconditionsCol;
-  void stepsCol;
-  void expectedCol;
-  void priorityCol;
-  void testTypeCol;
-  void noteCol;
   if (idCol < 0 || statusCol < 0 || dateCol < 0) {
     console.warn(
       `[${target.sheetTab}] missing required columns (Test ID/Status/Run Date or Test Date) — skipping`,
@@ -223,6 +229,12 @@ async function syncTab(
       if (durationCol >= 0) row[durationCol] = r.duration;
       if (titleCol >= 0) row[titleCol] = r.title;
       if (seqCol >= 0) row[seqCol] = r.seq;
+      if (preconditionsCol >= 0) row[preconditionsCol] = r.preconditions;
+      if (stepsCol >= 0) row[stepsCol] = r.steps;
+      if (expectedCol >= 0) row[expectedCol] = r.expected;
+      if (priorityCol >= 0) row[priorityCol] = r.priority;
+      if (testTypeCol >= 0) row[testTypeCol] = r.testType;
+      if (noteCol >= 0) row[noteCol] = r.note;
       appendRows.push(row);
       appended++;
       continue;
@@ -263,6 +275,26 @@ async function syncTab(
           values: [[r.title]],
         });
       }
+    }
+
+    // Backfill metadata columns only when the sheet cell is empty. Same
+    // preserve-manual-edits policy as Title.
+    const metaWrites: Array<[number, string]> = [
+      [preconditionsCol, r.preconditions],
+      [stepsCol, r.steps],
+      [expectedCol, r.expected],
+      [priorityCol, r.priority],
+      [testTypeCol, r.testType],
+      [noteCol, r.note],
+    ];
+    for (const [col, value] of metaWrites) {
+      if (col < 0 || !value) continue;
+      const existing = grid[rowNum - 1]?.[col] ?? "";
+      if (existing.trim()) continue;
+      dataUpdates.push({
+        range: `${target.sheetTab}!${colLetter(col)}${rowNum}`,
+        values: [[value]],
+      });
     }
   }
 
