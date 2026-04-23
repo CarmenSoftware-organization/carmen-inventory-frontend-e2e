@@ -223,7 +223,14 @@ const opts = {
 
 (`NNN` คือลำดับ 3 หลักของ spec file เช่น `015-my-module-results.csv`)
 
-แล้วสร้าง tab ใน Google Sheet ที่มี header: `Seq, Test ID, Title, Status, Test Date, Duration (ms), Error`
+แล้วสร้าง tab ใน Google Sheet ที่มี header:
+
+```
+Seq, Test ID, Title, Preconditions, Steps, Expected Result,
+Priority, Test Type, Status, Run Date, Duration (ms), Error, Note
+```
+
+Reporter จะเขียน `Seq, Test ID, Title, Status, Run Date, Duration (ms), Error` ทุกครั้งที่รัน ส่วน `Preconditions, Steps, Expected Result, Priority, Test Type, Note` เป็นคอลัมน์ที่กรอกเองในชีต — sync script จะไม่แตะ (preserve manual edits)
 
 ---
 
@@ -234,7 +241,9 @@ Custom reporter อยู่ที่ `e2e/reporters/tc-csv-reporter.ts` — เ
 - Input: test title ที่มี Test ID เช่น `"TC-BT06 สร้างรายการใหม่"`
 - Regex: `/\b(TC-[A-Z]{0,4}\d{2,})\b/g` — รองรับ prefix 0-4 ตัวอักษร
 - Output: `tests/results/{specName}-results.csv` (specName includes the NNN- prefix)
-- Columns: `Seq, Test ID, Title, Status, Duration (ms), Error, Test Date`
+- Columns: `Seq, Test ID, Title, Preconditions, Steps, Expected Result, Priority, Test Type, Status, Run Date, Duration (ms), Error, Note`
+  - Reporter-populated: `Seq, Test ID, Title, Status, Run Date, Duration (ms), Error`
+  - Human-authored (blank in CSV; preserved in sheet): `Preconditions, Steps, Expected Result, Priority, Test Type, Note`
 
 ตั้งใน `playwright.config.ts`:
 ```ts

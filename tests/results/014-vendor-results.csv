@@ -1,29 +1,29 @@
-Seq,Test ID,Title,Status,Duration (ms),Error,Test Date
-1,TC-VEN01,TC-VEN01 หน้า list โหลดสำเร็จ,Fail,20882,Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed,2026-04-23T10:01:09.479Z
-2,TC-VEN02,TC-VEN02 ปุ่ม Add แสดง,Skipped,0,,2026-04-23T10:01:09.480Z
-3,TC-VEN03,TC-VEN03 ช่องค้นหาใช้งานได้,Skipped,0,,2026-04-23T10:01:09.480Z
-4,TC-VEN04,TC-VEN04 ค้นหาคำที่ไม่มีต้องแสดง empty state,Skipped,0,,2026-04-23T10:01:09.481Z
-5,TC-VEN05,TC-VEN05 Filter status (active/inactive) ใช้งานได้,Skipped,0,,2026-04-23T10:01:09.481Z
-6,TC-VEN06,TC-VEN06 เปิดหน้า new form สำเร็จ,Skipped,0,,2026-04-23T10:01:09.481Z
-7,TC-VEN07,TC-VEN07 เลือก business type จาก dropdown ได้,Skipped,0,,2026-04-23T10:01:09.481Z
-8,TC-VEN08,TC-VEN08 สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ,Skipped,0,,2026-04-23T10:01:09.481Z
-9,TC-VEN09,TC-VEN09 สร้าง vendor พร้อม address 1 รายการ,Skipped,0,,2026-04-23T10:01:09.481Z
-10,TC-VEN10,TC-VEN10 สร้าง vendor พร้อม contact 1 รายการ (primary),Skipped,0,,2026-04-23T10:01:09.481Z
-11,TC-VEN11,TC-VEN11 สลับ tab ทั้ง 4 tabs ได้,Skipped,0,,2026-04-23T10:01:09.481Z
-12,TC-VEN12,TC-VEN12 เพิ่ม address row ได้หลาย row,Skipped,0,,2026-04-23T10:01:09.482Z
-13,TC-VEN13,TC-VEN13 ลบ address row ได้,Skipped,0,,2026-04-23T10:01:09.482Z
-14,TC-VEN14,TC-VEN14 เพิ่ม contact row ได้หลาย row,Skipped,0,,2026-04-23T10:01:09.482Z
-15,TC-VEN15,TC-VEN15 ลบ contact row ได้,Skipped,0,,2026-04-23T10:01:09.482Z
-16,TC-VEN16,TC-VEN16 เปลี่ยน primary contact ได้ (radio exclusive),Skipped,0,,2026-04-23T10:01:09.482Z
-17,TC-VEN17,TC-VEN17 เพิ่ม info row (label/value) ได้,Skipped,0,,2026-04-23T10:01:09.482Z
-18,TC-VEN18,TC-VEN18 ลบ info row ได้,Skipped,0,,2026-04-23T10:01:09.482Z
-19,TC-VEN19,TC-VEN19 บันทึกโดยไม่กรอก code ต้องแสดง error,Skipped,0,,2026-04-23T10:01:09.482Z
-20,TC-VEN20,TC-VEN20 บันทึกโดยไม่กรอก name ต้องแสดง error,Skipped,0,,2026-04-23T10:01:09.482Z
-21,TC-VEN21,TC-VEN21 code เกิน 10 ตัวอักษรต้องถูก reject,Skipped,0,,2026-04-23T10:01:09.482Z
-22,TC-VEN22,TC-VEN22 name เกิน 100 ตัวอักษรต้องถูก reject,Skipped,0,,2026-04-23T10:01:09.482Z
-23,TC-VEN23,TC-VEN23 address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement),Skipped,0,,2026-04-23T10:01:09.483Z
-24,TC-VEN24,TC-VEN24 contact email รูปแบบผิดต้องแสดง error,Skipped,0,,2026-04-23T10:01:09.483Z
-25,TC-VEN25,TC-VEN25 แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ,Skipped,0,,2026-04-23T10:01:09.483Z
-26,TC-VEN26,TC-VEN26 เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่,Skipped,0,,2026-04-23T10:01:09.483Z
-27,TC-VEN27,TC-VEN27 ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก),Skipped,0,,2026-04-23T10:01:09.483Z
-28,TC-VEN28,TC-VEN28 หลังลบแล้วค้นหาไม่พบ row นั้นอีก,Skipped,0,,2026-04-23T10:01:09.483Z
+Seq,Test ID,Title,Preconditions,Steps,Expected Result,Priority,Test Type,Status,Run Date,Duration (ms),Error,Note
+1,TC-VEN01,TC-VEN01 หน้า list โหลดสำเร็จ,,,,,,Fail,2026-04-23T10:01:09.479Z,20882,Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed,
+2,TC-VEN02,TC-VEN02 ปุ่ม Add แสดง,,,,,,Skipped,2026-04-23T10:01:09.480Z,0,,
+3,TC-VEN03,TC-VEN03 ช่องค้นหาใช้งานได้,,,,,,Skipped,2026-04-23T10:01:09.480Z,0,,
+4,TC-VEN04,TC-VEN04 ค้นหาคำที่ไม่มีต้องแสดง empty state,,,,,,Skipped,2026-04-23T10:01:09.481Z,0,,
+5,TC-VEN05,TC-VEN05 Filter status (active/inactive) ใช้งานได้,,,,,,Skipped,2026-04-23T10:01:09.481Z,0,,
+6,TC-VEN06,TC-VEN06 เปิดหน้า new form สำเร็จ,,,,,,Skipped,2026-04-23T10:01:09.481Z,0,,
+7,TC-VEN07,TC-VEN07 เลือก business type จาก dropdown ได้,,,,,,Skipped,2026-04-23T10:01:09.481Z,0,,
+8,TC-VEN08,TC-VEN08 สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ,,,,,,Skipped,2026-04-23T10:01:09.481Z,0,,
+9,TC-VEN09,TC-VEN09 สร้าง vendor พร้อม address 1 รายการ,,,,,,Skipped,2026-04-23T10:01:09.481Z,0,,
+10,TC-VEN10,TC-VEN10 สร้าง vendor พร้อม contact 1 รายการ (primary),,,,,,Skipped,2026-04-23T10:01:09.481Z,0,,
+11,TC-VEN11,TC-VEN11 สลับ tab ทั้ง 4 tabs ได้,,,,,,Skipped,2026-04-23T10:01:09.481Z,0,,
+12,TC-VEN12,TC-VEN12 เพิ่ม address row ได้หลาย row,,,,,,Skipped,2026-04-23T10:01:09.482Z,0,,
+13,TC-VEN13,TC-VEN13 ลบ address row ได้,,,,,,Skipped,2026-04-23T10:01:09.482Z,0,,
+14,TC-VEN14,TC-VEN14 เพิ่ม contact row ได้หลาย row,,,,,,Skipped,2026-04-23T10:01:09.482Z,0,,
+15,TC-VEN15,TC-VEN15 ลบ contact row ได้,,,,,,Skipped,2026-04-23T10:01:09.482Z,0,,
+16,TC-VEN16,TC-VEN16 เปลี่ยน primary contact ได้ (radio exclusive),,,,,,Skipped,2026-04-23T10:01:09.482Z,0,,
+17,TC-VEN17,TC-VEN17 เพิ่ม info row (label/value) ได้,,,,,,Skipped,2026-04-23T10:01:09.482Z,0,,
+18,TC-VEN18,TC-VEN18 ลบ info row ได้,,,,,,Skipped,2026-04-23T10:01:09.482Z,0,,
+19,TC-VEN19,TC-VEN19 บันทึกโดยไม่กรอก code ต้องแสดง error,,,,,,Skipped,2026-04-23T10:01:09.482Z,0,,
+20,TC-VEN20,TC-VEN20 บันทึกโดยไม่กรอก name ต้องแสดง error,,,,,,Skipped,2026-04-23T10:01:09.482Z,0,,
+21,TC-VEN21,TC-VEN21 code เกิน 10 ตัวอักษรต้องถูก reject,,,,,,Skipped,2026-04-23T10:01:09.482Z,0,,
+22,TC-VEN22,TC-VEN22 name เกิน 100 ตัวอักษรต้องถูก reject,,,,,,Skipped,2026-04-23T10:01:09.482Z,0,,
+23,TC-VEN23,TC-VEN23 address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement),,,,,,Skipped,2026-04-23T10:01:09.483Z,0,,
+24,TC-VEN24,TC-VEN24 contact email รูปแบบผิดต้องแสดง error,,,,,,Skipped,2026-04-23T10:01:09.483Z,0,,
+25,TC-VEN25,TC-VEN25 แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ,,,,,,Skipped,2026-04-23T10:01:09.483Z,0,,
+26,TC-VEN26,TC-VEN26 เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่,,,,,,Skipped,2026-04-23T10:01:09.483Z,0,,
+27,TC-VEN27,TC-VEN27 ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก),,,,,,Skipped,2026-04-23T10:01:09.483Z,0,,
+28,TC-VEN28,TC-VEN28 หลังลบแล้วค้นหาไม่พบ row นั้นอีก,,,,,,Skipped,2026-04-23T10:01:09.483Z,0,,

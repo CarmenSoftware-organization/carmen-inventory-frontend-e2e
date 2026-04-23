@@ -1,10 +1,10 @@
-Seq,Test ID,Title,Status,Duration (ms),Error,Test Date
-1,TC-BT01,TC-BT01 หน้า list โหลดสำเร็จ,Pass,8292,,2026-04-23T04:23:14.170Z
-2,TC-BT02,TC-BT02 ปุ่ม Add แสดง,Pass,12815,,2026-04-23T04:23:27.009Z
-3,TC-BT03,TC-BT03 ช่องค้นหาใช้งานได้,Pass,1911,,2026-04-23T04:23:28.925Z
-4,TC-BT04,TC-BT04 ค้นหาคำที่ไม่มีต้องแสดง empty state,Pass,2634,,2026-04-23T04:23:31.566Z
-5,TC-BT05,TC-BT05 บันทึกโดยไม่กรอกชื่อต้องแสดง error,Fail,6857,Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed,2026-04-23T04:23:38.449Z
-6,TC-BT06,TC-BT06 สร้างรายการใหม่และปรากฏในตาราง,Skipped,0,,2026-04-23T04:23:38.450Z
-7,TC-BT07,TC-BT07 แก้ไขชื่อและบันทึก,Skipped,0,,2026-04-23T04:23:38.450Z
-8,TC-BT08,TC-BT08 ลบรายการ,Skipped,0,,2026-04-23T04:23:38.450Z
-9,TC-BT13,TC-BT13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error,Skipped,0,,2026-04-23T04:23:38.450Z
+Seq,Test ID,Title,Preconditions,Steps,Expected Result,Priority,Test Type,Status,Run Date,Duration (ms),Error,Note
+1,TC-BT01,TC-BT01 หน้า list โหลดสำเร็จ,,,,,,Pass,2026-04-23T04:23:14.170Z,8292,,
+2,TC-BT02,TC-BT02 ปุ่ม Add แสดง,,,,,,Pass,2026-04-23T04:23:27.009Z,12815,,
+3,TC-BT03,TC-BT03 ช่องค้นหาใช้งานได้,,,,,,Pass,2026-04-23T04:23:28.925Z,1911,,
+4,TC-BT04,TC-BT04 ค้นหาคำที่ไม่มีต้องแสดง empty state,,,,,,Pass,2026-04-23T04:23:31.566Z,2634,,
+5,TC-BT05,TC-BT05 บันทึกโดยไม่กรอกชื่อต้องแสดง error,,,,,,Fail,2026-04-23T04:23:38.449Z,6857,Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed,
+6,TC-BT06,TC-BT06 สร้างรายการใหม่และปรากฏในตาราง,,,,,,Skipped,2026-04-23T04:23:38.450Z,0,,
+7,TC-BT07,TC-BT07 แก้ไขชื่อและบันทึก,,,,,,Skipped,2026-04-23T04:23:38.450Z,0,,
+8,TC-BT08,TC-BT08 ลบรายการ,,,,,,Skipped,2026-04-23T04:23:38.450Z,0,,
+9,TC-BT13,TC-BT13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error,,,,,,Skipped,2026-04-23T04:23:38.450Z,0,,

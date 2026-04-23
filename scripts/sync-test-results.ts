@@ -113,7 +113,8 @@ function loadResults(csvFile: string): ResultRow[] {
       testId: r["Test ID"],
       title: r["Title"] ?? r["Description"] ?? "",
       status: r["Status"] ?? "",
-      date: r["Test Date"] ?? "",
+      // New CSVs use "Run Date"; accept "Test Date" for backward compat.
+      date: r["Run Date"] ?? r["Test Date"] ?? "",
       error: r["Error"] ?? "",
       duration: r["Duration (ms)"] ?? "",
     }));
@@ -161,7 +162,11 @@ async function syncTab(
   const header = grid[0];
   const idCol = header.indexOf("Test ID");
   const statusCol = header.indexOf("Status");
-  const dateCol = header.indexOf("Test Date");
+  // Accept either "Run Date" (new) or "Test Date" (legacy).
+  const dateCol = (() => {
+    const i = header.indexOf("Run Date");
+    return i >= 0 ? i : header.indexOf("Test Date");
+  })();
   const errorCol = header.indexOf("Error");
   const durationCol = header.indexOf("Duration (ms)");
   const seqCol = header.indexOf("Seq");
@@ -170,9 +175,26 @@ async function syncTab(
     const i = header.indexOf("Title");
     return i >= 0 ? i : header.indexOf("Description");
   })();
+  // Human-authored columns — never overwrite; only write if the CSV happens to
+  // carry a value (it won't today, but future test-annotation features can
+  // populate them without changing this script).
+  const preconditionsCol = header.indexOf("Preconditions");
+  const stepsCol = header.indexOf("Steps");
+  const expectedCol = header.indexOf("Expected Result");
+  const priorityCol = header.indexOf("Priority");
+  const testTypeCol = header.indexOf("Test Type");
+  const noteCol = header.indexOf("Note");
+  // Deliberately reference the lookups so the TypeScript "unused" check is
+  // happy even though current payloads don't populate them.
+  void preconditionsCol;
+  void stepsCol;
+  void expectedCol;
+  void priorityCol;
+  void testTypeCol;
+  void noteCol;
   if (idCol < 0 || statusCol < 0 || dateCol < 0) {
     console.warn(
-      `[${target.sheetTab}] missing required columns (Test ID/Status/Test Date) — skipping`,
+      `[${target.sheetTab}] missing required columns (Test ID/Status/Run Date or Test Date) — skipping`,
     );
     return;
   }

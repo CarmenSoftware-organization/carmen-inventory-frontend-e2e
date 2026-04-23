@@ -3,9 +3,16 @@
  * files keyed by Test ID (TC-XXX) parsed from the test title.
  *
  * Writes one CSV per spec file into the output directory, named
- * after the spec basename: `login.spec.ts` → `login-results.csv`.
+ * after the spec basename: `001-login.spec.ts` → `001-login-results.csv`.
  *
- * Columns: Seq, Test ID, Title, Status, Duration (ms), Error, Test Date
+ * Columns:
+ *   Seq | Test ID | Title | Preconditions | Steps | Expected Result |
+ *   Priority | Test Type | Status | Run Date | Duration (ms) | Error | Note
+ *
+ * Reporter-populated: Seq, Test ID, Title, Status, Run Date, Duration (ms), Error.
+ * Human-authored (left blank; filled manually in the spreadsheet): Preconditions,
+ * Steps, Expected Result, Priority, Test Type, Note. The sync script preserves
+ * these cells — it only overwrites the reporter-populated columns.
  *
  * `Seq` is a 1-based running number per module. Rows are sorted by Test ID
  * before numbering, so Seq mirrors the sorted TC-<area><NN> order.
@@ -53,7 +60,7 @@ function statusLabel(result: TestResult): string {
 }
 
 function specKey(file: string): string {
-  // e2e/login.spec.ts → login
+  // tests/001-login.spec.ts → 001-login
   return basename(file).replace(/\.spec\.(ts|js|tsx|jsx)$/, "");
 }
 
@@ -92,13 +99,41 @@ export default class TCCsvReporter implements Reporter {
 
   async onEnd(_result: FullResult) {
     mkdirSync(this.outDir, { recursive: true });
-    const header = ["Seq", "Test ID", "Title", "Status", "Duration (ms)", "Error", "Test Date"];
+    const header = [
+      "Seq",
+      "Test ID",
+      "Title",
+      "Preconditions",
+      "Steps",
+      "Expected Result",
+      "Priority",
+      "Test Type",
+      "Status",
+      "Run Date",
+      "Duration (ms)",
+      "Error",
+      "Note",
+    ];
     for (const [key, rows] of this.rowsBySpec) {
       rows.sort((a, b) => a.id.localeCompare(b.id));
       const lines = [header.join(",")];
       rows.forEach((r, i) => {
         lines.push(
-          [String(i + 1), r.id, r.title, r.status, String(r.duration), r.error, r.date]
+          [
+            String(i + 1),
+            r.id,
+            r.title,
+            "", // Preconditions
+            "", // Steps
+            "", // Expected Result
+            "", // Priority
+            "", // Test Type
+            r.status,
+            r.date,
+            String(r.duration),
+            r.error,
+            "", // Note
+          ]
             .map(csvEscape)
             .join(","),
         );
