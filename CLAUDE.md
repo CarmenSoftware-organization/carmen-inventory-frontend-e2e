@@ -63,3 +63,5 @@ Mirrored from the frontend repo's in-tree `e2e/` suite — specs, page objects, 
 - CSV reporter `outputDir` is `tests/results` (not `e2e/results`).
 - Shell scripts resolve SPECs as `tests/<module>.spec.ts`.
 - `RESULTS_DIR` in `scripts/sync-test-results.ts` is `tests/results`.
+
+Specs added in this repo that are NOT in upstream: `vendor.spec.ts` (28 tests covering the vendor-management/vendor module — TC-VEN01..28).

@@ -53,7 +53,7 @@ Any `playwright test` flag (`--headed`, `--ui`, `-g <pattern>`, `--debug`, …) 
 .
 ├── playwright.config.ts          # 2 projects (login, chromium), webServer, CSV reporter
 ├── tests/
-│   ├── *.spec.ts                 # login + 12 domain modules
+│   ├── *.spec.ts                 # login + 12 domain modules + vendor
 │   ├── pages/                    # page objects (locator factories)
 │   ├── fixtures/auth.fixture.ts  # createAuthTest(email)
 │   ├── helpers/                  # shared helpers (security-cases, CRUD helpers)
