@@ -341,7 +341,7 @@ export class VendorPage {
   async removeContactRow(index: number) {
     const row = this.contactRow(index);
     const before = await this.contactCount();
-    await row.getByRole("button").last().click();        // trash button in the row
+    await row.getByRole("button", { name: /remove|delete|trash|ลบ/i }).first().click();
     // DeleteDialog confirmation
     await this.page
       .getByRole("alertdialog")
@@ -358,7 +358,7 @@ export class VendorPage {
       await row.getByPlaceholder(/name/i).first().fill(data.name);
     }
     if (data.email !== undefined) {
-      await row.locator('input[type="email"]').fill(data.email);
+      await row.getByPlaceholder(/email/i).fill(data.email);
     }
     if (data.phone !== undefined) {
       await row.getByPlaceholder(/phone/i).fill(data.phone);
