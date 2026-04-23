@@ -230,21 +230,33 @@ export class VendorPage {
     return this.page.getByRole("tabpanel", { name: /address|ที่อยู่/i });
   }
 
+  /**
+   * A row is a `div.space-y-6` that contains the address_type combobox.
+   * Filtering by the combobox avoids matching panel-level wrappers that might
+   * share the same Tailwind class.
+   */
   addressRow(index: number): Locator {
-    // Each row wraps in a div — rely on structural anchors (address type Select + inputs)
-    return this.addressPanel().locator("div.space-y-6").nth(index);
+    return this.addressPanel()
+      .locator("div.space-y-6")
+      .filter({ has: this.page.getByRole("combobox") })
+      .nth(index);
   }
 
   async addAddressRow() {
     await this.switchTab("address");
+    const before = await this.addressCount();
     const addButton = this.addressPanel().getByRole("button", { name: /^Add$|^เพิ่ม$/i });
     await addButton.click();
-    // Wait for a new row to mount
-    await this.page.waitForTimeout(200);
+    await expect
+      .poll(() => this.addressCount(), { timeout: 5_000 })
+      .toBe(before + 1);
   }
 
   async addressCount(): Promise<number> {
-    return await this.addressPanel().locator("div.space-y-6").count();
+    return await this.addressPanel()
+      .locator("div.space-y-6")
+      .filter({ has: this.page.getByRole("combobox") })
+      .count();
   }
 
   async removeAddressRow(index: number) {
