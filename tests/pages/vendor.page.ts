@@ -374,8 +374,58 @@ export class VendorPage {
     await checkbox.check({ force: true });
   }
 
-  // ── Info tab stubs (implemented in Task 7) ───────────────────────────
-  async addInfoRow() { throw new Error("not implemented yet"); }
-  async fillInfo(_index: number, _data: VendorInfoInput) { throw new Error("not implemented yet"); }
-  async removeInfoRow(_index: number) { throw new Error("not implemented yet"); }
+  // ── Info tab ──────────────────────────────────────────────────────────
+  private infoPanel(): Locator {
+    return this.page.getByRole("tabpanel", { name: /info|ข้อมูล/i });
+  }
+
+  /**
+   * Each info row is a flex container with label input, value input, data-type select,
+   * and a remove button. Anchor on "has an input" so we don't match the title row or
+   * other non-row flex containers in the panel.
+   */
+  infoRow(index: number): Locator {
+    return this.infoPanel()
+      .locator("div.flex.items-start.gap-2")
+      .filter({ has: this.page.locator("input") })
+      .nth(index);
+  }
+
+  async addInfoRow() {
+    await this.switchTab("info");
+    const before = await this.infoCount();
+    const addButton = this.infoPanel().getByRole("button", { name: /^Add$|^เพิ่ม$/i }).first();
+    await addButton.click();
+    await expect
+      .poll(() => this.infoCount(), { timeout: 5_000 })
+      .toBe(before + 1);
+  }
+
+  async infoCount(): Promise<number> {
+    return await this.infoPanel()
+      .locator("div.flex.items-start.gap-2")
+      .filter({ has: this.page.locator("input") })
+      .count();
+  }
+
+  async removeInfoRow(index: number) {
+    const row = this.infoRow(index);
+    const before = await this.infoCount();
+    await row.getByRole("button", { name: /remove|delete|trash|ลบ/i }).first().click();
+    await expect
+      .poll(() => this.infoCount(), { timeout: 5_000 })
+      .toBe(before - 1);
+  }
+
+  async fillInfo(index: number, data: VendorInfoInput) {
+    const row = this.infoRow(index);
+    // Row has two plain Input elements (label, value) + a Select for data_type.
+    const inputs = row.locator('input:not([type]), input[type="text"]');
+    await inputs.nth(0).fill(data.label);
+    await inputs.nth(1).fill(data.value);
+    if (data.dataType) {
+      await row.getByRole("combobox").click();
+      await this.page.getByRole("option", { name: new RegExp(`^${data.dataType}$`, "i") }).click();
+    }
+  }
 }

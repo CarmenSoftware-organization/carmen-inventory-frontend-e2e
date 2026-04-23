@@ -223,4 +223,25 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     await expect(vendor.contactRow(1).getByRole("checkbox")).toBeChecked();
     await expect(vendor.contactRow(0).getByRole("checkbox")).not.toBeChecked();
   });
+
+  test("TC-VEN17 เพิ่ม info row (label/value) ได้", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.switchTab("info");
+    expect(await vendor.infoCount()).toBe(0);
+    await vendor.addInfoRow();
+    await vendor.fillInfo(0, { label: "Tax ID", value: "1234567890", dataType: "string" });
+    expect(await vendor.infoCount()).toBe(1);
+  });
+
+  test("TC-VEN18 ลบ info row ได้", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.switchTab("info");
+    await vendor.addInfoRow();
+    await vendor.addInfoRow();
+    expect(await vendor.infoCount()).toBe(2);
+    await vendor.removeInfoRow(0);
+    expect(await vendor.infoCount()).toBe(1);
+  });
 });
