@@ -1,0 +1,45 @@
+Test ID,Title,Status,Duration (ms),Error,Test Date
+TCS-AT11,TCS-AT11 XSS payload ในชื่อต้องไม่รัน script,Pass,2181,,2026-04-23T04:24:13.129Z
+TCS-AT12,TCS-AT12 SQL injection payload ต้องไม่ทำให้ระบบ crash,Pass,2338,,2026-04-23T04:24:15.472Z
+TCS-AT13,TCS-AT13 ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100,Pass,1777,,2026-04-23T04:24:17.253Z
+TCS-AT14,TCS-AT14 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect,Skipped,0,,2026-04-23T04:24:17.253Z
+TCS-BT09,TCS-BT09 XSS payload ในชื่อต้องไม่รัน script,Skipped,0,,2026-04-23T04:23:38.450Z
+TCS-BT10,TCS-BT10 SQL injection payload ต้องไม่ทำให้ระบบ crash,Skipped,0,,2026-04-23T04:23:38.450Z
+TCS-BT11,TCS-BT11 ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100,Skipped,0,,2026-04-23T04:23:38.450Z
+TCS-BT12,TCS-BT12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect,Skipped,0,,2026-04-23T04:23:38.450Z
+TCS-CNR09,TCS-CNR09 XSS payload ในชื่อต้องไม่รัน script,Skipped,0,,2026-04-23T04:23:48.167Z
+TCS-CNR10,TCS-CNR10 SQL injection payload ต้องไม่ทำให้ระบบ crash,Skipped,0,,2026-04-23T04:23:48.167Z
+TCS-CNR11,TCS-CNR11 ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100,Skipped,0,,2026-04-23T04:23:48.167Z
+TCS-CNR12,TCS-CNR12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect,Skipped,0,,2026-04-23T04:23:48.167Z
+TCS-CT09,TCS-CT09 XSS payload ในชื่อต้องไม่รัน script,Skipped,0,,2026-04-23T04:23:58.939Z
+TCS-CT10,TCS-CT10 SQL injection payload ต้องไม่ทำให้ระบบ crash,Skipped,0,,2026-04-23T04:23:58.939Z
+TCS-CT11,TCS-CT11 ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100,Skipped,0,,2026-04-23T04:23:58.939Z
+TCS-CT12,TCS-CT12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect,Skipped,0,,2026-04-23T04:23:58.939Z
+TCS-CUR09,TCS-CUR09 XSS payload ในชื่อต้องไม่รัน script,Skipped,0,,2026-04-23T04:23:47.432Z
+TCS-CUR10,TCS-CUR10 SQL injection payload ต้องไม่ทำให้ระบบ crash,Skipped,0,,2026-04-23T04:23:47.432Z
+TCS-CUR11,TCS-CUR11 ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100,Skipped,0,,2026-04-23T04:23:47.432Z
+TCS-CUR12,TCS-CUR12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect,Skipped,0,,2026-04-23T04:23:47.432Z
+TCS-DEP09,TCS-DEP09 XSS payload ในชื่อต้องไม่รัน script,Skipped,0,,2026-04-23T04:23:44.652Z
+TCS-DEP10,TCS-DEP10 SQL injection payload ต้องไม่ทำให้ระบบ crash,Skipped,0,,2026-04-23T04:23:44.652Z
+TCS-DEP11,TCS-DEP11 ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100,Skipped,0,,2026-04-23T04:23:44.652Z
+TCS-DEP12,TCS-DEP12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect,Skipped,0,,2026-04-23T04:23:44.652Z
+TCS-EC09,TCS-EC09 XSS payload ในชื่อต้องไม่รัน script,Skipped,0,,2026-04-23T04:23:45.382Z
+TCS-EC10,TCS-EC10 SQL injection payload ต้องไม่ทำให้ระบบ crash,Skipped,0,,2026-04-23T04:23:45.382Z
+TCS-EC11,TCS-EC11 ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100,Skipped,0,,2026-04-23T04:23:45.382Z
+TCS-EC12,TCS-EC12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect,Skipped,0,,2026-04-23T04:23:45.382Z
+TCS-ER09,TCS-ER09 XSS payload ในช่องค้นหาต้องไม่รัน script,Skipped,0,,2026-04-23T04:23:44.578Z
+TCS-ER10,TCS-ER10 SQL injection payload ในช่องค้นหาต้องไม่ crash,Skipped,0,,2026-04-23T04:23:44.578Z
+TCS-ER11,TCS-ER11 ค้นหาด้วย string ยาวมากต้องไม่ crash,Skipped,0,,2026-04-23T04:23:44.578Z
+TCS-ER12,TCS-ER12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect,Skipped,0,,2026-04-23T04:23:44.578Z
+TCS-LOC09,TCS-LOC09 XSS payload ในชื่อต้องไม่รัน script,Skipped,0,,2026-04-23T04:23:45.808Z
+TCS-LOC10,TCS-LOC10 SQL injection payload ต้องไม่ทำให้ระบบ crash,Skipped,0,,2026-04-23T04:23:45.808Z
+TCS-LOC11,TCS-LOC11 ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100,Skipped,0,,2026-04-23T04:23:45.808Z
+TCS-LOC12,TCS-LOC12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect,Skipped,0,,2026-04-23T04:23:45.808Z
+TCS-TP09,TCS-TP09 XSS payload ในชื่อต้องไม่รัน script,Skipped,0,,2026-04-23T04:23:46.450Z
+TCS-TP10,TCS-TP10 SQL injection payload ต้องไม่ทำให้ระบบ crash,Skipped,0,,2026-04-23T04:23:46.450Z
+TCS-TP11,TCS-TP11 ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100,Skipped,0,,2026-04-23T04:23:46.450Z
+TCS-TP12,TCS-TP12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect,Skipped,0,,2026-04-23T04:23:46.450Z
+TCS-UN09,TCS-UN09 XSS payload ในช่องค้นหาต้องไม่รัน script,Skipped,0,,2026-04-23T04:23:46.292Z
+TCS-UN10,TCS-UN10 SQL injection payload ในช่องค้นหาต้องไม่ crash,Skipped,0,,2026-04-23T04:23:46.292Z
+TCS-UN11,TCS-UN11 ค้นหาด้วย string ยาวมากต้องไม่ crash,Skipped,0,,2026-04-23T04:23:46.292Z
+TCS-UN12,TCS-UN12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect,Skipped,0,,2026-04-23T04:23:46.292Z

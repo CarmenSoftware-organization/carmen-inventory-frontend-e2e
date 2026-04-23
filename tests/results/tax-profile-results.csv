@@ -1,0 +1,10 @@
+Test ID,Title,Status,Duration (ms),Error,Test Date
+TC-TP01,TC-TP01 หน้า list โหลดสำเร็จ,Pass,8430,,2026-04-23T04:23:16.214Z
+TC-TP02,TC-TP02 ปุ่ม Add แสดง,Fail,30206,"[31mTest timeout of 30000ms exceeded while setting up ""authenticatedPage"".[39m",2026-04-23T04:23:46.449Z
+TC-TP03,TC-TP03 ช่องค้นหาใช้งานได้,Skipped,0,,2026-04-23T04:23:46.449Z
+TC-TP04,TC-TP04 ค้นหาคำที่ไม่มีต้องแสดง empty state,Skipped,0,,2026-04-23T04:23:46.449Z
+TC-TP05,TC-TP05 บันทึกโดยไม่กรอกชื่อต้องแสดง error,Skipped,0,,2026-04-23T04:23:46.449Z
+TC-TP06,TC-TP06 สร้างรายการใหม่และปรากฏในตาราง,Skipped,0,,2026-04-23T04:23:46.449Z
+TC-TP07,TC-TP07 แก้ไขชื่อและบันทึก,Skipped,0,,2026-04-23T04:23:46.449Z
+TC-TP08,TC-TP08 ลบรายการ,Skipped,0,,2026-04-23T04:23:46.450Z
+TC-TP13,TC-TP13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error,Skipped,0,,2026-04-23T04:23:46.449Z

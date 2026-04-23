@@ -1,0 +1,12 @@
+Test ID,Title,Status,Duration (ms),Error,Test Date
+TC-LOC01,TC-LOC01 หน้า list โหลดสำเร็จ,Pass,7874,,2026-04-23T04:23:15.571Z
+TC-LOC02,TC-LOC02 ปุ่ม Add แสดง,Fail,30205,"[31mTest timeout of 30000ms exceeded while setting up ""authenticatedPage"".[39m",2026-04-23T04:23:45.807Z
+TC-LOC03,TC-LOC03 ช่องค้นหาใช้งานได้,Skipped,0,,2026-04-23T04:23:45.807Z
+TC-LOC04,TC-LOC04 ค้นหาคำที่ไม่มีต้องแสดง empty state,Skipped,0,,2026-04-23T04:23:45.807Z
+TC-LOC05,TC-LOC05 บันทึกโดยไม่กรอก code/name ต้องแสดง error,Skipped,0,,2026-04-23T04:23:45.807Z
+TC-LOC06,TC-LOC06 สร้างรายการใหม่และปรากฏในตาราง,Skipped,0,,2026-04-23T04:23:45.807Z
+TC-LOC07,TC-LOC07 แก้ไขชื่อและบันทึก,Skipped,0,,2026-04-23T04:23:45.807Z
+TC-LOC08,TC-LOC08 ลบรายการ,Skipped,0,,2026-04-23T04:23:45.807Z
+TC-LOC13,TC-LOC13 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error,Skipped,0,,2026-04-23T04:23:45.807Z
+TC-LOC14,TC-LOC14 สร้าง location_type = Direct และลบ,Skipped,0,,2026-04-23T04:23:45.807Z
+TC-LOC15,TC-LOC15 สร้าง location_type = Consignment และลบ,Skipped,0,,2026-04-23T04:23:45.808Z

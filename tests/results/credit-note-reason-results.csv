@@ -1,0 +1,10 @@
+Test ID,Title,Status,Duration (ms),Error,Test Date
+TC-CNR01,TC-CNR01 หน้า list โหลดสำเร็จ,Pass,7950,,2026-04-23T04:23:13.636Z
+TC-CNR02,TC-CNR02 ปุ่ม Add แสดง,Pass,3351,,2026-04-23T04:23:16.993Z
+TC-CNR03,TC-CNR03 ช่องค้นหาใช้งานได้,Pass,22118,,2026-04-23T04:23:39.117Z
+TC-CNR04,TC-CNR04 ค้นหาคำที่ไม่มีต้องแสดง empty state,Pass,2277,,2026-04-23T04:23:41.400Z
+TC-CNR05,TC-CNR05 บันทึกโดยไม่กรอกชื่อต้องแสดง error,Fail,6734,Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed,2026-04-23T04:23:48.166Z
+TC-CNR06,TC-CNR06 สร้างรายการใหม่และปรากฏในตาราง,Skipped,0,,2026-04-23T04:23:48.167Z
+TC-CNR07,TC-CNR07 แก้ไขชื่อและบันทึก,Skipped,0,,2026-04-23T04:23:48.167Z
+TC-CNR08,TC-CNR08 ลบรายการ,Skipped,0,,2026-04-23T04:23:48.167Z
+TC-CNR13,TC-CNR13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error,Skipped,0,,2026-04-23T04:23:48.167Z
