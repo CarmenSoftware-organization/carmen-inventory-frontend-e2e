@@ -3,7 +3,7 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { PageFormCrudHelper } from "./pages/page-form-crud.helper";
 import { addPageFormSecurityCases } from "./helpers/security-cases";
 
-const test = createAuthTest("purchase@zebra.com");
+const test = createAuthTest("purchase@blueledgers.com");
 const PATH = "/config/department";
 const UID = Date.now().toString(36);
 const CODE = `E2E${UID.slice(-4).toUpperCase()}`;

@@ -22,6 +22,7 @@ const LOGIN_TC: Record<string, string> = {
   FC: "TC-L04",
   GM: "TC-L05",
   Owner: "TC-L06",
+  TT: "TC-L07",
 };
 
 const LOGOUT_TC: Record<string, string> = {
@@ -60,7 +61,7 @@ test.describe("เข้าสู่ระบบ", () => {
   test("TC-L14 แสดง error เมื่อไม่กรอกรหัสผ่าน", async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.emailInput().fill("requestor@zebra.com");
+    await loginPage.emailInput().fill("requestor@blueledgers.com");
     await loginPage.submitButton().click();
     await expect(page).toHaveURL(/login/);
   });
@@ -101,7 +102,7 @@ test.describe("เข้าสู่ระบบ", () => {
   test("TC-L19 แสดง error เมื่ออีเมลถูกแต่รหัสผ่านผิด", async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.login("requestor@zebra.com", "wrong-password-xyz");
+    await loginPage.login("requestor@blueledgers.com", "wrong-password-xyz");
 
     const errorVisible = page.locator("form p.text-destructive");
     const dialogVisible = page.getByRole("alertdialog");
@@ -117,15 +118,18 @@ test.describe("เข้าสู่ระบบ", () => {
     await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
   });
 
-  test.skip("TC-L21 รหัสผ่านแยกตัวพิมพ์ใหญ่-เล็ก (พิมพ์ผิดเคสต้อง fail)", async () => {
-    // Skipped — no test user with a mixed-case password in the current seed
-    // (TT role was dropped when credentials moved to @zebra.com).
+  test("TC-L21 รหัสผ่านแยกตัวพิมพ์ใหญ่-เล็ก (พิมพ์ผิดเคสต้อง fail)", async ({ page }) => {
+    // tt@blueledgers.com password "Qaz123!@#" → lower-cased variant must fail
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.login("tt@blueledgers.com", "qaz123!@#");
+    await expect(page).toHaveURL(/login/);
   });
 
   test("TC-L22 รองรับช่องว่างหน้า/หลังอีเมล", async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.login("  requestor@zebra.com  ", TEST_PASSWORD);
+    await loginPage.login("  requestor@blueledgers.com  ", TEST_PASSWORD);
     await expect(page).toHaveURL(/dashboard|login/, { timeout: 15_000 });
   });
 
@@ -140,7 +144,7 @@ test.describe("เข้าสู่ระบบ", () => {
     for (let attempt = 0; attempt < 4; attempt++) {
       await loginPage.goto();
       await page.waitForLoadState("domcontentloaded");
-      await loginPage.emailInput().fill("requestor@zebra.com");
+      await loginPage.emailInput().fill("requestor@blueledgers.com");
       await loginPage.passwordInput().fill(TEST_PASSWORD);
       await Promise.all([
         page.waitForURL(/dashboard/, { timeout: 10_000 }).catch(() => null),
@@ -169,7 +173,7 @@ test.describe("เข้าสู่ระบบ", () => {
   }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.loginWithRetry("requestor@zebra.com", TEST_PASSWORD);
+    await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
     await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
     await page.waitForLoadState("networkidle");
 

@@ -3,7 +3,7 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { DialogCrudHelper } from "./pages/dialog-crud.helper";
 import { addDialogSecurityCases } from "./helpers/security-cases";
 
-const test = createAuthTest("purchase@zebra.com");
+const test = createAuthTest("purchase@blueledgers.com");
 const PATH = "/config/credit-note-reason";
 const UID = Date.now().toString(36);
 const NAME = `E2E CNR ${UID}`;

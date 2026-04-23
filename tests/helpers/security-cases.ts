@@ -86,7 +86,7 @@ export function addDialogSecurityCases(
     const { TEST_PASSWORD } = await import("../test-users");
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.loginWithRetry("requestor@zebra.com", TEST_PASSWORD);
+    await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
     await page.waitForURL(/dashboard/, { timeout: 15_000 });
     await page.goto(listPath);
     await page.waitForLoadState("networkidle");
@@ -164,7 +164,7 @@ export function addPageFormSecurityCases(
     const { TEST_PASSWORD } = await import("../test-users");
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.loginWithRetry("requestor@zebra.com", TEST_PASSWORD);
+    await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
     await page.waitForURL(/dashboard/, { timeout: 15_000 });
     await page.goto(listPath);
     await page.waitForLoadState("networkidle");
@@ -221,7 +221,7 @@ export function addListOnlySecurityCases(
     const { TEST_PASSWORD } = await import("../test-users");
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.loginWithRetry("requestor@zebra.com", TEST_PASSWORD);
+    await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
     await page.waitForURL(/dashboard/, { timeout: 15_000 });
     await page.goto(listPath);
     await page.waitForLoadState("networkidle");

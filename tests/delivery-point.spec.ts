@@ -15,7 +15,7 @@ import {
   DeleteConfirmDialog,
 } from "./pages/delivery-point.page";
 
-const test = createAuthTest("purchase@zebra.com");
+const test = createAuthTest("purchase@blueledgers.com");
 
 const UID = Date.now().toString(36);
 const DP_NAME = `E2E DP ${UID}`;

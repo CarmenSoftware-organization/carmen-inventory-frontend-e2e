@@ -3,7 +3,7 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { ConfigListPage } from "./pages/config-list.page";
 import { addListOnlySecurityCases } from "./helpers/security-cases";
 
-const test = createAuthTest("purchase@zebra.com");
+const test = createAuthTest("purchase@blueledgers.com");
 const PATH = "/config/exchange-rate";
 
 test.describe.configure({ mode: "serial" });
