@@ -171,6 +171,47 @@ function filterRowsForTab(_tab: string, rows: ResultRow[]): ResultRow[] {
   return rows;
 }
 
+/** The canonical column order the reporter produces. */
+const CANONICAL_HEADER = [
+  "Seq",
+  "Test ID",
+  "Title",
+  "Preconditions",
+  "Steps",
+  "Expected Result",
+  "Priority",
+  "Test Type",
+  "Status",
+  "Run Date",
+  "Duration (ms)",
+  "Error",
+  "Note",
+];
+
+async function ensureHeaders(
+  sheets: ReturnType<typeof google.sheets>,
+  spreadsheetId: string,
+  sheetTab: string,
+  currentHeader: string[],
+): Promise<string[]> {
+  // Append any canonical column that's missing; preserve existing headers.
+  const missing = CANONICAL_HEADER.filter((c) => {
+    if (c === "Run Date") return currentHeader.indexOf("Run Date") < 0 && currentHeader.indexOf("Test Date") < 0;
+    return currentHeader.indexOf(c) < 0;
+  });
+  if (missing.length === 0) return currentHeader;
+
+  const newHeader = [...currentHeader, ...missing];
+  await sheets.spreadsheets.values.update({
+    spreadsheetId,
+    range: `${sheetTab}!A1`,
+    valueInputOption: "RAW",
+    requestBody: { values: [newHeader] },
+  });
+  console.log(`[${sheetTab}] added missing header columns: ${missing.join(", ")}`);
+  return newHeader;
+}
+
 async function syncTab(
   sheets: ReturnType<typeof google.sheets>,
   spreadsheetId: string,
@@ -184,7 +225,7 @@ async function syncTab(
   }
 
   // 1. Read the existing sheet to find the row index of each Test ID + the
-  //    column index of "Status" and "Test Date".
+  //    column index of "Status" and "Run Date".
   const range = `${target.sheetTab}!A1:Z`;
   let grid: string[][] = [];
   try {
@@ -202,9 +243,20 @@ async function syncTab(
     throw err;
   }
   if (grid.length === 0) {
-    console.warn(`[${target.sheetTab}] tab is empty — skipping`);
-    return;
+    // Empty tab → bootstrap with canonical header
+    await sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: `${target.sheetTab}!A1`,
+      valueInputOption: "RAW",
+      requestBody: { values: [CANONICAL_HEADER] },
+    });
+    console.log(`[${target.sheetTab}] tab was empty — wrote header`);
+    grid = [CANONICAL_HEADER];
   }
+
+  // Ensure the sheet has every canonical column (append any missing headers).
+  const ensuredHeader = await ensureHeaders(sheets, spreadsheetId, target.sheetTab, grid[0]);
+  grid[0] = ensuredHeader;
   const header = grid[0];
   const idCol = header.indexOf("Test ID");
   const statusCol = header.indexOf("Status");
@@ -232,6 +284,36 @@ async function syncTab(
   const priorityCol = header.indexOf("Priority");
   const testTypeCol = header.indexOf("Test Type");
   const noteCol = header.indexOf("Note");
+
+  // Surface column mismatches so the user sees what's actually present vs
+  // what would be written. Silently skipping missing columns was the symptom
+  // reported as "result not filling all columns".
+  const expectedColumns: Record<string, number> = {
+    Seq: seqCol,
+    "Test ID": idCol,
+    Title: titleCol,
+    Preconditions: preconditionsCol,
+    Steps: stepsCol,
+    "Expected Result": expectedCol,
+    Priority: priorityCol,
+    "Test Type": testTypeCol,
+    Status: statusCol,
+    "Run Date / Test Date": dateCol,
+    "Duration (ms)": durationCol,
+    Error: errorCol,
+    Note: noteCol,
+  };
+  const missing = Object.entries(expectedColumns)
+    .filter(([, idx]) => idx < 0)
+    .map(([name]) => name);
+  if (missing.length > 0) {
+    console.warn(
+      `[${target.sheetTab}] sheet is missing columns — values will be skipped: ${missing.join(", ")}`,
+    );
+    console.warn(
+      `[${target.sheetTab}] current sheet header: ${header.map((h) => `"${h}"`).join(", ")}`,
+    );
+  }
   if (idCol < 0 || statusCol < 0 || dateCol < 0) {
     console.warn(
       `[${target.sheetTab}] missing required columns (Test ID/Status/Run Date or Test Date) — skipping`,
@@ -311,24 +393,34 @@ async function syncTab(
       }
     }
 
-    // Backfill metadata columns only when the sheet cell is empty. Same
-    // preserve-manual-edits policy as Title.
-    const metaWrites: Array<[number, string]> = [
+    // Code-authored columns (from Playwright annotations): always overwrite.
+    // These come from the test source; the sheet should reflect whatever is
+    // in the code. Note is treated separately as a human-authored free-form
+    // column (write-once: only if the sheet cell is empty).
+    const codeAuthored: Array<[number, string]> = [
       [preconditionsCol, r.preconditions],
       [stepsCol, r.steps],
       [expectedCol, r.expected],
       [priorityCol, r.priority],
       [testTypeCol, r.testType],
-      [noteCol, r.note],
     ];
-    for (const [col, value] of metaWrites) {
-      if (col < 0 || !value) continue;
-      const existing = grid[rowNum - 1]?.[col] ?? "";
-      if (existing.trim()) continue;
+    for (const [col, value] of codeAuthored) {
+      if (col < 0) continue;
+      // Push even empty strings, so cleared annotations clear the cell.
       dataUpdates.push({
         range: `${target.sheetTab}!${colLetter(col)}${rowNum}`,
         values: [[value]],
       });
+    }
+    // Note: free-form; preserve any manual edit.
+    if (noteCol >= 0 && r.note) {
+      const existingNote = grid[rowNum - 1]?.[noteCol] ?? "";
+      if (!existingNote.trim()) {
+        dataUpdates.push({
+          range: `${target.sheetTab}!${colLetter(noteCol)}${rowNum}`,
+          values: [[r.note]],
+        });
+      }
     }
   }
 
