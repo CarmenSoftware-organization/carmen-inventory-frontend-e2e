@@ -72,7 +72,8 @@ test.describe("Vendor — Create happy path", () => {
     await vendor.gotoNew();
     const count = await vendor.businessTypeOptionCount();
     if (count === 0) {
-      test.skip(true, "No business types seeded in backend — skipping TC-VEN07..");
+      test.skip(true, "No business types seeded in backend — skipping TC-VEN07.");
+      return;
     }
     const label = await vendor.pickBusinessType();
     expect(label.length).toBeGreaterThan(0);

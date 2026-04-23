@@ -146,6 +146,14 @@ export class VendorPage {
   async businessTypeOptionCount(): Promise<number> {
     await this.businessTypeTrigger().click();
     await this.businessTypeSearch().waitFor({ state: "visible", timeout: 5_000 });
+    // Wait until either an option appears or the empty state renders — avoid
+    // counting before async fetch completes.
+    await Promise.race([
+      this.page.getByRole("option").first().waitFor({ state: "visible", timeout: 3_000 }),
+      this.page.getByText(/no.*found|not.*found|ไม่พบ/i).first().waitFor({ state: "visible", timeout: 3_000 }),
+    ]).catch(() => {
+      // Neither appeared within 3s — fall through and let count() return whatever it sees.
+    });
     const count = await this.page.getByRole("option").count();
     await this.page.keyboard.press("Escape");
     return count;
