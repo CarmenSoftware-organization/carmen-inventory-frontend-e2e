@@ -1,7 +1,7 @@
 # E2E Tests
 
 Playwright e2e test suite สำหรับ Carmen Inventory Frontend
-ทดสอบ UI flow จริงผ่าน browser พร้อม custom CSV reporter และ sync ผลลัพธ์เข้า Google Sheets
+ทดสอบ UI flow จริงผ่าน browser พร้อม custom JSON reporter และ sync ผลลัพธ์เข้า Google Sheets
 
 ---
 
@@ -39,11 +39,11 @@ e2e/
 ├── helpers/
 │   └── security-cases.ts              # 4 security test cases รวม (XSS/SQL/maxLen/auth)
 ├── reporters/
-│   └── tc-csv-reporter.ts             # custom reporter เขียน CSV ต่อ spec
-└── results/                           # CSV output (gitignored ได้)
-    ├── 001-login-results.csv
-    ├── 002-adjustment-type-results.csv
-    └── ... (NNN-<module>-results.csv — matches the spec file prefix)
+│   └── tc-json-reporter.ts             # custom reporter เขียน JSON ต่อ spec
+└── results/                           # JSON output (gitignored ได้)
+    ├── 001-login-results.json
+    ├── 002-adjustment-type-results.json
+    └── ... (NNN-<module>-results.json — matches the spec file prefix)
 ```
 
 ---
@@ -81,13 +81,13 @@ bun e2e -g "TCS-.*09"            # security XSS ของทุก module (TCS- 
 | `--workers=100%` | ใช้ CPU core ทั้งหมด |
 | `--headed` | เปิด browser ให้เห็น (debug) |
 | `--debug` | Playwright Inspector |
-| `--reporter=list` | progress รายตัว (อย่าใช้ตัวเดียว — จะ override custom reporter ที่เขียน CSV) |
+| `--reporter=list` | progress รายตัว (อย่าใช้ตัวเดียว — จะ override custom reporter ที่เขียน JSON) |
 | `--ui` | UI mode |
 | `-g "<regex>"` | กรองด้วยชื่อ test |
 | `--project=login` | รันเฉพาะ project login |
 | `--project=chromium` | รันเฉพาะ project อื่นๆ (ไม่รวม login) |
 
-> ⚠️ **อย่าใช้ `--reporter=list` เดี่ยวๆ** — Playwright จะใช้แทนที่ reporter ใน config (รวม custom CSV reporter) ผลลัพธ์จะไม่ถูกเขียนไฟล์ ให้เก็บ list ไว้ใน `playwright.config.ts` แทน
+> ⚠️ **อย่าใช้ `--reporter=list` เดี่ยวๆ** — Playwright จะใช้แทนที่ reporter ใน config (รวม custom JSON reporter) ผลลัพธ์จะไม่ถูกเขียนไฟล์ ให้เก็บ list ไว้ใน `playwright.config.ts` แทน
 
 ---
 
@@ -218,10 +218,10 @@ const opts = {
 แก้ `scripts/sync-test-results.ts` เพิ่ม entry ใน `SYNC_TARGETS`:
 
 ```ts
-{ csvFile: "NNN-my-module-results.csv", sheetTab: "My Module" },
+{ jsonFile: "NNN-my-module-results.json", sheetTab: "My Module" },
 ```
 
-(`NNN` คือลำดับ 3 หลักของ spec file เช่น `015-my-module-results.csv`)
+(`NNN` คือลำดับ 3 หลักของ spec file เช่น `015-my-module-results.json`)
 
 แล้วสร้าง tab ใน Google Sheet ที่มี header:
 
@@ -230,21 +230,22 @@ Seq, Test ID, Title, Preconditions, Steps, Expected Result,
 Priority, Test Type, Status, Run Date, Duration (ms), Error, Note
 ```
 
-Reporter จะเขียน `Seq, Test ID, Title, Status, Run Date, Duration (ms), Error` ทุกครั้งที่รัน ส่วน `Preconditions, Steps, Expected Result, Priority, Test Type, Note` เป็นคอลัมน์ที่กรอกเองในชีต — sync script จะไม่แตะ (preserve manual edits)
+Reporter จะเขียนทั้ง 13 คอลัมน์ทุกครั้งที่รัน: `Seq, Test ID, Title, Status, Run Date, Duration (ms), Error` มาจาก runner อัตโนมัติ; `Preconditions, Steps, Expected Result, Priority, Test Type, Note` มาจาก Playwright `annotation` ในไฟล์ spec (ถ้ามี) Sync จะ always-overwrite คอลัมน์ที่มาจาก annotation และ write-once สำหรับ Title/Note
 
 ---
 
-## CSV Reporter
+## JSON Reporter
 
-Custom reporter อยู่ที่ `e2e/reporters/tc-csv-reporter.ts` — เขียน 1 ไฟล์ CSV ต่อ spec:
+Custom reporter อยู่ที่ `tests/reporters/tc-json-reporter.ts` — เขียน 1 ไฟล์ JSON ต่อ spec (array ของ row objects):
 
 - Input: test title ที่มี Test ID เช่น `"TC-BT06 สร้างรายการใหม่"`
 - Regex: `/\b(TC-[A-Z]{0,4}\d{2,})\b/g` — รองรับ prefix 0-4 ตัวอักษร
-- Output: `tests/results/{specName}-results.csv` (specName includes the NNN- prefix)
-- Columns: `Seq, Test ID, Title, Preconditions, Steps, Expected Result, Priority, Test Type, Status, Run Date, Duration (ms), Error, Note`
-  - Reporter-populated automatically: `Seq, Test ID, Title, Status, Run Date, Duration (ms), Error`
-  - Populated from Playwright `annotation` if present: `Preconditions, Steps, Expected Result, Priority, Test Type, Note`
-  - Left blank → preserved manually in the spreadsheet
+- Output: `tests/results/{specName}-results.json` (specName includes the NNN- prefix)
+- Each file is a JSON array; one object per test case. Row fields:
+  `seq, testId, title, preconditions, steps, expected, priority, testType, status, runDate, duration, error, note`
+  - Reporter-populated automatically: `seq, testId, title, status, runDate, duration, error`
+  - Populated from Playwright `annotation` if present: `preconditions, steps, expected, priority, testType, note`
+  - Left blank (`""`) otherwise — sync script fills the Google Sheet cell if the code has a value, preserves manual edits on `note` and `title`.
 
 ### Annotating test-case metadata in spec files
 
@@ -274,7 +275,7 @@ Accepted annotation `type` values (case-insensitive): `preconditions`, `steps`, 
 reporter: [
   ["list"],
   ["html"],
-  ["./e2e/reporters/tc-csv-reporter.ts", { outputDir: "e2e/results" }],
+  ["./tests/reporters/tc-json-reporter.ts", { outputDir: "tests/results" }],
 ],
 ```
 
@@ -298,10 +299,12 @@ Script: `scripts/sync-test-results.ts` รันด้วย `bun e2e:sync`
 
 ### Behavior
 
-- อ่านทุก CSV ใน `e2e/results/` ตาม `SYNC_TARGETS`
-- จับคู่ Test ID กับแถวในแต่ละ tab → update `Status`, `Test Date`, `Duration (ms)`, `Error`
-- **Title**: เขียนเฉพาะตอน append row ใหม่ หรือเมื่อ cell เดิมว่างเปล่า (ป้องกันทับคำอธิบายที่ user เขียนเอง)
-- ถ้าไม่เจอ Test ID ในชีต → **append row ใหม่** อัตโนมัติ
+- อ่านทุก `NNN-<module>-results.json` ใน `tests/results/` ตาม `SYNC_TARGETS`
+- จับคู่ `testId` กับแถวในแต่ละ tab → always-overwrite สำหรับ `Status`, `Run Date`, `Duration (ms)`, `Error`, `Seq`, และคอลัมน์ metadata ที่มาจาก annotation (`Preconditions`, `Steps`, `Expected Result`, `Priority`, `Test Type`)
+- **Title / Note**: write-once — เขียนเฉพาะเมื่อ cell เดิมว่างเปล่า (ป้องกันทับคำอธิบายที่เขียนเอง)
+- ถ้าไม่เจอ `testId` ในชีต → **append row ใหม่** อัตโนมัติพร้อมข้อมูลครบทั้ง 13 คอลัมน์
+- ถ้า tab ว่างเปล่า → bootstrap header canonical
+- ถ้า tab มี header แต่ขาดบางคอลัมน์ → append คอลัมน์ที่ขาดต่อท้าย header (ไม่ย้าย/ลบ column เดิม)
 - ถ้าไม่มี tab → ข้าม + แจ้งใน console (ไม่ crash)
 
 ### Output ตัวอย่าง
@@ -348,8 +351,8 @@ HTML report อยู่ที่ `playwright-report/` (เปิดผ่าน
 ### Test ทั้งหมดถูก skip / รันไม่ครบ
 - เช็ค `playwright.config.ts` ว่ามี `dependencies: ["login"]` หรือไม่ — ถ้า login project fail ตัวใดตัวหนึ่งจะ skip downstream ทั้งหมด ให้เอา dependency ออก
 
-### CSV ไม่ถูกเขียน
-- เช็คว่าใช้ `--reporter=list` บน CLI หรือไม่ → จะ override reporter ใน config ลบ flag ออก หรือใส่ reporter ครบ: `--reporter=list,html,./e2e/reporters/tc-csv-reporter.ts`
+### JSON ไม่ถูกเขียน
+- เช็คว่าใช้ `--reporter=list` บน CLI หรือไม่ → จะ override reporter ใน config ลบ flag ออก หรือใส่ reporter ครบ: `--reporter=list,html,./tests/reporters/tc-json-reporter.ts`
 
 ### Sync error: `Unable to parse range: <Tab>!A1:Z`
 - Tab ไม่มีในสเปรดชีต — สร้างเองพร้อม header row

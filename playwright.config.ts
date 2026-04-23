@@ -15,7 +15,7 @@ export default defineConfig({
     ["list"],
     ["html", { outputFolder: "playwright-report" }],
     [
-      "./tests/reporters/tc-csv-reporter.ts",
+      "./tests/reporters/tc-json-reporter.ts",
       { outputDir: "tests/results" },
     ],
   ],
