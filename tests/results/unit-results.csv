@@ -1,5 +1,5 @@
-Test ID,Title,Status,Duration (ms),Error,Test Date
-TC-UN01,TC-UN01 หน้า list โหลดสำเร็จ,Pass,8281,,2026-04-23T04:23:16.046Z
-TC-UN02,TC-UN02 ปุ่ม Add แสดง,Fail,30213,"[31mTest timeout of 30000ms exceeded while setting up ""authenticatedPage"".[39m",2026-04-23T04:23:46.292Z
-TC-UN03,TC-UN03 ช่องค้นหาใช้งานได้,Skipped,0,,2026-04-23T04:23:46.292Z
-TC-UN04,TC-UN04 ค้นหาคำที่ไม่มีต้องแสดง empty state,Skipped,0,,2026-04-23T04:23:46.292Z
+Seq,Test ID,Title,Status,Duration (ms),Error,Test Date
+1,TC-UN01,TC-UN01 หน้า list โหลดสำเร็จ,Pass,8281,,2026-04-23T04:23:16.046Z
+2,TC-UN02,TC-UN02 ปุ่ม Add แสดง,Fail,30213,"[31mTest timeout of 30000ms exceeded while setting up ""authenticatedPage"".[39m",2026-04-23T04:23:46.292Z
+3,TC-UN03,TC-UN03 ช่องค้นหาใช้งานได้,Skipped,0,,2026-04-23T04:23:46.292Z
+4,TC-UN04,TC-UN04 ค้นหาคำที่ไม่มีต้องแสดง empty state,Skipped,0,,2026-04-23T04:23:46.292Z

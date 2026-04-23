@@ -5,7 +5,10 @@
  * Writes one CSV per spec file into the output directory, named
  * after the spec basename: `login.spec.ts` → `login-results.csv`.
  *
- * Columns: Test ID, Title, Status, Duration (ms), Error, Test Date
+ * Columns: Seq, Test ID, Title, Status, Duration (ms), Error, Test Date
+ *
+ * `Seq` is a 1-based running number per module. Rows are sorted by Test ID
+ * before numbering, so Seq mirrors the sorted TC-<area><NN> order.
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { basename, resolve } from "node:path";
@@ -89,17 +92,17 @@ export default class TCCsvReporter implements Reporter {
 
   async onEnd(_result: FullResult) {
     mkdirSync(this.outDir, { recursive: true });
-    const header = ["Test ID", "Title", "Status", "Duration (ms)", "Error", "Test Date"];
+    const header = ["Seq", "Test ID", "Title", "Status", "Duration (ms)", "Error", "Test Date"];
     for (const [key, rows] of this.rowsBySpec) {
       rows.sort((a, b) => a.id.localeCompare(b.id));
       const lines = [header.join(",")];
-      for (const r of rows) {
+      rows.forEach((r, i) => {
         lines.push(
-          [r.id, r.title, r.status, String(r.duration), r.error, r.date]
+          [String(i + 1), r.id, r.title, r.status, String(r.duration), r.error, r.date]
             .map(csvEscape)
             .join(","),
         );
-      }
+      });
       const outFile = resolve(this.outDir, `${key}-results.csv`);
       writeFileSync(outFile, lines.join("\n") + "\n", "utf8");
       // eslint-disable-next-line no-console

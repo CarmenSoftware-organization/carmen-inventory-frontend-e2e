@@ -25,6 +25,7 @@ import { resolve } from "node:path";
 import { google } from "googleapis";
 
 interface ResultRow {
+  seq: string;
   testId: string;
   title: string;
   status: string;
@@ -108,6 +109,7 @@ function loadResults(csvFile: string): ResultRow[] {
   return rows
     .filter((r) => r["Test ID"])
     .map((r) => ({
+      seq: r["Seq"] ?? "",
       testId: r["Test ID"],
       title: r["Title"] ?? r["Description"] ?? "",
       status: r["Status"] ?? "",
@@ -162,6 +164,7 @@ async function syncTab(
   const dateCol = header.indexOf("Test Date");
   const errorCol = header.indexOf("Error");
   const durationCol = header.indexOf("Duration (ms)");
+  const seqCol = header.indexOf("Seq");
   // Title may be stored under "Title" or "Description" depending on the sheet
   const titleCol = (() => {
     const i = header.indexOf("Title");
@@ -197,6 +200,7 @@ async function syncTab(
       if (errorCol >= 0) row[errorCol] = r.error;
       if (durationCol >= 0) row[durationCol] = r.duration;
       if (titleCol >= 0) row[titleCol] = r.title;
+      if (seqCol >= 0) row[seqCol] = r.seq;
       appendRows.push(row);
       appended++;
       continue;
@@ -220,6 +224,12 @@ async function syncTab(
       dataUpdates.push({
         range: `${target.sheetTab}!${colLetter(durationCol)}${rowNum}`,
         values: [[r.duration]],
+      });
+    }
+    if (seqCol >= 0 && r.seq) {
+      dataUpdates.push({
+        range: `${target.sheetTab}!${colLetter(seqCol)}${rowNum}`,
+        values: [[r.seq]],
       });
     }
     // Update Title only when the existing cell is empty — preserves manual edits.

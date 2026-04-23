@@ -1,10 +1,10 @@
-Test ID,Title,Status,Duration (ms),Error,Test Date
-TC-CT01,TC-CT01 หน้า list โหลดสำเร็จ,Pass,8179,,2026-04-23T04:23:14.221Z
-TC-CT02,TC-CT02 ปุ่ม Add แสดง,Pass,23202,,2026-04-23T04:23:37.451Z
-TC-CT03,TC-CT03 ช่องค้นหาใช้งานได้,Pass,12147,,2026-04-23T04:23:49.604Z
-TC-CT04,TC-CT04 ค้นหาคำที่ไม่มีต้องแสดง empty state,Pass,2384,,2026-04-23T04:23:51.993Z
-TC-CT05,TC-CT05 บันทึกโดยไม่กรอกชื่อต้องแสดง error,Fail,6923,Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed,2026-04-23T04:23:58.939Z
-TC-CT06,TC-CT06 สร้างรายการใหม่และปรากฏในตาราง,Skipped,0,,2026-04-23T04:23:58.939Z
-TC-CT07,TC-CT07 แก้ไขชื่อและบันทึก,Skipped,0,,2026-04-23T04:23:58.939Z
-TC-CT08,TC-CT08 ลบรายการ,Skipped,0,,2026-04-23T04:23:58.939Z
-TC-CT13,TC-CT13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error,Skipped,0,,2026-04-23T04:23:58.939Z
+Seq,Test ID,Title,Status,Duration (ms),Error,Test Date
+1,TC-CT01,TC-CT01 หน้า list โหลดสำเร็จ,Pass,8179,,2026-04-23T04:23:14.221Z
+2,TC-CT02,TC-CT02 ปุ่ม Add แสดง,Pass,23202,,2026-04-23T04:23:37.451Z
+3,TC-CT03,TC-CT03 ช่องค้นหาใช้งานได้,Pass,12147,,2026-04-23T04:23:49.604Z
+4,TC-CT04,TC-CT04 ค้นหาคำที่ไม่มีต้องแสดง empty state,Pass,2384,,2026-04-23T04:23:51.993Z
+5,TC-CT05,TC-CT05 บันทึกโดยไม่กรอกชื่อต้องแสดง error,Fail,6923,Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed,2026-04-23T04:23:58.939Z
+6,TC-CT06,TC-CT06 สร้างรายการใหม่และปรากฏในตาราง,Skipped,0,,2026-04-23T04:23:58.939Z
+7,TC-CT07,TC-CT07 แก้ไขชื่อและบันทึก,Skipped,0,,2026-04-23T04:23:58.939Z
+8,TC-CT08,TC-CT08 ลบรายการ,Skipped,0,,2026-04-23T04:23:58.939Z
+9,TC-CT13,TC-CT13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error,Skipped,0,,2026-04-23T04:23:58.939Z

@@ -1,10 +1,10 @@
-Test ID,Title,Status,Duration (ms),Error,Test Date
-TC-DEP01,TC-DEP01 หน้า list โหลดสำเร็จ,Pass,7310,,2026-04-23T04:23:14.434Z
-TC-DEP02,TC-DEP02 ปุ่ม Add แสดง,Fail,30190,"[31mTest timeout of 30000ms exceeded while setting up ""authenticatedPage"".[39m",2026-04-23T04:23:44.650Z
-TC-DEP03,TC-DEP03 ช่องค้นหาใช้งานได้,Skipped,0,,2026-04-23T04:23:44.650Z
-TC-DEP04,TC-DEP04 ค้นหาคำที่ไม่มีต้องแสดง empty state,Skipped,0,,2026-04-23T04:23:44.651Z
-TC-DEP05,TC-DEP05 บันทึกโดยไม่กรอก code/name ต้องแสดง error,Skipped,0,,2026-04-23T04:23:44.651Z
-TC-DEP06,TC-DEP06 สร้างรายการใหม่และปรากฏในตาราง,Skipped,0,,2026-04-23T04:23:44.651Z
-TC-DEP07,TC-DEP07 แก้ไขชื่อและบันทึก,Skipped,0,,2026-04-23T04:23:44.651Z
-TC-DEP08,TC-DEP08 ลบรายการ,Skipped,0,,2026-04-23T04:23:44.651Z
-TC-DEP13,TC-DEP13 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error,Skipped,0,,2026-04-23T04:23:44.651Z
+Seq,Test ID,Title,Status,Duration (ms),Error,Test Date
+1,TC-DEP01,TC-DEP01 หน้า list โหลดสำเร็จ,Pass,7310,,2026-04-23T04:23:14.434Z
+2,TC-DEP02,TC-DEP02 ปุ่ม Add แสดง,Fail,30190,"[31mTest timeout of 30000ms exceeded while setting up ""authenticatedPage"".[39m",2026-04-23T04:23:44.650Z
+3,TC-DEP03,TC-DEP03 ช่องค้นหาใช้งานได้,Skipped,0,,2026-04-23T04:23:44.650Z
+4,TC-DEP04,TC-DEP04 ค้นหาคำที่ไม่มีต้องแสดง empty state,Skipped,0,,2026-04-23T04:23:44.651Z
+5,TC-DEP05,TC-DEP05 บันทึกโดยไม่กรอก code/name ต้องแสดง error,Skipped,0,,2026-04-23T04:23:44.651Z
+6,TC-DEP06,TC-DEP06 สร้างรายการใหม่และปรากฏในตาราง,Skipped,0,,2026-04-23T04:23:44.651Z
+7,TC-DEP07,TC-DEP07 แก้ไขชื่อและบันทึก,Skipped,0,,2026-04-23T04:23:44.651Z
+8,TC-DEP08,TC-DEP08 ลบรายการ,Skipped,0,,2026-04-23T04:23:44.651Z
+9,TC-DEP13,TC-DEP13 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error,Skipped,0,,2026-04-23T04:23:44.651Z

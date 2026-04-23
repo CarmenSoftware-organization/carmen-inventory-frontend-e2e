@@ -1,10 +1,10 @@
-Test ID,Title,Status,Duration (ms),Error,Test Date
-TC-CUR01,TC-CUR01 หน้า list โหลดสำเร็จ,Pass,7802,,2026-04-23T04:23:14.101Z
-TC-CUR02,TC-CUR02 ปุ่ม Add แสดง,Pass,3083,,2026-04-23T04:23:17.197Z
-TC-CUR03,TC-CUR03 ช่องค้นหาใช้งานได้,Fail,30210,"[31mTest timeout of 30000ms exceeded while setting up ""authenticatedPage"".[39m",2026-04-23T04:23:47.431Z
-TC-CUR04,TC-CUR04 ค้นหาคำที่ไม่มีต้องแสดง empty state,Skipped,0,,2026-04-23T04:23:47.431Z
-TC-CUR05,TC-CUR05 บันทึกโดยไม่กรอกชื่อต้องแสดง error,Skipped,0,,2026-04-23T04:23:47.431Z
-TC-CUR06,TC-CUR06 สร้างรายการใหม่และปรากฏในตาราง,Skipped,0,,2026-04-23T04:23:47.431Z
-TC-CUR07,TC-CUR07 แก้ไขชื่อและบันทึก,Skipped,0,,2026-04-23T04:23:47.431Z
-TC-CUR08,TC-CUR08 ลบรายการ,Skipped,0,,2026-04-23T04:23:47.432Z
-TC-CUR13,TC-CUR13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error,Skipped,0,,2026-04-23T04:23:47.432Z
+Seq,Test ID,Title,Status,Duration (ms),Error,Test Date
+1,TC-CUR01,TC-CUR01 หน้า list โหลดสำเร็จ,Pass,7802,,2026-04-23T04:23:14.101Z
+2,TC-CUR02,TC-CUR02 ปุ่ม Add แสดง,Pass,3083,,2026-04-23T04:23:17.197Z
+3,TC-CUR03,TC-CUR03 ช่องค้นหาใช้งานได้,Fail,30210,"[31mTest timeout of 30000ms exceeded while setting up ""authenticatedPage"".[39m",2026-04-23T04:23:47.431Z
+4,TC-CUR04,TC-CUR04 ค้นหาคำที่ไม่มีต้องแสดง empty state,Skipped,0,,2026-04-23T04:23:47.431Z
+5,TC-CUR05,TC-CUR05 บันทึกโดยไม่กรอกชื่อต้องแสดง error,Skipped,0,,2026-04-23T04:23:47.431Z
+6,TC-CUR06,TC-CUR06 สร้างรายการใหม่และปรากฏในตาราง,Skipped,0,,2026-04-23T04:23:47.431Z
+7,TC-CUR07,TC-CUR07 แก้ไขชื่อและบันทึก,Skipped,0,,2026-04-23T04:23:47.431Z
+8,TC-CUR08,TC-CUR08 ลบรายการ,Skipped,0,,2026-04-23T04:23:47.432Z
+9,TC-CUR13,TC-CUR13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error,Skipped,0,,2026-04-23T04:23:47.432Z
