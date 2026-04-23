@@ -428,4 +428,19 @@ export class VendorPage {
       await this.page.getByRole("option", { name: new RegExp(`^${data.dataType}$`, "i") }).click();
     }
   }
+
+  // ── Validation helpers ────────────────────────────────────────────────
+  anyError(): Locator {
+    // Multiple surfaces for validation errors across the vendor form:
+    // - `[aria-invalid="true"]` — FieldInput (code/name) sets this when zod fails;
+    //   the message itself is in a TooltipContent that only mounts on hover, so we
+    //   target the invalid input directly.
+    // - `p.text-destructive` / `p.text-[0.625rem].text-destructive` — inline `<p>`
+    //   error in the address row (city/district refinement) and similar spots.
+    // - `[role="alert"][data-slot="field-error"]` — FieldError component (future-
+    //   proof for fields that render the message inline).
+    return this.page.locator(
+      '[aria-invalid="true"], p.text-destructive, p.text-\\[0\\.625rem\\].text-destructive, [role="alert"][data-slot="field-error"]',
+    );
+  }
 }

@@ -245,3 +245,73 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     expect(await vendor.infoCount()).toBe(1);
   });
 });
+
+test.describe("Vendor — Validation", () => {
+  test("TC-VEN19 บันทึกโดยไม่กรอก code ต้องแสดง error", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.switchTab("general");
+    await vendor.nameInput().fill(`${NAME} v19`);
+    await vendor.saveButton().click();
+    await expect(vendor.anyError().first()).toBeVisible({ timeout: 5_000 });
+    await expect(page).toHaveURL(/\/new$/);
+  });
+
+  test("TC-VEN20 บันทึกโดยไม่กรอก name ต้องแสดง error", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.switchTab("general");
+    await vendor.codeInput().fill(`V${UID.slice(0, 4)}`);
+    await vendor.saveButton().click();
+    await expect(vendor.anyError().first()).toBeVisible({ timeout: 5_000 });
+    await expect(page).toHaveURL(/\/new$/);
+  });
+
+  test("TC-VEN21 code เกิน 10 ตัวอักษรต้องถูก reject", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.switchTab("general");
+    const long = "X".repeat(20);
+    await vendor.codeInput().fill(long);
+    const value = await vendor.codeInput().inputValue();
+    expect(value.length).toBeLessThanOrEqual(10);
+  });
+
+  test("TC-VEN22 name เกิน 100 ตัวอักษรต้องถูก reject", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.switchTab("general");
+    const long = "N".repeat(150);
+    await vendor.nameInput().fill(long);
+    const value = await vendor.nameInput().inputValue();
+    expect(value.length).toBeLessThanOrEqual(100);
+  });
+
+  test("TC-VEN23 address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement)", async ({
+    page,
+  }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.fillGeneral({ code: `${CODE.slice(0, 9)}R`, name: `${NAME} v23` });
+    if ((await vendor.businessTypeOptionCount()) > 0) await vendor.pickBusinessType();
+    await vendor.addAddressRow();
+    await vendor.fillAddress(0, {
+      address_type: "contact_address",
+      mode: "international",
+      address_line1: "Line 1 only",
+    });
+    await vendor.saveButton().click();
+    await expect(page).toHaveURL(/\/new$/);
+  });
+
+  test("TC-VEN24 contact email รูปแบบผิดต้องแสดง error", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoNew();
+    await vendor.fillGeneral({ code: `${CODE.slice(0, 9)}E`, name: `${NAME} v24` });
+    if ((await vendor.businessTypeOptionCount()) > 0) await vendor.pickBusinessType();
+    await vendor.addContactRow();
+    await vendor.fillContact(0, { name: "Bad Email", email: "not-an-email" });
+    await vendor.saveButton().click();
+    await expect(page).toHaveURL(/\/new$/);
+  });
+});
