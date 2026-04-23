@@ -41,20 +41,20 @@ interface SyncTarget {
 
 // Add more entries here as new spec sheets/tabs are introduced.
 const SYNC_TARGETS: SyncTarget[] = [
-  { csvFile: "login-results.csv", sheetTab: "Login" },
-  { csvFile: "delivery-point-results.csv", sheetTab: "Delivery Point" },
-  { csvFile: "adjustment-type-results.csv", sheetTab: "Adjustment Type" },
-  { csvFile: "business-type-results.csv", sheetTab: "Business Type" },
-  { csvFile: "credit-note-reason-results.csv", sheetTab: "Credit Note Reason" },
-  { csvFile: "credit-term-results.csv", sheetTab: "Credit Term" },
-  { csvFile: "currency-results.csv", sheetTab: "Currency" },
-  { csvFile: "department-results.csv", sheetTab: "Department" },
-  { csvFile: "exchange-rate-results.csv", sheetTab: "Exchange Rate" },
-  { csvFile: "extra-cost-results.csv", sheetTab: "Extra Cost" },
-  { csvFile: "location-results.csv", sheetTab: "Location" },
-  { csvFile: "tax-profile-results.csv", sheetTab: "Tax Profile" },
-  { csvFile: "unit-results.csv", sheetTab: "Unit" },
-  { csvFile: "vendor-results.csv", sheetTab: "Vendor" },
+  { csvFile: "01-login-results.csv", sheetTab: "Login" },
+  { csvFile: "02-adjustment-type-results.csv", sheetTab: "Adjustment Type" },
+  { csvFile: "03-business-type-results.csv", sheetTab: "Business Type" },
+  { csvFile: "04-credit-note-reason-results.csv", sheetTab: "Credit Note Reason" },
+  { csvFile: "05-credit-term-results.csv", sheetTab: "Credit Term" },
+  { csvFile: "06-currency-results.csv", sheetTab: "Currency" },
+  { csvFile: "07-delivery-point-results.csv", sheetTab: "Delivery Point" },
+  { csvFile: "08-department-results.csv", sheetTab: "Department" },
+  { csvFile: "09-exchange-rate-results.csv", sheetTab: "Exchange Rate" },
+  { csvFile: "10-extra-cost-results.csv", sheetTab: "Extra Cost" },
+  { csvFile: "11-location-results.csv", sheetTab: "Location" },
+  { csvFile: "12-tax-profile-results.csv", sheetTab: "Tax Profile" },
+  { csvFile: "13-unit-results.csv", sheetTab: "Unit" },
+  { csvFile: "14-vendor-results.csv", sheetTab: "Vendor" },
 ];
 
 const RESULTS_DIR = resolve(process.cwd(), "tests/results");

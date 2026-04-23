@@ -20,6 +20,7 @@ MODULES=(
   location
   tax-profile
   unit
+  vendor
 )
 
 # Detect --workers=100% to switch to single-batch parallel mode
@@ -40,7 +41,10 @@ if [ "$BATCH_MODE" -eq 1 ]; then
   echo "================================================================"
   SPECS=()
   for m in "${MODULES[@]}"; do
-    SPECS+=("tests/${m}.spec.ts")
+    # Resolve NN-<module>.spec.ts (sequence-prefixed)
+    SPEC=$(cd "$REPO_ROOT" && ls tests/[0-9][0-9]-"${m}".spec.ts 2>/dev/null | head -1)
+    [ -z "$SPEC" ] && { echo "error: spec not found for '$m'" >&2; continue; }
+    SPECS+=("$SPEC")
   done
   cd "$REPO_ROOT"
   set +e
