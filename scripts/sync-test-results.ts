@@ -41,20 +41,20 @@ interface SyncTarget {
 
 // Add more entries here as new spec sheets/tabs are introduced.
 const SYNC_TARGETS: SyncTarget[] = [
-  { csvFile: "01-login-results.csv", sheetTab: "Login" },
-  { csvFile: "02-adjustment-type-results.csv", sheetTab: "Adjustment Type" },
-  { csvFile: "03-business-type-results.csv", sheetTab: "Business Type" },
-  { csvFile: "04-credit-note-reason-results.csv", sheetTab: "Credit Note Reason" },
-  { csvFile: "05-credit-term-results.csv", sheetTab: "Credit Term" },
-  { csvFile: "06-currency-results.csv", sheetTab: "Currency" },
-  { csvFile: "07-delivery-point-results.csv", sheetTab: "Delivery Point" },
-  { csvFile: "08-department-results.csv", sheetTab: "Department" },
-  { csvFile: "09-exchange-rate-results.csv", sheetTab: "Exchange Rate" },
-  { csvFile: "10-extra-cost-results.csv", sheetTab: "Extra Cost" },
-  { csvFile: "11-location-results.csv", sheetTab: "Location" },
-  { csvFile: "12-tax-profile-results.csv", sheetTab: "Tax Profile" },
-  { csvFile: "13-unit-results.csv", sheetTab: "Unit" },
-  { csvFile: "14-vendor-results.csv", sheetTab: "Vendor" },
+  { csvFile: "001-login-results.csv", sheetTab: "Login" },
+  { csvFile: "002-adjustment-type-results.csv", sheetTab: "Adjustment Type" },
+  { csvFile: "003-business-type-results.csv", sheetTab: "Business Type" },
+  { csvFile: "004-credit-note-reason-results.csv", sheetTab: "Credit Note Reason" },
+  { csvFile: "005-credit-term-results.csv", sheetTab: "Credit Term" },
+  { csvFile: "006-currency-results.csv", sheetTab: "Currency" },
+  { csvFile: "007-delivery-point-results.csv", sheetTab: "Delivery Point" },
+  { csvFile: "008-department-results.csv", sheetTab: "Department" },
+  { csvFile: "009-exchange-rate-results.csv", sheetTab: "Exchange Rate" },
+  { csvFile: "010-extra-cost-results.csv", sheetTab: "Extra Cost" },
+  { csvFile: "011-location-results.csv", sheetTab: "Location" },
+  { csvFile: "012-tax-profile-results.csv", sheetTab: "Tax Profile" },
+  { csvFile: "013-unit-results.csv", sheetTab: "Unit" },
+  { csvFile: "014-vendor-results.csv", sheetTab: "Vendor" },
 ];
 
 const RESULTS_DIR = resolve(process.cwd(), "tests/results");

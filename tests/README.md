@@ -25,7 +25,7 @@ bun e2e:ui
 ```text
 e2e/
 ├── README.md                          # ไฟล์นี้
-├── NN-<module>.spec.ts                # test specs (เรียงตามลำดับรัน, 01-login มาก่อน)
+├── NNN-<module>.spec.ts               # test specs (เรียงตามลำดับรัน, 001-login มาก่อน)
 ├── test-users.ts                      # email/password ของ test users ทั้ง 6 role
 ├── fixtures/
 │   └── auth.fixture.ts                # createAuthTest(email) → auto login ก่อนทุก test
@@ -41,9 +41,9 @@ e2e/
 ├── reporters/
 │   └── tc-csv-reporter.ts             # custom reporter เขียน CSV ต่อ spec
 └── results/                           # CSV output (gitignored ได้)
-    ├── 01-login-results.csv
-    ├── 02-adjustment-type-results.csv
-    └── ... (NN-<module>-results.csv — matches the spec file prefix)
+    ├── 001-login-results.csv
+    ├── 002-adjustment-type-results.csv
+    └── ... (NNN-<module>-results.csv — matches the spec file prefix)
 ```
 
 ---
@@ -61,8 +61,8 @@ bun e2e --workers=4              # กำหนดจำนวน workers
 ### รันทีละ module
 
 ```bash
-bun e2e tests/03-business-type.spec.ts                 # 1 ไฟล์
-bun e2e tests/03-business-type.spec.ts tests/12-tax-profile.spec.ts   # หลายไฟล์
+bun e2e tests/003-business-type.spec.ts                 # 1 ไฟล์
+bun e2e tests/003-business-type.spec.ts tests/012-tax-profile.spec.ts   # หลายไฟล์
 ```
 
 ### กรองด้วยชื่อ test (regex)
@@ -218,10 +218,10 @@ const opts = {
 แก้ `scripts/sync-test-results.ts` เพิ่ม entry ใน `SYNC_TARGETS`:
 
 ```ts
-{ csvFile: "NN-my-module-results.csv", sheetTab: "My Module" },
+{ csvFile: "NNN-my-module-results.csv", sheetTab: "My Module" },
 ```
 
-(`NN` คือลำดับ 2 หลักของ spec file เช่น `15-my-module-results.csv`)
+(`NNN` คือลำดับ 3 หลักของ spec file เช่น `015-my-module-results.csv`)
 
 แล้วสร้าง tab ใน Google Sheet ที่มี header: `Seq, Test ID, Title, Status, Test Date, Duration (ms), Error`
 
@@ -233,7 +233,7 @@ Custom reporter อยู่ที่ `e2e/reporters/tc-csv-reporter.ts` — เ
 
 - Input: test title ที่มี Test ID เช่น `"TC-BT06 สร้างรายการใหม่"`
 - Regex: `/\b(TC-[A-Z]{0,4}\d{2,})\b/g` — รองรับ prefix 0-4 ตัวอักษร
-- Output: `tests/results/{specName}-results.csv` (specName includes the NN- prefix)
+- Output: `tests/results/{specName}-results.csv` (specName includes the NNN- prefix)
 - Columns: `Seq, Test ID, Title, Status, Duration (ms), Error, Test Date`
 
 ตั้งใน `playwright.config.ts`:

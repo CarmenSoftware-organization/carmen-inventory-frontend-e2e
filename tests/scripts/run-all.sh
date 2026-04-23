@@ -42,7 +42,7 @@ if [ "$BATCH_MODE" -eq 1 ]; then
   SPECS=()
   for m in "${MODULES[@]}"; do
     # Resolve NN-<module>.spec.ts (sequence-prefixed)
-    SPEC=$(cd "$REPO_ROOT" && ls tests/[0-9][0-9]-"${m}".spec.ts 2>/dev/null | head -1)
+    SPEC=$(cd "$REPO_ROOT" && ls tests/[0-9][0-9][0-9]-"${m}".spec.ts 2>/dev/null | head -1)
     [ -z "$SPEC" ] && { echo "error: spec not found for '$m'" >&2; continue; }
     SPECS+=("$SPEC")
   done
