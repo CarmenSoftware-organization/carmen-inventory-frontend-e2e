@@ -315,3 +315,20 @@ test.describe("Vendor — Validation", () => {
     await expect(page).toHaveURL(/\/new$/);
   });
 });
+
+test.describe("Vendor — Edit, delete, cleanup", () => {
+  test("TC-VEN25 แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ", async ({ page }) => {
+    const vendor = new VendorPage(page);
+    await vendor.gotoList();
+    await vendor.openDetailByName(NAME);
+    await vendor.editButton().click();
+    await vendor.switchTab("general");
+    await vendor.nameInput().fill(NAME_UPDATED);
+    await vendor.saveButton().click();
+    await vendor.expectSaved();
+
+    await vendor.gotoList();
+    await vendor.list.search(NAME_UPDATED);
+    await expect(page.getByText(NAME_UPDATED).first()).toBeVisible({ timeout: 10_000 });
+  });
+});

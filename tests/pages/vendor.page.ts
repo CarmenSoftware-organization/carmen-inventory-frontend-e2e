@@ -429,6 +429,34 @@ export class VendorPage {
     }
   }
 
+  /**
+   * Open the vendor detail page by clicking a row containing the given text on the list.
+   * Assumes the list is already loaded and the row is visible.
+   *
+   * The list row doesn't have an anchor or a clickable row — the Code/Name cells
+   * are rendered as `<button>` elements that navigate to the detail page. Prefer
+   * the name button since we search by name; fall back to link/row click for
+   * other list shapes.
+   */
+  async openDetailByName(name: string) {
+    await this.list.search(name);
+    const row = this.page.getByRole("row").filter({ hasText: name }).first();
+    await row.waitFor({ state: "visible", timeout: 10_000 });
+
+    const nameButton = row.getByRole("button", { name }).first();
+    const link = row.getByRole("link").first();
+    if ((await nameButton.count()) > 0) {
+      await nameButton.click();
+    } else if ((await link.count()) > 0) {
+      await link.click();
+    } else {
+      // Row itself navigates on click
+      await row.click();
+    }
+    await this.page.waitForURL(/\/vendor-management\/vendor\/[^/]+$/, { timeout: 10_000 });
+    await this.page.waitForLoadState("networkidle");
+  }
+
   // ── Validation helpers ────────────────────────────────────────────────
   anyError(): Locator {
     // Multiple surfaces for validation errors across the vendor form:
