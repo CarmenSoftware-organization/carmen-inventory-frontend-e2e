@@ -46,6 +46,10 @@ bun run report                  # open last HTML report
   - Optional: `note`.
 - **Shared security helpers** (`tests/helpers/security-cases.ts`) carry their own annotations and interpolate `${listPath}` so each consuming spec gets module-specific metadata for free. When adding a new helper-generated test, follow the same pattern.
 
+## User-story docs (`docs/user-stories/`)
+
+`docs/user-stories/<spec>.md` contains a stakeholder-friendly view of every test case (one file per spec), rendered from the spec annotations: each TC opens with an "As a / I want / so that" line followed by Priority / Test Type / Preconditions / Steps / Expected blocks. The files are **generated** — do not hand-edit. To refresh after annotation changes, run `bun docs:user-stories` (calls `scripts/generate-user-stories.ts`). The generator parses each spec via the TypeScript compiler API, expands `for (const user of TEST_USERS)` loops in `001-login.spec.ts` per role, and synthesizes the helper-generated security cases by mirroring the templates in `tests/helpers/security-cases.ts`.
+
 ## Batch scripts
 
 `tests/scripts/` has per-module runners plus `run-module.sh <module>` and `run-all.sh`. Any `playwright test` flag can be appended (`--headed`, `--ui`, `-g <pattern>`, `--workers=100%` for parallel batch mode). Spec paths inside the scripts are `tests/<module>.spec.ts`.
