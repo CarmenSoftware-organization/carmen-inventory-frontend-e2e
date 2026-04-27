@@ -58,6 +58,7 @@ const SYNC_TARGETS: SyncTarget[] = [
   { jsonFile: "013-unit-results.json", sheetTab: "Unit" },
   { jsonFile: "014-vendor-results.json", sheetTab: "Vendor" },
   { jsonFile: "015-purchase-request-results.json", sheetTab: "Purchase Request" },
+  { jsonFile: "016-price-list-template-results.json", sheetTab: "Price List Template" },
 ];
 
 const RESULTS_DIR = resolve(process.cwd(), "tests/results");

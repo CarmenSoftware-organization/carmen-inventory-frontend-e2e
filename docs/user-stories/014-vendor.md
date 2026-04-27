@@ -667,4 +667,4 @@ Empty-state placeholder ปรากฏภายใน 10s (ยืนยัน�
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git ecb2460</sub>
+<sub>Last regenerated: 2026-04-27 · git 56daf87</sub>
