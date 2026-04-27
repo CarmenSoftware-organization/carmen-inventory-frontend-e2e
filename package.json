@@ -15,6 +15,7 @@
     "e2e:headed": "playwright test --headed",
     "e2e:report": "playwright show-report",
     "e2e:sync": "bun run scripts/sync-test-results.ts",
+    "e2e:sync:reset": "bun run scripts/sync-test-results.ts --reset",
     "docs:user-stories": "bun run scripts/generate-user-stories.ts",
     "report": "playwright show-report",
     "codegen": "playwright codegen http://localhost:3000",

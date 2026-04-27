@@ -141,6 +141,7 @@ async function syncTab(
   spreadsheetId: string,
   target: SyncTarget,
   rows: TCResultRow[],
+  resetMode: boolean,
 ) {
   if (rows.length === 0) {
     console.log(`[${target.sheetTab}] no rows in ${target.jsonFile}`);
@@ -179,6 +180,18 @@ async function syncTab(
   // Extend header with any missing canonical columns.
   const header = await ensureHeaders(sheets, spreadsheetId, target.sheetTab, grid[0]);
   grid[0] = header;
+
+  // Reset mode: drop all data rows (keep header), then everything will be appended fresh.
+  if (resetMode && grid.length > 1) {
+    await sheets.spreadsheets.values.clear({
+      spreadsheetId,
+      range: `${target.sheetTab}!A2:Z`,
+    });
+    console.log(
+      `[${target.sheetTab}] reset — cleared ${grid.length - 1} data row(s)`,
+    );
+    grid = [header];
+  }
 
   // Resolve column indexes (all 13 canonical + legacy "Test Date" fallback).
   const idCol = header.indexOf("Test ID");
@@ -310,6 +323,15 @@ async function main() {
     process.exit(1);
   }
 
+  const resetMode =
+    process.argv.includes("--reset") || process.env.SYNC_RESET === "1";
+  if (resetMode) {
+    console.log(
+      "Reset mode: data rows will be cleared in every tab before syncing (header preserved). " +
+        "Manual edits in Title/Note will be lost.",
+    );
+  }
+
   const auth = new google.auth.GoogleAuth({
     keyFile: keyPath,
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
@@ -322,7 +344,7 @@ async function main() {
 
   for (const target of SYNC_TARGETS) {
     const rows = loadResults(target.jsonFile);
-    await syncTab(sheets, spreadsheetId, target, rows);
+    await syncTab(sheets, spreadsheetId, target, rows, resetMode);
   }
 
   console.log("Done.");
