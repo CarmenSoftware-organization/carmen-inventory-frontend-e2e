@@ -45,6 +45,16 @@ bun run report                  # open last HTML report
   - `testType` — one of `Smoke` | `CRUD` | `Validation` | `Functional` | `Security` | `Authorization` (extend as needed; keep consistent across modules).
   - Optional: `note`.
 - **Shared security helpers** (`tests/helpers/security-cases.ts`) carry their own annotations and interpolate `${listPath}` so each consuming spec gets module-specific metadata for free. When adding a new helper-generated test, follow the same pattern.
+- **Annotation completeness is a hard requirement.** Every `test(...)` and `test.skip(...)` in `tests/*.spec.ts` MUST carry all five annotation fields (`preconditions`, `steps`, `expected`, `priority`, `testType`). The 1-field `expected`-only shape is not acceptable — fill it out at write-time, not later. Audit before merging:
+  ```bash
+  for f in tests/*.spec.ts; do
+    pre=$(grep -c 'type: "preconditions"' "$f")
+    exp=$(grep -c 'type: "expected"' "$f")
+    [ "$pre" = "$exp" ] || echo "MISMATCH in $f: pre=$pre exp=$exp"
+  done
+  ```
+  All counts must match; any mismatch means a test is missing fields.
+- **Whenever you add or modify any annotation in any spec, regenerate the user-story docs in the same change**: run `bun docs:user-stories` and commit the resulting `docs/user-stories/*.md` alongside the spec edit. The two are coupled by design — never let them drift. Skip the regeneration only when no annotations changed (e.g. pure refactor, locator update).
 
 ## User-story docs (`docs/user-stories/`)
 
