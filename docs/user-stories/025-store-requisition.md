@@ -1225,4 +1225,4 @@ Requisition remains in progress status, and remaining quantities are tracked.
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git 55f2cdc</sub>
+<sub>Last regenerated: 2026-04-27 · git 9195ab6</sub>

@@ -28,6 +28,7 @@ const MODULE_NAME_OVERRIDES: Record<string, string> = {
   "014-vendor": "Vendor",
   "020-my-approvals": "My Approvals",
   "021-grn": "GRN",
+  "026-pr-template": "PR Template",
 };
 
 interface Annotations {
