@@ -6,8 +6,6 @@ import { addListOnlySecurityCases } from "./helpers/security-cases";
 const test = createAuthTest("purchase@blueledgers.com");
 const PATH = "/config/unit";
 
-test.describe.configure({ mode: "serial" });
-
 test.describe("Unit — Smoke", () => {
   test(
     "TC-UN01 หน้า list โหลดสำเร็จ",

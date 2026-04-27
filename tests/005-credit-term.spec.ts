@@ -15,8 +15,6 @@ const opts = {
   activeSwitchId: "credit-term-is-active",
 };
 
-test.describe.configure({ mode: "serial" });
-
 test.describe("Credit Term — Smoke & CRUD", () => {
   test(
     "TC-CT01 หน้า list โหลดสำเร็จ",

@@ -3,7 +3,6 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { VendorPage } from "./pages/vendor.page";
 
 const test = createAuthTest("purchase@blueledgers.com");
-test.describe.configure({ mode: "serial" });
 
 const UID = Date.now().toString(36);
 const CODE = `V${UID.slice(-6).toUpperCase()}`;

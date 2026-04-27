@@ -15,8 +15,6 @@ const opts = {
   activeSwitchId: "currency-is-active",
 };
 
-test.describe.configure({ mode: "serial" });
-
 test.describe("Currency — Smoke & CRUD", () => {
   test(
     "TC-CUR01 หน้า list โหลดสำเร็จ",

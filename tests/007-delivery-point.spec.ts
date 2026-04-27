@@ -22,8 +22,6 @@ const DP_NAME = `E2E DP ${UID}`;
 const DP_NAME_INACTIVE = `E2E DP Inactive ${UID}`;
 const DP_NAME_UPDATED = `E2E DP Upd ${UID}`;
 
-test.describe.configure({ mode: "serial" });
-
 // ─── Read (TC-DP01..TC-DP26) ──────────────────────────────────────────────────
 
 test.describe("จุดส่งของ — อ่าน", () => {

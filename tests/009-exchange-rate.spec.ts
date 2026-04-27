@@ -6,8 +6,6 @@ import { addListOnlySecurityCases } from "./helpers/security-cases";
 const test = createAuthTest("purchase@blueledgers.com");
 const PATH = "/config/exchange-rate";
 
-test.describe.configure({ mode: "serial" });
-
 test.describe("Exchange Rate — Smoke", () => {
   test(
     "TC-ER01 หน้า list โหลดสำเร็จ",

@@ -15,8 +15,6 @@ const opts = {
   activeSwitchId: "extra-cost-is-active",
 };
 
-test.describe.configure({ mode: "serial" });
-
 test.describe("Extra Cost — Smoke & CRUD", () => {
   test(
     "TC-EC01 หน้า list โหลดสำเร็จ",

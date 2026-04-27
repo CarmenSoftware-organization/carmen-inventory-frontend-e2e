@@ -15,8 +15,6 @@ const opts = {
   activeSwitchId: "business-type-is-active",
 };
 
-test.describe.configure({ mode: "serial" });
-
 test.describe("Business Type — Smoke & CRUD", () => {
   test(
     "TC-BT01 หน้า list โหลดสำเร็จ",

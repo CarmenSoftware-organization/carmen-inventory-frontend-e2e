@@ -17,8 +17,6 @@ const opts = {
   activeSwitchId: "department-is-active",
 };
 
-test.describe.configure({ mode: "serial" });
-
 test.describe("Department — Smoke & CRUD", () => {
   test(
     "TC-DEP01 หน้า list โหลดสำเร็จ",

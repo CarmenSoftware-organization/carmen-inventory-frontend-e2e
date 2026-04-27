@@ -15,8 +15,6 @@ const opts = {
   // no is_active switch in this module
 };
 
-test.describe.configure({ mode: "serial" });
-
 test.describe("Credit Note Reason — Smoke & CRUD", () => {
   test(
     "TC-CNR01 หน้า list โหลดสำเร็จ",

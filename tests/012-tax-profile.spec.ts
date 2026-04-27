@@ -15,8 +15,6 @@ const opts = {
   activeSwitchId: "tax-profile-is-active",
 };
 
-test.describe.configure({ mode: "serial" });
-
 test.describe("Tax Profile — Smoke & CRUD", () => {
   test(
     "TC-TP01 หน้า list โหลดสำเร็จ",

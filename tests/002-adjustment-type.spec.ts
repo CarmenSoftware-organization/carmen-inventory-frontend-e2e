@@ -19,8 +19,6 @@ const opts = {
   activeSwitchId: "adjustment-type-is-active",
 };
 
-test.describe.configure({ mode: "serial" });
-
 test.describe("Adjustment Type — Smoke & CRUD", () => {
   test(
     "TC-AT01 หน้า list โหลดสำเร็จ",

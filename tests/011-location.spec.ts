@@ -21,8 +21,6 @@ const opts = {
   activeSwitchId: "location-is-active",
 };
 
-test.describe.configure({ mode: "serial" });
-
 test.describe("Location — Smoke & CRUD", () => {
   test(
     "TC-LOC01 หน้า list โหลดสำเร็จ",
