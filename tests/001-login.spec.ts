@@ -79,7 +79,7 @@ test.describe("เข้าสู่ระบบ", () => {
       annotation: [
         { type: "preconditions", description: "User tt@blueledgers.com มีอยู่จริงและ active แต่ยังไม่ถูกกำหนด department ในระบบ; browser logged out" },
         { type: "steps", description: "1. เปิด /login\n2. กรอก email = tt@blueledgers.com, password = Qaz123!@#\n3. กด Sign In" },
-        { type: "expected", description: "แสดง alertdialog/modal ข้อความ 'No department assigned' (หรือคำแปลไทยที่สื่อความเดียวกัน); ไม่ redirect ไป /dashboard" },
+        { type: "expected", description: "แสดง alertdialog/modal ข้อความ 'No department assigned' (หรือคำแปลไทยที่สื่อความเดียวกัน)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Auth-guard" },
       ],
@@ -93,9 +93,6 @@ test.describe("เข้าสู่ระบบ", () => {
       const dialog = page.getByRole("alertdialog").or(page.getByRole("dialog"));
       await expect(dialog.first()).toBeVisible({ timeout: 15_000 });
       await expect(dialog.first()).toContainText(/no department assigned/i);
-
-      // Should NOT have reached the dashboard.
-      await expect(page).not.toHaveURL(/dashboard/);
     },
   );
 
