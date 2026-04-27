@@ -1,9 +1,9 @@
 # Purchase Order — User Stories
 
-_Generated from `tests/017-purchase-order.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/401-purchase-order.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Purchase Order
-**Spec:** `tests/017-purchase-order.spec.ts`
+**Spec:** `tests/401-purchase-order.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 60 (11 High / 41 Medium / 8 Low)
 
@@ -1512,4 +1512,4 @@ Error message indicating maintenance window active is displayed.
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git d2c9fd9</sub>
+<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>

@@ -1,9 +1,9 @@
 # Campaign — User Stories
 
-_Generated from `tests/022-campaign.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/1001-campaign.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Campaign
-**Spec:** `tests/022-campaign.spec.ts`
+**Spec:** `tests/1001-campaign.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 43 (20 High / 17 Medium / 1 Low / 5 unset)
 
@@ -1110,4 +1110,4 @@ All campaigns are displayed with correct result count.
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git d2c9fd9</sub>
+<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>

@@ -1,9 +1,9 @@
-# PR Template — User Stories
+# Purchase Request Template — User Stories
 
-_Generated from `tests/026-pr-template.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/310-purchase-request-template.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
-**Module:** PR Template
-**Spec:** `tests/026-pr-template.spec.ts`
+**Module:** Purchase Request Template
+**Spec:** `tests/310-purchase-request-template.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 60 (31 High / 27 Medium / 2 Low)
 
@@ -76,7 +76,7 @@ _Generated from `tests/026-pr-template.spec.ts` annotations. Edit annotations, n
 
 ## TC-PRT00101 — Happy Path - Create Template with Valid Data
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -104,7 +104,7 @@ Purchase request template is successfully created and saved.
 
 ## TC-PRT00102 — Negative - No Permission to Create Template
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -126,7 +126,7 @@ System displays permission denied message.
 
 ## TC-PRT00103 — Edge Case - Create Template without Assigned Department
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -148,7 +148,7 @@ System displays error message indicating user needs to be assigned to a departme
 
 ## TC-PRT00104 — Negative - Empty Fields for Template
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -172,7 +172,7 @@ System displays error message for required fields not filled.
 
 ## TC-PRT00201 — View template with valid permissions
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -195,7 +195,7 @@ All template details are correctly displayed.
 
 ## TC-PRT00203 — View non-existent template
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -218,7 +218,7 @@ User receives an error message or is informed that the template does not exist.
 
 ## TC-PRT00204 — View template with no budget allocations
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -241,7 +241,7 @@ The budget allocations section shows no entries.
 
 ## TC-PRT00205 — View template with very long usage history
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -264,7 +264,7 @@ The usage history is truncated or paginated, allowing users to view a reasonable
 
 ## TC-PRT00301 — Edit Template - Happy Path
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -290,7 +290,7 @@ Template is updated with new description, quantity, and price. Changes are refle
 
 ## TC-PRT00302 — Edit Template - Invalid Input
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -315,7 +315,7 @@ Error message displayed stating that quantity cannot be negative.
 
 ## TC-PRT00303 — Edit Template - No Permission
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -339,7 +339,7 @@ User is unable to make any changes and receives a permission denied message.
 
 ## TC-PRT00304 — Edit Template - Template In ReadOnly Status
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -363,7 +363,7 @@ User is unable to make any changes and receives a message stating the template i
 
 ## TC-PRT00305 — Edit Template - No Existing Template
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -386,7 +386,7 @@ User is unable to perform any actions on a non-existent template.
 
 ## TC-PRT00401 — Delete valid template - Happy Path
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Happy Path
@@ -410,7 +410,7 @@ Template is successfully deleted from the system.
 
 ## TC-PRT00402 — Attempt to delete default template - Negative Case
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -432,7 +432,7 @@ System prevents deletion of the default template and displays an error message.
 
 ## TC-PRT00403 — Delete template with no permissions - Negative Case
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -454,7 +454,7 @@ System displays an error message indicating that the user does not have the requ
 
 ## TC-PRT00404 — Attempt to delete template that does not exist - Negative Case
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Low · **Test Type:** Negative
@@ -476,7 +476,7 @@ System displays an error message indicating that the template does not exist.
 
 ## TC-PRT00405 — Delete template with multiple selections - Edge Case
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -500,7 +500,7 @@ Selected templates are successfully deleted from the system.
 
 ## TC-PRT00501 — Clone existing template successfully
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Happy Path
@@ -523,7 +523,7 @@ The new template is created as a copy of the source template with all details in
 
 ## TC-PRT00502 — User without permission cannot clone template
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -545,7 +545,7 @@ User receives an access denied message or the 'Clone' option is grayed out.
 
 ## TC-PRT00503 — Clone template with non-existent source
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -567,7 +567,7 @@ User is informed that the source template does not exist.
 
 ## TC-PRT00504 — Clone template with different departments
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -590,7 +590,7 @@ The new template's department matches the user's department, indicating the clon
 
 ## TC-PRT00601 — Set Default Template Successfully
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Happy Path
@@ -615,7 +615,7 @@ Template is marked as default and a success message is displayed.
 
 ## TC-PRT00602 — Set Default Template with No Permission
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -638,7 +638,7 @@ User receives an error message indicating they do not have permission to manage 
 
 ## TC-PRT00603 — Set Default Template with Invalid Template
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -661,7 +661,7 @@ User receives an error message indicating the selected template is invalid.
 
 ## TC-PRT00604 — Set Default Template for Unrelated Department
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -685,7 +685,7 @@ User receives an error message indicating they do not have access to the templat
 
 ## TC-PRT00605 — Set Default Template with Multiple Selections
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -709,7 +709,7 @@ User receives an error message indicating only one template can be set as defaul
 
 ## TC-PRT00701 — Add valid item to template
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -737,7 +737,7 @@ Item 'Desk' is added to the template with correct details and saved successfully
 
 ## TC-PRT00702 — Add item with missing budget code
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -763,7 +763,7 @@ Error message is displayed stating that a budget code is required.
 
 ## TC-PRT00703 — Add item with no permission
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -785,7 +785,7 @@ User is redirected to an access denied page or similar.
 
 ## TC-PRT00704 — Add item with zero quantity
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -813,7 +813,7 @@ Error message is displayed stating that quantity cannot be zero.
 
 ## TC-PRT00705 — Add item with very large quantity
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -841,7 +841,7 @@ Error message is displayed stating that quantity is too large.
 
 ## TC-PRT00801 — Edit existing template item successfully
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -865,7 +865,7 @@ The item is updated with the new quantity; template total is recalculated.
 
 ## TC-PRT00802 — Attempt to edit template without permission
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -888,7 +888,7 @@ User receives an error message indicating insufficient permission to edit the te
 
 ## TC-PRT00803 — Edit template item with invalid quantity
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -912,7 +912,7 @@ User receives an error message indicating the invalid input and item is not upda
 
 ## TC-PRT00804 — Edit template item with no selected item
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -934,7 +934,7 @@ User receives an error message indicating that no item is selected.
 
 ## TC-PRT00805 — Edit template item with minimal changes
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -958,7 +958,7 @@ The item is updated with the new minimal price; template total is recalculated.
 
 ## TC-PRT00901 — Delete template item - happy path
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Happy Path
@@ -984,7 +984,7 @@ Selected item is removed from the template, template total recalculated, and del
 
 ## TC-PRT00902 — Delete template item - no permission
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -1008,7 +1008,7 @@ User is unable to navigate to edit mode and cannot delete items.
 
 ## TC-PRT00903 — Delete template item - no items present
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Low · **Test Type:** Edge Case
@@ -1033,7 +1033,7 @@ User is informed that no items are present to delete.
 
 ## TC-PRT01001 — Search for template by name
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -1056,7 +1056,7 @@ A filtered list of templates containing 'example template' is displayed.
 
 ## TC-PRT01002 — Filter templates by category
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -1081,7 +1081,7 @@ Templates are filtered by the selected category.
 
 ## TC-PRT01003 — Search with invalid input
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1104,7 +1104,7 @@ No templates are displayed and an error message is shown.
 
 ## TC-PRT01004 — Filter with no permission
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1125,7 +1125,7 @@ User is redirected to unauthorized access page or an error message is displayed.
 
 ## TC-PRT01005 — Edge case - search with empty input
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -1148,7 +1148,7 @@ All templates are displayed.
 
 ## TC-PRT01101 — Bulk Template Creation
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Happy Path
@@ -1173,7 +1173,7 @@ Bulk templates are created successfully.
 
 ## TC-PRT01102 — Bulk Template Deletion Without Permission
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1198,7 +1198,7 @@ System denies deletion and displays error message.
 
 ## TC-PRT01103 — Bulk Template Update with Invalid Data
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -1223,7 +1223,7 @@ System prevents submission and displays error messages for invalid data.
 
 ## TC-PRT01104 — Bulk Template Operation with Empty Selection
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -1246,7 +1246,7 @@ System displays error message indicating no templates selected.
 
 ## TC-PRT01105 — Bulk Template Operation on Single Template
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -1271,7 +1271,7 @@ System performs the operation on the single selected template.
 
 ## TC-PRT20101 — Happy Path - Convert Template to Purchase Request
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -1295,7 +1295,7 @@ Purchase request is created with template details and saved successfully.
 
 ## TC-PRT20102 — Negative Case - Insufficient Permissions
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1318,7 +1318,7 @@ User is unable to use template and receives an appropriate error message.
 
 ## TC-PRT20103 — Edge Case - Template with Empty Fields
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -1341,7 +1341,7 @@ Fields with no data in the template are not populated in the purchase request fo
 
 ## TC-PRT20201 — Valid Budget Code Input
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -1364,7 +1364,7 @@ Template is saved successfully with the valid budget code.
 
 ## TC-PRT20203 — No Budget Code Selection
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1387,7 +1387,7 @@ Error message displayed prompting the selection of a valid budget code.
 
 ## TC-PRT20204 — Budget Code Exceeds Character Limit
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -1410,7 +1410,7 @@ Error message displayed indicating the budget code exceeds the character limit.
 
 ## TC-PRT20205 — User Without Save Permission
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1433,7 +1433,7 @@ System denies the save operation and prompts the user about insufficient permiss
 
 ## TC-PRT20301 — Browse Catalog and Retrieve Valid Data
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Happy Path
@@ -1456,7 +1456,7 @@ The catalog data is successfully retrieved and displayed for the user.
 
 ## TC-PRT20302 — Browse Catalog with Invalid Permission
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -1479,7 +1479,7 @@ The system denies access or displays an appropriate error message indicating ins
 
 ## TC-PRT20303 — Retrieve Catalog Data After Server Timeout
 
-> **As a** Purchase user, **I want** this PR Template behavior verified, **so that** the feature works as expected.
+> **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -1502,4 +1502,4 @@ The system handles the server timeout gracefully and provides appropriate feedba
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git d2c9fd9</sub>
+<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>

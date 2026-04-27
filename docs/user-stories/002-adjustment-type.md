@@ -364,4 +364,4 @@ User ถูก redirect ออกจาก /config/adjustment-type หรือ 
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git d2c9fd9</sub>
+<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>

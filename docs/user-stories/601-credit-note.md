@@ -1,9 +1,9 @@
 # Credit Note — User Stories
 
-_Generated from `tests/023-credit-note.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/601-credit-note.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Credit Note
-**Spec:** `tests/023-credit-note.spec.ts`
+**Spec:** `tests/601-credit-note.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 124 (46 High / 29 Medium / 3 Low / 46 unset)
 
@@ -3111,4 +3111,4 @@ System prompts for user authentication; real-time updates fail
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git d2c9fd9</sub>
+<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>

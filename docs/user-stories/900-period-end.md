@@ -1,9 +1,9 @@
 # Period End — User Stories
 
-_Generated from `tests/019-period-end.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/900-period-end.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Period End
-**Spec:** `tests/019-period-end.spec.ts`
+**Spec:** `tests/900-period-end.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 35 (11 High / 8 Medium / 0 Low / 16 unset)
 
@@ -864,4 +864,4 @@ System handles the timestamp overflow gracefully, possibly by truncating the val
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git d2c9fd9</sub>
+<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>

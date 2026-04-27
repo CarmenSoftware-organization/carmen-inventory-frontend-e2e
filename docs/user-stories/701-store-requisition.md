@@ -1,9 +1,9 @@
 # Store Requisition — User Stories
 
-_Generated from `tests/025-store-requisition.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/701-store-requisition.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Store Requisition
-**Spec:** `tests/025-store-requisition.spec.ts`
+**Spec:** `tests/701-store-requisition.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 47 (16 High / 28 Medium / 3 Low)
 
@@ -1225,4 +1225,4 @@ Requisition remains in progress status, and remaining quantities are tracked.
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git d2c9fd9</sub>
+<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>

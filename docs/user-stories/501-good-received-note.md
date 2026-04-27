@@ -1,9 +1,9 @@
 # GRN — User Stories
 
-_Generated from `tests/021-grn.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/501-good-received-note.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** GRN
-**Spec:** `tests/021-grn.spec.ts`
+**Spec:** `tests/501-good-received-note.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 76 (44 High / 24 Medium / 8 Low)
 
@@ -1922,4 +1922,4 @@ User receives a warning message to select at least one line item before performi
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git d2c9fd9</sub>
+<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>

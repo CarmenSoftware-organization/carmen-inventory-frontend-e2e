@@ -1,9 +1,9 @@
 # Purchase Request — User Stories
 
-_Generated from `tests/015-purchase-request.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/301-purchase-request.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Purchase Request
-**Spec:** `tests/015-purchase-request.spec.ts`
+**Spec:** `tests/301-purchase-request.spec.ts`
 **Default role:** Requestor
 **Total test cases:** 131 (85 High / 28 Medium / 9 Low / 9 unset)
 
@@ -3468,4 +3468,4 @@ No PRs are archived, and a notification is sent to the admin stating that no PRs
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git d2c9fd9</sub>
+<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>
