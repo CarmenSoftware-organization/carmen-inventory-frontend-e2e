@@ -13,7 +13,11 @@ test.describe("Unit — Smoke", () => {
     "TC-UN01 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "expected", description: "หน้า list โหลดสำเร็จ" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture (createAuthTest)" },
+        { type: "steps", description: "1. ไปที่ /config/unit" },
+        { type: "expected", description: "URL ตรงกับ /config/unit; หน้า list โหลดสำเร็จโดยไม่ error" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -26,7 +30,11 @@ test.describe("Unit — Smoke", () => {
     "TC-UN02 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "expected", description: "ปุ่ม Add แสดง" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/unit" },
+        { type: "steps", description: "1. ไปที่ /config/unit" },
+        { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -39,7 +47,11 @@ test.describe("Unit — Smoke", () => {
     "TC-UN03 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "expected", description: "ช่องค้นหาใช้งานได้" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/unit" },
+        { type: "steps", description: "1. ไปที่ /config/unit\n2. พิมพ์ 'test' ในช่องค้นหา" },
+        { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -53,7 +65,11 @@ test.describe("Unit — Smoke", () => {
     "TC-UN04 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "expected", description: "ค้นหาคำที่ไม่มีต้องแสดง empty state" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/unit" },
+        { type: "steps", description: "1. ไปที่ /config/unit\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<timestamp>`)" },
+        { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {

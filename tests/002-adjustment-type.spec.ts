@@ -26,7 +26,11 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT01 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "expected", description: "หน้า list โหลดสำเร็จ" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
+        { type: "steps", description: "1. ไปที่ /config/adjustment-type" },
+        { type: "expected", description: "URL matches /config/adjustment-type; ปุ่ม Add และช่องค้นหา visible ภายใน 10s" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -41,7 +45,11 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT02 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "expected", description: "ปุ่ม Add แสดง" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/adjustment-type" },
+        { type: "steps", description: "1. ไปที่ /config/adjustment-type" },
+        { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -54,7 +62,11 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT03 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "expected", description: "ช่องค้นหาใช้งานได้" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/adjustment-type" },
+        { type: "steps", description: "1. ไปที่ /config/adjustment-type\n2. พิมพ์ 'test' ในช่องค้นหา" },
+        { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -68,7 +80,11 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT04 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "expected", description: "ค้นหาคำที่ไม่มีต้องแสดง empty state" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/adjustment-type" },
+        { type: "steps", description: "1. ไปที่ /config/adjustment-type\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
+        { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -84,7 +100,11 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT05 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
     {
       annotation: [
-        { type: "expected", description: "บันทึกโดยไม่กรอก code/name ต้องแสดง error" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/adjustment-type/new" },
+        { type: "steps", description: "1. เปิดฟอร์ม new\n2. กด Save โดยไม่กรอก code/name" },
+        { type: "expected", description: "URL ยังคงอยู่ที่ /new (ฟอร์ม block submit ด้วย client-side validation)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
@@ -98,7 +118,11 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT06 สร้างรายการใหม่ (Stock In) และปรากฏในตาราง",
     {
       annotation: [
-        { type: "expected", description: "สร้างรายการใหม่ (Stock In) และปรากฏในตาราง" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record CODE ยังไม่มีอยู่ใน DB" },
+        { type: "steps", description: "1. เปิด new form\n2. กรอก code + name\n3. เลือก type = Stock In ใน combobox\n4. กด Save\n5. กลับ list และค้นหาด้วย CODE" },
+        { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี CODE ปรากฏใน list" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -124,7 +148,11 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT07 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "expected", description: "แก้ไขชื่อและบันทึก" },
+        { type: "preconditions", description: "TC-AT06 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB" },
+        { type: "steps", description: "1. ค้นหา CODE ใน list\n2. คลิกแถวเพื่อเปิด detail\n3. กดปุ่ม Edit\n4. แก้ name เป็น NAME_UPDATED\n5. กด Save" },
+        { type: "expected", description: "Updated/success toast ปรากฏ (updated/success/สำเร็จ)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -148,7 +176,11 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT15 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "expected", description: "แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error" },
+        { type: "preconditions", description: "TC-AT07 ผ่านแล้ว → record มี name = NAME_UPDATED" },
+        { type: "steps", description: "1. ค้นหา CODE ใน list\n2. เปิด detail\n3. กด Edit\n4. clear code + name\n5. กด Save" },
+        { type: "expected", description: "Save button ยังคง visible (form ไม่ submit; ยังอยู่ใน edit mode)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
@@ -169,7 +201,11 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT08 ลบรายการ (Stock In)",
     {
       annotation: [
-        { type: "expected", description: "ลบรายการ (Stock In)" },
+        { type: "preconditions", description: "TC-AT15 ผ่านแล้ว → record CODE ยังคงมีอยู่ใน DB" },
+        { type: "steps", description: "1. ค้นหา CODE ใน list\n2. เปิด detail\n3. กด Edit\n4. กด Delete\n5. ยืนยัน Delete" },
+        { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -189,7 +225,11 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT09 สร้างรายการใหม่ (Stock Out) และปรากฏในตาราง",
     {
       annotation: [
-        { type: "expected", description: "สร้างรายการใหม่ (Stock Out) และปรากฏในตาราง" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record CODE_OUT ยังไม่มีอยู่ใน DB" },
+        { type: "steps", description: "1. เปิด new form\n2. กรอก code_out + name_out\n3. เลือก type = Stock Out ใน combobox\n4. กด Save\n5. กลับ list และค้นหาด้วย CODE_OUT" },
+        { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี CODE_OUT ปรากฏใน list" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -214,7 +254,11 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT10 ลบรายการ (Stock Out)",
     {
       annotation: [
-        { type: "expected", description: "ลบรายการ (Stock Out)" },
+        { type: "preconditions", description: "TC-AT09 ผ่านแล้ว → record CODE_OUT มีอยู่ใน DB" },
+        { type: "steps", description: "1. ค้นหา CODE_OUT ใน list\n2. เปิด detail\n3. กด Edit\n4. กด Delete\n5. ยืนยัน Delete" },
+        { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {

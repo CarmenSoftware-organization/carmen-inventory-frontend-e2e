@@ -37,6 +37,14 @@ bun run report                  # open last HTML report
 - **Login flows** must use `loginWithRetry` — the backend returns 429 after 3 wrong-password attempts on the same email, and the retry helper backs off when it detects the rate-limit message.
 - **Selectors** prefer `getByRole` / semantic queries. The frontend uses Radix primitives with `data-slot="..."` attributes (e.g. `data-slot="dropdown-menu-trigger"`, `data-slot="avatar"`) — use these when a role query is ambiguous, as seen in `DashboardPage.userMenuTrigger`.
 - **Language**: test titles are Thai to match the product UX and the existing suite in `../carmen-inventory-frontend/e2e/`.
+- **Test annotations**: every `test(...)` should ship the full 5-field annotation set so the JSON reporter (and downstream Google Sheet) gets populated metadata. Use the 3-arg form `test("TC-XXNN title", { annotation: [...] }, async ({ page }) => { ... })`. Reference: `tests/001-login.spec.ts:49-86`. Required types (case-insensitive — see `tests/reporters/tc-json-reporter.ts:97-127`):
+  - `preconditions` — system/user state required before the test runs (login state, prior test dependencies for `serial` suites, existing records).
+  - `steps` — numbered, newline-separated user actions starting with `1.`.
+  - `expected` — concrete outcome (URL, toast, locator state). Avoid just echoing the title.
+  - `priority` — one of `High` | `Medium` | `Low`.
+  - `testType` — one of `Smoke` | `CRUD` | `Validation` | `Functional` | `Security` | `Authorization` (extend as needed; keep consistent across modules).
+  - Optional: `note`.
+- **Shared security helpers** (`tests/helpers/security-cases.ts`) carry their own annotations and interpolate `${listPath}` so each consuming spec gets module-specific metadata for free. When adding a new helper-generated test, follow the same pattern.
 
 ## Batch scripts
 

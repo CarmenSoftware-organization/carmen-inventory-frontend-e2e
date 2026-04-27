@@ -22,7 +22,11 @@ test.describe("Currency — Smoke & CRUD", () => {
     "TC-CUR01 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "expected", description: "หน้า list โหลดสำเร็จ" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
+        { type: "steps", description: "1. ไปที่ /config/currency" },
+        { type: "expected", description: "URL matches /config/currency; ปุ่ม Add และช่องค้นหา visible ภายใน 10s" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -37,7 +41,11 @@ test.describe("Currency — Smoke & CRUD", () => {
     "TC-CUR02 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "expected", description: "ปุ่ม Add แสดง" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/currency" },
+        { type: "steps", description: "1. ไปที่ /config/currency" },
+        { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -50,7 +58,11 @@ test.describe("Currency — Smoke & CRUD", () => {
     "TC-CUR03 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "expected", description: "ช่องค้นหาใช้งานได้" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/currency" },
+        { type: "steps", description: "1. ไปที่ /config/currency\n2. พิมพ์ 'test' ในช่องค้นหา" },
+        { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -64,7 +76,11 @@ test.describe("Currency — Smoke & CRUD", () => {
     "TC-CUR04 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "expected", description: "ค้นหาคำที่ไม่มีต้องแสดง empty state" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/currency" },
+        { type: "steps", description: "1. ไปที่ /config/currency\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
+        { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -78,7 +94,11 @@ test.describe("Currency — Smoke & CRUD", () => {
     "TC-CUR05 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
-        { type: "expected", description: "บันทึกโดยไม่กรอกชื่อต้องแสดง error" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; เปิด add dialog ของ /config/currency" },
+        { type: "steps", description: "1. ไปที่ /config/currency\n2. เปิด add dialog\n3. กด Save โดยไม่กรอก name (และไม่เลือก ISO code)\n4. ปิด dialog ด้วย Cancel" },
+        { type: "expected", description: "Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
@@ -94,7 +114,11 @@ test.describe("Currency — Smoke & CRUD", () => {
     "TC-CUR06 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
-        { type: "expected", description: "สร้างรายการใหม่และปรากฏในตาราง" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB; ISO code IDR เลือกได้จาก lookup" },
+        { type: "steps", description: "1. ไปที่ /config/currency\n2. เปิด add dialog\n3. คลิกปุ่ม LookupCurrencyIso แล้วค้นหา 'IDR'\n4. เลือกแถว IDR (จะ auto-fill symbol และ exchange_rate)\n5. กรอก name = NAME\n6. กด Save\n7. ค้นหา NAME ใน list" },
+        { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี Name = NAME ปรากฏใน list ภายใน 10s" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -132,7 +156,11 @@ test.describe("Currency — Smoke & CRUD", () => {
     "TC-CUR07 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "expected", description: "แก้ไขชื่อและบันทึก" },
+        { type: "preconditions", description: "TC-CUR06 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
+        { type: "steps", description: "1. ไปที่ /config/currency\n2. ค้นหา NAME\n3. คลิกแถวเพื่อเปิด edit dialog\n4. clear name แล้วกรอก NAME_UPDATED\n5. กด Save\n6. ค้นหา NAME_UPDATED" },
+        { type: "expected", description: "Updated/success toast ปรากฏ; แถวที่มี Name = NAME_UPDATED ปรากฏใน list" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -154,7 +182,11 @@ test.describe("Currency — Smoke & CRUD", () => {
     "TC-CUR13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "expected", description: "แก้ไข: clear name แล้วบันทึก ต้องแสดง error" },
+        { type: "preconditions", description: "TC-CUR07 ผ่านแล้ว → record มี name = NAME_UPDATED" },
+        { type: "steps", description: "1. ไปที่ /config/currency\n2. ค้นหา NAME_UPDATED\n3. คลิกแถวเพื่อเปิด edit dialog\n4. clear name\n5. กด Save\n6. ปิด dialog ด้วย Cancel" },
+        { type: "expected", description: "Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
@@ -172,7 +204,11 @@ test.describe("Currency — Smoke & CRUD", () => {
     "TC-CUR08 ลบรายการ",
     {
       annotation: [
-        { type: "expected", description: "ลบรายการ" },
+        { type: "preconditions", description: "TC-CUR13 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "steps", description: "1. ไปที่ /config/currency\n2. ค้นหา NAME_UPDATED\n3. กด delete บนแถว\n4. ยืนยัน Delete" },
+        { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {

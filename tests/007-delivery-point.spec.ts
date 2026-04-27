@@ -31,7 +31,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP01 อ่านค่า table ของ delivery point ได้",
     {
       annotation: [
-        { type: "expected", description: "อ่านค่า table ของ delivery point ได้" },
+        { type: "preconditions", description: "ผู้ใช้ purchase@blueledgers.com (จาก createAuthTest) login แล้ว และมี delivery point ในระบบอย่างน้อย 1 รายการ" },
+        { type: "steps", description: "1. เปิดหน้า /config/delivery-point\n2. รอ table โหลด\n3. ตรวจสอบปุ่ม Add" },
+        { type: "expected", description: "URL ลงท้ายด้วย config/delivery-point, table แสดงผล และปุ่ม Add visible" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -46,7 +50,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP02 แสดงข้อมูล default 10 รายการต่อหน้า",
     {
       annotation: [
-        { type: "expected", description: "แสดงข้อมูล default 10 รายการต่อหน้า" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว มีข้อมูล delivery point ในระบบ" },
+        { type: "steps", description: "1. เปิดหน้า /config/delivery-point\n2. นับจำนวน rows ใน table" },
+        { type: "expected", description: "จำนวน row > 0 และ <= 10 (ค่า default per page)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -61,7 +69,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP03 เปลี่ยน per page เป็น 25 / 50 / 100 ได้",
     {
       annotation: [
-        { type: "expected", description: "เปลี่ยน per page เป็น 25 / 50 / 100 ได้" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และตัวเลือก per page visible" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. เลือก per page = 25\n3. เลือก 50\n4. เลือก 100\n5. นับ rows หลังจากแต่ละค่า" },
+        { type: "expected", description: "จำนวน rows ที่แสดงไม่เกินค่า per page ที่เลือกในแต่ละครั้ง" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -82,7 +94,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP04 per page เกิน 100 ไม่ได้",
     {
       annotation: [
-        { type: "expected", description: "per page เกิน 100 ไม่ได้" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และตัวเลือก per page visible" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด dropdown per page\n3. ตรวจสอบว่ามีตัวเลือก 200 หรือไม่" },
+        { type: "expected", description: "ตัวเลือก 200 ไม่อยู่ใน dropdown (per page สูงสุดคือ 100)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
@@ -99,7 +115,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP05 กด next/prev page แล้วข้อมูลเปลี่ยน",
     {
       annotation: [
-        { type: "expected", description: "กด next/prev page แล้วข้อมูลเปลี่ยน" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีข้อมูลมากกว่า 1 page" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. จด row แรก\n3. กด next page\n4. ตรวจสอบ row แรกใหม่\n5. กด prev page" },
+        { type: "expected", description: "row แรกหลังกด next ไม่เท่ากับ row แรกก่อนกด" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -119,7 +139,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP06 search ชื่อ delivery point แล้วกรองได้ถูก",
     {
       annotation: [
-        { type: "expected", description: "search ชื่อ delivery point แล้วกรองได้ถูก" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี delivery point อย่างน้อย 1 รายการ" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. ใช้คำค้นจาก row แรกที่มีอยู่\n3. ใส่ search\n4. นับ rows" },
+        { type: "expected", description: "ผลลัพธ์มี row > 0 (กรองตรงตามคำค้น)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -137,7 +161,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP07 search ด้วยคำที่ไม่มีในระบบ แสดง empty state",
     {
       annotation: [
-        { type: "expected", description: "search ด้วยคำที่ไม่มีในระบบ แสดง empty state" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search ด้วยคำที่ไม่มีจริง เช่น __NOPE__<UID>" },
+        { type: "expected", description: "table แสดง empty state เมื่อไม่มีผลลัพธ์ตรงกับคำค้น" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -147,18 +175,34 @@ test.describe("จุดส่งของ — อ่าน", () => {
     await expect(list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
-  test("TC-DP08 search ด้วย special char เช่น %, ' ไม่พัง", async ({ page }) => {
+  test(
+    "TC-DP08 search ด้วย special char เช่น %, ' ไม่พัง",
+    {
+      annotation: [
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search ด้วย special char %, '" },
+        { type: "expected", description: "ระบบไม่ crash, ปุ่ม Add ยัง visible อยู่" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
+      ],
+    },
+    async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
     await list.search("%'");
     await expect(list.addButton()).toBeVisible();
-  });
+  },
+  );
 
   test(
     "TC-DP09 filter ตาม field ที่กำหนด แล้วผลตรง",
     {
       annotation: [
-        { type: "expected", description: "filter ตาม field ที่กำหนด แล้วผลตรง" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีตัวเลือก filter" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กดปุ่ม filter\n3. เลือก option active\n4. รอผล" },
+        { type: "expected", description: "table แสดงผลที่ผ่าน filter (count >= 0) โดยไม่ crash" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -183,7 +227,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP10 กด sort column แล้วเรียงจาก A→Z ได้",
     {
       annotation: [
-        { type: "expected", description: "กด sort column แล้วเรียงจาก A→Z ได้" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และ column name สามารถ sort ได้" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กดปุ่ม sort ที่ column name\n3. รอผล" },
+        { type: "expected", description: "ปุ่ม sort ทำงาน, table มีข้อมูล > 0 row หลังเรียง A→Z" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -204,7 +252,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP11 กด sort ซ้ำแล้วเรียงกลับ Z→A ได้",
     {
       annotation: [
-        { type: "expected", description: "กด sort ซ้ำแล้วเรียงกลับ Z→A ได้" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และ column name สามารถ sort ได้" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด sort ครั้งแรก (A→Z)\n3. เก็บ rows\n4. กด sort อีกครั้ง (Z→A)\n5. เปรียบเทียบ" },
+        { type: "expected", description: "ลำดับ rows หลังกดสองครั้งแตกต่างจากครั้งแรก (เรียงกลับ Z→A)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -231,7 +283,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP12 filter + search + sort พร้อมกันไม่พัง",
     {
       annotation: [
-        { type: "expected", description: "filter + search + sort พร้อมกันไม่พัง" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีข้อมูลในระบบ" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search ด้วยคำจาก row\n3. กด sort\n4. ตรวจสอบหน้ายังใช้งานได้" },
+        { type: "expected", description: "ปุ่ม Add ยัง visible — ระบบไม่ crash เมื่อใช้ filter+search+sort พร้อมกัน" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -258,7 +314,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP13 กด toggle เปลี่ยนจาก table → card view ได้",
     {
       annotation: [
-        { type: "expected", description: "กด toggle เปลี่ยนจาก table → card view ได้" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี view toggle (table/card)" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กดปุ่ม toggle card view\n3. รอ render" },
+        { type: "expected", description: "หน้าเปลี่ยนเป็น card view, ปุ่ม Add ยัง visible" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -276,7 +336,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP14 กด toggle เปลี่ยนจาก card → table view ได้",
     {
       annotation: [
-        { type: "expected", description: "กด toggle เปลี่ยนจาก card → table view ได้" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และอยู่ที่ card view" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด toggle card\n3. กด toggle table" },
+        { type: "expected", description: "หน้ากลับมาเป็น table view ที่แสดงผลปกติ" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -295,7 +359,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP15 ข้อมูลที่แสดงใน card กับ table ตรงกัน",
     {
       annotation: [
-        { type: "expected", description: "ข้อมูลที่แสดงใน card กับ table ตรงกัน" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีข้อมูลใน table" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. จดข้อความ row แรกใน table\n3. switch เป็น card view\n4. ตรวจสอบ data ปรากฏใน card" },
+        { type: "expected", description: "ข้อมูลที่ปรากฏใน card ตรงกับข้อมูลใน table" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -317,7 +385,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP16 เปลี่ยน view mode แล้ว filter/search/sort ยังทำงานอยู่",
     {
       annotation: [
-        { type: "expected", description: "เปลี่ยน view mode แล้ว filter/search/sort ยังทำงานอยู่" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี view toggle" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search ด้วยคำจาก row\n3. switch เป็น card view\n4. switch กลับมา table" },
+        { type: "expected", description: "หน้ายังใช้งานได้ ปุ่ม Add visible — search ไม่หายเมื่อสลับ view" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -342,7 +414,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP17 เปลี่ยน view mode แล้ว pagination ยังทำงานอยู่",
     {
       annotation: [
-        { type: "expected", description: "เปลี่ยน view mode แล้ว pagination ยังทำงานอยู่" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี view toggle" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. switch เป็น card view\n3. switch กลับมา table\n4. ตรวจสอบ pagination" },
+        { type: "expected", description: "ปุ่ม Add ยัง visible — controls pagination ไม่หายเมื่อสลับ view" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -362,7 +438,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP18 refresh หน้าแล้ว view mode กลับมาเป็น default",
     {
       annotation: [
-        { type: "expected", description: "refresh หน้าแล้ว view mode กลับมาเป็น default" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. switch เป็น card view\n3. reload หน้า" },
+        { type: "expected", description: "หลัง reload กลับมาที่ table view (default)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -382,7 +462,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP19 กด toggle column แล้ว panel แสดงรายการ column ได้",
     {
       annotation: [
-        { type: "expected", description: "กด toggle column แล้ว panel แสดงรายการ column ได้" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และปุ่ม column visibility visible" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กดปุ่ม column visibility\n3. ตรวจสอบ menu items" },
+        { type: "expected", description: "panel เปิดและแสดง menuitemcheckbox ของ column" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -400,7 +484,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP20 ซ่อน column แล้ว column หายออกจาก table",
     {
       annotation: [
-        { type: "expected", description: "ซ่อน column แล้ว column หายออกจาก table" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีปุ่ม column visibility" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด column visibility\n3. uncheck column name\n4. ตรวจสอบ header\n5. restore" },
+        { type: "expected", description: "header ของ column name หายไปจาก table หลัง uncheck" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -423,7 +511,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP21 แสดง column กลับแล้ว column โผล่ใน table",
     {
       annotation: [
-        { type: "expected", description: "แสดง column กลับแล้ว column โผล่ใน table" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีปุ่ม column visibility" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. ซ่อน column name\n3. show กลับ\n4. ตรวจสอบ header" },
+        { type: "expected", description: "header ของ column name กลับมา visible หลัง check" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -448,7 +540,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP22 ซ่อนทุก column ไม่ได้ ต้องเหลืออย่างน้อย 1 column",
     {
       annotation: [
-        { type: "expected", description: "ซ่อนทุก column ไม่ได้ ต้องเหลืออย่างน้อย 1 column" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีปุ่ม column visibility" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด column visibility\n3. uncheck ทุก column\n4. ตรวจสอบ table" },
+        { type: "expected", description: "ระบบยังเหลือ header อย่างน้อย 1 column ใน table — ซ่อนทุก column ไม่ได้" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
@@ -478,7 +574,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP23 column ที่ซ่อนอยู่ยังค้นหาและ filter ได้ปกติ",
     {
       annotation: [
-        { type: "expected", description: "column ที่ซ่อนอยู่ยังค้นหาและ filter ได้ปกติ" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีปุ่ม column visibility" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. ซ่อน column name\n3. search ด้วยคำที่อยู่ในข้อมูล\n4. ตรวจสอบ rows" },
+        { type: "expected", description: "search ยังกรองข้อมูลตาม column ที่ซ่อนได้ (rows >= 0)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -509,7 +609,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP24 เปลี่ยน view mode แล้ว column visibility ยังคงอยู่",
     {
       annotation: [
-        { type: "expected", description: "เปลี่ยน view mode แล้ว column visibility ยังคงอยู่" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี view toggle + column visibility" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. ซ่อน column name\n3. switch เป็น card\n4. switch กลับมา table\n5. restore" },
+        { type: "expected", description: "column name ยังถูกซ่อนเมื่อกลับมา table view" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -541,7 +645,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP25 refresh หน้าแล้ว column ที่ซ่อนไว้กลับมาเป็น default",
     {
       annotation: [
-        { type: "expected", description: "refresh หน้าแล้ว column ที่ซ่อนไว้กลับมาเป็น default" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีปุ่ม column visibility" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. ซ่อน column name\n3. reload หน้า" },
+        { type: "expected", description: "หลัง reload column name visible อีกครั้ง (default state)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -566,7 +674,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP26 card view ไม่มี column toggle เพราะไม่มี column",
     {
       annotation: [
-        { type: "expected", description: "card view ไม่มี column toggle เพราะไม่มี column" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี view toggle" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. switch เป็น card view\n3. ตรวจสอบปุ่ม column visibility" },
+        { type: "expected", description: "ปุ่ม column visibility ไม่ visible ใน card view (เพราะไม่มี column)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -588,7 +700,11 @@ test.describe("จุดส่งของ — สร้าง", () => {
     "TC-DP27 กด Add แล้ว dialog เปิดขึ้นมา",
     {
       annotation: [
-        { type: "expected", description: "กด Add แล้ว dialog เปิดขึ้นมา" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และอยู่ที่หน้า list" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กดปุ่ม Add\n3. ตรวจสอบ dialog\n4. กด cancel" },
+        { type: "expected", description: "dialog เปิดและ visible เมื่อกด Add" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -604,7 +720,11 @@ test.describe("จุดส่งของ — สร้าง", () => {
     "TC-DP28 dialog เปิดมา field name เป็น empty string",
     {
       annotation: [
-        { type: "expected", description: "dialog เปิดมา field name เป็น empty string" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด Add\n3. ตรวจสอบ value ของ name input" },
+        { type: "expected", description: "field name มี value = '' (empty string) เมื่อ dialog เปิด" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -620,7 +740,11 @@ test.describe("จุดส่งของ — สร้าง", () => {
     "TC-DP29 dialog เปิดมา is active default เป็น true",
     {
       annotation: [
-        { type: "expected", description: "dialog เปิดมา is active default เป็น true" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด Add\n3. ตรวจสอบ data-state ของ active switch" },
+        { type: "expected", description: "active switch มี data-state = 'checked' (default true)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -636,7 +760,11 @@ test.describe("จุดส่งของ — สร้าง", () => {
     "TC-DP30 กรอก name แล้ว save ได้ ข้อมูลขึ้น table",
     {
       annotation: [
-        { type: "expected", description: "กรอก name แล้ว save ได้ ข้อมูลขึ้น table" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และยังไม่มี delivery point ชื่อ DP_NAME" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด Add\n3. กรอก name = DP_NAME\n4. กด Save\n5. search หาชื่อ" },
+        { type: "expected", description: "แสดง toast success และข้อมูลปรากฏใน table" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -657,7 +785,11 @@ test.describe("จุดส่งของ — สร้าง", () => {
     "TC-DP31 กด save โดยไม่กรอก name ระบบต้องด่า",
     {
       annotation: [
-        { type: "expected", description: "กด save โดยไม่กรอก name ระบบต้องด่า" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด Add\n3. กด Save โดยไม่กรอกอะไร" },
+        { type: "expected", description: "แสดง error message สำหรับ field ที่ require ว่าง" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
@@ -674,7 +806,11 @@ test.describe("จุดส่งของ — สร้าง", () => {
     "TC-DP32 กรอก name ซ้ำกับที่มีอยู่แล้ว ระบบต้องห้าม",
     {
       annotation: [
-        { type: "expected", description: "กรอก name ซ้ำกับที่มีอยู่แล้ว ระบบต้องห้าม" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี delivery point DP_NAME อยู่แล้ว (จาก TC-DP30)" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด Add\n3. กรอก name ซ้ำ\n4. Save" },
+        { type: "expected", description: "ระบบแสดง error duplicate/exists/already และไม่บันทึก" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
@@ -695,7 +831,11 @@ test.describe("จุดส่งของ — สร้าง", () => {
     "TC-DP33 กรอก name ยาวเกิน limit ระบบต้องห้าม",
     {
       annotation: [
-        { type: "expected", description: "กรอก name ยาวเกิน limit ระบบต้องห้าม" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด Add\n3. กรอก name ยาว 150 ตัวอักษร\n4. ตรวจสอบ value" },
+        { type: "expected", description: "name input ตัดข้อความให้ยาวไม่เกิน 100 ตัวอักษร" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
@@ -713,7 +853,11 @@ test.describe("จุดส่งของ — สร้าง", () => {
     "TC-DP34 กรอก name เป็น space ล้วน ระบบต้องด่า",
     {
       annotation: [
-        { type: "expected", description: "กรอก name เป็น space ล้วน ระบบต้องด่า" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด Add\n3. กรอก name = '    ' (space ล้วน)\n4. กด Save" },
+        { type: "expected", description: "แสดง error message และ dialog ยังเปิดอยู่ (ไม่บันทึก space ล้วน)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
@@ -732,7 +876,11 @@ test.describe("จุดส่งของ — สร้าง", () => {
     "TC-DP35 กด cancel แล้ว dialog ปิด ไม่มีข้อมูลขึ้น table",
     {
       annotation: [
-        { type: "expected", description: "กด cancel แล้ว dialog ปิด ไม่มีข้อมูลขึ้น table" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด Add\n3. กรอก name\n4. กด Cancel\n5. search หาชื่อ" },
+        { type: "expected", description: "dialog ปิด และข้อมูลไม่ถูกบันทึก (table แสดง empty state)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -751,7 +899,11 @@ test.describe("จุดส่งของ — สร้าง", () => {
     "TC-DP36 สร้างด้วย is active = false แล้วค่าบันทึกถูก",
     {
       annotation: [
-        { type: "expected", description: "สร้างด้วย is active = false แล้วค่าบันทึกถูก" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และยังไม่มี DP_NAME_INACTIVE" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. กด Add\n3. กรอก name = DP_NAME_INACTIVE\n4. toggle active = unchecked\n5. กด Save" },
+        { type: "expected", description: "บันทึกสำเร็จ (toast success) และค่า is_active = false ถูกบันทึก" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -776,7 +928,11 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     "TC-DP37 กดที่ column name แล้ว dialog เปิดขึ้นมา",
     {
       annotation: [
-        { type: "expected", description: "กดที่ column name แล้ว dialog เปิดขึ้นมา" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME ใน table (จาก TC-DP30)" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search DP_NAME\n3. คลิกที่ row name\n4. ตรวจสอบ dialog" },
+        { type: "expected", description: "dialog edit เปิดและ visible เมื่อคลิกที่ name" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -793,7 +949,11 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     "TC-DP38 dialog เปิดมา field name แสดงค่าเดิมถูกต้อง",
     {
       annotation: [
-        { type: "expected", description: "dialog เปิดมา field name แสดงค่าเดิมถูกต้อง" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME ใน table" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search DP_NAME\n3. คลิก row\n4. ตรวจ value ของ name input" },
+        { type: "expected", description: "field name มี value ตรงกับ DP_NAME (ค่าเดิม)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -810,7 +970,11 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     "TC-DP39 dialog เปิดมา is active แสดงค่าเดิมถูกต้อง",
     {
       annotation: [
-        { type: "expected", description: "dialog เปิดมา is active แสดงค่าเดิมถูกต้อง" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และ DP_NAME มี is_active = true" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search DP_NAME\n3. คลิก row\n4. ตรวจ data-state ของ active switch" },
+        { type: "expected", description: "active switch มี data-state = 'checked' (ตรงกับค่าเดิม)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -827,7 +991,11 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     "TC-DP40 แก้ name แล้ว save ข้อมูลใน table อัพเดท",
     {
       annotation: [
-        { type: "expected", description: "แก้ name แล้ว save ข้อมูลใน table อัพเดท" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME ใน table" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search DP_NAME\n3. คลิก row\n4. clear แล้วกรอก DP_NAME_UPDATED\n5. Save" },
+        { type: "expected", description: "แสดง toast updated/success และ table แสดง DP_NAME_UPDATED" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -850,7 +1018,11 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     "TC-DP41 ลบ name ออกทั้งหมดแล้ว save ระบบต้องด่า",
     {
       annotation: [
-        { type: "expected", description: "ลบ name ออกทั้งหมดแล้ว save ระบบต้องด่า" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search DP_NAME_UPDATED\n3. คลิก row\n4. clear name\n5. Save" },
+        { type: "expected", description: "แสดง error message field require — ไม่อนุญาตให้ save name ว่าง" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
@@ -869,7 +1041,11 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     "TC-DP42 แก้ name เป็นค่าเดิมแล้ว save ได้ปกติ",
     {
       annotation: [
-        { type: "expected", description: "แก้ name เป็นค่าเดิมแล้ว save ได้ปกติ" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search\n3. คลิก row\n4. clear แล้วกรอกค่าเดิม\n5. Save" },
+        { type: "expected", description: "บันทึกสำเร็จ (toast updated/success) แม้ name ไม่เปลี่ยน" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -891,7 +1067,11 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     "TC-DP43 กด cancel ระหว่าง edit ข้อมูลเดิมไม่เปลี่ยน",
     {
       annotation: [
-        { type: "expected", description: "กด cancel ระหว่าง edit ข้อมูลเดิมไม่เปลี่ยน" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search\n3. คลิก row\n4. clear แล้วกรอก DISCARDED\n5. Cancel\n6. ตรวจสอบ table" },
+        { type: "expected", description: "table ยังคงแสดง DP_NAME_UPDATED (ค่าใหม่ไม่ถูกบันทึก)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -911,7 +1091,11 @@ test.describe("จุดส่งของ — แก้ไข", () => {
     "TC-DP44 toggle is active แล้ว save ค่าเปลี่ยนถูก",
     {
       annotation: [
-        { type: "expected", description: "toggle is active แล้ว save ค่าเปลี่ยนถูก" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search\n3. คลิก row\n4. toggle active\n5. Save\n6. เปิด row อีกครั้งเพื่อตรวจสอบ" },
+        { type: "expected", description: "ค่า active สลับสถานะและถูก persist ในระบบหลัง reload" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -941,7 +1125,11 @@ test.describe("จุดส่งของ — ลบ", () => {
     "TC-DP45 กด trash icon แล้ว confirm dialog เปิดขึ้นมา",
     {
       annotation: [
-        { type: "expected", description: "กด trash icon แล้ว confirm dialog เปิดขึ้นมา" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search DP_NAME_UPDATED\n3. กด trash icon\n4. ตรวจสอบ confirm dialog\n5. Cancel" },
+        { type: "expected", description: "confirm dialog เปิดและ visible เมื่อกด trash" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -958,7 +1146,11 @@ test.describe("จุดส่งของ — ลบ", () => {
     "TC-DP46 กด confirm แล้วข้อมูลหายออกจาก table",
     {
       annotation: [
-        { type: "expected", description: "กด confirm แล้วข้อมูลหายออกจาก table" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search DP_NAME_UPDATED\n3. delete row\n4. กด Confirm\n5. search อีกครั้ง" },
+        { type: "expected", description: "แสดง toast deleted และ row หายไปจาก table" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -979,7 +1171,11 @@ test.describe("จุดส่งของ — ลบ", () => {
     "TC-DP47 กด cancel ใน confirm dialog ข้อมูลยังอยู่",
     {
       annotation: [
-        { type: "expected", description: "กด cancel ใน confirm dialog ข้อมูลยังอยู่" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_INACTIVE ใน table" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search DP_NAME_INACTIVE\n3. delete row\n4. กด Cancel\n5. ตรวจสอบ row" },
+        { type: "expected", description: "row ยังคงอยู่ใน table (ไม่ถูกลบเมื่อ cancel)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -1000,7 +1196,11 @@ test.describe("จุดส่งของ — ลบ", () => {
     "TC-DP48 ลบแล้ว total count ใน table ลดลง 1",
     {
       annotation: [
-        { type: "expected", description: "ลบแล้ว total count ใน table ลดลง 1" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_INACTIVE ใน table" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. search DP_NAME_INACTIVE\n3. count rows\n4. delete + confirm\n5. count rows อีกครั้ง" },
+        { type: "expected", description: "จำนวน rows หลังลบน้อยกว่าก่อนลบ (ลดลงอย่างน้อย 1)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -1028,7 +1228,11 @@ test.describe("จุดส่งของ — ลบ", () => {
     "TC-DP49 ลบรายการสุดท้ายในหน้า ระบบ paginate กลับหน้าก่อนหน้า",
     {
       annotation: [
-        { type: "expected", description: "ลบรายการสุดท้ายในหน้า ระบบ paginate กลับหน้าก่อนหน้า" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีข้อมูลมากกว่า 1 page โดย page สุดท้ายเหลือเพียง 1 row" },
+        { type: "steps", description: "1. เปิดหน้า list\n2. ไปยัง last page\n3. ถ้าเหลือ 1 row ให้ลบ\n4. ตรวจสอบ paginate" },
+        { type: "expected", description: "หลังลบ row สุดท้าย ระบบ paginate กลับหน้าก่อนหน้า (currentRows > 0)" },
+        { type: "priority", description: "Low" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {

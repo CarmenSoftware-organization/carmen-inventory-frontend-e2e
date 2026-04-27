@@ -22,7 +22,11 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP01 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "expected", description: "หน้า list โหลดสำเร็จ" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
+        { type: "steps", description: "1. ไปที่ /config/tax-profile" },
+        { type: "expected", description: "URL matches /config/tax-profile; หน้า list ของ tax profile (มี name + rate columns) โหลดสำเร็จ" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -35,7 +39,11 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP02 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "expected", description: "ปุ่ม Add แสดง" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/tax-profile" },
+        { type: "steps", description: "1. ไปที่ /config/tax-profile" },
+        { type: "expected", description: "ปุ่ม Add visible บนหน้า list (พร้อมเปิด dialog สำหรับ name + rate)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -48,7 +56,11 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP03 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "expected", description: "ช่องค้นหาใช้งานได้" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/tax-profile" },
+        { type: "steps", description: "1. ไปที่ /config/tax-profile\n2. พิมพ์ 'test' ในช่องค้นหา" },
+        { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
@@ -62,7 +74,11 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP04 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "expected", description: "ค้นหาคำที่ไม่มีต้องแสดง empty state" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/tax-profile" },
+        { type: "steps", description: "1. ไปที่ /config/tax-profile\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
+        { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มี tax profile ที่ตรงกับคำค้น)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
       ],
     },
     async ({ page }) => {
@@ -76,7 +92,11 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP05 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
-        { type: "expected", description: "บันทึกโดยไม่กรอกชื่อต้องแสดง error" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/tax-profile" },
+        { type: "steps", description: "1. เปิด Add dialog\n2. กด Save โดยไม่กรอก name (rate ปล่อยตามค่า default)" },
+        { type: "expected", description: "Error message ปรากฏใต้ name input (required validation block submit); ปิด dialog ด้วย Cancel" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
@@ -92,7 +112,11 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP06 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
-        { type: "expected", description: "สร้างรายการใหม่และปรากฏในตาราง" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; tax profile ชื่อ NAME ยังไม่มีอยู่ใน DB" },
+        { type: "steps", description: "1. เปิด Add dialog\n2. กรอก name = NAME (rate ใช้ค่า default ของฟอร์ม)\n3. กด Save\n4. ค้นหา NAME ใน list" },
+        { type: "expected", description: "Success toast (created/success/สำเร็จ) และแถวใหม่ที่มี NAME ปรากฏใน list" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -112,7 +136,11 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP07 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "expected", description: "แก้ไขชื่อและบันทึก" },
+        { type: "preconditions", description: "TC-TP06 ผ่านแล้ว → tax profile ชื่อ NAME มีอยู่ใน DB" },
+        { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด edit dialog\n3. clear name + กรอก NAME_UPDATED (ไม่แก้ rate)\n4. กด Save" },
+        { type: "expected", description: "Updated/success toast ปรากฏ และแถว NAME_UPDATED ปรากฏใน list (rate คงเดิม)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
@@ -134,7 +162,11 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "expected", description: "แก้ไข: clear name แล้วบันทึก ต้องแสดง error" },
+        { type: "preconditions", description: "TC-TP07 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED มีอยู่ใน DB" },
+        { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด edit dialog\n3. clear name (rate ไม่แตะ)\n4. กด Save" },
+        { type: "expected", description: "Error message ปรากฏใต้ name input (required validation block submit); ปิด dialog ด้วย Cancel" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
@@ -152,7 +184,11 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP08 ลบรายการ",
     {
       annotation: [
-        { type: "expected", description: "ลบรายการ" },
+        { type: "preconditions", description: "TC-TP13 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. กด delete บนแถว\n3. ยืนยัน Delete" },
+        { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ) และ tax profile ถูกลบจาก DB" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {

@@ -41,7 +41,18 @@ export function addDialogSecurityCases(
 ) {
   const { prefix, listPath, makeHelper, skipAuth = false } = opts;
 
-  test(`TCS-${prefix}09 XSS payload ในชื่อต้องไม่รัน script`, async ({ page }: { page: Page }) => {
+  test(
+    `TCS-${prefix}09 XSS payload ในชื่อต้องไม่รัน script`,
+    {
+      annotation: [
+        { type: "preconditions", description: `Logged in user with permission to access ${listPath}; XSS dialog guard attached` },
+        { type: "steps", description: `1. เปิด list ${listPath}\n2. คลิก Add เพื่อเปิด dialog\n3. กรอก name ด้วย XSS payload "<script>alert('xss-e2e')</script>"\n4. กด Save` },
+        { type: "expected", description: "ไม่มี browser alert/dialog จาก payload (script ไม่ถูก execute); หาก dialog ยังเปิดอยู่ก็ปิดได้ปกติ" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Security" },
+      ],
+    },
+    async ({ page }: { page: Page }) => {
     attachNoXssDialogGuard(page);
     const h = makeHelper(page);
     await h.list.goto();
@@ -56,7 +67,18 @@ export function addDialogSecurityCases(
     }
   });
 
-  test(`TCS-${prefix}10 SQL injection payload ต้องไม่ทำให้ระบบ crash`, async ({ page }: { page: Page }) => {
+  test(
+    `TCS-${prefix}10 SQL injection payload ต้องไม่ทำให้ระบบ crash`,
+    {
+      annotation: [
+        { type: "preconditions", description: `Logged in user with permission to access ${listPath}` },
+        { type: "steps", description: `1. เปิด list ${listPath}\n2. พิมพ์ SQL injection payload "'; DROP TABLE users; --" ลงในช่องค้นหา` },
+        { type: "expected", description: "หน้าไม่ crash; ปุ่ม Add ยังคง visible (list ทำงานปกติ)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Security" },
+      ],
+    },
+    async ({ page }: { page: Page }) => {
     const h = makeHelper(page);
     await h.list.goto();
     await h.list.search(SQL_PAYLOAD);
@@ -64,7 +86,18 @@ export function addDialogSecurityCases(
     await expect(h.list.addButton()).toBeVisible();
   });
 
-  test(`TCS-${prefix}11 ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100`, async ({ page }: { page: Page }) => {
+  test(
+    `TCS-${prefix}11 ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100`,
+    {
+      annotation: [
+        { type: "preconditions", description: `Logged in user with permission to access ${listPath}` },
+        { type: "steps", description: `1. เปิด list ${listPath}\n2. คลิก Add เพื่อเปิด dialog\n3. กรอก name ด้วย string ยาว 200 ตัวอักษร ('a' x 200)` },
+        { type: "expected", description: "ค่าใน input ถูก clamp ที่ ≤ 100 ตัวอักษร (maxLength enforced)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
+      ],
+    },
+    async ({ page }: { page: Page }) => {
     const h = makeHelper(page);
     await h.list.goto();
     await h.openAddDialog();
@@ -75,7 +108,18 @@ export function addDialogSecurityCases(
   });
 
   const dialogAuthTest = skipAuth ? test.skip : test;
-  dialogAuthTest(`TCS-${prefix}12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`, async ({
+  dialogAuthTest(
+    `TCS-${prefix}12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`,
+    {
+      annotation: [
+        { type: "preconditions", description: `Test user requestor@blueledgers.com (low-privilege role) มีอยู่จริง; module list path = ${listPath}` },
+        { type: "steps", description: `1. เปิด browser context ใหม่\n2. login เป็น requestor@blueledgers.com\n3. ไปที่ ${listPath}` },
+        { type: "expected", description: `User ถูก redirect ออกจาก ${listPath} หรือ ปุ่ม Add ไม่ปรากฏ (count = 0)` },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Authorization" },
+      ],
+    },
+    async ({
     browser,
   }: {
     browser: import("@playwright/test").Browser;
@@ -125,7 +169,18 @@ export function addPageFormSecurityCases(
   const tcLen = `TCS-${prefix}${pad(startIndex + 2)}`;
   const tcAuth = `TCS-${prefix}${pad(startIndex + 3)}`;
 
-  test(`${tcXss} XSS payload ในชื่อต้องไม่รัน script`, async ({ page }: { page: Page }) => {
+  test(
+    `${tcXss} XSS payload ในชื่อต้องไม่รัน script`,
+    {
+      annotation: [
+        { type: "preconditions", description: `Logged in user with permission to access ${listPath}; XSS dialog guard attached` },
+        { type: "steps", description: `1. เปิด new form ของ ${listPath}\n2. กรอก code ด้วย random suffix\n3. กรอก name ด้วย XSS payload "<script>alert('xss-e2e')</script>"\n4. กด Save` },
+        { type: "expected", description: "ไม่มี browser alert/dialog จาก payload; URL ยังคงอยู่ภายใต้ /config/ (ฟอร์มอาจ reject หรือ save แบบ escaped)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Security" },
+      ],
+    },
+    async ({ page }: { page: Page }) => {
     attachNoXssDialogGuard(page);
     const h = makeHelper(page);
     await h.gotoNew();
@@ -137,14 +192,36 @@ export function addPageFormSecurityCases(
     expect(page.url()).toContain("/config/");
   });
 
-  test(`${tcSql} SQL injection payload ต้องไม่ทำให้ระบบ crash`, async ({ page }: { page: Page }) => {
+  test(
+    `${tcSql} SQL injection payload ต้องไม่ทำให้ระบบ crash`,
+    {
+      annotation: [
+        { type: "preconditions", description: `Logged in user with permission to access ${listPath}` },
+        { type: "steps", description: `1. เปิด list ${listPath}\n2. พิมพ์ SQL injection payload "'; DROP TABLE users; --" ลงในช่องค้นหา` },
+        { type: "expected", description: "หน้าไม่ crash; ปุ่ม Add ยังคง visible (list ทำงานปกติ)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Security" },
+      ],
+    },
+    async ({ page }: { page: Page }) => {
     const h = makeHelper(page);
     await h.list.goto();
     await h.list.search(SQL_PAYLOAD);
     await expect(h.list.addButton()).toBeVisible();
   });
 
-  test(`${tcLen} ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100`, async ({ page }: { page: Page }) => {
+  test(
+    `${tcLen} ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100`,
+    {
+      annotation: [
+        { type: "preconditions", description: `Logged in user with permission to access ${listPath}` },
+        { type: "steps", description: `1. เปิด new form ของ ${listPath}\n2. กรอก name ด้วย string ยาว 200 ตัวอักษร ('a' x 200)` },
+        { type: "expected", description: "ค่าใน input ถูก clamp ที่ ≤ 100 ตัวอักษร (maxLength enforced)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
+      ],
+    },
+    async ({ page }: { page: Page }) => {
     const h = makeHelper(page);
     await h.gotoNew();
     await h.nameInput().fill(LONG_NAME);
@@ -153,7 +230,18 @@ export function addPageFormSecurityCases(
   });
 
   const authTest = skipAuth ? test.skip : test;
-  authTest(`${tcAuth} user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`, async ({
+  authTest(
+    `${tcAuth} user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`,
+    {
+      annotation: [
+        { type: "preconditions", description: `Test user requestor@blueledgers.com (low-privilege role) มีอยู่จริง; module list path = ${listPath}` },
+        { type: "steps", description: `1. เปิด browser context ใหม่\n2. login เป็น requestor@blueledgers.com\n3. ไปที่ ${listPath}` },
+        { type: "expected", description: `User ถูก redirect ออกจาก ${listPath} หรือ ปุ่ม Add ไม่ปรากฏ (count = 0)` },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Authorization" },
+      ],
+    },
+    async ({
     browser,
   }: {
     browser: import("@playwright/test").Browser;
@@ -188,7 +276,18 @@ export function addListOnlySecurityCases(
   const { prefix, listPath, skipTcs = [] } = opts;
   const t = (tc: string) => (skipTcs.includes(tc) ? test.skip : test);
 
-  t(`TCS-${prefix}09`)(`TCS-${prefix}09 XSS payload ในช่องค้นหาต้องไม่รัน script`, async ({ page }: { page: Page }) => {
+  t(`TCS-${prefix}09`)(
+    `TCS-${prefix}09 XSS payload ในช่องค้นหาต้องไม่รัน script`,
+    {
+      annotation: [
+        { type: "preconditions", description: `Logged in user with permission to access ${listPath}; XSS dialog guard attached` },
+        { type: "steps", description: `1. เปิด list ${listPath}\n2. พิมพ์ XSS payload "<script>alert('xss-e2e')</script>" ลงในช่องค้นหา` },
+        { type: "expected", description: "ไม่มี browser alert/dialog จาก payload; ปุ่ม Add ยังคง visible (list ทำงานปกติ)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Security" },
+      ],
+    },
+    async ({ page }: { page: Page }) => {
     attachNoXssDialogGuard(page);
     const list = new ConfigListPage(page, listPath);
     await list.goto();
@@ -196,21 +295,54 @@ export function addListOnlySecurityCases(
     await expect(list.addButton()).toBeVisible();
   });
 
-  t(`TCS-${prefix}10`)(`TCS-${prefix}10 SQL injection payload ในช่องค้นหาต้องไม่ crash`, async ({ page }: { page: Page }) => {
+  t(`TCS-${prefix}10`)(
+    `TCS-${prefix}10 SQL injection payload ในช่องค้นหาต้องไม่ crash`,
+    {
+      annotation: [
+        { type: "preconditions", description: `Logged in user with permission to access ${listPath}` },
+        { type: "steps", description: `1. เปิด list ${listPath}\n2. พิมพ์ SQL injection payload "'; DROP TABLE users; --" ลงในช่องค้นหา` },
+        { type: "expected", description: "หน้าไม่ crash; ปุ่ม Add ยังคง visible (list ทำงานปกติ)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Security" },
+      ],
+    },
+    async ({ page }: { page: Page }) => {
     const list = new ConfigListPage(page, listPath);
     await list.goto();
     await list.search(SQL_PAYLOAD);
     await expect(list.addButton()).toBeVisible();
   });
 
-  t(`TCS-${prefix}11`)(`TCS-${prefix}11 ค้นหาด้วย string ยาวมากต้องไม่ crash`, async ({ page }: { page: Page }) => {
+  t(`TCS-${prefix}11`)(
+    `TCS-${prefix}11 ค้นหาด้วย string ยาวมากต้องไม่ crash`,
+    {
+      annotation: [
+        { type: "preconditions", description: `Logged in user with permission to access ${listPath}` },
+        { type: "steps", description: `1. เปิด list ${listPath}\n2. พิมพ์ string ยาว 200 ตัวอักษร ('a' x 200) ลงในช่องค้นหา` },
+        { type: "expected", description: "หน้าไม่ crash; ปุ่ม Add ยังคง visible (list ทำงานปกติ)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
+      ],
+    },
+    async ({ page }: { page: Page }) => {
     const list = new ConfigListPage(page, listPath);
     await list.goto();
     await list.search(LONG_NAME);
     await expect(list.addButton()).toBeVisible();
   });
 
-  t(`TCS-${prefix}12`)(`TCS-${prefix}12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`, async ({
+  t(`TCS-${prefix}12`)(
+    `TCS-${prefix}12 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`,
+    {
+      annotation: [
+        { type: "preconditions", description: `Test user requestor@blueledgers.com (low-privilege role) มีอยู่จริง; module list path = ${listPath}` },
+        { type: "steps", description: `1. เปิด browser context ใหม่\n2. login เป็น requestor@blueledgers.com\n3. ไปที่ ${listPath}` },
+        { type: "expected", description: `User ถูก redirect ออกจาก ${listPath} หรือ ปุ่ม Add ไม่ปรากฏ (count = 0)` },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Authorization" },
+      ],
+    },
+    async ({
     browser,
   }: {
     browser: import("@playwright/test").Browser;
