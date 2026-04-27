@@ -1,9 +1,9 @@
 # Vendor — User Stories
 
-_Generated from `tests/014-vendor.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/150-vendor.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Vendor
-**Spec:** `tests/014-vendor.spec.ts`
+**Spec:** `tests/150-vendor.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 28 (10 High / 18 Medium / 0 Low)
 
@@ -667,4 +667,4 @@ Empty-state placeholder ปรากฏภายใน 10s (ยืนยัน�
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>
+<sub>Last regenerated: 2026-04-27 · git cb607d8</sub>

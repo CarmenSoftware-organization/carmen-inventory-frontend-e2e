@@ -1,9 +1,9 @@
 # My Approvals — User Stories
 
-_Generated from `tests/101-my-approvals.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/201-my-approvals.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** My Approvals
-**Spec:** `tests/101-my-approvals.spec.ts`
+**Spec:** `tests/201-my-approvals.spec.ts`
 **Default role:** HOD
 **Total test cases:** 19 (12 High / 3 Medium / 0 Low / 4 unset)
 
@@ -539,4 +539,4 @@ System validation fails, self-delegation is not allowed.
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>
+<sub>Last regenerated: 2026-04-27 · git cb607d8</sub>

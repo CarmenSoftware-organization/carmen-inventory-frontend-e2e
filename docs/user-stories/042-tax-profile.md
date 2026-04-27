@@ -1,9 +1,9 @@
 # Tax Profile — User Stories
 
-_Generated from `tests/012-tax-profile.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/042-tax-profile.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Tax Profile
-**Spec:** `tests/012-tax-profile.spec.ts`
+**Spec:** `tests/042-tax-profile.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 13 (9 High / 4 Medium / 0 Low)
 
@@ -310,4 +310,4 @@ User ถูก redirect ออกจาก /config/tax-profile หรือ ป�
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>
+<sub>Last regenerated: 2026-04-27 · git cb607d8</sub>

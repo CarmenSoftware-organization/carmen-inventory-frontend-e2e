@@ -1,9 +1,9 @@
 # Exchange Rate — User Stories
 
-_Generated from `tests/009-exchange-rate.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/041-exchange-rate.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Exchange Rate
-**Spec:** `tests/009-exchange-rate.spec.ts`
+**Spec:** `tests/041-exchange-rate.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 6 (4 High / 2 Medium / 0 Low)
 
@@ -146,4 +146,4 @@ User ถูก redirect ออกจาก /config/exchange-rate หรือ �
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>
+<sub>Last regenerated: 2026-04-27 · git cb607d8</sub>

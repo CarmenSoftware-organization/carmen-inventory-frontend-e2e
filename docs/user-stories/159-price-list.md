@@ -1,9 +1,9 @@
 # Price List — User Stories
 
-_Generated from `tests/018-price-list.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/159-price-list.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Price List
-**Spec:** `tests/018-price-list.spec.ts`
+**Spec:** `tests/159-price-list.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 27 (9 High / 14 Medium / 4 Low)
 
@@ -704,4 +704,4 @@ User cannot mark an already expired price list as expired and no changes are mad
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>
+<sub>Last regenerated: 2026-04-27 · git cb607d8</sub>

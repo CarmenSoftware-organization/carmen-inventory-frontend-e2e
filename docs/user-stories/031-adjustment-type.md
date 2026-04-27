@@ -1,9 +1,9 @@
 # Adjustment Type — User Stories
 
-_Generated from `tests/002-adjustment-type.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/031-adjustment-type.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Adjustment Type
-**Spec:** `tests/002-adjustment-type.spec.ts`
+**Spec:** `tests/031-adjustment-type.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 15 (11 High / 4 Medium / 0 Low)
 
@@ -364,4 +364,4 @@ User ถูก redirect ออกจาก /config/adjustment-type หรือ 
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>
+<sub>Last regenerated: 2026-04-27 · git cb607d8</sub>

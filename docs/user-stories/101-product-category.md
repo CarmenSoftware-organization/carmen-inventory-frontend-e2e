@@ -1,9 +1,9 @@
 # Product Category — User Stories
 
-_Generated from `tests/027-product-category.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/101-product-category.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Product Category
-**Spec:** `tests/027-product-category.spec.ts`
+**Spec:** `tests/101-product-category.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 77 (47 High / 16 Medium / 0 Low / 14 unset)
 
@@ -1929,4 +1929,4 @@ Ingredient usage is correctly displayed by category.
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>
+<sub>Last regenerated: 2026-04-27 · git cb607d8</sub>

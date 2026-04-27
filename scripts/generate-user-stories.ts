@@ -25,8 +25,8 @@ const EMAIL_TO_ROLE = new Map<string, string>(
 
 const MODULE_NAME_OVERRIDES: Record<string, string> = {
   "001-login": "Login & Logout",
-  "014-vendor": "Vendor",
-  "101-my-approvals": "My Approvals",
+  "150-vendor": "Vendor",
+  "201-my-approvals": "My Approvals",
   "501-good-received-note": "GRN",
   "310-purchase-request-template": "Purchase Request Template",
 };

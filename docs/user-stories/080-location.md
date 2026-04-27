@@ -1,9 +1,9 @@
 # Location — User Stories
 
-_Generated from `tests/011-location.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/080-location.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Location
-**Spec:** `tests/011-location.spec.ts`
+**Spec:** `tests/080-location.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 15 (9 High / 6 Medium / 0 Low)
 
@@ -372,4 +372,4 @@ User ถูก redirect ออกจาก /config/location หรือ ปุ�
 ---
 
 
-<sub>Last regenerated: 2026-04-27 · git b63e3e8</sub>
+<sub>Last regenerated: 2026-04-27 · git cb607d8</sub>
