@@ -1,27 +1,34 @@
 #!/usr/bin/env bash
 # Run every e2e module spec sequentially and print a pass/fail summary.
-# Usage: ./run-all.sh [playwright-flags...]
-#   ./run-all.sh --workers=100%   # run all specs in a single playwright batch with 100% workers
+#
+# Usage:
+#   ./run-all.sh                  # sequential, one playwright invocation per module
+#   ./run-all.sh --workers=100%   # single playwright batch with all workers
+#   ./run-all.sh --headed         # any flag is passed through
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-MODULES=(
-  adjustment-type
-  business-type
-  credit-note-reason
-  credit-term
-  currency
-  delivery-point
-  department
-  exchange-rate
-  extra-cost
-  location
-  tax-profile
-  unit
-  vendor
-)
+# Discover modules from spec filenames (replaces the previous hard-coded list).
+shopt -s nullglob
+RAW=()
+for spec in "${REPO_ROOT}"/tests/[0-9]*-*.spec.ts; do
+  base=$(basename "$spec" .spec.ts)
+  RAW+=("${base#*-}")
+done
+shopt -u nullglob
+
+if [ ${#RAW[@]} -gt 0 ]; then
+  IFS=$'\n' read -r -d '' -a MODULES < <(printf '%s\n' "${RAW[@]}" | sort && printf '\0')
+else
+  MODULES=()
+fi
+
+if [ ${#MODULES[@]} -eq 0 ]; then
+  echo "error: no spec files found under ${REPO_ROOT}/tests/" >&2
+  exit 1
+fi
 
 # Detect --workers=100% to switch to single-batch parallel mode
 BATCH_MODE=0
@@ -41,8 +48,7 @@ if [ "$BATCH_MODE" -eq 1 ]; then
   echo "================================================================"
   SPECS=()
   for m in "${MODULES[@]}"; do
-    # Resolve NN-<module>.spec.ts (sequence-prefixed)
-    SPEC=$(cd "$REPO_ROOT" && ls tests/[0-9][0-9][0-9]-"${m}".spec.ts 2>/dev/null | head -1)
+    SPEC=$(cd "$REPO_ROOT" && ls tests/[0-9]*-"${m}".spec.ts 2>/dev/null | head -1)
     [ -z "$SPEC" ] && { echo "error: spec not found for '$m'" >&2; continue; }
     SPECS+=("$SPEC")
   done

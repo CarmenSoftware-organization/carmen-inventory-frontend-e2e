@@ -40,31 +40,31 @@ bun dev
 
 ```bash
 # รัน module เดียว → test → sync Google Sheets ทันที
-./e2e/scripts/run-delivery-point.sh
-./e2e/scripts/run-currency.sh
-./e2e/scripts/run-department.sh
+./tests/scripts/run-module.sh delivery-point
+./tests/scripts/run-module.sh currency
+./tests/scripts/run-module.sh department
 ```
 
 ### วิธีที่ 2: ใช้ generic dispatcher
 
 ```bash
 # run-module.sh <module-name> [flags...]
-./e2e/scripts/run-module.sh delivery-point
-./e2e/scripts/run-module.sh currency --headed
-./e2e/scripts/run-module.sh department --debug
+./tests/scripts/run-module.sh delivery-point
+./tests/scripts/run-module.sh currency --headed
+./tests/scripts/run-module.sh department --debug
 ```
 
 ### วิธีที่ 3: ใช้ playwright โดยตรง (ไม่ auto-sync)
 
 ```bash
 # รัน spec file ตรงๆ
-bunx playwright test e2e/delivery-point.spec.ts
+bunx playwright test tests/delivery-point.spec.ts
 
 # รัน test case เดียวด้วย -g (grep pattern)
-bunx playwright test e2e/delivery-point.spec.ts -g "TC-001"
+bunx playwright test tests/delivery-point.spec.ts -g "TC-001"
 
 # รันหลาย TC
-bunx playwright test e2e/delivery-point.spec.ts -g "TC-001|TC-002|TC-003"
+bunx playwright test tests/delivery-point.spec.ts -g "TC-001|TC-002|TC-003"
 
 # ต้อง sync เอง
 bun e2e:sync
@@ -81,10 +81,10 @@ Login เป็น project แยกใน Playwright config:
 bunx playwright test --project=login
 
 # หรือใช้ script
-./e2e/scripts/run-module.sh login
+./tests/scripts/run-module.sh login
 
 # รัน TC เดียว
-bunx playwright test e2e/login.spec.ts -g "TC-L01"
+bunx playwright test tests/login.spec.ts -g "TC-L01"
 
 # sync
 bun e2e:sync
@@ -96,10 +96,10 @@ bun e2e:sync
 
 ```bash
 # วิธีที่ 1: ทีละ module เรียงลำดับ (แนะนำ — เห็น pass/fail แต่ละตัว)
-./e2e/scripts/run-all.sh
+./tests/scripts/run-all.sh
 
 # วิธีที่ 2: รันพร้อมกันทุก module (เร็วกว่า แต่ log ปนกัน)
-./e2e/scripts/run-all.sh --workers=100%
+./tests/scripts/run-all.sh --workers=100%
 
 # วิธีที่ 3: ใช้ bun script
 bun e2e                # รันทุก spec
@@ -133,7 +133,7 @@ bun e2e:sync
 
 ### การทำงาน
 
-1. อ่านไฟล์ CSV จาก `e2e/results/` (สร้างอัตโนมัติจาก tc-csv-reporter)
+1. อ่านไฟล์ CSV จาก `tests/results/` (สร้างอัตโนมัติจาก tc-csv-reporter)
 2. จับคู่ Test ID (เช่น `TC-001`, `TC-L01`) กับ row ใน Google Sheet
 3. **Row มีอยู่แล้ว** → อัปเดต Status, Test Date, Duration, Error
 4. **Row ใหม่** → เพิ่มแถวท้าย sheet
@@ -176,19 +176,19 @@ Test ID | Title | Status | Test Date | Duration (ms) | Error
 
 ```bash
 # 1 คำสั่งจบ: รัน test → สร้าง CSV → sync Google Sheets
-./e2e/scripts/run-delivery-point.sh
+./tests/scripts/run-module.sh delivery-point
 ```
 
 ### รัน test case เดียว + sync
 
 ```bash
-bunx playwright test e2e/delivery-point.spec.ts -g "TC-030" && bun e2e:sync
+bunx playwright test tests/delivery-point.spec.ts -g "TC-030" && bun e2e:sync
 ```
 
 ### รันทุกอย่าง + sync
 
 ```bash
-./e2e/scripts/run-all.sh
+./tests/scripts/run-all.sh
 # sync ทำอัตโนมัติในแต่ละ module แล้ว
 ```
 
@@ -204,19 +204,19 @@ bun e2e:report
 
 ```bash
 # เปิด browser ให้เห็น (headed mode)
-./e2e/scripts/run-module.sh currency --headed
+./tests/scripts/run-module.sh currency --headed
 
 # Debug mode (step-by-step)
-./e2e/scripts/run-module.sh currency --debug
+./tests/scripts/run-module.sh currency --debug
 
 # Playwright UI (interactive)
 bun e2e:ui
 
 # Retry failed tests 2 ครั้ง
-bunx playwright test e2e/currency.spec.ts --retries=2
+bunx playwright test tests/currency.spec.ts --retries=2
 
 # รันด้วย trace
-bunx playwright test e2e/currency.spec.ts --trace on
+bunx playwright test tests/currency.spec.ts --trace on
 ```
 
 ---
@@ -226,25 +226,25 @@ bunx playwright test e2e/currency.spec.ts --trace on
 | Module | Script | Spec File | TC Prefix |
 |--------|--------|-----------|-----------|
 | Login | `run-module.sh login` | `login.spec.ts` | TC-L |
-| Delivery Point | `run-delivery-point.sh` | `delivery-point.spec.ts` | TC-001..049 |
-| Adjustment Type | `run-adjustment-type.sh` | `adjustment-type.spec.ts` | TC-AT |
-| Business Type | `run-business-type.sh` | `business-type.spec.ts` | TC-BT |
-| Credit Note Reason | `run-credit-note-reason.sh` | `credit-note-reason.spec.ts` | TC-CNR |
-| Credit Term | `run-credit-term.sh` | `credit-term.spec.ts` | TC-CT |
-| Currency | `run-currency.sh` | `currency.spec.ts` | TC-CUR |
-| Department | `run-department.sh` | `department.spec.ts` | TC-DEP |
-| Exchange Rate | `run-exchange-rate.sh` | `exchange-rate.spec.ts` | TC-ER |
-| Extra Cost | `run-extra-cost.sh` | `extra-cost.spec.ts` | TC-EC |
-| Location | `run-location.sh` | `location.spec.ts` | TC-LOC |
-| Tax Profile | `run-tax-profile.sh` | `tax-profile.spec.ts` | TC-TP |
-| Unit | `run-unit.sh` | `unit.spec.ts` | TC-UN |
+| Delivery Point | `run-module.sh delivery-point` | `delivery-point.spec.ts` | TC-001..049 |
+| Adjustment Type | `run-module.sh adjustment-type` | `adjustment-type.spec.ts` | TC-AT |
+| Business Type | `run-module.sh business-type` | `business-type.spec.ts` | TC-BT |
+| Credit Note Reason | `run-module.sh credit-note-reason` | `credit-note-reason.spec.ts` | TC-CNR |
+| Credit Term | `run-module.sh credit-term` | `credit-term.spec.ts` | TC-CT |
+| Currency | `run-module.sh currency` | `currency.spec.ts` | TC-CUR |
+| Department | `run-module.sh department` | `department.spec.ts` | TC-DEP |
+| Exchange Rate | `run-module.sh exchange-rate` | `exchange-rate.spec.ts` | TC-ER |
+| Extra Cost | `run-module.sh extra-cost` | `extra-cost.spec.ts` | TC-EC |
+| Location | `run-module.sh location` | `location.spec.ts` | TC-LOC |
+| Tax Profile | `run-module.sh tax-profile` | `tax-profile.spec.ts` | TC-TP |
+| Unit | `run-module.sh unit` | `unit.spec.ts` | TC-UN |
 
 ---
 
 ## โครงสร้างผลลัพธ์
 
 ```
-e2e/results/
+tests/results/
 ├── login-results.csv
 ├── delivery-point-results.csv
 ├── adjustment-type-results.csv
@@ -299,7 +299,7 @@ cat "$GOOGLE_SHEETS_SA_KEY_PATH" | head -3
 
 ```bash
 # เพิ่ม timeout ของ test
-bunx playwright test e2e/delivery-point.spec.ts --timeout=60000
+bunx playwright test tests/delivery-point.spec.ts --timeout=60000
 
 # หรือตรวจว่า dev server พร้อม
 curl -s http://localhost:3000 | head -1
@@ -312,5 +312,5 @@ curl -s http://localhost:3000 | head -1
 bun e2e:report
 
 # CSV ตรง
-cat e2e/results/delivery-point-results.csv
+cat tests/results/delivery-point-results.csv
 ```
