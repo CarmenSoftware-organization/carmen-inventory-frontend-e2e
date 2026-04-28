@@ -13,12 +13,15 @@ export class ConfigListPage extends BasePage {
   }
 
   readonly addButton = () => this.page.getByRole("button", { name: /Add/i }).first();
+  // override: returns the full collection (no .first()) so callers can use .count() / .nth()
   readonly searchInput = () => this.page.getByPlaceholder(/Search/i);
   readonly table = () => this.page.locator("table");
   readonly tableRows = () => this.table().locator("tbody tr");
+  // override: returns the full collection (no .first()) so callers can use .count()
   readonly emptyState = () =>
     this.page.getByText(/no.*data|no.*results|empty|ไม่พบ/i);
 
+  // override: zero-arg form — uses this.path captured at construction
   async goto() {
     await this.page.goto(this.path);
     await this.page.waitForLoadState("networkidle");
