@@ -1,4 +1,5 @@
 import type { Page } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 /**
  * Generic list page object for any module under /config/*.
@@ -6,11 +7,10 @@ import type { Page } from "@playwright/test";
  * Use for smoke / read-only tests. For full CRUD tests, create a
  * module-specific page object with the module's form field selectors.
  */
-export class ConfigListPage {
-  constructor(
-    private page: Page,
-    private path: string,
-  ) {}
+export class ConfigListPage extends BasePage {
+  constructor(page: Page, private path: string) {
+    super(page);
+  }
 
   readonly addButton = () => this.page.getByRole("button", { name: /Add/i }).first();
   readonly searchInput = () => this.page.getByPlaceholder(/Search/i);

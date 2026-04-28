@@ -1,8 +1,7 @@
 import type { Page, Locator } from "@playwright/test";
+import { BasePage } from "./base.page";
 
-export class DeliveryPointListPage {
-  constructor(private page: Page) {}
-
+export class DeliveryPointListPage extends BasePage {
   readonly addButton = () => this.page.getByRole("button", { name: /Add/i }).first();
   readonly searchInput = () => this.page.getByPlaceholder(/Search/i);
   readonly table = () => this.page.locator("table");

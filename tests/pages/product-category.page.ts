@@ -1,10 +1,9 @@
 import type { Page, Locator } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 export const LIST_PATH = "/product-management/category";
 
-export class ProductCategoryPage {
-  constructor(private page: Page) {}
-
+export class ProductCategoryPage extends BasePage {
   async gotoList() {
     await this.page.goto(LIST_PATH);
     await this.page.waitForLoadState("networkidle");
@@ -27,16 +26,9 @@ export class ProductCategoryPage {
     return this.page.getByRole("button", { name: /^search$/i }).first();
   }
 
+  // override: also matches the "category name" placeholder
   searchInput(): Locator {
     return this.page.getByPlaceholder(/search|category name/i).first();
-  }
-
-  filterButton(): Locator {
-    return this.page.getByRole("button", { name: /^filter$/i }).first();
-  }
-
-  applyFilterButton(): Locator {
-    return this.page.getByRole("button", { name: /apply filters?/i }).first();
   }
 
   treeViewButton(): Locator {
@@ -58,6 +50,7 @@ export class ProductCategoryPage {
     return this.page.locator("[role='navigation'][aria-label*='breadcrumb' i], nav, ol").filter({ hasText: /\//i }).first();
   }
 
+  // override: also matches "no categor*" empty text
   emptyState(): Locator {
     return this.page.getByText(/no.*categor|no.*data|empty|ไม่พบ/i).first();
   }
@@ -69,18 +62,6 @@ export class ProductCategoryPage {
 
   parentSubcategoryTrigger(): Locator {
     return this.page.getByLabel(/parent subcategory|parent/i).first();
-  }
-
-  saveButton(): Locator {
-    return this.page.getByRole("button", { name: /^save$|^create$/i }).first();
-  }
-
-  editButton(): Locator {
-    return this.page.getByRole("button", { name: /^edit$/i }).first();
-  }
-
-  deleteButton(): Locator {
-    return this.page.getByRole("button", { name: /^delete$/i }).first();
   }
 
   moveButton(): Locator {
@@ -96,16 +77,4 @@ export class ProductCategoryPage {
     return this.page.getByRole("dialog").getByRole("button", { name }).first();
   }
 
-  // ── Verification ─────────────────────────────────────────────────────
-  toast(): Locator {
-    return this.page
-      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-      .first();
-  }
-
-  anyError(): Locator {
-    return this.page.locator(
-      '[aria-invalid="true"], p.text-destructive, [role="alert"][data-slot="field-error"]',
-    );
-  }
 }
