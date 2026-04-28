@@ -455,6 +455,7 @@ export class VendorPage extends BasePage {
   }
 
   // ── Validation helpers ────────────────────────────────────────────────
+  // override: matches 4 surfaces (aria-invalid + p.text-destructive + p.text-[0.625rem]… + FieldError)
   anyError(): Locator {
     // Multiple surfaces for validation errors across the vendor form:
     // - `[aria-invalid="true"]` — FieldInput (code/name) sets this when zod fails;
