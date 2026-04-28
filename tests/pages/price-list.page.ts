@@ -64,7 +64,7 @@ export class PriceListPage extends BasePage {
     return this.page.getByRole("menuitem", { name: typeof name === "string" ? new RegExp(name, "i") : name });
   }
 
-  // override: also matches "no … found" empty text
+  // override: matches "no … found" instead of base's "no … results"
   emptyState(): Locator {
     return this.page.getByText(/no.*found|no.*data|empty|ไม่พบ/i).first();
   }
