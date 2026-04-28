@@ -1,5 +1,6 @@
 import type { Page, Locator } from "@playwright/test";
 import { ConfigListPage } from "./config-list.page";
+import { BasePage } from "./base.page";
 
 /**
  * Reusable helper for dialog-based config modules with a name field and
@@ -12,14 +13,18 @@ export interface DialogCrudOptions {
   activeSwitchId?: string; // e.g. "business-type-is-active"
 }
 
+class _BasePageImpl extends BasePage {}
+
 export class DialogCrudHelper {
   readonly list: ConfigListPage;
+  private readonly base: _BasePageImpl;
 
   constructor(
     private page: Page,
     private opts: DialogCrudOptions,
   ) {
     this.list = new ConfigListPage(page, opts.listPath);
+    this.base = new _BasePageImpl(page);
   }
 
   dialog(): Locator {
@@ -51,7 +56,7 @@ export class DialogCrudHelper {
   }
 
   deleteConfirm(): Locator {
-    return this.page.getByRole("alertdialog");
+    return this.base.alertDialog();
   }
 
   deleteConfirmButton(): Locator {

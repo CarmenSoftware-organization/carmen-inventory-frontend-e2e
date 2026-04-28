@@ -1,5 +1,6 @@
 import type { Page, Locator } from "@playwright/test";
 import { ConfigListPage } from "./config-list.page";
+import { BasePage } from "./base.page";
 
 /**
  * Helper for page-form-based config modules (department, location, adjustment-type).
@@ -18,14 +19,18 @@ export interface PageFormCrudOptions {
   activeSwitchId?: string; // e.g. "department-is-active"
 }
 
+class _BasePageImpl extends BasePage {}
+
 export class PageFormCrudHelper {
   readonly list: ConfigListPage;
+  private readonly base: _BasePageImpl;
 
   constructor(
     private page: Page,
     private opts: PageFormCrudOptions,
   ) {
     this.list = new ConfigListPage(page, opts.listPath);
+    this.base = new _BasePageImpl(page);
   }
 
   async gotoNew() {
@@ -71,7 +76,7 @@ export class PageFormCrudHelper {
   }
 
   deleteConfirm(): Locator {
-    return this.page.getByRole("alertdialog");
+    return this.base.alertDialog();
   }
 
   deleteConfirmButton(): Locator {
