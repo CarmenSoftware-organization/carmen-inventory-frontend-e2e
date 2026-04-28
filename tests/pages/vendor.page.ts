@@ -1,5 +1,6 @@
 import type { Page, Locator } from "@playwright/test";
 import { expect } from "@playwright/test";
+import { BasePage } from "./base.page";
 import { ConfigListPage } from "./config-list.page";
 
 export interface VendorAddressInput {
@@ -42,10 +43,11 @@ export interface VendorFormData {
 export const LIST_PATH = "/vendor-management/vendor";
 export const NEW_PATH = "/vendor-management/vendor/new";
 
-export class VendorPage {
+export class VendorPage extends BasePage {
   readonly list: ConfigListPage;
 
-  constructor(private page: Page) {
+  constructor(page: Page) {
+    super(page);
     this.list = new ConfigListPage(page, LIST_PATH);
   }
 
@@ -79,20 +81,12 @@ export class VendorPage {
     return this.page.locator("#vendor-is-active");
   }
 
+  // override: scoped to FormToolbar submit button only
   saveButton(): Locator {
     // FormToolbar submit button — text is "Create" in add mode, "Save" in edit mode
     return this.page
       .getByRole("button", { name: /^(Create|Save)$/i })
       .and(this.page.locator('[type="submit"]'));
-  }
-
-  /** Reserved for future specs that cancel out of the form. */
-  cancelButton(): Locator {
-    return this.page.getByRole("button", { name: /^Cancel$/i });
-  }
-
-  editButton(): Locator {
-    return this.page.getByRole("button", { name: /^Edit$/i });
   }
 
   // ── Tabs ──────────────────────────────────────────────────────────────
