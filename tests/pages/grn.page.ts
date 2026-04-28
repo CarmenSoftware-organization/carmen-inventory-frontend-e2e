@@ -1,5 +1,6 @@
 import type { Page, Locator } from "@playwright/test";
 import { expect } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 export const LIST_PATH = "/procurement/goods-receive-note";
 export const NEW_PATH = "/procurement/goods-receive-note/new";
@@ -20,9 +21,7 @@ export interface GRNLineItemInput {
   storageLocation?: string;
 }
 
-export class GRNPage {
-  constructor(private page: Page) {}
-
+export class GRNPage extends BasePage {
   // ── Navigation ────────────────────────────────────────────────────────
   async gotoList() {
     await this.page.goto(LIST_PATH);
@@ -42,10 +41,6 @@ export class GRNPage {
   // ── List page ────────────────────────────────────────────────────────
   newGRNButton(): Locator {
     return this.page.getByRole("button", { name: /new grn|create.*grn|create.*new|^new$|^create$/i }).first();
-  }
-
-  searchInput(): Locator {
-    return this.page.getByPlaceholder(/search/i).first();
   }
 
   clearFiltersButton(): Locator {
@@ -68,6 +63,7 @@ export class GRNPage {
     return this.page.getByRole("row").filter({ hasText: text }).first();
   }
 
+  // override: also matches "no GRN" empty text
   emptyState(): Locator {
     return this.page.getByText(/no.*grn|no.*data|empty|ไม่พบ/i).first();
   }
@@ -97,12 +93,9 @@ export class GRNPage {
     return this.page.getByLabel(/currency/i).first();
   }
 
+  // override: also matches "Submit" button
   saveButton(): Locator {
     return this.page.getByRole("button", { name: /^save$|^submit$|^create$/i }).first();
-  }
-
-  editButton(): Locator {
-    return this.page.getByRole("button", { name: /^edit$/i }).first();
   }
 
   // ── Items tab ────────────────────────────────────────────────────────
@@ -188,23 +181,12 @@ export class GRNPage {
   }
 
   // ── Verification ─────────────────────────────────────────────────────
+  // override: filters to GRN-specific status text
   statusBadge(): Locator {
     return this.page
       .locator("[data-slot='badge'], [class*='badge']")
       .filter({ hasText: /draft|received|committed|void|approved/i })
       .first();
-  }
-
-  toast(): Locator {
-    return this.page
-      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-      .first();
-  }
-
-  anyError(): Locator {
-    return this.page.locator(
-      '[aria-invalid="true"], p.text-destructive, [role="alert"][data-slot="field-error"]',
-    );
   }
 
   async expectSavedToast() {

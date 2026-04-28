@@ -1,11 +1,10 @@
 import type { Page, Locator } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 export const LIST_PATH = "/procurement/purchase-request-template";
 export const NEW_PATH = "/procurement/purchase-request-template/new";
 
-export class PRTemplatePage {
-  constructor(private page: Page) {}
-
+export class PRTemplatePage extends BasePage {
   async gotoList() {
     await this.page.goto(LIST_PATH);
     await this.page.waitForLoadState("networkidle");
@@ -26,14 +25,7 @@ export class PRTemplatePage {
     return this.page.getByRole("button", { name: /new template|new purchase request|^new$|^create$/i }).first();
   }
 
-  searchInput(): Locator {
-    return this.page.getByPlaceholder(/search/i).first();
-  }
-
-  filterButton(): Locator {
-    return this.page.getByRole("button", { name: /^filter$/i }).first();
-  }
-
+  // override: this module's apply button reads only "Apply"
   applyFilterButton(): Locator {
     return this.page.getByRole("button", { name: /^apply$/i }).first();
   }
@@ -46,6 +38,7 @@ export class PRTemplatePage {
     return this.page.getByRole("row").filter({ hasText: text }).first();
   }
 
+  // override: also matches "no template" empty text
   emptyState(): Locator {
     return this.page.getByText(/no.*template|no.*data|empty|ไม่พบ/i).first();
   }
@@ -71,16 +64,9 @@ export class PRTemplatePage {
     return this.page.getByLabel(/^account$|account code/i).first();
   }
 
+  // override: also matches "Save Template" / "Submit"
   saveButton(): Locator {
     return this.page.getByRole("button", { name: /save template|^save$|^submit$|^create$/i }).first();
-  }
-
-  editButton(): Locator {
-    return this.page.getByRole("button", { name: /^edit$/i }).first();
-  }
-
-  deleteButton(): Locator {
-    return this.page.getByRole("button", { name: /^delete$/i }).first();
   }
 
   cloneButton(): Locator {
@@ -126,16 +112,4 @@ export class PRTemplatePage {
     return this.page.getByRole("dialog").getByRole("button", { name }).first();
   }
 
-  // ── Verification ─────────────────────────────────────────────────────
-  toast(): Locator {
-    return this.page
-      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-      .first();
-  }
-
-  anyError(): Locator {
-    return this.page.locator(
-      '[aria-invalid="true"], p.text-destructive, [role="alert"][data-slot="field-error"]',
-    );
-  }
 }

@@ -1,11 +1,10 @@
 import type { Page, Locator } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 export const LIST_PATH = "/store-operation/store-requisition";
 export const NEW_PATH = "/store-operation/store-requisition/new";
 
-export class StoreRequisitionPage {
-  constructor(private page: Page) {}
-
+export class StoreRequisitionPage extends BasePage {
   async gotoList() {
     await this.page.goto(LIST_PATH);
     await this.page.waitForLoadState("networkidle");
@@ -24,14 +23,6 @@ export class StoreRequisitionPage {
   // ── List page ────────────────────────────────────────────────────────
   newRequisitionButton(): Locator {
     return this.page.getByRole("button", { name: /new requisition|^new$|^create$/i }).first();
-  }
-
-  searchInput(): Locator {
-    return this.page.getByPlaceholder(/search/i).first();
-  }
-
-  filterButton(): Locator {
-    return this.page.getByRole("button", { name: /^filter$/i }).first();
   }
 
   sortByButton(): Locator {
@@ -57,6 +48,7 @@ export class StoreRequisitionPage {
       .first();
   }
 
+  // override: also matches "no pending"/"no requisition" empty text
   emptyState(): Locator {
     return this.page.getByText(/no.*pending|no.*requisition|empty|ไม่พบ/i).first();
   }
@@ -153,22 +145,11 @@ export class StoreRequisitionPage {
   }
 
   // ── Verification ─────────────────────────────────────────────────────
+  // override: filters to SR-specific status text
   statusBadge(): Locator {
     return this.page
       .locator("[data-slot='badge'], [class*='badge']")
       .filter({ hasText: /draft|in.progress|approved|rejected|complete|ready.*issuance/i })
       .first();
-  }
-
-  toast(): Locator {
-    return this.page
-      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-      .first();
-  }
-
-  anyError(): Locator {
-    return this.page.locator(
-      '[aria-invalid="true"], p.text-destructive, [role="alert"][data-slot="field-error"]',
-    );
   }
 }
