@@ -17,7 +17,7 @@ const opts = {
 
 test.describe("Tax Profile — Smoke & CRUD", () => {
   test(
-    "TC-TP01 หน้า list โหลดสำเร็จ",
+    "TC-TP00101 หน้า list โหลดสำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
@@ -34,7 +34,7 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-TP02 ปุ่ม Add แสดง",
+    "TC-TP00102 ปุ่ม Add แสดง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/tax-profile" },
@@ -51,7 +51,7 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-TP03 ช่องค้นหาใช้งานได้",
+    "TC-TP00103 ช่องค้นหาใช้งานได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/tax-profile" },
@@ -69,7 +69,7 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-TP04 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    "TC-TP00104 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/tax-profile" },
@@ -87,7 +87,7 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-TP05 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
+    "TC-TP00105 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/tax-profile" },
@@ -107,7 +107,7 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-TP06 สร้างรายการใหม่และปรากฏในตาราง",
+    "TC-TP00106 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; tax profile ชื่อ NAME ยังไม่มีอยู่ใน DB" },
@@ -131,10 +131,10 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-TP07 แก้ไขชื่อและบันทึก",
+    "TC-TP00107 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "TC-TP06 ผ่านแล้ว → tax profile ชื่อ NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-TP00106 ผ่านแล้ว → tax profile ชื่อ NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด edit dialog\n3. clear name + กรอก NAME_UPDATED (ไม่แก้ rate)\n4. กด Save" },
         { type: "expected", description: "Updated/success toast ปรากฏ และแถว NAME_UPDATED ปรากฏใน list (rate คงเดิม)" },
         { type: "priority", description: "High" },
@@ -157,10 +157,10 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-TP13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
+    "TC-TP00113 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "TC-TP07 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-TP00107 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด edit dialog\n3. clear name (rate ไม่แตะ)\n4. กด Save" },
         { type: "expected", description: "Error message ปรากฏใต้ name input (required validation block submit); ปิด dialog ด้วย Cancel" },
         { type: "priority", description: "Medium" },
@@ -179,10 +179,10 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-TP08 ลบรายการ",
+    "TC-TP00108 ลบรายการ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-TP13 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-TP00113 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED ยังคงมีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. กด delete บนแถว\n3. ยืนยัน Delete" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ) และ tax profile ถูกลบจาก DB" },
         { type: "priority", description: "High" },
@@ -204,6 +204,6 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     prefix: "TP",
     listPath: PATH,
     makeHelper: (page) => new DialogCrudHelper(page, opts),
-    skipAuth: true, // TCS-TP12 skipped
+    skipAuth: true, // TCS-TP00112 skipped
   });
 });

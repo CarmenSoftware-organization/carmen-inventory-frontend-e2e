@@ -25,13 +25,13 @@ See `.env.example` for all environment variables.
 ## Running subsets
 
 ```bash
-bun run test:login              # login.spec.ts only (TC-L01..L30)
+bun run test:login              # login.spec.ts only (TC-L00101..L30)
 bun run test:chromium           # everything except login
 bun run test:ui                 # Playwright UI mode
 bun run test:headed             # headed browser
 bun run test:debug              # step-through debugger
 bunx playwright test currency   # single spec
-bunx playwright test -g "TC-L01"  # single test by title
+bunx playwright test -g "TC-L00101"  # single test by title
 bun run report                  # open last HTML report
 ```
 
@@ -70,7 +70,7 @@ Defined in `tests/test-users.ts`. Seven roles (Requestor, HOD, Purchase, FC, GM,
 
 ## Test IDs
 
-Every test title starts with a `TC-<area><NN>` ID (e.g. `TC-L01`, `TC-DP03`). The CSV reporter (`tests/reporters/tc-csv-reporter.ts`) parses these IDs and writes one CSV per spec into `tests/results/`. Preserve the pattern when adding new tests — otherwise they won't appear in the reports.
+Every test title starts with a `TC-<area><NN>` ID (e.g. `TC-L00101`, `TC-DP00103`). The CSV reporter (`tests/reporters/tc-csv-reporter.ts`) parses these IDs and writes one CSV per spec into `tests/results/`. Preserve the pattern when adding new tests — otherwise they won't appear in the reports.
 
 ## Google Sheets sync (optional)
 

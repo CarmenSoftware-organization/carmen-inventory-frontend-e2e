@@ -17,7 +17,7 @@ const opts = {
 
 test.describe("Currency — Smoke & CRUD", () => {
   test(
-    "TC-CUR01 หน้า list โหลดสำเร็จ",
+    "TC-CUR00101 หน้า list โหลดสำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
@@ -36,7 +36,7 @@ test.describe("Currency — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CUR02 ปุ่ม Add แสดง",
+    "TC-CUR00102 ปุ่ม Add แสดง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/currency" },
@@ -53,7 +53,7 @@ test.describe("Currency — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CUR03 ช่องค้นหาใช้งานได้",
+    "TC-CUR00103 ช่องค้นหาใช้งานได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/currency" },
@@ -71,7 +71,7 @@ test.describe("Currency — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CUR04 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    "TC-CUR00104 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/currency" },
@@ -89,7 +89,7 @@ test.describe("Currency — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CUR05 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
+    "TC-CUR00105 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; เปิด add dialog ของ /config/currency" },
@@ -109,7 +109,7 @@ test.describe("Currency — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CUR06 สร้างรายการใหม่และปรากฏในตาราง",
+    "TC-CUR00106 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB; ISO code IDR เลือกได้จาก lookup" },
@@ -151,10 +151,10 @@ test.describe("Currency — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CUR07 แก้ไขชื่อและบันทึก",
+    "TC-CUR00107 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CUR06 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-CUR00106 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ไปที่ /config/currency\n2. ค้นหา NAME\n3. คลิกแถวเพื่อเปิด edit dialog\n4. clear name แล้วกรอก NAME_UPDATED\n5. กด Save\n6. ค้นหา NAME_UPDATED" },
         { type: "expected", description: "Updated/success toast ปรากฏ; แถวที่มี Name = NAME_UPDATED ปรากฏใน list" },
         { type: "priority", description: "High" },
@@ -177,10 +177,10 @@ test.describe("Currency — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CUR13 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
+    "TC-CUR00113 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CUR07 ผ่านแล้ว → record มี name = NAME_UPDATED" },
+        { type: "preconditions", description: "TC-CUR00107 ผ่านแล้ว → record มี name = NAME_UPDATED" },
         { type: "steps", description: "1. ไปที่ /config/currency\n2. ค้นหา NAME_UPDATED\n3. คลิกแถวเพื่อเปิด edit dialog\n4. clear name\n5. กด Save\n6. ปิด dialog ด้วย Cancel" },
         { type: "expected", description: "Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)" },
         { type: "priority", description: "Medium" },
@@ -199,10 +199,10 @@ test.describe("Currency — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CUR08 ลบรายการ",
+    "TC-CUR00108 ลบรายการ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CUR13 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-CUR00113 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
         { type: "steps", description: "1. ไปที่ /config/currency\n2. ค้นหา NAME_UPDATED\n3. กด delete บนแถว\n4. ยืนยัน Delete" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
         { type: "priority", description: "High" },
@@ -224,6 +224,6 @@ test.describe("Currency — Smoke & CRUD", () => {
     prefix: "CUR",
     listPath: PATH,
     makeHelper: (page) => new DialogCrudHelper(page, opts),
-    skipAuth: true, // TCS-CUR12 skipped
+    skipAuth: true, // TCS-CUR00112 skipped
   });
 });

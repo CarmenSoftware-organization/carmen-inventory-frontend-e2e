@@ -7,34 +7,34 @@ import { TEST_USERS, TEST_PASSWORD } from "./test-users";
  * Login & Logout E2E suite
  *
  * TC ranges
- *   TC-L01..TC-L06  Login success per role (Requestor/HOD/Purchase/FC/GM/Owner), then logout
- *   TC-L07          TT (user without department) → dialog "No department assigned"
- *   TC-L08..TC-L13  Logout success per role
- *   TC-L14..TC-L22  Validation / error handling
- *   TC-L23..TC-L26  Edge cases (case-sensitivity, trim, mask, Enter key)
- *   TC-L27..TC-L28  Auth-guard redirects
- *   TC-L27..TC-L30  Security (SQL injection / XSS / wrong username 401 / rate limit 429)
+ *   TC-L00101..TC-L00106  Login success per role (Requestor/HOD/Purchase/FC/GM/Owner), then logout
+ *   TC-L00107          TT (user without department) → dialog "No department assigned"
+ *   TC-L00108..TC-L00113  Logout success per role
+ *   TC-L00114..TC-L00122  Validation / error handling
+ *   TC-L00123..TC-L00126  Edge cases (case-sensitivity, trim, mask, Enter key)
+ *   TC-L00127..TC-L00128  Auth-guard redirects
+ *   TC-L00127..TC-L00130  Security (SQL injection / XSS / wrong username 401 / rate limit 429)
  */
 
 const LOGIN_TC: Record<string, string> = {
-  Requestor: "TC-L01",
-  HOD: "TC-L02",
-  Purchase: "TC-L03",
-  FC: "TC-L04",
-  GM: "TC-L05",
-  Owner: "TC-L06",
-  // TT intentionally omitted — handled by dedicated TC-L07 below
+  Requestor: "TC-L00101",
+  HOD: "TC-L00102",
+  Purchase: "TC-L00103",
+  FC: "TC-L00104",
+  GM: "TC-L00105",
+  Owner: "TC-L00106",
+  // TT intentionally omitted — handled by dedicated TC-L00107 below
   // (user has no department → login should surface a "No department assigned"
   // dialog instead of redirecting to /dashboard).
 };
 
 const LOGOUT_TC: Record<string, string> = {
-  Requestor: "TC-L08",
-  HOD: "TC-L09",
-  Purchase: "TC-L10",
-  FC: "TC-L11",
-  GM: "TC-L12",
-  Owner: "TC-L13",
+  Requestor: "TC-L00108",
+  HOD: "TC-L00109",
+  Purchase: "TC-L00110",
+  FC: "TC-L00111",
+  GM: "TC-L00112",
+  Owner: "TC-L00113",
 };
 
 test.describe("เข้าสู่ระบบ", () => {
@@ -74,7 +74,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── TT: user without department → dialog ─────────────────────────────────
   test(
-    "TC-L07 TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department",
+    "TC-L00107 TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department",
     {
       annotation: [
         { type: "preconditions", description: "User tt@blueledgers.com มีอยู่จริงและ active แต่ยังไม่ถูกกำหนด department ในระบบ; browser logged out" },
@@ -98,7 +98,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── Validation / error handling ───────────────────────────────────────────
   test(
-    "TC-L14 แสดง error เมื่อไม่กรอกรหัสผ่าน",
+    "TC-L00114 แสดง error เมื่อไม่กรอกรหัสผ่าน",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -118,7 +118,7 @@ test.describe("เข้าสู่ระบบ", () => {
   );
 
   test(
-    "TC-L15 แสดง error เมื่อไม่กรอกอีเมล",
+    "TC-L00115 แสดง error เมื่อไม่กรอกอีเมล",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -138,7 +138,7 @@ test.describe("เข้าสู่ระบบ", () => {
   );
 
   test(
-    "TC-L16 แสดง error เมื่อไม่กรอกข้อมูลทั้งสองช่อง",
+    "TC-L00116 แสดง error เมื่อไม่กรอกข้อมูลทั้งสองช่อง",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -157,7 +157,7 @@ test.describe("เข้าสู่ระบบ", () => {
   );
 
   test(
-    "TC-L17 แสดง error เมื่อรูปแบบอีเมลไม่ถูกต้อง",
+    "TC-L00117 แสดง error เมื่อรูปแบบอีเมลไม่ถูกต้อง",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -176,7 +176,7 @@ test.describe("เข้าสู่ระบบ", () => {
   );
 
   test(
-    "TC-L18 แสดง error เมื่อ credentials ไม่ถูกต้อง",
+    "TC-L00118 แสดง error เมื่อ credentials ไม่ถูกต้อง",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login; ไม่มี user 'invalid@test.com' ในระบบ" },
@@ -198,7 +198,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L19 แสดง error เมื่ออีเมลถูกแต่รหัสผ่านผิด",
+    "TC-L00119 แสดง error เมื่ออีเมลถูกแต่รหัสผ่านผิด",
     {
       annotation: [
         { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; logged out" },
@@ -221,7 +221,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── Edge cases ────────────────────────────────────────────────────────────
   test(
-    "TC-L20 อีเมลไม่สนใจตัวพิมพ์ใหญ่-เล็ก",
+    "TC-L00120 อีเมลไม่สนใจตัวพิมพ์ใหญ่-เล็ก",
     {
       annotation: [
         { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; logged out" },
@@ -239,7 +239,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L21 รหัสผ่านแยกตัวพิมพ์ใหญ่-เล็ก (พิมพ์ผิดเคสต้อง fail)",
+    "TC-L00121 รหัสผ่านแยกตัวพิมพ์ใหญ่-เล็ก (พิมพ์ผิดเคสต้อง fail)",
     {
       annotation: [
         { type: "preconditions", description: "User tt@blueledgers.com มีอยู่จริง รหัสผ่านที่ถูกต้องคือ 'Qaz123!@#'; logged out" },
@@ -258,7 +258,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L22 รองรับช่องว่างหน้า/หลังอีเมล",
+    "TC-L00122 รองรับช่องว่างหน้า/หลังอีเมล",
     {
       annotation: [
         { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; logged out" },
@@ -276,7 +276,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L23 ช่องรหัสผ่านถูก mask",
+    "TC-L00123 ช่องรหัสผ่านถูก mask",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -293,7 +293,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L24 กด Enter เพื่อ submit form ได้",
+    "TC-L00124 กด Enter เพื่อ submit form ได้",
     {
       annotation: [
         { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; logged out" },
@@ -327,7 +327,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── Auth-guard redirects ──────────────────────────────────────────────────
   test(
-    "TC-L25 เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login",
+    "TC-L00125 เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login",
     {
       annotation: [
         { type: "preconditions", description: "Browser ไม่มี session/cookies (logged out)" },
@@ -344,7 +344,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test.skip(
-    "TC-L26 user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard",
+    "TC-L00126 user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard",
     {
       annotation: [
         { type: "preconditions", description: "User requestor@blueledgers.com login สำเร็จและมี active session อยู่แล้วที่ /dashboard" },
@@ -367,7 +367,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── Security ──────────────────────────────────────────────────────────────
   test(
-    "TC-L27 อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย",
+    "TC-L00127 อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -385,7 +385,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L28 อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย",
+    "TC-L00128 อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -406,7 +406,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L29 login username ผิดต้องได้รับ HTTP 401",
+    "TC-L00129 login username ผิดต้องได้รับ HTTP 401",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login; ไม่มี user 'wrong-user@nonexistent.com' ในระบบ" },
@@ -433,7 +433,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L30 login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429",
+    "TC-L00130 login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login; backend rate-limiter active (429 หลัง 3 ครั้งที่ผิดด้วย email เดียวกัน)" },
