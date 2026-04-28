@@ -38,8 +38,8 @@ bun run report                  # open last HTML report
 ### Per-module shell scripts
 
 ```bash
-./tests/scripts/run-currency.sh
-./tests/scripts/run-department.sh --headed
+./tests/scripts/run-module.sh currency
+./tests/scripts/run-module.sh department --headed
 ./tests/scripts/run-module.sh currency --debug
 ./tests/scripts/run-all.sh                 # sequential, summary at the end
 ./tests/scripts/run-all.sh --workers=100%  # single parallel batch
@@ -59,7 +59,7 @@ Any `playwright test` flag (`--headed`, `--ui`, `-g <pattern>`, `--debug`, …) 
 │   ├── helpers/                  # shared helpers (security-cases, CRUD helpers)
 │   ├── reporters/tc-csv-reporter.ts
 │   ├── results/*.csv             # per-spec result CSVs (checked in as seeds)
-│   ├── scripts/                  # shell runners (run-<module>.sh, run-all.sh)
+│   ├── scripts/                  # shell runners (run-module.sh, run-all.sh)
 │   └── test-users.ts             # role-based test accounts
 └── scripts/sync-test-results.ts  # pushes CSV → Google Sheets
 ```
@@ -86,7 +86,7 @@ Every test title starts with a `TC-<area><NN>` ID (e.g. `TC-L01`, `TC-DP03`). Th
    ```
 5. `bun e2e:sync`
 
-The shell runners (`tests/scripts/run-*.sh`) call `bun e2e:sync` automatically after each run, wrapped in `|| true` so missing credentials don't fail tests.
+The shell runners (`tests/scripts/run-module.sh` and `run-all.sh`) call `bun e2e:sync` automatically after each run, wrapped in `|| true` so missing credentials don't fail tests.
 
 Tab mapping is hard-coded in `SYNC_TARGETS` inside `scripts/sync-test-results.ts` — add an entry there for any new CSV.
 

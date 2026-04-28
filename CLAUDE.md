@@ -62,7 +62,7 @@ bun run report                  # open last HTML report
 
 ## Batch scripts
 
-`tests/scripts/` has per-module runners plus `run-module.sh <module>` and `run-all.sh`. Any `playwright test` flag can be appended (`--headed`, `--ui`, `-g <pattern>`, `--workers=100%` for parallel batch mode). Spec paths inside the scripts are `tests/<module>.spec.ts`.
+`tests/scripts/` ships two scripts: `run-module.sh` (takes a module name, or opens an interactive `select` menu when none is given) and `run-all.sh` (runs every numeric-prefixed spec). Both auto-discover modules from `tests/[0-9]*-*.spec.ts` — no list to maintain. Any `playwright test` flag can be appended (`--headed`, `--ui`, `-g <pattern>`, `--workers=100%` for the parallel batch mode in `run-all.sh`).
 
 ## CSV reporter
 
