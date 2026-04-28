@@ -1,8 +1,7 @@
 import type { Page } from "@playwright/test";
+import { BasePage } from "./base.page";
 
-export class LoginPage {
-  constructor(private page: Page) {}
-
+export class LoginPage extends BasePage {
   readonly emailInput = () => this.page.locator("#email");
   readonly passwordInput = () => this.page.locator("#password");
   readonly submitButton = () => this.page.getByRole("button", { name: "Sign In" });

@@ -1,4 +1,5 @@
 import type { Page } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 /**
  * Generic list page object for any module under /config/*.
@@ -6,19 +7,21 @@ import type { Page } from "@playwright/test";
  * Use for smoke / read-only tests. For full CRUD tests, create a
  * module-specific page object with the module's form field selectors.
  */
-export class ConfigListPage {
-  constructor(
-    private page: Page,
-    private path: string,
-  ) {}
+export class ConfigListPage extends BasePage {
+  constructor(page: Page, private path: string) {
+    super(page);
+  }
 
   readonly addButton = () => this.page.getByRole("button", { name: /Add/i }).first();
+  // override: returns the full collection (no .first()) so callers can use .count() / .nth()
   readonly searchInput = () => this.page.getByPlaceholder(/Search/i);
   readonly table = () => this.page.locator("table");
   readonly tableRows = () => this.table().locator("tbody tr");
+  // override: returns the full collection (no .first()) so callers can use .count()
   readonly emptyState = () =>
     this.page.getByText(/no.*data|no.*results|empty|ไม่พบ/i);
 
+  // override: zero-arg form — uses this.path captured at construction
   async goto() {
     await this.page.goto(this.path);
     await this.page.waitForLoadState("networkidle");

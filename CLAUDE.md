@@ -16,7 +16,7 @@ bun run test:ui                 # Playwright UI mode
 bun run test:headed             # headed browser
 bun run test:login              # only login.spec.ts
 bun run test -- login.spec.ts   # single file
-bun run test -- -g "TC-L01"     # single test by title
+bun run test -- -g "TC-L00101"     # single test by title
 bun run report                  # open last HTML report
 ```
 
@@ -26,14 +26,14 @@ bun run report                  # open last HTML report
 
 ## Architecture
 
-- **`playwright.config.ts`** — two projects: `login` (runs `login.spec.ts`) and `chromium` (everything else). The split enables selective runs (`bun run test:login`) and keeps the noisy login suite out of the default reporter output when iterating on feature tests. Projects do **not** imply order — use Playwright `dependencies` if you need that. `workers: 1` because (a) the backend rate-limits repeated failed logins (observable via TC-L30-style tests) and (b) role-based tests share backend state and cannot safely interleave.
+- **`playwright.config.ts`** — two projects: `login` (runs `login.spec.ts`) and `chromium` (everything else). The split enables selective runs (`bun run test:login`) and keeps the noisy login suite out of the default reporter output when iterating on feature tests. Projects do **not** imply order — use Playwright `dependencies` if you need that. `workers: 1` because (a) the backend rate-limits repeated failed logins (observable via TC-L00130-style tests) and (b) role-based tests share backend state and cannot safely interleave.
 - **`tests/pages/`** — page objects. Each class wraps a `Page` and exposes **locator factories** (arrow functions returning `Locator`), not pre-created locators — this avoids stale references across navigations.
 - **`tests/fixtures/auth.fixture.ts`** — `createAuthTest(email)` returns a `test` object with an auto-running `authenticatedPage` fixture that logs in via `LoginPage.loginWithRetry` before the test body. Use for specs that assume an authenticated session.
 - **`tests/test-users.ts`** — canonical list of role-based test accounts. Most share password `12345678`; `TT` uses `Qaz123!@#`. `getPasswordFor(email)` handles the lookup.
 
 ## Conventions
 
-- **Test IDs**: tests follow the `TC-<area><NN>` pattern (`TC-L01` = Login test 1). When adding login tests, extend the `LOGIN_TC` / `LOGOUT_TC` maps in `login.spec.ts`.
+- **Test IDs**: tests follow the `TC-<area><NNNNN>` pattern (`TC-L00101` = Login test 1). When adding login tests, extend the `LOGIN_TC` / `LOGOUT_TC` maps in `login.spec.ts`.
 - **Login flows** must use `loginWithRetry` — the backend returns 429 after 3 wrong-password attempts on the same email, and the retry helper backs off when it detects the rate-limit message.
 - **Selectors** prefer `getByRole` / semantic queries. The frontend uses Radix primitives with `data-slot="..."` attributes (e.g. `data-slot="dropdown-menu-trigger"`, `data-slot="avatar"`) — use these when a role query is ambiguous, as seen in `DashboardPage.userMenuTrigger`.
 - **Language**: test titles are Thai to match the product UX and the existing suite in `../carmen-inventory-frontend/e2e/`.
@@ -66,7 +66,7 @@ bun run report                  # open last HTML report
 
 ## CSV reporter
 
-`tests/reporters/tc-csv-reporter.ts` is registered in `playwright.config.ts` and writes one CSV per spec file into `tests/results/` keyed by the `TC-XXX` IDs parsed from test titles. The regex `\b(TCS?-[A-Z]{0,4}\d{2,})\b` extracts them — keep titles in the `TC-<area><NN> <description>` shape or the row won't be recorded. The repo ships seed CSVs covering the known TC IDs; the reporter updates Status + Test Date on each run.
+`tests/reporters/tc-csv-reporter.ts` is registered in `playwright.config.ts` and writes one CSV per spec file into `tests/results/` keyed by the `TC-XXX` IDs parsed from test titles. The regex `\b(TCS?-[A-Z]{0,4}\d{2,})\b` extracts them — keep titles in the `TC-<area><NNNNN> <description>` shape or the row won't be recorded. The repo ships seed CSVs covering the known TC IDs; the reporter updates Status + Test Date on each run.
 
 ## Google Sheets sync (`e2e:sync`)
 
@@ -86,4 +86,4 @@ Mirrored from the frontend repo's in-tree `e2e/` suite — specs, page objects, 
 - Shell scripts resolve SPECs as `tests/<module>.spec.ts`.
 - `RESULTS_DIR` in `scripts/sync-test-results.ts` is `tests/results`.
 
-Specs added in this repo that are NOT in upstream: `vendor.spec.ts` (28 tests covering the vendor-management/vendor module — TC-VEN01..28).
+Specs added in this repo that are NOT in upstream: `vendor.spec.ts` (28 tests covering the vendor-management/vendor module — TC-VEN00101..28).

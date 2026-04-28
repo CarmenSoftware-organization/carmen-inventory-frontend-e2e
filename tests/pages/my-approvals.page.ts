@@ -1,11 +1,10 @@
 import type { Page, Locator } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 export const LIST_PATH = "/procurement/approval";
 export const PR_LIST_PATH = "/procurement/purchase-request";
 
-export class MyApprovalsPage {
-  constructor(private page: Page) {}
-
+export class MyApprovalsPage extends BasePage {
   async gotoList() {
     await this.page.goto(LIST_PATH);
     await this.page.waitForLoadState("networkidle");
@@ -28,6 +27,7 @@ export class MyApprovalsPage {
     return this.page.getByRole("row").filter({ hasText: text }).first();
   }
 
+  // override: also matches "no pending"/"no approval" empty text
   emptyState(): Locator {
     return this.page.getByText(/no.*pending|no.*approval|empty|ไม่พบ/i).first();
   }
@@ -94,16 +94,4 @@ export class MyApprovalsPage {
     return this.page.getByRole("button", { name: /create delegation/i }).first();
   }
 
-  // ── Verification ─────────────────────────────────────────────────────
-  toast(): Locator {
-    return this.page
-      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-      .first();
-  }
-
-  anyError(): Locator {
-    return this.page.locator(
-      '[aria-invalid="true"], p.text-destructive, [role="alert"][data-slot="field-error"]',
-    );
-  }
 }

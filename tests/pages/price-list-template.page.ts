@@ -1,5 +1,6 @@
 import type { Page, Locator } from "@playwright/test";
 import { expect } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 export const LIST_PATH = "/vendor-management/price-list-template";
 export const NEW_PATH = "/vendor-management/price-list-template/new";
@@ -18,9 +19,7 @@ export interface TemplateHeaderInput {
   escalationDays?: number | string;
 }
 
-export class PriceListTemplatePage {
-  constructor(private page: Page) {}
-
+export class PriceListTemplatePage extends BasePage {
   // ── Navigation ────────────────────────────────────────────────────────
   async gotoList() {
     await this.page.goto(LIST_PATH);
@@ -40,10 +39,6 @@ export class PriceListTemplatePage {
   // ── List page ────────────────────────────────────────────────────────
   newButton(): Locator {
     return this.page.getByRole("button", { name: /new (pricelist|price.?list).*template|create.*template|^new$|^create$/i }).first();
-  }
-
-  searchInput(): Locator {
-    return this.page.getByPlaceholder(/search/i).first();
   }
 
   statusTab(name: RegExp | string): Locator {
@@ -114,16 +109,9 @@ export class PriceListTemplatePage {
     return this.page.getByLabel(/escalation.*day/i).first();
   }
 
+  // override: also matches "Save Changes" button on edit screen
   saveButton(): Locator {
     return this.page.getByRole("button", { name: /save changes|^save$|^create$/i }).first();
-  }
-
-  editButton(): Locator {
-    return this.page.getByRole("button", { name: /^edit$/i }).first();
-  }
-
-  cancelButton(): Locator {
-    return this.page.getByRole("button", { name: /^cancel$/i }).first();
   }
 
   async fillHeader(data: TemplateHeaderInput) {
@@ -234,27 +222,11 @@ export class PriceListTemplatePage {
     return this.page.getByRole("button", { name: /filter by product count/i }).first();
   }
 
-  applyFilterButton(): Locator {
-    return this.page.getByRole("button", { name: /apply filter/i }).first();
-  }
-
   nameColumnHeader(): Locator {
     return this.page.getByRole("columnheader", { name: /^name$/i }).first();
   }
 
   // ── Verification ─────────────────────────────────────────────────────
-  toast(): Locator {
-    return this.page
-      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-      .first();
-  }
-
-  anyError(): Locator {
-    return this.page.locator(
-      '[aria-invalid="true"], p.text-destructive, [role="alert"][data-slot="field-error"]',
-    );
-  }
-
   async expectSavedToast() {
     await expect(
       this.page

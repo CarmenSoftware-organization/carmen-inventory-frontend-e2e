@@ -8,7 +8,7 @@ const PATH = "/config/exchange-rate";
 
 test.describe("Exchange Rate — Smoke", () => {
   test(
-    "TC-ER01 หน้า list โหลดสำเร็จ",
+    "TC-ER00101 หน้า list โหลดสำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "User purchase@blueledgers.com ล็อกอินผ่าน createAuthTest แล้ว" },
@@ -25,7 +25,7 @@ test.describe("Exchange Rate — Smoke", () => {
   });
 
   test(
-    "TC-ER02 ปุ่ม Add แสดง",
+    "TC-ER00102 ปุ่ม Add แสดง",
     {
       annotation: [
         { type: "preconditions", description: "อยู่ที่หน้า list ของ exchange rate และมีสิทธิ์เพิ่มข้อมูล" },
@@ -41,5 +41,5 @@ test.describe("Exchange Rate — Smoke", () => {
     await expect(list.addButton()).toBeVisible();
   });
 
-  addListOnlySecurityCases(test, { prefix: "ER", listPath: PATH, skipTcs: ["TCS-ER09", "TCS-ER10", "TCS-ER11", "TCS-ER12"] });
+  addListOnlySecurityCases(test, { prefix: "ER", listPath: PATH, skipTcs: ["TCS-ER00109", "TCS-ER00110", "TCS-ER00111", "TCS-ER00112"] });
 });

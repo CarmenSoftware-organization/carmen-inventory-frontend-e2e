@@ -1,8 +1,7 @@
 import type { Page } from "@playwright/test";
+import { BasePage } from "./base.page";
 
-export class DashboardPage {
-  constructor(private page: Page) {}
-
+export class DashboardPage extends BasePage {
   /** Avatar / user-profile dropdown trigger in the navbar */
   readonly userMenuTrigger = () =>
     this.page

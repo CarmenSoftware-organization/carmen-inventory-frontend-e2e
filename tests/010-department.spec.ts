@@ -19,7 +19,7 @@ const opts = {
 
 test.describe("Department — Smoke & CRUD", () => {
   test(
-    "TC-DEP01 หน้า list โหลดสำเร็จ",
+    "TC-DEP00101 หน้า list โหลดสำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
@@ -36,7 +36,7 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP02 ปุ่ม Add แสดง",
+    "TC-DEP00102 ปุ่ม Add แสดง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/department" },
@@ -53,7 +53,7 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP03 ช่องค้นหาใช้งานได้",
+    "TC-DEP00103 ช่องค้นหาใช้งานได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/department" },
@@ -71,7 +71,7 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP04 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    "TC-DEP00104 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/department" },
@@ -89,7 +89,7 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP05 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
+    "TC-DEP00105 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/department/new" },
@@ -108,7 +108,7 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP06 สร้างรายการใหม่และปรากฏในตาราง",
+    "TC-DEP00106 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record CODE/NAME ยังไม่มีอยู่ใน DB" },
@@ -133,10 +133,10 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP07 แก้ไขชื่อและบันทึก",
+    "TC-DEP00107 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "TC-DEP06 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-DEP00106 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด detail\n3. กดปุ่ม Edit\n4. clear name และกรอก NAME_UPDATED\n5. กด Save" },
         { type: "expected", description: "Updated/success toast ปรากฏ (updated/success/สำเร็จ)" },
         { type: "priority", description: "High" },
@@ -158,10 +158,10 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP13 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error",
+    "TC-DEP00113 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "TC-DEP07 ผ่านแล้ว → record มี name = NAME_UPDATED" },
+        { type: "preconditions", description: "TC-DEP00107 ผ่านแล้ว → record มี name = NAME_UPDATED" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด detail\n3. กด Edit\n4. clear code + name\n5. กด Save" },
         { type: "expected", description: "Save button ยังคง visible (form ไม่ submit; ยังอยู่ใน edit mode)" },
         { type: "priority", description: "Medium" },
@@ -182,10 +182,10 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP08 ลบรายการ",
+    "TC-DEP00108 ลบรายการ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-DEP13 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-DEP00113 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด detail\n3. กด Edit\n4. กด Delete\n5. ยืนยัน Delete" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
         { type: "priority", description: "High" },
@@ -209,6 +209,6 @@ test.describe("Department — Smoke & CRUD", () => {
     prefix: "DEP",
     listPath: PATH,
     makeHelper: (page) => new PageFormCrudHelper(page, opts),
-    skipAuth: true, // TCS-DEP12 skipped
+    skipAuth: true, // TCS-DEP00112 skipped
   });
 });

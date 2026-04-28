@@ -1,11 +1,10 @@
 import type { Page, Locator } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 export const LIST_PATH = "/vendor-management/request-price-list";
 export const NEW_PATH = "/vendor-management/request-price-list/new";
 
-export class CampaignPage {
-  constructor(private page: Page) {}
-
+export class CampaignPage extends BasePage {
   async gotoList() {
     await this.page.goto(LIST_PATH);
     await this.page.waitForLoadState("networkidle");
@@ -26,10 +25,6 @@ export class CampaignPage {
     return this.page.getByRole("button", { name: /create new campaign|new campaign|^new$|^create$/i }).first();
   }
 
-  searchInput(): Locator {
-    return this.page.getByPlaceholder(/search/i).first();
-  }
-
   statusFilter(): Locator {
     return this.page.getByRole("combobox", { name: /status/i }).first();
   }
@@ -42,6 +37,7 @@ export class CampaignPage {
     return this.page.getByRole("row").filter({ hasText: text }).first();
   }
 
+  // override: also matches "no campaign" empty text
   emptyState(): Locator {
     return this.page.getByText(/no.*campaign|no.*data|empty|ไม่พบ/i).first();
   }
@@ -88,10 +84,6 @@ export class CampaignPage {
   }
 
   // ── Detail page actions ──────────────────────────────────────────────
-  editButton(): Locator {
-    return this.page.getByRole("button", { name: /^edit$/i }).first();
-  }
-
   duplicateButton(): Locator {
     return this.page.getByRole("button", { name: /^duplicate$/i }).first();
   }
@@ -126,22 +118,11 @@ export class CampaignPage {
   }
 
   // ── Verification ─────────────────────────────────────────────────────
+  // override: filters to campaign-specific status text
   statusBadge(): Locator {
     return this.page
       .locator("[data-slot='badge'], [class*='badge']")
       .filter({ hasText: /draft|active|expired|completed/i })
       .first();
-  }
-
-  toast(): Locator {
-    return this.page
-      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-      .first();
-  }
-
-  anyError(): Locator {
-    return this.page.locator(
-      '[aria-invalid="true"], p.text-destructive, [role="alert"][data-slot="field-error"]',
-    );
   }
 }

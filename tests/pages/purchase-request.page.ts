@@ -1,5 +1,6 @@
 import type { Page, Locator } from "@playwright/test";
 import { expect } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 export const LIST_PATH = "/procurement/purchase-request";
 export const NEW_PATH = "/procurement/purchase-request/new";
@@ -29,9 +30,7 @@ export interface PRHeaderInput {
   hidePrice?: boolean;
 }
 
-export class PurchaseRequestPage {
-  constructor(private page: Page) {}
-
+export class PurchaseRequestPage extends BasePage {
   // ── Navigation ────────────────────────────────────────────────────────
   async gotoList() {
     await this.page.goto(LIST_PATH);
@@ -51,10 +50,6 @@ export class PurchaseRequestPage {
   // ── List page ────────────────────────────────────────────────────────
   newButton(): Locator {
     return this.page.getByRole("button", { name: /new purchase request|create purchase request|create new|new pr|^new$|^create$/i }).first();
-  }
-
-  searchInput(): Locator {
-    return this.page.getByPlaceholder(/search/i).first();
   }
 
   bulkActionsTrigger(): Locator {
@@ -244,10 +239,6 @@ export class PurchaseRequestPage {
     return this.page.getByRole("button", { name: /^cancel$/i }).first();
   }
 
-  editButton(): Locator {
-    return this.page.getByRole("button", { name: /^edit$/i }).first();
-  }
-
   // ── Detail page actions ───────────────────────────────────────────────
   approveButton(): Locator {
     return this.page.getByRole("button", { name: /^approve$|purchase approve/i }).first();
@@ -294,23 +285,12 @@ export class PurchaseRequestPage {
   }
 
   // ── Status / verification ─────────────────────────────────────────────
+  // override: filters to PR-specific status text
   statusBadge(): Locator {
     return this.page
       .locator("[data-slot='badge'], [class*='badge']")
       .filter({ hasText: /draft|in.progress|approved|void|completed|returned|rejected|cancelled/i })
       .first();
-  }
-
-  toast(): Locator {
-    return this.page
-      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-      .first();
-  }
-
-  anyError(): Locator {
-    return this.page.locator(
-      '[aria-invalid="true"], p.text-destructive, [role="alert"][data-slot="field-error"]',
-    );
   }
 
   async expectSavedToast() {

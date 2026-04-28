@@ -1,5 +1,6 @@
 import type { Page, Locator } from "@playwright/test";
 import { expect } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 export const LIST_PATH = "/vendor-management/price-list";
 export const NEW_PATH = "/vendor-management/price-list/new";
@@ -22,9 +23,7 @@ export interface PriceListItemInput {
   notes?: string;
 }
 
-export class PriceListPage {
-  constructor(private page: Page) {}
-
+export class PriceListPage extends BasePage {
   // ── Navigation ────────────────────────────────────────────────────────
   async gotoList() {
     await this.page.goto(LIST_PATH);
@@ -39,10 +38,6 @@ export class PriceListPage {
   // ── List page ────────────────────────────────────────────────────────
   addNewButton(): Locator {
     return this.page.getByRole("button", { name: /add new|new price.?list|^new$|^create$/i }).first();
-  }
-
-  searchInput(): Locator {
-    return this.page.getByPlaceholder(/search/i).first();
   }
 
   searchButton(): Locator {
@@ -69,6 +64,7 @@ export class PriceListPage {
     return this.page.getByRole("menuitem", { name: typeof name === "string" ? new RegExp(name, "i") : name });
   }
 
+  // override: matches "no … found" instead of base's "no … results"
   emptyState(): Locator {
     return this.page.getByText(/no.*found|no.*data|empty|ไม่พบ/i).first();
   }
@@ -122,20 +118,9 @@ export class PriceListPage {
     return this.page.getByLabel(/lead time/i).first();
   }
 
+  // override: also matches Submit button in some flows
   saveButton(): Locator {
     return this.page.getByRole("button", { name: /^save$|^create$|^submit$/i }).first();
-  }
-
-  cancelButton(): Locator {
-    return this.page.getByRole("button", { name: /^cancel$/i }).first();
-  }
-
-  editButton(): Locator {
-    return this.page.getByRole("button", { name: /^edit$/i }).first();
-  }
-
-  deleteButton(): Locator {
-    return this.page.getByRole("button", { name: /^delete$/i }).first();
   }
 
   exportButton(): Locator {
@@ -200,18 +185,6 @@ export class PriceListPage {
   }
 
   // ── Verification ─────────────────────────────────────────────────────
-  toast(): Locator {
-    return this.page
-      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-      .first();
-  }
-
-  anyError(): Locator {
-    return this.page.locator(
-      '[aria-invalid="true"], p.text-destructive, [role="alert"][data-slot="field-error"]',
-    );
-  }
-
   async expectSavedToast() {
     await expect(
       this.page

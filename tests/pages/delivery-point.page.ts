@@ -1,14 +1,15 @@
 import type { Page, Locator } from "@playwright/test";
+import { BasePage } from "./base.page";
 
-export class DeliveryPointListPage {
-  constructor(private page: Page) {}
-
+export class DeliveryPointListPage extends BasePage {
   readonly addButton = () => this.page.getByRole("button", { name: /Add/i }).first();
+  // override: returns the full collection (no .first()) so callers can use .count() / .nth()
   readonly searchInput = () => this.page.getByPlaceholder(/Search/i);
   readonly table = () => this.page.locator("table");
   readonly tableRows = () => this.table().locator("tbody tr");
   readonly headerCell = (name: string | RegExp) =>
     this.page.locator("thead").getByRole("columnheader", { name });
+  // override: returns the full collection (no .first()) so callers can use .count()
   readonly emptyState = () => this.page.getByText(/no.*data|no.*results|empty|ไม่พบ/i);
   readonly viewToggleTable = () => this.page.getByRole("button", { name: /table view/i });
   readonly viewToggleCard = () => this.page.getByRole("button", { name: /card view/i });
@@ -18,6 +19,7 @@ export class DeliveryPointListPage {
   readonly nextPageButton = () => this.page.getByRole("button", { name: /next page/i });
   readonly prevPageButton = () => this.page.getByRole("button", { name: /previous page/i });
 
+  // override: zero-arg form — uses the module's hardcoded path
   async goto() {
     await this.page.goto("/config/delivery-point");
     await this.page.waitForLoadState("networkidle");

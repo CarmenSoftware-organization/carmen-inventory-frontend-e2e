@@ -439,7 +439,7 @@ function findSecurityHelperCalls(
 }
 
 function pad2(n: number): string {
-  return String(n).padStart(2, "0");
+  return `001${String(n).padStart(2, "0")}`;
 }
 
 function synthesizeSecurityRows(info: SecurityCallInfo): TCRow[] {

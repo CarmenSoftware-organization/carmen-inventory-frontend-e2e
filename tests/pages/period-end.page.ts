@@ -1,10 +1,9 @@
 import type { Page, Locator } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 export const LIST_PATH = "/inventory-management/period-end";
 
-export class PeriodEndPage {
-  constructor(private page: Page) {}
-
+export class PeriodEndPage extends BasePage {
   async gotoList() {
     await this.page.goto(LIST_PATH);
     await this.page.waitForLoadState("networkidle");
@@ -77,22 +76,11 @@ export class PeriodEndPage {
   }
 
   // ── Status / verification ────────────────────────────────────────────
+  // override: filters to period-end-specific status text
   statusBadge(): Locator {
     return this.page
       .locator("[data-slot='badge'], [class*='badge']")
       .filter({ hasText: /open|closed|in.progress|closing|closed/i })
       .first();
-  }
-
-  toast(): Locator {
-    return this.page
-      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-      .first();
-  }
-
-  anyError(): Locator {
-    return this.page.locator(
-      '[aria-invalid="true"], p.text-destructive, [role="alert"][data-slot="field-error"]',
-    );
   }
 }

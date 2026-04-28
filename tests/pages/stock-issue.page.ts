@@ -1,10 +1,9 @@
 import type { Page, Locator } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 export const LIST_PATH = "/store-operation/store-requisition";
 
-export class StockIssuePage {
-  constructor(private page: Page) {}
-
+export class StockIssuePage extends BasePage {
   async gotoList() {
     await this.page.goto(LIST_PATH);
     await this.page.waitForLoadState("networkidle");
@@ -16,10 +15,6 @@ export class StockIssuePage {
   }
 
   // ── List page ────────────────────────────────────────────────────────
-  searchInput(): Locator {
-    return this.page.getByPlaceholder(/search/i).first();
-  }
-
   statusFilter(): Locator {
     return this.page.getByRole("combobox", { name: /status/i }).first();
   }
@@ -48,6 +43,7 @@ export class StockIssuePage {
     return this.page.getByRole("row").filter({ hasText: text }).first();
   }
 
+  // override: also matches "no issue" empty text
   emptyState(): Locator {
     return this.page.getByText(/no.*issue|no.*data|empty|ไม่พบ/i).first();
   }
@@ -99,22 +95,11 @@ export class StockIssuePage {
   }
 
   // ── Status / verification ────────────────────────────────────────────
+  // override: filters to stock-issue-specific status text
   statusBadge(): Locator {
     return this.page
       .locator("[data-slot='badge'], [class*='badge']")
       .filter({ hasText: /draft|issue|complete|cancel|active/i })
       .first();
-  }
-
-  toast(): Locator {
-    return this.page
-      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-      .first();
-  }
-
-  anyError(): Locator {
-    return this.page.locator(
-      '[aria-invalid="true"], p.text-destructive, [role="alert"][data-slot="field-error"]',
-    );
   }
 }

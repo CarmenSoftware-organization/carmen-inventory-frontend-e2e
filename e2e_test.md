@@ -84,7 +84,7 @@ bunx playwright test --project=login
 ./tests/scripts/run-module.sh login
 
 # รัน TC เดียว
-bunx playwright test tests/login.spec.ts -g "TC-L01"
+bunx playwright test tests/001-login.spec.ts -g "TC-L00101"
 
 # sync
 bun e2e:sync
@@ -134,7 +134,7 @@ bun e2e:sync
 ### การทำงาน
 
 1. อ่านไฟล์ CSV จาก `tests/results/` (สร้างอัตโนมัติจาก tc-csv-reporter)
-2. จับคู่ Test ID (เช่น `TC-001`, `TC-L01`) กับ row ใน Google Sheet
+2. จับคู่ Test ID (เช่น `TC-001`, `TC-L00101`) กับ row ใน Google Sheet
 3. **Row มีอยู่แล้ว** → อัปเดต Status, Test Date, Duration, Error
 4. **Row ใหม่** → เพิ่มแถวท้าย sheet
 5. **Title** → เขียนเฉพาะตอนที่ cell ว่าง (ไม่ทับ title ที่แก้ด้วยมือ)
