@@ -5,6 +5,8 @@ export const TEST_USERS = [
   { role: "FC", email: "fc@blueledgers.com", password: "12345678" },
   { role: "GM", email: "gm@blueledgers.com", password: "12345678" },
   { role: "Owner", email: "owner@blueledgers.com", password: "12345678" },
+  { role: "StoreManager", email: "storemanager@blueledgers.com", password: "12345678" },
+  { role: "Budget", email: "budget@blueledgers.com", password: "12345678" },
   { role: "TT", email: "tt@blueledgers.com", password: "Qaz123!@#" },
 ] as const;
 

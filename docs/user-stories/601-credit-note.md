@@ -3111,4 +3111,4 @@ System prompts for user authentication; real-time updates fail
 ---
 
 
-<sub>Last regenerated: 2026-04-28 · git 46afd79</sub>
+<sub>Last regenerated: 2026-04-28 · git 9591f92</sub>

@@ -14,6 +14,8 @@ import { TEST_USERS, TEST_PASSWORD } from "./test-users";
  *   TC-L00123..TC-L00126  Edge cases (case-sensitivity, trim, mask, Enter key)
  *   TC-L00127..TC-L00128  Auth-guard redirects
  *   TC-L00127..TC-L00130  Security (SQL injection / XSS / wrong username 401 / rate limit 429)
+ *   TC-L00131..TC-L00132  Login success — StoreManager / Budget
+ *   TC-L00133..TC-L00134  Logout success — StoreManager / Budget
  */
 
 const LOGIN_TC: Record<string, string> = {
@@ -23,6 +25,8 @@ const LOGIN_TC: Record<string, string> = {
   FC: "TC-L00104",
   GM: "TC-L00105",
   Owner: "TC-L00106",
+  StoreManager: "TC-L00131",
+  Budget: "TC-L00132",
   // TT intentionally omitted — handled by dedicated TC-L00107 below
   // (user has no department → login should surface a "No department assigned"
   // dialog instead of redirecting to /dashboard).
@@ -35,6 +39,8 @@ const LOGOUT_TC: Record<string, string> = {
   FC: "TC-L00111",
   GM: "TC-L00112",
   Owner: "TC-L00113",
+  StoreManager: "TC-L00133",
+  Budget: "TC-L00134",
 };
 
 test.describe("เข้าสู่ระบบ", () => {
