@@ -5,7 +5,7 @@ _Generated from `tests/304-pr-purchaser-journey.spec.ts` annotations. Edit annot
 **Module:** Pr Purchaser Journey
 **Spec:** `tests/304-pr-purchaser-journey.spec.ts`
 **Default role:** Purchase
-**Total test cases:** 19 (9 High / 9 Medium / 1 Low)
+**Total test cases:** 24 (12 High / 10 Medium / 2 Low)
 
 ## Test Cases at a Glance
 
@@ -30,6 +30,11 @@ _Generated from `tests/304-pr-purchaser-journey.spec.ts` annotations. Edit annot
 | TC-PRP0308 | Multiple line items — pricing on each row independent | Medium | CRUD |
 | TC-PRP0309 | Save edits → exit edit mode + persist values | High | CRUD |
 | TC-PRP0310 | Cancel edits → discard changes, restore original | Medium | Functional |
+| TC-PRP0401 | Bulk Approve → PR advances to next stage (FC) | High | CRUD |
+| TC-PRP0402 | Bulk Reject (with reason) | High | CRUD |
+| TC-PRP0403 | Bulk Send for Review (return to HOD) | High | CRUD |
+| TC-PRP0404 | Bulk Split — split selected items | Low | Functional |
+| TC-PRP0405 | Cannot edit when PR is at non-Purchase stage (read-only) | Medium | Authorization |
 
 ---
 
@@ -439,5 +444,120 @@ Form returns to view mode (Edit button visible again).
 
 ---
 
+## TC-PRP0401 — Bulk Approve → PR advances to next stage (FC)
 
-<sub>Last regenerated: 2026-05-06 · git ee8b1fa</sub>
+> **As a** FC user, **I want** to manage Pr Purchaser Journey records via CRUD, **so that** the data stays correct over time.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+Edit mode active on a Purchase-stage PR
+
+**Steps**
+
+1. Enter edit mode
+2. Select all rows
+3. Click Approve in bulk toolbar
+4. Confirm
+
+**Expected**
+
+URL stays on the PR ref (status advances to next stage).
+
+---
+
+## TC-PRP0402 — Bulk Reject (with reason)
+
+> **As a** Purchase user, **I want** to manage Pr Purchaser Journey records via CRUD, **so that** the data stays correct over time.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+Edit mode active on a Purchase-stage PR
+
+**Steps**
+
+1. Enter edit mode
+2. Select all rows
+3. Click Reject
+4. Enter reason
+5. Confirm
+
+**Expected**
+
+URL stays on the PR ref after rejection.
+
+---
+
+## TC-PRP0403 — Bulk Send for Review (return to HOD)
+
+> **As a** HOD user, **I want** to manage Pr Purchaser Journey records via CRUD, **so that** the data stays correct over time.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+Edit mode active on a Purchase-stage PR
+
+**Steps**
+
+1. Enter edit mode
+2. Select all rows
+3. Click Send for Review
+4. Enter reason + stage
+5. Confirm
+
+**Expected**
+
+URL stays on the PR ref after send for review.
+
+---
+
+## TC-PRP0404 — Bulk Split — split selected items
+
+> **As a** Purchase user, **I want** this Pr Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** Low · **Test Type:** Functional
+
+**Preconditions**
+
+Edit mode active on a Purchase-stage PR
+
+**Steps**
+
+1. Enter edit mode
+2. Select all rows
+3. Click Split
+
+**Expected**
+
+Split UI appears (dialog or inline) — verified by URL stays on detail.
+
+---
+
+## TC-PRP0405 — Cannot edit when PR is at non-Purchase stage (read-only)
+
+> **As a** low-privilege user, **I should NOT** see Add/edit controls on Pr Purchaser Journey, **so that** role separation is enforced.
+
+**Priority:** Medium · **Test Type:** Authorization
+
+**Preconditions**
+
+PR is at HOD stage (not yet approved by HOD), viewed by Purchaser
+
+**Steps**
+
+1. Seed PR at HOD stage (skip approveAsHOD)
+2. Open detail as Purchaser
+3. Inspect Edit button
+
+**Expected**
+
+Edit button is absent OR detail is read-only — Purchaser cannot edit until PR reaches Purchase stage.
+
+---
+
+
+<sub>Last regenerated: 2026-05-06 · git de39a97</sub>

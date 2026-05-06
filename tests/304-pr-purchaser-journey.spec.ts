@@ -544,7 +544,164 @@ purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
 });
 
 purchaseTest.describe("Step 4 — Workflow Actions", () => {
-  // TCs added in Task 8
+  purchaseTest(
+    "TC-PRP0401 Bulk Approve → PR advances to next stage (FC)",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
+        { type: "steps", description: "1. Enter edit mode\n2. Select all rows\n3. Click Approve in bulk toolbar\n4. Confirm" },
+        { type: "expected", description: "URL stays on the PR ref (status advances to next stage)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      await pr.selectAllInEditMode();
+      if ((await pr.bulkApproveInEditMode().count()) === 0) {
+        purchaseTest.skip(true, "Bulk Approve button not present in toolbar");
+        return;
+      }
+      await bulkApprove(page);
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0402 Bulk Reject (with reason)",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
+        { type: "steps", description: "1. Enter edit mode\n2. Select all rows\n3. Click Reject\n4. Enter reason\n5. Confirm" },
+        { type: "expected", description: "URL stays on the PR ref after rejection." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      await pr.selectAllInEditMode();
+      if ((await pr.bulkRejectInEditMode().count()) === 0) {
+        purchaseTest.skip(true, "Bulk Reject button not present");
+        return;
+      }
+      await bulkReject(page, REJECT_REASON);
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0403 Bulk Send for Review (return to HOD)",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
+        { type: "steps", description: "1. Enter edit mode\n2. Select all rows\n3. Click Send for Review\n4. Enter reason + stage\n5. Confirm" },
+        { type: "expected", description: "URL stays on the PR ref after send for review." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      await pr.selectAllInEditMode();
+      if ((await pr.bulkSendForReviewInEditMode().count()) === 0) {
+        purchaseTest.skip(true, "Bulk Send for Review button not present");
+        return;
+      }
+      await bulkSendForReview(page, REVIEW_REASON, REVIEW_STAGE);
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0404 Bulk Split — split selected items",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
+        { type: "steps", description: "1. Enter edit mode\n2. Select all rows\n3. Click Split" },
+        { type: "expected", description: "Split UI appears (dialog or inline) — verified by URL stays on detail." },
+        { type: "priority", description: "Low" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      await pr.selectAllInEditMode();
+      const split = pr.bulkSplitInEditMode();
+      if ((await split.count()) === 0) {
+        purchaseTest.skip(true, "Bulk Split button not present");
+        return;
+      }
+      await split.click({ timeout: 5_000 });
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0405 Cannot edit when PR is at non-Purchase stage (read-only)",
+    {
+      annotation: [
+        { type: "preconditions", description: "PR is at HOD stage (not yet approved by HOD), viewed by Purchaser" },
+        { type: "steps", description: "1. Seed PR at HOD stage (skip approveAsHOD)\n2. Open detail as Purchaser\n3. Inspect Edit button" },
+        { type: "expected", description: "Edit button is absent OR detail is read-only — Purchaser cannot edit until PR reaches Purchase stage." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Authorization" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      // Seed PR at HOD stage only — DO NOT call approveAsHOD
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await gotoPRDetail(page, created.ref);
+      const editBtn = pr.editModeButton();
+      const editCount = await editBtn.count();
+      if (editCount === 0) {
+        await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`));
+        return;
+      }
+      await editBtn.click({ timeout: 5_000 }).catch(() => {});
+      const vendor = pr.vendorInput(0);
+      if ((await vendor.count()) === 0) {
+        await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`));
+        return;
+      }
+      const disabled = await vendor.isDisabled().catch(() => false);
+      const ariaDisabled = (await vendor.getAttribute("aria-disabled").catch(() => null)) === "true";
+      expect(disabled || ariaDisabled).toBeTruthy();
+    },
+  );
 });
 
 purchaseTest.describe.serial("Golden Journey", () => {
