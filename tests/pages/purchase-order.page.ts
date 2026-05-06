@@ -190,4 +190,88 @@ export class PurchaseOrderPage extends BasePage {
         .first(),
     ).toBeVisible({ timeout: 10_000 });
   }
+
+  // ── Form + Items (line items) ────────────────────────────────────────
+  addItemButton(): Locator {
+    return this.page.getByRole("button", { name: /add item|add line item|^add$/i }).first();
+  }
+
+  async addItemToPO(data: POLineItemInput) {
+    await this.addItemButton().click({ timeout: 5_000 }).catch(() => {});
+    if (data.product !== undefined) {
+      const productInput = this.page.getByLabel(/product|item/i).first();
+      if ((await productInput.count()) > 0) await productInput.fill(data.product);
+      const option = this.page.getByRole("option").filter({ hasText: data.product }).first();
+      if ((await option.count()) > 0) await option.click({ timeout: 5_000 }).catch(() => {});
+    }
+    if (data.quantity !== undefined) {
+      const q = this.page.getByLabel(/^quantity$|^qty$/i).first();
+      if ((await q.count()) > 0) await q.fill(String(data.quantity));
+    }
+    if (data.uom !== undefined) {
+      const u = this.page.getByLabel(/uom|unit of measure/i).first();
+      if ((await u.count()) > 0) await u.fill(data.uom);
+    }
+    if (data.unitPrice !== undefined) {
+      const p = this.page.getByLabel(/unit price/i).first();
+      if ((await p.count()) > 0) await p.fill(String(data.unitPrice));
+    }
+    const saveItem = this.page.getByRole("button", { name: /^save$|^add$|confirm/i }).last();
+    if ((await saveItem.count()) > 0) await saveItem.click({ timeout: 5_000 }).catch(() => {});
+  }
+
+  // ── Edit mode ────────────────────────────────────────────────────────
+  editModeButton(): Locator {
+    return this.page.getByRole("button", { name: /^edit$|edit po|edit mode/i }).first();
+  }
+
+  async enterEditMode() {
+    await this.editModeButton().click();
+    await this.page.waitForLoadState("networkidle").catch(() => {});
+  }
+
+  async cancelEditMode() {
+    const cancel = this.page.getByRole("button", { name: /^cancel$/i }).first();
+    if ((await cancel.count()) > 0) await cancel.click({ timeout: 5_000 }).catch(() => {});
+  }
+
+  // ── Submit / Delete (Edit Mode actions) ──────────────────────────────
+  submitButton(): Locator {
+    return this.page.getByRole("button", { name: /submit for approval|^submit$/i }).first();
+  }
+
+  // ── Detail page tabs (Item Details panel) ────────────────────────────
+  tabItems(): Locator {
+    return this.page.getByRole("tab", { name: /^items$/i }).first();
+  }
+
+  tabQuantity(): Locator {
+    return this.page.getByRole("tab", { name: /^quantity$|^qty$/i }).first();
+  }
+
+  tabPricing(): Locator {
+    return this.page.getByRole("tab", { name: /^pricing$|^price$/i }).first();
+  }
+
+  // ── Create PO wizards (Step 2) ───────────────────────────────────────
+  fromPriceListMenuItem(): Locator {
+    return this.page.getByRole("menuitem", { name: /from price list|price list/i }).first();
+  }
+
+  fromPRMenuItem(): Locator {
+    return this.page.getByRole("menuitem", { name: /from pr|from purchase request|create from purchase request/i }).first();
+  }
+
+  priceListWizardSubmit(): Locator {
+    return this.page.getByRole("button", { name: /create po|finish|done|^create$|^submit$/i }).last();
+  }
+
+  fromPRWizardSubmit(): Locator {
+    return this.page.getByRole("button", { name: /create po|finish|done|^create$|^submit$/i }).last();
+  }
+
+  // ── Close PO (Step 5 post-approval) ──────────────────────────────────
+  closePOButton(): Locator {
+    return this.page.getByRole("button", { name: /^close$|close po|mark as complete/i }).first();
+  }
 }
