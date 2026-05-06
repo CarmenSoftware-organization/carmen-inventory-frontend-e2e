@@ -16,7 +16,6 @@ export interface AuditResult {
   ids: string[];
 }
 
-const STRICT_RE = /\bTC-([A-Z]{2,5})-(\d{2})(\d{4})\b/g;
 const ANY_RE = /\bTC[S]?-[A-Z]{1,5}[-]?\d{2,}\b/g;
 
 interface Catalog {
