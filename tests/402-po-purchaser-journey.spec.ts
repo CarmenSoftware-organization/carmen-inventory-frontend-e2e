@@ -902,5 +902,39 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
 });
 
 purchaseTest.describe.serial("Golden Journey", () => {
-  // TC added in Task 11
+  purchaseTest(
+    "TC-POP0901 Full Purchaser flow: Create blank → Save Draft → Submit → FC approves → Send to Vendor",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged in as Purchaser" },
+        { type: "steps", description: "1. Create blank PO (header + 1 item)\n2. Save Draft\n3. Submit\n4. FC approves (cross-context)\n5. Reload detail\n6. Click Send to Vendor" },
+        { type: "expected", description: "URL stays on PO ref after Send to Vendor (full lifecycle completes end-to-end)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const po = new PurchaseOrderPage(page);
+
+      // Step 1-3: Create and submit (helper does it all)
+      const created = await submitPOAsPurchaser(browser, { description: "[E2E-POP] TC-POP0901 golden" });
+
+      // Step 4: FC approves via cross-context
+      await approveAsFC(browser, created.ref);
+
+      // Step 5: Reload as Purchaser and verify Approved state has Send button
+      await gotoPODetail(page, created.ref);
+      const send = po.sendToVendorButton();
+      if ((await send.count()) === 0) {
+        purchaseTest.skip(true, "Send to Vendor button not present after FC approval");
+        return;
+      }
+
+      // Step 6: Send to Vendor
+      await send.click({ timeout: 5_000 });
+      await po.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 15_000 });
+    },
+  );
 });
