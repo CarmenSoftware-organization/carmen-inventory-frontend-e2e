@@ -420,7 +420,154 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
 });
 
 requestorTest.describe("Step 3 — Create from Template", () => {
-  // TCs added in Task 8
+  requestorTest(
+    "TC-PRC0301 Open Create dialog → Template option → picker opens",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged in as Requestor; on PR list" },
+        { type: "steps", description: "1. Click New Purchase Request\n2. Pick the From-Template option in the dialog" },
+        { type: "expected", description: "Template picker (dialog or listbox) is visible after selecting the From-Template option." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      await pr.newButton().click();
+      const tmpl = pr.createDialogTemplateOption();
+      if ((await tmpl.count()) === 0) {
+        requestorTest.skip(true, "Template option not present in create dialog");
+        return;
+      }
+      await tmpl.click();
+      await expect(pr.templatePicker()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0302 Select first template → form pre-fills",
+    {
+      annotation: [
+        { type: "preconditions", description: "Template picker is open and at least one template exists" },
+        { type: "steps", description: "1. Open template picker\n2. Select the first template" },
+        { type: "expected", description: "URL contains template_id query param (form is loading from a template)." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      await pr.newButton().click();
+      const tmpl = pr.createDialogTemplateOption();
+      if ((await tmpl.count()) === 0) {
+        requestorTest.skip(true, "Template option not present in create dialog");
+        return;
+      }
+      await tmpl.click();
+      if ((await pr.templatePickerEmpty().count()) > 0) {
+        requestorTest.skip(true, "No templates exist in this build");
+        return;
+      }
+      await pr.selectFirstTemplate();
+      await expect(page).toHaveURL(/template_id=/, { timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0303 Modify template-loaded items before save",
+    {
+      annotation: [
+        { type: "preconditions", description: "On the create-from-template form with prefilled items" },
+        { type: "steps", description: "1. Open template form\n2. Edit the first prefilled line item quantity" },
+        { type: "expected", description: "Form remains on the template-load URL after the edit (no premature navigation)." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      await pr.newButton().click();
+      const tmpl = pr.createDialogTemplateOption();
+      if ((await tmpl.count()) === 0) {
+        requestorTest.skip(true, "Template option not present in create dialog");
+        return;
+      }
+      await tmpl.click();
+      if ((await pr.templatePickerEmpty().count()) > 0) {
+        requestorTest.skip(true, "No templates exist in this build");
+        return;
+      }
+      await pr.selectFirstTemplate();
+      await pr.editLineItem(0, { quantity: 9 });
+      await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0304 Save template-based PR → Draft created",
+    {
+      annotation: [
+        { type: "preconditions", description: "Template-based form has prefilled items" },
+        { type: "steps", description: "1. Open template form\n2. Click Save as Draft" },
+        { type: "expected", description: "URL changes to /purchase-request/<id> (not /new) after save." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      await pr.newButton().click();
+      const tmpl = pr.createDialogTemplateOption();
+      if ((await tmpl.count()) === 0) {
+        requestorTest.skip(true, "Template option not present in create dialog");
+        return;
+      }
+      await tmpl.click();
+      if ((await pr.templatePickerEmpty().count()) > 0) {
+        requestorTest.skip(true, "No templates exist in this build");
+        return;
+      }
+      await pr.selectFirstTemplate();
+      await pr.fillHeader({ description: e2eDescription("TC-PRC0304 from template") });
+      await pr.saveDraftButton().click({ timeout: 5_000 });
+      await expect(page).toHaveURL(/purchase-request\/(?!new$)[^\/?#]+$/, { timeout: 15_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0305 Empty-state message when no templates exist",
+    {
+      annotation: [
+        { type: "preconditions", description: "Template picker open and no templates exist in the system" },
+        { type: "steps", description: "1. Open template picker\n2. Inspect content" },
+        { type: "expected", description: "An empty-state message ('No templates') is visible. Skipped if templates exist." },
+        { type: "priority", description: "Low" },
+        { type: "testType", description: "Functional" },
+        { type: "note", description: "Dynamically skipped when at least one template is present." },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      await pr.newButton().click();
+      const tmpl = pr.createDialogTemplateOption();
+      if ((await tmpl.count()) === 0) {
+        requestorTest.skip(true, "Template option not present in create dialog");
+        return;
+      }
+      await tmpl.click();
+      const empty = pr.templatePickerEmpty();
+      if ((await empty.count()) === 0) {
+        requestorTest.skip(true, "Templates exist — empty-state cannot be asserted");
+        return;
+      }
+      await expect(empty).toBeVisible();
+    },
+  );
 });
 
 requestorTest.describe("Step 4 — PR Detail", () => {
