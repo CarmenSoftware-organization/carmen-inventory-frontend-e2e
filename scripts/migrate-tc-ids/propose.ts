@@ -1,5 +1,5 @@
-import { readFileSync, writeFileSync, readdirSync } from "node:fs";
-import { resolve, basename } from "node:path";
+import { readFileSync, writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 export interface MapEntry {
   old: string;
@@ -27,7 +27,7 @@ export const SPEC_CONFIG: Array<{
 }> = [
   { specFile: "tests/001-login.spec.ts", newPrefix: "LOGIN", oldPrefixes: ["L"], sectionMap: { L: { "001": "01", "002": "10" } } },
   { specFile: "tests/010-department.spec.ts", newPrefix: "DEP", oldPrefixes: ["DEP"], sectionMap: { DEP: { "001": "01", "002": "02", "003": "03", "004": "04", "005": "05" } } },
-  // ... full table populated for all 33 specs (see docs/test-id-scheme.md)
+  // Task 5 will populate the remaining ~25 specs from docs/test-id-scheme.md.
   { specFile: "tests/302-pr-creator-journey.spec.ts", newPrefix: "PR", oldPrefixes: ["PRC"], sectionMap: { PRC: { "01": "05", "02": "05", "03": "05" } } },
   { specFile: "tests/303-pr-approver-journey.spec.ts", newPrefix: "PR", oldPrefixes: ["PRA"], sectionMap: { PRA: { "01": "06", "02": "06", "03": "06" } } },
   { specFile: "tests/304-pr-purchaser-journey.spec.ts", newPrefix: "PR", oldPrefixes: ["PRP"], sectionMap: { PRP: { "01": "07", "02": "07", "03": "07" } } },
@@ -115,15 +115,19 @@ export function proposeMapping(
   if (digits.length === 4) {
     const sectionOld = digits.slice(0, 2);
     const seqOld = digits.slice(2);
-    const sectionNew = lookup(sectionOld) ?? lookup("default") ?? "90";
+    const mapped = lookup(sectionOld) ?? lookup("default");
+    const sectionNew = mapped ?? "90";
     const seqNew = seqOld.padStart(4, "0");
+    const rule = collapsed
+      ? `4-digit:prefix-collapse(${oldPrefix}->${newPrefix}),section=${sectionOld}->${sectionNew},seq=${seqOld}->${seqNew}`
+      : `4-digit:section=${sectionOld}->${sectionNew},seq=${seqOld}->${seqNew}`;
     return {
       old: oldId,
       new: `TC-${newPrefix}-${sectionNew}${seqNew}`,
-      rule: `4-digit:prefix-collapse(${oldPrefix}->${newPrefix}),section=${sectionOld}->${sectionNew},seq=${seqOld}->${seqNew}`,
-      needsReview: false,
+      rule,
+      needsReview: mapped === undefined,
       helperGenerated: false,
-      note: "",
+      note: mapped === undefined ? "Reviewer: assign correct section block" : "",
     };
   }
 
