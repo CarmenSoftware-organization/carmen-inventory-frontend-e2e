@@ -90,8 +90,11 @@ export const SPEC_CONFIG: Array<{
   { specFile: "tests/301-purchase-request.spec.ts", newPrefix: "PR", oldPrefixes: ["PR"], sectionMap: { PR: {
       "001": "01", "002": "02", "003": "03", "004": "04",
       "005": "05", "006": "06", "007": "07", "008": "08", "009": "09",
-      "010": "10", "011": "11", "012": "12", "013": "13", "014": "14", "015": "15", "016": "16", "017": "17", "018": "18", "019": "19",
-      "020": "20", "021": "21", "022": "22", "023": "23",
+      "010": "40", "011": "41", "012": "42", "013": "43", "014": "44", "015": "45", "016": "46", "017": "47", "018": "48", "019": "49",
+      "020": "60", "021": "61", "022": "62", "023": "63",
+      // 101-105 auto → 31-35 (Integration)
+      // 201-202 auto → 21-22 (Validation)
+      // 301-303 auto → 11-13 (Security)
     } } },
   { specFile: "tests/310-purchase-request-template.spec.ts", newPrefix: "PRT", oldPrefixes: ["PRT"], sectionMap: { PRT: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06",
@@ -104,6 +107,7 @@ export const SPEC_CONFIG: Array<{
   { specFile: "tests/601-credit-note.spec.ts", newPrefix: "CN", oldPrefixes: ["CN"], sectionMap: { CN: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06",
       "007": "07", "008": "08", "009": "09", "010": "10", "011": "11",
+      "210": "50", "211": "51", "212": "52", "213": "53", "214": "54",
     } } },
 
   // Multi-prefix collapse (CATEG, PRODU, RECIP all roll into CAT module)

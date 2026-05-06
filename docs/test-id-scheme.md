@@ -41,7 +41,7 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `159-price-list.spec.ts` | `PL` | 01–08, 90 | CRUD + sub-journeys + edge cases |
 | `160-price-list-template.spec.ts` | `PT` | 01–06, 90 | CRUD + sub-journeys + edge cases |
 | `201-my-approvals.spec.ts` | `MA` | 01–06, 90 | CRUD + edge cases |
-| `301-purchase-request.spec.ts` | `PR` | 01–23, 30–39 | Module entry point |
+| `301-purchase-request.spec.ts` | `PR` | 01–09, 10–13, 20–22, 30–39, 40–49, 60–63 | Module entry point |
 | `302-pr-creator-journey.spec.ts` | `PR` | 05 | Sub-journey |
 | `303-pr-approver-journey.spec.ts` | `PR` | 06 | Sub-journey |
 | `304-pr-purchaser-journey.spec.ts` | `PR` | 07 | Sub-journey |
@@ -51,7 +51,7 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `402-po-purchaser-journey.spec.ts` | `PO` | 06 | Sub-journey |
 | `403-po-approver-journey.spec.ts` | `PO` | 07 | Sub-journey |
 | `501-good-received-note.spec.ts` | `GRN` | 01–18, 90 | CRUD + sub-journeys + security + edge cases |
-| `601-credit-note.spec.ts` | `CN` | 01–11, 20–29, 30–39 | CRUD + validation + integration |
+| `601-credit-note.spec.ts` | `CN` | 01–11, 20–29, 30–39, 50–54 | CRUD + validation + integration |
 | `602-credit-note-reason.spec.ts` | `CNR` | 01–05 | CRUD |
 | `701-store-requisition.spec.ts` | `SR` | 01–12, 90 | CRUD + sub-journeys + security + edge cases |
 | `720-stock-issue.spec.ts` | `SI` | 01–06, 90 | CRUD + sub-journeys + edge cases |
