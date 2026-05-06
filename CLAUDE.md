@@ -33,7 +33,7 @@ bun run report                  # open last HTML report
 
 ## Conventions
 
-- **Test IDs**: tests follow the `TC-<area><NNNNN>` pattern (`TC-L00101` = Login test 1). When adding login tests, extend the `LOGIN_TC` / `LOGOUT_TC` maps in `login.spec.ts`.
+- **Test IDs**: format `TC-<PREFIX>-XXYYYY` (2-digit section + 4-digit seq). Strict regex `^TC-[A-Z]{2,5}-\d{6}$`. The canonical catalog of prefixes and section blocks lives in `docs/test-id-scheme.md`. To add a new module, add a row there before opening the spec PR; the audit (`bun audit:tc-ids`) and CI gate enforce that every prefix and section is registered.
 - **Login flows** must use `loginWithRetry` — the backend returns 429 after 3 wrong-password attempts on the same email, and the retry helper backs off when it detects the rate-limit message.
 - **Selectors** prefer `getByRole` / semantic queries. The frontend uses Radix primitives with `data-slot="..."` attributes (e.g. `data-slot="dropdown-menu-trigger"`, `data-slot="avatar"`) — use these when a role query is ambiguous, as seen in `DashboardPage.userMenuTrigger`.
 - **Language**: test titles are Thai to match the product UX and the existing suite in `../carmen-inventory-frontend/e2e/`.
@@ -54,6 +54,10 @@ bun run report                  # open last HTML report
   done
   ```
   All counts must match; any mismatch means a test is missing fields.
+- Also run the TC ID audit — must pass before merging — checks TC ID format, prefix dictionary, and section catalog:
+  ```bash
+  bun audit:tc-ids
+  ```
 - **Whenever you add or modify any annotation in any spec, regenerate the user-story docs in the same change**: run `bun docs:user-stories` and commit the resulting `docs/user-stories/*.md` alongside the spec edit. The two are coupled by design — never let them drift. Skip the regeneration only when no annotations changed (e.g. pure refactor, locator update).
 
 ## User-story docs (`docs/user-stories/`)

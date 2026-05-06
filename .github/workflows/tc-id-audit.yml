@@ -1,0 +1,13 @@
+name: TC ID Audit
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+      - run: bun install --frozen-lockfile
+      - run: bun audit:tc-ids
