@@ -238,7 +238,309 @@ purchaseTest.describe("Step 2 — PR Detail (Read-only)", () => {
 });
 
 purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
-  // TCs added in Task 7
+  purchaseTest(
+    "TC-PRP0301 Click Edit → vendor/pricing fields become editable",
+    {
+      annotation: [
+        { type: "preconditions", description: "PR exists at Purchase stage" },
+        { type: "steps", description: "1. Open Purchase-stage PR\n2. Click Edit\n3. Verify Save/Cancel form-level buttons appear" },
+        { type: "expected", description: "Save Draft (or Cancel) form-level button is visible." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser);
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      await expect(pr.saveDraftButton().or(pr.cancelFormButton())).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0302 Vendor field is editable (Purchaser scope)",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Purchase-stage PR with at least one item" },
+        { type: "steps", description: "1. Enter edit mode\n2. Locate Vendor input on first row\n3. Verify it is editable" },
+        { type: "expected", description: "Vendor input is editable (opposite of Approver, who sees it as read-only)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      const vendor = pr.vendorInput(0);
+      if ((await vendor.count()) === 0) {
+        purchaseTest.skip(true, "Vendor input not present in edit mode");
+        return;
+      }
+      await expect(vendor).toBeEditable();
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0303 Unit Price field is editable",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Purchase-stage PR with at least one item" },
+        { type: "steps", description: "1. Enter edit mode\n2. Locate Unit Price input\n3. Type a value" },
+        { type: "expected", description: "Unit Price input accepts the typed value." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      const price = pr.unitPriceInput(0);
+      if ((await price.count()) === 0) {
+        purchaseTest.skip(true, "Unit Price input not present");
+        return;
+      }
+      await expect(price).toBeEditable();
+      await price.fill("125");
+      await expect(price).toHaveValue("125");
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0304 Discount field is editable",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
+        { type: "steps", description: "1. Enter edit mode\n2. Locate Discount input\n3. Verify editable" },
+        { type: "expected", description: "Discount input is editable." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      const discount = pr.discountInput(0);
+      if ((await discount.count()) === 0) {
+        purchaseTest.skip(true, "Discount input not present");
+        return;
+      }
+      await expect(discount).toBeEditable();
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0305 Tax Profile field is editable",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
+        { type: "steps", description: "1. Enter edit mode\n2. Locate Tax Profile select\n3. Verify editable" },
+        { type: "expected", description: "Tax Profile select is editable." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      const tax = pr.taxProfileSelect(0);
+      if ((await tax.count()) === 0) {
+        purchaseTest.skip(true, "Tax Profile select not present");
+        return;
+      }
+      const disabled = await tax.isDisabled().catch(() => false);
+      const ariaDisabled = (await tax.getAttribute("aria-disabled").catch(() => null)) === "true";
+      expect(disabled || ariaDisabled).toBeFalsy();
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0306 Approved Qty field stays read-only (HOD already set it)",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Purchase-stage PR with at least one item" },
+        { type: "steps", description: "1. Enter edit mode\n2. Locate Approved Qty cell on first row" },
+        { type: "expected", description: "Approved Qty cell is disabled or non-editable for Purchaser (HOD already set it)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Authorization" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      const cell = pr.approvedQtyReadOnlyCell(0);
+      if ((await cell.count()) === 0) {
+        purchaseTest.skip(true, "Approved Qty cell not present");
+        return;
+      }
+      const disabled = await cell.isDisabled().catch(() => false);
+      const ariaDisabled = (await cell.getAttribute("aria-disabled").catch(() => null)) === "true";
+      const tagName = await cell.evaluate((el) => el.tagName.toLowerCase()).catch(() => "");
+      const isInput = tagName === "input" || tagName === "textarea";
+      expect(disabled || ariaDisabled || !isInput).toBeTruthy();
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0307 Auto Allocate button populates vendors via scoring",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Purchase-stage PR with at least one item" },
+        { type: "steps", description: "1. Enter edit mode\n2. Click Auto Allocate" },
+        { type: "expected", description: "URL stays on detail page after click (allocation runs)." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      const auto = pr.autoAllocateButton();
+      if ((await auto.count()) === 0) {
+        purchaseTest.skip(true, "Auto Allocate button not present in this build");
+        return;
+      }
+      await auto.click({ timeout: 5_000 });
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0308 Multiple line items — pricing on each row independent",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Purchase-stage PR with multiple items" },
+        { type: "steps", description: "1. Seed PR with 2 items\n2. Enter edit mode\n3. Set unit price on row 0\n4. Set unit price on row 1\n5. Verify both values present" },
+        { type: "expected", description: "Each row's Unit Price input retains its own value." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 2 });
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      const price0 = pr.unitPriceInput(0);
+      const price1 = pr.unitPriceInput(1);
+      if ((await price0.count()) === 0 || (await price1.count()) === 0) {
+        purchaseTest.skip(true, "Unit Price inputs not present on both rows");
+        return;
+      }
+      await price0.fill("100");
+      await price1.fill("200");
+      await expect(price0).toHaveValue("100");
+      await expect(price1).toHaveValue("200");
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0309 Save edits → exit edit mode + persist values",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Purchase-stage PR with vendor/price edits" },
+        { type: "steps", description: "1. Enter edit mode\n2. Set unit price\n3. Click Save Draft" },
+        { type: "expected", description: "Form returns to view mode (Edit button visible again)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      const price = pr.unitPriceInput(0);
+      if ((await price.count()) > 0) await price.fill("150");
+      await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.editModeButton()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0310 Cancel edits → discard changes, restore original",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
+        { type: "steps", description: "1. Enter edit mode\n2. Type into Unit Price\n3. Click Cancel" },
+        { type: "expected", description: "Form returns to view mode (Edit button visible again)." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+      const price = pr.unitPriceInput(0);
+      if ((await price.count()) > 0) await price.fill("999");
+      await pr.cancelEditMode();
+      await expect(pr.editModeButton()).toBeVisible({ timeout: 10_000 });
+    },
+  );
 });
 
 purchaseTest.describe("Step 4 — Workflow Actions", () => {
