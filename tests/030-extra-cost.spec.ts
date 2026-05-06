@@ -17,7 +17,7 @@ const opts = {
 
 test.describe("Extra Cost — Smoke & CRUD", () => {
   test(
-    "TC-EC00101 หน้า list โหลดสำเร็จ",
+    "TC-EC-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
@@ -34,7 +34,7 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-EC00102 ปุ่ม Add แสดง",
+    "TC-EC-010002 ปุ่ม Add แสดง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/extra-cost" },
@@ -51,7 +51,7 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-EC00103 ช่องค้นหาใช้งานได้",
+    "TC-EC-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/extra-cost" },
@@ -69,7 +69,7 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-EC00104 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    "TC-EC-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/extra-cost" },
@@ -87,7 +87,7 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-EC00105 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
+    "TC-EC-010005 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/extra-cost" },
@@ -107,7 +107,7 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-EC00106 สร้างรายการใหม่และปรากฏในตาราง",
+    "TC-EC-010006 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
@@ -131,10 +131,10 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-EC00107 แก้ไขชื่อและบันทึก",
+    "TC-EC-010007 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "TC-EC00106 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-EC-010006 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด edit dialog\n3. clear ชื่อและกรอก NAME_UPDATED\n4. กด Save\n5. ค้นหา NAME_UPDATED" },
         { type: "expected", description: "Updated/success toast ปรากฏ; แถวที่มีชื่อ NAME_UPDATED ปรากฏใน list" },
         { type: "priority", description: "High" },
@@ -157,10 +157,10 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-EC00113 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
+    "TC-EC-010013 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "TC-EC00107 ผ่านแล้ว → record มี name = NAME_UPDATED" },
+        { type: "preconditions", description: "TC-EC-010007 ผ่านแล้ว → record มี name = NAME_UPDATED" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด edit dialog\n3. clear name\n4. กด Save" },
         { type: "expected", description: "Error message แสดงใน dialog (required validation); dialog ยังเปิดอยู่" },
         { type: "priority", description: "Medium" },
@@ -179,10 +179,10 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-EC00108 ลบรายการ",
+    "TC-EC-010008 ลบรายการ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-EC00113 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-EC-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. กด Delete ที่แถว\n3. ยืนยัน Delete" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
         { type: "priority", description: "High" },
