@@ -19,12 +19,15 @@
     "docs:user-stories": "bun run scripts/generate-user-stories.ts",
     "report": "playwright show-report",
     "codegen": "playwright codegen http://localhost:3000",
-    "install-browsers": "playwright install --with-deps"
+    "install-browsers": "playwright install --with-deps",
+    "audit:tc-ids": "bun run scripts/audit-tc-ids.ts",
+    "audit:tc-ids:legacy": "bun run scripts/audit-tc-ids.ts --legacy-mode"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^20.19.0",
     "googleapis": "^171.4.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "vitest": "^4.1.5"
   }
 }
