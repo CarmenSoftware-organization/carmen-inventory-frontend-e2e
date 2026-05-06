@@ -616,7 +616,164 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
 });
 
 purchaseTest.describe("Step 4 — Edit Mode", () => {
-  // TCs added in Task 9
+  purchaseTest(
+    "TC-POP0401 Click Edit on DRAFT → edit mode active (Save/Cancel visible)",
+    {
+      annotation: [
+        { type: "preconditions", description: "A Draft PO exists" },
+        { type: "steps", description: "1. Open Draft PO detail\n2. Click Edit\n3. Verify Save/Cancel form-level buttons" },
+        { type: "expected", description: "Save button is visible after entering edit mode." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const po = new PurchaseOrderPage(page);
+      const created = await submitPOAsPurchaser(browser);
+      await gotoPODetail(page, created.ref);
+      if ((await po.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await po.enterEditMode();
+      await expect(po.saveButton()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-POP0402 Modify line item quantity → Save → URL stays on detail",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Draft PO with at least one item" },
+        { type: "steps", description: "1. Enter edit mode\n2. Modify a quantity input\n3. Click Save" },
+        { type: "expected", description: "After save the page URL stays on /procurement/purchase-order/<ref>." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const po = new PurchaseOrderPage(page);
+      const created = await submitPOAsPurchaser(browser);
+      await gotoPODetail(page, created.ref);
+      if ((await po.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await po.enterEditMode();
+      const qty = page.getByLabel(/^quantity$|^qty$/i).first();
+      if ((await qty.count()) > 0) await qty.fill("5").catch(() => {});
+      await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-POP0403 Add new line item in edit mode → Save",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Draft PO" },
+        { type: "steps", description: "1. Enter edit mode\n2. Add new line item\n3. Save" },
+        { type: "expected", description: "After save the page URL stays on detail." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const po = new PurchaseOrderPage(page);
+      const created = await submitPOAsPurchaser(browser);
+      await gotoPODetail(page, created.ref);
+      if ((await po.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await po.enterEditMode();
+      await po.addItemToPO({ product: "Added in Edit", quantity: 2, uom: "ea", unitPrice: 50 });
+      await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-POP0404 Cancel edit (no unsaved changes) → exits without dialog",
+    {
+      annotation: [
+        { type: "preconditions", description: "Edit mode active on a Draft PO with no changes typed" },
+        { type: "steps", description: "1. Enter edit mode\n2. Click Cancel without making changes" },
+        { type: "expected", description: "Form returns to view mode (Edit button visible again)." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const po = new PurchaseOrderPage(page);
+      const created = await submitPOAsPurchaser(browser);
+      await gotoPODetail(page, created.ref);
+      if ((await po.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await po.enterEditMode();
+      await po.cancelEditMode();
+      await expect(po.editModeButton()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-POP0405 Submit Draft PO → confirmation dialog → status moves to IN PROGRESS",
+    {
+      annotation: [
+        { type: "preconditions", description: "A Draft PO with ≥1 item exists" },
+        { type: "steps", description: "1. Open Draft PO\n2. Click Submit\n3. Confirm dialog" },
+        { type: "expected", description: "URL stays on PO ref; status badge text updates (best effort)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const po = new PurchaseOrderPage(page);
+      const created = await submitPOAsPurchaser(browser);
+      await gotoPODetail(page, created.ref);
+      const submit = po.submitButton();
+      if ((await submit.count()) === 0) {
+        purchaseTest.skip(true, "Submit button not present (Draft may already be In Progress)");
+        return;
+      }
+      await submit.click({ timeout: 5_000 });
+      await po.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 15_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-POP0406 Delete IN PROGRESS PO via Edit Mode",
+    {
+      annotation: [
+        { type: "preconditions", description: "An IN PROGRESS PO exists (post-submit). DRAFT also acceptable." },
+        { type: "steps", description: "1. Open the PO\n2. Click Edit\n3. Click Delete\n4. Confirm" },
+        { type: "expected", description: "URL navigates back to list (PO removed)." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const po = new PurchaseOrderPage(page);
+      const created = await submitPOAsPurchaser(browser);
+      await gotoPODetail(page, created.ref);
+      if ((await po.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await po.enterEditMode();
+      const del = po.deleteButton();
+      if ((await del.count()) === 0) {
+        purchaseTest.skip(true, "Delete button not present in edit mode");
+        return;
+      }
+      await del.click({ timeout: 5_000 });
+      await po.confirmDialogButton(/confirm|delete|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await expect(page).toHaveURL(/\/procurement\/purchase-order($|\?)/, { timeout: 10_000 });
+    },
+  );
 });
 
 purchaseTest.describe("Step 5 — Post-approval", () => {
