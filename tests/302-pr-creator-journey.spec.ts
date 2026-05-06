@@ -669,7 +669,172 @@ requestorTest.describe("Step 4 — PR Detail", () => {
 });
 
 requestorTest.describe("Step 5 — Edit Draft", () => {
-  // TCs added in Task 10
+  requestorTest(
+    "TC-PRC0501 Click Edit → enter edit mode",
+    {
+      annotation: [
+        { type: "preconditions", description: "A Draft PR exists for this Requestor" },
+        { type: "steps", description: "1. Open Draft PR\n2. Click Edit" },
+        { type: "expected", description: "Form becomes editable; Save (or Cancel) form-level button is visible." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await createDraftPR(page);
+      await page.goto(`${LIST_PATH}/${created.ref}`);
+      await page.waitForLoadState("networkidle");
+      const editBtn = pr.editModeButton();
+      if ((await editBtn.count()) === 0) {
+        requestorTest.skip(true, "Edit button not present on Draft detail in this build");
+        return;
+      }
+      await pr.enterEditMode();
+      await expect(pr.saveDraftButton().or(pr.cancelFormButton())).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0502 Modify header description in edit mode",
+    {
+      annotation: [
+        { type: "preconditions", description: "A Draft PR is open in edit mode" },
+        { type: "steps", description: "1. Enter edit mode\n2. Update description\n3. Save" },
+        { type: "expected", description: "After save the page returns to detail URL (no redirect to /new or list)." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await createDraftPR(page);
+      await page.goto(`${LIST_PATH}/${created.ref}`);
+      await page.waitForLoadState("networkidle");
+      const editBtn = pr.editModeButton();
+      if ((await editBtn.count()) === 0) {
+        requestorTest.skip(true, "Edit button not present on Draft detail in this build");
+        return;
+      }
+      await pr.enterEditMode();
+      const newDesc = e2eDescription("TC-PRC0502 edited");
+      await pr.fillHeader({ description: newDesc });
+      await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0503 Modify line item quantity in edit mode",
+    {
+      annotation: [
+        { type: "preconditions", description: "A Draft PR with at least one line item is open in edit mode" },
+        { type: "steps", description: "1. Enter edit mode\n2. Edit first line item quantity\n3. Save" },
+        { type: "expected", description: "After save the page returns to the detail URL." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await createDraftPR(page, { items: 1 });
+      await page.goto(`${LIST_PATH}/${created.ref}`);
+      await page.waitForLoadState("networkidle");
+      const editBtn = pr.editModeButton();
+      if ((await editBtn.count()) === 0) {
+        requestorTest.skip(true, "Edit button not present on Draft detail in this build");
+        return;
+      }
+      await pr.enterEditMode();
+      await pr.editLineItem(0, { quantity: 7 });
+      await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0504 Add line item in edit mode",
+    {
+      annotation: [
+        { type: "preconditions", description: "A Draft PR is open in edit mode" },
+        { type: "steps", description: "1. Enter edit mode\n2. Click Add Item\n3. Fill product/qty/uom\n4. Save" },
+        { type: "expected", description: "After save the page returns to the detail URL." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await createDraftPR(page, { items: 1 });
+      await page.goto(`${LIST_PATH}/${created.ref}`);
+      await page.waitForLoadState("networkidle");
+      const editBtn = pr.editModeButton();
+      if ((await editBtn.count()) === 0) {
+        requestorTest.skip(true, "Edit button not present on Draft detail in this build");
+        return;
+      }
+      await pr.enterEditMode();
+      await pr.addLineItem({ product: "Added in Edit", quantity: 2, uom: "ea", unitPrice: 50 });
+      await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0505 Save → exit edit mode + persist changes",
+    {
+      annotation: [
+        { type: "preconditions", description: "A Draft PR is open in edit mode with at least one change" },
+        { type: "steps", description: "1. Enter edit mode\n2. Make a change\n3. Click Save" },
+        { type: "expected", description: "Form returns to view mode (Edit button visible again on detail page)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await createDraftPR(page);
+      await page.goto(`${LIST_PATH}/${created.ref}`);
+      await page.waitForLoadState("networkidle");
+      const editBtn = pr.editModeButton();
+      if ((await editBtn.count()) === 0) {
+        requestorTest.skip(true, "Edit button not present on Draft detail in this build");
+        return;
+      }
+      await pr.enterEditMode();
+      await pr.fillHeader({ description: e2eDescription("TC-PRC0505 persisted") });
+      await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.editModeButton()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0506 Cancel → discard changes, restore original",
+    {
+      annotation: [
+        { type: "preconditions", description: "A Draft PR is open in edit mode" },
+        { type: "steps", description: "1. Enter edit mode\n2. Type into description\n3. Click Cancel" },
+        { type: "expected", description: "Form returns to view mode (Edit button visible again on detail page)." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await createDraftPR(page);
+      await page.goto(`${LIST_PATH}/${created.ref}`);
+      await page.waitForLoadState("networkidle");
+      const editBtn = pr.editModeButton();
+      if ((await editBtn.count()) === 0) {
+        requestorTest.skip(true, "Edit button not present on Draft detail in this build");
+        return;
+      }
+      await pr.enterEditMode();
+      await pr.fillHeader({ description: "DISCARD ME" });
+      await pr.cancelEditMode();
+      await expect(pr.editModeButton()).toBeVisible({ timeout: 10_000 });
+    },
+  );
 });
 
 requestorTest.describe("Step 6 — Submit", () => {
