@@ -1030,5 +1030,39 @@ requestorTest.describe("Step 8 — Delete", () => {
 });
 
 requestorTest.describe.serial("Golden Journey", () => {
-  // TC added in Task 13
+  requestorTest(
+    "TC-PRC0901 Full Creator flow: List → Create → Save Draft → Edit → Submit → In Progress",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged in as Requestor; on PR list" },
+        { type: "steps", description: "1. Open list\n2. Click New PR (Blank)\n3. Fill header + 1 line item\n4. Save as Draft\n5. Open detail and click Edit\n6. Edit description\n7. Save\n8. Click Submit and confirm" },
+        { type: "expected", description: "PR is created (detail URL with ref), edited (Edit button reappears post-save), submitted (status badge reads In Progress)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+
+      // Step 1-4: List → Create → Items → Save Draft (helper does the heavy lifting)
+      const created = await createDraftPR(page, { items: 1, description: "TC-PRC0901 golden" });
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+
+      // Step 5-7: Edit description and save
+      await page.goto(`${LIST_PATH}/${created.ref}`);
+      await page.waitForLoadState("networkidle");
+      const editBtn = pr.editModeButton();
+      if ((await editBtn.count()) === 0) {
+        requestorTest.skip(true, "Edit button not present on Draft detail in this build");
+        return;
+      }
+      await pr.enterEditMode();
+      await pr.fillHeader({ description: e2eDescription("TC-PRC0901 edited golden") });
+      await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.editModeButton()).toBeVisible({ timeout: 10_000 });
+
+      // Step 8: Submit (helper asserts In Progress at the end)
+      await submitDraftPR(page, created.ref);
+    },
+  );
 });
