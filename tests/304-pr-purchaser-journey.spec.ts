@@ -140,7 +140,101 @@ purchaseTest.describe("Step 1 — PR List (Purchaser View)", () => {
 });
 
 purchaseTest.describe("Step 2 — PR Detail (Read-only)", () => {
-  // TCs added in Task 6
+  purchaseTest(
+    "TC-PRP0201 Detail loads with Items tab default",
+    {
+      annotation: [
+        { type: "preconditions", description: "PR exists at Purchase stage (seeded via submitPRAsRequestor + approveAsHOD)" },
+        { type: "steps", description: "1. Open the PR detail page\n2. Verify Items tab is the default" },
+        { type: "expected", description: "URL is the detail URL; Items tab is selected when present." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser);
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`));
+      const items = pr.tabItems();
+      if ((await items.count()) === 0) return;
+      await expect(items).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0202 Switch to Workflow History tab",
+    {
+      annotation: [
+        { type: "preconditions", description: "On a Purchase-stage PR detail page" },
+        { type: "steps", description: "1. Click Workflow History tab" },
+        { type: "expected", description: "Workflow History tab becomes selected." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser);
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      const wh = pr.tabWorkflowHistory();
+      if ((await wh.count()) === 0) {
+        purchaseTest.skip(true, "Workflow History tab not present in this build");
+        return;
+      }
+      await wh.click();
+      await expect(wh).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0203 No standalone Approve/Reject/Return buttons (BRD discrepancy)",
+    {
+      annotation: [
+        { type: "preconditions", description: "On a Purchase-stage PR detail page (read-only view)" },
+        { type: "steps", description: "1. Inspect detail page header / action toolbar" },
+        { type: "expected", description: "Standalone Approve, Reject, and Send for Review buttons are NOT visible at the page header (per BRD discrepancy — actions live in Edit Mode bulk toolbar)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Authorization" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser);
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      const editBtn = pr.editModeButton();
+      if ((await editBtn.count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present — cannot verify read-only header state");
+        return;
+      }
+      await expect(pr.approveButton()).toHaveCount(0);
+      await expect(pr.rejectButton()).toHaveCount(0);
+      await expect(pr.sendBackButton()).toHaveCount(0);
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0204 Edit button visible (entry to vendor/pricing edit)",
+    {
+      annotation: [
+        { type: "preconditions", description: "On a Purchase-stage PR detail page" },
+        { type: "steps", description: "1. Inspect the action toolbar" },
+        { type: "expected", description: "Edit button is visible (Purchaser can enter Edit Mode for vendor/pricing allocation)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser);
+      await approveAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      await expect(pr.editModeButton()).toBeVisible({ timeout: 10_000 });
+    },
+  );
 });
 
 purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
