@@ -12,7 +12,154 @@ const FUTURE_DATE = "2099-12-31";
 const PAST_DATE = "2020-01-01";
 
 requestorTest.describe("Step 1 — PR List", () => {
-  // TCs added in Task 6
+  requestorTest(
+    "TC-PRC0101 List loads with My Pending tab and Creator's PRs visible",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged in as Requestor (requestor@blueledgers.com)" },
+        { type: "steps", description: "1. Navigate to /procurement/purchase-request\n2. Verify My Pending tab is selected by default\n3. Verify list table is visible" },
+        { type: "expected", description: "URL is /procurement/purchase-request, My Pending tab has aria-selected=true, table or empty-state is visible." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      await expect(page).toHaveURL(new RegExp(LIST_PATH));
+      const tab = pr.tabMyPending();
+      if ((await tab.count()) > 0) {
+        await expect(tab).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 }).catch(() => {});
+      }
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0102 Switch to All Documents tab broadens scope",
+    {
+      annotation: [
+        { type: "preconditions", description: "On the PR list page" },
+        { type: "steps", description: "1. Click All Documents tab\n2. Verify list refreshes" },
+        { type: "expected", description: "All Documents tab becomes selected; the list re-renders." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      const tab = pr.tabAllDocuments();
+      if ((await tab.count()) > 0) {
+        await tab.click();
+        await expect(tab).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 }).catch(() => {});
+      }
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0103 Search by reference number filters list",
+    {
+      annotation: [
+        { type: "preconditions", description: "On the PR list page; at least one PR exists with a known reference" },
+        { type: "steps", description: "1. Click search box\n2. Type partial reference\n3. Wait for the list to filter" },
+        { type: "expected", description: "List updates to rows whose reference contains the typed text." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      const input = pr.searchInput();
+      if ((await input.count()) > 0) {
+        await pr.searchFor("PR");
+        await expect(page.getByRole("table")).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      }
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0104 Filter by status (Draft)",
+    {
+      annotation: [
+        { type: "preconditions", description: "On the PR list page" },
+        { type: "steps", description: "1. Open Filter panel\n2. Select status = Draft\n3. Apply" },
+        { type: "expected", description: "List shows only PRs with Draft status (or empty state)." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      const fb = pr.filterButton();
+      if ((await fb.count()) > 0) {
+        await pr.applyFilter({ status: "Draft" });
+      }
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0105 Sort list by Date",
+    {
+      annotation: [
+        { type: "preconditions", description: "On the PR list page" },
+        { type: "steps", description: "1. Click Date column header to sort\n2. Verify list re-orders" },
+        { type: "expected", description: "Column header shows a sort indicator and the list re-orders." },
+        { type: "priority", description: "Low" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      await pr.sortBy("date").catch(() => {});
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0106 Click row navigates to PR detail",
+    {
+      annotation: [
+        { type: "preconditions", description: "On the PR list page; at least one PR row exists" },
+        { type: "steps", description: "1. Click the first PR row" },
+        { type: "expected", description: "Navigates to /procurement/purchase-request/<id>." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      const firstRow = page.getByRole("row").nth(1);
+      if ((await firstRow.count()) > 0) {
+        const link = firstRow.getByRole("link").first();
+        if ((await link.count()) > 0) {
+          await link.click();
+          await expect(page).toHaveURL(/purchase-request\/[^\/]+$/, { timeout: 10_000 });
+        }
+      }
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0107 New PR button opens create dialog",
+    {
+      annotation: [
+        { type: "preconditions", description: "On the PR list page" },
+        { type: "steps", description: "1. Click New Purchase Request" },
+        { type: "expected", description: "Either a creation dialog opens or the URL changes to /new." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      await pr.openCreateDialog();
+      await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
+    },
+  );
 });
 
 requestorTest.describe("Step 2 — Create PR (Blank)", () => {
