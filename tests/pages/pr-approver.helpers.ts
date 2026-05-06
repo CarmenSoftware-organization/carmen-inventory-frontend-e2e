@@ -115,6 +115,38 @@ export async function approveAsHOD(browser: Browser, ref: string): Promise<void>
 }
 
 /**
+ * Cross-context helper: opens a fresh BrowserContext, logs in as HOD,
+ * navigates to the PR detail at `ref`, enters Edit Mode, selects all rows,
+ * and bulk-sends the PR for review with the given reason — routing the PR
+ * back to the Requestor (Creator). Closes the context cleanly. Used by the
+ * PR Returned Flow spec to seed PRs in the Returned status.
+ */
+export async function sendForReviewAsHOD(
+  browser: Browser,
+  ref: string,
+  reason: string = "Please revise — returned for review",
+): Promise<void> {
+  const ctx = await browser.newContext();
+  try {
+    const page = await ctx.newPage();
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.loginWithRetry("hod@blueledgers.com", TEST_PASSWORD);
+    await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
+    await gotoPRDetail(page, ref);
+    const pr = new PurchaseRequestPage(page);
+    if ((await pr.editModeButton().count()) === 0) {
+      throw new Error(`sendForReviewAsHOD: Edit button not found on PR ${ref}`);
+    }
+    await pr.enterEditMode();
+    await bulkSendForReview(page, reason, "Requestor");
+    await page.waitForLoadState("networkidle").catch(() => {});
+  } finally {
+    await ctx.close();
+  }
+}
+
+/**
  * Navigates to a PR detail page in HOD's primary context (or current page).
  */
 export async function gotoPRDetail(page: Page, ref: string): Promise<void> {
