@@ -75,6 +75,7 @@ const SYNC_TARGETS: SyncTarget[] = [
   { jsonFile: "304-pr-purchaser-journey-results.json", sheetTab: "PR Purchaser" },
   { jsonFile: "311-pr-returned-flow-results.json", sheetTab: "PR Returned Flow" },
   { jsonFile: "402-po-purchaser-journey-results.json", sheetTab: "PO Purchaser" },
+  { jsonFile: "403-po-approver-journey-results.json", sheetTab: "PO Approver" },
 ];
 
 const RESULTS_DIR = resolve(process.cwd(), "tests/results");
