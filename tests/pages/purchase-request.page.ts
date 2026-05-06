@@ -462,4 +462,40 @@ export class PurchaseRequestPage extends BasePage {
   bulkSplitInEditMode(): Locator {
     return this.bulkActionToolbar().getByRole("button", { name: /^split$/i }).first();
   }
+
+  // ── Edit-mode editable fields (Approver Edit Mode per FR-PR-011A) ─────
+  approvedQtyInput(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/approved.*(qty|quantity)/i).first();
+  }
+
+  itemNoteInput(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/item note|note/i).first();
+  }
+
+  deliveryPointInput(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/delivery point/i).first();
+  }
+
+  // ── Edit-mode read-only fields (Approver cannot edit per FR-PR-011A) ──
+  // Returns the cell/input element; tests assert it has [disabled], [readonly],
+  // or is a non-input element (e.g. a span).
+  vendorReadOnlyCell(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/vendor/i).first();
+  }
+
+  unitPriceReadOnlyCell(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/unit price/i).first();
+  }
+
+  discountReadOnlyCell(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/discount/i).first();
+  }
+
+  taxReadOnlyCell(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/tax/i).first();
+  }
+
+  focQtyReadOnlyCell(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/foc.*qty|free.*charge/i).first();
+  }
 }
