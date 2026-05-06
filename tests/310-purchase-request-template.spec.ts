@@ -14,11 +14,11 @@ const requestorTest = createAuthTest("requestor@blueledgers.com");
 const purchaseTest = createAuthTest("purchase@blueledgers.com");
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT001 — Create Template
+// TC-PRT-900001 — Create Template
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — Create", () => {
   purchaseTest(
-    "TC-PRT00101 Happy Path - Create Template with Valid Data",
+    "TC-PRT-010001 Happy Path - Create Template with Valid Data",
     {
       annotation: [
         { type: "preconditions", description: "User has 'Create Purchase Request Template' permission; assigned to at least one department; at least one budget code and account exist" },
@@ -40,7 +40,7 @@ purchaseTest.describe("PR Template — Create", () => {
   );
 
   purchaseTest(
-    "TC-PRT00103 Edge Case - Create Template without Assigned Department",
+    "TC-PRT-010003 Edge Case - Create Template without Assigned Department",
     {
       annotation: [
         { type: "preconditions", description: "User has create permission but is not assigned to any department" },
@@ -60,7 +60,7 @@ purchaseTest.describe("PR Template — Create", () => {
   );
 
   purchaseTest(
-    "TC-PRT00104 Negative - Empty Fields for Template",
+    "TC-PRT-010004 Negative - Empty Fields for Template",
     {
       annotation: [
         { type: "preconditions", description: "User has create permission; assigned to at least one department" },
@@ -85,7 +85,7 @@ purchaseTest.describe("PR Template — Create", () => {
 
 requestorTest.describe("PR Template — Create — Permission denial", () => {
   requestorTest(
-    "TC-PRT00102 Negative - No Permission to Create Template",
+    "TC-PRT-010002 Negative - No Permission to Create Template",
     {
       annotation: [
         { type: "preconditions", description: "User lacks 'Create Purchase Request Template' permission" },
@@ -111,11 +111,11 @@ requestorTest.describe("PR Template — Create — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT002 — View Template
+// TC-PRT-900002 — View Template
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — View Detail", () => {
   purchaseTest(
-    "TC-PRT00201 View template with valid permissions",
+    "TC-PRT-020001 View template with valid permissions",
     {
       annotation: [
         { type: "preconditions", description: "User has 'View Purchase Request Templates' permission; template exists in the system" },
@@ -139,7 +139,7 @@ purchaseTest.describe("PR Template — View Detail", () => {
   );
 
   purchaseTest(
-    "TC-PRT00203 View non-existent template",
+    "TC-PRT-020003 View non-existent template",
     {
       annotation: [
         { type: "preconditions", description: "User has 'View Purchase Request Templates' permission" },
@@ -160,7 +160,7 @@ purchaseTest.describe("PR Template — View Detail", () => {
   );
 
   purchaseTest(
-    "TC-PRT00204 View template with no budget allocations",
+    "TC-PRT-020004 View template with no budget allocations",
     {
       annotation: [
         { type: "preconditions", description: "User has view permission; template exists with no budget allocations" },
@@ -181,7 +181,7 @@ purchaseTest.describe("PR Template — View Detail", () => {
   );
 
   purchaseTest(
-    "TC-PRT00205 View template with very long usage history",
+    "TC-PRT-020005 View template with very long usage history",
     {
       annotation: [
         { type: "preconditions", description: "User has view permission; template exists with a very long usage history" },
@@ -203,11 +203,11 @@ purchaseTest.describe("PR Template — View Detail", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT003 — Edit Template (was TC-TPL-003 in CSV)
+// TC-PRT-900003 — Edit Template (was TC-TPL-003 in CSV)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — Edit", () => {
   purchaseTest(
-    "TC-PRT00301 Edit Template - Happy Path",
+    "TC-PRT-030001 Edit Template - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "User has edit permission; template exists and is in editable status (Draft or Active); user is template creator or has elevated privilege" },
@@ -232,7 +232,7 @@ purchaseTest.describe("PR Template — Edit", () => {
   );
 
   purchaseTest(
-    "TC-PRT00302 Edit Template - Invalid Input",
+    "TC-PRT-030002 Edit Template - Invalid Input",
     {
       annotation: [
         { type: "preconditions", description: "User has edit permission; template exists and is in editable status" },
@@ -253,7 +253,7 @@ purchaseTest.describe("PR Template — Edit", () => {
   );
 
   purchaseTest(
-    "TC-PRT00304 Edit Template - Template In ReadOnly Status",
+    "TC-PRT-030004 Edit Template - Template In ReadOnly Status",
     {
       annotation: [
         { type: "preconditions", description: "Template is in non-editable status (Locked or Inactive)" },
@@ -274,7 +274,7 @@ purchaseTest.describe("PR Template — Edit", () => {
   );
 
   purchaseTest(
-    "TC-PRT00305 Edit Template - No Existing Template",
+    "TC-PRT-030005 Edit Template - No Existing Template",
     {
       annotation: [
         { type: "preconditions", description: "User has edit permission; template does not exist" },
@@ -297,7 +297,7 @@ purchaseTest.describe("PR Template — Edit", () => {
 
 requestorTest.describe("PR Template — Edit — Permission denial", () => {
   requestorTest(
-    "TC-PRT00303 Edit Template - No Permission",
+    "TC-PRT-030003 Edit Template - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is not template creator and does not have elevated privilege" },
@@ -329,11 +329,11 @@ requestorTest.describe("PR Template — Edit — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT004 — Delete Template
+// TC-PRT-900004 — Delete Template
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — Delete", () => {
   purchaseTest(
-    "TC-PRT00401 Delete valid template - Happy Path",
+    "TC-PRT-040001 Delete valid template - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "User has delete permission; template exists and is not marked as default for its department" },
@@ -354,7 +354,7 @@ purchaseTest.describe("PR Template — Delete", () => {
   );
 
   purchaseTest(
-    "TC-PRT00402 Attempt to delete default template - Negative Case",
+    "TC-PRT-040002 Attempt to delete default template - Negative Case",
     {
       annotation: [
         { type: "preconditions", description: "User has delete permission; default template exists in the system for the department" },
@@ -374,7 +374,7 @@ purchaseTest.describe("PR Template — Delete", () => {
   );
 
   purchaseTest(
-    "TC-PRT00404 Attempt to delete template that does not exist - Negative Case",
+    "TC-PRT-040004 Attempt to delete template that does not exist - Negative Case",
     {
       annotation: [
         { type: "preconditions", description: "User has delete permission; template does not exist in the system" },
@@ -394,7 +394,7 @@ purchaseTest.describe("PR Template — Delete", () => {
   );
 
   purchaseTest(
-    "TC-PRT00405 Delete template with multiple selections - Edge Case",
+    "TC-PRT-040005 Delete template with multiple selections - Edge Case",
     {
       annotation: [
         { type: "preconditions", description: "User has delete permission; multiple templates exist and are not marked as default" },
@@ -417,7 +417,7 @@ purchaseTest.describe("PR Template — Delete", () => {
 
 requestorTest.describe("PR Template — Delete — Permission denial", () => {
   requestorTest(
-    "TC-PRT00403 Delete template with no permissions - Negative Case",
+    "TC-PRT-040003 Delete template with no permissions - Negative Case",
     {
       annotation: [
         { type: "preconditions", description: "User does not have 'Delete Purchase Request Template' permission" },
@@ -443,11 +443,11 @@ requestorTest.describe("PR Template — Delete — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT005 — Clone Template
+// TC-PRT-900005 — Clone Template
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — Clone", () => {
   purchaseTest(
-    "TC-PRT00501 Clone existing template successfully",
+    "TC-PRT-050001 Clone existing template successfully",
     {
       annotation: [
         { type: "preconditions", description: "User has create permission; source template exists and is accessible" },
@@ -470,7 +470,7 @@ purchaseTest.describe("PR Template — Clone", () => {
   );
 
   purchaseTest(
-    "TC-PRT00503 Clone template with non-existent source",
+    "TC-PRT-050003 Clone template with non-existent source",
     {
       annotation: [
         { type: "preconditions", description: "User has create permission; source template does not exist" },
@@ -490,7 +490,7 @@ purchaseTest.describe("PR Template — Clone", () => {
   );
 
   purchaseTest(
-    "TC-PRT00504 Clone template with different departments",
+    "TC-PRT-050004 Clone template with different departments",
     {
       annotation: [
         { type: "preconditions", description: "User has create permission; source template exists and is from a different department" },
@@ -513,7 +513,7 @@ purchaseTest.describe("PR Template — Clone", () => {
 
 requestorTest.describe("PR Template — Clone — Permission denial", () => {
   requestorTest(
-    "TC-PRT00502 User without permission cannot clone template",
+    "TC-PRT-050002 User without permission cannot clone template",
     {
       annotation: [
         { type: "preconditions", description: "User does not have create permission; source template exists and is accessible" },
@@ -542,11 +542,11 @@ requestorTest.describe("PR Template — Clone — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT006 — Set Default Template
+// TC-PRT-900006 — Set Default Template
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — Set as Default", () => {
   purchaseTest(
-    "TC-PRT00601 Set Default Template Successfully",
+    "TC-PRT-060001 Set Default Template Successfully",
     {
       annotation: [
         { type: "preconditions", description: "User has 'Manage Default Templates' permission; template exists and is in Active status; user has access to template's department" },
@@ -567,7 +567,7 @@ purchaseTest.describe("PR Template — Set as Default", () => {
   );
 
   purchaseTest(
-    "TC-PRT00603 Set Default Template with Invalid Template",
+    "TC-PRT-060003 Set Default Template with Invalid Template",
     {
       annotation: [
         { type: "preconditions", description: "User has manage permission; template does not exist or is in Inactive status" },
@@ -588,7 +588,7 @@ purchaseTest.describe("PR Template — Set as Default", () => {
   );
 
   purchaseTest(
-    "TC-PRT00604 Set Default Template for Unrelated Department",
+    "TC-PRT-060004 Set Default Template for Unrelated Department",
     {
       annotation: [
         { type: "preconditions", description: "User has manage permission; template exists; user does not have access to template's department" },
@@ -609,7 +609,7 @@ purchaseTest.describe("PR Template — Set as Default", () => {
   );
 
   purchaseTest(
-    "TC-PRT00605 Set Default Template with Multiple Selections",
+    "TC-PRT-060005 Set Default Template with Multiple Selections",
     {
       annotation: [
         { type: "preconditions", description: "Multiple templates exist and are in Active status" },
@@ -632,7 +632,7 @@ purchaseTest.describe("PR Template — Set as Default", () => {
 
 requestorTest.describe("PR Template — Set as Default — Permission denial", () => {
   requestorTest(
-    "TC-PRT00602 Set Default Template with No Permission",
+    "TC-PRT-060002 Set Default Template with No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have 'Manage Default Templates' permission" },
@@ -654,11 +654,11 @@ requestorTest.describe("PR Template — Set as Default — Permission denial", (
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT007 — Add Item to Template
+// TC-PRT-900007 — Add Item to Template
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — Add Item", () => {
   purchaseTest(
-    "TC-PRT00701 Add valid item to template",
+    "TC-PRT-070001 Add valid item to template",
     {
       annotation: [
         { type: "preconditions", description: "User is in edit mode of a template; has permission to edit; has at least one budget and account code" },
@@ -679,7 +679,7 @@ purchaseTest.describe("PR Template — Add Item", () => {
   );
 
   purchaseTest(
-    "TC-PRT00702 Add item with missing budget code",
+    "TC-PRT-070002 Add item with missing budget code",
     {
       annotation: [
         { type: "preconditions", description: "User is in edit mode of a template; has permission to edit; no budget code exists" },
@@ -700,7 +700,7 @@ purchaseTest.describe("PR Template — Add Item", () => {
   );
 
   purchaseTest(
-    "TC-PRT00704 Add item with zero quantity",
+    "TC-PRT-070004 Add item with zero quantity",
     {
       annotation: [
         { type: "preconditions", description: "User is in edit mode of a template; has permission to edit" },
@@ -721,7 +721,7 @@ purchaseTest.describe("PR Template — Add Item", () => {
   );
 
   purchaseTest(
-    "TC-PRT00705 Add item with very large quantity",
+    "TC-PRT-070005 Add item with very large quantity",
     {
       annotation: [
         { type: "preconditions", description: "User is in edit mode of a template; has permission to edit" },
@@ -744,7 +744,7 @@ purchaseTest.describe("PR Template — Add Item", () => {
 
 requestorTest.describe("PR Template — Add Item — Permission denial", () => {
   requestorTest(
-    "TC-PRT00703 Add item with no permission",
+    "TC-PRT-070003 Add item with no permission",
     {
       annotation: [
         { type: "preconditions", description: "User is in edit mode of a template; does not have permission to edit" },
@@ -765,11 +765,11 @@ requestorTest.describe("PR Template — Add Item — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT008 — Edit Template Item
+// TC-PRT-900008 — Edit Template Item
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — Edit Item", () => {
   purchaseTest(
-    "TC-PRT00801 Edit existing template item successfully",
+    "TC-PRT-080001 Edit existing template item successfully",
     {
       annotation: [
         { type: "preconditions", description: "User is viewing a template in edit mode; template contains at least one item; user has edit permission" },
@@ -790,7 +790,7 @@ purchaseTest.describe("PR Template — Edit Item", () => {
   );
 
   purchaseTest(
-    "TC-PRT00803 Edit template item with invalid quantity",
+    "TC-PRT-080003 Edit template item with invalid quantity",
     {
       annotation: [
         { type: "preconditions", description: "User is viewing a template in edit mode; template contains at least one item" },
@@ -811,7 +811,7 @@ purchaseTest.describe("PR Template — Edit Item", () => {
   );
 
   purchaseTest(
-    "TC-PRT00804 Edit template item with no selected item",
+    "TC-PRT-080004 Edit template item with no selected item",
     {
       annotation: [
         { type: "preconditions", description: "User is viewing a template in edit mode; template contains at least one item" },
@@ -832,7 +832,7 @@ purchaseTest.describe("PR Template — Edit Item", () => {
   );
 
   purchaseTest(
-    "TC-PRT00805 Edit template item with minimal changes",
+    "TC-PRT-080005 Edit template item with minimal changes",
     {
       annotation: [
         { type: "preconditions", description: "User is viewing a template in edit mode; template contains at least one item" },
@@ -855,7 +855,7 @@ purchaseTest.describe("PR Template — Edit Item", () => {
 
 requestorTest.describe("PR Template — Edit Item — Permission denial", () => {
   requestorTest(
-    "TC-PRT00802 Attempt to edit template without permission",
+    "TC-PRT-080002 Attempt to edit template without permission",
     {
       annotation: [
         { type: "preconditions", description: "User is viewing a template in edit mode; template contains at least one item; user does not have edit permission" },
@@ -877,11 +877,11 @@ requestorTest.describe("PR Template — Edit Item — Permission denial", () => 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT009 — Delete Template Item
+// TC-PRT-900009 — Delete Template Item
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — Delete Item", () => {
   purchaseTest(
-    "TC-PRT00901 Delete template item - happy path",
+    "TC-PRT-090001 Delete template item - happy path",
     {
       annotation: [
         { type: "preconditions", description: "User has edit permission; viewing a template in edit mode; template contains at least one item" },
@@ -902,7 +902,7 @@ purchaseTest.describe("PR Template — Delete Item", () => {
   );
 
   purchaseTest(
-    "TC-PRT00903 Delete template item - no items present",
+    "TC-PRT-090003 Delete template item - no items present",
     {
       annotation: [
         { type: "preconditions", description: "User has edit permission; template contains no items" },
@@ -925,7 +925,7 @@ purchaseTest.describe("PR Template — Delete Item", () => {
 
 requestorTest.describe("PR Template — Delete Item — Permission denial", () => {
   requestorTest(
-    "TC-PRT00902 Delete template item - no permission",
+    "TC-PRT-090002 Delete template item - no permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have edit permission; viewing a template in view mode; template contains at least one item" },
@@ -947,11 +947,11 @@ requestorTest.describe("PR Template — Delete Item — Permission denial", () =
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT010 — Search & Filter
+// TC-PRT-900010 — Search & Filter
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — Search & Filter", () => {
   purchaseTest(
-    "TC-PRT01001 Search for template by name",
+    "TC-PRT-100001 Search for template by name",
     {
       annotation: [
         { type: "preconditions", description: "User has access to templates list; at least one template exists" },
@@ -974,7 +974,7 @@ purchaseTest.describe("PR Template — Search & Filter", () => {
   );
 
   purchaseTest(
-    "TC-PRT01002 Filter templates by category",
+    "TC-PRT-100002 Filter templates by category",
     {
       annotation: [
         { type: "preconditions", description: "User has access to templates list; at least one template exists" },
@@ -997,7 +997,7 @@ purchaseTest.describe("PR Template — Search & Filter", () => {
   );
 
   purchaseTest(
-    "TC-PRT01003 Search with invalid input",
+    "TC-PRT-100003 Search with invalid input",
     {
       annotation: [
         { type: "preconditions", description: "User has access to templates list; at least one template exists" },
@@ -1019,7 +1019,7 @@ purchaseTest.describe("PR Template — Search & Filter", () => {
   );
 
   purchaseTest(
-    "TC-PRT01005 Edge case - search with empty input",
+    "TC-PRT-100005 Edge case - search with empty input",
     {
       annotation: [
         { type: "preconditions", description: "User has access to templates list; at least one template exists" },
@@ -1043,7 +1043,7 @@ purchaseTest.describe("PR Template — Search & Filter", () => {
 
 requestorTest.describe("PR Template — Search & Filter — Permission denial", () => {
   requestorTest(
-    "TC-PRT01004 Filter with no permission",
+    "TC-PRT-100004 Filter with no permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have permission to view templates" },
@@ -1064,11 +1064,11 @@ requestorTest.describe("PR Template — Search & Filter — Permission denial", 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT011 — Bulk Operations
+// TC-PRT-900011 — Bulk Operations
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — Bulk Operations", () => {
   purchaseTest(
-    "TC-PRT01101 Bulk Template Creation",
+    "TC-PRT-110001 Bulk Template Creation",
     {
       annotation: [
         { type: "preconditions", description: "User has 'Bulk Operations' permission; templates list contains multiple templates" },
@@ -1089,7 +1089,7 @@ purchaseTest.describe("PR Template — Bulk Operations", () => {
   );
 
   purchaseTest(
-    "TC-PRT01103 Bulk Template Update with Invalid Data",
+    "TC-PRT-110003 Bulk Template Update with Invalid Data",
     {
       annotation: [
         { type: "preconditions", description: "User has bulk operations permission" },
@@ -1110,7 +1110,7 @@ purchaseTest.describe("PR Template — Bulk Operations", () => {
   );
 
   purchaseTest(
-    "TC-PRT01104 Bulk Template Operation with Empty Selection",
+    "TC-PRT-110004 Bulk Template Operation with Empty Selection",
     {
       annotation: [
         { type: "preconditions", description: "User has bulk operations permission" },
@@ -1131,7 +1131,7 @@ purchaseTest.describe("PR Template — Bulk Operations", () => {
   );
 
   purchaseTest(
-    "TC-PRT01105 Bulk Template Operation on Single Template",
+    "TC-PRT-110005 Bulk Template Operation on Single Template",
     {
       annotation: [
         { type: "preconditions", description: "User has bulk operations permission; multiple templates exist" },
@@ -1154,7 +1154,7 @@ purchaseTest.describe("PR Template — Bulk Operations", () => {
 
 requestorTest.describe("PR Template — Bulk Operations — Permission denial", () => {
   requestorTest(
-    "TC-PRT01102 Bulk Template Deletion Without Permission",
+    "TC-PRT-110002 Bulk Template Deletion Without Permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have 'Bulk Operations' permission" },
@@ -1176,11 +1176,11 @@ requestorTest.describe("PR Template — Bulk Operations — Permission denial", 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT201 — Convert Template to PR
+// TC-PRT-900201 — Convert Template to PR
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — Convert to PR", () => {
   purchaseTest(
-    "TC-PRT20101 Happy Path - Convert Template to Purchase Request",
+    "TC-PRT-210001 Happy Path - Convert Template to Purchase Request",
     {
       annotation: [
         { type: "preconditions", description: "User has a valid template saved in the system" },
@@ -1203,7 +1203,7 @@ purchaseTest.describe("PR Template — Convert to PR", () => {
   );
 
   purchaseTest(
-    "TC-PRT20103 Edge Case - Template with Empty Fields",
+    "TC-PRT-210003 Edge Case - Template with Empty Fields",
     {
       annotation: [
         { type: "preconditions", description: "User has a template with some empty fields" },
@@ -1226,7 +1226,7 @@ purchaseTest.describe("PR Template — Convert to PR", () => {
 
 requestorTest.describe("PR Template — Convert to PR — Permission denial", () => {
   requestorTest(
-    "TC-PRT20102 Negative Case - Insufficient Permissions",
+    "TC-PRT-210002 Negative Case - Insufficient Permissions",
     {
       annotation: [
         { type: "preconditions", description: "User does not have permission to use templates" },
@@ -1253,11 +1253,11 @@ requestorTest.describe("PR Template — Convert to PR — Permission denial", ()
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT202 — Budget Code Validation
+// TC-PRT-900202 — Budget Code Validation
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — Budget Code", () => {
   purchaseTest(
-    "TC-PRT20201 Valid Budget Code Input",
+    "TC-PRT-220001 Valid Budget Code Input",
     {
       annotation: [
         { type: "preconditions", description: "User has access to the Templates Module and is on the item form with a valid budget code" },
@@ -1278,7 +1278,7 @@ purchaseTest.describe("PR Template — Budget Code", () => {
   );
 
   purchaseTest(
-    "TC-PRT20203 No Budget Code Selection",
+    "TC-PRT-220003 No Budget Code Selection",
     {
       annotation: [
         { type: "preconditions", description: "User has access to the Templates Module and is on the item form without selecting a budget code" },
@@ -1301,7 +1301,7 @@ purchaseTest.describe("PR Template — Budget Code", () => {
   );
 
   purchaseTest(
-    "TC-PRT20204 Budget Code Exceeds Character Limit",
+    "TC-PRT-220004 Budget Code Exceeds Character Limit",
     {
       annotation: [
         { type: "preconditions", description: "User is on the item form with a budget code exceeding the allowed character limit" },
@@ -1324,7 +1324,7 @@ purchaseTest.describe("PR Template — Budget Code", () => {
 
 requestorTest.describe("PR Template — Budget Code — Permission denial", () => {
   requestorTest(
-    "TC-PRT20205 User Without Save Permission",
+    "TC-PRT-220005 User Without Save Permission",
     {
       annotation: [
         { type: "preconditions", description: "User has access to the Templates Module but does not have permission to save templates" },
@@ -1351,11 +1351,11 @@ requestorTest.describe("PR Template — Budget Code — Permission denial", () =
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PRT203 — Browse Catalog
+// TC-PRT-900203 — Browse Catalog
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PR Template — Browse Catalog", () => {
   purchaseTest(
-    "TC-PRT20301 Browse Catalog and Retrieve Valid Data",
+    "TC-PRT-230001 Browse Catalog and Retrieve Valid Data",
     {
       annotation: [
         { type: "preconditions", description: "User is logged into the system with appropriate permissions" },
@@ -1378,7 +1378,7 @@ purchaseTest.describe("PR Template — Browse Catalog", () => {
   );
 
   purchaseTest(
-    "TC-PRT20303 Retrieve Catalog Data After Server Timeout",
+    "TC-PRT-230003 Retrieve Catalog Data After Server Timeout",
     {
       annotation: [
         { type: "preconditions", description: "Server responds with a timeout error when attempting to fetch data" },
@@ -1401,7 +1401,7 @@ purchaseTest.describe("PR Template — Browse Catalog", () => {
 
 requestorTest.describe("PR Template — Browse Catalog — Permission denial", () => {
   requestorTest(
-    "TC-PRT20302 Browse Catalog with Invalid Permission",
+    "TC-PRT-230002 Browse Catalog with Invalid Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is logged into the system but does not have appropriate permissions" },

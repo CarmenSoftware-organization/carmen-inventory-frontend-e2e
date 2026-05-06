@@ -11,21 +11,21 @@ _Generated from `tests/311-pr-returned-flow.spec.ts` annotations. Edit annotatio
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-PRC0701 | Returned PR appears in Creator's list with RETURNED status badge | High | Smoke |
-| TC-PRC0702 | Open Returned PR detail loads with status=Returned | High | Smoke |
-| TC-PRC0703 | Workflow History tab shows the return reason from HOD | High | Functional |
-| TC-PRC0704 | Edit button visible on Returned PR (Creator can re-edit) | High | Functional |
-| TC-PRC0705 | Modify line item quantity → Save → URL stays on detail | High | CRUD |
-| TC-PRC0706 | Add new line item to Returned PR → Save | Medium | CRUD |
-| TC-PRC0707 | Submit confirmation dialog appears for Returned PR | High | Smoke |
-| TC-PRC0708 | Confirm submit → status moves Returned → In Progress | High | CRUD |
-| TC-PRC0709 | Cancel submit on Returned PR → URL stays on detail (still Returned) | Medium | Functional |
-| TC-PRC0710 | Delete Returned PR is allowed for Creator | Medium | Authorization |
-| TC-PRC0902 | Full returned-flow: HOD returns → Creator views reason → edits qty → resubmits → status In Progress | High | Smoke |
+| TC-PR-080701 | Returned PR appears in Creator's list with RETURNED status badge | High | Smoke |
+| TC-PR-080702 | Open Returned PR detail loads with status=Returned | High | Smoke |
+| TC-PR-080703 | Workflow History tab shows the return reason from HOD | High | Functional |
+| TC-PR-080704 | Edit button visible on Returned PR (Creator can re-edit) | High | Functional |
+| TC-PR-080705 | Modify line item quantity → Save → URL stays on detail | High | CRUD |
+| TC-PR-080706 | Add new line item to Returned PR → Save | Medium | CRUD |
+| TC-PR-080707 | Submit confirmation dialog appears for Returned PR | High | Smoke |
+| TC-PR-080708 | Confirm submit → status moves Returned → In Progress | High | CRUD |
+| TC-PR-080709 | Cancel submit on Returned PR → URL stays on detail (still Returned) | Medium | Functional |
+| TC-PR-080710 | Delete Returned PR is allowed for Creator | Medium | Authorization |
+| TC-PR-080902 | Full returned-flow: HOD returns → Creator views reason → edits qty → resubmits → status In Progress | High | Smoke |
 
 ---
 
-## TC-PRC0701 — Returned PR appears in Creator's list with RETURNED status badge
+## TC-PR-080701 — Returned PR appears in Creator's list with RETURNED status badge
 
 > **As a** Requestor user, **I want** the Pr Returned Flow list page to load successfully, **so that** I can manage Pr Returned Flow records.
 
@@ -47,7 +47,7 @@ PR row is visible in the list and the status badge filter matches /returned|sent
 
 ---
 
-## TC-PRC0702 — Open Returned PR detail loads with status=Returned
+## TC-PR-080702 — Open Returned PR detail loads with status=Returned
 
 > **As a** Requestor user, **I want** core Pr Returned Flow interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -69,7 +69,7 @@ URL is /procurement/purchase-request/<ref>; status badge text matches /returned|
 
 ---
 
-## TC-PRC0703 — Workflow History tab shows the return reason from HOD
+## TC-PR-080703 — Workflow History tab shows the return reason from HOD
 
 > **As a** HOD user, **I want** this Pr Returned Flow interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -90,7 +90,7 @@ Workflow History panel contains the seeded return reason 'Please revise — retu
 
 ---
 
-## TC-PRC0704 — Edit button visible on Returned PR (Creator can re-edit)
+## TC-PR-080704 — Edit button visible on Returned PR (Creator can re-edit)
 
 > **As a** Requestor user, **I want** this Pr Returned Flow interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -110,7 +110,7 @@ Edit button is visible (Creator can enter Edit Mode to revise).
 
 ---
 
-## TC-PRC0705 — Modify line item quantity → Save → URL stays on detail
+## TC-PR-080705 — Modify line item quantity → Save → URL stays on detail
 
 > **As a** Requestor user, **I want** to manage Pr Returned Flow records via CRUD, **so that** the data stays correct over time.
 
@@ -132,7 +132,7 @@ After save the page URL stays on /procurement/purchase-request/<ref>.
 
 ---
 
-## TC-PRC0706 — Add new line item to Returned PR → Save
+## TC-PR-080706 — Add new line item to Returned PR → Save
 
 > **As a** Requestor user, **I want** to create a new Pr Returned Flow record, **so that** it becomes available for downstream operations.
 
@@ -154,7 +154,7 @@ After save the page URL stays on /procurement/purchase-request/<ref>.
 
 ---
 
-## TC-PRC0707 — Submit confirmation dialog appears for Returned PR
+## TC-PR-080707 — Submit confirmation dialog appears for Returned PR
 
 > **As a** Requestor user, **I want** core Pr Returned Flow interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -174,7 +174,7 @@ A confirmation dialog (resubmit) becomes visible.
 
 ---
 
-## TC-PRC0708 — Confirm submit → status moves Returned → In Progress
+## TC-PR-080708 — Confirm submit → status moves Returned → In Progress
 
 > **As a** Requestor user, **I want** to manage Pr Returned Flow records via CRUD, **so that** the data stays correct over time.
 
@@ -196,7 +196,7 @@ Status badge text matches /in.progress/i after confirm.
 
 ---
 
-## TC-PRC0709 — Cancel submit on Returned PR → URL stays on detail (still Returned)
+## TC-PR-080709 — Cancel submit on Returned PR → URL stays on detail (still Returned)
 
 > **As a** Requestor user, **I want** this Pr Returned Flow interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -217,7 +217,7 @@ Dialog closes; URL remains on the PR detail page.
 
 ---
 
-## TC-PRC0710 — Delete Returned PR is allowed for Creator
+## TC-PR-080710 — Delete Returned PR is allowed for Creator
 
 > **As a** low-privilege user, **I should NOT** see Add/edit controls on Pr Returned Flow, **so that** role separation is enforced.
 
@@ -239,7 +239,7 @@ Delete button visible; confirming delete navigates back to the PR list URL. Skip
 
 ---
 
-## TC-PRC0902 — Full returned-flow: HOD returns → Creator views reason → edits qty → resubmits → status In Progress
+## TC-PR-080902 — Full returned-flow: HOD returns → Creator views reason → edits qty → resubmits → status In Progress
 
 > **As a** HOD user, **I want** core Pr Returned Flow interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -266,4 +266,4 @@ Status badge transitions to In Progress after the resubmit confirmation.
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 650ea0b</sub>
+<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>

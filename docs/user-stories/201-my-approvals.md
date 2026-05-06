@@ -11,29 +11,29 @@ _Generated from `tests/201-my-approvals.spec.ts` annotations. Edit annotations, 
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-MA00101 | Happy Path - View Unified Approval Queue | High | Happy Path |
-| TC-MA00102 | Negative - No Pending Approvals | Medium | Negative |
-| TC-MA00103 _(skipped)_ | Edge Case - Large Number of Documents | High | Edge Case |
-| TC-MA00104 | Negative - Insufficient Permission | Critical | Negative |
-| TC-MA00201 _(skipped)_ | Happy Path: Approve Document with Valid Credentials | Critical | Happy Path |
-| TC-MA00202 _(skipped)_ | Negative: Insufficient Approval Authority | Critical | Negative |
-| TC-MA00203 _(skipped)_ | Edge Case: Multiple Approvals in Queue | Medium | Edge Case |
-| TC-MA00301 | Happy Path - Valid Reason | High | Happy Path |
-| TC-MA00302 | Negative - Empty Reason | Critical | Negative |
-| TC-MA00303 | Edge Case - Custom Reason | High | Edge Case |
-| TC-MA00304 | Negative - No Permission | High | Negative |
-| TC-MA00401 _(skipped)_ | Happy Path - Request More Information | High | Happy Path |
-| TC-MA00402 _(skipped)_ | Negative - Empty Information Request | High | Negative |
-| TC-MA00404 _(skipped)_ | Edge Case - Maximum Length Input | Medium | Edge Case |
-| TC-MA00501 _(skipped)_ | Happy Path - Approve 20 Routine F&B PRs | High | Happy Path |
-| TC-MA00503 _(skipped)_ | Edge Case - Approve Maximum 50 Documents | High | Edge Case |
-| TC-MA00601 _(skipped)_ | Happy Path - Delegate Approval Authority | High | Happy Path |
-| TC-MA00602 _(skipped)_ | Negative - Delegate User with Lower Approval Authority | High | Negative |
-| TC-MA00603 _(skipped)_ | Edge Case - Self Delegation | High | Negative |
+| TC-MA-010001 | Happy Path - View Unified Approval Queue | High | Happy Path |
+| TC-MA-010002 | Negative - No Pending Approvals | Medium | Negative |
+| TC-MA-010003 _(skipped)_ | Edge Case - Large Number of Documents | High | Edge Case |
+| TC-MA-010004 | Negative - Insufficient Permission | Critical | Negative |
+| TC-MA-020001 _(skipped)_ | Happy Path: Approve Document with Valid Credentials | Critical | Happy Path |
+| TC-MA-020002 _(skipped)_ | Negative: Insufficient Approval Authority | Critical | Negative |
+| TC-MA-020003 _(skipped)_ | Edge Case: Multiple Approvals in Queue | Medium | Edge Case |
+| TC-MA-030001 | Happy Path - Valid Reason | High | Happy Path |
+| TC-MA-030002 | Negative - Empty Reason | Critical | Negative |
+| TC-MA-030003 | Edge Case - Custom Reason | High | Edge Case |
+| TC-MA-030004 | Negative - No Permission | High | Negative |
+| TC-MA-040001 _(skipped)_ | Happy Path - Request More Information | High | Happy Path |
+| TC-MA-040002 _(skipped)_ | Negative - Empty Information Request | High | Negative |
+| TC-MA-040004 _(skipped)_ | Edge Case - Maximum Length Input | Medium | Edge Case |
+| TC-MA-050001 _(skipped)_ | Happy Path - Approve 20 Routine F&B PRs | High | Happy Path |
+| TC-MA-050003 _(skipped)_ | Edge Case - Approve Maximum 50 Documents | High | Edge Case |
+| TC-MA-060001 _(skipped)_ | Happy Path - Delegate Approval Authority | High | Happy Path |
+| TC-MA-060002 _(skipped)_ | Negative - Delegate User with Lower Approval Authority | High | Negative |
+| TC-MA-060003 _(skipped)_ | Edge Case - Self Delegation | High | Negative |
 
 ---
 
-## TC-MA00101 — Happy Path - View Unified Approval Queue
+## TC-MA-010001 — Happy Path - View Unified Approval Queue
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -58,7 +58,7 @@ User sees a unified approval queue with all pending documents, sorted and filter
 
 ---
 
-## TC-MA00102 — Negative - No Pending Approvals
+## TC-MA-010002 — Negative - No Pending Approvals
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -80,7 +80,7 @@ User sees an empty queue with a message stating there are no pending approvals.
 
 ---
 
-## TC-MA00103 — Edge Case - Large Number of Documents _(skipped)_
+## TC-MA-010003 — Edge Case - Large Number of Documents _(skipped)_
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -103,7 +103,7 @@ Queue loads within 2 seconds with all pending documents.
 
 ---
 
-## TC-MA00104 — Negative - Insufficient Permission
+## TC-MA-010004 — Negative - Insufficient Permission
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -125,7 +125,7 @@ User sees an error message or is redirected to a permission denied page.
 
 ---
 
-## TC-MA00201 — Happy Path: Approve Document with Valid Credentials _(skipped)_
+## TC-MA-020001 — Happy Path: Approve Document with Valid Credentials _(skipped)_
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -153,7 +153,7 @@ Document is updated to Approved status and removed from user's approval queue.
 
 ---
 
-## TC-MA00202 — Negative: Insufficient Approval Authority _(skipped)_
+## TC-MA-020002 — Negative: Insufficient Approval Authority _(skipped)_
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -178,7 +178,7 @@ User is unable to approve document and sees appropriate error message.
 
 ---
 
-## TC-MA00203 — Edge Case: Multiple Approvals in Queue _(skipped)_
+## TC-MA-020003 — Edge Case: Multiple Approvals in Queue _(skipped)_
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -207,7 +207,7 @@ Documents are approved and removed from user's approval queue in order of appear
 
 ---
 
-## TC-MA00301 — Happy Path - Valid Reason
+## TC-MA-030001 — Happy Path - Valid Reason
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -232,7 +232,7 @@ Document status updated to Rejected, rejection reason recorded, user notified of
 
 ---
 
-## TC-MA00302 — Negative - Empty Reason
+## TC-MA-030002 — Negative - Empty Reason
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -257,7 +257,7 @@ System validation fails, rejection reason is mandatory, rejection is not process
 
 ---
 
-## TC-MA00303 — Edge Case - Custom Reason
+## TC-MA-030003 — Edge Case - Custom Reason
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -283,7 +283,7 @@ Document status updated to Rejected, custom rejection reason recorded, user noti
 
 ---
 
-## TC-MA00304 — Negative - No Permission
+## TC-MA-030004 — Negative - No Permission
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -308,7 +308,7 @@ System validation fails, user does not have permission to reject, rejection is n
 
 ---
 
-## TC-MA00401 — Happy Path - Request More Information _(skipped)_
+## TC-MA-040001 — Happy Path - Request More Information _(skipped)_
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -336,7 +336,7 @@ System processes information request, document status updated, requestor notifie
 
 ---
 
-## TC-MA00402 — Negative - Empty Information Request _(skipped)_
+## TC-MA-040002 — Negative - Empty Information Request _(skipped)_
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -362,7 +362,7 @@ System prevents submission of empty information request.
 
 ---
 
-## TC-MA00404 — Edge Case - Maximum Length Input _(skipped)_
+## TC-MA-040004 — Edge Case - Maximum Length Input _(skipped)_
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -388,7 +388,7 @@ System processes information request with maximum allowed length without errors.
 
 ---
 
-## TC-MA00501 — Happy Path - Approve 20 Routine F&B PRs _(skipped)_
+## TC-MA-050001 — Happy Path - Approve 20 Routine F&B PRs _(skipped)_
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -418,7 +418,7 @@ User has viewed approval queue with 20 pending routine F&B PRs
 
 ---
 
-## TC-MA00503 — Edge Case - Approve Maximum 50 Documents _(skipped)_
+## TC-MA-050003 — Edge Case - Approve Maximum 50 Documents _(skipped)_
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -447,7 +447,7 @@ All 50 documents are approved and removed from the queue.
 
 ---
 
-## TC-MA00601 — Happy Path - Delegate Approval Authority _(skipped)_
+## TC-MA-060001 — Happy Path - Delegate Approval Authority _(skipped)_
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -478,7 +478,7 @@ Delegation created successfully, user navigated to delegation details page.
 
 ---
 
-## TC-MA00602 — Negative - Delegate User with Lower Approval Authority _(skipped)_
+## TC-MA-060002 — Negative - Delegate User with Lower Approval Authority _(skipped)_
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -508,7 +508,7 @@ System validation fails, delegation creation is not allowed.
 
 ---
 
-## TC-MA00603 — Edge Case - Self Delegation _(skipped)_
+## TC-MA-060003 — Edge Case - Self Delegation _(skipped)_
 
 > **As a** HOD user, **I want** this My Approvals behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -539,4 +539,4 @@ System validation fails, self-delegation is not allowed.
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 650ea0b</sub>
+<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>

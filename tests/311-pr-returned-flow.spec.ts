@@ -14,7 +14,7 @@ const requestorTest = createAuthTest("requestor@blueledgers.com");
 
 requestorTest.describe("7a — View Returned PR", () => {
   requestorTest(
-    "TC-PRC0701 Returned PR appears in Creator's list with RETURNED status badge",
+    "TC-PR-080701 Returned PR appears in Creator's list with RETURNED status badge",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor; a Returned PR exists (seeded via submitPRAsRequestor + sendForReviewAsHOD)" },
@@ -40,7 +40,7 @@ requestorTest.describe("7a — View Returned PR", () => {
   );
 
   requestorTest(
-    "TC-PRC0702 Open Returned PR detail loads with status=Returned",
+    "TC-PR-080702 Open Returned PR detail loads with status=Returned",
     {
       annotation: [
         { type: "preconditions", description: "A Returned PR exists" },
@@ -66,7 +66,7 @@ requestorTest.describe("7a — View Returned PR", () => {
   );
 
   requestorTest(
-    "TC-PRC0703 Workflow History tab shows the return reason from HOD",
+    "TC-PR-080703 Workflow History tab shows the return reason from HOD",
     {
       annotation: [
         { type: "preconditions", description: "On a Returned PR detail page" },
@@ -96,7 +96,7 @@ requestorTest.describe("7a — View Returned PR", () => {
 
 requestorTest.describe("7b — Edit Returned PR", () => {
   requestorTest(
-    "TC-PRC0704 Edit button visible on Returned PR (Creator can re-edit)",
+    "TC-PR-080704 Edit button visible on Returned PR (Creator can re-edit)",
     {
       annotation: [
         { type: "preconditions", description: "On a Returned PR detail page" },
@@ -116,7 +116,7 @@ requestorTest.describe("7b — Edit Returned PR", () => {
   );
 
   requestorTest(
-    "TC-PRC0705 Modify line item quantity → Save → URL stays on detail",
+    "TC-PR-080705 Modify line item quantity → Save → URL stays on detail",
     {
       annotation: [
         { type: "preconditions", description: "Returned PR detail page is open with at least one line item" },
@@ -143,7 +143,7 @@ requestorTest.describe("7b — Edit Returned PR", () => {
   );
 
   requestorTest(
-    "TC-PRC0706 Add new line item to Returned PR → Save",
+    "TC-PR-080706 Add new line item to Returned PR → Save",
     {
       annotation: [
         { type: "preconditions", description: "Returned PR detail page is open" },
@@ -172,7 +172,7 @@ requestorTest.describe("7b — Edit Returned PR", () => {
 
 requestorTest.describe("7c — Resubmit", () => {
   requestorTest(
-    "TC-PRC0707 Submit confirmation dialog appears for Returned PR",
+    "TC-PR-080707 Submit confirmation dialog appears for Returned PR",
     {
       annotation: [
         { type: "preconditions", description: "Returned PR detail page is open" },
@@ -198,7 +198,7 @@ requestorTest.describe("7c — Resubmit", () => {
   );
 
   requestorTest(
-    "TC-PRC0708 Confirm submit → status moves Returned → In Progress",
+    "TC-PR-080708 Confirm submit → status moves Returned → In Progress",
     {
       annotation: [
         { type: "preconditions", description: "Submit confirmation dialog open on a Returned PR" },
@@ -232,7 +232,7 @@ requestorTest.describe("7c — Resubmit", () => {
 
 requestorTest.describe("7d — Edge cases", () => {
   requestorTest(
-    "TC-PRC0709 Cancel submit on Returned PR → URL stays on detail (still Returned)",
+    "TC-PR-080709 Cancel submit on Returned PR → URL stays on detail (still Returned)",
     {
       annotation: [
         { type: "preconditions", description: "Submit confirmation dialog open on a Returned PR" },
@@ -264,7 +264,7 @@ requestorTest.describe("7d — Edge cases", () => {
   );
 
   requestorTest(
-    "TC-PRC0710 Delete Returned PR is allowed for Creator",
+    "TC-PR-080710 Delete Returned PR is allowed for Creator",
     {
       annotation: [
         { type: "preconditions", description: "Returned PR detail page is open" },
@@ -293,7 +293,7 @@ requestorTest.describe("7d — Edge cases", () => {
 
 requestorTest.describe.serial("Golden Journey", () => {
   requestorTest(
-    "TC-PRC0902 Full returned-flow: HOD returns → Creator views reason → edits qty → resubmits → status In Progress",
+    "TC-PR-080902 Full returned-flow: HOD returns → Creator views reason → edits qty → resubmits → status In Progress",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor; a fresh PR is seeded into the Returned state via submitPRAsRequestor + sendForReviewAsHOD" },
@@ -307,7 +307,7 @@ requestorTest.describe.serial("Golden Journey", () => {
       const pr = new PurchaseRequestPage(page);
 
       // Seed: Requestor submits → HOD sends back
-      const created = await submitPRAsRequestor(browser, { items: 1, description: "TC-PRC0902 returned golden" });
+      const created = await submitPRAsRequestor(browser, { items: 1, description: "TC-PR-080902 returned golden" });
       await sendForReviewAsHOD(browser, created.ref);
 
       // Step 1: Open detail

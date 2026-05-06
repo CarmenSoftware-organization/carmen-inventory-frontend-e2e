@@ -1,0 +1,6 @@
+pre-commit:
+  parallel: true
+  commands:
+    audit-tc-ids:
+      glob: "tests/**/*.spec.ts"
+      run: bun audit:tc-ids

@@ -37,11 +37,11 @@ const SHORT_REASON = "I";
 const VALID_REASON = "Items discontinued in catalogue";
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR001 — Create PR (Requestor)
+// TC-PR-900001 — Create PR (Requestor)
 // ─────────────────────────────────────────────────────────────────────────
 requestorTest.describe("PR — Create", () => {
   requestorTest(
-    "TC-PR00101 Create a basic purchase request with default values",
+    "TC-PR-010001 Create a basic purchase request with default values",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor (requestor@blueledgers.com); on list page" },
@@ -74,7 +74,7 @@ requestorTest.describe("PR — Create", () => {
   );
 
   requestorTest(
-    "TC-PR00102 Create a purchase request with FOC item",
+    "TC-PR-010002 Create a purchase request with FOC item",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor and has FOC quantities available" },
@@ -100,7 +100,7 @@ requestorTest.describe("PR — Create", () => {
   );
 
   requestorTest(
-    "TC-PR00103 Attempt to create a purchase request with invalid delivery date",
+    "TC-PR-010003 Attempt to create a purchase request with invalid delivery date",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor" },
@@ -124,9 +124,9 @@ requestorTest.describe("PR — Create", () => {
     },
   );
 
-  // TC-PR00105 (Requestor) — note 00104 is in noAuthTest below (it tests no-login flow)
+  // TC-PR-010005 (Requestor) — note 00104 is in noAuthTest below (it tests no-login flow)
   requestorTest(
-    "TC-PR00105 Add line items with zero quantity and unit price",
+    "TC-PR-010005 Add line items with zero quantity and unit price",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor" },
@@ -150,9 +150,9 @@ requestorTest.describe("PR — Create", () => {
   );
 });
 
-// TC-PR00104 needs a no-login fixture
+// TC-PR-010004 needs a no-login fixture
 noAuthTest(
-  "TC-PR00104 Create a purchase request without login",
+  "TC-PR-010004 Create a purchase request without login",
   {
     annotation: [
       { type: "preconditions", description: "User is not logged in (no auth fixture)" },
@@ -169,11 +169,11 @@ noAuthTest(
 );
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR002 — Edit draft / returned PR
+// TC-PR-900002 — Edit draft / returned PR
 // ─────────────────────────────────────────────────────────────────────────
 requestorTest.describe("PR — Edit", () => {
   requestorTest(
-    "TC-PR00201 Edit draft PR - Happy Path",
+    "TC-PR-020001 Edit draft PR - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "A draft PR exists with at least one line item and correct header information" },
@@ -205,7 +205,7 @@ requestorTest.describe("PR — Edit", () => {
   );
 
   requestorTest(
-    "TC-PR00202 Edit returned PR - Negative Case",
+    "TC-PR-020002 Edit returned PR - Negative Case",
     {
       annotation: [
         { type: "preconditions", description: "A returned PR exists with a rejection reason" },
@@ -233,7 +233,7 @@ requestorTest.describe("PR — Edit", () => {
   );
 
   requestorTest.skip(
-    "TC-PR00203 Edit PR with version conflict - Edge Case",
+    "TC-PR-020003 Edit PR with version conflict - Edge Case",
     {
       annotation: [
         { type: "preconditions", description: "Multiple users attempt to edit the same PR simultaneously, leading to version conflict" },
@@ -253,11 +253,11 @@ requestorTest.describe("PR — Edit", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR003 — Submit for Approval
+// TC-PR-900003 — Submit for Approval
 // ─────────────────────────────────────────────────────────────────────────
 requestorTest.describe("PR — Submit — Requestor flows", () => {
   requestorTest(
-    "TC-PR00301 Submit valid PR with all required fields",
+    "TC-PR-030001 Submit valid PR with all required fields",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor and has a draft PR ready" },
@@ -286,7 +286,7 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
   );
 
   requestorTest(
-    "TC-PR00302 Submit PR with missing required fields",
+    "TC-PR-030002 Submit PR with missing required fields",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor and has a draft PR with missing fields" },
@@ -310,7 +310,7 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
   );
 
   requestorTest(
-    "TC-PR00304 Submit PR with extremely large value",
+    "TC-PR-030004 Submit PR with extremely large value",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor and has a draft PR with an extremely large value" },
@@ -335,7 +335,7 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
   );
 
   requestorTest(
-    "TC-PR00305 Submit PR with invalid item codes",
+    "TC-PR-030005 Submit PR with invalid item codes",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor and has a draft PR with invalid item codes" },
@@ -362,7 +362,7 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
 
 fcTest.describe("PR — Submit — FC permission denial", () => {
   fcTest(
-    "TC-PR00303 Submit PR without required permissions",
+    "TC-PR-030003 Submit PR without required permissions",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Budget Manager (FC) and has a draft PR" },
@@ -388,11 +388,11 @@ fcTest.describe("PR — Submit — FC permission denial", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR004 — View PR
+// TC-PR-900004 — View PR
 // ─────────────────────────────────────────────────────────────────────────
 requestorTest.describe("PR — View — Requestor", () => {
   requestorTest(
-    "TC-PR00401 View own pending PR as Requestor",
+    "TC-PR-040001 View own pending PR as Requestor",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor and has a pending PR" },
@@ -420,7 +420,7 @@ requestorTest.describe("PR — View — Requestor", () => {
   );
 
   requestorTest(
-    "TC-PR00402 Attempt to view PR with no permissions",
+    "TC-PR-040002 Attempt to view PR with no permissions",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in but does not have permission to view PRs" },
@@ -446,7 +446,7 @@ requestorTest.describe("PR — View — Requestor", () => {
 
 hodTest.describe("PR — View — Approver perspective", () => {
   hodTest(
-    "TC-PR00403 View PR with all approvals completed",
+    "TC-PR-040003 View PR with all approvals completed",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as an Approver (HOD) and a PR is fully approved" },
@@ -474,7 +474,7 @@ hodTest.describe("PR — View — Approver perspective", () => {
   );
 
   hodTest(
-    "TC-PR00404 View PR with missing attachments",
+    "TC-PR-040004 View PR with missing attachments",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as an Approver (HOD) and a PR has a missing attachment" },
@@ -504,11 +504,11 @@ hodTest.describe("PR — View — Approver perspective", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR005 — Approve PR (HOD/Department Manager)
+// TC-PR-900005 — Approve PR (HOD/Department Manager)
 // ─────────────────────────────────────────────────────────────────────────
 hodTest.describe("PR — Approve", () => {
   hodTest(
-    "TC-PR00501 Approve Purchase Request - Happy Path",
+    "TC-PR-050001 Approve Purchase Request - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "Department Manager has received a PR for approval and has the necessary permissions" },
@@ -538,7 +538,7 @@ hodTest.describe("PR — Approve", () => {
   );
 
   hodTest(
-    "TC-PR00503 Approve Purchase Request - No Additional Approvals Needed",
+    "TC-PR-050003 Approve Purchase Request - No Additional Approvals Needed",
     {
       annotation: [
         { type: "preconditions", description: "System is configured to require only department manager approval for this PR" },
@@ -567,7 +567,7 @@ hodTest.describe("PR — Approve", () => {
   );
 
   hodTest(
-    "TC-PR00504 Approve Purchase Request - Multiple Approvals Required",
+    "TC-PR-050004 Approve Purchase Request - Multiple Approvals Required",
     {
       annotation: [
         { type: "preconditions", description: "System is configured to require both department and finance manager approvals for this PR" },
@@ -597,7 +597,7 @@ hodTest.describe("PR — Approve", () => {
 
 fcTest.describe("PR — Approve — FC permission denial", () => {
   fcTest(
-    "TC-PR00502 Approve Purchase Request - Invalid Approval Authority",
+    "TC-PR-050002 Approve Purchase Request - Invalid Approval Authority",
     {
       annotation: [
         { type: "preconditions", description: "Finance Manager (FC) has received a PR for approval but does not have the necessary permissions for this stage" },
@@ -633,11 +633,11 @@ fcTest.describe("PR — Approve — FC permission denial", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR006 — Reject PR (Approver)
+// TC-PR-900006 — Reject PR (Approver)
 // ─────────────────────────────────────────────────────────────────────────
 hodTest.describe("PR — Reject", () => {
   hodTest(
-    "TC-PR00601 Approver rejects PR with valid reason",
+    "TC-PR-060001 Approver rejects PR with valid reason",
     {
       annotation: [
         { type: "preconditions", description: "A PR is created and assigned to a department manager who has approval rights" },
@@ -668,7 +668,7 @@ hodTest.describe("PR — Reject", () => {
   );
 
   hodTest(
-    "TC-PR00602 Reject PR with too short reason",
+    "TC-PR-060002 Reject PR with too short reason",
     {
       annotation: [
         { type: "preconditions", description: "A PR is created and assigned to a department manager who has approval rights" },
@@ -699,7 +699,7 @@ hodTest.describe("PR — Reject", () => {
   );
 
   hodTest(
-    "TC-PR00603 Reject PR without reason",
+    "TC-PR-060003 Reject PR without reason",
     {
       annotation: [
         { type: "preconditions", description: "A PR is created and assigned to a department manager who has approval rights" },
@@ -731,7 +731,7 @@ hodTest.describe("PR — Reject", () => {
 
 fcTest.describe("PR — Reject — Permission denial", () => {
   fcTest(
-    "TC-PR00604 Reject PR with no permission",
+    "TC-PR-060004 Reject PR with no permission",
     {
       annotation: [
         { type: "preconditions", description: "A PR is created and assigned to a budget manager (FC) who does not have approval rights" },
@@ -767,7 +767,7 @@ fcTest.describe("PR — Reject — Permission denial", () => {
 
 gmTest.describe("PR — Reject — High-value GM scope", () => {
   gmTest(
-    "TC-PR00605 Reject PR with very high value",
+    "TC-PR-060005 Reject PR with very high value",
     {
       annotation: [
         { type: "preconditions", description: "A PR with very high value is created and assigned to a general manager who has approval rights" },
@@ -798,11 +798,11 @@ gmTest.describe("PR — Reject — High-value GM scope", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR007 — Recall PR (FEATURE NOT YET IMPLEMENTED — all skip)
+// TC-PR-900007 — Recall PR (FEATURE NOT YET IMPLEMENTED — all skip)
 // ─────────────────────────────────────────────────────────────────────────
 requestorTest.describe("PR — Recall — Feature pending", () => {
   requestorTest.skip(
-    "TC-PR00701 Happy Path - Recall PR",
+    "TC-PR-070001 Happy Path - Recall PR",
     {
       annotation: [
         { type: "preconditions", description: "A requestor has submitted a PR and it is in a pending approval state" },
@@ -821,7 +821,7 @@ requestorTest.describe("PR — Recall — Feature pending", () => {
   );
 
   requestorTest.skip(
-    "TC-PR00702 Negative - No Recall Reason",
+    "TC-PR-070002 Negative - No Recall Reason",
     {
       annotation: [
         { type: "preconditions", description: "A requestor has submitted a PR and it is in a pending approval state" },
@@ -840,7 +840,7 @@ requestorTest.describe("PR — Recall — Feature pending", () => {
   );
 
   requestorTest.skip(
-    "TC-PR00703 Edge Case - Multiple Approvals",
+    "TC-PR-070003 Edge Case - Multiple Approvals",
     {
       annotation: [
         { type: "preconditions", description: "A requestor has submitted a PR and it is in a state with multiple pending approvals" },
@@ -859,7 +859,7 @@ requestorTest.describe("PR — Recall — Feature pending", () => {
   );
 
   hodTest.skip(
-    "TC-PR00704 Negative - Insufficient Permissions",
+    "TC-PR-070004 Negative - Insufficient Permissions",
     {
       annotation: [
         { type: "preconditions", description: "A department manager has submitted a PR and it is in a pending approval state" },
@@ -879,11 +879,11 @@ requestorTest.describe("PR — Recall — Feature pending", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR008 — Cancel PR
+// TC-PR-900008 — Cancel PR
 // ─────────────────────────────────────────────────────────────────────────
 requestorTest.describe("PR — Cancel — Requestor", () => {
   requestorTest(
-    "TC-PR00801 Cancel PR - Happy Path",
+    "TC-PR-080001 Cancel PR - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor; an active PR exists in the system" },
@@ -914,7 +914,7 @@ requestorTest.describe("PR — Cancel — Requestor", () => {
   );
 
   requestorTest(
-    "TC-PR00803 Cancel PR - PR is Completed",
+    "TC-PR-080003 Cancel PR - PR is Completed",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor; a PR with status 'Completed' exists" },
@@ -946,7 +946,7 @@ requestorTest.describe("PR — Cancel — Requestor", () => {
 
 fcTest.describe("PR — Cancel — Permission denial", () => {
   fcTest(
-    "TC-PR00802 Cancel PR - No Permission",
+    "TC-PR-080002 Cancel PR - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Budget Manager (FC); an active PR exists" },
@@ -978,7 +978,7 @@ fcTest.describe("PR — Cancel — Permission denial", () => {
 
 hodTest.describe("PR — Cancel — Department manager", () => {
   hodTest(
-    "TC-PR00804 Cancel PR - PR with Pending Approvals",
+    "TC-PR-080004 Cancel PR - PR with Pending Approvals",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Department Manager (HOD); a PR with pending approvals exists" },
@@ -1009,11 +1009,11 @@ hodTest.describe("PR — Cancel — Department manager", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR009 — Attachments
+// TC-PR-900009 — Attachments
 // ─────────────────────────────────────────────────────────────────────────
 requestorTest.describe("PR — Attachments", () => {
   requestorTest(
-    "TC-PR00901 Happy Path - Add Valid Attachment",
+    "TC-PR-090001 Happy Path - Add Valid Attachment",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor with an existing PR open" },
@@ -1048,7 +1048,7 @@ requestorTest.describe("PR — Attachments", () => {
   );
 
   requestorTest(
-    "TC-PR00902 Negative - Invalid File Type",
+    "TC-PR-090002 Negative - Invalid File Type",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor with an existing PR open" },
@@ -1068,7 +1068,7 @@ requestorTest.describe("PR — Attachments", () => {
   );
 
   requestorTest(
-    "TC-PR00903 Edge Case - Maximum File Size Exceeded",
+    "TC-PR-090003 Edge Case - Maximum File Size Exceeded",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor with an existing PR open. Maximum file size limit is known." },
@@ -1090,7 +1090,7 @@ requestorTest.describe("PR — Attachments", () => {
 
 hodTest.describe("PR — Attachments — Permission denial", () => {
   hodTest(
-    "TC-PR00904 Negative - No Permission",
+    "TC-PR-090004 Negative - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Department Manager with an existing PR open" },
@@ -1122,11 +1122,11 @@ hodTest.describe("PR — Attachments — Permission denial", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR010 — Comments
+// TC-PR-900010 — Comments
 // ─────────────────────────────────────────────────────────────────────────
 requestorTest.describe("PR — Comments", () => {
   requestorTest(
-    "TC-PR01002 Negative - Empty Comment",
+    "TC-PR-400002 Negative - Empty Comment",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor and has a PR created" },
@@ -1159,7 +1159,7 @@ requestorTest.describe("PR — Comments", () => {
   );
 
   requestorTest(
-    "TC-PR01003 Edge Case - Comment Length Limit",
+    "TC-PR-400003 Edge Case - Comment Length Limit",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor and has a PR created" },
@@ -1196,7 +1196,7 @@ requestorTest.describe("PR — Comments", () => {
 
 fcTest.describe("PR — Comments — Permission denial", () => {
   fcTest(
-    "TC-PR01004 Negative - No Permission to Add Comment",
+    "TC-PR-400004 Negative - No Permission to Add Comment",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Finance Manager (FC) and has a PR created" },
@@ -1224,11 +1224,11 @@ fcTest.describe("PR — Comments — Permission denial", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR011 — Convert PR to PO (Purchase Staff)
+// TC-PR-900011 — Convert PR to PO (Purchase Staff)
 // ─────────────────────────────────────────────────────────────────────────
 purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
   purchaseTest(
-    "TC-PR01101 Happy Path: Convert Approved PR to PO",
+    "TC-PR-410001 Happy Path: Convert Approved PR to PO",
     {
       annotation: [
         { type: "preconditions", description: "An approved PR exists in the system" },
@@ -1257,7 +1257,7 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
   );
 
   purchaseTest(
-    "TC-PR01102 Negative: Invalid Vendor",
+    "TC-PR-410002 Negative: Invalid Vendor",
     {
       annotation: [
         { type: "preconditions", description: "An approved PR exists in the system" },
@@ -1290,7 +1290,7 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
   );
 
   purchaseTest(
-    "TC-PR01103 Edge Case: PR with No Delivery Date",
+    "TC-PR-410003 Edge Case: PR with No Delivery Date",
     {
       annotation: [
         { type: "preconditions", description: "An approved PR exists in the system with no delivery date" },
@@ -1316,7 +1316,7 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
 
 requestorTest.describe("PR — Convert to PO — Permission denial", () => {
   requestorTest(
-    "TC-PR01104 Negative: No Permission to Convert PR",
+    "TC-PR-410004 Negative: No Permission to Convert PR",
     {
       annotation: [
         { type: "preconditions", description: "An approved PR exists; only purchasing staff can convert PRs" },
@@ -1344,11 +1344,11 @@ requestorTest.describe("PR — Convert to PO — Permission denial", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR012 — Inventory snapshot & suggested price
+// TC-PR-900012 — Inventory snapshot & suggested price
 // ─────────────────────────────────────────────────────────────────────────
 requestorTest.describe("PR — Inventory snapshot", () => {
   requestorTest(
-    "TC-PR01201 Happy Path - View Inventory and Add Item with Suggested Price",
+    "TC-PR-420001 Happy Path - View Inventory and Add Item with Suggested Price",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor with permission to create purchase requests" },
@@ -1371,7 +1371,7 @@ requestorTest.describe("PR — Inventory snapshot", () => {
   );
 
   requestorTest(
-    "TC-PR01202 Negative - No Inventory Data Available",
+    "TC-PR-420002 Negative - No Inventory Data Available",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor with permission to create purchase requests" },
@@ -1396,7 +1396,7 @@ requestorTest.describe("PR — Inventory snapshot", () => {
   );
 
   requestorTest(
-    "TC-PR01203 Edge Case - Below Reorder Point",
+    "TC-PR-420003 Edge Case - Below Reorder Point",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor with permission to create purchase requests" },
@@ -1420,11 +1420,11 @@ requestorTest.describe("PR — Inventory snapshot", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR013 — Save as Template (FEATURE NOT YET IMPLEMENTED — all skip)
+// TC-PR-900013 — Save as Template (FEATURE NOT YET IMPLEMENTED — all skip)
 // ─────────────────────────────────────────────────────────────────────────
 purchaseTest.describe("PR — Save as Template — Feature pending", () => {
   purchaseTest.skip(
-    "TC-PR01301 Create Template from Existing PR",
+    "TC-PR-430001 Create Template from Existing PR",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Purchasing Staff and has access to PR-2501-0042" },
@@ -1443,7 +1443,7 @@ purchaseTest.describe("PR — Save as Template — Feature pending", () => {
   );
 
   purchaseTest.skip(
-    "TC-PR01302 Duplicate Template Name",
+    "TC-PR-430002 Duplicate Template Name",
     {
       annotation: [
         { type: "preconditions", description: "A template named 'Weekly Market List - Vegetables' already exists in the user's department" },
@@ -1462,7 +1462,7 @@ purchaseTest.describe("PR — Save as Template — Feature pending", () => {
   );
 
   purchaseTest.skip(
-    "TC-PR01303 Create Organization-Wide Template",
+    "TC-PR-430003 Create Organization-Wide Template",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Purchasing Staff and has permission to create organization-wide templates" },
@@ -1481,7 +1481,7 @@ purchaseTest.describe("PR — Save as Template — Feature pending", () => {
   );
 
   purchaseTest.skip(
-    "TC-PR01304 Invalid Template Name",
+    "TC-PR-430004 Invalid Template Name",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Purchasing Staff" },
@@ -1500,7 +1500,7 @@ purchaseTest.describe("PR — Save as Template — Feature pending", () => {
   );
 
   purchaseTest.skip(
-    "TC-PR01305 No Line Items Included",
+    "TC-PR-430005 No Line Items Included",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Purchasing Staff and has access to PR-2501-0042" },
@@ -1520,11 +1520,11 @@ purchaseTest.describe("PR — Save as Template — Feature pending", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR014 — Visible / Hidden prices
+// TC-PR-900014 — Visible / Hidden prices
 // ─────────────────────────────────────────────────────────────────────────
 requestorTest.describe("PR — Pricing visibility", () => {
   requestorTest(
-    "TC-PR01401 Happy Path - Create PR with Visible Prices",
+    "TC-PR-440001 Happy Path - Create PR with Visible Prices",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor; PR System is operational; Inventory API is available" },
@@ -1550,7 +1550,7 @@ requestorTest.describe("PR — Pricing visibility", () => {
   );
 
   requestorTest(
-    "TC-PR01402 Negative Case - Invalid Delivery Date",
+    "TC-PR-440002 Negative Case - Invalid Delivery Date",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor; PR System is operational; Inventory API is available" },
@@ -1575,7 +1575,7 @@ requestorTest.describe("PR — Pricing visibility", () => {
   );
 
   requestorTest(
-    "TC-PR01404 Negative Case - Hide Price with Invalid Toggle",
+    "TC-PR-440004 Negative Case - Hide Price with Invalid Toggle",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor; PR System is operational; Inventory API is available" },
@@ -1600,11 +1600,11 @@ requestorTest.describe("PR — Pricing visibility", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR015 — Delivery details
+// TC-PR-900015 — Delivery details
 // ─────────────────────────────────────────────────────────────────────────
 requestorTest.describe("PR — Delivery details", () => {
   requestorTest(
-    "TC-PR01501 Happy Path - Create PR with Full Delivery Details",
+    "TC-PR-450001 Happy Path - Create PR with Full Delivery Details",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor with permissions to create PRs" },
@@ -1629,7 +1629,7 @@ requestorTest.describe("PR — Delivery details", () => {
   );
 
   requestorTest(
-    "TC-PR01502 Negative - Invalid Required Date",
+    "TC-PR-450002 Negative - Invalid Required Date",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor with permissions to create PRs" },
@@ -1654,7 +1654,7 @@ requestorTest.describe("PR — Delivery details", () => {
   );
 
   requestorTest(
-    "TC-PR01503 Edge Case - Long Comment",
+    "TC-PR-450003 Edge Case - Long Comment",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Requestor with permissions to create PRs" },
@@ -1680,7 +1680,7 @@ requestorTest.describe("PR — Delivery details", () => {
 
 fcTest.describe("PR — Delivery details — Permission denial", () => {
   fcTest(
-    "TC-PR01504 Negative - No Permission to Submit PR",
+    "TC-PR-450004 Negative - No Permission to Submit PR",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Budget Manager with no permission to submit PRs" },
@@ -1709,11 +1709,11 @@ fcTest.describe("PR — Delivery details — Permission denial", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR016 — Approve with FOC + visibility
+// TC-PR-900016 — Approve with FOC + visibility
 // ─────────────────────────────────────────────────────────────────────────
 hodTest.describe("PR — Approve detail review", () => {
   hodTest(
-    "TC-PR01601 Approve PR with FOC and full pricing visibility",
+    "TC-PR-460001 Approve PR with FOC and full pricing visibility",
     {
       annotation: [
         { type: "preconditions", description: "A PR with FOC and detailed pricing information has been created and is pending approval" },
@@ -1742,7 +1742,7 @@ hodTest.describe("PR — Approve detail review", () => {
   );
 
   hodTest(
-    "TC-PR01603 Return PR for revision with FOC and full pricing visibility",
+    "TC-PR-460003 Return PR for revision with FOC and full pricing visibility",
     {
       annotation: [
         { type: "preconditions", description: "A PR with FOC and detailed pricing information has been created and is pending approval" },
@@ -1772,7 +1772,7 @@ hodTest.describe("PR — Approve detail review", () => {
   );
 
   hodTest(
-    "TC-PR01604 Approve PR with hidden prices",
+    "TC-PR-460004 Approve PR with hidden prices",
     {
       annotation: [
         { type: "preconditions", description: "A PR with FOC and detailed pricing, with hide_price=true, has been created and is pending approval" },
@@ -1801,7 +1801,7 @@ hodTest.describe("PR — Approve detail review", () => {
   );
 
   hodTest(
-    "TC-PR01605 Approve PR with override amounts over 20%",
+    "TC-PR-460005 Approve PR with override amounts over 20%",
     {
       annotation: [
         { type: "preconditions", description: "A PR with FOC, detailed pricing and override amounts >20% has been created and is pending approval" },
@@ -1831,11 +1831,11 @@ hodTest.describe("PR — Approve detail review", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR017 — Edit pricing (Purchase Staff)
+// TC-PR-900017 — Edit pricing (Purchase Staff)
 // ─────────────────────────────────────────────────────────────────────────
 purchaseTest.describe("PR — Edit pricing", () => {
   purchaseTest(
-    "TC-PR01701 Happy Path - Valid Input",
+    "TC-PR-470001 Happy Path - Valid Input",
     {
       annotation: [
         { type: "preconditions", description: "Purchasing Staff has the necessary role; PR is created and item details are displayed" },
@@ -1864,7 +1864,7 @@ purchaseTest.describe("PR — Edit pricing", () => {
   );
 
   purchaseTest(
-    "TC-PR01703 Edge Case - Empty Discount Rate",
+    "TC-PR-470003 Edge Case - Empty Discount Rate",
     {
       annotation: [
         { type: "preconditions", description: "Purchasing Staff has the necessary role; PR is created and item details are displayed" },
@@ -1892,7 +1892,7 @@ purchaseTest.describe("PR — Edit pricing", () => {
   );
 
   purchaseTest(
-    "TC-PR01705 Edge Case - No Tax Profile",
+    "TC-PR-470005 Edge Case - No Tax Profile",
     {
       annotation: [
         { type: "preconditions", description: "Purchasing Staff has the necessary role; PR is created and item details are displayed; no tax profile is assigned" },
@@ -1921,11 +1921,11 @@ purchaseTest.describe("PR — Edit pricing", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR018 — Return PR for revision (HOD)
+// TC-PR-900018 — Return PR for revision (HOD)
 // ─────────────────────────────────────────────────────────────────────────
 hodTest.describe("PR — Return for revision", () => {
   hodTest(
-    "TC-PR01801 Return PR with valid reason",
+    "TC-PR-480001 Return PR with valid reason",
     {
       annotation: [
         { type: "preconditions", description: "Department Manager has pending PRs and access to return function" },
@@ -1955,7 +1955,7 @@ hodTest.describe("PR — Return for revision", () => {
   );
 
   hodTest(
-    "TC-PR01802 Return PR with empty reason",
+    "TC-PR-480002 Return PR with empty reason",
     {
       annotation: [
         { type: "preconditions", description: "Department Manager has pending PRs and access to return function" },
@@ -1985,7 +1985,7 @@ hodTest.describe("PR — Return for revision", () => {
   );
 
   hodTest(
-    "TC-PR01803 Return PR with minimum 10 character reason",
+    "TC-PR-480003 Return PR with minimum 10 character reason",
     {
       annotation: [
         { type: "preconditions", description: "Department Manager has pending PRs and access to return function" },
@@ -2017,7 +2017,7 @@ hodTest.describe("PR — Return for revision", () => {
 
 fcTest.describe("PR — Return for revision — Permission denial", () => {
   fcTest(
-    "TC-PR01804 Return PR with very high value and insufficient permissions",
+    "TC-PR-480004 Return PR with very high value and insufficient permissions",
     {
       annotation: [
         { type: "preconditions", description: "Finance Manager has pending PRs and insufficient permissions to return" },
@@ -2049,11 +2049,11 @@ fcTest.describe("PR — Return for revision — Permission denial", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR019 — Submit after vendor allocation (Purchase Staff)
+// TC-PR-900019 — Submit after vendor allocation (Purchase Staff)
 // ─────────────────────────────────────────────────────────────────────────
 purchaseTest.describe("PR — Submit after vendor allocation", () => {
   purchaseTest(
-    "TC-PR01902 Submit PR with missing unit price",
+    "TC-PR-490002 Submit PR with missing unit price",
     {
       annotation: [
         { type: "preconditions", description: "Purchasing staff has completed vendor allocation and pricing for all items except unit price" },
@@ -2082,7 +2082,7 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
   );
 
   purchaseTest(
-    "TC-PR01903 Submit PR with incomplete vendor selection",
+    "TC-PR-490003 Submit PR with incomplete vendor selection",
     {
       annotation: [
         { type: "preconditions", description: "Purchasing staff has completed vendor allocation and pricing for all items except vendor selection" },
@@ -2111,7 +2111,7 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
   );
 
   purchaseTest(
-    "TC-PR01904 Submit PR with very high value",
+    "TC-PR-490004 Submit PR with very high value",
     {
       annotation: [
         { type: "preconditions", description: "Purchasing staff has completed vendor allocation and pricing for a very high-value item" },
@@ -2141,7 +2141,7 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
 
 requestorTest.describe("PR — Submit after vendor allocation — Permission denial", () => {
   requestorTest(
-    "TC-PR01905 Submit PR with no permission",
+    "TC-PR-490005 Submit PR with no permission",
     {
       annotation: [
         { type: "preconditions", description: "User is not a purchasing staff" },
@@ -2173,11 +2173,11 @@ requestorTest.describe("PR — Submit after vendor allocation — Permission den
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR020 — Reject PR (Purchase Staff)
+// TC-PR-900020 — Reject PR (Purchase Staff)
 // ─────────────────────────────────────────────────────────────────────────
 purchaseTest.describe("PR — Reject by Purchase Staff", () => {
   purchaseTest(
-    "TC-PR02001 Happy Path - Reject Purchase Request with Valid Reason",
+    "TC-PR-600001 Happy Path - Reject Purchase Request with Valid Reason",
     {
       annotation: [
         { type: "preconditions", description: "A PR exists; purchasing staff has the necessary role" },
@@ -2207,7 +2207,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
   );
 
   purchaseTest(
-    "TC-PR02002 Negative Case - Invalid Reason Length",
+    "TC-PR-600002 Negative Case - Invalid Reason Length",
     {
       annotation: [
         { type: "preconditions", description: "A PR exists; purchasing staff has the necessary role" },
@@ -2238,7 +2238,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
   );
 
   purchaseTest(
-    "TC-PR02003 Edge Case - Reject with No Reason Entered",
+    "TC-PR-600003 Edge Case - Reject with No Reason Entered",
     {
       annotation: [
         { type: "preconditions", description: "A PR exists; purchasing staff has the necessary role" },
@@ -2268,7 +2268,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
   );
 
   purchaseTest(
-    "TC-PR02005 Edge Case - Reject with Existing Rejection",
+    "TC-PR-600005 Edge Case - Reject with Existing Rejection",
     {
       annotation: [
         { type: "preconditions", description: "A PR exists; has a previous rejection; purchasing staff has the necessary role" },
@@ -2304,7 +2304,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
 
 requestorTest.describe("PR — Reject by Purchase Staff — Permission denial", () => {
   requestorTest(
-    "TC-PR02004 Negative Case - No Permission to Reject",
+    "TC-PR-600004 Negative Case - No Permission to Reject",
     {
       annotation: [
         { type: "preconditions", description: "A PR exists; a user without purchasing staff role attempts to reject" },
@@ -2336,11 +2336,11 @@ requestorTest.describe("PR — Reject by Purchase Staff — Permission denial", 
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR021 — Bulk actions (Department Manager)
+// TC-PR-900021 — Bulk actions (Department Manager)
 // ─────────────────────────────────────────────────────────────────────────
 hodTest.describe("PR — Bulk actions", () => {
   hodTest(
-    "TC-PR02101 Approve Multiple Line Items",
+    "TC-PR-610001 Approve Multiple Line Items",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Department Manager with approval rights; multiple PR line items exist with varying statuses" },
@@ -2376,7 +2376,7 @@ hodTest.describe("PR — Bulk actions", () => {
   );
 
   hodTest(
-    "TC-PR02102 Reject Multiple Line Items",
+    "TC-PR-610002 Reject Multiple Line Items",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Department Manager with rejection rights; multiple PR line items exist" },
@@ -2412,7 +2412,7 @@ hodTest.describe("PR — Bulk actions", () => {
   );
 
   hodTest(
-    "TC-PR02103 Return Multiple Line Items to Requestor",
+    "TC-PR-610003 Return Multiple Line Items to Requestor",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Department Manager with return rights; multiple PR line items exist" },
@@ -2446,7 +2446,7 @@ hodTest.describe("PR — Bulk actions", () => {
   );
 
   hodTest(
-    "TC-PR02104 Split Multiple Line Items",
+    "TC-PR-610004 Split Multiple Line Items",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Department Manager with split rights; multiple PR line items exist" },
@@ -2480,7 +2480,7 @@ hodTest.describe("PR — Bulk actions", () => {
   );
 
   hodTest(
-    "TC-PR02105 Set Date Required for Multiple Line Items",
+    "TC-PR-610005 Set Date Required for Multiple Line Items",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Department Manager with date required setting rights; multiple PR line items exist" },
@@ -2515,11 +2515,11 @@ hodTest.describe("PR — Bulk actions", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR022 — Budget allocation (Finance Manager)
+// TC-PR-900022 — Budget allocation (Finance Manager)
 // ─────────────────────────────────────────────────────────────────────────
 fcTest.describe("PR — Budget allocation", () => {
   fcTest(
-    "TC-PR02201 Add a new budget allocation",
+    "TC-PR-620001 Add a new budget allocation",
     {
       annotation: [
         { type: "preconditions", description: "Finance Manager is logged in and has a PR in the budget tab" },
@@ -2552,7 +2552,7 @@ fcTest.describe("PR — Budget allocation", () => {
   );
 
   fcTest(
-    "TC-PR02202 Edit an existing budget allocation",
+    "TC-PR-620002 Edit an existing budget allocation",
     {
       annotation: [
         { type: "preconditions", description: "Finance Manager is logged in and has at least one existing budget allocation in the PR" },
@@ -2579,7 +2579,7 @@ fcTest.describe("PR — Budget allocation", () => {
   );
 
   fcTest(
-    "TC-PR02203 Delete a budget allocation",
+    "TC-PR-620003 Delete a budget allocation",
     {
       annotation: [
         { type: "preconditions", description: "Finance Manager is logged in and has at least one existing budget allocation in the PR" },
@@ -2606,7 +2606,7 @@ fcTest.describe("PR — Budget allocation", () => {
   );
 
   fcTest(
-    "TC-PR02205 Attempt to delete a required allocation",
+    "TC-PR-620005 Attempt to delete a required allocation",
     {
       annotation: [
         { type: "preconditions", description: "Finance Manager is logged in and has a PR with a required budget allocation" },
@@ -2635,7 +2635,7 @@ fcTest.describe("PR — Budget allocation", () => {
 
 purchaseTest.describe("PR — Budget allocation — Permission denial", () => {
   purchaseTest(
-    "TC-PR02204 Attempt to edit an allocation without permission",
+    "TC-PR-620004 Attempt to edit an allocation without permission",
     {
       annotation: [
         { type: "preconditions", description: "Purchasing Staff is logged in and has a PR in the budget tab" },
@@ -2667,11 +2667,11 @@ purchaseTest.describe("PR — Budget allocation — Permission denial", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PR023 — Split PR (HOD)
+// TC-PR-900023 — Split PR (HOD)
 // ─────────────────────────────────────────────────────────────────────────
 hodTest.describe("PR — Split", () => {
   hodTest(
-    "TC-PR02301 Happy Path - Split PR with Valid Inputs",
+    "TC-PR-630001 Happy Path - Split PR with Valid Inputs",
     {
       annotation: [
         { type: "preconditions", description: "A PR exists with at least two items that need approval" },
@@ -2699,7 +2699,7 @@ hodTest.describe("PR — Split", () => {
   );
 
   hodTest(
-    "TC-PR02302 Negative - Insufficient Items for Split",
+    "TC-PR-630002 Negative - Insufficient Items for Split",
     {
       annotation: [
         { type: "preconditions", description: "A PR exists with less than two items that need approval" },
@@ -2730,7 +2730,7 @@ hodTest.describe("PR — Split", () => {
   );
 
   hodTest(
-    "TC-PR02303 Edge Case - No Items to Split",
+    "TC-PR-630003 Edge Case - No Items to Split",
     {
       annotation: [
         { type: "preconditions", description: "A PR exists with all items already approved" },
@@ -2757,7 +2757,7 @@ hodTest.describe("PR — Split", () => {
   );
 
   hodTest(
-    "TC-PR02304 Negative - Invalid Reason for Return",
+    "TC-PR-630004 Negative - Invalid Reason for Return",
     {
       annotation: [
         { type: "preconditions", description: "A PR exists with at least two items that need approval" },
@@ -2787,14 +2787,14 @@ hodTest.describe("PR — Split", () => {
 
 // ═════════════════════════════════════════════════════════════════════════
 // BACKEND / SYSTEM-LEVEL — all skipped (cannot exercise via UI E2E)
-// Includes: TC-PR101 reference number gen, TC-PR102 calculations,
-// TC-PR103 approval-chain config, TC-PR104 budget reservation,
-// TC-PR105 notifications, TC-PR201 ERP sync, TC-PR202 CSV import,
-// TC-PR301 reminders, TC-PR302 escalation, TC-PR303 archival.
+// Includes: TC-PR-900101 reference number gen, TC-PR-900102 calculations,
+// TC-PR-900103 approval-chain config, TC-PR-900104 budget reservation,
+// TC-PR-900105 notifications, TC-PR-900201 ERP sync, TC-PR-900202 CSV import,
+// TC-PR-900301 reminders, TC-PR-900302 escalation, TC-PR-900303 archival.
 // ═════════════════════════════════════════════════════════════════════════
 requestorTest.describe("PR — Reference number generation — Backend only", () => {
   requestorTest.skip(
-    "TC-PR10101 Happy Path - Valid PR Data",
+    "TC-PR-310001 Happy Path - Valid PR Data",
     {
       annotation: [
         { type: "preconditions", description: "A new PR is created without a reference number" },
@@ -2813,7 +2813,7 @@ requestorTest.describe("PR — Reference number generation — Backend only", ()
   );
 
   requestorTest.skip(
-    "TC-PR10102 Negative - No PR Data",
+    "TC-PR-310002 Negative - No PR Data",
     {
       annotation: [
         { type: "preconditions", description: "A new PR is created without any PR data" },
@@ -2832,7 +2832,7 @@ requestorTest.describe("PR — Reference number generation — Backend only", ()
   );
 
   requestorTest.skip(
-    "TC-PR10103 Negative - Date Format Error",
+    "TC-PR-310003 Negative - Date Format Error",
     {
       annotation: [
         { type: "preconditions", description: "A new PR is created with an incorrect date format" },
@@ -2851,7 +2851,7 @@ requestorTest.describe("PR — Reference number generation — Backend only", ()
   );
 
   requestorTest.skip(
-    "TC-PR10104 Edge Case - Year Change",
+    "TC-PR-310004 Edge Case - Year Change",
     {
       annotation: [
         { type: "preconditions", description: "A new PR is created in the first month of a new financial year" },
@@ -2870,7 +2870,7 @@ requestorTest.describe("PR — Reference number generation — Backend only", ()
   );
 
   requestorTest.skip(
-    "TC-PR10105 Negative - Database Sequence Exhausted",
+    "TC-PR-310005 Negative - Database Sequence Exhausted",
     {
       annotation: [
         { type: "preconditions", description: "The database sequence for reference numbers has reached its maximum value" },
@@ -2891,7 +2891,7 @@ requestorTest.describe("PR — Reference number generation — Backend only", ()
 
 requestorTest.describe("PR — Calculation — Backend only", () => {
   requestorTest.skip(
-    "TC-PR10201 Happy Path: Add Items and Verify Totals",
+    "TC-PR-320001 Happy Path: Add Items and Verify Totals",
     {
       annotation: [
         { type: "preconditions", description: "A PR with items is created and saved" },
@@ -2910,7 +2910,7 @@ requestorTest.describe("PR — Calculation — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR10202 Negative: Invalid Discount Percentage",
+    "TC-PR-320002 Negative: Invalid Discount Percentage",
     {
       annotation: [
         { type: "preconditions", description: "A PR with items and an invalid discount percentage is created and saved" },
@@ -2929,7 +2929,7 @@ requestorTest.describe("PR — Calculation — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR10203 Edge Case: Multi-Currency with Exchange Rate",
+    "TC-PR-320003 Edge Case: Multi-Currency with Exchange Rate",
     {
       annotation: [
         { type: "preconditions", description: "A PR with items is created and saved; the system uses multi-currency" },
@@ -2950,7 +2950,7 @@ requestorTest.describe("PR — Calculation — Backend only", () => {
 
 requestorTest.describe("PR — Approval chain config — Backend only", () => {
   requestorTest.skip(
-    "TC-PR10301 Happy Path - General PR",
+    "TC-PR-330001 Happy Path - General PR",
     {
       annotation: [
         { type: "preconditions", description: "A general PR with a total amount under $10,000 is submitted" },
@@ -2969,7 +2969,7 @@ requestorTest.describe("PR — Approval chain config — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR10302 Negative - Invalid Department ID",
+    "TC-PR-330002 Negative - Invalid Department ID",
     {
       annotation: [
         { type: "preconditions", description: "A PR is submitted with an invalid department ID" },
@@ -2988,7 +2988,7 @@ requestorTest.describe("PR — Approval chain config — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR10303 Edge Case - High Value Asset PR",
+    "TC-PR-330003 Edge Case - High Value Asset PR",
     {
       annotation: [
         { type: "preconditions", description: "A high-value asset PR is submitted with a total amount over $100,000" },
@@ -3007,7 +3007,7 @@ requestorTest.describe("PR — Approval chain config — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR10304 Negative - No User Assigned to Role",
+    "TC-PR-330004 Negative - No User Assigned to Role",
     {
       annotation: [
         { type: "preconditions", description: "A PR is submitted for a role with no assigned user" },
@@ -3028,7 +3028,7 @@ requestorTest.describe("PR — Approval chain config — Backend only", () => {
 
 requestorTest.describe("PR — Budget reservation — Backend only", () => {
   requestorTest.skip(
-    "TC-PR10401 Happy Path - Sufficient Funds",
+    "TC-PR-340001 Happy Path - Sufficient Funds",
     {
       annotation: [
         { type: "preconditions", description: "Login as Requestor; PR with budget codes; budget has sufficient funds" },
@@ -3047,7 +3047,7 @@ requestorTest.describe("PR — Budget reservation — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR10402 Negative Case - Insufficient Funds",
+    "TC-PR-340002 Negative Case - Insufficient Funds",
     {
       annotation: [
         { type: "preconditions", description: "Login as Requestor; PR with budget codes; budget has insufficient funds" },
@@ -3066,7 +3066,7 @@ requestorTest.describe("PR — Budget reservation — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR10403 Edge Case - No Budget Codes",
+    "TC-PR-340003 Edge Case - No Budget Codes",
     {
       annotation: [
         { type: "preconditions", description: "Login as Requestor; PR without any budget codes" },
@@ -3087,7 +3087,7 @@ requestorTest.describe("PR — Budget reservation — Backend only", () => {
 
 requestorTest.describe("PR — Notifications — Backend only", () => {
   requestorTest.skip(
-    "TC-PR10501 Happy Path - PR Submitted Notification",
+    "TC-PR-350001 Happy Path - PR Submitted Notification",
     {
       annotation: [
         { type: "preconditions", description: "User A has a new PR PR-1234 pending approval by User B" },
@@ -3106,7 +3106,7 @@ requestorTest.describe("PR — Notifications — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR10502 Negative - Invalid Email Preference",
+    "TC-PR-350002 Negative - Invalid Email Preference",
     {
       annotation: [
         { type: "preconditions", description: "User B has no email preference set" },
@@ -3125,7 +3125,7 @@ requestorTest.describe("PR — Notifications — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR10503 Edge Case - PR Rejected with No Pending Approvals",
+    "TC-PR-350003 Edge Case - PR Rejected with No Pending Approvals",
     {
       annotation: [
         { type: "preconditions", description: "User A has a PR PR-5678 in 'Rejected' status with no pending approvals" },
@@ -3144,7 +3144,7 @@ requestorTest.describe("PR — Notifications — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR10504 Negative - User Not Authorized to Approve",
+    "TC-PR-350004 Negative - User Not Authorized to Approve",
     {
       annotation: [
         { type: "preconditions", description: "User C is not authorized to approve PRs and has a PR-6789 pending" },
@@ -3165,7 +3165,7 @@ requestorTest.describe("PR — Notifications — Backend only", () => {
 
 requestorTest.describe("PR — ERP sync — Backend only", () => {
   requestorTest.skip(
-    "TC-PR20101 Happy Path - PR Sync to ERP",
+    "TC-PR-210001 Happy Path - PR Sync to ERP",
     {
       annotation: [
         { type: "preconditions", description: "PR is approved and ERP sync is enabled" },
@@ -3184,7 +3184,7 @@ requestorTest.describe("PR — ERP sync — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR20102 Negative Case - ERP Sync Disabled",
+    "TC-PR-210002 Negative Case - ERP Sync Disabled",
     {
       annotation: [
         { type: "preconditions", description: "PR is approved and ERP sync is disabled" },
@@ -3203,7 +3203,7 @@ requestorTest.describe("PR — ERP sync — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR20103 Edge Case - Multiple PRs in Batch",
+    "TC-PR-210003 Edge Case - Multiple PRs in Batch",
     {
       annotation: [
         { type: "preconditions", description: "Multiple PRs are approved and ERP sync is enabled" },
@@ -3224,7 +3224,7 @@ requestorTest.describe("PR — ERP sync — Backend only", () => {
 
 requestorTest.describe("PR — CSV import — Backend only", () => {
   requestorTest.skip(
-    "TC-PR20201 Import valid CSV file",
+    "TC-PR-220001 Import valid CSV file",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to import purchase requests" },
@@ -3242,7 +3242,7 @@ requestorTest.describe("PR — CSV import — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR20203 Duplicate PR import",
+    "TC-PR-220003 Duplicate PR import",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to import; file has duplicate reference numbers" },
@@ -3261,7 +3261,7 @@ requestorTest.describe("PR — CSV import — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR20204 Import with unauthorized access",
+    "TC-PR-220004 Import with unauthorized access",
     {
       annotation: [
         { type: "preconditions", description: "User does not have permission to import purchase requests" },
@@ -3280,7 +3280,7 @@ requestorTest.describe("PR — CSV import — Backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR20205 Import with no file selected",
+    "TC-PR-220005 Import with no file selected",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to import purchase requests" },
@@ -3300,7 +3300,7 @@ requestorTest.describe("PR — CSV import — Backend only", () => {
 
 requestorTest.describe("PR — Reminder — Time-based, backend only", () => {
   requestorTest.skip(
-    "TC-PR30101 Happy Path - Reminder Notification Sent",
+    "TC-PR-110001 Happy Path - Reminder Notification Sent",
     {
       annotation: [
         { type: "preconditions", description: "A PR is created and pending for approval for 49 hours with reminder_count < 3" },
@@ -3319,7 +3319,7 @@ requestorTest.describe("PR — Reminder — Time-based, backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR30102 Negative Case - Approver with No Pending Requests",
+    "TC-PR-110002 Negative Case - Approver with No Pending Requests",
     {
       annotation: [
         { type: "preconditions", description: "A PR is created and pending for 49 hours; approver has no pending requests" },
@@ -3338,7 +3338,7 @@ requestorTest.describe("PR — Reminder — Time-based, backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR30103 Edge Case - Approver has 3 Reminders",
+    "TC-PR-110003 Edge Case - Approver has 3 Reminders",
     {
       annotation: [
         { type: "preconditions", description: "PR pending for 48 hours; approver has already received 2 reminder emails" },
@@ -3357,7 +3357,7 @@ requestorTest.describe("PR — Reminder — Time-based, backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR30104 Negative Case - Approver with No Access",
+    "TC-PR-110004 Negative Case - Approver with No Access",
     {
       annotation: [
         { type: "preconditions", description: "PR pending for 48 hours; approver has no access to view the PR" },
@@ -3378,7 +3378,7 @@ requestorTest.describe("PR — Reminder — Time-based, backend only", () => {
 
 requestorTest.describe("PR — Escalation — Time-based, backend only", () => {
   requestorTest.skip(
-    "TC-PR30201 Escalation for Overdue PRs with Valid Inputs",
+    "TC-PR-120001 Escalation for Overdue PRs with Valid Inputs",
     {
       annotation: [
         { type: "preconditions", description: "System is running and there are pending PRs that are overdue by more than 5 days" },
@@ -3397,7 +3397,7 @@ requestorTest.describe("PR — Escalation — Time-based, backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR30202 Escalation Job Fails Due to Database Error",
+    "TC-PR-120002 Escalation Job Fails Due to Database Error",
     {
       annotation: [
         { type: "preconditions", description: "Database is down or corrupted, preventing the query from running successfully" },
@@ -3416,7 +3416,7 @@ requestorTest.describe("PR — Escalation — Time-based, backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR30203 Escalation Notification Sent to Approver Manager but No Manager Found",
+    "TC-PR-120003 Escalation Notification Sent to Approver Manager but No Manager Found",
     {
       annotation: [
         { type: "preconditions", description: "The approver does not have a manager assigned in the system" },
@@ -3435,7 +3435,7 @@ requestorTest.describe("PR — Escalation — Time-based, backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR30204 Escalation Job Runs During Non-Scheduled Time",
+    "TC-PR-120004 Escalation Job Runs During Non-Scheduled Time",
     {
       annotation: [
         { type: "preconditions", description: "System is running outside the scheduled time for the escalation job" },
@@ -3456,7 +3456,7 @@ requestorTest.describe("PR — Escalation — Time-based, backend only", () => {
 
 requestorTest.describe("PR — Archival — Time-based, backend only", () => {
   requestorTest.skip(
-    "TC-PR30301 Happy Path - Scheduled Archival",
+    "TC-PR-130001 Happy Path - Scheduled Archival",
     {
       annotation: [
         { type: "preconditions", description: "System is set to run archival at 2 AM daily; current date is 2 years or more after the PRs to be archived" },
@@ -3474,7 +3474,7 @@ requestorTest.describe("PR — Archival — Time-based, backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR30302 Negative - Invalid Date Range",
+    "TC-PR-130002 Negative - Invalid Date Range",
     {
       annotation: [
         { type: "preconditions", description: "System is set to run archival at 2 AM daily; current date is less than 2 years from the PRs to be archived" },
@@ -3492,7 +3492,7 @@ requestorTest.describe("PR — Archival — Time-based, backend only", () => {
   );
 
   requestorTest.skip(
-    "TC-PR30303 Edge Case - No Eligible PRs",
+    "TC-PR-130003 Edge Case - No Eligible PRs",
     {
       annotation: [
         { type: "preconditions", description: "All PRs are either new, in progress, or archived within the last 2 years" },

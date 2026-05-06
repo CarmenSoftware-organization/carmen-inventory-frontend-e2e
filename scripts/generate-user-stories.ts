@@ -17,7 +17,7 @@ const REPO_ROOT = resolve(__dirname, "..");
 const TESTS_DIR = join(REPO_ROOT, "tests");
 const OUT_DIR = join(REPO_ROOT, "docs", "user-stories");
 
-const TC_REGEX = /\b(TCS?-[A-Z]{0,4}\d{2,})\b/;
+const TC_REGEX = /\b(TC-[A-Z]{2,5}-\d{6}|TCS?-[A-Z]{0,4}\d{2,})\b/;
 
 const EMAIL_TO_ROLE = new Map<string, string>(
   TEST_USERS.map((u) => [u.email, u.role]),
@@ -390,7 +390,6 @@ interface SecurityCallInfo {
   helper: SecurityHelper;
   prefix: string;
   listPath: string;
-  startIndex: number;
   skipAuth: boolean;
 }
 
@@ -412,23 +411,18 @@ function findSecurityHelperCalls(
       if (optsArg && ts.isObjectLiteralExpression(optsArg)) {
         let prefix = "";
         let listPath = "";
-        let startIndex = 9;
         let skipAuth = false;
         for (const prop of optsArg.properties) {
           if (!ts.isPropertyAssignment(prop) || !ts.isIdentifier(prop.name)) continue;
           const key = prop.name.text;
           if (key === "prefix") prefix = resolveStringValue(prop.initializer, consts) ?? "";
           else if (key === "listPath") listPath = resolveStringValue(prop.initializer, consts) ?? "";
-          else if (key === "startIndex") {
-            if (ts.isNumericLiteral(prop.initializer)) {
-              startIndex = Number(prop.initializer.text);
-            }
-          } else if (key === "skipAuth") {
+          else if (key === "skipAuth") {
             if (prop.initializer.kind === ts.SyntaxKind.TrueKeyword) skipAuth = true;
           }
         }
         if (prefix && listPath) {
-          out.push({ helper, prefix, listPath, startIndex, skipAuth });
+          out.push({ helper, prefix, listPath, skipAuth });
         }
       }
     }
@@ -438,22 +432,18 @@ function findSecurityHelperCalls(
   return out;
 }
 
-function pad2(n: number): string {
-  return `001${String(n).padStart(2, "0")}`;
-}
-
 function synthesizeSecurityRows(info: SecurityCallInfo): TCRow[] {
-  const { helper, prefix, listPath, startIndex, skipAuth } = info;
-  const xssIdx = helper === "addPageFormSecurityCases" ? startIndex : 9;
-  const sqlIdx = xssIdx + 1;
-  const lenIdx = xssIdx + 2;
-  const authIdx = xssIdx + 3;
+  const { helper, prefix, listPath, skipAuth } = info;
+  const tcXss = `TC-${prefix}-100001`;
+  const tcSql = `TC-${prefix}-100002`;
+  const tcLen = `TC-${prefix}-100003`;
+  const tcAuth = `TC-${prefix}-100004`;
 
   const rows: TCRow[] = [];
 
   rows.push({
-    testId: `TCS-${prefix}${pad2(xssIdx)}`,
-    title: `TCS-${prefix}${pad2(xssIdx)} XSS payload ในชื่อต้องไม่รัน script`,
+    testId: tcXss,
+    title: `${tcXss} XSS payload ในชื่อต้องไม่รัน script`,
     skipped: false,
     ann: {
       ...EMPTY_ANN,
@@ -476,11 +466,11 @@ function synthesizeSecurityRows(info: SecurityCallInfo): TCRow[] {
   });
 
   rows.push({
-    testId: `TCS-${prefix}${pad2(sqlIdx)}`,
+    testId: tcSql,
     title:
       helper === "addListOnlySecurityCases"
-        ? `TCS-${prefix}${pad2(sqlIdx)} SQL injection payload ในช่องค้นหาต้องไม่ crash`
-        : `TCS-${prefix}${pad2(sqlIdx)} SQL injection payload ต้องไม่ทำให้ระบบ crash`,
+        ? `${tcSql} SQL injection payload ในช่องค้นหาต้องไม่ crash`
+        : `${tcSql} SQL injection payload ต้องไม่ทำให้ระบบ crash`,
     skipped: false,
     ann: {
       ...EMPTY_ANN,
@@ -493,11 +483,11 @@ function synthesizeSecurityRows(info: SecurityCallInfo): TCRow[] {
   });
 
   rows.push({
-    testId: `TCS-${prefix}${pad2(lenIdx)}`,
+    testId: tcLen,
     title:
       helper === "addListOnlySecurityCases"
-        ? `TCS-${prefix}${pad2(lenIdx)} ค้นหาด้วย string ยาวมากต้องไม่ crash`
-        : `TCS-${prefix}${pad2(lenIdx)} ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100`,
+        ? `${tcLen} ค้นหาด้วย string ยาวมากต้องไม่ crash`
+        : `${tcLen} ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100`,
     skipped: false,
     ann: {
       ...EMPTY_ANN,
@@ -518,8 +508,8 @@ function synthesizeSecurityRows(info: SecurityCallInfo): TCRow[] {
   });
 
   rows.push({
-    testId: `TCS-${prefix}${pad2(authIdx)}`,
-    title: `TCS-${prefix}${pad2(authIdx)} user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`,
+    testId: tcAuth,
+    title: `${tcAuth} user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`,
     skipped: skipAuth,
     ann: {
       ...EMPTY_ANN,

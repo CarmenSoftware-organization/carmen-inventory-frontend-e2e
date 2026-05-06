@@ -17,7 +17,7 @@ const opts = {
 
 test.describe("Credit Term — Smoke & CRUD", () => {
   test(
-    "TC-CT00101 หน้า list โหลดสำเร็จ",
+    "TC-CT-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
@@ -34,7 +34,7 @@ test.describe("Credit Term — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CT00102 ปุ่ม Add แสดง",
+    "TC-CT-010002 ปุ่ม Add แสดง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/credit-term" },
@@ -51,7 +51,7 @@ test.describe("Credit Term — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CT00103 ช่องค้นหาใช้งานได้",
+    "TC-CT-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/credit-term" },
@@ -69,7 +69,7 @@ test.describe("Credit Term — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CT00104 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    "TC-CT-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/credit-term" },
@@ -87,7 +87,7 @@ test.describe("Credit Term — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CT00105 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
+    "TC-CT-010005 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/credit-term พร้อม add dialog เปิดอยู่" },
@@ -107,7 +107,7 @@ test.describe("Credit Term — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CT00106 สร้างรายการใหม่และปรากฏในตาราง",
+    "TC-CT-010006 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
@@ -135,10 +135,10 @@ test.describe("Credit Term — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CT00107 แก้ไขชื่อและบันทึก",
+    "TC-CT-010007 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CT00106 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-CT-010006 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด edit dialog\n3. clear name และกรอก NAME_UPDATED\n4. กด Save\n5. ค้นหาด้วย NAME_UPDATED" },
         { type: "expected", description: "Updated/success toast ปรากฏ; แถวที่มี NAME_UPDATED ปรากฏใน list" },
         { type: "priority", description: "High" },
@@ -161,10 +161,10 @@ test.describe("Credit Term — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CT00113 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
+    "TC-CT-010013 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CT00107 ผ่านแล้ว → record มี name = NAME_UPDATED" },
+        { type: "preconditions", description: "TC-CT-010007 ผ่านแล้ว → record มี name = NAME_UPDATED" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด edit dialog\n3. clear name\n4. กด Save" },
         { type: "expected", description: "Error message ปรากฏใน dialog (form block submit; ยังอยู่ใน edit mode)" },
         { type: "priority", description: "Medium" },
@@ -183,10 +183,10 @@ test.describe("Credit Term — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CT00108 ลบรายการ",
+    "TC-CT-010008 ลบรายการ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CT00113 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-CT-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. กดปุ่ม Delete บนแถว\n3. ยืนยัน Delete ใน confirm dialog" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
         { type: "priority", description: "High" },

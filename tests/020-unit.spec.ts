@@ -8,7 +8,7 @@ const PATH = "/config/unit";
 
 test.describe("Unit — Smoke", () => {
   test(
-    "TC-UN00101 หน้า list โหลดสำเร็จ",
+    "TC-UN-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture (createAuthTest)" },
@@ -25,7 +25,7 @@ test.describe("Unit — Smoke", () => {
   });
 
   test(
-    "TC-UN00102 ปุ่ม Add แสดง",
+    "TC-UN-010002 ปุ่ม Add แสดง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/unit" },
@@ -42,7 +42,7 @@ test.describe("Unit — Smoke", () => {
   });
 
   test(
-    "TC-UN00103 ช่องค้นหาใช้งานได้",
+    "TC-UN-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/unit" },
@@ -60,7 +60,7 @@ test.describe("Unit — Smoke", () => {
   });
 
   test(
-    "TC-UN00104 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    "TC-UN-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/unit" },
@@ -77,5 +77,5 @@ test.describe("Unit — Smoke", () => {
     await expect(list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
-  addListOnlySecurityCases(test, { prefix: "UN", listPath: PATH, skipTcs: ["TCS-UN00112"] });
+  addListOnlySecurityCases(test, { prefix: "UN", listPath: PATH, skipTcs: ["TC-UN-100004"] });
 });

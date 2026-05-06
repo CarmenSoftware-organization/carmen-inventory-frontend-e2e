@@ -4,7 +4,7 @@
  * Test cases mapped from spec sheet:
  * https://docs.google.com/spreadsheets/d/1eLuXtc-UxkgCCgImw2SI2XAX32LlPT3UHfxIpzmFoLc
  *
- * Covers TC-DP00101..TC-DP00149 (Read / Create / Update / Delete).
+ * Covers TC-DP-010001..TC-DP-010049 (Read / Create / Update / Delete).
  * Tests run serially because CRUD steps depend on shared fixture data.
  */
 import { expect } from "@playwright/test";
@@ -22,11 +22,11 @@ const DP_NAME = `E2E DP ${UID}`;
 const DP_NAME_INACTIVE = `E2E DP Inactive ${UID}`;
 const DP_NAME_UPDATED = `E2E DP Upd ${UID}`;
 
-// ─── Read (TC-DP00101..TC-DP00126) ──────────────────────────────────────────────────
+// ─── Read (TC-DP-010001..TC-DP-010026) ──────────────────────────────────────────────────
 
 test.describe("จุดส่งของ — อ่าน", () => {
   test(
-    "TC-DP00101 อ่านค่า table ของ delivery point ได้",
+    "TC-DP-010001 อ่านค่า table ของ delivery point ได้",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ purchase@blueledgers.com (จาก createAuthTest) login แล้ว และมี delivery point ในระบบอย่างน้อย 1 รายการ" },
@@ -45,7 +45,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00102 แสดงข้อมูล default 10 รายการต่อหน้า",
+    "TC-DP-010002 แสดงข้อมูล default 10 รายการต่อหน้า",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว มีข้อมูล delivery point ในระบบ" },
@@ -64,7 +64,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00103 เปลี่ยน per page เป็น 25 / 50 / 100 ได้",
+    "TC-DP-010003 เปลี่ยน per page เป็น 25 / 50 / 100 ได้",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และตัวเลือก per page visible" },
@@ -89,7 +89,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00104 per page เกิน 100 ไม่ได้",
+    "TC-DP-010004 per page เกิน 100 ไม่ได้",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และตัวเลือก per page visible" },
@@ -110,7 +110,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00105 กด next/prev page แล้วข้อมูลเปลี่ยน",
+    "TC-DP-010005 กด next/prev page แล้วข้อมูลเปลี่ยน",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีข้อมูลมากกว่า 1 page" },
@@ -134,7 +134,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00106 search ชื่อ delivery point แล้วกรองได้ถูก",
+    "TC-DP-010006 search ชื่อ delivery point แล้วกรองได้ถูก",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี delivery point อย่างน้อย 1 รายการ" },
@@ -156,7 +156,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00107 search ด้วยคำที่ไม่มีในระบบ แสดง empty state",
+    "TC-DP-010007 search ด้วยคำที่ไม่มีในระบบ แสดง empty state",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
@@ -174,7 +174,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00108 search ด้วย special char เช่น %, ' ไม่พัง",
+    "TC-DP-010008 search ด้วย special char เช่น %, ' ไม่พัง",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
@@ -193,7 +193,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   );
 
   test(
-    "TC-DP00109 filter ตาม field ที่กำหนด แล้วผลตรง",
+    "TC-DP-010009 filter ตาม field ที่กำหนด แล้วผลตรง",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีตัวเลือก filter" },
@@ -222,7 +222,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00110 กด sort column แล้วเรียงจาก A→Z ได้",
+    "TC-DP-010010 กด sort column แล้วเรียงจาก A→Z ได้",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และ column name สามารถ sort ได้" },
@@ -247,7 +247,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00111 กด sort ซ้ำแล้วเรียงกลับ Z→A ได้",
+    "TC-DP-010011 กด sort ซ้ำแล้วเรียงกลับ Z→A ได้",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และ column name สามารถ sort ได้" },
@@ -278,7 +278,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00112 filter + search + sort พร้อมกันไม่พัง",
+    "TC-DP-010012 filter + search + sort พร้อมกันไม่พัง",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีข้อมูลในระบบ" },
@@ -309,7 +309,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00113 กด toggle เปลี่ยนจาก table → card view ได้",
+    "TC-DP-010013 กด toggle เปลี่ยนจาก table → card view ได้",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี view toggle (table/card)" },
@@ -331,7 +331,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00114 กด toggle เปลี่ยนจาก card → table view ได้",
+    "TC-DP-010014 กด toggle เปลี่ยนจาก card → table view ได้",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และอยู่ที่ card view" },
@@ -354,7 +354,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00115 ข้อมูลที่แสดงใน card กับ table ตรงกัน",
+    "TC-DP-010015 ข้อมูลที่แสดงใน card กับ table ตรงกัน",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีข้อมูลใน table" },
@@ -380,7 +380,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00116 เปลี่ยน view mode แล้ว filter/search/sort ยังทำงานอยู่",
+    "TC-DP-010016 เปลี่ยน view mode แล้ว filter/search/sort ยังทำงานอยู่",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี view toggle" },
@@ -409,7 +409,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00117 เปลี่ยน view mode แล้ว pagination ยังทำงานอยู่",
+    "TC-DP-010017 เปลี่ยน view mode แล้ว pagination ยังทำงานอยู่",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี view toggle" },
@@ -433,7 +433,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00118 refresh หน้าแล้ว view mode กลับมาเป็น default",
+    "TC-DP-010018 refresh หน้าแล้ว view mode กลับมาเป็น default",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
@@ -457,7 +457,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00119 กด toggle column แล้ว panel แสดงรายการ column ได้",
+    "TC-DP-010019 กด toggle column แล้ว panel แสดงรายการ column ได้",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และปุ่ม column visibility visible" },
@@ -479,7 +479,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00120 ซ่อน column แล้ว column หายออกจาก table",
+    "TC-DP-010020 ซ่อน column แล้ว column หายออกจาก table",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีปุ่ม column visibility" },
@@ -506,7 +506,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00121 แสดง column กลับแล้ว column โผล่ใน table",
+    "TC-DP-010021 แสดง column กลับแล้ว column โผล่ใน table",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีปุ่ม column visibility" },
@@ -535,7 +535,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00122 ซ่อนทุก column ไม่ได้ ต้องเหลืออย่างน้อย 1 column",
+    "TC-DP-010022 ซ่อนทุก column ไม่ได้ ต้องเหลืออย่างน้อย 1 column",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีปุ่ม column visibility" },
@@ -569,7 +569,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00123 column ที่ซ่อนอยู่ยังค้นหาและ filter ได้ปกติ",
+    "TC-DP-010023 column ที่ซ่อนอยู่ยังค้นหาและ filter ได้ปกติ",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีปุ่ม column visibility" },
@@ -604,7 +604,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00124 เปลี่ยน view mode แล้ว column visibility ยังคงอยู่",
+    "TC-DP-010024 เปลี่ยน view mode แล้ว column visibility ยังคงอยู่",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี view toggle + column visibility" },
@@ -640,7 +640,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00125 refresh หน้าแล้ว column ที่ซ่อนไว้กลับมาเป็น default",
+    "TC-DP-010025 refresh หน้าแล้ว column ที่ซ่อนไว้กลับมาเป็น default",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีปุ่ม column visibility" },
@@ -669,7 +669,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 
   test(
-    "TC-DP00126 card view ไม่มี column toggle เพราะไม่มี column",
+    "TC-DP-010026 card view ไม่มี column toggle เพราะไม่มี column",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี view toggle" },
@@ -691,11 +691,11 @@ test.describe("จุดส่งของ — อ่าน", () => {
   });
 });
 
-// ─── Create (TC-DP00127..TC-DP00136) ────────────────────────────────────────────────
+// ─── Create (TC-DP-010027..TC-DP-010036) ────────────────────────────────────────────────
 
 test.describe("จุดส่งของ — สร้าง", () => {
   test(
-    "TC-DP00127 กด Add แล้ว dialog เปิดขึ้นมา",
+    "TC-DP-010027 กด Add แล้ว dialog เปิดขึ้นมา",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และอยู่ที่หน้า list" },
@@ -715,7 +715,7 @@ test.describe("จุดส่งของ — สร้าง", () => {
   });
 
   test(
-    "TC-DP00128 dialog เปิดมา field name เป็น empty string",
+    "TC-DP-010028 dialog เปิดมา field name เป็น empty string",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
@@ -735,7 +735,7 @@ test.describe("จุดส่งของ — สร้าง", () => {
   });
 
   test(
-    "TC-DP00129 dialog เปิดมา is active default เป็น true",
+    "TC-DP-010029 dialog เปิดมา is active default เป็น true",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
@@ -755,7 +755,7 @@ test.describe("จุดส่งของ — สร้าง", () => {
   });
 
   test(
-    "TC-DP00130 กรอก name แล้ว save ได้ ข้อมูลขึ้น table",
+    "TC-DP-010030 กรอก name แล้ว save ได้ ข้อมูลขึ้น table",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และยังไม่มี delivery point ชื่อ DP_NAME" },
@@ -780,7 +780,7 @@ test.describe("จุดส่งของ — สร้าง", () => {
   });
 
   test(
-    "TC-DP00131 กด save โดยไม่กรอก name ระบบต้องด่า",
+    "TC-DP-010031 กด save โดยไม่กรอก name ระบบต้องด่า",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
@@ -801,10 +801,10 @@ test.describe("จุดส่งของ — สร้าง", () => {
   });
 
   test(
-    "TC-DP00132 กรอก name ซ้ำกับที่มีอยู่แล้ว ระบบต้องห้าม",
+    "TC-DP-010032 กรอก name ซ้ำกับที่มีอยู่แล้ว ระบบต้องห้าม",
     {
       annotation: [
-        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี delivery point DP_NAME อยู่แล้ว (จาก TC-DP00130)" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี delivery point DP_NAME อยู่แล้ว (จาก TC-DP-010030)" },
         { type: "steps", description: "1. เปิดหน้า list\n2. กด Add\n3. กรอก name ซ้ำ\n4. Save" },
         { type: "expected", description: "ระบบแสดง error duplicate/exists/already และไม่บันทึก" },
         { type: "priority", description: "Medium" },
@@ -826,7 +826,7 @@ test.describe("จุดส่งของ — สร้าง", () => {
   });
 
   test(
-    "TC-DP00133 กรอก name ยาวเกิน limit ระบบต้องห้าม",
+    "TC-DP-010033 กรอก name ยาวเกิน limit ระบบต้องห้าม",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
@@ -848,7 +848,7 @@ test.describe("จุดส่งของ — สร้าง", () => {
   });
 
   test(
-    "TC-DP00134 กรอก name เป็น space ล้วน ระบบต้องด่า",
+    "TC-DP-010034 กรอก name เป็น space ล้วน ระบบต้องด่า",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
@@ -871,7 +871,7 @@ test.describe("จุดส่งของ — สร้าง", () => {
   });
 
   test(
-    "TC-DP00135 กด cancel แล้ว dialog ปิด ไม่มีข้อมูลขึ้น table",
+    "TC-DP-010035 กด cancel แล้ว dialog ปิด ไม่มีข้อมูลขึ้น table",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว" },
@@ -894,7 +894,7 @@ test.describe("จุดส่งของ — สร้าง", () => {
   });
 
   test(
-    "TC-DP00136 สร้างด้วย is active = false แล้วค่าบันทึกถูก",
+    "TC-DP-010036 สร้างด้วย is active = false แล้วค่าบันทึกถูก",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และยังไม่มี DP_NAME_INACTIVE" },
@@ -919,14 +919,14 @@ test.describe("จุดส่งของ — สร้าง", () => {
   });
 });
 
-// ─── Update (TC-DP00137..TC-DP00144) ────────────────────────────────────────────────
+// ─── Update (TC-DP-010037..TC-DP-010044) ────────────────────────────────────────────────
 
 test.describe("จุดส่งของ — แก้ไข", () => {
   test(
-    "TC-DP00137 กดที่ column name แล้ว dialog เปิดขึ้นมา",
+    "TC-DP-010037 กดที่ column name แล้ว dialog เปิดขึ้นมา",
     {
       annotation: [
-        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME ใน table (จาก TC-DP00130)" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME ใน table (จาก TC-DP-010030)" },
         { type: "steps", description: "1. เปิดหน้า list\n2. search DP_NAME\n3. คลิกที่ row name\n4. ตรวจสอบ dialog" },
         { type: "expected", description: "dialog edit เปิดและ visible เมื่อคลิกที่ name" },
         { type: "priority", description: "High" },
@@ -944,7 +944,7 @@ test.describe("จุดส่งของ — แก้ไข", () => {
   });
 
   test(
-    "TC-DP00138 dialog เปิดมา field name แสดงค่าเดิมถูกต้อง",
+    "TC-DP-010038 dialog เปิดมา field name แสดงค่าเดิมถูกต้อง",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME ใน table" },
@@ -965,7 +965,7 @@ test.describe("จุดส่งของ — แก้ไข", () => {
   });
 
   test(
-    "TC-DP00139 dialog เปิดมา is active แสดงค่าเดิมถูกต้อง",
+    "TC-DP-010039 dialog เปิดมา is active แสดงค่าเดิมถูกต้อง",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และ DP_NAME มี is_active = true" },
@@ -986,7 +986,7 @@ test.describe("จุดส่งของ — แก้ไข", () => {
   });
 
   test(
-    "TC-DP00140 แก้ name แล้ว save ข้อมูลใน table อัพเดท",
+    "TC-DP-010040 แก้ name แล้ว save ข้อมูลใน table อัพเดท",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME ใน table" },
@@ -1013,7 +1013,7 @@ test.describe("จุดส่งของ — แก้ไข", () => {
   });
 
   test(
-    "TC-DP00141 ลบ name ออกทั้งหมดแล้ว save ระบบต้องด่า",
+    "TC-DP-010041 ลบ name ออกทั้งหมดแล้ว save ระบบต้องด่า",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table" },
@@ -1036,7 +1036,7 @@ test.describe("จุดส่งของ — แก้ไข", () => {
   });
 
   test(
-    "TC-DP00142 แก้ name เป็นค่าเดิมแล้ว save ได้ปกติ",
+    "TC-DP-010042 แก้ name เป็นค่าเดิมแล้ว save ได้ปกติ",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table" },
@@ -1062,7 +1062,7 @@ test.describe("จุดส่งของ — แก้ไข", () => {
   });
 
   test(
-    "TC-DP00143 กด cancel ระหว่าง edit ข้อมูลเดิมไม่เปลี่ยน",
+    "TC-DP-010043 กด cancel ระหว่าง edit ข้อมูลเดิมไม่เปลี่ยน",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table" },
@@ -1086,7 +1086,7 @@ test.describe("จุดส่งของ — แก้ไข", () => {
   });
 
   test(
-    "TC-DP00144 toggle is active แล้ว save ค่าเปลี่ยนถูก",
+    "TC-DP-010044 toggle is active แล้ว save ค่าเปลี่ยนถูก",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table" },
@@ -1116,11 +1116,11 @@ test.describe("จุดส่งของ — แก้ไข", () => {
   });
 });
 
-// ─── Delete (TC-DP00145..TC-DP00149) ────────────────────────────────────────────────
+// ─── Delete (TC-DP-010045..TC-DP-010049) ────────────────────────────────────────────────
 
 test.describe("จุดส่งของ — ลบ", () => {
   test(
-    "TC-DP00145 กด trash icon แล้ว confirm dialog เปิดขึ้นมา",
+    "TC-DP-010045 กด trash icon แล้ว confirm dialog เปิดขึ้นมา",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table" },
@@ -1141,7 +1141,7 @@ test.describe("จุดส่งของ — ลบ", () => {
   });
 
   test(
-    "TC-DP00146 กด confirm แล้วข้อมูลหายออกจาก table",
+    "TC-DP-010046 กด confirm แล้วข้อมูลหายออกจาก table",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table" },
@@ -1166,7 +1166,7 @@ test.describe("จุดส่งของ — ลบ", () => {
   });
 
   test(
-    "TC-DP00147 กด cancel ใน confirm dialog ข้อมูลยังอยู่",
+    "TC-DP-010047 กด cancel ใน confirm dialog ข้อมูลยังอยู่",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_INACTIVE ใน table" },
@@ -1191,7 +1191,7 @@ test.describe("จุดส่งของ — ลบ", () => {
   });
 
   test(
-    "TC-DP00148 ลบแล้ว total count ใน table ลดลง 1",
+    "TC-DP-010048 ลบแล้ว total count ใน table ลดลง 1",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมี DP_NAME_INACTIVE ใน table" },
@@ -1223,7 +1223,7 @@ test.describe("จุดส่งของ — ลบ", () => {
   });
 
   test(
-    "TC-DP00149 ลบรายการสุดท้ายในหน้า ระบบ paginate กลับหน้าก่อนหน้า",
+    "TC-DP-010049 ลบรายการสุดท้ายในหน้า ระบบ paginate กลับหน้าก่อนหน้า",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้ login แล้ว และมีข้อมูลมากกว่า 1 page โดย page สุดท้ายเหลือเพียง 1 row" },

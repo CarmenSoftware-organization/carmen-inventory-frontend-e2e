@@ -11,11 +11,11 @@ const requestorTest = createAuthTest("requestor@blueledgers.com");
 const purchaseTest = createAuthTest("purchase@blueledgers.com");
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN001 — View GRN List
+// TC-GRN-900001 — View GRN List
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — List", () => {
   purchaseTest(
-    "TC-GRN00101 View GRN List as Authenticated User",
+    "TC-GRN-010001 View GRN List as Authenticated User",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated and has permission to view GRNs; at least one GRN exists in the system" },
@@ -37,7 +37,7 @@ purchaseTest.describe("GRN — List", () => {
   );
 
   purchaseTest(
-    "TC-GRN00102 View GRN List with No GRNs",
+    "TC-GRN-010002 View GRN List with No GRNs",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view GRNs; no GRNs exist in the system" },
@@ -59,7 +59,7 @@ purchaseTest.describe("GRN — List", () => {
   );
 
   purchaseTest(
-    "TC-GRN00104 View GRN List with Large Number of GRNs",
+    "TC-GRN-010004 View GRN List with Large Number of GRNs",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view GRNs; a large number of GRNs exist in the system" },
@@ -83,7 +83,7 @@ purchaseTest.describe("GRN — List", () => {
 
 requestorTest.describe("GRN — List — Permission denial", () => {
   requestorTest(
-    "TC-GRN00103 View GRN List with Insufficient Permissions",
+    "TC-GRN-010003 View GRN List with Insufficient Permissions",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated but does not have permission to view GRNs; at least one GRN exists in the system" },
@@ -108,11 +108,11 @@ requestorTest.describe("GRN — List — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN002 — Filter / Search
+// TC-GRN-900002 — Filter / Search
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Filter / Search", () => {
   purchaseTest(
-    "TC-GRN00201 Filter by GRN Number",
+    "TC-GRN-020001 Filter by GRN Number",
     {
       annotation: [
         { type: "preconditions", description: "User is on GRN List page and GRNs exist in system" },
@@ -135,7 +135,7 @@ purchaseTest.describe("GRN — Filter / Search", () => {
   );
 
   purchaseTest(
-    "TC-GRN00202 Clear Filters",
+    "TC-GRN-020002 Clear Filters",
     {
       annotation: [
         { type: "preconditions", description: "User has applied filters to GRN list" },
@@ -158,7 +158,7 @@ purchaseTest.describe("GRN — Filter / Search", () => {
   );
 
   purchaseTest(
-    "TC-GRN00203 Invalid Search Term",
+    "TC-GRN-020003 Invalid Search Term",
     {
       annotation: [
         { type: "preconditions", description: "User is on GRN List page and GRNs exist in system" },
@@ -182,7 +182,7 @@ purchaseTest.describe("GRN — Filter / Search", () => {
   );
 
   purchaseTest(
-    "TC-GRN00204 Search with Empty Term",
+    "TC-GRN-020004 Search with Empty Term",
     {
       annotation: [
         { type: "preconditions", description: "User is on GRN List page and GRNs exist in system" },
@@ -205,7 +205,7 @@ purchaseTest.describe("GRN — Filter / Search", () => {
   );
 
   purchaseTest(
-    "TC-GRN00205 Filter by Vendor Name and Invoice Number",
+    "TC-GRN-020005 Filter by Vendor Name and Invoice Number",
     {
       annotation: [
         { type: "preconditions", description: "User is on GRN List page and GRNs exist in system" },
@@ -231,11 +231,11 @@ purchaseTest.describe("GRN — Filter / Search", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN003 — Create from Single PO
+// TC-GRN-900003 — Create from Single PO
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Create from Single PO", () => {
   purchaseTest(
-    "TC-GRN00301 Create GRN from Single PO - Happy Path",
+    "TC-GRN-030001 Create GRN from Single PO - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "User has 'Create GRN' permission; at least one vendor with open/partial POs exists; products in PO are in product catalog" },
@@ -258,7 +258,7 @@ purchaseTest.describe("GRN — Create from Single PO", () => {
   );
 
   purchaseTest(
-    "TC-GRN00303 Create GRN with No Vendor",
+    "TC-GRN-030003 Create GRN with No Vendor",
     {
       annotation: [
         { type: "preconditions", description: "User has 'Create GRN' permission; no vendors with open/partial POs exist" },
@@ -280,7 +280,7 @@ purchaseTest.describe("GRN — Create from Single PO", () => {
   );
 
   purchaseTest(
-    "TC-GRN00304 Create GRN with Invalid PO",
+    "TC-GRN-030004 Create GRN with Invalid PO",
     {
       annotation: [
         { type: "preconditions", description: "User has 'Create GRN' permission; at least one vendor with an invalid PO exists" },
@@ -302,7 +302,7 @@ purchaseTest.describe("GRN — Create from Single PO", () => {
   );
 
   purchaseTest(
-    "TC-GRN00305 Create GRN with No Product in Catalog",
+    "TC-GRN-030005 Create GRN with No Product in Catalog",
     {
       annotation: [
         { type: "preconditions", description: "User has 'Create GRN' permission; vendor has open/partial POs; products in PO are not in product catalog" },
@@ -326,7 +326,7 @@ purchaseTest.describe("GRN — Create from Single PO", () => {
 
 requestorTest.describe("GRN — Create — Permission denial", () => {
   requestorTest(
-    "TC-GRN00302 Create GRN without Create GRN Permission",
+    "TC-GRN-030002 Create GRN without Create GRN Permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have 'Create GRN' permission" },
@@ -355,11 +355,11 @@ requestorTest.describe("GRN — Create — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN004 — Create from Multiple POs
+// TC-GRN-900004 — Create from Multiple POs
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Create from Multiple POs", () => {
   purchaseTest(
-    "TC-GRN00402 Create GRN from Multiple POs - Invalid PO Selection",
+    "TC-GRN-040002 Create GRN from Multiple POs - Invalid PO Selection",
     {
       annotation: [
         { type: "preconditions", description: "User has 'Create GRN' permission; vendor has multiple open/partial POs; POs are in different currencies" },
@@ -380,7 +380,7 @@ purchaseTest.describe("GRN — Create from Multiple POs", () => {
   );
 
   purchaseTest(
-    "TC-GRN00404 Create GRN from Multiple POs - Edge Case - Partial POs",
+    "TC-GRN-040004 Create GRN from Multiple POs - Edge Case - Partial POs",
     {
       annotation: [
         { type: "preconditions", description: "User has 'Create GRN' permission; vendor has multiple open/partial POs" },
@@ -402,7 +402,7 @@ purchaseTest.describe("GRN — Create from Multiple POs", () => {
 
 requestorTest.describe("GRN — Create from Multiple POs — Permission denial", () => {
   requestorTest(
-    "TC-GRN00403 Create GRN from Multiple POs - No Permission",
+    "TC-GRN-040003 Create GRN from Multiple POs - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have 'Create GRN' permission; vendor has multiple open/partial POs" },
@@ -423,11 +423,11 @@ requestorTest.describe("GRN — Create from Multiple POs — Permission denial",
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN005 — Manual GRN
+// TC-GRN-900005 — Manual GRN
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Manual creation", () => {
   purchaseTest(
-    "TC-GRN00501 Create Manual GRN with Valid Data",
+    "TC-GRN-050001 Create Manual GRN with Valid Data",
     {
       annotation: [
         { type: "preconditions", description: "User has 'Create GRN' permission; vendor exists; products exist in catalog" },
@@ -449,7 +449,7 @@ purchaseTest.describe("GRN — Manual creation", () => {
   );
 
   purchaseTest(
-    "TC-GRN00503 Create Manual GRN with Missing Vendor",
+    "TC-GRN-050003 Create Manual GRN with Missing Vendor",
     {
       annotation: [
         { type: "preconditions", description: "User has 'Create GRN' permission; vendor does not exist in system" },
@@ -472,7 +472,7 @@ purchaseTest.describe("GRN — Manual creation", () => {
   );
 
   purchaseTest(
-    "TC-GRN00504 Create Manual GRN with Empty Product Details",
+    "TC-GRN-050004 Create Manual GRN with Empty Product Details",
     {
       annotation: [
         { type: "preconditions", description: "User has 'Create GRN' permission; vendor exists; products exist in catalog" },
@@ -495,7 +495,7 @@ purchaseTest.describe("GRN — Manual creation", () => {
   );
 
   purchaseTest(
-    "TC-GRN00505 Create Manual GRN with Large Number of Products",
+    "TC-GRN-050005 Create Manual GRN with Large Number of Products",
     {
       annotation: [
         { type: "preconditions", description: "User has 'Create GRN' permission; vendor exists; products exist in catalog" },
@@ -518,7 +518,7 @@ purchaseTest.describe("GRN — Manual creation", () => {
 
 requestorTest.describe("GRN — Manual creation — Permission denial", () => {
   requestorTest(
-    "TC-GRN00502 Create Manual GRN without Permission",
+    "TC-GRN-050002 Create Manual GRN without Permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have 'Create GRN' permission" },
@@ -547,11 +547,11 @@ requestorTest.describe("GRN — Manual creation — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN006 — Edit GRN Header
+// TC-GRN-900006 — Edit GRN Header
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Edit Header", () => {
   purchaseTest(
-    "TC-GRN00601 Edit GRN Header - Happy Path",
+    "TC-GRN-060001 Edit GRN Header - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; GRN not yet committed" },
@@ -582,7 +582,7 @@ purchaseTest.describe("GRN — Edit Header", () => {
   );
 
   purchaseTest(
-    "TC-GRN00602 Edit GRN Header - Invalid Currency",
+    "TC-GRN-060002 Edit GRN Header - Invalid Currency",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; GRN not yet committed; incorrect currency selected" },
@@ -607,7 +607,7 @@ purchaseTest.describe("GRN — Edit Header", () => {
   );
 
   purchaseTest(
-    "TC-GRN00604 Edit GRN Header - Empty Fields",
+    "TC-GRN-060004 Edit GRN Header - Empty Fields",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; GRN not yet committed" },
@@ -636,7 +636,7 @@ purchaseTest.describe("GRN — Edit Header", () => {
   );
 
   purchaseTest(
-    "TC-GRN00605 Edit GRN Header - Future Date",
+    "TC-GRN-060005 Edit GRN Header - Future Date",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; GRN not yet committed" },
@@ -666,7 +666,7 @@ purchaseTest.describe("GRN — Edit Header", () => {
 
 requestorTest.describe("GRN — Edit Header — Permission denial", () => {
   requestorTest(
-    "TC-GRN00603 Edit GRN Header - No Permission",
+    "TC-GRN-060003 Edit GRN Header - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; user does not have edit permission; GRN not yet committed" },
@@ -698,11 +698,11 @@ requestorTest.describe("GRN — Edit Header — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN007 — Add Line Item
+// TC-GRN-900007 — Add Line Item
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Add Line Item", () => {
   purchaseTest(
-    "TC-GRN00701 Happy Path - Add Line Item",
+    "TC-GRN-070001 Happy Path - Add Line Item",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; product catalog accessible" },
@@ -732,7 +732,7 @@ purchaseTest.describe("GRN — Add Line Item", () => {
   );
 
   purchaseTest(
-    "TC-GRN00702 Invalid Input - Empty Product Name",
+    "TC-GRN-070002 Invalid Input - Empty Product Name",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; product catalog accessible" },
@@ -761,7 +761,7 @@ purchaseTest.describe("GRN — Add Line Item", () => {
   );
 
   purchaseTest(
-    "TC-GRN00704 Edge Case - Add Item with Maximum Quantity",
+    "TC-GRN-070004 Edge Case - Add Item with Maximum Quantity",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; product catalog accessible; maximum quantity set for product" },
@@ -792,7 +792,7 @@ purchaseTest.describe("GRN — Add Line Item", () => {
 
 requestorTest.describe("GRN — Add Line Item — Permission denial", () => {
   requestorTest(
-    "TC-GRN00703 No Permission - User Tries to Add Item",
+    "TC-GRN-070003 No Permission - User Tries to Add Item",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; user does not have edit permission; product catalog accessible" },
@@ -824,11 +824,11 @@ requestorTest.describe("GRN — Add Line Item — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN008 — Edit Line Item
+// TC-GRN-900008 — Edit Line Item
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Edit Line Item", () => {
   purchaseTest(
-    "TC-GRN00801 Edit Existing Line Item - Happy Path",
+    "TC-GRN-080001 Edit Existing Line Item - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; line items exist; user has edit permission" },
@@ -854,7 +854,7 @@ purchaseTest.describe("GRN — Edit Line Item", () => {
   );
 
   purchaseTest(
-    "TC-GRN00802 Edit Line Item - Invalid Price Input",
+    "TC-GRN-080002 Edit Line Item - Invalid Price Input",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; line items exist; user has edit permission" },
@@ -878,7 +878,7 @@ purchaseTest.describe("GRN — Edit Line Item", () => {
   );
 
   purchaseTest(
-    "TC-GRN00804 Edit Line Item - No Line Items Exist",
+    "TC-GRN-080004 Edit Line Item - No Line Items Exist",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; line items do not exist; user has edit permission" },
@@ -899,7 +899,7 @@ purchaseTest.describe("GRN — Edit Line Item", () => {
   );
 
   purchaseTest(
-    "TC-GRN00805 Edit Line Item - GRN in RECEIVED Status",
+    "TC-GRN-080005 Edit Line Item - GRN in RECEIVED Status",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in RECEIVED status; line items exist; user has edit permission" },
@@ -932,7 +932,7 @@ purchaseTest.describe("GRN — Edit Line Item", () => {
 
 requestorTest.describe("GRN — Edit Line Item — Permission denial", () => {
   requestorTest(
-    "TC-GRN00803 Edit Line Item - No Permission",
+    "TC-GRN-080003 Edit Line Item - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; line items exist; user does not have edit permission" },
@@ -954,11 +954,11 @@ requestorTest.describe("GRN — Edit Line Item — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN009 — Delete Line Item
+// TC-GRN-900009 — Delete Line Item
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Delete Line Item", () => {
   purchaseTest(
-    "TC-GRN00901 Delete a valid line item from a draft GRN",
+    "TC-GRN-090001 Delete a valid line item from a draft GRN",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; line items exist; user has edit permission" },
@@ -982,7 +982,7 @@ purchaseTest.describe("GRN — Delete Line Item", () => {
   );
 
   purchaseTest(
-    "TC-GRN00903 Try to delete a line item from a received GRN",
+    "TC-GRN-090003 Try to delete a line item from a received GRN",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in RECEIVED status; line items exist; user has edit permission" },
@@ -1006,7 +1006,7 @@ purchaseTest.describe("GRN — Delete Line Item", () => {
   );
 
   purchaseTest(
-    "TC-GRN00905 Delete multiple line items at once from a draft GRN",
+    "TC-GRN-090005 Delete multiple line items at once from a draft GRN",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; multiple line items exist; user has edit permission" },
@@ -1032,7 +1032,7 @@ purchaseTest.describe("GRN — Delete Line Item", () => {
 
 requestorTest.describe("GRN — Delete Line Item — Permission denial", () => {
   requestorTest(
-    "TC-GRN00902 Attempt to delete a line item without edit permission",
+    "TC-GRN-090002 Attempt to delete a line item without edit permission",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; line items exist; user does not have edit permission" },
@@ -1054,11 +1054,11 @@ requestorTest.describe("GRN — Delete Line Item — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN010 — Extra Costs
+// TC-GRN-900010 — Extra Costs
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Extra Costs", () => {
   purchaseTest(
-    "TC-GRN01001 Happy Path - Add Extra Costs",
+    "TC-GRN-100001 Happy Path - Add Extra Costs",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists (not VOID); at least one line item exists; user has permission to add costs" },
@@ -1088,7 +1088,7 @@ purchaseTest.describe("GRN — Extra Costs", () => {
   );
 
   purchaseTest(
-    "TC-GRN01003 Edge Case - Invalid Cost Amount",
+    "TC-GRN-100003 Edge Case - Invalid Cost Amount",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists (not VOID); at least one line item exists; user has permission to add costs" },
@@ -1114,7 +1114,7 @@ purchaseTest.describe("GRN — Extra Costs", () => {
 
 requestorTest.describe("GRN — Extra Costs — Permission denial", () => {
   requestorTest(
-    "TC-GRN01002 Negative - No Permission to Add Costs",
+    "TC-GRN-100002 Negative - No Permission to Add Costs",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists (not VOID); at least one line item exists; user does not have permission to add costs" },
@@ -1145,11 +1145,11 @@ requestorTest.describe("GRN — Extra Costs — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN011 — Commit GRN
+// TC-GRN-900011 — Commit GRN
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Commit", () => {
   purchaseTest(
-    "TC-GRN01101 Happy Path - Commit GRN",
+    "TC-GRN-110001 Happy Path - Commit GRN",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in RECEIVED status; user has 'Commit GRN' permission; all line items have storage locations; all required fields are complete" },
@@ -1177,7 +1177,7 @@ purchaseTest.describe("GRN — Commit", () => {
   );
 
   purchaseTest(
-    "TC-GRN01103 Negative - Missing Storage Location",
+    "TC-GRN-110003 Negative - Missing Storage Location",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in RECEIVED status; user has 'Commit GRN' permission; one line item is missing storage location; all required fields are complete" },
@@ -1203,7 +1203,7 @@ purchaseTest.describe("GRN — Commit", () => {
   );
 
   purchaseTest(
-    "TC-GRN01104 Edge Case - Partially Received GRN",
+    "TC-GRN-110004 Edge Case - Partially Received GRN",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists with some line items received and others not; user has 'Commit GRN' permission; all required fields are complete" },
@@ -1226,7 +1226,7 @@ purchaseTest.describe("GRN — Commit", () => {
 
 requestorTest.describe("GRN — Commit — Permission denial", () => {
   requestorTest(
-    "TC-GRN01102 Negative - No Permission to Commit GRN",
+    "TC-GRN-110002 Negative - No Permission to Commit GRN",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in RECEIVED status; user does not have 'Commit GRN' permission" },
@@ -1258,11 +1258,11 @@ requestorTest.describe("GRN — Commit — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN012 — Void GRN
+// TC-GRN-900012 — Void GRN
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Void", () => {
   purchaseTest(
-    "TC-GRN01201 Void GRN - Happy Path",
+    "TC-GRN-120001 Void GRN - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "A GRN exists in RECEIVED status and the user has 'Void GRN' permission" },
@@ -1287,7 +1287,7 @@ purchaseTest.describe("GRN — Void", () => {
   );
 
   purchaseTest(
-    "TC-GRN01203 Void GRN - Committed GRN",
+    "TC-GRN-120003 Void GRN - Committed GRN",
     {
       annotation: [
         { type: "preconditions", description: "A GRN exists in COMMITTED status and the user has 'Void GRN' permission" },
@@ -1312,7 +1312,7 @@ purchaseTest.describe("GRN — Void", () => {
   );
 
   purchaseTest(
-    "TC-GRN01204 Void GRN - PO Status Reverted",
+    "TC-GRN-120004 Void GRN - PO Status Reverted",
     {
       annotation: [
         { type: "preconditions", description: "A GRN exists in COMMITTED status and the PO status is pending; user has 'Void GRN' permission" },
@@ -1335,7 +1335,7 @@ purchaseTest.describe("GRN — Void", () => {
 
 requestorTest.describe("GRN — Void — Permission denial", () => {
   requestorTest(
-    "TC-GRN01202 Void GRN - No Permission",
+    "TC-GRN-120002 Void GRN - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "A GRN exists in COMMITTED status and the user does not have 'Void GRN' permission" },
@@ -1367,11 +1367,11 @@ requestorTest.describe("GRN — Void — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN013 — Financial Summary
+// TC-GRN-900013 — Financial Summary
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Financial Summary", () => {
   purchaseTest(
-    "TC-GRN01301 View Financial Summary - Happy Path",
+    "TC-GRN-130001 View Financial Summary - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists and financial calculations are complete" },
@@ -1397,7 +1397,7 @@ purchaseTest.describe("GRN — Financial Summary", () => {
   );
 
   purchaseTest(
-    "TC-GRN01303 View Financial Summary - Invalid GRN",
+    "TC-GRN-130003 View Financial Summary - Invalid GRN",
     {
       annotation: [
         { type: "preconditions", description: "Invalid or non-existent GRN" },
@@ -1418,7 +1418,7 @@ purchaseTest.describe("GRN — Financial Summary", () => {
   );
 
   purchaseTest(
-    "TC-GRN01304 View Financial Summary - Outdated Calculations",
+    "TC-GRN-130004 View Financial Summary - Outdated Calculations",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists but financial calculations are not yet complete" },
@@ -1441,7 +1441,7 @@ purchaseTest.describe("GRN — Financial Summary", () => {
 
 requestorTest.describe("GRN — Financial Summary — Permission denial", () => {
   requestorTest(
-    "TC-GRN01302 View Financial Summary - No Permission",
+    "TC-GRN-130002 View Financial Summary - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists and financial calculations are complete; user does not have view permission" },
@@ -1471,11 +1471,11 @@ requestorTest.describe("GRN — Financial Summary — Permission denial", () => 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN014 — Stock Movements
+// TC-GRN-900014 — Stock Movements
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Stock Movements", () => {
   purchaseTest(
-    "TC-GRN01401 View stock movements for committed GRN",
+    "TC-GRN-140001 View stock movements for committed GRN",
     {
       annotation: [
         { type: "preconditions", description: "A GRN exists in COMMITTED status with stock movements created during commit" },
@@ -1501,7 +1501,7 @@ purchaseTest.describe("GRN — Stock Movements", () => {
   );
 
   purchaseTest(
-    "TC-GRN01403 No stock movements when GRN is not committed",
+    "TC-GRN-140003 No stock movements when GRN is not committed",
     {
       annotation: [
         { type: "preconditions", description: "A GRN exists but is not in COMMITTED status" },
@@ -1527,7 +1527,7 @@ purchaseTest.describe("GRN — Stock Movements", () => {
 
 requestorTest.describe("GRN — Stock Movements — Permission denial", () => {
   requestorTest(
-    "TC-GRN01402 User without permission cannot access stock movements",
+    "TC-GRN-140002 User without permission cannot access stock movements",
     {
       annotation: [
         { type: "preconditions", description: "User does not have permission to view stock movements" },
@@ -1549,11 +1549,11 @@ requestorTest.describe("GRN — Stock Movements — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN015 — Comments
+// TC-GRN-900015 — Comments
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Comments", () => {
   purchaseTest(
-    "TC-GRN01501 Add valid comment",
+    "TC-GRN-150001 Add valid comment",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists and user has view permission" },
@@ -1582,7 +1582,7 @@ purchaseTest.describe("GRN — Comments", () => {
   );
 
   purchaseTest(
-    "TC-GRN01503 Add comment with empty text",
+    "TC-GRN-150003 Add comment with empty text",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists and user has view permission" },
@@ -1610,7 +1610,7 @@ purchaseTest.describe("GRN — Comments", () => {
   );
 
   purchaseTest(
-    "TC-GRN01504 Add comment with very long text",
+    "TC-GRN-150004 Add comment with very long text",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists and user has view permission" },
@@ -1639,7 +1639,7 @@ purchaseTest.describe("GRN — Comments", () => {
   );
 
   purchaseTest(
-    "TC-GRN01505 Add multiple comments",
+    "TC-GRN-150005 Add multiple comments",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists and user has view permission" },
@@ -1665,7 +1665,7 @@ purchaseTest.describe("GRN — Comments", () => {
 
 requestorTest.describe("GRN — Comments — Permission denial", () => {
   requestorTest(
-    "TC-GRN01502 Attempt to add comment without permission",
+    "TC-GRN-150002 Attempt to add comment without permission",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists and user has no view permission" },
@@ -1687,11 +1687,11 @@ requestorTest.describe("GRN — Comments — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN016 — Attachments
+// TC-GRN-900016 — Attachments
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Attachments", () => {
   purchaseTest(
-    "TC-GRN01601 Happy Path - Upload Valid Attachments",
+    "TC-GRN-160001 Happy Path - Upload Valid Attachments",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists; user has edit permission; valid documents exist" },
@@ -1722,7 +1722,7 @@ purchaseTest.describe("GRN — Attachments", () => {
   );
 
   purchaseTest(
-    "TC-GRN01603 Negative - Upload Invalid File Type",
+    "TC-GRN-160003 Negative - Upload Invalid File Type",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists; user has edit permission; invalid document type exists (e.g., .exe)" },
@@ -1742,7 +1742,7 @@ purchaseTest.describe("GRN — Attachments", () => {
   );
 
   purchaseTest(
-    "TC-GRN01604 Edge Case - Upload Maximum Allowed Files",
+    "TC-GRN-160004 Edge Case - Upload Maximum Allowed Files",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists; user has edit permission; maximum allowed number of files exist" },
@@ -1762,7 +1762,7 @@ purchaseTest.describe("GRN — Attachments", () => {
   );
 
   purchaseTest(
-    "TC-GRN01605 Negative - No Files to Upload",
+    "TC-GRN-160005 Negative - No Files to Upload",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists; user has edit permission; no files exist" },
@@ -1784,7 +1784,7 @@ purchaseTest.describe("GRN — Attachments", () => {
 
 requestorTest.describe("GRN — Attachments — Permission denial", () => {
   requestorTest(
-    "TC-GRN01602 Negative - Upload Without Edit Permission",
+    "TC-GRN-160002 Negative - Upload Without Edit Permission",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists; user does not have edit permission; valid documents exist" },
@@ -1816,11 +1816,11 @@ requestorTest.describe("GRN — Attachments — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN017 — Activity Log
+// TC-GRN-900017 — Activity Log
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Activity Log", () => {
   purchaseTest(
-    "TC-GRN01701 View Activity Log with Valid GRN",
+    "TC-GRN-170001 View Activity Log with Valid GRN",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in any status and user has view permission (audit access)" },
@@ -1846,7 +1846,7 @@ purchaseTest.describe("GRN — Activity Log", () => {
   );
 
   purchaseTest(
-    "TC-GRN01703 View Activity Log for Non-Existent GRN",
+    "TC-GRN-170003 View Activity Log for Non-Existent GRN",
     {
       annotation: [
         { type: "preconditions", description: "GRN does not exist" },
@@ -1867,7 +1867,7 @@ purchaseTest.describe("GRN — Activity Log", () => {
   );
 
   purchaseTest(
-    "TC-GRN01704 View Activity Log with No Activity",
+    "TC-GRN-170004 View Activity Log with No Activity",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists but has no activity logs" },
@@ -1890,7 +1890,7 @@ purchaseTest.describe("GRN — Activity Log", () => {
 
 requestorTest.describe("GRN — Activity Log — Permission denial", () => {
   requestorTest(
-    "TC-GRN01702 View Activity Log without Permission",
+    "TC-GRN-170002 View Activity Log without Permission",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in any status but user does not have view permission (audit access)" },
@@ -1920,11 +1920,11 @@ requestorTest.describe("GRN — Activity Log — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-GRN018 — Bulk Approval
+// TC-GRN-900018 — Bulk Approval
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("GRN — Bulk Approval", () => {
   purchaseTest(
-    "TC-GRN01801 Performing a bulk approval action",
+    "TC-GRN-180001 Performing a bulk approval action",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; multiple line items exist; user has edit permission" },
@@ -1945,7 +1945,7 @@ purchaseTest.describe("GRN — Bulk Approval", () => {
   );
 
   purchaseTest(
-    "TC-GRN01803 User attempts to perform bulk action on a GRN in RECEIVED status",
+    "TC-GRN-180003 User attempts to perform bulk action on a GRN in RECEIVED status",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in RECEIVED status; multiple line items exist; user has edit permission" },
@@ -1966,7 +1966,7 @@ purchaseTest.describe("GRN — Bulk Approval", () => {
   );
 
   purchaseTest(
-    "TC-GRN01804 Perform bulk action with no line items selected",
+    "TC-GRN-180004 Perform bulk action with no line items selected",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; multiple line items exist; user has edit permission" },
@@ -1989,7 +1989,7 @@ purchaseTest.describe("GRN — Bulk Approval", () => {
 
 requestorTest.describe("GRN — Bulk Approval — Permission denial", () => {
   requestorTest(
-    "TC-GRN01802 User attempts to perform bulk action without edit permission",
+    "TC-GRN-180002 User attempts to perform bulk action without edit permission",
     {
       annotation: [
         { type: "preconditions", description: "GRN exists in DRAFT status; multiple line items exist; user does not have edit permission" },

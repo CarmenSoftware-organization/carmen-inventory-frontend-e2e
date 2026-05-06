@@ -7,40 +7,40 @@ import { TEST_USERS, TEST_PASSWORD } from "./test-users";
  * Login & Logout E2E suite
  *
  * TC ranges
- *   TC-L00101..TC-L00106  Login success per role (Requestor/HOD/Purchase/FC/GM/Owner), then logout
- *   TC-L00107          TT (user without department) → dialog "No department assigned"
- *   TC-L00108..TC-L00113  Logout success per role
- *   TC-L00114..TC-L00122  Validation / error handling
- *   TC-L00123..TC-L00126  Edge cases (case-sensitivity, trim, mask, Enter key)
- *   TC-L00127..TC-L00128  Auth-guard redirects
- *   TC-L00127..TC-L00130  Security (SQL injection / XSS / wrong username 401 / rate limit 429)
- *   TC-L00131..TC-L00132  Login success — StoreManager / Budget
- *   TC-L00133..TC-L00134  Logout success — StoreManager / Budget
+ *   TC-LOGIN-010001..TC-LOGIN-010006  Login success per role (Requestor/HOD/Purchase/FC/GM/Owner), then logout
+ *   TC-LOGIN-010007          TT (user without department) → dialog "No department assigned"
+ *   TC-LOGIN-010008..TC-LOGIN-010013  Logout success per role
+ *   TC-LOGIN-010014..TC-LOGIN-010022  Validation / error handling
+ *   TC-LOGIN-010023..TC-LOGIN-010026  Edge cases (case-sensitivity, trim, mask, Enter key)
+ *   TC-LOGIN-010027..TC-LOGIN-010028  Auth-guard redirects
+ *   TC-LOGIN-010027..TC-LOGIN-010030  Security (SQL injection / XSS / wrong username 401 / rate limit 429)
+ *   TC-LOGIN-010031..TC-LOGIN-010032  Login success — StoreManager / Budget
+ *   TC-LOGIN-010033..TC-LOGIN-010034  Logout success — StoreManager / Budget
  */
 
 const LOGIN_TC: Record<string, string> = {
-  Requestor: "TC-L00101",
-  HOD: "TC-L00102",
-  Purchase: "TC-L00103",
-  FC: "TC-L00104",
-  GM: "TC-L00105",
-  Owner: "TC-L00106",
-  StoreManager: "TC-L00131",
-  Budget: "TC-L00132",
-  // TT intentionally omitted — handled by dedicated TC-L00107 below
+  Requestor: "TC-LOGIN-010001",
+  HOD: "TC-LOGIN-010002",
+  Purchase: "TC-LOGIN-010003",
+  FC: "TC-LOGIN-010004",
+  GM: "TC-LOGIN-010005",
+  Owner: "TC-LOGIN-010006",
+  StoreManager: "TC-LOGIN-010031",
+  Budget: "TC-LOGIN-010032",
+  // TT intentionally omitted — handled by dedicated TC-LOGIN-010007 below
   // (user has no department → login should surface a "No department assigned"
   // dialog instead of redirecting to /dashboard).
 };
 
 const LOGOUT_TC: Record<string, string> = {
-  Requestor: "TC-L00108",
-  HOD: "TC-L00109",
-  Purchase: "TC-L00110",
-  FC: "TC-L00111",
-  GM: "TC-L00112",
-  Owner: "TC-L00113",
-  StoreManager: "TC-L00133",
-  Budget: "TC-L00134",
+  Requestor: "TC-LOGIN-010008",
+  HOD: "TC-LOGIN-010009",
+  Purchase: "TC-LOGIN-010010",
+  FC: "TC-LOGIN-010011",
+  GM: "TC-LOGIN-010012",
+  Owner: "TC-LOGIN-010013",
+  StoreManager: "TC-LOGIN-010033",
+  Budget: "TC-LOGIN-010034",
 };
 
 test.describe("เข้าสู่ระบบ", () => {
@@ -80,7 +80,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── TT: user without department → dialog ─────────────────────────────────
   test(
-    "TC-L00107 TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department",
+    "TC-LOGIN-010007 TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department",
     {
       annotation: [
         { type: "preconditions", description: "User tt@blueledgers.com มีอยู่จริงและ active แต่ยังไม่ถูกกำหนด department ในระบบ; browser logged out" },
@@ -104,7 +104,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── Validation / error handling ───────────────────────────────────────────
   test(
-    "TC-L00114 แสดง error เมื่อไม่กรอกรหัสผ่าน",
+    "TC-LOGIN-010014 แสดง error เมื่อไม่กรอกรหัสผ่าน",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -124,7 +124,7 @@ test.describe("เข้าสู่ระบบ", () => {
   );
 
   test(
-    "TC-L00115 แสดง error เมื่อไม่กรอกอีเมล",
+    "TC-LOGIN-010015 แสดง error เมื่อไม่กรอกอีเมล",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -144,7 +144,7 @@ test.describe("เข้าสู่ระบบ", () => {
   );
 
   test(
-    "TC-L00116 แสดง error เมื่อไม่กรอกข้อมูลทั้งสองช่อง",
+    "TC-LOGIN-010016 แสดง error เมื่อไม่กรอกข้อมูลทั้งสองช่อง",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -163,7 +163,7 @@ test.describe("เข้าสู่ระบบ", () => {
   );
 
   test(
-    "TC-L00117 แสดง error เมื่อรูปแบบอีเมลไม่ถูกต้อง",
+    "TC-LOGIN-010017 แสดง error เมื่อรูปแบบอีเมลไม่ถูกต้อง",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -182,7 +182,7 @@ test.describe("เข้าสู่ระบบ", () => {
   );
 
   test(
-    "TC-L00118 แสดง error เมื่อ credentials ไม่ถูกต้อง",
+    "TC-LOGIN-010018 แสดง error เมื่อ credentials ไม่ถูกต้อง",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login; ไม่มี user 'invalid@test.com' ในระบบ" },
@@ -204,7 +204,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L00119 แสดง error เมื่ออีเมลถูกแต่รหัสผ่านผิด",
+    "TC-LOGIN-010019 แสดง error เมื่ออีเมลถูกแต่รหัสผ่านผิด",
     {
       annotation: [
         { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; logged out" },
@@ -227,7 +227,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── Edge cases ────────────────────────────────────────────────────────────
   test(
-    "TC-L00120 อีเมลไม่สนใจตัวพิมพ์ใหญ่-เล็ก",
+    "TC-LOGIN-010020 อีเมลไม่สนใจตัวพิมพ์ใหญ่-เล็ก",
     {
       annotation: [
         { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; logged out" },
@@ -245,7 +245,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L00121 รหัสผ่านแยกตัวพิมพ์ใหญ่-เล็ก (พิมพ์ผิดเคสต้อง fail)",
+    "TC-LOGIN-010021 รหัสผ่านแยกตัวพิมพ์ใหญ่-เล็ก (พิมพ์ผิดเคสต้อง fail)",
     {
       annotation: [
         { type: "preconditions", description: "User tt@blueledgers.com มีอยู่จริง รหัสผ่านที่ถูกต้องคือ 'Qaz123!@#'; logged out" },
@@ -264,7 +264,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L00122 รองรับช่องว่างหน้า/หลังอีเมล",
+    "TC-LOGIN-010022 รองรับช่องว่างหน้า/หลังอีเมล",
     {
       annotation: [
         { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; logged out" },
@@ -282,7 +282,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L00123 ช่องรหัสผ่านถูก mask",
+    "TC-LOGIN-010023 ช่องรหัสผ่านถูก mask",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -299,7 +299,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L00124 กด Enter เพื่อ submit form ได้",
+    "TC-LOGIN-010024 กด Enter เพื่อ submit form ได้",
     {
       annotation: [
         { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; logged out" },
@@ -333,7 +333,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── Auth-guard redirects ──────────────────────────────────────────────────
   test(
-    "TC-L00125 เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login",
+    "TC-LOGIN-010025 เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login",
     {
       annotation: [
         { type: "preconditions", description: "Browser ไม่มี session/cookies (logged out)" },
@@ -350,7 +350,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test.skip(
-    "TC-L00126 user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard",
+    "TC-LOGIN-010026 user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard",
     {
       annotation: [
         { type: "preconditions", description: "User requestor@blueledgers.com login สำเร็จและมี active session อยู่แล้วที่ /dashboard" },
@@ -373,7 +373,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── Security ──────────────────────────────────────────────────────────────
   test(
-    "TC-L00127 อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย",
+    "TC-LOGIN-010027 อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -391,7 +391,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L00128 อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย",
+    "TC-LOGIN-010028 อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login" },
@@ -412,7 +412,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L00129 login username ผิดต้องได้รับ HTTP 401",
+    "TC-LOGIN-010029 login username ผิดต้องได้รับ HTTP 401",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login; ไม่มี user 'wrong-user@nonexistent.com' ในระบบ" },
@@ -439,7 +439,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-L00130 login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429",
+    "TC-LOGIN-010030 login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429",
     {
       annotation: [
         { type: "preconditions", description: "Logged out; on /login; backend rate-limiter active (429 หลัง 3 ครั้งที่ผิดด้วย email เดียวกัน)" },

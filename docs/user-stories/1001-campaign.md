@@ -11,53 +11,53 @@ _Generated from `tests/1001-campaign.spec.ts` annotations. Edit annotations, not
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-CAM00101 | View Campaign List - Happy Path | Critical | Happy Path |
-| TC-CAM00102 | View Campaign List - Invalid Permissions | High | Negative |
-| TC-CAM00103 | View Campaign List - Empty Campaign List | High | Edge Case |
-| TC-CAM00104 | View Campaign List - Filter by Status | Medium | Happy Path |
-| TC-CAM00201 | Happy Path - Create Campaign with All Valid Inputs | Critical | Happy Path |
-| TC-CAM00202 | Negative Path - Missing Required Fields | High | Negative |
-| TC-CAM00203 | Negative Path - No Vendor Selected | High | Negative |
-| TC-CAM00204 | Edge Case - Maximum Campaigns Per Week | Medium | Edge Case |
-| TC-CAM00301 | View active campaign detail | Critical | Happy Path |
-| TC-CAM00302 | User with no permission to view campaign detail | Critical | Negative |
-| TC-CAM00303 | Campaign detail with draft status | Critical | Happy Path |
-| TC-CAM00304 | View campaign detail with empty performance summary | High | Edge Case |
-| TC-CAM00305 | Campaign detail with future start date | Medium | Edge Case |
-| TC-CAM00401 | Edit Existing Campaign with Valid Data | High | Happy Path |
-| TC-CAM00402 | Edit Campaign with Invalid Priority Value | High | Negative |
-| TC-CAM00403 | Edit Campaign with No Permission | High | Negative |
-| TC-CAM00404 | Edit Campaign with No Data Changes | Medium | Edge Case |
-| TC-CAM00501 | Duplicate Campaign - Happy Path | Medium | Happy Path |
-| TC-CAM00502 | Duplicate Campaign - No Permission | Medium | Negative |
-| TC-CAM00503 | Duplicate Campaign - Empty Campaign List | Medium | Edge Case |
-| TC-CAM00504 | Duplicate Campaign - Campaign with Attached Files | Medium | Happy Path |
-| TC-CAM00601 | Send Reminder - Happy Path | High | Happy Path |
-| TC-CAM00602 | Send Reminder - No Permission | High | Negative |
-| TC-CAM00603 | Send Reminder - Invalid Vendor Status | High | Negative |
-| TC-CAM00604 | Send Reminder - Reminder Already Sent | High | Edge Case |
-| TC-CAM00605 | Send Reminder - Empty Reminder Message | High | Negative |
-| TC-CAM00701 | Mark campaign as expired - Happy Path | Medium | Happy Path |
-| TC-CAM00702 | Mark campaign as expired - No Permission | Medium | Negative |
-| TC-CAM00703 | Mark campaign as expired - Campaign already expired | Medium | Negative |
-| TC-CAM00704 | Mark campaign as expired - Empty campaign list | Low | Edge Case |
-| TC-CAM00801 | Happy Path - Delete Campaign | Medium | Happy Path |
-| TC-CAM00802 | Negative - No Campaign Selected | High | Negative |
-| TC-CAM00803 | Edge Case - Multiple Campaigns Selected | Medium | Edge Case |
-| TC-CAM00804 | Negative - No Permission | Medium | Negative |
-| TC-CAM00901 | Export campaign data - happy path | High | Happy Path |
-| TC-CAM00902 | Export campaign data - no permission | Medium | Negative |
-| TC-CAM00903 | Export campaign data - large dataset | Medium | Edge Case |
-| TC-CAM00904 | Export campaign data - multiple exports | Medium | Edge Case |
-| TC-CAM01001 | Filter by Status - Active | High | Happy Path |
-| TC-CAM01002 | Search by Text - Valid Term | High | Happy Path |
-| TC-CAM01003 | Filter by Status - No Campaigns | High | Negative |
-| TC-CAM01004 | Search by Text - No Matching Terms | High | Negative |
-| TC-CAM01005 | Filter by Status - All Statuses | High | Happy Path |
+| TC-CAM-010001 | View Campaign List - Happy Path | Critical | Happy Path |
+| TC-CAM-010002 | View Campaign List - Invalid Permissions | High | Negative |
+| TC-CAM-010003 | View Campaign List - Empty Campaign List | High | Edge Case |
+| TC-CAM-010004 | View Campaign List - Filter by Status | Medium | Happy Path |
+| TC-CAM-020001 | Happy Path - Create Campaign with All Valid Inputs | Critical | Happy Path |
+| TC-CAM-020002 | Negative Path - Missing Required Fields | High | Negative |
+| TC-CAM-020003 | Negative Path - No Vendor Selected | High | Negative |
+| TC-CAM-020004 | Edge Case - Maximum Campaigns Per Week | Medium | Edge Case |
+| TC-CAM-030001 | View active campaign detail | Critical | Happy Path |
+| TC-CAM-030002 | User with no permission to view campaign detail | Critical | Negative |
+| TC-CAM-030003 | Campaign detail with draft status | Critical | Happy Path |
+| TC-CAM-030004 | View campaign detail with empty performance summary | High | Edge Case |
+| TC-CAM-030005 | Campaign detail with future start date | Medium | Edge Case |
+| TC-CAM-040001 | Edit Existing Campaign with Valid Data | High | Happy Path |
+| TC-CAM-040002 | Edit Campaign with Invalid Priority Value | High | Negative |
+| TC-CAM-040003 | Edit Campaign with No Permission | High | Negative |
+| TC-CAM-040004 | Edit Campaign with No Data Changes | Medium | Edge Case |
+| TC-CAM-050001 | Duplicate Campaign - Happy Path | Medium | Happy Path |
+| TC-CAM-050002 | Duplicate Campaign - No Permission | Medium | Negative |
+| TC-CAM-050003 | Duplicate Campaign - Empty Campaign List | Medium | Edge Case |
+| TC-CAM-050004 | Duplicate Campaign - Campaign with Attached Files | Medium | Happy Path |
+| TC-CAM-060001 | Send Reminder - Happy Path | High | Happy Path |
+| TC-CAM-060002 | Send Reminder - No Permission | High | Negative |
+| TC-CAM-060003 | Send Reminder - Invalid Vendor Status | High | Negative |
+| TC-CAM-060004 | Send Reminder - Reminder Already Sent | High | Edge Case |
+| TC-CAM-060005 | Send Reminder - Empty Reminder Message | High | Negative |
+| TC-CAM-070001 | Mark campaign as expired - Happy Path | Medium | Happy Path |
+| TC-CAM-070002 | Mark campaign as expired - No Permission | Medium | Negative |
+| TC-CAM-070003 | Mark campaign as expired - Campaign already expired | Medium | Negative |
+| TC-CAM-070004 | Mark campaign as expired - Empty campaign list | Low | Edge Case |
+| TC-CAM-080001 | Happy Path - Delete Campaign | Medium | Happy Path |
+| TC-CAM-080002 | Negative - No Campaign Selected | High | Negative |
+| TC-CAM-080003 | Edge Case - Multiple Campaigns Selected | Medium | Edge Case |
+| TC-CAM-080004 | Negative - No Permission | Medium | Negative |
+| TC-CAM-090001 | Export campaign data - happy path | High | Happy Path |
+| TC-CAM-090002 | Export campaign data - no permission | Medium | Negative |
+| TC-CAM-090003 | Export campaign data - large dataset | Medium | Edge Case |
+| TC-CAM-090004 | Export campaign data - multiple exports | Medium | Edge Case |
+| TC-CAM-100001 | Filter by Status - Active | High | Happy Path |
+| TC-CAM-100002 | Search by Text - Valid Term | High | Happy Path |
+| TC-CAM-100003 | Filter by Status - No Campaigns | High | Negative |
+| TC-CAM-100004 | Search by Text - No Matching Terms | High | Negative |
+| TC-CAM-100005 | Filter by Status - All Statuses | High | Happy Path |
 
 ---
 
-## TC-CAM00101 — View Campaign List - Happy Path
+## TC-CAM-010001 — View Campaign List - Happy Path
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -82,7 +82,7 @@ Campaign details page is correctly displayed with all relevant information.
 
 ---
 
-## TC-CAM00102 — View Campaign List - Invalid Permissions
+## TC-CAM-010002 — View Campaign List - Invalid Permissions
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -104,7 +104,7 @@ User is shown an error message or redirected to home page.
 
 ---
 
-## TC-CAM00103 — View Campaign List - Empty Campaign List
+## TC-CAM-010003 — View Campaign List - Empty Campaign List
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -126,7 +126,7 @@ User sees a message indicating no campaigns are currently available.
 
 ---
 
-## TC-CAM00104 — View Campaign List - Filter by Status
+## TC-CAM-010004 — View Campaign List - Filter by Status
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -150,7 +150,7 @@ Only campaigns with active status are displayed.
 
 ---
 
-## TC-CAM00201 — Happy Path - Create Campaign with All Valid Inputs
+## TC-CAM-020001 — Happy Path - Create Campaign with All Valid Inputs
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -184,7 +184,7 @@ Campaign is created with status 'active' and vendors are invited. User navigated
 
 ---
 
-## TC-CAM00202 — Negative Path - Missing Required Fields
+## TC-CAM-020002 — Negative Path - Missing Required Fields
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -208,7 +208,7 @@ System displays error message for missing 'Campaign description' and 'Scheduled 
 
 ---
 
-## TC-CAM00203 — Negative Path - No Vendor Selected
+## TC-CAM-020003 — Negative Path - No Vendor Selected
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -239,7 +239,7 @@ System displays error message for missing vendor selection. User remains on step
 
 ---
 
-## TC-CAM00204 — Edge Case - Maximum Campaigns Per Week
+## TC-CAM-020004 — Edge Case - Maximum Campaigns Per Week
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -261,7 +261,7 @@ System displays message indicating user has reached the maximum number of campai
 
 ---
 
-## TC-CAM00301 — View active campaign detail
+## TC-CAM-030001 — View active campaign detail
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -284,7 +284,7 @@ Campaign detail page is displayed with correct campaign data.
 
 ---
 
-## TC-CAM00302 — User with no permission to view campaign detail
+## TC-CAM-030002 — User with no permission to view campaign detail
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -307,7 +307,7 @@ User is redirected to permission denied page or error message is displayed.
 
 ---
 
-## TC-CAM00303 — Campaign detail with draft status
+## TC-CAM-030003 — Campaign detail with draft status
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -330,7 +330,7 @@ Campaign detail page is displayed with edit button visible, duplicate button is 
 
 ---
 
-## TC-CAM00304 — View campaign detail with empty performance summary
+## TC-CAM-030004 — View campaign detail with empty performance summary
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -353,7 +353,7 @@ Performance summary cards display zero values or placeholders for data.
 
 ---
 
-## TC-CAM00305 — Campaign detail with future start date
+## TC-CAM-030005 — Campaign detail with future start date
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -376,7 +376,7 @@ Campaign detail page is displayed with the campaign data, including the future s
 
 ---
 
-## TC-CAM00401 — Edit Existing Campaign with Valid Data
+## TC-CAM-040001 — Edit Existing Campaign with Valid Data
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -402,7 +402,7 @@ The campaign is updated successfully and the system navigates to the updated cam
 
 ---
 
-## TC-CAM00402 — Edit Campaign with Invalid Priority Value
+## TC-CAM-040002 — Edit Campaign with Invalid Priority Value
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -429,7 +429,7 @@ The system displays an error message indicating that the priority field is inval
 
 ---
 
-## TC-CAM00403 — Edit Campaign with No Permission
+## TC-CAM-040003 — Edit Campaign with No Permission
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -452,7 +452,7 @@ The system displays an error message indicating that the user does not have perm
 
 ---
 
-## TC-CAM00404 — Edit Campaign with No Data Changes
+## TC-CAM-040004 — Edit Campaign with No Data Changes
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -477,7 +477,7 @@ The system displays a confirmation that no changes were made.
 
 ---
 
-## TC-CAM00501 — Duplicate Campaign - Happy Path
+## TC-CAM-050001 — Duplicate Campaign - Happy Path
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -505,7 +505,7 @@ The new campaign is successfully duplicated and the user is navigated to the new
 
 ---
 
-## TC-CAM00502 — Duplicate Campaign - No Permission
+## TC-CAM-050002 — Duplicate Campaign - No Permission
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -529,7 +529,7 @@ The user is prevented from duplicating the campaign and sees an error message.
 
 ---
 
-## TC-CAM00503 — Duplicate Campaign - Empty Campaign List
+## TC-CAM-050003 — Duplicate Campaign - Empty Campaign List
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -553,7 +553,7 @@ The user is informed that they need to create a new campaign before they can dup
 
 ---
 
-## TC-CAM00504 — Duplicate Campaign - Campaign with Attached Files
+## TC-CAM-050004 — Duplicate Campaign - Campaign with Attached Files
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -577,7 +577,7 @@ The new campaign is duplicated with all settings, vendor selections, template, a
 
 ---
 
-## TC-CAM00601 — Send Reminder - Happy Path
+## TC-CAM-060001 — Send Reminder - Happy Path
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -603,7 +603,7 @@ Reminder is sent to vendor, reminder count is incremented, and last reminder dat
 
 ---
 
-## TC-CAM00602 — Send Reminder - No Permission
+## TC-CAM-060002 — Send Reminder - No Permission
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -627,7 +627,7 @@ User receives an error message indicating they do not have permission to send re
 
 ---
 
-## TC-CAM00603 — Send Reminder - Invalid Vendor Status
+## TC-CAM-060003 — Send Reminder - Invalid Vendor Status
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -652,7 +652,7 @@ System displays an error message indicating the vendor status is invalid for sen
 
 ---
 
-## TC-CAM00604 — Send Reminder - Reminder Already Sent
+## TC-CAM-060004 — Send Reminder - Reminder Already Sent
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -677,7 +677,7 @@ System displays a warning message indicating the reminder has already been sent 
 
 ---
 
-## TC-CAM00605 — Send Reminder - Empty Reminder Message
+## TC-CAM-060005 — Send Reminder - Empty Reminder Message
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -703,7 +703,7 @@ System displays an error message indicating the reminder message field cannot be
 
 ---
 
-## TC-CAM00701 — Mark campaign as expired - Happy Path
+## TC-CAM-070001 — Mark campaign as expired - Happy Path
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -728,7 +728,7 @@ Campaign status is updated to 'Expired' and a success toast 'Campaign marked as 
 
 ---
 
-## TC-CAM00702 — Mark campaign as expired - No Permission
+## TC-CAM-070002 — Mark campaign as expired - No Permission
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -752,7 +752,7 @@ User receives an error message indicating they do not have permission to perform
 
 ---
 
-## TC-CAM00703 — Mark campaign as expired - Campaign already expired
+## TC-CAM-070003 — Mark campaign as expired - Campaign already expired
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -776,7 +776,7 @@ User is informed that the campaign is already expired and the action is not perf
 
 ---
 
-## TC-CAM00704 — Mark campaign as expired - Empty campaign list
+## TC-CAM-070004 — Mark campaign as expired - Empty campaign list
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -800,7 +800,7 @@ User is presented with a message indicating there are no campaigns available.
 
 ---
 
-## TC-CAM00801 — Happy Path - Delete Campaign
+## TC-CAM-080001 — Happy Path - Delete Campaign
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -825,7 +825,7 @@ Campaign is removed from database and list, success toast 'Campaign deleted succ
 
 ---
 
-## TC-CAM00802 — Negative - No Campaign Selected
+## TC-CAM-080002 — Negative - No Campaign Selected
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -848,7 +848,7 @@ System displays error message 'Please select a campaign to delete'.
 
 ---
 
-## TC-CAM00803 — Edge Case - Multiple Campaigns Selected
+## TC-CAM-080003 — Edge Case - Multiple Campaigns Selected
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -872,7 +872,7 @@ System displays error message 'Please select one campaign to delete'.
 
 ---
 
-## TC-CAM00804 — Negative - No Permission
+## TC-CAM-080004 — Negative - No Permission
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -896,7 +896,7 @@ System displays error message 'You do not have permission to delete campaigns'.
 
 ---
 
-## TC-CAM00901 — Export campaign data - happy path
+## TC-CAM-090001 — Export campaign data - happy path
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -920,7 +920,7 @@ File download starts and user receives a success message.
 
 ---
 
-## TC-CAM00902 — Export campaign data - no permission
+## TC-CAM-090002 — Export campaign data - no permission
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -943,7 +943,7 @@ User sees an error message indicating they do not have permission to export camp
 
 ---
 
-## TC-CAM00903 — Export campaign data - large dataset
+## TC-CAM-090003 — Export campaign data - large dataset
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -967,7 +967,7 @@ File download starts without any issues and user receives a success message.
 
 ---
 
-## TC-CAM00904 — Export campaign data - multiple exports
+## TC-CAM-090004 — Export campaign data - multiple exports
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -991,7 +991,7 @@ File download starts after each export request and user receives success message
 
 ---
 
-## TC-CAM01001 — Filter by Status - Active
+## TC-CAM-100001 — Filter by Status - Active
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1015,7 +1015,7 @@ Only active campaigns are displayed with correct result count.
 
 ---
 
-## TC-CAM01002 — Search by Text - Valid Term
+## TC-CAM-100002 — Search by Text - Valid Term
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1038,7 +1038,7 @@ Campaigns containing 'Inventory' are filtered and displayed with correct result 
 
 ---
 
-## TC-CAM01003 — Filter by Status - No Campaigns
+## TC-CAM-100003 — Filter by Status - No Campaigns
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1062,7 +1062,7 @@ No campaigns are displayed and result count is 0.
 
 ---
 
-## TC-CAM01004 — Search by Text - No Matching Terms
+## TC-CAM-100004 — Search by Text - No Matching Terms
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1085,7 +1085,7 @@ No campaigns are displayed and result count is 0.
 
 ---
 
-## TC-CAM01005 — Filter by Status - All Statuses
+## TC-CAM-100005 — Filter by Status - All Statuses
 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1110,4 +1110,4 @@ All campaigns are displayed with correct result count.
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 650ea0b</sub>
+<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>

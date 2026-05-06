@@ -11,45 +11,45 @@ _Generated from `tests/900-period-end.spec.ts` annotations. Edit annotations, no
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-PE00101 | Happy Path - View Current Period | High | Happy Path |
-| TC-PE00102 | Negative - User Without Permission | High | Negative |
-| TC-PE00103 | Edge Case - Empty Period History | Medium | Edge Case |
-| TC-PE00104 | Negative - No Current Period | High | Negative |
-| TC-PE00105 | Edge Case - Closed Current Period | Medium | Edge Case |
-| TC-PE00201 _(skipped)_ | View period detail for open period | High | Happy Path |
-| TC-PE00203 _(skipped)_ | View period detail with no permission | High | Negative |
-| TC-PE00204 _(skipped)_ | View period detail with invalid period ID | Medium | Negative |
-| TC-PE00205 _(skipped)_ | View period detail for period with incomplete validation | Medium | Edge Case |
-| TC-PE00301 _(skipped)_ | Happy Path - Inventory Manager Completes Validation | Critical | Happy Path |
-| TC-PE00303 _(skipped)_ | Edge Case - Period Already Closed | Medium | Edge Case |
-| TC-PE00304 _(skipped)_ | Negative - Invalid Period ID | High | Negative |
-| TC-PE00305 _(skipped)_ | Edge Case - All Sections Fail Validation | Critical | Edge Case |
-| TC-PE00401 _(skipped)_ | Close Period - Happy Path | Critical | Happy Path |
-| TC-PE00402 _(skipped)_ | Close Period - Invalid Input | High | Negative |
-| TC-PE00403 _(skipped)_ | Close Period - Permission Denied | Critical | Negative |
-| TC-PE00404 _(skipped)_ | Close Period - Database Error | Critical | Edge Case |
-| TC-PE00405 _(skipped)_ | Close Period - Validation No Longer Passes | High | Negative |
-| TC-PE10101 _(skipped)_ | All transactions posted | Critical | Happy Path |
-| TC-PE10102 _(skipped)_ | Missing GRN document | Critical | Negative |
-| TC-PE10103 _(skipped)_ | User without permission | Critical | Negative |
-| TC-PE10105 _(skipped)_ | Partial transaction types | Critical | Edge Case |
-| TC-PE10201 _(skipped)_ | Happy Path - Successful Spot Check Validation | Critical | Happy Path |
-| TC-PE10204 _(skipped)_ | Edge Case - No Spot Checks for Period | Medium | Edge Case |
-| TC-PE10205 _(skipped)_ | Edge Case - Some Spot Checks Incomplete | Medium | Edge Case |
-| TC-PE10301 _(skipped)_ | All Physical Counts Finalized Successfully | Critical | Happy Path |
-| TC-PE10302 _(skipped)_ | Validation Run with No Physical Counts | High | Edge Case |
-| TC-PE10303 _(skipped)_ | Run Validation with Unauthorized User | Critical | Negative |
-| TC-PE10304 _(skipped)_ | Physical Count Status Not Finalized | Critical | Negative |
-| TC-PE10305 _(skipped)_ | Period Date Range Without Physical Counts | High | Edge Case |
-| TC-PE10401 _(skipped)_ | Happy Path - Log Activity Entry | Critical | Happy Path |
-| TC-PE10402 _(skipped)_ | Negative - Invalid User Credentials | Critical | Negative |
-| TC-PE10403 _(skipped)_ | Negative - No Permissions | Critical | Negative |
-| TC-PE10404 _(skipped)_ | Edge Case - No Period ID Provided | High | Edge Case |
-| TC-PE10405 _(skipped)_ | Edge Case - Timestamp Overflow | Medium | Edge Case |
+| TC-PE-010001 | Happy Path - View Current Period | High | Happy Path |
+| TC-PE-010002 | Negative - User Without Permission | High | Negative |
+| TC-PE-010003 | Edge Case - Empty Period History | Medium | Edge Case |
+| TC-PE-010004 | Negative - No Current Period | High | Negative |
+| TC-PE-010005 | Edge Case - Closed Current Period | Medium | Edge Case |
+| TC-PE-020001 _(skipped)_ | View period detail for open period | High | Happy Path |
+| TC-PE-020003 _(skipped)_ | View period detail with no permission | High | Negative |
+| TC-PE-020004 _(skipped)_ | View period detail with invalid period ID | Medium | Negative |
+| TC-PE-020005 _(skipped)_ | View period detail for period with incomplete validation | Medium | Edge Case |
+| TC-PE-030001 _(skipped)_ | Happy Path - Inventory Manager Completes Validation | Critical | Happy Path |
+| TC-PE-030003 _(skipped)_ | Edge Case - Period Already Closed | Medium | Edge Case |
+| TC-PE-030004 _(skipped)_ | Negative - Invalid Period ID | High | Negative |
+| TC-PE-030005 _(skipped)_ | Edge Case - All Sections Fail Validation | Critical | Edge Case |
+| TC-PE-040001 _(skipped)_ | Close Period - Happy Path | Critical | Happy Path |
+| TC-PE-040002 _(skipped)_ | Close Period - Invalid Input | High | Negative |
+| TC-PE-040003 _(skipped)_ | Close Period - Permission Denied | Critical | Negative |
+| TC-PE-040004 _(skipped)_ | Close Period - Database Error | Critical | Edge Case |
+| TC-PE-040005 _(skipped)_ | Close Period - Validation No Longer Passes | High | Negative |
+| TC-PE-310001 _(skipped)_ | All transactions posted | Critical | Happy Path |
+| TC-PE-310002 _(skipped)_ | Missing GRN document | Critical | Negative |
+| TC-PE-310003 _(skipped)_ | User without permission | Critical | Negative |
+| TC-PE-310005 _(skipped)_ | Partial transaction types | Critical | Edge Case |
+| TC-PE-320001 _(skipped)_ | Happy Path - Successful Spot Check Validation | Critical | Happy Path |
+| TC-PE-320004 _(skipped)_ | Edge Case - No Spot Checks for Period | Medium | Edge Case |
+| TC-PE-320005 _(skipped)_ | Edge Case - Some Spot Checks Incomplete | Medium | Edge Case |
+| TC-PE-330001 _(skipped)_ | All Physical Counts Finalized Successfully | Critical | Happy Path |
+| TC-PE-330002 _(skipped)_ | Validation Run with No Physical Counts | High | Edge Case |
+| TC-PE-330003 _(skipped)_ | Run Validation with Unauthorized User | Critical | Negative |
+| TC-PE-330004 _(skipped)_ | Physical Count Status Not Finalized | Critical | Negative |
+| TC-PE-330005 _(skipped)_ | Period Date Range Without Physical Counts | High | Edge Case |
+| TC-PE-340001 _(skipped)_ | Happy Path - Log Activity Entry | Critical | Happy Path |
+| TC-PE-340002 _(skipped)_ | Negative - Invalid User Credentials | Critical | Negative |
+| TC-PE-340003 _(skipped)_ | Negative - No Permissions | Critical | Negative |
+| TC-PE-340004 _(skipped)_ | Edge Case - No Period ID Provided | High | Edge Case |
+| TC-PE-340005 _(skipped)_ | Edge Case - Timestamp Overflow | Medium | Edge Case |
 
 ---
 
-## TC-PE00101 — Happy Path - View Current Period
+## TC-PE-010001 — Happy Path - View Current Period
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -71,7 +71,7 @@ User is navigated to the period detail page.
 
 ---
 
-## TC-PE00102 — Negative - User Without Permission
+## TC-PE-010002 — Negative - User Without Permission
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -92,7 +92,7 @@ User is redirected to permission denied page.
 
 ---
 
-## TC-PE00103 — Edge Case - Empty Period History
+## TC-PE-010003 — Edge Case - Empty Period History
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -113,7 +113,7 @@ Period history table is empty, but current period card is still visible.
 
 ---
 
-## TC-PE00104 — Negative - No Current Period
+## TC-PE-010004 — Negative - No Current Period
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -134,7 +134,7 @@ Only period history is displayed, current period card is not shown.
 
 ---
 
-## TC-PE00105 — Edge Case - Closed Current Period
+## TC-PE-010005 — Edge Case - Closed Current Period
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -155,7 +155,7 @@ Current period card shows closed status and cannot be closed again.
 
 ---
 
-## TC-PE00201 — View period detail for open period _(skipped)_
+## TC-PE-020001 — View period detail for open period _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -177,7 +177,7 @@ System displays period detail page with validation overview, adjustments tab, an
 
 ---
 
-## TC-PE00203 — View period detail with no permission _(skipped)_
+## TC-PE-020003 — View period detail with no permission _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -199,7 +199,7 @@ System redirects user to login page or displays permission denied message.
 
 ---
 
-## TC-PE00204 — View period detail with invalid period ID _(skipped)_
+## TC-PE-020004 — View period detail with invalid period ID _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -221,7 +221,7 @@ System displays error message or redirects user to home page.
 
 ---
 
-## TC-PE00205 — View period detail for period with incomplete validation _(skipped)_
+## TC-PE-020005 — View period detail for period with incomplete validation _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -243,7 +243,7 @@ System displays period detail page with validation overview indicating incomplet
 
 ---
 
-## TC-PE00301 — Happy Path - Inventory Manager Completes Validation _(skipped)_
+## TC-PE-030001 — Happy Path - Inventory Manager Completes Validation _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -268,7 +268,7 @@ All validation sections pass, 'Close Period' button is enabled.
 
 ---
 
-## TC-PE00303 — Edge Case - Period Already Closed _(skipped)_
+## TC-PE-030003 — Edge Case - Period Already Closed _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -290,7 +290,7 @@ Error message displayed indicating period is already closed.
 
 ---
 
-## TC-PE00304 — Negative - Invalid Period ID _(skipped)_
+## TC-PE-030004 — Negative - Invalid Period ID _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -312,7 +312,7 @@ Error message displayed indicating invalid period ID.
 
 ---
 
-## TC-PE00305 — Edge Case - All Sections Fail Validation _(skipped)_
+## TC-PE-030005 — Edge Case - All Sections Fail Validation _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -336,7 +336,7 @@ All sections fail validation, 'Close Period' button remains disabled.
 
 ---
 
-## TC-PE00401 — Close Period - Happy Path _(skipped)_
+## TC-PE-040001 — Close Period - Happy Path _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -365,7 +365,7 @@ Period is successfully closed, all validations pass, period status updated, clos
 
 ---
 
-## TC-PE00402 — Close Period - Invalid Input _(skipped)_
+## TC-PE-040002 — Close Period - Invalid Input _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -389,7 +389,7 @@ Error message displayed for invalid input.
 
 ---
 
-## TC-PE00403 — Close Period - Permission Denied _(skipped)_
+## TC-PE-040003 — Close Period - Permission Denied _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -412,7 +412,7 @@ Period status is closing; all 3 validation stages pass
 
 ---
 
-## TC-PE00404 — Close Period - Database Error _(skipped)_
+## TC-PE-040004 — Close Period - Database Error _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -436,7 +436,7 @@ Error message with retry option displayed due to database error.
 
 ---
 
-## TC-PE00405 — Close Period - Validation No Longer Passes _(skipped)_
+## TC-PE-040005 — Close Period - Validation No Longer Passes _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -460,7 +460,7 @@ Error message displayed indicating validation failure.
 
 ---
 
-## TC-PE10101 — All transactions posted _(skipped)_
+## TC-PE-310001 — All transactions posted _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -483,7 +483,7 @@ All transactions are reported as posted and transactionsCommitted is true.
 
 ---
 
-## TC-PE10102 — Missing GRN document _(skipped)_
+## TC-PE-310002 — Missing GRN document _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -506,7 +506,7 @@ GRN document is flagged as pending and transactionsCommitted is false.
 
 ---
 
-## TC-PE10103 — User without permission _(skipped)_
+## TC-PE-310003 — User without permission _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -528,7 +528,7 @@ System denies permission and does not allow validation to proceed.
 
 ---
 
-## TC-PE10105 — Partial transaction types _(skipped)_
+## TC-PE-310005 — Partial transaction types _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -551,7 +551,7 @@ Pending statuses for each transaction type are reported and transactionsCommitte
 
 ---
 
-## TC-PE10201 — Happy Path - Successful Spot Check Validation _(skipped)_
+## TC-PE-320001 — Happy Path - Successful Spot Check Validation _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -576,7 +576,7 @@ Spot checks are validated successfully and all are marked as completed.
 
 ---
 
-## TC-PE10204 — Edge Case - No Spot Checks for Period _(skipped)_
+## TC-PE-320004 — Edge Case - No Spot Checks for Period _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -599,7 +599,7 @@ System correctly identifies and displays that there are no spot checks for the v
 
 ---
 
-## TC-PE10205 — Edge Case - Some Spot Checks Incomplete _(skipped)_
+## TC-PE-320005 — Edge Case - Some Spot Checks Incomplete _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -623,7 +623,7 @@ System correctly identifies and lists incomplete spot checks, and sets SpotCheck
 
 ---
 
-## TC-PE10301 — All Physical Counts Finalized Successfully _(skipped)_
+## TC-PE-330001 — All Physical Counts Finalized Successfully _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -647,7 +647,7 @@ physicalCountsFinalized is true and all counts are marked as finalized with GL a
 
 ---
 
-## TC-PE10302 — Validation Run with No Physical Counts _(skipped)_
+## TC-PE-330002 — Validation Run with No Physical Counts _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -670,7 +670,7 @@ physicalCountsFinalized is true and no non-finalized counts are listed.
 
 ---
 
-## TC-PE10303 — Run Validation with Unauthorized User _(skipped)_
+## TC-PE-330003 — Run Validation with Unauthorized User _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -693,7 +693,7 @@ Validation cannot be run and user is denied access.
 
 ---
 
-## TC-PE10304 — Physical Count Status Not Finalized _(skipped)_
+## TC-PE-330004 — Physical Count Status Not Finalized _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -717,7 +717,7 @@ physicalCountsFinalized is false and non-finalized counts are listed with GL adj
 
 ---
 
-## TC-PE10305 — Period Date Range Without Physical Counts _(skipped)_
+## TC-PE-330005 — Period Date Range Without Physical Counts _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -741,7 +741,7 @@ physicalCountsFinalized is true and no non-finalized counts are listed.
 
 ---
 
-## TC-PE10401 — Happy Path - Log Activity Entry _(skipped)_
+## TC-PE-340001 — Happy Path - Log Activity Entry _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -767,7 +767,7 @@ Activity log entry is created with all required details and is immutable.
 
 ---
 
-## TC-PE10402 — Negative - Invalid User Credentials _(skipped)_
+## TC-PE-340002 — Negative - Invalid User Credentials _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -791,7 +791,7 @@ User is redirected to login page or receives an error message.
 
 ---
 
-## TC-PE10403 — Negative - No Permissions _(skipped)_
+## TC-PE-340003 — Negative - No Permissions _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -815,7 +815,7 @@ User receives a permission denied error or is redirected to a restricted page.
 
 ---
 
-## TC-PE10404 — Edge Case - No Period ID Provided _(skipped)_
+## TC-PE-340004 — Edge Case - No Period ID Provided _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -838,7 +838,7 @@ System prompts the user to enter a period ID.
 
 ---
 
-## TC-PE10405 — Edge Case - Timestamp Overflow _(skipped)_
+## TC-PE-340005 — Edge Case - Timestamp Overflow _(skipped)_
 
 > **As a** Purchase user, **I want** this Period End behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -864,4 +864,4 @@ System handles the timestamp overflow gracefully, possibly by truncating the val
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 650ea0b</sub>
+<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>

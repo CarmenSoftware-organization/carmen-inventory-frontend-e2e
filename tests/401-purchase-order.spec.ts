@@ -22,11 +22,11 @@ const SKIP_NOTE_TIME =
   "Not feasible in E2E without fixed-clock control. Verify via integration tests with mocked time.";
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PO001 — Create PO from Approved PR
+// TC-PO-900001 — Create PO from Approved PR
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PO — Create from PR", () => {
   purchaseTest(
-    "TC-PO00101 Happy Path - Create PO from Approved PR",
+    "TC-PO-010001 Happy Path - Create PO from Approved PR",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated as Purchasing Staff/Manager; has permission to create POs; one or more approved PRs exist; budget is available" },
@@ -62,7 +62,7 @@ purchaseTest.describe("PO — Create from PR", () => {
   );
 
   purchaseTest(
-    "TC-PO00103 Edge Case - No Approved PRs Exist",
+    "TC-PO-010003 Edge Case - No Approved PRs Exist",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated and has permission to create POs, but no approved PRs exist" },
@@ -91,7 +91,7 @@ purchaseTest.describe("PO — Create from PR", () => {
   );
 
   purchaseTest(
-    "TC-PO00104 Negative - Invalid Vendor Assignment",
+    "TC-PO-010004 Negative - Invalid Vendor Assignment",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to create POs; PRs exist but vendors are not assigned" },
@@ -123,7 +123,7 @@ purchaseTest.describe("PO — Create from PR", () => {
 
 requestorTest.describe("PO — Create from PR — Permission denial", () => {
   requestorTest(
-    "TC-PO00102 Negative - No Permission to Create PO",
+    "TC-PO-010002 Negative - No Permission to Create PO",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated but does not have permission to create POs" },
@@ -151,11 +151,11 @@ requestorTest.describe("PO — Create from PR — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PO002 — Create Manual PO
+// TC-PO-900002 — Create Manual PO
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PO — Create manual", () => {
   purchaseTest(
-    "TC-PO00201 Create a Purchase Order with Valid Data",
+    "TC-PO-020001 Create a Purchase Order with Valid Data",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to create POs and POs without PR; vendor exists in system" },
@@ -181,7 +181,7 @@ purchaseTest.describe("PO — Create manual", () => {
   );
 
   purchaseTest(
-    "TC-PO00203 Select a Non-Existent Vendor",
+    "TC-PO-020003 Select a Non-Existent Vendor",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to create POs; vendor does not exist in the system" },
@@ -209,7 +209,7 @@ purchaseTest.describe("PO — Create manual", () => {
   );
 
   purchaseTest(
-    "TC-PO00204 Leave Required Fields Blank",
+    "TC-PO-020004 Leave Required Fields Blank",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to create POs" },
@@ -235,7 +235,7 @@ purchaseTest.describe("PO — Create manual", () => {
   );
 
   purchaseTest(
-    "TC-PO00205 Create PO with Maximum Number of Items",
+    "TC-PO-020005 Create PO with Maximum Number of Items",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to create POs; system has a maximum limit for PO items" },
@@ -262,7 +262,7 @@ purchaseTest.describe("PO — Create manual", () => {
 
 requestorTest.describe("PO — Create manual — Permission denial", () => {
   requestorTest(
-    "TC-PO00202 Attempt to Create PO without Permission",
+    "TC-PO-020002 Attempt to Create PO without Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated but does not have permission to create POs" },
@@ -291,11 +291,11 @@ requestorTest.describe("PO — Create manual — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PO003 — Send to Vendor
+// TC-PO-900003 — Send to Vendor
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PO — Send to Vendor", () => {
   purchaseTest(
-    "TC-PO00301 Happy Path - Send Purchase Order to Vendor",
+    "TC-PO-030001 Happy Path - Send Purchase Order to Vendor",
     {
       annotation: [
         { type: "preconditions", description: "User authorized; PO is in draft status; pre-send validations pass; vendor email is on file; budget is available" },
@@ -325,7 +325,7 @@ purchaseTest.describe("PO — Send to Vendor", () => {
   );
 
   purchaseTest(
-    "TC-PO00302 Negative - Missing Vendor Email",
+    "TC-PO-030002 Negative - Missing Vendor Email",
     {
       annotation: [
         { type: "preconditions", description: "PO is in draft status; pre-send validations pass; no vendor email on file" },
@@ -351,7 +351,7 @@ purchaseTest.describe("PO — Send to Vendor", () => {
   );
 
   purchaseTest(
-    "TC-PO00303 Negative - Insufficient Budget",
+    "TC-PO-030003 Negative - Insufficient Budget",
     {
       annotation: [
         { type: "preconditions", description: "PO is in draft status; pre-send validations pass; vendor email is on file; budget is insufficient" },
@@ -376,7 +376,7 @@ purchaseTest.describe("PO — Send to Vendor", () => {
   );
 
   purchaseTest(
-    "TC-PO00304 Edge Case - Purchase Order in 'Rejected' Status",
+    "TC-PO-030004 Edge Case - Purchase Order in 'Rejected' Status",
     {
       annotation: [
         { type: "preconditions", description: "PO is in rejected status; pre-send validations pass; vendor email is on file; budget is available" },
@@ -411,11 +411,11 @@ purchaseTest.describe("PO — Send to Vendor", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PO004 — Change Order
+// TC-PO-900004 — Change Order
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PO — Change Order", () => {
   purchaseTest(
-    "TC-PO00401 Happy Path - Change Order",
+    "TC-PO-040001 Happy Path - Change Order",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to modify POs; a PO exists in Approved status" },
@@ -451,7 +451,7 @@ purchaseTest.describe("PO — Change Order", () => {
   );
 
   purchaseTest(
-    "TC-PO00403 Negative - Invalid Input",
+    "TC-PO-040003 Negative - Invalid Input",
     {
       annotation: [
         { type: "preconditions", description: "User has permission; PO in Approved status" },
@@ -480,7 +480,7 @@ purchaseTest.describe("PO — Change Order", () => {
   );
 
   purchaseTest(
-    "TC-PO00404 Edge Case - Change Order for Sent Status",
+    "TC-PO-040004 Edge Case - Change Order for Sent Status",
     {
       annotation: [
         { type: "preconditions", description: "User has permission; PO in Sent status" },
@@ -516,7 +516,7 @@ purchaseTest.describe("PO — Change Order", () => {
 
 requestorTest.describe("PO — Change Order — Permission denial", () => {
   requestorTest(
-    "TC-PO00402 Negative - No Permission",
+    "TC-PO-040002 Negative - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated but does not have permission to modify POs" },
@@ -548,11 +548,11 @@ requestorTest.describe("PO — Change Order — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PO005 — Cancel PO
+// TC-PO-900005 — Cancel PO
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PO — Cancel", () => {
   purchaseTest(
-    "TC-PO00501 Happy Path - Cancel Active Purchase Order",
+    "TC-PO-050001 Happy Path - Cancel Active Purchase Order",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to cancel POs; role is Purchasing Staff or Manager" },
@@ -583,7 +583,7 @@ purchaseTest.describe("PO — Cancel", () => {
   );
 
   purchaseTest(
-    "TC-PO00502 Negative - Attempt to Cancel Completed Purchase Order",
+    "TC-PO-050002 Negative - Attempt to Cancel Completed Purchase Order",
     {
       annotation: [
         { type: "preconditions", description: "User has permission; PO is in completed status" },
@@ -617,7 +617,7 @@ purchaseTest.describe("PO — Cancel", () => {
   );
 
   purchaseTest(
-    "TC-PO00503 Edge Case - Cancel Purchase Order with Shipped Goods",
+    "TC-PO-050003 Edge Case - Cancel Purchase Order with Shipped Goods",
     {
       annotation: [
         { type: "preconditions", description: "User has permission; PO has shipped goods" },
@@ -643,7 +643,7 @@ purchaseTest.describe("PO — Cancel", () => {
 });
 
 noAuthTest(
-  "TC-PO00504 Negative - Cancel Purchase Order without Authentication",
+  "TC-PO-050004 Negative - Cancel Purchase Order without Authentication",
   {
     annotation: [
       { type: "preconditions", description: "User is not authenticated" },
@@ -664,11 +664,11 @@ noAuthTest(
 );
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PO006 — Dashboard
+// TC-PO-900006 — Dashboard
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PO — Dashboard", () => {
   purchaseTest(
-    "TC-PO00601 View Purchase Order Dashboard as Purchasing Staff",
+    "TC-PO-060001 View Purchase Order Dashboard as Purchasing Staff",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view POs; POs exist in the system" },
@@ -690,7 +690,7 @@ purchaseTest.describe("PO — Dashboard", () => {
   );
 
   purchaseTest(
-    "TC-PO00603 Check Dashboard with No Purchase Orders",
+    "TC-PO-060003 Check Dashboard with No Purchase Orders",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view POs; no POs exist in the system" },
@@ -713,7 +713,7 @@ purchaseTest.describe("PO — Dashboard", () => {
   );
 
   purchaseTest(
-    "TC-PO00604 Verify Dashboard with Large Number of Orders",
+    "TC-PO-060004 Verify Dashboard with Large Number of Orders",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view POs; many POs exist in the system" },
@@ -737,7 +737,7 @@ purchaseTest.describe("PO — Dashboard", () => {
 
 requestorTest.describe("PO — Dashboard — Permission denial", () => {
   requestorTest(
-    "TC-PO00602 Verify Access Denial for Purchase Order Dashboard",
+    "TC-PO-060002 Verify Access Denial for Purchase Order Dashboard",
     {
       annotation: [
         { type: "preconditions", description: "User does not have permission to view POs" },
@@ -762,11 +762,11 @@ requestorTest.describe("PO — Dashboard — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PO020 — QR Code download
+// TC-PO-900020 — QR Code download
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PO — QR Code", () => {
   purchaseTest(
-    "TC-PO02001 Happy Path - Download QR Code for Mobile Receiving",
+    "TC-PO-200001 Happy Path - Download QR Code for Mobile Receiving",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view POs; PO exists with PO number; QR code auto-generated" },
@@ -799,7 +799,7 @@ purchaseTest.describe("PO — QR Code", () => {
   );
 
   purchaseTest(
-    "TC-PO02003 Negative - QR Code Not Generated",
+    "TC-PO-200003 Negative - QR Code Not Generated",
     {
       annotation: [
         { type: "preconditions", description: "User has permission; PO does not exist or has no PO number; QR code not auto-generated" },
@@ -822,7 +822,7 @@ purchaseTest.describe("PO — QR Code", () => {
   );
 
   purchaseTest(
-    "TC-PO02004 Edge Case - PO Detail Page Reload",
+    "TC-PO-200004 Edge Case - PO Detail Page Reload",
     {
       annotation: [
         { type: "preconditions", description: "User has permission; PO exists with PO number; QR code auto-generated" },
@@ -850,13 +850,13 @@ purchaseTest.describe("PO — QR Code", () => {
 
 // ═════════════════════════════════════════════════════════════════════════
 // BACKEND / SYSTEM-LEVEL — all skipped
-// TC-PO101 sequence gen, TC-PO102 calculations, TC-PO103 budget approval,
-// TC-PO104 GRN sync, TC-PO105 delivery reminder, TC-PO201 encumbrance,
-// TC-PO202 vendor master, TC-PO301 daily cleanup
+// TC-PO-900101 sequence gen, TC-PO-900102 calculations, TC-PO-900103 budget approval,
+// TC-PO-900104 GRN sync, TC-PO-900105 delivery reminder, TC-PO-900201 encumbrance,
+// TC-PO-900202 vendor master, TC-PO-900301 daily cleanup
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PO — Sequence generation — Backend only", () => {
   purchaseTest.skip(
-    "TC-PO10101 Happy Path - Valid PO Creation",
+    "TC-PO-310001 Happy Path - Valid PO Creation",
     {
       annotation: [
         { type: "preconditions", description: "Sequence table is available and initialized" },
@@ -875,7 +875,7 @@ purchaseTest.describe("PO — Sequence generation — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO10102 Negative Case - No Sequence Table",
+    "TC-PO-310002 Negative Case - No Sequence Table",
     {
       annotation: [
         { type: "preconditions", description: "Sequence table is not available" },
@@ -894,7 +894,7 @@ purchaseTest.describe("PO — Sequence generation — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO10103 Edge Case - Month Transition",
+    "TC-PO-310003 Edge Case - Month Transition",
     {
       annotation: [
         { type: "preconditions", description: "Sequence table is available and initialized" },
@@ -913,7 +913,7 @@ purchaseTest.describe("PO — Sequence generation — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO10104 Negative Case - Insufficient Permissions",
+    "TC-PO-310004 Negative Case - Insufficient Permissions",
     {
       annotation: [
         { type: "preconditions", description: "User does not have permission to create POs" },
@@ -934,7 +934,7 @@ purchaseTest.describe("PO — Sequence generation — Backend only", () => {
 
 purchaseTest.describe("PO — Calculations — Backend only", () => {
   purchaseTest.skip(
-    "TC-PO10201 Calculate Subtotal with Valid Input",
+    "TC-PO-320001 Calculate Subtotal with Valid Input",
     {
       annotation: [
         { type: "preconditions", description: "A PO exists with line items having quantity and unit price" },
@@ -953,7 +953,7 @@ purchaseTest.describe("PO — Calculations — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO10202 Apply Percentage Discount",
+    "TC-PO-320002 Apply Percentage Discount",
     {
       annotation: [
         { type: "preconditions", description: "A PO exists with line items; percentage discount is defined" },
@@ -972,7 +972,7 @@ purchaseTest.describe("PO — Calculations — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO10203 Apply Fixed Amount Discount",
+    "TC-PO-320003 Apply Fixed Amount Discount",
     {
       annotation: [
         { type: "preconditions", description: "A PO exists with line items; fixed amount discount is defined" },
@@ -991,7 +991,7 @@ purchaseTest.describe("PO — Calculations — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO10204 No Discount Applied",
+    "TC-PO-320004 No Discount Applied",
     {
       annotation: [
         { type: "preconditions", description: "A PO exists with line items; no discount is applied" },
@@ -1010,7 +1010,7 @@ purchaseTest.describe("PO — Calculations — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO10205 Negative Quantity Entered",
+    "TC-PO-320005 Negative Quantity Entered",
     {
       annotation: [
         { type: "preconditions", description: "A PO exists with at least one line item; negative quantity is entered" },
@@ -1031,7 +1031,7 @@ purchaseTest.describe("PO — Calculations — Backend only", () => {
 
 purchaseTest.describe("PO — Budget approval — Backend only", () => {
   purchaseTest.skip(
-    "TC-PO10301 Happy Path - Valid PO with Existing Budget",
+    "TC-PO-330001 Happy Path - Valid PO with Existing Budget",
     {
       annotation: [
         { type: "preconditions", description: "A PO exists with a grand total and associated budget accounts" },
@@ -1050,7 +1050,7 @@ purchaseTest.describe("PO — Budget approval — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO10302 Negative - Invalid PO Total",
+    "TC-PO-330002 Negative - Invalid PO Total",
     {
       annotation: [
         { type: "preconditions", description: "A PO exists with a grand total that exceeds the budget allocation" },
@@ -1069,7 +1069,7 @@ purchaseTest.describe("PO — Budget approval — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO10303 Edge Case - No Budget Accounts Specified",
+    "TC-PO-330003 Edge Case - No Budget Accounts Specified",
     {
       annotation: [
         { type: "preconditions", description: "A PO exists without any budget accounts specified" },
@@ -1090,7 +1090,7 @@ purchaseTest.describe("PO — Budget approval — Backend only", () => {
 
 purchaseTest.describe("PO — GRN sync — Backend only", () => {
   purchaseTest.skip(
-    "TC-PO10401 Happy Path - PO Status Updated Successfully",
+    "TC-PO-340001 Happy Path - PO Status Updated Successfully",
     {
       annotation: [
         { type: "preconditions", description: "A PO exists in Sent or Acknowledged status; a GRN is created referencing PO line items with approved status" },
@@ -1109,7 +1109,7 @@ purchaseTest.describe("PO — GRN sync — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO10402 Negative - No PO Line Items in GRN",
+    "TC-PO-340002 Negative - No PO Line Items in GRN",
     {
       annotation: [
         { type: "preconditions", description: "A PO exists in Sent or Acknowledged status but the GRN does not reference any PO line items" },
@@ -1128,7 +1128,7 @@ purchaseTest.describe("PO — GRN sync — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO10403 Edge Case - Multiple GRNs for Same PO Line Item",
+    "TC-PO-340003 Edge Case - Multiple GRNs for Same PO Line Item",
     {
       annotation: [
         { type: "preconditions", description: "Multiple GRNs are created for the same PO line item with varying quantities" },
@@ -1149,7 +1149,7 @@ purchaseTest.describe("PO — GRN sync — Backend only", () => {
 
 purchaseTest.describe("PO — Delivery reminder — Time-based, backend only", () => {
   purchaseTest.skip(
-    "TC-PO10501 Send automatic delivery reminder for valid purchase orders",
+    "TC-PO-350001 Send automatic delivery reminder for valid purchase orders",
     {
       annotation: [
         { type: "preconditions", description: "Today is 2023-10-01; POs with statuses 'Sent' or 'Acknowledged' and expected delivery dates within 3 days from today exist" },
@@ -1168,7 +1168,7 @@ purchaseTest.describe("PO — Delivery reminder — Time-based, backend only", (
   );
 
   purchaseTest.skip(
-    "TC-PO10502 Scheduled job fails to run due to invalid input",
+    "TC-PO-350002 Scheduled job fails to run due to invalid input",
     {
       annotation: [
         { type: "preconditions", description: "Today is 2023-10-01; scheduled job is set to run daily at 6:00 AM but server time is 2023-10-02 06:00 AM" },
@@ -1187,7 +1187,7 @@ purchaseTest.describe("PO — Delivery reminder — Time-based, backend only", (
   );
 
   purchaseTest.skip(
-    "TC-PO10503 No purchase orders to remind due to no valid POs",
+    "TC-PO-350003 No purchase orders to remind due to no valid POs",
     {
       annotation: [
         { type: "preconditions", description: "Today is 2023-10-01; no POs exist with statuses 'Sent' or 'Acknowledged' and expected delivery dates within 3 days from today" },
@@ -1206,7 +1206,7 @@ purchaseTest.describe("PO — Delivery reminder — Time-based, backend only", (
   );
 
   purchaseTest.skip(
-    "TC-PO10504 Scheduled job fails due to non-operational email system",
+    "TC-PO-350004 Scheduled job fails due to non-operational email system",
     {
       annotation: [
         { type: "preconditions", description: "Today is 2023-10-01; POs exist matching reminder criteria but email system is down" },
@@ -1225,7 +1225,7 @@ purchaseTest.describe("PO — Delivery reminder — Time-based, backend only", (
   );
 
   purchaseTest.skip(
-    "TC-PO10505 No reminders sent for POs with GR",
+    "TC-PO-350005 No reminders sent for POs with GR",
     {
       annotation: [
         { type: "preconditions", description: "Today is 2023-10-01; POs match reminder criteria but some have GR already" },
@@ -1246,7 +1246,7 @@ purchaseTest.describe("PO — Delivery reminder — Time-based, backend only", (
 
 purchaseTest.describe("PO — Encumbrance — Backend only", () => {
   purchaseTest.skip(
-    "TC-PO20101 PO Approved - Encumbrance Created",
+    "TC-PO-210001 PO Approved - Encumbrance Created",
     {
       annotation: [
         { type: "preconditions", description: "A PO with budget allocation exists and the budget management system is operational" },
@@ -1265,7 +1265,7 @@ purchaseTest.describe("PO — Encumbrance — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO20102 PO Amount Modified - Encumbrance Adjusted",
+    "TC-PO-210002 PO Amount Modified - Encumbrance Adjusted",
     {
       annotation: [
         { type: "preconditions", description: "A PO with budget allocation exists; the budget management system is operational" },
@@ -1284,7 +1284,7 @@ purchaseTest.describe("PO — Encumbrance — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO20103 PO Cancelled - Encumbrance Released",
+    "TC-PO-210003 PO Cancelled - Encumbrance Released",
     {
       annotation: [
         { type: "preconditions", description: "A PO with budget allocation exists; the budget management system is operational" },
@@ -1303,7 +1303,7 @@ purchaseTest.describe("PO — Encumbrance — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO20104 Invalid PO Event - No Action Taken",
+    "TC-PO-210004 Invalid PO Event - No Action Taken",
     {
       annotation: [
         { type: "preconditions", description: "A PO with budget allocation exists; the budget management system is operational" },
@@ -1322,7 +1322,7 @@ purchaseTest.describe("PO — Encumbrance — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PO20105 GRN Created Without PO - No Encumbrance Conversion",
+    "TC-PO-210005 GRN Created Without PO - No Encumbrance Conversion",
     {
       annotation: [
         { type: "preconditions", description: "A PO with budget allocation exists; the budget management system is operational" },
@@ -1343,7 +1343,7 @@ purchaseTest.describe("PO — Encumbrance — Backend only", () => {
 
 purchaseTest.describe("PO — Vendor master integration — Backend only", () => {
   purchaseTest.skip(
-    "TC-PO20201 Happy Path - Valid Vendor Selection and Information Retrieval",
+    "TC-PO-220001 Happy Path - Valid Vendor Selection and Information Retrieval",
     {
       annotation: [
         { type: "preconditions", description: "Vendor Management System is operational; vendor master data is current; integration API or database access available" },
@@ -1362,7 +1362,7 @@ purchaseTest.describe("PO — Vendor master integration — Backend only", () =>
   );
 
   purchaseTest.skip(
-    "TC-PO20202 Negative Case - Vendor Not Found",
+    "TC-PO-220002 Negative Case - Vendor Not Found",
     {
       annotation: [
         { type: "preconditions", description: "Vendor Management System is operational; vendor master data is current; integration API or database access available" },
@@ -1381,7 +1381,7 @@ purchaseTest.describe("PO — Vendor master integration — Backend only", () =>
   );
 
   purchaseTest.skip(
-    "TC-PO20203 Edge Case - Vendor Name Format",
+    "TC-PO-220003 Edge Case - Vendor Name Format",
     {
       annotation: [
         { type: "preconditions", description: "Vendor Management System is operational; vendor master data is current; integration API or database access available" },
@@ -1402,7 +1402,7 @@ purchaseTest.describe("PO — Vendor master integration — Backend only", () =>
 
 purchaseTest.describe("PO — Daily cleanup — Time-based, backend only", () => {
   purchaseTest.skip(
-    "TC-PO30101 Happy Path - Daily Purchase Order Status Cleanup",
+    "TC-PO-110001 Happy Path - Daily Purchase Order Status Cleanup",
     {
       annotation: [
         { type: "preconditions", description: "Database is accessible; system is operational; no maintenance windows active" },
@@ -1421,7 +1421,7 @@ purchaseTest.describe("PO — Daily cleanup — Time-based, backend only", () =>
   );
 
   purchaseTest.skip(
-    "TC-PO30102 Negative Case - Database Unavailable",
+    "TC-PO-110002 Negative Case - Database Unavailable",
     {
       annotation: [
         { type: "preconditions", description: "Database is not accessible; system is operational; no maintenance windows active" },
@@ -1440,7 +1440,7 @@ purchaseTest.describe("PO — Daily cleanup — Time-based, backend only", () =>
   );
 
   purchaseTest.skip(
-    "TC-PO30103 Negative Case - No Purchase Orders Meet Criteria",
+    "TC-PO-110003 Negative Case - No Purchase Orders Meet Criteria",
     {
       annotation: [
         { type: "preconditions", description: "Database is accessible; system is operational; no maintenance windows active" },
@@ -1459,7 +1459,7 @@ purchaseTest.describe("PO — Daily cleanup — Time-based, backend only", () =>
   );
 
   purchaseTest.skip(
-    "TC-PO30104 Edge Case - Maintenance Window Active",
+    "TC-PO-110004 Edge Case - Maintenance Window Active",
     {
       annotation: [
         { type: "preconditions", description: "Database is accessible; system is not operational; maintenance windows active" },

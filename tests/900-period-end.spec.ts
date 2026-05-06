@@ -22,11 +22,11 @@ const SKIP_NOTE_NOT_IMPLEMENTED =
   "Re-enable once the UI ships.";
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PE001 — View Period List (UI runnable)
+// TC-PE-900001 — View Period List (UI runnable)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Period End — List page", () => {
   purchaseTest(
-    "TC-PE00101 Happy Path - View Current Period",
+    "TC-PE-010001 Happy Path - View Current Period",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated and has period view permission" },
@@ -54,7 +54,7 @@ purchaseTest.describe("Period End — List page", () => {
   );
 
   purchaseTest(
-    "TC-PE00103 Edge Case - Empty Period History",
+    "TC-PE-010003 Edge Case - Empty Period History",
     {
       annotation: [
         { type: "preconditions", description: "User has period view permission; no periods in history" },
@@ -72,7 +72,7 @@ purchaseTest.describe("Period End — List page", () => {
   );
 
   purchaseTest(
-    "TC-PE00104 Negative - No Current Period",
+    "TC-PE-010004 Negative - No Current Period",
     {
       annotation: [
         { type: "preconditions", description: "User has period view permission; no current period" },
@@ -90,7 +90,7 @@ purchaseTest.describe("Period End — List page", () => {
   );
 
   purchaseTest(
-    "TC-PE00105 Edge Case - Closed Current Period",
+    "TC-PE-010005 Edge Case - Closed Current Period",
     {
       annotation: [
         { type: "preconditions", description: "User has period view permission; current period is closed" },
@@ -116,7 +116,7 @@ purchaseTest.describe("Period End — List page", () => {
 
 requestorTest.describe("Period End — List page — Permission denial", () => {
   requestorTest(
-    "TC-PE00102 Negative - User Without Permission",
+    "TC-PE-010002 Negative - User Without Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated but lacks period view permission" },
@@ -138,11 +138,11 @@ requestorTest.describe("Period End — List page — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PE002 — Period Detail (sub-route — not yet implemented)
+// TC-PE-900002 — Period Detail (sub-route — not yet implemented)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Period End — Detail page — Feature pending", () => {
   purchaseTest.skip(
-    "TC-PE00201 View period detail for open period",
+    "TC-PE-020001 View period detail for open period",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view period detail; open period exists" },
@@ -161,7 +161,7 @@ purchaseTest.describe("Period End — Detail page — Feature pending", () => {
   );
 
   purchaseTest.skip(
-    "TC-PE00204 View period detail with invalid period ID",
+    "TC-PE-020004 View period detail with invalid period ID",
     {
       annotation: [
         { type: "preconditions", description: "User has permission; invalid period ID is provided" },
@@ -180,7 +180,7 @@ purchaseTest.describe("Period End — Detail page — Feature pending", () => {
   );
 
   purchaseTest.skip(
-    "TC-PE00205 View period detail for period with incomplete validation",
+    "TC-PE-020005 View period detail for period with incomplete validation",
     {
       annotation: [
         { type: "preconditions", description: "User has permission; period has incomplete validation stages" },
@@ -201,7 +201,7 @@ purchaseTest.describe("Period End — Detail page — Feature pending", () => {
 
 requestorTest.describe("Period End — Detail page — Permission denial — Feature pending", () => {
   requestorTest.skip(
-    "TC-PE00203 View period detail with no permission",
+    "TC-PE-020003 View period detail with no permission",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated but lacks permission to view period detail" },
@@ -221,11 +221,11 @@ requestorTest.describe("Period End — Detail page — Permission denial — Fea
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PE003 — Close Period Workflow (sub-route — not yet implemented)
+// TC-PE-900003 — Close Period Workflow (sub-route — not yet implemented)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Period End — Close workflow — Feature pending", () => {
   purchaseTest.skip(
-    "TC-PE00301 Happy Path - Inventory Manager Completes Validation",
+    "TC-PE-030001 Happy Path - Inventory Manager Completes Validation",
     {
       annotation: [
         { type: "preconditions", description: "User has close permission; period is open or in_progress" },
@@ -244,7 +244,7 @@ purchaseTest.describe("Period End — Close workflow — Feature pending", () =>
   );
 
   purchaseTest.skip(
-    "TC-PE00303 Edge Case - Period Already Closed",
+    "TC-PE-030003 Edge Case - Period Already Closed",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated; period is closed" },
@@ -263,7 +263,7 @@ purchaseTest.describe("Period End — Close workflow — Feature pending", () =>
   );
 
   purchaseTest.skip(
-    "TC-PE00304 Negative - Invalid Period ID",
+    "TC-PE-030004 Negative - Invalid Period ID",
     {
       annotation: [
         { type: "preconditions", description: "User has close permission" },
@@ -282,7 +282,7 @@ purchaseTest.describe("Period End — Close workflow — Feature pending", () =>
   );
 
   purchaseTest.skip(
-    "TC-PE00305 Edge Case - All Sections Fail Validation",
+    "TC-PE-030005 Edge Case - All Sections Fail Validation",
     {
       annotation: [
         { type: "preconditions", description: "User has close permission; period is open or in_progress" },
@@ -302,11 +302,11 @@ purchaseTest.describe("Period End — Close workflow — Feature pending", () =>
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PE004 — Close Period Action (sub-route — not yet implemented)
+// TC-PE-900004 — Close Period Action (sub-route — not yet implemented)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Period End — Close action — Feature pending", () => {
   purchaseTest.skip(
-    "TC-PE00401 Close Period - Happy Path",
+    "TC-PE-040001 Close Period - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "User has close permission; period status is closing; all 3 validation stages pass" },
@@ -325,7 +325,7 @@ purchaseTest.describe("Period End — Close action — Feature pending", () => {
   );
 
   purchaseTest.skip(
-    "TC-PE00402 Close Period - Invalid Input",
+    "TC-PE-040002 Close Period - Invalid Input",
     {
       annotation: [
         { type: "preconditions", description: "User has close permission; period status is closing; all 3 validation stages pass" },
@@ -344,7 +344,7 @@ purchaseTest.describe("Period End — Close action — Feature pending", () => {
   );
 
   purchaseTest.skip(
-    "TC-PE00404 Close Period - Database Error",
+    "TC-PE-040004 Close Period - Database Error",
     {
       annotation: [
         { type: "preconditions", description: "User has close permission; period status is closing; all 3 validation stages pass" },
@@ -363,7 +363,7 @@ purchaseTest.describe("Period End — Close action — Feature pending", () => {
   );
 
   purchaseTest.skip(
-    "TC-PE00405 Close Period - Validation No Longer Passes",
+    "TC-PE-040005 Close Period - Validation No Longer Passes",
     {
       annotation: [
         { type: "preconditions", description: "User has close permission; period status is closing" },
@@ -384,7 +384,7 @@ purchaseTest.describe("Period End — Close action — Feature pending", () => {
 
 requestorTest.describe("Period End — Close action — Permission denial — Feature pending", () => {
   requestorTest.skip(
-    "TC-PE00403 Close Period - Permission Denied",
+    "TC-PE-040003 Close Period - Permission Denied",
     {
       annotation: [
         { type: "preconditions", description: "Period status is closing; all 3 validation stages pass" },
@@ -405,12 +405,12 @@ requestorTest.describe("Period End — Close action — Permission denial — Fe
 
 // ═════════════════════════════════════════════════════════════════════════
 // BACKEND / SYSTEM-LEVEL — all skipped
-// TC-PE101 transaction validation, TC-PE102 spot check validation,
-// TC-PE103 physical count validation, TC-PE104 activity log integrity
+// TC-PE-900101 transaction validation, TC-PE-900102 spot check validation,
+// TC-PE-900103 physical count validation, TC-PE-900104 activity log integrity
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Period End — Transaction validation — Backend only", () => {
   purchaseTest.skip(
-    "TC-PE10101 All transactions posted",
+    "TC-PE-310001 All transactions posted",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to run validation; all transactions are posted" },
@@ -429,7 +429,7 @@ purchaseTest.describe("Period End — Transaction validation — Backend only", 
   );
 
   purchaseTest.skip(
-    "TC-PE10102 Missing GRN document",
+    "TC-PE-310002 Missing GRN document",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to run validation; one GRN document is missing 'Posted' status" },
@@ -448,7 +448,7 @@ purchaseTest.describe("Period End — Transaction validation — Backend only", 
   );
 
   purchaseTest.skip(
-    "TC-PE10103 User without permission",
+    "TC-PE-310003 User without permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have permission to run validation" },
@@ -466,7 +466,7 @@ purchaseTest.describe("Period End — Transaction validation — Backend only", 
   );
 
   purchaseTest.skip(
-    "TC-PE10105 Partial transaction types",
+    "TC-PE-310005 Partial transaction types",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to run validation; some transaction types have pending statuses" },
@@ -487,7 +487,7 @@ purchaseTest.describe("Period End — Transaction validation — Backend only", 
 
 purchaseTest.describe("Period End — Spot check validation — Backend only", () => {
   purchaseTest.skip(
-    "TC-PE10201 Happy Path - Successful Spot Check Validation",
+    "TC-PE-320001 Happy Path - Successful Spot Check Validation",
     {
       annotation: [
         { type: "preconditions", description: "User logged in with valid credentials and has permission to perform validation" },
@@ -506,7 +506,7 @@ purchaseTest.describe("Period End — Spot check validation — Backend only", (
   );
 
   purchaseTest.skip(
-    "TC-PE10204 Edge Case - No Spot Checks for Period",
+    "TC-PE-320004 Edge Case - No Spot Checks for Period",
     {
       annotation: [
         { type: "preconditions", description: "There are no spot checks recorded for the validation period" },
@@ -525,7 +525,7 @@ purchaseTest.describe("Period End — Spot check validation — Backend only", (
   );
 
   purchaseTest.skip(
-    "TC-PE10205 Edge Case - Some Spot Checks Incomplete",
+    "TC-PE-320005 Edge Case - Some Spot Checks Incomplete",
     {
       annotation: [
         { type: "preconditions", description: "Some spot checks are marked as 'incomplete' for the validation period" },
@@ -546,7 +546,7 @@ purchaseTest.describe("Period End — Spot check validation — Backend only", (
 
 purchaseTest.describe("Period End — Physical count validation — Backend only", () => {
   purchaseTest.skip(
-    "TC-PE10301 All Physical Counts Finalized Successfully",
+    "TC-PE-330001 All Physical Counts Finalized Successfully",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to run validation; period date range is set" },
@@ -565,7 +565,7 @@ purchaseTest.describe("Period End — Physical count validation — Backend only
   );
 
   purchaseTest.skip(
-    "TC-PE10302 Validation Run with No Physical Counts",
+    "TC-PE-330002 Validation Run with No Physical Counts",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to run validation; no physical counts exist for the period date range" },
@@ -584,7 +584,7 @@ purchaseTest.describe("Period End — Physical count validation — Backend only
   );
 
   purchaseTest.skip(
-    "TC-PE10303 Run Validation with Unauthorized User",
+    "TC-PE-330003 Run Validation with Unauthorized User",
     {
       annotation: [
         { type: "preconditions", description: "User does not have permission to run validation" },
@@ -603,7 +603,7 @@ purchaseTest.describe("Period End — Physical count validation — Backend only
   );
 
   purchaseTest.skip(
-    "TC-PE10304 Physical Count Status Not Finalized",
+    "TC-PE-330004 Physical Count Status Not Finalized",
     {
       annotation: [
         { type: "preconditions", description: "Some physical counts for the period date range are not finalized" },
@@ -622,7 +622,7 @@ purchaseTest.describe("Period End — Physical count validation — Backend only
   );
 
   purchaseTest.skip(
-    "TC-PE10305 Period Date Range Without Physical Counts",
+    "TC-PE-330005 Period Date Range Without Physical Counts",
     {
       annotation: [
         { type: "preconditions", description: "The period date range selected does not have any physical counts" },
@@ -643,7 +643,7 @@ purchaseTest.describe("Period End — Physical count validation — Backend only
 
 purchaseTest.describe("Period End — Activity log — Backend only", () => {
   purchaseTest.skip(
-    "TC-PE10401 Happy Path - Log Activity Entry",
+    "TC-PE-340001 Happy Path - Log Activity Entry",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in with permissions to perform period actions" },
@@ -662,7 +662,7 @@ purchaseTest.describe("Period End — Activity log — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PE10402 Negative - Invalid User Credentials",
+    "TC-PE-340002 Negative - Invalid User Credentials",
     {
       annotation: [
         { type: "preconditions", description: "User logs in with invalid credentials" },
@@ -681,7 +681,7 @@ purchaseTest.describe("Period End — Activity log — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PE10403 Negative - No Permissions",
+    "TC-PE-340003 Negative - No Permissions",
     {
       annotation: [
         { type: "preconditions", description: "User logs in without permissions to perform period actions" },
@@ -700,7 +700,7 @@ purchaseTest.describe("Period End — Activity log — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PE10404 Edge Case - No Period ID Provided",
+    "TC-PE-340004 Edge Case - No Period ID Provided",
     {
       annotation: [
         { type: "preconditions", description: "User has valid credentials and permissions to perform period actions" },
@@ -719,7 +719,7 @@ purchaseTest.describe("Period End — Activity log — Backend only", () => {
   );
 
   purchaseTest.skip(
-    "TC-PE10405 Edge Case - Timestamp Overflow",
+    "TC-PE-340005 Edge Case - Timestamp Overflow",
     {
       annotation: [
         { type: "preconditions", description: "User has valid credentials and permissions to perform period actions" },

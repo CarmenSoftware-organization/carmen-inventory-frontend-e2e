@@ -11,87 +11,87 @@ _Generated from `tests/101-product-category.spec.ts` annotations. Edit annotatio
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-CAT00101 | View all categories | Critical | Happy Path |
-| TC-CAT00102 | No permission to view categories | Critical | Negative |
-| TC-CAT00103 | Expand and collapse category levels | High | Happy Path |
-| TC-CAT00104 | Category hierarchy with very long names | Medium | Edge Case |
-| TC-CAT00105 | Multiple levels of categories | High | Happy Path |
-| TC-CAT00201 | Happy Path - Create Root Category | Critical | Happy Path |
-| TC-CAT00202 | Negative - No Permission to Create Category | Critical | Negative |
-| TC-CAT00203 | Edge Case - Category Name Exceeds Maximum Length | High | Edge Case |
-| TC-CAT00301 | Happy Path - Create Subcategory | Critical | Happy Path |
-| TC-CAT00302 | Negative Case - Invalid Subcategory Name | High | Negative |
-| TC-CAT00303 | Negative Case - No Permission | High | Negative |
-| TC-CAT00304 | Edge Case - Maximum Subcategory Level | Medium | Edge Case |
-| TC-CAT00401 | Create Valid Item Group | Critical | Happy Path |
-| TC-CAT00402 | Create Item Group with Missing Permission | Critical | Negative |
-| TC-CAT00403 | Create Item Group with Invalid Subcategory Selection | High | Negative |
-| TC-CAT00405 | Create Item Group with Long Name | Medium | Edge Case |
-| TC-CAT00501 | Edit Existing Category Name | Critical | Happy Path |
-| TC-CAT00502 | Try to Edit Non-Existent Category | High | Negative |
-| TC-CAT00503 | Edit Category with No Permission | Critical | Negative |
-| TC-CAT00504 | Edit Category with Invalid Input | High | Negative |
-| TC-CAT00505 | Edit Category with Active Reference | Critical | Edge Case |
-| TC-CAT00601 | Delete existing category | Critical | Happy Path |
-| TC-CAT00602 | Attempt to delete category with assigned products | Critical | Negative |
-| TC-CAT00603 | Attempt to delete non-existing category | Critical | Negative |
-| TC-CAT00604 | Delete category after logging out | Medium | Edge Case |
-| TC-CAT00701 | Reorder Categories within Same Parent | High | Happy Path |
-| TC-CAT00702 | Move Category to Different Parent | High | Happy Path |
-| TC-CAT00703 | Unable to Reorder without Permission | High | Negative |
-| TC-CAT00704 | Attempt to Drag Category Outside of Current Parent | High | Edge Case |
-| TC-CAT00705 | Drag Category with No Siblings | High | Edge Case |
-| TC-CAT00801 | Switch from Tree to List View | High | Happy Path |
-| TC-CAT00802 | Switch from List to Tree View | High | Happy Path |
-| TC-CAT00803 | Negative: Switch View with No Categories | High | Negative |
-| TC-CAT00804 | Edge Case: Switch Views Multiple Times | Medium | Edge Case |
-| TC-CAT00901 | Happy Path - Search for Existing Category | High | Happy Path |
-| TC-CAT00902 | Negative Case - Search with Invalid Input | High | Negative |
-| TC-CAT00903 | Edge Case - Search with Empty Input | High | Edge Case |
-| TC-CAT00904 | Negative Case - User without Permission | High | Negative |
-| TC-CAT01001 | Apply multiple filters successfully | High | Happy Path |
-| TC-CAT01002 | Apply filters with invalid input | High | Negative |
-| TC-CAT01003 | Apply filters with no categories matching | High | Edge Case |
-| TC-CAT01004 | Apply filters with no filters applied | High | Edge Case |
-| TC-CAT01101 | Select a Category with Breadcrumbs | High | Happy Path |
-| TC-CAT01102 | Navigate Up a Level Using Breadcrumbs | High | Happy Path |
-| TC-CAT01103 | Breadcrumb Trail Displays Correctly with Multiple Parents | High | Happy Path |
-| TC-CAT01104 | Breadcrumb Trail Not Displayed for Single-Level Categories | High | Edge Case |
-| TC-CAT01105 | Breadcrumb Trail Missing When No Category Selected | High | Negative |
-| TC-CAT01201 | View Category Item Counts - Happy Path | High | Happy Path |
-| TC-CAT01202 | View Category Item Counts - No Product Assignments | High | Negative |
-| TC-CAT01203 | View Category Item Counts - User with Limited Permissions | High | Negative |
-| TC-CAT01204 | View Category Item Counts - Edge Case - Category with No Descendants | High | Edge Case |
-| TC-CAT01205 | View Category Item Counts - Edge Case - All Categories Empty | High | Edge Case |
-| TC-CAT01301 | Move Category to a Valid Parent with Permission | High | Happy Path |
-| TC-CAT01302 | Attempt to Move Category to Same Parent | High | Negative |
-| TC-CAT01303 | Move Category to Invalid Parent | High | Negative |
-| TC-CAT01304 | Move Category without Permission | High | Negative |
-| TC-CAT01305 | Move Category When Parent Hierarchy Would Form a Loop | High | Edge Case |
-| TC-CAT01401 | Activate Category with Valid Permission | Medium | Happy Path |
-| TC-CAT01403 | Attempt to Activate Deactivated Category with Valid Permission | Medium | Happy Path |
-| TC-CAT01405 | Attempt to Activate Non-Existent Category | Medium | Negative |
-| TC-CAT01501 | View existing category details | Medium | Happy Path |
-| TC-CAT01502 | Verify category not found error | High | Negative |
-| TC-CAT01503 | Access category without permission | Medium | Negative |
-| TC-CAT01504 | Edge case - category with zero products | Medium | Edge Case |
-| TC-CAT20101 | Happy Path - Valid Category Selection | Critical | Happy Path |
-| TC-CAT20102 | Negative Case - Unavailable Category | High | Negative |
-| TC-CAT20103 | Edge Case - Multiple Category Selection | Medium | Edge Case |
-| TC-CAT20201 | Happy Path - Generate Inventory Report with Valid Categories | High | Happy Path |
-| TC-CAT20202 | Negative Case - Generate Report Without Valid Categories | High | Negative |
-| TC-CAT20203 | Edge Case - Generate Report with Maximum Number of Categories | High | Edge Case |
-| TC-CAT20301 | Happy Path - Category-based Purchase Request | High | Happy Path |
-| TC-CAT20302 | Negative Case - Invalid Category Selection | High | Negative |
-| TC-CAT20303 | Edge Case - No Categories Available | Medium | Edge Case |
-| TC-CAT20305 | Happy Path - Spend Analysis by Category | High | Happy Path |
-| TC-CAT20401 | Happy Path - Recipe Cost Calculation by Category | Medium | Happy Path |
-| TC-CAT20402 | Negative - Invalid Ingredient Selection | Medium | Negative |
-| TC-CAT20404 | Happy Path - Ingredient Usage Analysis by Category | Medium | Happy Path |
+| TC-CAT-010001 | View all categories | Critical | Happy Path |
+| TC-CAT-010002 | No permission to view categories | Critical | Negative |
+| TC-CAT-010003 | Expand and collapse category levels | High | Happy Path |
+| TC-CAT-010004 | Category hierarchy with very long names | Medium | Edge Case |
+| TC-CAT-010005 | Multiple levels of categories | High | Happy Path |
+| TC-CAT-020001 | Happy Path - Create Root Category | Critical | Happy Path |
+| TC-CAT-020002 | Negative - No Permission to Create Category | Critical | Negative |
+| TC-CAT-020003 | Edge Case - Category Name Exceeds Maximum Length | High | Edge Case |
+| TC-CAT-030001 | Happy Path - Create Subcategory | Critical | Happy Path |
+| TC-CAT-030002 | Negative Case - Invalid Subcategory Name | High | Negative |
+| TC-CAT-030003 | Negative Case - No Permission | High | Negative |
+| TC-CAT-030004 | Edge Case - Maximum Subcategory Level | Medium | Edge Case |
+| TC-CAT-040001 | Create Valid Item Group | Critical | Happy Path |
+| TC-CAT-040002 | Create Item Group with Missing Permission | Critical | Negative |
+| TC-CAT-040003 | Create Item Group with Invalid Subcategory Selection | High | Negative |
+| TC-CAT-040005 | Create Item Group with Long Name | Medium | Edge Case |
+| TC-CAT-050001 | Edit Existing Category Name | Critical | Happy Path |
+| TC-CAT-050002 | Try to Edit Non-Existent Category | High | Negative |
+| TC-CAT-050003 | Edit Category with No Permission | Critical | Negative |
+| TC-CAT-050004 | Edit Category with Invalid Input | High | Negative |
+| TC-CAT-050005 | Edit Category with Active Reference | Critical | Edge Case |
+| TC-CAT-060001 | Delete existing category | Critical | Happy Path |
+| TC-CAT-060002 | Attempt to delete category with assigned products | Critical | Negative |
+| TC-CAT-060003 | Attempt to delete non-existing category | Critical | Negative |
+| TC-CAT-060004 | Delete category after logging out | Medium | Edge Case |
+| TC-CAT-070001 | Reorder Categories within Same Parent | High | Happy Path |
+| TC-CAT-070002 | Move Category to Different Parent | High | Happy Path |
+| TC-CAT-070003 | Unable to Reorder without Permission | High | Negative |
+| TC-CAT-070004 | Attempt to Drag Category Outside of Current Parent | High | Edge Case |
+| TC-CAT-070005 | Drag Category with No Siblings | High | Edge Case |
+| TC-CAT-080001 | Switch from Tree to List View | High | Happy Path |
+| TC-CAT-080002 | Switch from List to Tree View | High | Happy Path |
+| TC-CAT-080003 | Negative: Switch View with No Categories | High | Negative |
+| TC-CAT-080004 | Edge Case: Switch Views Multiple Times | Medium | Edge Case |
+| TC-CAT-090001 | Happy Path - Search for Existing Category | High | Happy Path |
+| TC-CAT-090002 | Negative Case - Search with Invalid Input | High | Negative |
+| TC-CAT-090003 | Edge Case - Search with Empty Input | High | Edge Case |
+| TC-CAT-090004 | Negative Case - User without Permission | High | Negative |
+| TC-CAT-100001 | Apply multiple filters successfully | High | Happy Path |
+| TC-CAT-100002 | Apply filters with invalid input | High | Negative |
+| TC-CAT-100003 | Apply filters with no categories matching | High | Edge Case |
+| TC-CAT-100004 | Apply filters with no filters applied | High | Edge Case |
+| TC-CAT-110001 | Select a Category with Breadcrumbs | High | Happy Path |
+| TC-CAT-110002 | Navigate Up a Level Using Breadcrumbs | High | Happy Path |
+| TC-CAT-110003 | Breadcrumb Trail Displays Correctly with Multiple Parents | High | Happy Path |
+| TC-CAT-110004 | Breadcrumb Trail Not Displayed for Single-Level Categories | High | Edge Case |
+| TC-CAT-110005 | Breadcrumb Trail Missing When No Category Selected | High | Negative |
+| TC-CAT-120001 | View Category Item Counts - Happy Path | High | Happy Path |
+| TC-CAT-120002 | View Category Item Counts - No Product Assignments | High | Negative |
+| TC-CAT-120003 | View Category Item Counts - User with Limited Permissions | High | Negative |
+| TC-CAT-120004 | View Category Item Counts - Edge Case - Category with No Descendants | High | Edge Case |
+| TC-CAT-120005 | View Category Item Counts - Edge Case - All Categories Empty | High | Edge Case |
+| TC-CAT-130001 | Move Category to a Valid Parent with Permission | High | Happy Path |
+| TC-CAT-130002 | Attempt to Move Category to Same Parent | High | Negative |
+| TC-CAT-130003 | Move Category to Invalid Parent | High | Negative |
+| TC-CAT-130004 | Move Category without Permission | High | Negative |
+| TC-CAT-130005 | Move Category When Parent Hierarchy Would Form a Loop | High | Edge Case |
+| TC-CAT-140001 | Activate Category with Valid Permission | Medium | Happy Path |
+| TC-CAT-140003 | Attempt to Activate Deactivated Category with Valid Permission | Medium | Happy Path |
+| TC-CAT-140005 | Attempt to Activate Non-Existent Category | Medium | Negative |
+| TC-CAT-150001 | View existing category details | Medium | Happy Path |
+| TC-CAT-150002 | Verify category not found error | High | Negative |
+| TC-CAT-150003 | Access category without permission | Medium | Negative |
+| TC-CAT-150004 | Edge case - category with zero products | Medium | Edge Case |
+| TC-CAT-210001 | Happy Path - Valid Category Selection | Critical | Happy Path |
+| TC-CAT-210002 | Negative Case - Unavailable Category | High | Negative |
+| TC-CAT-210003 | Edge Case - Multiple Category Selection | Medium | Edge Case |
+| TC-CAT-220001 | Happy Path - Generate Inventory Report with Valid Categories | High | Happy Path |
+| TC-CAT-220002 | Negative Case - Generate Report Without Valid Categories | High | Negative |
+| TC-CAT-220003 | Edge Case - Generate Report with Maximum Number of Categories | High | Edge Case |
+| TC-CAT-230001 | Happy Path - Category-based Purchase Request | High | Happy Path |
+| TC-CAT-230002 | Negative Case - Invalid Category Selection | High | Negative |
+| TC-CAT-230003 | Edge Case - No Categories Available | Medium | Edge Case |
+| TC-CAT-230005 | Happy Path - Spend Analysis by Category | High | Happy Path |
+| TC-CAT-240001 | Happy Path - Recipe Cost Calculation by Category | Medium | Happy Path |
+| TC-CAT-240002 | Negative - Invalid Ingredient Selection | Medium | Negative |
+| TC-CAT-240004 | Happy Path - Ingredient Usage Analysis by Category | Medium | Happy Path |
 
 ---
 
-## TC-CAT00101 — View all categories
+## TC-CAT-010001 — View all categories
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -115,7 +115,7 @@ All categories are correctly displayed and expandable in tree structure.
 
 ---
 
-## TC-CAT00102 — No permission to view categories
+## TC-CAT-010002 — No permission to view categories
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -137,7 +137,7 @@ User sees an error message or restricted access message.
 
 ---
 
-## TC-CAT00103 — Expand and collapse category levels
+## TC-CAT-010003 — Expand and collapse category levels
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -166,7 +166,7 @@ User can expand and collapse category levels as expected.
 
 ---
 
-## TC-CAT00104 — Category hierarchy with very long names
+## TC-CAT-010004 — Category hierarchy with very long names
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -189,7 +189,7 @@ Category hierarchy is displayed correctly even with very long category names.
 
 ---
 
-## TC-CAT00105 — Multiple levels of categories
+## TC-CAT-010005 — Multiple levels of categories
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -214,7 +214,7 @@ All levels of category hierarchy are displayed correctly.
 
 ---
 
-## TC-CAT00201 — Happy Path - Create Root Category
+## TC-CAT-020001 — Happy Path - Create Root Category
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -237,7 +237,7 @@ Category is created successfully, visible in the list of categories.
 
 ---
 
-## TC-CAT00202 — Negative - No Permission to Create Category
+## TC-CAT-020002 — Negative - No Permission to Create Category
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -260,7 +260,7 @@ User receives an error message indicating they do not have permission to create 
 
 ---
 
-## TC-CAT00203 — Edge Case - Category Name Exceeds Maximum Length
+## TC-CAT-020003 — Edge Case - Category Name Exceeds Maximum Length
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -283,7 +283,7 @@ Category creation fails with an error message indicating the name exceeds the ma
 
 ---
 
-## TC-CAT00301 — Happy Path - Create Subcategory
+## TC-CAT-030001 — Happy Path - Create Subcategory
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -308,7 +308,7 @@ Subcategory is successfully created and displayed under the parent category.
 
 ---
 
-## TC-CAT00302 — Negative Case - Invalid Subcategory Name
+## TC-CAT-030002 — Negative Case - Invalid Subcategory Name
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -333,7 +333,7 @@ Error message is displayed indicating the subcategory name is invalid.
 
 ---
 
-## TC-CAT00303 — Negative Case - No Permission
+## TC-CAT-030003 — Negative Case - No Permission
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -356,7 +356,7 @@ User is prompted to log in or does not have access to perform the action.
 
 ---
 
-## TC-CAT00304 — Edge Case - Maximum Subcategory Level
+## TC-CAT-030004 — Edge Case - Maximum Subcategory Level
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -380,7 +380,7 @@ System limits the creation of subcategories to the maximum allowed level and doe
 
 ---
 
-## TC-CAT00401 — Create Valid Item Group
+## TC-CAT-040001 — Create Valid Item Group
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -405,7 +405,7 @@ New item group is created and displayed in the category list.
 
 ---
 
-## TC-CAT00402 — Create Item Group with Missing Permission
+## TC-CAT-040002 — Create Item Group with Missing Permission
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -427,7 +427,7 @@ User cannot access 'New Item Group' button and sees appropriate permission error
 
 ---
 
-## TC-CAT00403 — Create Item Group with Invalid Subcategory Selection
+## TC-CAT-040003 — Create Item Group with Invalid Subcategory Selection
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -452,7 +452,7 @@ User receives error message indicating that the selected subcategory does not ex
 
 ---
 
-## TC-CAT00405 — Create Item Group with Long Name
+## TC-CAT-040005 — Create Item Group with Long Name
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -476,7 +476,7 @@ User receives error message indicating that the item group name exceeds the allo
 
 ---
 
-## TC-CAT00501 — Edit Existing Category Name
+## TC-CAT-050001 — Edit Existing Category Name
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -501,7 +501,7 @@ Category name is updated successfully and reflected in the system.
 
 ---
 
-## TC-CAT00502 — Try to Edit Non-Existent Category
+## TC-CAT-050002 — Try to Edit Non-Existent Category
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -524,7 +524,7 @@ System displays error message indicating that the category does not exist.
 
 ---
 
-## TC-CAT00503 — Edit Category with No Permission
+## TC-CAT-050003 — Edit Category with No Permission
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -547,7 +547,7 @@ System displays error message indicating insufficient permissions.
 
 ---
 
-## TC-CAT00504 — Edit Category with Invalid Input
+## TC-CAT-050004 — Edit Category with Invalid Input
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -572,7 +572,7 @@ System displays error message indicating invalid input.
 
 ---
 
-## TC-CAT00505 — Edit Category with Active Reference
+## TC-CAT-050005 — Edit Category with Active Reference
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -595,7 +595,7 @@ System displays error message indicating that the category cannot be edited due 
 
 ---
 
-## TC-CAT00601 — Delete existing category
+## TC-CAT-060001 — Delete existing category
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -620,7 +620,7 @@ Category is marked as deleted while retaining related data for audit tracking.
 
 ---
 
-## TC-CAT00602 — Attempt to delete category with assigned products
+## TC-CAT-060002 — Attempt to delete category with assigned products
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -644,7 +644,7 @@ Category deletion attempt fails and error message is displayed.
 
 ---
 
-## TC-CAT00603 — Attempt to delete non-existing category
+## TC-CAT-060003 — Attempt to delete non-existing category
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -668,7 +668,7 @@ System returns 'Category not found' message and no changes are made.
 
 ---
 
-## TC-CAT00604 — Delete category after logging out
+## TC-CAT-060004 — Delete category after logging out
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -694,7 +694,7 @@ Deletion cannot proceed and user is prompted to log in.
 
 ---
 
-## TC-CAT00701 — Reorder Categories within Same Parent
+## TC-CAT-070001 — Reorder Categories within Same Parent
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -718,7 +718,7 @@ Categories A and B are reordered next to each other under the same parent.
 
 ---
 
-## TC-CAT00702 — Move Category to Different Parent
+## TC-CAT-070002 — Move Category to Different Parent
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -742,7 +742,7 @@ Category C is moved under parent 2.
 
 ---
 
-## TC-CAT00703 — Unable to Reorder without Permission
+## TC-CAT-070003 — Unable to Reorder without Permission
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -764,7 +764,7 @@ User cannot reorder categories and an error message is displayed.
 
 ---
 
-## TC-CAT00704 — Attempt to Drag Category Outside of Current Parent
+## TC-CAT-070004 — Attempt to Drag Category Outside of Current Parent
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -787,7 +787,7 @@ Category A remains in its current position and an error message is displayed.
 
 ---
 
-## TC-CAT00705 — Drag Category with No Siblings
+## TC-CAT-070005 — Drag Category with No Siblings
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -809,7 +809,7 @@ User cannot reorder a single category and an error message is displayed.
 
 ---
 
-## TC-CAT00801 — Switch from Tree to List View
+## TC-CAT-080001 — Switch from Tree to List View
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -832,7 +832,7 @@ Categories are displayed in a flat list format.
 
 ---
 
-## TC-CAT00802 — Switch from List to Tree View
+## TC-CAT-080002 — Switch from List to Tree View
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -855,7 +855,7 @@ Categories are displayed in a hierarchical tree format.
 
 ---
 
-## TC-CAT00803 — Negative: Switch View with No Categories
+## TC-CAT-080003 — Negative: Switch View with No Categories
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -879,7 +879,7 @@ No categories are displayed.
 
 ---
 
-## TC-CAT00804 — Edge Case: Switch Views Multiple Times
+## TC-CAT-080004 — Edge Case: Switch Views Multiple Times
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -904,7 +904,7 @@ Categories are displayed in a hierarchical tree format.
 
 ---
 
-## TC-CAT00901 — Happy Path - Search for Existing Category
+## TC-CAT-090001 — Happy Path - Search for Existing Category
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -928,7 +928,7 @@ Search results highlight 'Electronics' category with matching descriptions.
 
 ---
 
-## TC-CAT00902 — Negative Case - Search with Invalid Input
+## TC-CAT-090002 — Negative Case - Search with Invalid Input
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -952,7 +952,7 @@ Search results show no matches and clear message or placeholder informing user t
 
 ---
 
-## TC-CAT00903 — Edge Case - Search with Empty Input
+## TC-CAT-090003 — Edge Case - Search with Empty Input
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -976,7 +976,7 @@ Search results do not change from default view.
 
 ---
 
-## TC-CAT00904 — Negative Case - User without Permission
+## TC-CAT-090004 — Negative Case - User without Permission
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1000,7 +1000,7 @@ User is redirected to permission denied page or receives error message.
 
 ---
 
-## TC-CAT01001 — Apply multiple filters successfully
+## TC-CAT-100001 — Apply multiple filters successfully
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1025,7 +1025,7 @@ Filtered categories are displayed according to selected criteria.
 
 ---
 
-## TC-CAT01002 — Apply filters with invalid input
+## TC-CAT-100002 — Apply filters with invalid input
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1048,7 +1048,7 @@ Error message is displayed indicating invalid input.
 
 ---
 
-## TC-CAT01003 — Apply filters with no categories matching
+## TC-CAT-100003 — Apply filters with no categories matching
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1071,7 +1071,7 @@ No categories are displayed, message indicates no matching results.
 
 ---
 
-## TC-CAT01004 — Apply filters with no filters applied
+## TC-CAT-100004 — Apply filters with no filters applied
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1094,7 +1094,7 @@ All categories are displayed.
 
 ---
 
-## TC-CAT01101 — Select a Category with Breadcrumbs
+## TC-CAT-110001 — Select a Category with Breadcrumbs
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1117,7 +1117,7 @@ The breadcrumb trail correctly displays the path from the root to the selected c
 
 ---
 
-## TC-CAT01102 — Navigate Up a Level Using Breadcrumbs
+## TC-CAT-110002 — Navigate Up a Level Using Breadcrumbs
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1140,7 +1140,7 @@ The user is successfully navigated to the parent category as indicated by the br
 
 ---
 
-## TC-CAT01103 — Breadcrumb Trail Displays Correctly with Multiple Parents
+## TC-CAT-110003 — Breadcrumb Trail Displays Correctly with Multiple Parents
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1162,7 +1162,7 @@ The breadcrumb trail correctly and fully displays the path from the root to the 
 
 ---
 
-## TC-CAT01104 — Breadcrumb Trail Not Displayed for Single-Level Categories
+## TC-CAT-110004 — Breadcrumb Trail Not Displayed for Single-Level Categories
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1184,7 +1184,7 @@ The breadcrumb trail is not displayed when the selected category is a top-level 
 
 ---
 
-## TC-CAT01105 — Breadcrumb Trail Missing When No Category Selected
+## TC-CAT-110005 — Breadcrumb Trail Missing When No Category Selected
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1205,7 +1205,7 @@ The breadcrumb trail is not visible when no category is selected.
 
 ---
 
-## TC-CAT01201 — View Category Item Counts - Happy Path
+## TC-CAT-120001 — View Category Item Counts - Happy Path
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1230,7 +1230,7 @@ Category count is accurate and displayed, and the counts of all descendants are 
 
 ---
 
-## TC-CAT01202 — View Category Item Counts - No Product Assignments
+## TC-CAT-120002 — View Category Item Counts - No Product Assignments
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1254,7 +1254,7 @@ Category and descendant counts display zero.
 
 ---
 
-## TC-CAT01203 — View Category Item Counts - User with Limited Permissions
+## TC-CAT-120003 — View Category Item Counts - User with Limited Permissions
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1278,7 +1278,7 @@ Category count is hidden or displayed as unauthorized for the user with limited 
 
 ---
 
-## TC-CAT01204 — View Category Item Counts - Edge Case - Category with No Descendants
+## TC-CAT-120004 — View Category Item Counts - Edge Case - Category with No Descendants
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1302,7 +1302,7 @@ Category count is accurate and only shown for the selected category, with no cou
 
 ---
 
-## TC-CAT01205 — View Category Item Counts - Edge Case - All Categories Empty
+## TC-CAT-120005 — View Category Item Counts - Edge Case - All Categories Empty
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1326,7 +1326,7 @@ Each selected category count displays zero.
 
 ---
 
-## TC-CAT01301 — Move Category to a Valid Parent with Permission
+## TC-CAT-130001 — Move Category to a Valid Parent with Permission
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1351,7 +1351,7 @@ Category is moved to the target parent successfully, hierarchy remains consisten
 
 ---
 
-## TC-CAT01302 — Attempt to Move Category to Same Parent
+## TC-CAT-130002 — Attempt to Move Category to Same Parent
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1376,7 +1376,7 @@ No change in category hierarchy, user receives an error message indicating that 
 
 ---
 
-## TC-CAT01303 — Move Category to Invalid Parent
+## TC-CAT-130003 — Move Category to Invalid Parent
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1401,7 +1401,7 @@ Operation is rejected, user receives an error message indicating that the target
 
 ---
 
-## TC-CAT01304 — Move Category without Permission
+## TC-CAT-130004 — Move Category without Permission
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1426,7 +1426,7 @@ User is redirected to permission denied page or receives an error message indica
 
 ---
 
-## TC-CAT01305 — Move Category When Parent Hierarchy Would Form a Loop
+## TC-CAT-130005 — Move Category When Parent Hierarchy Would Form a Loop
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1451,7 +1451,7 @@ Operation is rejected, user receives an error message indicating that a circular
 
 ---
 
-## TC-CAT01401 — Activate Category with Valid Permission
+## TC-CAT-140001 — Activate Category with Valid Permission
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1475,7 +1475,7 @@ Category status is updated to active, visible in product assignments.
 
 ---
 
-## TC-CAT01403 — Attempt to Activate Deactivated Category with Valid Permission
+## TC-CAT-140003 — Attempt to Activate Deactivated Category with Valid Permission
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1499,7 +1499,7 @@ Category status is updated to active, visible in product assignments.
 
 ---
 
-## TC-CAT01405 — Attempt to Activate Non-Existent Category
+## TC-CAT-140005 — Attempt to Activate Non-Existent Category
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1522,7 +1522,7 @@ Category status remains unchanged, error message displayed.
 
 ---
 
-## TC-CAT01501 — View existing category details
+## TC-CAT-150001 — View existing category details
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1545,7 +1545,7 @@ Category details are displayed correctly.
 
 ---
 
-## TC-CAT01502 — Verify category not found error
+## TC-CAT-150002 — Verify category not found error
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1568,7 +1568,7 @@ Error message indicating the category does not exist is displayed.
 
 ---
 
-## TC-CAT01503 — Access category without permission
+## TC-CAT-150003 — Access category without permission
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1591,7 +1591,7 @@ User is redirected to a permission denied page or sees an error message.
 
 ---
 
-## TC-CAT01504 — Edge case - category with zero products
+## TC-CAT-150004 — Edge case - category with zero products
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1614,7 +1614,7 @@ Category details are displayed with a zero product count.
 
 ---
 
-## TC-CAT20101 — Happy Path - Valid Category Selection
+## TC-CAT-210001 — Happy Path - Valid Category Selection
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1638,7 +1638,7 @@ The selected category is correctly displayed in the UI.
 
 ---
 
-## TC-CAT20102 — Negative Case - Unavailable Category
+## TC-CAT-210002 — Negative Case - Unavailable Category
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1662,7 +1662,7 @@ The unavailable category is not selected and the current selection remains uncha
 
 ---
 
-## TC-CAT20103 — Edge Case - Multiple Category Selection
+## TC-CAT-210003 — Edge Case - Multiple Category Selection
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1686,7 +1686,7 @@ All selected categories are correctly displayed in the UI.
 
 ---
 
-## TC-CAT20201 — Happy Path - Generate Inventory Report with Valid Categories
+## TC-CAT-220001 — Happy Path - Generate Inventory Report with Valid Categories
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1710,7 +1710,7 @@ The inventory report is generated successfully with the correct category data.
 
 ---
 
-## TC-CAT20202 — Negative Case - Generate Report Without Valid Categories
+## TC-CAT-220002 — Negative Case - Generate Report Without Valid Categories
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1734,7 +1734,7 @@ The report generation fails with an error message indicating invalid category da
 
 ---
 
-## TC-CAT20203 — Edge Case - Generate Report with Maximum Number of Categories
+## TC-CAT-220003 — Edge Case - Generate Report with Maximum Number of Categories
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1758,7 +1758,7 @@ The report generation succeeds and includes all categories up to the maximum all
 
 ---
 
-## TC-CAT20301 — Happy Path - Category-based Purchase Request
+## TC-CAT-230001 — Happy Path - Category-based Purchase Request
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1783,7 +1783,7 @@ Purchase request is created and associated with the selected category.
 
 ---
 
-## TC-CAT20302 — Negative Case - Invalid Category Selection
+## TC-CAT-230002 — Negative Case - Invalid Category Selection
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1807,7 +1807,7 @@ System displays an error message indicating the invalid category selection.
 
 ---
 
-## TC-CAT20303 — Edge Case - No Categories Available
+## TC-CAT-230003 — Edge Case - No Categories Available
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1830,7 +1830,7 @@ System displays a message indicating no categories are available.
 
 ---
 
-## TC-CAT20305 — Happy Path - Spend Analysis by Category
+## TC-CAT-230005 — Happy Path - Spend Analysis by Category
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1854,7 +1854,7 @@ Spend analysis report is generated and displayed for the selected category.
 
 ---
 
-## TC-CAT20401 — Happy Path - Recipe Cost Calculation by Category
+## TC-CAT-240001 — Happy Path - Recipe Cost Calculation by Category
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1880,7 +1880,7 @@ Recipe costs are displayed correctly by category.
 
 ---
 
-## TC-CAT20402 — Negative - Invalid Ingredient Selection
+## TC-CAT-240002 — Negative - Invalid Ingredient Selection
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1905,7 +1905,7 @@ Error message displayed or ingredient selection rejected.
 
 ---
 
-## TC-CAT20404 — Happy Path - Ingredient Usage Analysis by Category
+## TC-CAT-240004 — Happy Path - Ingredient Usage Analysis by Category
 
 > **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1929,4 +1929,4 @@ Ingredient usage is correctly displayed by category.
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 650ea0b</sub>
+<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>

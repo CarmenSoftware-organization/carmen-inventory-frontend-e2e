@@ -11,42 +11,42 @@ _Generated from `tests/402-po-purchaser-journey.spec.ts` annotations. Edit annot
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-POP0101 | List loads with PO statuses (DRAFT / IN PROGRESS / APPROVED / etc.) | High | Smoke |
-| TC-POP0102 | Switch to All Documents tab broadens scope | Medium | Functional |
-| TC-POP0103 | Filter by status (DRAFT) | Medium | Functional |
-| TC-POP0104 | Search by PO reference | Medium | Functional |
-| TC-POP0105 | Sort by Date | Low | Functional |
-| TC-POP0201 | Open Create dropdown → Blank → form loads | High | Smoke |
-| TC-POP0202 | Fill header (vendor, delivery date, description) + add 1 line item | High | CRUD |
-| TC-POP0203 | Save Draft → redirect to detail with PO number | High | CRUD |
-| TC-POP0204 | Save without items → button disabled or stays on /new | Medium | Validation |
-| TC-POP0205 | Open Create → From Price List → wizard step 1 (Select Vendors) | Medium | Smoke |
-| TC-POP0206 | Select vendor → wizard step 2 (Review items) | Medium | Functional |
-| TC-POP0207 | Submit Price List wizard → POs created (URL changes from /new to detail) | High | CRUD |
-| TC-POP0208 | Skip dynamically if no price list / vendors available | Low | Functional |
-| TC-POP0209 | Open Create → From PR → wizard step 1 (Select Approved PRs) | Medium | Smoke |
-| TC-POP0210 | Select approved PR → wizard step 2 (Review POs grouped by vendor) | Medium | Functional |
-| TC-POP0211 | Submit From PR wizard → POs created | High | CRUD |
-| TC-POP0212 | Skip dynamically if no approved PR available | Low | Functional |
-| TC-POP0301 | Detail loads (DRAFT) with header + items table | High | Smoke |
-| TC-POP0302 | Item Details panel — Details / Quantity / Pricing tabs | Medium | Functional |
-| TC-POP0303 | Edit / Delete / Submit buttons present for DRAFT | High | Functional |
-| TC-POP0304 | Read-only state for SENT/COMPLETED status (best-effort) | Medium | Authorization |
-| TC-POP0401 | Click Edit on DRAFT → edit mode active (Save/Cancel visible) | High | Smoke |
-| TC-POP0402 | Modify line item quantity → Save → URL stays on detail | High | CRUD |
-| TC-POP0403 | Add new line item in edit mode → Save | Medium | CRUD |
-| TC-POP0404 | Cancel edit (no unsaved changes) → exits without dialog | Medium | Functional |
-| TC-POP0405 | Submit Draft PO → confirmation dialog → status moves to IN PROGRESS | High | CRUD |
-| TC-POP0406 | Delete IN PROGRESS PO via Edit Mode | Medium | CRUD |
-| TC-POP0501 | Approved PO has Send to Vendor + Close buttons (seeded via approveAsFC) | High | Functional |
-| TC-POP0502 | Click Send to Vendor → status updates / toast | High | CRUD |
-| TC-POP0503 | Close PO with items received → COMPLETED | Medium | CRUD |
-| TC-POP0504 | Close PO without items received → VOIDED | Medium | CRUD |
-| TC-POP0901 | Full Purchaser flow: Create blank → Save Draft → Submit → FC approves → Send to Vendor | High | Smoke |
+| TC-PO-060101 | List loads with PO statuses (DRAFT / IN PROGRESS / APPROVED / etc.) | High | Smoke |
+| TC-PO-060102 | Switch to All Documents tab broadens scope | Medium | Functional |
+| TC-PO-060103 | Filter by status (DRAFT) | Medium | Functional |
+| TC-PO-060104 | Search by PO reference | Medium | Functional |
+| TC-PO-060105 | Sort by Date | Low | Functional |
+| TC-PO-060201 | Open Create dropdown → Blank → form loads | High | Smoke |
+| TC-PO-060202 | Fill header (vendor, delivery date, description) + add 1 line item | High | CRUD |
+| TC-PO-060203 | Save Draft → redirect to detail with PO number | High | CRUD |
+| TC-PO-060204 | Save without items → button disabled or stays on /new | Medium | Validation |
+| TC-PO-060205 | Open Create → From Price List → wizard step 1 (Select Vendors) | Medium | Smoke |
+| TC-PO-060206 | Select vendor → wizard step 2 (Review items) | Medium | Functional |
+| TC-PO-060207 | Submit Price List wizard → POs created (URL changes from /new to detail) | High | CRUD |
+| TC-PO-060208 | Skip dynamically if no price list / vendors available | Low | Functional |
+| TC-PO-060209 | Open Create → From PR → wizard step 1 (Select Approved PRs) | Medium | Smoke |
+| TC-PO-060210 | Select approved PR → wizard step 2 (Review POs grouped by vendor) | Medium | Functional |
+| TC-PO-060211 | Submit From PR wizard → POs created | High | CRUD |
+| TC-PO-060212 | Skip dynamically if no approved PR available | Low | Functional |
+| TC-PO-060301 | Detail loads (DRAFT) with header + items table | High | Smoke |
+| TC-PO-060302 | Item Details panel — Details / Quantity / Pricing tabs | Medium | Functional |
+| TC-PO-060303 | Edit / Delete / Submit buttons present for DRAFT | High | Functional |
+| TC-PO-060304 | Read-only state for SENT/COMPLETED status (best-effort) | Medium | Authorization |
+| TC-PO-060401 | Click Edit on DRAFT → edit mode active (Save/Cancel visible) | High | Smoke |
+| TC-PO-060402 | Modify line item quantity → Save → URL stays on detail | High | CRUD |
+| TC-PO-060403 | Add new line item in edit mode → Save | Medium | CRUD |
+| TC-PO-060404 | Cancel edit (no unsaved changes) → exits without dialog | Medium | Functional |
+| TC-PO-060405 | Submit Draft PO → confirmation dialog → status moves to IN PROGRESS | High | CRUD |
+| TC-PO-060406 | Delete IN PROGRESS PO via Edit Mode | Medium | CRUD |
+| TC-PO-060501 | Approved PO has Send to Vendor + Close buttons (seeded via approveAsFC) | High | Functional |
+| TC-PO-060502 | Click Send to Vendor → status updates / toast | High | CRUD |
+| TC-PO-060503 | Close PO with items received → COMPLETED | Medium | CRUD |
+| TC-PO-060504 | Close PO without items received → VOIDED | Medium | CRUD |
+| TC-PO-060901 | Full Purchaser flow: Create blank → Save Draft → Submit → FC approves → Send to Vendor | High | Smoke |
 
 ---
 
-## TC-POP0101 — List loads with PO statuses (DRAFT / IN PROGRESS / APPROVED / etc.)
+## TC-PO-060101 — List loads with PO statuses (DRAFT / IN PROGRESS / APPROVED / etc.)
 
 > **As a** Purchase user, **I want** the Po Purchaser Journey list page to load successfully, **so that** I can manage Po Purchaser Journey records.
 
@@ -67,7 +67,7 @@ URL is on PO list; My Pending tab is selected when present.
 
 ---
 
-## TC-POP0102 — Switch to All Documents tab broadens scope
+## TC-PO-060102 — Switch to All Documents tab broadens scope
 
 > **As a** Purchase user, **I want** this Po Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -87,7 +87,7 @@ All Documents tab becomes selected.
 
 ---
 
-## TC-POP0103 — Filter by status (DRAFT)
+## TC-PO-060103 — Filter by status (DRAFT)
 
 > **As a** Purchase user, **I want** to filter the Po Purchaser Journey list, **so that** I can narrow results to relevant records.
 
@@ -109,7 +109,7 @@ URL stays on PO list after applying the filter.
 
 ---
 
-## TC-POP0104 — Search by PO reference
+## TC-PO-060104 — Search by PO reference
 
 > **As a** Purchase user, **I want** this Po Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -129,7 +129,7 @@ URL stays on PO list after typing in the search input.
 
 ---
 
-## TC-POP0105 — Sort by Date
+## TC-PO-060105 — Sort by Date
 
 > **As a** Purchase user, **I want** to sort the Po Purchaser Journey list, **so that** I can find records in a useful order.
 
@@ -150,7 +150,7 @@ URL stays on PO list after sort click.
 
 ---
 
-## TC-POP0201 — Open Create dropdown → Blank → form loads
+## TC-PO-060201 — Open Create dropdown → Blank → form loads
 
 > **As a** Purchase user, **I want** core Po Purchaser Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -172,7 +172,7 @@ URL becomes /procurement/purchase-order/new and form is visible.
 
 ---
 
-## TC-POP0202 — Fill header (vendor, delivery date, description) + add 1 line item
+## TC-PO-060202 — Fill header (vendor, delivery date, description) + add 1 line item
 
 > **As a** Purchase user, **I want** to create a new Po Purchaser Journey record, **so that** it becomes available for downstream operations.
 
@@ -193,7 +193,7 @@ Description input retains the value entered (E2E-POP marker).
 
 ---
 
-## TC-POP0203 — Save Draft → redirect to detail with PO number
+## TC-PO-060203 — Save Draft → redirect to detail with PO number
 
 > **As a** Purchase user, **I want** to manage Po Purchaser Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -214,7 +214,7 @@ URL changes to /procurement/purchase-order/<id> (not /new).
 
 ---
 
-## TC-POP0204 — Save without items → button disabled or stays on /new
+## TC-PO-060204 — Save without items → button disabled or stays on /new
 
 > **As a** Purchase user, **I want** the system to block invalid Po Purchaser Journey submissions, **so that** data quality is preserved.
 
@@ -234,7 +234,7 @@ Either Save button is disabled, or the form does not navigate from /new.
 
 ---
 
-## TC-POP0205 — Open Create → From Price List → wizard step 1 (Select Vendors)
+## TC-PO-060205 — Open Create → From Price List → wizard step 1 (Select Vendors)
 
 > **As a** Purchase user, **I want** the Po Purchaser Journey list page to load successfully, **so that** I can manage Po Purchaser Journey records.
 
@@ -255,7 +255,7 @@ Wizard step 1 renders (URL changes or dialog appears with vendor selection).
 
 ---
 
-## TC-POP0206 — Select vendor → wizard step 2 (Review items)
+## TC-PO-060206 — Select vendor → wizard step 2 (Review items)
 
 > **As a** Purchase user, **I want** this Po Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -276,7 +276,7 @@ Wizard advances to step 2 (review screen visible).
 
 ---
 
-## TC-POP0207 — Submit Price List wizard → POs created (URL changes from /new to detail)
+## TC-PO-060207 — Submit Price List wizard → POs created (URL changes from /new to detail)
 
 > **As a** Purchase user, **I want** to create a new Po Purchaser Journey record, **so that** it becomes available for downstream operations.
 
@@ -296,7 +296,7 @@ URL transitions away from /new to a created PO detail or list.
 
 ---
 
-## TC-POP0208 — Skip dynamically if no price list / vendors available
+## TC-PO-060208 — Skip dynamically if no price list / vendors available
 
 > **As a** Purchase user, **I want** this Po Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -319,7 +319,7 @@ If wizard shows empty vendor list, test skips with reason. Otherwise asserts wiz
 
 ---
 
-## TC-POP0209 — Open Create → From PR → wizard step 1 (Select Approved PRs)
+## TC-PO-060209 — Open Create → From PR → wizard step 1 (Select Approved PRs)
 
 > **As a** Purchase user, **I want** core Po Purchaser Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -340,7 +340,7 @@ Wizard step 1 renders (PR selection list visible or dialog appears).
 
 ---
 
-## TC-POP0210 — Select approved PR → wizard step 2 (Review POs grouped by vendor)
+## TC-PO-060210 — Select approved PR → wizard step 2 (Review POs grouped by vendor)
 
 > **As a** Purchase user, **I want** this Po Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -361,7 +361,7 @@ Wizard advances to step 2 (review grouped POs by vendor).
 
 ---
 
-## TC-POP0211 — Submit From PR wizard → POs created
+## TC-PO-060211 — Submit From PR wizard → POs created
 
 > **As a** Purchase user, **I want** to create a new Po Purchaser Journey record, **so that** it becomes available for downstream operations.
 
@@ -381,7 +381,7 @@ URL transitions away from /new (POs created).
 
 ---
 
-## TC-POP0212 — Skip dynamically if no approved PR available
+## TC-PO-060212 — Skip dynamically if no approved PR available
 
 > **As a** Purchase user, **I want** this Po Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -404,7 +404,7 @@ If wizard shows empty PR list, test skips with reason. Otherwise asserts wizard 
 
 ---
 
-## TC-POP0301 — Detail loads (DRAFT) with header + items table
+## TC-PO-060301 — Detail loads (DRAFT) with header + items table
 
 > **As a** Purchase user, **I want** core Po Purchaser Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -425,7 +425,7 @@ URL is /procurement/purchase-order/<ref>.
 
 ---
 
-## TC-POP0302 — Item Details panel — Details / Quantity / Pricing tabs
+## TC-PO-060302 — Item Details panel — Details / Quantity / Pricing tabs
 
 > **As a** Purchase user, **I want** this Po Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -446,7 +446,7 @@ Tabs render and become selected when clicked (skipped if not present).
 
 ---
 
-## TC-POP0303 — Edit / Delete / Submit buttons present for DRAFT
+## TC-PO-060303 — Edit / Delete / Submit buttons present for DRAFT
 
 > **As a** Purchase user, **I want** this Po Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -466,7 +466,7 @@ Edit button is visible (Submit button visibility depends on UI variant).
 
 ---
 
-## TC-POP0304 — Read-only state for SENT/COMPLETED status (best-effort)
+## TC-PO-060304 — Read-only state for SENT/COMPLETED status (best-effort)
 
 > **As a** low-privilege user, **I should NOT** see Add/edit controls on Po Purchaser Journey, **so that** role separation is enforced.
 
@@ -490,7 +490,7 @@ Edit button is NOT visible OR is disabled. Skipped if no SENT/COMPLETED PO is fo
 
 ---
 
-## TC-POP0401 — Click Edit on DRAFT → edit mode active (Save/Cancel visible)
+## TC-PO-060401 — Click Edit on DRAFT → edit mode active (Save/Cancel visible)
 
 > **As a** Purchase user, **I want** core Po Purchaser Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -512,7 +512,7 @@ Save button is visible after entering edit mode.
 
 ---
 
-## TC-POP0402 — Modify line item quantity → Save → URL stays on detail
+## TC-PO-060402 — Modify line item quantity → Save → URL stays on detail
 
 > **As a** Purchase user, **I want** to manage Po Purchaser Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -534,7 +534,7 @@ After save the page URL stays on /procurement/purchase-order/<ref>.
 
 ---
 
-## TC-POP0403 — Add new line item in edit mode → Save
+## TC-PO-060403 — Add new line item in edit mode → Save
 
 > **As a** Purchase user, **I want** to create a new Po Purchaser Journey record, **so that** it becomes available for downstream operations.
 
@@ -556,7 +556,7 @@ After save the page URL stays on detail.
 
 ---
 
-## TC-POP0404 — Cancel edit (no unsaved changes) → exits without dialog
+## TC-PO-060404 — Cancel edit (no unsaved changes) → exits without dialog
 
 > **As a** Purchase user, **I want** this Po Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -577,7 +577,7 @@ Form returns to view mode (Edit button visible again).
 
 ---
 
-## TC-POP0405 — Submit Draft PO → confirmation dialog → status moves to IN PROGRESS
+## TC-PO-060405 — Submit Draft PO → confirmation dialog → status moves to IN PROGRESS
 
 > **As a** Purchase user, **I want** to manage Po Purchaser Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -599,7 +599,7 @@ URL stays on PO ref; status badge text updates (best effort).
 
 ---
 
-## TC-POP0406 — Delete IN PROGRESS PO via Edit Mode
+## TC-PO-060406 — Delete IN PROGRESS PO via Edit Mode
 
 > **As a** Purchase user, **I want** to edit an existing Po Purchaser Journey record, **so that** its data stays accurate.
 
@@ -622,7 +622,7 @@ URL navigates back to list (PO removed).
 
 ---
 
-## TC-POP0501 — Approved PO has Send to Vendor + Close buttons (seeded via approveAsFC)
+## TC-PO-060501 — Approved PO has Send to Vendor + Close buttons (seeded via approveAsFC)
 
 > **As a** Purchase user, **I want** this Po Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -644,7 +644,7 @@ Send to Vendor button is visible. Close button presence is secondary (not assert
 
 ---
 
-## TC-POP0502 — Click Send to Vendor → status updates / toast
+## TC-PO-060502 — Click Send to Vendor → status updates / toast
 
 > **As a** Purchase user, **I want** to edit an existing Po Purchaser Journey record, **so that** its data stays accurate.
 
@@ -666,7 +666,7 @@ URL stays on PO ref; success toast or status update visible.
 
 ---
 
-## TC-POP0503 — Close PO with items received → COMPLETED
+## TC-PO-060503 — Close PO with items received → COMPLETED
 
 > **As a** Purchase user, **I want** to manage Po Purchaser Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -691,7 +691,7 @@ Status text matches /completed/i after close. Skipped if no eligible PO.
 
 ---
 
-## TC-POP0504 — Close PO without items received → VOIDED
+## TC-PO-060504 — Close PO without items received → VOIDED
 
 > **As a** Purchase user, **I want** to manage Po Purchaser Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -715,7 +715,7 @@ Status text matches /voided|cancelled/i after close. Skipped if no eligible PO.
 
 ---
 
-## TC-POP0901 — Full Purchaser flow: Create blank → Save Draft → Submit → FC approves → Send to Vendor
+## TC-PO-060901 — Full Purchaser flow: Create blank → Save Draft → Submit → FC approves → Send to Vendor
 
 > **As a** FC user, **I want** core Po Purchaser Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -741,4 +741,4 @@ URL stays on PO ref after Send to Vendor (full lifecycle completes end-to-end).
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 650ea0b</sub>
+<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>

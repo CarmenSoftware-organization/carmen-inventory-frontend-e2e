@@ -20,11 +20,11 @@ const SKIP_NOTE_CONCURRENCY =
   "Requires concurrent multi-user session orchestration. Tracked but skipped in single-worker E2E.";
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CN001 — View / Filter Credit Notes (UI)
+// TC-CN-900001 — View / Filter Credit Notes (UI)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Credit Note — List & Filter", () => {
   purchaseTest(
-    "TC-CN00101 View All Credit Notes",
+    "TC-CN-010001 View All Credit Notes",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated and has permission to view credit notes" },
@@ -42,7 +42,7 @@ purchaseTest.describe("Credit Note — List & Filter", () => {
   );
 
   purchaseTest(
-    "TC-CN00102 Apply Status Filter",
+    "TC-CN-010002 Apply Status Filter",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view credit notes" },
@@ -65,7 +65,7 @@ purchaseTest.describe("Credit Note — List & Filter", () => {
   );
 
   purchaseTest(
-    "TC-CN00103 Filter by Vendor",
+    "TC-CN-010003 Filter by Vendor",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view credit notes; vendor with credit notes exists" },
@@ -90,7 +90,7 @@ purchaseTest.describe("Credit Note — List & Filter", () => {
   );
 
   purchaseTest(
-    "TC-CN00104 Invalid Filter Input",
+    "TC-CN-010004 Invalid Filter Input",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view credit notes" },
@@ -111,7 +111,7 @@ purchaseTest.describe("Credit Note — List & Filter", () => {
   );
 
   purchaseTest(
-    "TC-CN00105 No Credit Notes Available",
+    "TC-CN-010005 No Credit Notes Available",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view credit notes; credit note data does not exist in the system" },
@@ -129,11 +129,11 @@ purchaseTest.describe("Credit Note — List & Filter", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CN002 — Create Quantity-Based CN from GRN (UI)
+// TC-CN-900002 — Create Quantity-Based CN from GRN (UI)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Credit Note — Create from GRN", () => {
   purchaseTest(
-    "TC-CN00201 Create Quantity-Based Credit Note from GRN - Happy Path",
+    "TC-CN-020001 Create Quantity-Based Credit Note from GRN - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "User has purchasing/receiving role; at least one posted GRN exists for the vendor; vendor and product master data are correct" },
@@ -156,7 +156,7 @@ purchaseTest.describe("Credit Note — Create from GRN", () => {
   );
 
   purchaseTest(
-    "TC-CN00202 Create Quantity-Based Credit Note from GRN - Invalid Vendor",
+    "TC-CN-020002 Create Quantity-Based Credit Note from GRN - Invalid Vendor",
     {
       annotation: [
         { type: "preconditions", description: "User has purchasing/receiving role; no posted GRN exists for the vendor" },
@@ -177,7 +177,7 @@ purchaseTest.describe("Credit Note — Create from GRN", () => {
   );
 
   purchaseTest(
-    "TC-CN00203 Create Quantity-Based Credit Note from GRN - No GRN Selected",
+    "TC-CN-020003 Create Quantity-Based Credit Note from GRN - No GRN Selected",
     {
       annotation: [
         { type: "preconditions", description: "User has purchasing/receiving role; at least one posted GRN exists for the vendor" },
@@ -200,7 +200,7 @@ purchaseTest.describe("Credit Note — Create from GRN", () => {
   );
 
   purchaseTest(
-    "TC-CN00204 Create Quantity-Based Credit Note from GRN - Insufficient Quantity",
+    "TC-CN-020004 Create Quantity-Based Credit Note from GRN - Insufficient Quantity",
     {
       annotation: [
         { type: "preconditions", description: "User has purchasing/receiving role; at least one posted GRN exists for the vendor" },
@@ -221,7 +221,7 @@ purchaseTest.describe("Credit Note — Create from GRN", () => {
   );
 
   purchaseTest(
-    "TC-CN00205 Create Quantity-Based Credit Note from GRN - Empty Lot Numbers",
+    "TC-CN-020005 Create Quantity-Based Credit Note from GRN - Empty Lot Numbers",
     {
       annotation: [
         { type: "preconditions", description: "User has purchasing/receiving role; at least one posted GRN exists for the vendor" },
@@ -243,11 +243,11 @@ purchaseTest.describe("Credit Note — Create from GRN", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CN003 — Create CN (additional cases)
+// TC-CN-900003 — Create CN (additional cases)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Credit Note — Create (additional)", () => {
   purchaseTest(
-    "TC-CN00302 Negative - Missing Vendor",
+    "TC-CN-030002 Negative - Missing Vendor",
     {
       annotation: [
         { type: "preconditions", description: "User has purchasing role; no vendor exists in system; GRN reference exists" },
@@ -272,7 +272,7 @@ purchaseTest.describe("Credit Note — Create (additional)", () => {
   );
 
   purchaseTest(
-    "TC-CN00303 Edge Case - No GRN Reference",
+    "TC-CN-030003 Edge Case - No GRN Reference",
     {
       annotation: [
         { type: "preconditions", description: "User has purchasing role; vendor exists; no GRN reference exists" },
@@ -294,11 +294,11 @@ purchaseTest.describe("Credit Note — Create (additional)", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CN004 — View CN Detail (UI)
+// TC-CN-900004 — View CN Detail (UI)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Credit Note — View Detail", () => {
   purchaseTest(
-    "TC-CN00401 View existing credit note",
+    "TC-CN-040001 View existing credit note",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view credit notes; a credit note exists in the system" },
@@ -321,7 +321,7 @@ purchaseTest.describe("Credit Note — View Detail", () => {
   );
 
   purchaseTest(
-    "TC-CN00402 Attempt to view non-existent credit note",
+    "TC-CN-040002 Attempt to view non-existent credit note",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view credit notes" },
@@ -338,7 +338,7 @@ purchaseTest.describe("Credit Note — View Detail", () => {
   );
 
   purchaseTest(
-    "TC-CN00404 View credit note with a large number of items",
+    "TC-CN-040004 View credit note with a large number of items",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view credit notes; a credit note with a large number of items exists" },
@@ -357,7 +357,7 @@ purchaseTest.describe("Credit Note — View Detail", () => {
 
 requestorTest.describe("Credit Note — View Detail — Permission denial", () => {
   requestorTest(
-    "TC-CN00403 View credit note without necessary permissions",
+    "TC-CN-040003 View credit note without necessary permissions",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated but does not have permission to view credit notes" },
@@ -378,11 +378,11 @@ requestorTest.describe("Credit Note — View Detail — Permission denial", () =
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CN005 — Edit CN (UI)
+// TC-CN-900005 — Edit CN (UI)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Credit Note — Edit", () => {
   purchaseTest(
-    "TC-CN00501 Happy Path - Edit Credit Note",
+    "TC-CN-050001 Happy Path - Edit Credit Note",
     {
       annotation: [
         { type: "preconditions", description: "User has purchasing role; credit note exists with status DRAFT; user has permission to edit" },
@@ -415,7 +415,7 @@ purchaseTest.describe("Credit Note — Edit", () => {
   );
 
   purchaseTest(
-    "TC-CN00502 Negative - Invalid Total Amount",
+    "TC-CN-050002 Negative - Invalid Total Amount",
     {
       annotation: [
         { type: "preconditions", description: "User has purchasing role; credit note exists with status DRAFT; user has permission to edit" },
@@ -444,7 +444,7 @@ purchaseTest.describe("Credit Note — Edit", () => {
   );
 
   purchaseTest(
-    "TC-CN00504 Edge Case - Edit Credit Note with No Items",
+    "TC-CN-050004 Edge Case - Edit Credit Note with No Items",
     {
       annotation: [
         { type: "preconditions", description: "User has purchasing role; credit note exists with status DRAFT; user has permission to edit; credit note has no items added" },
@@ -467,7 +467,7 @@ purchaseTest.describe("Credit Note — Edit", () => {
 
 requestorTest.describe("Credit Note — Edit — Permission denial", () => {
   requestorTest(
-    "TC-CN00503 Negative - No Permission",
+    "TC-CN-050003 Negative - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User has receiving role; credit note exists with status DRAFT; user does not have permission to edit" },
@@ -499,11 +499,11 @@ requestorTest.describe("Credit Note — Edit — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CN006 — Items / Lot management (UI)
+// TC-CN-900006 — Items / Lot management (UI)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Credit Note — Items & Lots", () => {
   purchaseTest(
-    "TC-CN00601 Add Credit Note Item with Valid Lot Selection",
+    "TC-CN-060001 Add Credit Note Item with Valid Lot Selection",
     {
       annotation: [
         { type: "preconditions", description: "Credit note exists in DRAFT status; inventory lots exist for items being returned; user has edit permission" },
@@ -528,7 +528,7 @@ purchaseTest.describe("Credit Note — Items & Lots", () => {
   );
 
   purchaseTest(
-    "TC-CN00603 Remove Credit Note Item with Lot Selection",
+    "TC-CN-060003 Remove Credit Note Item with Lot Selection",
     {
       annotation: [
         { type: "preconditions", description: "Credit note exists in DRAFT status; inventory lots exist; user has edit permission" },
@@ -548,7 +548,7 @@ purchaseTest.describe("Credit Note — Items & Lots", () => {
   );
 
   purchaseTest(
-    "TC-CN00604 Attempt to Save Credit Note Without Lot Selection",
+    "TC-CN-060004 Attempt to Save Credit Note Without Lot Selection",
     {
       annotation: [
         { type: "preconditions", description: "Credit note exists in DRAFT status; user has edit permission" },
@@ -571,7 +571,7 @@ purchaseTest.describe("Credit Note — Items & Lots", () => {
 
 requestorTest.describe("Credit Note — Items & Lots — Permission denial", () => {
   requestorTest(
-    "TC-CN00605 Manage Credit Note Items with No Permission",
+    "TC-CN-060005 Manage Credit Note Items with No Permission",
     {
       annotation: [
         { type: "preconditions", description: "Credit note exists in DRAFT status; inventory lots exist for items being returned" },
@@ -602,11 +602,11 @@ requestorTest.describe("Credit Note — Items & Lots — Permission denial", () 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CN007 — Inventory Cost Review (UI)
+// TC-CN-900007 — Inventory Cost Review (UI)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Credit Note — Inventory Cost Review", () => {
   purchaseTest(
-    "TC-CN00701 Review Existing Credit Note with Quantity-Based Items",
+    "TC-CN-070001 Review Existing Credit Note with Quantity-Based Items",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists with quantity-based items; inventory lots have been selected; cost calculations have been completed" },
@@ -627,7 +627,7 @@ purchaseTest.describe("Credit Note — Inventory Cost Review", () => {
   );
 
   purchaseTest(
-    "TC-CN00703 Review Empty Credit Note",
+    "TC-CN-070003 Review Empty Credit Note",
     {
       annotation: [
         { type: "preconditions", description: "No credit note exists with quantity-based items" },
@@ -650,7 +650,7 @@ purchaseTest.describe("Credit Note — Inventory Cost Review", () => {
 
 requestorTest.describe("Credit Note — Inventory Cost Review — Permission denial", () => {
   requestorTest(
-    "TC-CN00702 Access Denied to Review Inventory Cost Analysis",
+    "TC-CN-070002 Access Denied to Review Inventory Cost Analysis",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists with quantity-based items; user does not have permission to view cost data" },
@@ -672,11 +672,11 @@ requestorTest.describe("Credit Note — Inventory Cost Review — Permission den
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CN008 — Credit Reason & Description (UI)
+// TC-CN-900008 — Credit Reason & Description (UI)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Credit Note — Credit Reason & Description", () => {
   purchaseTest(
-    "TC-CN00801 Happy Path - Select Credit Reason and Provide Description",
+    "TC-CN-080001 Happy Path - Select Credit Reason and Provide Description",
     {
       annotation: [
         { type: "preconditions", description: "User has a credit note creation or editing session and is logged in as a purchasing staff" },
@@ -699,7 +699,7 @@ purchaseTest.describe("Credit Note — Credit Reason & Description", () => {
   );
 
   purchaseTest(
-    "TC-CN00802 Negative - No Credit Reason Selected",
+    "TC-CN-080002 Negative - No Credit Reason Selected",
     {
       annotation: [
         { type: "preconditions", description: "User has a credit note creation session and is logged in as a purchasing staff" },
@@ -722,7 +722,7 @@ purchaseTest.describe("Credit Note — Credit Reason & Description", () => {
   );
 
   purchaseTest(
-    "TC-CN00803 Edge Case - Maximum Character Limit for Description",
+    "TC-CN-080003 Edge Case - Maximum Character Limit for Description",
     {
       annotation: [
         { type: "preconditions", description: "User has a credit note creation session and is logged in as a purchasing staff" },
@@ -746,11 +746,11 @@ purchaseTest.describe("Credit Note — Credit Reason & Description", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CN009 — Comments & Attachments (UI)
+// TC-CN-900009 — Comments & Attachments (UI)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Credit Note — Comments & Attachments", () => {
   purchaseTest(
-    "TC-CN00901 Add valid comments and attachments successfully",
+    "TC-CN-090001 Add valid comments and attachments successfully",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists in the system and the user has permission to add comments/attachments" },
@@ -776,7 +776,7 @@ purchaseTest.describe("Credit Note — Comments & Attachments", () => {
   );
 
   purchaseTest(
-    "TC-CN00903 Attempt to upload an invalid file type",
+    "TC-CN-090003 Attempt to upload an invalid file type",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists; user has permission to add comments/attachments" },
@@ -796,7 +796,7 @@ purchaseTest.describe("Credit Note — Comments & Attachments", () => {
   );
 
   purchaseTest(
-    "TC-CN00904 Attach multiple documents to a credit note",
+    "TC-CN-090004 Attach multiple documents to a credit note",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists; user has permission to add comments/attachments" },
@@ -816,7 +816,7 @@ purchaseTest.describe("Credit Note — Comments & Attachments", () => {
   );
 
   purchaseTest(
-    "TC-CN00905 Attempt to add comments when no credit note exists",
+    "TC-CN-090005 Attempt to add comments when no credit note exists",
     {
       annotation: [
         { type: "preconditions", description: "No credit note exists in the system" },
@@ -835,7 +835,7 @@ purchaseTest.describe("Credit Note — Comments & Attachments", () => {
 
 requestorTest.describe("Credit Note — Comments & Attachments — Permission denial", () => {
   requestorTest(
-    "TC-CN00902 Attempt to add comments without permission",
+    "TC-CN-090002 Attempt to add comments without permission",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists in the system but the user does not have permission to add comments/attachments" },
@@ -861,11 +861,11 @@ requestorTest.describe("Credit Note — Comments & Attachments — Permission de
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CN010 — Commit (UI)
+// TC-CN-900010 — Commit (UI)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Credit Note — Commit", () => {
   purchaseTest(
-    "TC-CN01001 Commit credit note - Happy path",
+    "TC-CN-100001 Commit credit note - Happy path",
     {
       annotation: [
         { type: "preconditions", description: "User has commit permission; credit note exists in DRAFT status; accounting period is open for transaction date" },
@@ -893,7 +893,7 @@ purchaseTest.describe("Credit Note — Commit", () => {
   );
 
   purchaseTest(
-    "TC-CN01003 Commit credit note - Invalid credit note status",
+    "TC-CN-100003 Commit credit note - Invalid credit note status",
     {
       annotation: [
         { type: "preconditions", description: "Credit note does not exist in DRAFT status; user has commit permission; accounting period is open for transaction date" },
@@ -924,7 +924,7 @@ purchaseTest.describe("Credit Note — Commit", () => {
   );
 
   purchaseTest(
-    "TC-CN01004 Commit credit note - Accounting period closed",
+    "TC-CN-100004 Commit credit note - Accounting period closed",
     {
       annotation: [
         { type: "preconditions", description: "Credit note exists in DRAFT status; user has commit permission; accounting period is closed for transaction date" },
@@ -945,7 +945,7 @@ purchaseTest.describe("Credit Note — Commit", () => {
   );
 
   purchaseTest(
-    "TC-CN01005 Commit credit note - Date out of range",
+    "TC-CN-100005 Commit credit note - Date out of range",
     {
       annotation: [
         { type: "preconditions", description: "Credit note exists in DRAFT status; user has commit permission; transaction date is outside allowed range" },
@@ -968,7 +968,7 @@ purchaseTest.describe("Credit Note — Commit", () => {
 
 requestorTest.describe("Credit Note — Commit — Permission denial", () => {
   requestorTest(
-    "TC-CN01002 Commit credit note - No commit permission",
+    "TC-CN-100002 Commit credit note - No commit permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have commit permission; credit note exists in DRAFT status" },
@@ -1000,11 +1000,11 @@ requestorTest.describe("Credit Note — Commit — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CN011 — Void Committed (UI)
+// TC-CN-900011 — Void Committed (UI)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Credit Note — Void Committed", () => {
   purchaseTest(
-    "TC-CN01101 Void committed credit note - Happy Path",
+    "TC-CN-110001 Void committed credit note - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "A committed credit note exists and the user has the necessary permission" },
@@ -1029,7 +1029,7 @@ purchaseTest.describe("Credit Note — Void Committed", () => {
   );
 
   purchaseTest(
-    "TC-CN01103 Void committed credit note - Invalid Credit Note",
+    "TC-CN-110003 Void committed credit note - Invalid Credit Note",
     {
       annotation: [
         { type: "preconditions", description: "An invalid credit note exists in committed status (e.g., non-existent ID)" },
@@ -1050,7 +1050,7 @@ purchaseTest.describe("Credit Note — Void Committed", () => {
   );
 
   purchaseTest(
-    "TC-CN01104 Void committed credit note - Closed Accounting Period",
+    "TC-CN-110004 Void committed credit note - Closed Accounting Period",
     {
       annotation: [
         { type: "preconditions", description: "Accounting period is closed and a committed credit note exists" },
@@ -1071,7 +1071,7 @@ purchaseTest.describe("Credit Note — Void Committed", () => {
   );
 
   purchaseTest(
-    "TC-CN01105 Void committed credit note - Edge Case - Multiple Credit Notes",
+    "TC-CN-110005 Void committed credit note - Edge Case - Multiple Credit Notes",
     {
       annotation: [
         { type: "preconditions", description: "Multiple committed credit notes exist and one of them is selected" },
@@ -1094,7 +1094,7 @@ purchaseTest.describe("Credit Note — Void Committed", () => {
 
 requestorTest.describe("Credit Note — Void Committed — Permission denial", () => {
   requestorTest(
-    "TC-CN01102 Void committed credit note - No Permission",
+    "TC-CN-110002 Void committed credit note - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "A committed credit note exists but the user does not have the necessary permission" },
@@ -1125,7 +1125,7 @@ requestorTest.describe("Credit Note — Void Committed — Permission denial", (
 
 // ═════════════════════════════════════════════════════════════════════════
 // BACKEND / SYSTEM-LEVEL — all skipped
-// TC-CN101..214 = stock movement gen, journal entries, tax calc, costing,
+// TC-CN-900101..214 = stock movement gen, journal entries, tax calc, costing,
 // FIFO, audit log, sequence gen, server actions, real-time sync, etc.
 // ═════════════════════════════════════════════════════════════════════════
 
@@ -1157,7 +1157,7 @@ const skipBackend = (
 
 purchaseTest.describe("Credit Note — Stock movement generation — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN10101 Happy Path - Generate Stock Movements for Quantity-Based Credit Notes",
+    "TC-CN-310001 Happy Path - Generate Stock Movements for Quantity-Based Credit Notes",
     {
       annotation: [
         { type: "preconditions", description: "A credit note of type QUANTITY_RETURN with all items having selected lots and inventory locations is present and in the COMMITTED status." },
@@ -1171,7 +1171,7 @@ purchaseTest.describe("Credit Note — Stock movement generation — Backend onl
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10102 Negative Case - Generate Stock Movements with Invalid Credit Note Type",
+    "TC-CN-310002 Negative Case - Generate Stock Movements with Invalid Credit Note Type",
     {
       annotation: [
         { type: "preconditions", description: "A credit note of a type other than QUANTITY_RETURN with all items having selected lots and inventory locations is present and in the COMMITTED status." },
@@ -1185,7 +1185,7 @@ purchaseTest.describe("Credit Note — Stock movement generation — Backend onl
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10103 Negative Case - Generate Stock Movements Without Selected Lots",
+    "TC-CN-310003 Negative Case - Generate Stock Movements Without Selected Lots",
     {
       annotation: [
         { type: "preconditions", description: "A credit note of type QUANTITY_RETURN with some items missing selected lots and inventory locations is present and in the COMMITTED status." },
@@ -1199,7 +1199,7 @@ purchaseTest.describe("Credit Note — Stock movement generation — Backend onl
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10104 Edge Case - Generate Stock Movements After Changing Credit Note Status",
+    "TC-CN-310004 Edge Case - Generate Stock Movements After Changing Credit Note Status",
     {
       annotation: [
         { type: "preconditions", description: "A credit note of type QUANTITY_RETURN with all items having selected lots and inventory locations is present and in the PENDING status." },
@@ -1213,7 +1213,7 @@ purchaseTest.describe("Credit Note — Stock movement generation — Backend onl
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10105 Edge Case - Generate Stock Movements with No Inventory Locations Configured",
+    "TC-CN-310005 Edge Case - Generate Stock Movements with No Inventory Locations Configured",
     {
       annotation: [
         { type: "preconditions", description: "A credit note of type QUANTITY_RETURN with all items having selected lots is present and in the COMMITTED status, but no inventory locations are configured." },
@@ -1230,7 +1230,7 @@ purchaseTest.describe("Credit Note — Stock movement generation — Backend onl
 
 purchaseTest.describe("Credit Note — Journal entries — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN10201 Generate Journal Entries - Happy Path",
+    "TC-CN-320001 Generate Journal Entries - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "Credit note status is COMMITTED, GL account mapping is configured, accounting period is open, and vendor account exists." },
@@ -1244,7 +1244,7 @@ purchaseTest.describe("Credit Note — Journal entries — Backend only", () => 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10202 Generate Journal Entries - Invalid GL Account Mapping",
+    "TC-CN-320002 Generate Journal Entries - Invalid GL Account Mapping",
     {
       annotation: [
         { type: "preconditions", description: "Credit note status is COMMITTED, GL account mapping is invalid, accounting period is open, and vendor account exists." },
@@ -1258,7 +1258,7 @@ purchaseTest.describe("Credit Note — Journal entries — Backend only", () => 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10203 Generate Journal Entries - Accounting Period Closed",
+    "TC-CN-320003 Generate Journal Entries - Accounting Period Closed",
     {
       annotation: [
         { type: "preconditions", description: "Credit note status is COMMITTED, GL account mapping is configured, accounting period is closed, and vendor account exists." },
@@ -1272,7 +1272,7 @@ purchaseTest.describe("Credit Note — Journal entries — Backend only", () => 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10204 Generate Journal Entries - No Vendor Account",
+    "TC-CN-320004 Generate Journal Entries - No Vendor Account",
     {
       annotation: [
         { type: "preconditions", description: "Credit note status is COMMITTED, GL account mapping is configured, accounting period is open, and vendor account does not exist." },
@@ -1286,7 +1286,7 @@ purchaseTest.describe("Credit Note — Journal entries — Backend only", () => 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10205 Generate Journal Entries - Large Volume of Credit Notes",
+    "TC-CN-320005 Generate Journal Entries - Large Volume of Credit Notes",
     {
       annotation: [
         { type: "preconditions", description: "Multiple credit notes are COMMITTED, GL account mapping is configured, accounting period is open, and vendor account exists." },
@@ -1303,7 +1303,7 @@ purchaseTest.describe("Credit Note — Journal entries — Backend only", () => 
 
 purchaseTest.describe("Credit Note — Tax calculations — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN10301 Happy Path - Credit Note with Valid Items and Taxes",
+    "TC-CN-330001 Happy Path - Credit Note with Valid Items and Taxes",
     {
       annotation: [
         { type: "preconditions", description: "Credit note has items with amounts, tax rates are configured, vendor tax information is available, and tax invoice reference is provided." },
@@ -1317,7 +1317,7 @@ purchaseTest.describe("Credit Note — Tax calculations — Backend only", () =>
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10302 Negative Case - Missing Tax Rate",
+    "TC-CN-330002 Negative Case - Missing Tax Rate",
     {
       annotation: [
         { type: "preconditions", description: "Credit note has items with amounts, but no tax rate is configured for any of the items." },
@@ -1334,7 +1334,7 @@ purchaseTest.describe("Credit Note — Tax calculations — Backend only", () =>
 
 purchaseTest.describe("Credit Note — Consumed-item processing — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN10401 Happy Path - Process Valid Credit Note for Consumed Item",
+    "TC-CN-340001 Happy Path - Process Valid Credit Note for Consumed Item",
     {
       annotation: [
         { type: "preconditions", description: "A credit note of type QUANTITY_RETURN is created for an item that has been fully consumed." },
@@ -1348,7 +1348,7 @@ purchaseTest.describe("Credit Note — Consumed-item processing — Backend only
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10402 Negative - Process Credit Note with Invalid Type",
+    "TC-CN-340002 Negative - Process Credit Note with Invalid Type",
     {
       annotation: [
         { type: "preconditions", description: "A credit note of a different type than QUANTITY_RETURN is selected." },
@@ -1362,7 +1362,7 @@ purchaseTest.describe("Credit Note — Consumed-item processing — Backend only
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10403 Negative - Process Credit Note Without Permissions",
+    "TC-CN-340003 Negative - Process Credit Note Without Permissions",
     {
       annotation: [
         { type: "preconditions", description: "User does not have permission to process credit notes." },
@@ -1376,7 +1376,7 @@ purchaseTest.describe("Credit Note — Consumed-item processing — Backend only
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10404 Edge Case - Process Credit Note for Partially Consumed Item",
+    "TC-CN-340004 Edge Case - Process Credit Note for Partially Consumed Item",
     {
       annotation: [
         { type: "preconditions", description: "A credit note is created for an item that has been partially consumed." },
@@ -1393,7 +1393,7 @@ purchaseTest.describe("Credit Note — Consumed-item processing — Backend only
 
 purchaseTest.describe("Credit Note — Partial-availability processing — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN10501 Happy Path - Process Credit Note with Partial Availability",
+    "TC-CN-350001 Happy Path - Process Credit Note with Partial Availability",
     {
       annotation: [
         { type: "preconditions", description: "Inventory has 50 units of Item A, Credit note issued for 60 units of Item A (QUANTITY_RETURN type)" },
@@ -1407,7 +1407,7 @@ purchaseTest.describe("Credit Note — Partial-availability processing — Backe
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10502 Negative - Insufficient Available Inventory",
+    "TC-CN-350002 Negative - Insufficient Available Inventory",
     {
       annotation: [
         { type: "preconditions", description: "Inventory has 20 units of Item A, Credit note issued for 50 units of Item A (QUANTITY_RETURN type)" },
@@ -1421,7 +1421,7 @@ purchaseTest.describe("Credit Note — Partial-availability processing — Backe
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10503 Negative - Invalid Credit Note Type",
+    "TC-CN-350003 Negative - Invalid Credit Note Type",
     {
       annotation: [
         { type: "preconditions", description: "Inventory has 40 units of Item A, Credit note issued for 30 units of Item A but type is NOT QUANTITY_RETURN" },
@@ -1435,7 +1435,7 @@ purchaseTest.describe("Credit Note — Partial-availability processing — Backe
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10504 Edge Case - Exact Quantity Available",
+    "TC-CN-350004 Edge Case - Exact Quantity Available",
     {
       annotation: [
         { type: "preconditions", description: "Inventory has 35 units of Item A, Credit note issued for 35 units of Item A (QUANTITY_RETURN type)" },
@@ -1452,7 +1452,7 @@ purchaseTest.describe("Credit Note — Partial-availability processing — Backe
 
 purchaseTest.describe("Credit Note — Retrospective discount — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN10601 Happy Path - Process Retrospective Vendor Discount",
+    "TC-CN-360001 Happy Path - Process Retrospective Vendor Discount",
     {
       annotation: [
         { type: "preconditions", description: "A valid retrospective discount credit note is created with multiple historical GRNs." },
@@ -1466,7 +1466,7 @@ purchaseTest.describe("Credit Note — Retrospective discount — Backend only",
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10604 Edge Case - Single GRN Credit Note",
+    "TC-CN-360004 Edge Case - Single GRN Credit Note",
     {
       annotation: [
         { type: "preconditions", description: "A credit note referencing only one GRN is created." },
@@ -1480,7 +1480,7 @@ purchaseTest.describe("Credit Note — Retrospective discount — Backend only",
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN10605 Edge Case - No Historical GRNs",
+    "TC-CN-360005 Edge Case - No Historical GRNs",
     {
       annotation: [
         { type: "preconditions", description: "A credit note referencing no historical GRNs is created." },
@@ -1497,7 +1497,7 @@ purchaseTest.describe("Credit Note — Retrospective discount — Backend only",
 
 purchaseTest.describe("Credit Note — Server actions — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN20101 Happy Path - Create Credit Note (server action)",
+    "TC-CN-210001 Happy Path - Create Credit Note (server action)",
     {
       annotation: [
         { type: "preconditions", description: "Server action context established, database connection available, user authenticated and authorized" },
@@ -1511,7 +1511,7 @@ purchaseTest.describe("Credit Note — Server actions — Backend only", () => {
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20103 Negative - Unauthorized User",
+    "TC-CN-210003 Negative - Unauthorized User",
     {
       annotation: [
         { type: "preconditions", description: "Server action context established, database connection available, user not authenticated" },
@@ -1525,7 +1525,7 @@ purchaseTest.describe("Credit Note — Server actions — Backend only", () => {
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20104 Edge Case - Concurrent Delete",
+    "TC-CN-210004 Edge Case - Concurrent Delete",
     {
       annotation: [
         { type: "preconditions", description: "Server action context established, database connection available, multiple users authenticated and authorized" },
@@ -1546,7 +1546,7 @@ purchaseTest.describe("Credit Note — Server actions — Backend only", () => {
 
 purchaseTest.describe("Credit Note — Vendor/GRN data fetch — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN20201 Fetch vendor and GRN data with valid input",
+    "TC-CN-220001 Fetch vendor and GRN data with valid input",
     {
       annotation: [
         { type: "preconditions", description: "User authenticated with purchasing permissions, vendor and GRN data exists in database" },
@@ -1560,7 +1560,7 @@ purchaseTest.describe("Credit Note — Vendor/GRN data fetch — Backend only", 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20202 Fetch vendor and GRN data with invalid vendor selection",
+    "TC-CN-220002 Fetch vendor and GRN data with invalid vendor selection",
     {
       annotation: [
         { type: "preconditions", description: "User authenticated with purchasing permissions, vendor and GRN data exists in database, invalid vendor selected" },
@@ -1574,7 +1574,7 @@ purchaseTest.describe("Credit Note — Vendor/GRN data fetch — Backend only", 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20203 Fetch vendor and GRN data when no vendor data exists",
+    "TC-CN-220003 Fetch vendor and GRN data when no vendor data exists",
     {
       annotation: [
         { type: "preconditions", description: "User authenticated with purchasing permissions, no vendor and GRN data exists in database" },
@@ -1588,7 +1588,7 @@ purchaseTest.describe("Credit Note — Vendor/GRN data fetch — Backend only", 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20204 Fetch vendor and GRN data with no vendor permissions",
+    "TC-CN-220004 Fetch vendor and GRN data with no vendor permissions",
     {
       annotation: [
         { type: "preconditions", description: "User authenticated but does not have purchasing permissions, vendor and GRN data exists in database" },
@@ -1602,7 +1602,7 @@ purchaseTest.describe("Credit Note — Vendor/GRN data fetch — Backend only", 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20205 Fetch vendor and GRN data with multiple vendors selected",
+    "TC-CN-220005 Fetch vendor and GRN data with multiple vendors selected",
     {
       annotation: [
         { type: "preconditions", description: "User authenticated with purchasing permissions, multiple vendors and GRN data exists in database" },
@@ -1619,7 +1619,7 @@ purchaseTest.describe("Credit Note — Vendor/GRN data fetch — Backend only", 
 
 purchaseTest.describe("Credit Note — Commitment transaction — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN20301 Happy Path - Commitment Transaction",
+    "TC-CN-230001 Happy Path - Commitment Transaction",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists with DRAFT status and accounting period open for document date." },
@@ -1633,7 +1633,7 @@ purchaseTest.describe("Credit Note — Commitment transaction — Backend only",
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20302 Negative - No Credit Note",
+    "TC-CN-230002 Negative - No Credit Note",
     {
       annotation: [
         { type: "preconditions", description: "No credit note exists with DRAFT status." },
@@ -1647,7 +1647,7 @@ purchaseTest.describe("Credit Note — Commitment transaction — Backend only",
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20303 Negative - Invalid Accounting Period",
+    "TC-CN-230003 Negative - Invalid Accounting Period",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists with DRAFT status, but the accounting period is closed for the document date." },
@@ -1661,7 +1661,7 @@ purchaseTest.describe("Credit Note — Commitment transaction — Backend only",
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20304 Edge Case - Document Date Outside Accounting Period",
+    "TC-CN-230004 Edge Case - Document Date Outside Accounting Period",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists with DRAFT status, and the document date is outside the open accounting period." },
@@ -1675,7 +1675,7 @@ purchaseTest.describe("Credit Note — Commitment transaction — Backend only",
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20305 Negative - Insufficient Permissions",
+    "TC-CN-230005 Negative - Insufficient Permissions",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists with DRAFT status, and the user does not have permission to execute commitment transactions." },
@@ -1692,7 +1692,7 @@ purchaseTest.describe("Credit Note — Commitment transaction — Backend only",
 
 purchaseTest.describe("Credit Note — Void with reversal — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN20401 Happy Path - Void Existing Credit Note",
+    "TC-CN-240001 Happy Path - Void Existing Credit Note",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists with COMMITTED status. The accounting period is open for the void date. The user has the manager role and void permission." },
@@ -1706,7 +1706,7 @@ purchaseTest.describe("Credit Note — Void with reversal — Backend only", () 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20402 Negative Case - No Void Permission",
+    "TC-CN-240002 Negative Case - No Void Permission",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists with COMMITTED status. The accounting period is open for the void date. The user does not have the void permission." },
@@ -1720,7 +1720,7 @@ purchaseTest.describe("Credit Note — Void with reversal — Backend only", () 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20403 Negative Case - Dependent Transactions Exist",
+    "TC-CN-240003 Negative Case - Dependent Transactions Exist",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists with COMMITTED status. Dependent transactions exist. The accounting period is open for the void date. The user has the manager role and void permission." },
@@ -1734,7 +1734,7 @@ purchaseTest.describe("Credit Note — Void with reversal — Backend only", () 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20404 Edge Case - Void During Closed Accounting Period",
+    "TC-CN-240004 Edge Case - Void During Closed Accounting Period",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists with COMMITTED status. The accounting period is closed. The user has the manager role and void permission." },
@@ -1751,7 +1751,7 @@ purchaseTest.describe("Credit Note — Void with reversal — Backend only", () 
 
 purchaseTest.describe("Credit Note — FIFO costing — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN20501 Happy Path - FIFO Calculation for Credit Note",
+    "TC-CN-250001 Happy Path - FIFO Calculation for Credit Note",
     {
       annotation: [
         { type: "preconditions", description: "Credit note items with lot selections and inventory lot cost data available." },
@@ -1765,7 +1765,7 @@ purchaseTest.describe("Credit Note — FIFO costing — Backend only", () => {
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20502 Negative - Invalid Costing Method Selection",
+    "TC-CN-250002 Negative - Invalid Costing Method Selection",
     {
       annotation: [
         { type: "preconditions", description: "Credit note items with lot selections and inventory lot cost data available." },
@@ -1779,7 +1779,7 @@ purchaseTest.describe("Credit Note — FIFO costing — Backend only", () => {
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20503 Edge Case - No Lot Selection for Credit Note",
+    "TC-CN-250003 Edge Case - No Lot Selection for Credit Note",
     {
       annotation: [
         { type: "preconditions", description: "Credit note items without lot selections and inventory lot cost data available." },
@@ -1793,7 +1793,7 @@ purchaseTest.describe("Credit Note — FIFO costing — Backend only", () => {
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20504 Negative - No Inventory Lot Cost Data",
+    "TC-CN-250004 Negative - No Inventory Lot Cost Data",
     {
       annotation: [
         { type: "preconditions", description: "Credit note items with lot selections and no inventory lot cost data available." },
@@ -1810,7 +1810,7 @@ purchaseTest.describe("Credit Note — FIFO costing — Backend only", () => {
 
 purchaseTest.describe("Credit Note — Tax adjustments — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN20602 Negative - Invalid Tax Rate",
+    "TC-CN-260002 Negative - Invalid Tax Rate",
     {
       annotation: [
         { type: "preconditions", description: "A credit note with items and amounts, with an invalid or non-configured tax rate for the document date, and vendor tax registration available." },
@@ -1824,7 +1824,7 @@ purchaseTest.describe("Credit Note — Tax adjustments — Backend only", () => 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20603 Negative - No Vendor Tax Registration",
+    "TC-CN-260003 Negative - No Vendor Tax Registration",
     {
       annotation: [
         { type: "preconditions", description: "A credit note with items and amounts, with tax rates configured for the document date but no vendor tax registration available." },
@@ -1838,7 +1838,7 @@ purchaseTest.describe("Credit Note — Tax adjustments — Backend only", () => 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20604 Edge Case - Large Credit Note Amount",
+    "TC-CN-260004 Edge Case - Large Credit Note Amount",
     {
       annotation: [
         { type: "preconditions", description: "A credit note with a very large amount, with tax rates configured for the document date and vendor tax registration available." },
@@ -1852,7 +1852,7 @@ purchaseTest.describe("Credit Note — Tax adjustments — Backend only", () => 
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20605 Edge Case - Zero Amount",
+    "TC-CN-260005 Edge Case - Zero Amount",
     {
       annotation: [
         { type: "preconditions", description: "A credit note with an item amount of zero, with tax rates configured for the document date and vendor tax registration available." },
@@ -1869,7 +1869,7 @@ purchaseTest.describe("Credit Note — Tax adjustments — Backend only", () => 
 
 purchaseTest.describe("Credit Note — Journal entry generation (advanced) — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN20702 Generate Journal Entries - Invalid Credit Note ID",
+    "TC-CN-270002 Generate Journal Entries - Invalid Credit Note ID",
     {
       annotation: [
         { type: "preconditions", description: "A non-existent credit note commitment ID is entered." },
@@ -1883,7 +1883,7 @@ purchaseTest.describe("Credit Note — Journal entry generation (advanced) — B
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20703 Generate Journal Entries - User with Limited Permissions",
+    "TC-CN-270003 Generate Journal Entries - User with Limited Permissions",
     {
       annotation: [
         { type: "preconditions", description: "A user with limited permissions attempts to generate journal entries." },
@@ -1897,7 +1897,7 @@ purchaseTest.describe("Credit Note — Journal entry generation (advanced) — B
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20704 Generate Journal Entries - Simultaneous Multiple Commitments",
+    "TC-CN-270004 Generate Journal Entries - Simultaneous Multiple Commitments",
     {
       annotation: [
         { type: "preconditions", description: "Multiple credit note commitments are generated simultaneously." },
@@ -1911,7 +1911,7 @@ purchaseTest.describe("Credit Note — Journal entry generation (advanced) — B
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20705 Generate Journal Entries - System Timeouts",
+    "TC-CN-270005 Generate Journal Entries - System Timeouts",
     {
       annotation: [
         { type: "preconditions", description: "The server is experiencing high load or slow response times." },
@@ -1928,7 +1928,7 @@ purchaseTest.describe("Credit Note — Journal entry generation (advanced) — B
 
 purchaseTest.describe("Credit Note — Stock movement (advanced) — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN20801 Generate Stock Movement - Happy Path",
+    "TC-CN-280001 Generate Stock Movement - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "The system is initialized and the inventory balance is set to a positive value." },
@@ -1942,7 +1942,7 @@ purchaseTest.describe("Credit Note — Stock movement (advanced) — Backend onl
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20802 Generate Stock Movement - Invalid Quantity",
+    "TC-CN-280002 Generate Stock Movement - Invalid Quantity",
     {
       annotation: [
         { type: "preconditions", description: "The system is initialized and the inventory balance is set to a positive value." },
@@ -1956,7 +1956,7 @@ purchaseTest.describe("Credit Note — Stock movement (advanced) — Backend onl
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20803 Generate Stock Movement - Insufficient Inventory",
+    "TC-CN-280003 Generate Stock Movement - Insufficient Inventory",
     {
       annotation: [
         { type: "preconditions", description: "The system is initialized and the inventory balance is set to a value less than the requested quantity." },
@@ -1970,7 +1970,7 @@ purchaseTest.describe("Credit Note — Stock movement (advanced) — Backend onl
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20804 Generate Stock Movement - No Permission",
+    "TC-CN-280004 Generate Stock Movement - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "The system is initialized and the user has no permission to generate stock movements." },
@@ -1984,7 +1984,7 @@ purchaseTest.describe("Credit Note — Stock movement (advanced) — Backend onl
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20805 Generate Stock Movement - Edge Case - Maximum Lot Quantity",
+    "TC-CN-280005 Generate Stock Movement - Edge Case - Maximum Lot Quantity",
     {
       annotation: [
         { type: "preconditions", description: "The system is initialized with a lot quantity that is the maximum allowed." },
@@ -2001,7 +2001,7 @@ purchaseTest.describe("Credit Note — Stock movement (advanced) — Backend onl
 
 purchaseTest.describe("Credit Note — Attachments (advanced) — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN20901 Upload valid attachment",
+    "TC-CN-290001 Upload valid attachment",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists and the user has upload permission." },
@@ -2015,7 +2015,7 @@ purchaseTest.describe("Credit Note — Attachments (advanced) — Backend only",
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20902 Try to upload invalid attachment",
+    "TC-CN-290002 Try to upload invalid attachment",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists and the user has upload permission." },
@@ -2029,7 +2029,7 @@ purchaseTest.describe("Credit Note — Attachments (advanced) — Backend only",
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20903 Delete attachment",
+    "TC-CN-290003 Delete attachment",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists, has an attachment, and the user has delete permission." },
@@ -2043,7 +2043,7 @@ purchaseTest.describe("Credit Note — Attachments (advanced) — Backend only",
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20904 Attempt to delete attachment without permission",
+    "TC-CN-290004 Attempt to delete attachment without permission",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists, has an attachment, and the user does not have delete permission." },
@@ -2057,7 +2057,7 @@ purchaseTest.describe("Credit Note — Attachments (advanced) — Backend only",
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN20905 Upload large file",
+    "TC-CN-290005 Upload large file",
     {
       annotation: [
         { type: "preconditions", description: "A credit note exists and the user has upload permission. Storage service can handle large files." },
@@ -2074,7 +2074,7 @@ purchaseTest.describe("Credit Note — Attachments (advanced) — Backend only",
 
 purchaseTest.describe("Credit Note — Audit log — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN21003 Edge Case - Large Volume of Credit Notes",
+    "TC-CN-500003 Edge Case - Large Volume of Credit Notes",
     {
       annotation: [
         { type: "preconditions", description: "System has a high volume of credit notes created within a short period." },
@@ -2091,7 +2091,7 @@ purchaseTest.describe("Credit Note — Audit log — Backend only", () => {
 
 purchaseTest.describe("Credit Note — CN number generation — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN21101 Happy Path - Generate Valid CN Number",
+    "TC-CN-510001 Happy Path - Generate Valid CN Number",
     {
       annotation: [
         { type: "preconditions", description: "Database sequence table exists, transaction context active" },
@@ -2105,7 +2105,7 @@ purchaseTest.describe("Credit Note — CN number generation — Backend only", (
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN21102 Negative Path - Generate CN Number When Sequence Table Does Not Exist",
+    "TC-CN-510002 Negative Path - Generate CN Number When Sequence Table Does Not Exist",
     {
       annotation: [
         { type: "preconditions", description: "Database sequence table does not exist, transaction context active" },
@@ -2119,7 +2119,7 @@ purchaseTest.describe("Credit Note — CN number generation — Backend only", (
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN21103 Negative Path - Generate CN Number Without Transaction Context",
+    "TC-CN-510003 Negative Path - Generate CN Number Without Transaction Context",
     {
       annotation: [
         { type: "preconditions", description: "Database sequence table exists, no active transaction context" },
@@ -2133,7 +2133,7 @@ purchaseTest.describe("Credit Note — CN number generation — Backend only", (
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN21104 Edge Case - Generate CN Number at Month End",
+    "TC-CN-510004 Edge Case - Generate CN Number at Month End",
     {
       annotation: [
         { type: "preconditions", description: "Database sequence table exists, transaction context active, current month's sequence has reached its limit" },
@@ -2147,7 +2147,7 @@ purchaseTest.describe("Credit Note — CN number generation — Backend only", (
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN21105 Negative Path - Generate CN Number During System Maintenance",
+    "TC-CN-510005 Negative Path - Generate CN Number During System Maintenance",
     {
       annotation: [
         { type: "preconditions", description: "Database sequence table exists, transaction context active, system under maintenance" },
@@ -2164,7 +2164,7 @@ purchaseTest.describe("Credit Note — CN number generation — Backend only", (
 
 purchaseTest.describe("Credit Note — Vendor balance commitment — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN21201 Happy Path - Credit Note Commitment",
+    "TC-CN-520001 Happy Path - Credit Note Commitment",
     {
       annotation: [
         { type: "preconditions", description: "Vendor account exists and active, credit note amount calculated, transaction context active" },
@@ -2178,7 +2178,7 @@ purchaseTest.describe("Credit Note — Vendor balance commitment — Backend onl
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN21202 Negative Case - Vendor Account Inactive",
+    "TC-CN-520002 Negative Case - Vendor Account Inactive",
     {
       annotation: [
         { type: "preconditions", description: "Vendor account inactive, credit note amount calculated, transaction context active" },
@@ -2192,7 +2192,7 @@ purchaseTest.describe("Credit Note — Vendor balance commitment — Backend onl
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN21203 Negative Case - Invalid Credit Note Amount",
+    "TC-CN-520003 Negative Case - Invalid Credit Note Amount",
     {
       annotation: [
         { type: "preconditions", description: "Vendor account exists and active, invalid credit note amount, transaction context active" },
@@ -2206,7 +2206,7 @@ purchaseTest.describe("Credit Note — Vendor balance commitment — Backend onl
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN21204 Edge Case - Void Credit Note",
+    "TC-CN-520004 Edge Case - Void Credit Note",
     {
       annotation: [
         { type: "preconditions", description: "Vendor account exists and active, credit note amount calculated, transaction context active, committed credit note" },
@@ -2223,7 +2223,7 @@ purchaseTest.describe("Credit Note — Vendor balance commitment — Backend onl
 
 purchaseTest.describe("Credit Note — Validation — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN21301 Valid Credit Note Data",
+    "TC-CN-530001 Valid Credit Note Data",
     {
       annotation: [
         { type: "preconditions", description: "A valid credit note is submitted with all required fields." },
@@ -2237,7 +2237,7 @@ purchaseTest.describe("Credit Note — Validation — Backend only", () => {
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN21302 Missing Required Fields",
+    "TC-CN-530002 Missing Required Fields",
     {
       annotation: [
         { type: "preconditions", description: "A credit note is submitted with missing required fields." },
@@ -2251,7 +2251,7 @@ purchaseTest.describe("Credit Note — Validation — Backend only", () => {
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN21303 Invalid Credit Amount",
+    "TC-CN-530003 Invalid Credit Amount",
     {
       annotation: [
         { type: "preconditions", description: "A credit note with an invalid credit amount (negative or zero) is submitted." },
@@ -2265,7 +2265,7 @@ purchaseTest.describe("Credit Note — Validation — Backend only", () => {
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN21304 Expired Supplier",
+    "TC-CN-530004 Expired Supplier",
     {
       annotation: [
         { type: "preconditions", description: "A credit note is submitted with an expired supplier." },
@@ -2282,7 +2282,7 @@ purchaseTest.describe("Credit Note — Validation — Backend only", () => {
 
 purchaseTest.describe("Credit Note — Real-time sync — Backend only", () => {
   purchaseTest.skip(
-    "TC-CN21401 Happy Path - Real-time Credit Note Sync",
+    "TC-CN-540001 Happy Path - Real-time Credit Note Sync",
     {
       annotation: [
         { type: "preconditions", description: "WebSocket or SSE connection available, Cache layer configured, User session active" },
@@ -2296,7 +2296,7 @@ purchaseTest.describe("Credit Note — Real-time sync — Backend only", () => {
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN21402 Negative Case - No WebSocket Connection",
+    "TC-CN-540002 Negative Case - No WebSocket Connection",
     {
       annotation: [
         { type: "preconditions", description: "Cache layer configured, User session active" },
@@ -2310,7 +2310,7 @@ purchaseTest.describe("Credit Note — Real-time sync — Backend only", () => {
     async () => {},
   );
   purchaseTest.skip(
-    "TC-CN21403 Edge Case - User Session Expired",
+    "TC-CN-540003 Edge Case - User Session Expired",
     {
       annotation: [
         { type: "preconditions", description: "WebSocket or SSE connection available, Cache layer configured" },

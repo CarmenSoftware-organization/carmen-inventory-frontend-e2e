@@ -11,11 +11,11 @@ const requestorTest = createAuthTest("requestor@blueledgers.com");
 const purchaseTest = createAuthTest("purchase@blueledgers.com");
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SR001 — Create Requisition
+// TC-SR-900001 — Create Requisition
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Store Requisition — Create", () => {
   purchaseTest(
-    "TC-SR00101 Happy Path - Create Store Requisition",
+    "TC-SR-010001 Happy Path - Create Store Requisition",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated, has Requestor role, is assigned to a department, and has access to at least one source location" },
@@ -37,7 +37,7 @@ purchaseTest.describe("Store Requisition — Create", () => {
   );
 
   purchaseTest(
-    "TC-SR00103 Edge Case - No Source Locations Available",
+    "TC-SR-010003 Edge Case - No Source Locations Available",
     {
       annotation: [
         { type: "preconditions", description: "User has Requestor role, assigned to department, but no authorized source locations exist" },
@@ -58,7 +58,7 @@ purchaseTest.describe("Store Requisition — Create", () => {
   );
 
   purchaseTest(
-    "TC-SR00104 Negative - Invalid Input - Missing Expected Delivery Date",
+    "TC-SR-010004 Negative - Invalid Input - Missing Expected Delivery Date",
     {
       annotation: [
         { type: "preconditions", description: "User has Requestor role, assigned to department, has access to source location" },
@@ -82,7 +82,7 @@ purchaseTest.describe("Store Requisition — Create", () => {
   );
 
   purchaseTest(
-    "TC-SR00105 Alternate Flow - Quick Create from Template",
+    "TC-SR-010005 Alternate Flow - Quick Create from Template",
     {
       annotation: [
         { type: "preconditions", description: "User has Requestor role, assigned to department, has access to source location, template exists" },
@@ -105,7 +105,7 @@ purchaseTest.describe("Store Requisition — Create", () => {
 
 requestorTest.describe("Store Requisition — Create — Permission denial", () => {
   requestorTest(
-    "TC-SR00102 Negative - User Not Assigned to Department",
+    "TC-SR-010002 Negative - User Not Assigned to Department",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated but not assigned to any department" },
@@ -134,11 +134,11 @@ requestorTest.describe("Store Requisition — Create — Permission denial", () 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SR002 — Add Items
+// TC-SR-900002 — Add Items
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Store Requisition — Add Items", () => {
   purchaseTest(
-    "TC-SR00201 Happy Path - Add Single Item",
+    "TC-SR-020001 Happy Path - Add Single Item",
     {
       annotation: [
         { type: "preconditions", description: "Requisition exists in Draft status; user is the requisition creator; product master data is available" },
@@ -163,7 +163,7 @@ purchaseTest.describe("Store Requisition — Add Items", () => {
   );
 
   purchaseTest(
-    "TC-SR00202 Negative - Invalid Quantity",
+    "TC-SR-020002 Negative - Invalid Quantity",
     {
       annotation: [
         { type: "preconditions", description: "Requisition exists in Draft status; user is the requisition creator; product master data is available" },
@@ -184,7 +184,7 @@ purchaseTest.describe("Store Requisition — Add Items", () => {
   );
 
   purchaseTest(
-    "TC-SR00203 Edge Case - Insufficient Stock",
+    "TC-SR-020003 Edge Case - Insufficient Stock",
     {
       annotation: [
         { type: "preconditions", description: "Requisition exists in Draft status; product 'Office Chair' has insufficient stock" },
@@ -206,11 +206,11 @@ purchaseTest.describe("Store Requisition — Add Items", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SR003 — Real-time Inventory Check
+// TC-SR-900003 — Real-time Inventory Check
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Store Requisition — Real-time Inventory", () => {
   purchaseTest(
-    "TC-SR00301 Happy Path - Sufficient Inventory",
+    "TC-SR-030001 Happy Path - Sufficient Inventory",
     {
       annotation: [
         { type: "preconditions", description: "User is editing a requisition with a selected product; Inventory Management system is accessible" },
@@ -231,7 +231,7 @@ purchaseTest.describe("Store Requisition — Real-time Inventory", () => {
   );
 
   purchaseTest(
-    "TC-SR00302 Negative Case - Insufficient Inventory",
+    "TC-SR-030002 Negative Case - Insufficient Inventory",
     {
       annotation: [
         { type: "preconditions", description: "User is editing a requisition with a selected product; Inventory Management system is accessible" },
@@ -252,7 +252,7 @@ purchaseTest.describe("Store Requisition — Real-time Inventory", () => {
   );
 
   purchaseTest(
-    "TC-SR00303 Edge Case - No Inventory Records",
+    "TC-SR-030003 Edge Case - No Inventory Records",
     {
       annotation: [
         { type: "preconditions", description: "User is editing a requisition with a selected product; Inventory Management system is accessible" },
@@ -273,7 +273,7 @@ purchaseTest.describe("Store Requisition — Real-time Inventory", () => {
   );
 
   purchaseTest(
-    "TC-SR00304 Edge Case - Inventory System Unavailable",
+    "TC-SR-030004 Edge Case - Inventory System Unavailable",
     {
       annotation: [
         { type: "preconditions", description: "User is editing a requisition with a selected product; Inventory Management system is inaccessible" },
@@ -295,11 +295,11 @@ purchaseTest.describe("Store Requisition — Real-time Inventory", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SR004 — Save / Auto-save
+// TC-SR-900004 — Save / Auto-save
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Store Requisition — Save & Auto-save", () => {
   purchaseTest(
-    "TC-SR00401 Save as Draft with Valid Input",
+    "TC-SR-040001 Save as Draft with Valid Input",
     {
       annotation: [
         { type: "preconditions", description: "User is working on requisition with filled header and selected source location" },
@@ -317,7 +317,7 @@ purchaseTest.describe("Store Requisition — Save & Auto-save", () => {
   );
 
   purchaseTest(
-    "TC-SR00402 Save as Draft with Missing Requisition Number",
+    "TC-SR-040002 Save as Draft with Missing Requisition Number",
     {
       annotation: [
         { type: "preconditions", description: "User is working on requisition with empty requisition number and filled source location" },
@@ -335,7 +335,7 @@ purchaseTest.describe("Store Requisition — Save & Auto-save", () => {
   );
 
   purchaseTest(
-    "TC-SR00403 Auto-Save Draft Every 60 Seconds",
+    "TC-SR-040003 Auto-Save Draft Every 60 Seconds",
     {
       annotation: [
         { type: "preconditions", description: "User is working on requisition and editing for more than 60 seconds" },
@@ -355,7 +355,7 @@ purchaseTest.describe("Store Requisition — Save & Auto-save", () => {
   );
 
   purchaseTest(
-    "TC-SR00404 Save and Close with Valid Input",
+    "TC-SR-040004 Save and Close with Valid Input",
     {
       annotation: [
         { type: "preconditions", description: "User is working on requisition with filled header and selected source location" },
@@ -374,7 +374,7 @@ purchaseTest.describe("Store Requisition — Save & Auto-save", () => {
   );
 
   purchaseTest(
-    "TC-SR00405 Save Failure due to Network/Database Issue",
+    "TC-SR-040005 Save Failure due to Network/Database Issue",
     {
       annotation: [
         { type: "preconditions", description: "User is working on requisition with filled header and selected source location" },
@@ -392,11 +392,11 @@ purchaseTest.describe("Store Requisition — Save & Auto-save", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SR005 — Submit for Approval
+// TC-SR-900005 — Submit for Approval
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Store Requisition — Submit", () => {
   purchaseTest(
-    "TC-SR00501 Submit approved requisition with valid items",
+    "TC-SR-050001 Submit approved requisition with valid items",
     {
       annotation: [
         { type: "preconditions", description: "Requisition is in Draft status with valid items and quantities" },
@@ -422,7 +422,7 @@ purchaseTest.describe("Store Requisition — Submit", () => {
   );
 
   purchaseTest(
-    "TC-SR00502 Submit requisition with missing destination locations",
+    "TC-SR-050002 Submit requisition with missing destination locations",
     {
       annotation: [
         { type: "preconditions", description: "Requisition is in Draft status with valid items but missing destination locations" },
@@ -443,7 +443,7 @@ purchaseTest.describe("Store Requisition — Submit", () => {
   );
 
   purchaseTest(
-    "TC-SR00503 Submit requisition with empty line items",
+    "TC-SR-050003 Submit requisition with empty line items",
     {
       annotation: [
         { type: "preconditions", description: "Requisition is in Draft status with no items" },
@@ -466,7 +466,7 @@ purchaseTest.describe("Store Requisition — Submit", () => {
   );
 
   purchaseTest(
-    "TC-SR00504 Submit requisition as an unauthorized user",
+    "TC-SR-050004 Submit requisition as an unauthorized user",
     {
       annotation: [
         { type: "preconditions", description: "Requisition is in Draft status, but the user is not the creator" },
@@ -487,7 +487,7 @@ purchaseTest.describe("Store Requisition — Submit", () => {
   );
 
   purchaseTest(
-    "TC-SR00505 Submit requisition with emergency flag",
+    "TC-SR-050005 Submit requisition with emergency flag",
     {
       annotation: [
         { type: "preconditions", description: "Requisition is in Draft status, contains valid items, and marked as emergency" },
@@ -509,11 +509,11 @@ purchaseTest.describe("Store Requisition — Submit", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SR006 — Approver Navigation & List Actions
+// TC-SR-900006 — Approver Navigation & List Actions
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Store Requisition — Approver list actions", () => {
   purchaseTest(
-    "TC-SR00601 Navigate to Store Requisitions with Pending Approvals",
+    "TC-SR-060001 Navigate to Store Requisitions with Pending Approvals",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; assigned to approval workflow stage; at least one requisition is pending approval" },
@@ -534,7 +534,7 @@ purchaseTest.describe("Store Requisition — Approver list actions", () => {
   );
 
   purchaseTest(
-    "TC-SR00602 View Requisition Details with Filtered Columns",
+    "TC-SR-060002 View Requisition Details with Filtered Columns",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; assigned to approval workflow stage; at least one requisition is pending approval" },
@@ -557,7 +557,7 @@ purchaseTest.describe("Store Requisition — Approver list actions", () => {
   );
 
   purchaseTest(
-    "TC-SR00603 Bulk Action - Export Selected Requisitions",
+    "TC-SR-060003 Bulk Action - Export Selected Requisitions",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; multiple requisitions selected" },
@@ -580,7 +580,7 @@ purchaseTest.describe("Store Requisition — Approver list actions", () => {
   );
 
   purchaseTest(
-    "TC-SR00604 No Pending Approvals - Empty State",
+    "TC-SR-060004 No Pending Approvals - Empty State",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role, but no requisitions are pending approval" },
@@ -601,7 +601,7 @@ purchaseTest.describe("Store Requisition — Approver list actions", () => {
   );
 
   purchaseTest(
-    "TC-SR00605 Delegate Approvals for Unavailable User",
+    "TC-SR-060005 Delegate Approvals for Unavailable User",
     {
       annotation: [
         { type: "preconditions", description: "User is on leave and has pending approvals" },
@@ -625,11 +625,11 @@ purchaseTest.describe("Store Requisition — Approver list actions", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SR007 — Approve Requisition
+// TC-SR-900007 — Approve Requisition
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Store Requisition — Approve", () => {
   purchaseTest(
-    "TC-SR00701 Approve Requisition with No Quantity Adjustments",
+    "TC-SR-070001 Approve Requisition with No Quantity Adjustments",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; requisition is in In Progress status; requisition is at user's approval stage; user has authority to approve for this department" },
@@ -655,7 +655,7 @@ purchaseTest.describe("Store Requisition — Approve", () => {
   );
 
   purchaseTest(
-    "TC-SR00702 Unauthorized User Attempts to Approve Requisition",
+    "TC-SR-070002 Unauthorized User Attempts to Approve Requisition",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; requisition is in In Progress status; user does not have authority to approve for this department" },
@@ -676,7 +676,7 @@ purchaseTest.describe("Store Requisition — Approve", () => {
   );
 
   purchaseTest(
-    "TC-SR00703 Budget Exceeded During Approval",
+    "TC-SR-070003 Budget Exceeded During Approval",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; requisition value exceeds department budget; user has authority to override budget" },
@@ -698,11 +698,11 @@ purchaseTest.describe("Store Requisition — Approve", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SR008 — Approve Item-Level
+// TC-SR-900008 — Approve Item-Level
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Store Requisition — Approve Item-level", () => {
   purchaseTest(
-    "TC-SR00801 Happy Path - Approve Item",
+    "TC-SR-080001 Happy Path - Approve Item",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; requisition in In Progress status; item pending approval; user has access" },
@@ -723,7 +723,7 @@ purchaseTest.describe("Store Requisition — Approve Item-level", () => {
   );
 
   purchaseTest(
-    "TC-SR00802 Negative - Insufficient Stock for Issuance",
+    "TC-SR-080002 Negative - Insufficient Stock for Issuance",
     {
       annotation: [
         { type: "preconditions", description: "Storekeeper has access to source location; requisition is in Ready for Issuance status; stock is insufficient for one of the items" },
@@ -746,7 +746,7 @@ purchaseTest.describe("Store Requisition — Approve Item-level", () => {
 
 requestorTest.describe("Store Requisition — Approve Item-level — Permission denial", () => {
   requestorTest(
-    "TC-SR00803 Negative - No Permission",
+    "TC-SR-080003 Negative - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User has Storekeeper role; requisition in In Progress status; item pending approval; user has access" },
@@ -768,11 +768,11 @@ requestorTest.describe("Store Requisition — Approve Item-level — Permission 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SR009 — Adjust Approved Quantity
+// TC-SR-900009 — Adjust Approved Quantity
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Store Requisition — Adjust approved quantity", () => {
   purchaseTest(
-    "TC-SR00901 Adjust approved quantity: Happy path",
+    "TC-SR-090001 Adjust approved quantity: Happy path",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver or Storekeeper role; line item is in approved status; requisition not fully issued; user has authority to modify approvals" },
@@ -793,7 +793,7 @@ purchaseTest.describe("Store Requisition — Adjust approved quantity", () => {
   );
 
   purchaseTest(
-    "TC-SR00902 Decrease approved quantity: Insufficient issued quantity",
+    "TC-SR-090002 Decrease approved quantity: Insufficient issued quantity",
     {
       annotation: [
         { type: "preconditions", description: "Item has issued quantity; user attempts to reduce approved quantity below issued" },
@@ -814,7 +814,7 @@ purchaseTest.describe("Store Requisition — Adjust approved quantity", () => {
   );
 
   purchaseTest(
-    "TC-SR00903 Decrease approved quantity: Fully issued item",
+    "TC-SR-090003 Decrease approved quantity: Fully issued item",
     {
       annotation: [
         { type: "preconditions", description: "Item fully issued" },
@@ -835,7 +835,7 @@ purchaseTest.describe("Store Requisition — Adjust approved quantity", () => {
   );
 
   purchaseTest(
-    "TC-SR00904 Increase approved quantity: Stock insufficient",
+    "TC-SR-090004 Increase approved quantity: Stock insufficient",
     {
       annotation: [
         { type: "preconditions", description: "Item has insufficient stock; user attempts to increase approved quantity" },
@@ -856,7 +856,7 @@ purchaseTest.describe("Store Requisition — Adjust approved quantity", () => {
   );
 
   purchaseTest(
-    "TC-SR00905 Concurrent modification detected",
+    "TC-SR-090005 Concurrent modification detected",
     {
       annotation: [
         { type: "preconditions", description: "Another user modifies same item" },
@@ -878,11 +878,11 @@ purchaseTest.describe("Store Requisition — Adjust approved quantity", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SR010 — Request Review
+// TC-SR-900010 — Request Review
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Store Requisition — Request Review", () => {
   purchaseTest(
-    "TC-SR01001 Request Review with Valid Comments and Specific Items",
+    "TC-SR-100001 Request Review with Valid Comments and Specific Items",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; requisition is in In Progress status; user has concerns requiring clarification" },
@@ -905,7 +905,7 @@ purchaseTest.describe("Store Requisition — Request Review", () => {
   );
 
   purchaseTest(
-    "TC-SR01002 Request Review with Invalid Comments",
+    "TC-SR-100002 Request Review with Invalid Comments",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; requisition is in In Progress status" },
@@ -926,7 +926,7 @@ purchaseTest.describe("Store Requisition — Request Review", () => {
   );
 
   purchaseTest(
-    "TC-SR01003 Request Review with No Specific Items Selected",
+    "TC-SR-100003 Request Review with No Specific Items Selected",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; requisition is in In Progress status" },
@@ -948,11 +948,11 @@ purchaseTest.describe("Store Requisition — Request Review", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SR011 — Reject Requisition
+// TC-SR-900011 — Reject Requisition
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Store Requisition — Reject", () => {
   purchaseTest(
-    "TC-SR01101 Primary Actor Rejects Requisition Successfully",
+    "TC-SR-110001 Primary Actor Rejects Requisition Successfully",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; requisition is in In Progress status; user determines requisition should be rejected" },
@@ -979,7 +979,7 @@ purchaseTest.describe("Store Requisition — Reject", () => {
   );
 
   purchaseTest(
-    "TC-SR01102 User Enters Insufficient Rejection Reason",
+    "TC-SR-110002 User Enters Insufficient Rejection Reason",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; requisition is in In Progress status" },
@@ -1000,7 +1000,7 @@ purchaseTest.describe("Store Requisition — Reject", () => {
   );
 
   purchaseTest(
-    "TC-SR01103 User Accidentally Rejects Requisition",
+    "TC-SR-110003 User Accidentally Rejects Requisition",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; requisition is in In Progress status; user mistakenly rejects requisition" },
@@ -1021,7 +1021,7 @@ purchaseTest.describe("Store Requisition — Reject", () => {
   );
 
   purchaseTest(
-    "TC-SR01104 User Rejects Specific Items Only",
+    "TC-SR-110004 User Rejects Specific Items Only",
     {
       annotation: [
         { type: "preconditions", description: "User has Approver role; requisition is in In Progress status; user determines specific items should be rejected" },
@@ -1043,11 +1043,11 @@ purchaseTest.describe("Store Requisition — Reject", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SR012 — Issuance
+// TC-SR-900012 — Issuance
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Store Requisition — Issuance", () => {
   purchaseTest(
-    "TC-SR01201 Happy Path - Full Issuance",
+    "TC-SR-120001 Happy Path - Full Issuance",
     {
       annotation: [
         { type: "preconditions", description: "Storekeeper has access to source location; requisition is in Ready for Issuance status" },
@@ -1072,7 +1072,7 @@ purchaseTest.describe("Store Requisition — Issuance", () => {
   );
 
   purchaseTest(
-    "TC-SR01203 Edge Case - Partial Issuance",
+    "TC-SR-120003 Edge Case - Partial Issuance",
     {
       annotation: [
         { type: "preconditions", description: "Storekeeper has access to source location; requisition is in Ready for Issuance status" },

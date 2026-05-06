@@ -11,35 +11,35 @@ _Generated from `tests/720-stock-issue.spec.ts` annotations. Edit annotations, n
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-SI00101 | Happy Path - View Issue List | Medium | Happy Path |
-| TC-SI00103 | Edge Case - No Issues | Medium | Edge Case |
-| TC-SI00104 | Edge Case - Pagination | Medium | Edge Case |
-| TC-SI00201 | View existing issue with all details | Medium | Happy Path |
-| TC-SI00202 | View issue with missing department assignment | Medium | Edge Case |
-| TC-SI00203 | View issue without view permission | High | Negative |
-| TC-SI00301 | Happy Path - Search by SR Reference Number | Medium | Happy Path |
-| TC-SI00302 | Negative Case - Invalid Search Term | Medium | Negative |
-| TC-SI00303 | Edge Case - Empty Search Term | Low | Edge Case |
-| TC-SI00304 | Negative Case - No Permission | High | Negative |
-| TC-SI00305 | Edge Case - Multiple Filters | Medium | Edge Case |
-| TC-SI00401 | Happy Path - View Full SR from Issue Detail | Medium | Happy Path |
-| TC-SI00402 | Negative - No SR View Permission | Medium | Negative |
-| TC-SI00403 | Edge Case - Empty SR Reference Link | Low | Edge Case |
-| TC-SI00404 | Negative - User at Issue Stage No Permissions | Medium | Negative |
-| TC-SI00405 | Happy Path - Print SR | Low | Happy Path |
-| TC-SI00501 | Happy Path: Warehouse Staff prints a stock issue document | High | Happy Path |
-| TC-SI00502 | Negative: User without permission attempts to print | Medium | Negative |
-| TC-SI00503 | Edge Case: Multiple items with zero quantity | Low | Edge Case |
-| TC-SI00504 | Negative: Issue does not exist | Medium | Negative |
-| TC-SI00505 | Edge Case: Issue at Cancel stage | Low | Edge Case |
-| TC-SI00601 | Happy Path - View Expense Allocation | High | Happy Path |
-| TC-SI00602 | Negative - No Permission to View Costs | Medium | Negative |
-| TC-SI00603 | Edge Case - SR with No Expense Allocation | Medium | Edge Case |
-| TC-SI00604 | Negative - Invalid SR ID | Medium | Negative |
+| TC-SI-010001 | Happy Path - View Issue List | Medium | Happy Path |
+| TC-SI-010003 | Edge Case - No Issues | Medium | Edge Case |
+| TC-SI-010004 | Edge Case - Pagination | Medium | Edge Case |
+| TC-SI-020001 | View existing issue with all details | Medium | Happy Path |
+| TC-SI-020002 | View issue with missing department assignment | Medium | Edge Case |
+| TC-SI-020003 | View issue without view permission | High | Negative |
+| TC-SI-030001 | Happy Path - Search by SR Reference Number | Medium | Happy Path |
+| TC-SI-030002 | Negative Case - Invalid Search Term | Medium | Negative |
+| TC-SI-030003 | Edge Case - Empty Search Term | Low | Edge Case |
+| TC-SI-030004 | Negative Case - No Permission | High | Negative |
+| TC-SI-030005 | Edge Case - Multiple Filters | Medium | Edge Case |
+| TC-SI-040001 | Happy Path - View Full SR from Issue Detail | Medium | Happy Path |
+| TC-SI-040002 | Negative - No SR View Permission | Medium | Negative |
+| TC-SI-040003 | Edge Case - Empty SR Reference Link | Low | Edge Case |
+| TC-SI-040004 | Negative - User at Issue Stage No Permissions | Medium | Negative |
+| TC-SI-040005 | Happy Path - Print SR | Low | Happy Path |
+| TC-SI-050001 | Happy Path: Warehouse Staff prints a stock issue document | High | Happy Path |
+| TC-SI-050002 | Negative: User without permission attempts to print | Medium | Negative |
+| TC-SI-050003 | Edge Case: Multiple items with zero quantity | Low | Edge Case |
+| TC-SI-050004 | Negative: Issue does not exist | Medium | Negative |
+| TC-SI-050005 | Edge Case: Issue at Cancel stage | Low | Edge Case |
+| TC-SI-060001 | Happy Path - View Expense Allocation | High | Happy Path |
+| TC-SI-060002 | Negative - No Permission to View Costs | Medium | Negative |
+| TC-SI-060003 | Edge Case - SR with No Expense Allocation | Medium | Edge Case |
+| TC-SI-060004 | Negative - Invalid SR ID | Medium | Negative |
 
 ---
 
-## TC-SI00101 — Happy Path - View Issue List
+## TC-SI-010001 — Happy Path - View Issue List
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -64,7 +64,7 @@ Summary cards and issue list display correct information. User can view details 
 
 ---
 
-## TC-SI00103 — Edge Case - No Issues
+## TC-SI-010003 — Edge Case - No Issues
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -87,7 +87,7 @@ Summary cards and issue list display 0 counts and empty list.
 
 ---
 
-## TC-SI00104 — Edge Case - Pagination
+## TC-SI-010004 — Edge Case - Pagination
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -111,7 +111,7 @@ Pagination controls work and next or previous page of issues is correctly displa
 
 ---
 
-## TC-SI00201 — View existing issue with all details
+## TC-SI-020001 — View existing issue with all details
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -137,7 +137,7 @@ System displays all details in the issue layout as expected.
 
 ---
 
-## TC-SI00202 — View issue with missing department assignment
+## TC-SI-020002 — View issue with missing department assignment
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -163,7 +163,7 @@ System displays all details except department card as expected.
 
 ---
 
-## TC-SI00203 — View issue without view permission
+## TC-SI-020003 — View issue without view permission
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -186,7 +186,7 @@ System restricts access or shows error message as expected.
 
 ---
 
-## TC-SI00301 — Happy Path - Search by SR Reference Number
+## TC-SI-030001 — Happy Path - Search by SR Reference Number
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -211,7 +211,7 @@ SR 'SR-12345' is correctly displayed in the list with all relevant details.
 
 ---
 
-## TC-SI00302 — Negative Case - Invalid Search Term
+## TC-SI-030002 — Negative Case - Invalid Search Term
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -236,7 +236,7 @@ No SRs are displayed in the list.
 
 ---
 
-## TC-SI00303 — Edge Case - Empty Search Term
+## TC-SI-030003 — Edge Case - Empty Search Term
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -261,7 +261,7 @@ All SRs are displayed in the list.
 
 ---
 
-## TC-SI00304 — Negative Case - No Permission
+## TC-SI-030004 — Negative Case - No Permission
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -283,7 +283,7 @@ User is redirected to a permission denied page or an error message is displayed.
 
 ---
 
-## TC-SI00305 — Edge Case - Multiple Filters
+## TC-SI-030005 — Edge Case - Multiple Filters
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -314,7 +314,7 @@ SR 'SR-12345' with specified filters is displayed in the list.
 
 ---
 
-## TC-SI00401 — Happy Path - View Full SR from Issue Detail
+## TC-SI-040001 — Happy Path - View Full SR from Issue Detail
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -337,7 +337,7 @@ User is navigated to Store Requisition detail page where they can see all releva
 
 ---
 
-## TC-SI00402 — Negative - No SR View Permission
+## TC-SI-040002 — Negative - No SR View Permission
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -360,7 +360,7 @@ Error message indicating user does not have permission to view full SR is displa
 
 ---
 
-## TC-SI00403 — Edge Case - Empty SR Reference Link
+## TC-SI-040003 — Edge Case - Empty SR Reference Link
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -383,7 +383,7 @@ Error message indicating SR reference link is invalid or empty is displayed.
 
 ---
 
-## TC-SI00404 — Negative - User at Issue Stage No Permissions
+## TC-SI-040004 — Negative - User at Issue Stage No Permissions
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -407,7 +407,7 @@ Error message indicating user does not have permission to complete SR is display
 
 ---
 
-## TC-SI00405 — Happy Path - Print SR
+## TC-SI-040005 — Happy Path - Print SR
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -431,7 +431,7 @@ Print dialog or confirmation message is displayed allowing user to print SR.
 
 ---
 
-## TC-SI00501 — Happy Path: Warehouse Staff prints a stock issue document
+## TC-SI-050001 — Happy Path: Warehouse Staff prints a stock issue document
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -455,7 +455,7 @@ Document is successfully printed with all required information.
 
 ---
 
-## TC-SI00502 — Negative: User without permission attempts to print
+## TC-SI-050002 — Negative: User without permission attempts to print
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -478,7 +478,7 @@ System denies printing due to insufficient permissions.
 
 ---
 
-## TC-SI00503 — Edge Case: Multiple items with zero quantity
+## TC-SI-050003 — Edge Case: Multiple items with zero quantity
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -501,7 +501,7 @@ Document does not include items with zero quantity.
 
 ---
 
-## TC-SI00504 — Negative: Issue does not exist
+## TC-SI-050004 — Negative: Issue does not exist
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -524,7 +524,7 @@ System displays an error message indicating the issue does not exist.
 
 ---
 
-## TC-SI00505 — Edge Case: Issue at Cancel stage
+## TC-SI-050005 — Edge Case: Issue at Cancel stage
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -547,7 +547,7 @@ System displays an error message indicating the issue is at Cancel stage and can
 
 ---
 
-## TC-SI00601 — Happy Path - View Expense Allocation
+## TC-SI-060001 — Happy Path - View Expense Allocation
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -569,7 +569,7 @@ Expense allocation details are displayed: Department, Expense Account, Total Val
 
 ---
 
-## TC-SI00602 — Negative - No Permission to View Costs
+## TC-SI-060002 — Negative - No Permission to View Costs
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -591,7 +591,7 @@ System displays a permission denied message.
 
 ---
 
-## TC-SI00603 — Edge Case - SR with No Expense Allocation
+## TC-SI-060003 — Edge Case - SR with No Expense Allocation
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -613,7 +613,7 @@ System displays a message indicating no expense allocation.
 
 ---
 
-## TC-SI00604 — Negative - Invalid SR ID
+## TC-SI-060004 — Negative - Invalid SR ID
 
 > **As a** Purchase user, **I want** this Stock Issue behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -636,4 +636,4 @@ System displays a message indicating the SR ID is invalid.
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 650ea0b</sub>
+<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>

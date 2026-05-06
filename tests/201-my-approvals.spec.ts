@@ -25,11 +25,11 @@ const SKIP_NOTE_PERFORMANCE =
   "feasible in standard E2E. Verify with load-test tooling instead.";
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-MA001 — Unified Approval Queue (top-level page)
+// TC-MA-900001 — Unified Approval Queue (top-level page)
 // ═════════════════════════════════════════════════════════════════════════
 hodTest.describe("My Approvals — Queue", () => {
   hodTest(
-    "TC-MA00101 Happy Path - View Unified Approval Queue",
+    "TC-MA-010001 Happy Path - View Unified Approval Queue",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in with an approver role and has approval authority configured in approval matrix" },
@@ -51,7 +51,7 @@ hodTest.describe("My Approvals — Queue", () => {
   );
 
   hodTest(
-    "TC-MA00102 Negative - No Pending Approvals",
+    "TC-MA-010002 Negative - No Pending Approvals",
     {
       annotation: [
         { type: "preconditions", description: "User has approver role but no documents are pending" },
@@ -73,7 +73,7 @@ hodTest.describe("My Approvals — Queue", () => {
   );
 
   hodTest.skip(
-    "TC-MA00103 Edge Case - Large Number of Documents",
+    "TC-MA-010003 Edge Case - Large Number of Documents",
     {
       annotation: [
         { type: "preconditions", description: "User has approver role and over 500 pending documents exist" },
@@ -94,7 +94,7 @@ hodTest.describe("My Approvals — Queue", () => {
 
 requestorTest.describe("My Approvals — Queue — Permission denial", () => {
   requestorTest(
-    "TC-MA00104 Negative - Insufficient Permission",
+    "TC-MA-010004 Negative - Insufficient Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in but does not have approval authority configured in approval matrix" },
@@ -120,11 +120,11 @@ requestorTest.describe("My Approvals — Queue — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-MA002 — Approve from Queue (queue UI not yet implemented)
+// TC-MA-900002 — Approve from Queue (queue UI not yet implemented)
 // ═════════════════════════════════════════════════════════════════════════
 hodTest.describe("My Approvals — Approve from queue — Feature pending", () => {
   hodTest.skip(
-    "TC-MA00201 Happy Path: Approve Document with Valid Credentials",
+    "TC-MA-020001 Happy Path: Approve Document with Valid Credentials",
     {
       annotation: [
         { type: "preconditions", description: "User has viewed approval queue and document is in Pending Approval status" },
@@ -143,7 +143,7 @@ hodTest.describe("My Approvals — Approve from queue — Feature pending", () =
   );
 
   hodTest.skip(
-    "TC-MA00202 Negative: Insufficient Approval Authority",
+    "TC-MA-020002 Negative: Insufficient Approval Authority",
     {
       annotation: [
         { type: "preconditions", description: "Document is in Pending Approval status; user lacks approval authority for the document amount" },
@@ -162,7 +162,7 @@ hodTest.describe("My Approvals — Approve from queue — Feature pending", () =
   );
 
   hodTest.skip(
-    "TC-MA00203 Edge Case: Multiple Approvals in Queue",
+    "TC-MA-020003 Edge Case: Multiple Approvals in Queue",
     {
       annotation: [
         { type: "preconditions", description: "Multiple documents are in Pending Approval status at various approval levels; user has sufficient authority to approve" },
@@ -182,11 +182,11 @@ hodTest.describe("My Approvals — Approve from queue — Feature pending", () =
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-MA003 — Reject (PR module — UI exists)
+// TC-MA-900003 — Reject (PR module — UI exists)
 // ═════════════════════════════════════════════════════════════════════════
 hodTest.describe("My Approvals — Reject from PR detail", () => {
   hodTest(
-    "TC-MA00301 Happy Path - Valid Reason",
+    "TC-MA-030001 Happy Path - Valid Reason",
     {
       annotation: [
         { type: "preconditions", description: "Document in Pending Approval status; user has reviewed the document and identified issues preventing approval; user has active session" },
@@ -216,7 +216,7 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
   );
 
   hodTest(
-    "TC-MA00302 Negative - Empty Reason",
+    "TC-MA-030002 Negative - Empty Reason",
     {
       annotation: [
         { type: "preconditions", description: "Document in Pending Approval status; user has active session" },
@@ -243,7 +243,7 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
   );
 
   hodTest(
-    "TC-MA00303 Edge Case - Custom Reason",
+    "TC-MA-030003 Edge Case - Custom Reason",
     {
       annotation: [
         { type: "preconditions", description: "Document in Pending Approval status; user has active session" },
@@ -272,7 +272,7 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
 
 requestorTest.describe("My Approvals — Reject — Permission denial", () => {
   requestorTest(
-    "TC-MA00304 Negative - No Permission",
+    "TC-MA-030004 Negative - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "Document in Pending Approval status; user does not have permission to reject" },
@@ -304,11 +304,11 @@ requestorTest.describe("My Approvals — Reject — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-MA004 — Request More Information (feature pending)
+// TC-MA-900004 — Request More Information (feature pending)
 // ═════════════════════════════════════════════════════════════════════════
 hodTest.describe("My Approvals — Request More Info — Feature pending", () => {
   hodTest.skip(
-    "TC-MA00401 Happy Path - Request More Information",
+    "TC-MA-040001 Happy Path - Request More Information",
     {
       annotation: [
         { type: "preconditions", description: "User has reviewed document; document is in Pending Approval status; user has identified missing or unclear information needed for approval decision" },
@@ -327,7 +327,7 @@ hodTest.describe("My Approvals — Request More Info — Feature pending", () =>
   );
 
   hodTest.skip(
-    "TC-MA00402 Negative - Empty Information Request",
+    "TC-MA-040002 Negative - Empty Information Request",
     {
       annotation: [
         { type: "preconditions", description: "User has reviewed document; document is in Pending Approval status" },
@@ -346,7 +346,7 @@ hodTest.describe("My Approvals — Request More Info — Feature pending", () =>
   );
 
   hodTest.skip(
-    "TC-MA00404 Edge Case - Maximum Length Input",
+    "TC-MA-040004 Edge Case - Maximum Length Input",
     {
       annotation: [
         { type: "preconditions", description: "User has reviewed document; document is in Pending Approval status" },
@@ -366,11 +366,11 @@ hodTest.describe("My Approvals — Request More Info — Feature pending", () =>
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-MA005 — Bulk Approve (queue UI not yet implemented)
+// TC-MA-900005 — Bulk Approve (queue UI not yet implemented)
 // ═════════════════════════════════════════════════════════════════════════
 hodTest.describe("My Approvals — Bulk approve — Feature pending", () => {
   hodTest.skip(
-    "TC-MA00501 Happy Path - Approve 20 Routine F&B PRs",
+    "TC-MA-050001 Happy Path - Approve 20 Routine F&B PRs",
     {
       annotation: [
         { type: "preconditions", description: "User has viewed approval queue with 20 pending routine F&B PRs" },
@@ -389,7 +389,7 @@ hodTest.describe("My Approvals — Bulk approve — Feature pending", () => {
   );
 
   hodTest.skip(
-    "TC-MA00503 Edge Case - Approve Maximum 50 Documents",
+    "TC-MA-050003 Edge Case - Approve Maximum 50 Documents",
     {
       annotation: [
         { type: "preconditions", description: "User has viewed approval queue with 50 pending documents of the same type" },
@@ -409,11 +409,11 @@ hodTest.describe("My Approvals — Bulk approve — Feature pending", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-MA006 — Delegation (feature not yet implemented)
+// TC-MA-900006 — Delegation (feature not yet implemented)
 // ═════════════════════════════════════════════════════════════════════════
 hodTest.describe("My Approvals — Delegation — Feature pending", () => {
   hodTest.skip(
-    "TC-MA00601 Happy Path - Delegate Approval Authority",
+    "TC-MA-060001 Happy Path - Delegate Approval Authority",
     {
       annotation: [
         { type: "preconditions", description: "User has approver role; anticipates absence; potential delegate exists with equal or higher approval authority" },
@@ -432,7 +432,7 @@ hodTest.describe("My Approvals — Delegation — Feature pending", () => {
   );
 
   hodTest.skip(
-    "TC-MA00602 Negative - Delegate User with Lower Approval Authority",
+    "TC-MA-060002 Negative - Delegate User with Lower Approval Authority",
     {
       annotation: [
         { type: "preconditions", description: "User has approver role; potential delegate exists with lower approval authority" },
@@ -451,7 +451,7 @@ hodTest.describe("My Approvals — Delegation — Feature pending", () => {
   );
 
   hodTest.skip(
-    "TC-MA00603 Edge Case - Self Delegation",
+    "TC-MA-060003 Edge Case - Self Delegation",
     {
       annotation: [
         { type: "preconditions", description: "User has approver role; anticipates absence" },

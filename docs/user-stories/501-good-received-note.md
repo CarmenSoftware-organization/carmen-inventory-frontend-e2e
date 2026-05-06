@@ -11,86 +11,86 @@ _Generated from `tests/501-good-received-note.spec.ts` annotations. Edit annotat
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-GRN00101 | View GRN List as Authenticated User | High | Happy Path |
-| TC-GRN00102 | View GRN List with No GRNs | High | Negative |
-| TC-GRN00103 | View GRN List with Insufficient Permissions | High | Negative |
-| TC-GRN00104 | View GRN List with Large Number of GRNs | High | Edge Case |
-| TC-GRN00201 | Filter by GRN Number | High | Happy Path |
-| TC-GRN00202 | Clear Filters | High | Happy Path |
-| TC-GRN00203 | Invalid Search Term | High | Negative |
-| TC-GRN00204 | Search with Empty Term | High | Negative |
-| TC-GRN00205 | Filter by Vendor Name and Invoice Number | High | Happy Path |
-| TC-GRN00301 | Create GRN from Single PO - Happy Path | High | Happy Path |
-| TC-GRN00302 | Create GRN without Create GRN Permission | High | Negative |
-| TC-GRN00303 | Create GRN with No Vendor | High | Negative |
-| TC-GRN00304 | Create GRN with Invalid PO | High | Negative |
-| TC-GRN00305 | Create GRN with No Product in Catalog | High | Negative |
-| TC-GRN00402 | Create GRN from Multiple POs - Invalid PO Selection | High | Negative |
-| TC-GRN00403 | Create GRN from Multiple POs - No Permission | High | Negative |
-| TC-GRN00404 | Create GRN from Multiple POs - Edge Case - Partial POs | High | Edge Case |
-| TC-GRN00501 | Create Manual GRN with Valid Data | High | Happy Path |
-| TC-GRN00502 | Create Manual GRN without Permission | High | Negative |
-| TC-GRN00503 | Create Manual GRN with Missing Vendor | Medium | Negative |
-| TC-GRN00504 | Create Manual GRN with Empty Product Details | High | Negative |
-| TC-GRN00505 | Create Manual GRN with Large Number of Products | Medium | Edge Case |
-| TC-GRN00601 | Edit GRN Header - Happy Path | High | Happy Path |
-| TC-GRN00602 | Edit GRN Header - Invalid Currency | High | Negative |
-| TC-GRN00603 | Edit GRN Header - No Permission | High | Negative |
-| TC-GRN00604 | Edit GRN Header - Empty Fields | High | Negative |
-| TC-GRN00605 | Edit GRN Header - Future Date | High | Edge Case |
-| TC-GRN00701 | Happy Path - Add Line Item | High | Happy Path |
-| TC-GRN00702 | Invalid Input - Empty Product Name | High | Negative |
-| TC-GRN00703 | No Permission - User Tries to Add Item | High | Negative |
-| TC-GRN00704 | Edge Case - Add Item with Maximum Quantity | Medium | Edge Case |
-| TC-GRN00801 | Edit Existing Line Item - Happy Path | High | Happy Path |
-| TC-GRN00802 | Edit Line Item - Invalid Price Input | High | Negative |
-| TC-GRN00803 | Edit Line Item - No Permission | High | Negative |
-| TC-GRN00804 | Edit Line Item - No Line Items Exist | High | Edge Case |
-| TC-GRN00805 | Edit Line Item - GRN in RECEIVED Status | High | Edge Case |
-| TC-GRN00901 | Delete a valid line item from a draft GRN | Medium | Happy Path |
-| TC-GRN00902 | Attempt to delete a line item without edit permission | Medium | Negative |
-| TC-GRN00903 | Try to delete a line item from a received GRN | Medium | Negative |
-| TC-GRN00905 | Delete multiple line items at once from a draft GRN | Medium | Happy Path |
-| TC-GRN01001 | Happy Path - Add Extra Costs | Medium | Happy Path |
-| TC-GRN01002 | Negative - No Permission to Add Costs | Medium | Negative |
-| TC-GRN01003 | Edge Case - Invalid Cost Amount | Medium | Edge Case |
-| TC-GRN01101 | Happy Path - Commit GRN | High | Happy Path |
-| TC-GRN01102 | Negative - No Permission to Commit GRN | High | Negative |
-| TC-GRN01103 | Negative - Missing Storage Location | High | Negative |
-| TC-GRN01104 | Edge Case - Partially Received GRN | High | Edge Case |
-| TC-GRN01201 | Void GRN - Happy Path | Medium | Happy Path |
-| TC-GRN01202 | Void GRN - No Permission | Medium | Negative |
-| TC-GRN01203 | Void GRN - Committed GRN | Medium | Edge Case |
-| TC-GRN01204 | Void GRN - PO Status Reverted | Medium | Edge Case |
-| TC-GRN01301 | View Financial Summary - Happy Path | High | Happy Path |
-| TC-GRN01302 | View Financial Summary - No Permission | High | Negative |
-| TC-GRN01303 | View Financial Summary - Invalid GRN | Medium | Edge Case |
-| TC-GRN01304 | View Financial Summary - Outdated Calculations | High | Edge Case |
-| TC-GRN01401 | View stock movements for committed GRN | High | Happy Path |
-| TC-GRN01402 | User without permission cannot access stock movements | High | Negative |
-| TC-GRN01403 | No stock movements when GRN is not committed | High | Edge Case |
-| TC-GRN01501 | Add valid comment | Medium | Happy Path |
-| TC-GRN01502 | Attempt to add comment without permission | Medium | Negative |
-| TC-GRN01503 | Add comment with empty text | Medium | Negative |
-| TC-GRN01504 | Add comment with very long text | Medium | Edge Case |
-| TC-GRN01505 | Add multiple comments | Medium | Happy Path |
-| TC-GRN01601 | Happy Path - Upload Valid Attachments | High | Happy Path |
-| TC-GRN01602 | Negative - Upload Without Edit Permission | Medium | Negative |
-| TC-GRN01603 | Negative - Upload Invalid File Type | Medium | Negative |
-| TC-GRN01604 | Edge Case - Upload Maximum Allowed Files | Low | Edge Case |
-| TC-GRN01605 | Negative - No Files to Upload | Low | Negative |
-| TC-GRN01701 | View Activity Log with Valid GRN | Medium | Happy Path |
-| TC-GRN01702 | View Activity Log without Permission | Medium | Negative |
-| TC-GRN01703 | View Activity Log for Non-Existent GRN | Low | Edge Case |
-| TC-GRN01704 | View Activity Log with No Activity | Low | Edge Case |
-| TC-GRN01801 | Performing a bulk approval action | Low | Happy Path |
-| TC-GRN01802 | User attempts to perform bulk action without edit permission | Low | Negative |
-| TC-GRN01803 | User attempts to perform bulk action on a GRN in RECEIVED status | Low | Negative |
-| TC-GRN01804 | Perform bulk action with no line items selected | Low | Edge Case |
+| TC-GRN-010001 | View GRN List as Authenticated User | High | Happy Path |
+| TC-GRN-010002 | View GRN List with No GRNs | High | Negative |
+| TC-GRN-010003 | View GRN List with Insufficient Permissions | High | Negative |
+| TC-GRN-010004 | View GRN List with Large Number of GRNs | High | Edge Case |
+| TC-GRN-020001 | Filter by GRN Number | High | Happy Path |
+| TC-GRN-020002 | Clear Filters | High | Happy Path |
+| TC-GRN-020003 | Invalid Search Term | High | Negative |
+| TC-GRN-020004 | Search with Empty Term | High | Negative |
+| TC-GRN-020005 | Filter by Vendor Name and Invoice Number | High | Happy Path |
+| TC-GRN-030001 | Create GRN from Single PO - Happy Path | High | Happy Path |
+| TC-GRN-030002 | Create GRN without Create GRN Permission | High | Negative |
+| TC-GRN-030003 | Create GRN with No Vendor | High | Negative |
+| TC-GRN-030004 | Create GRN with Invalid PO | High | Negative |
+| TC-GRN-030005 | Create GRN with No Product in Catalog | High | Negative |
+| TC-GRN-040002 | Create GRN from Multiple POs - Invalid PO Selection | High | Negative |
+| TC-GRN-040003 | Create GRN from Multiple POs - No Permission | High | Negative |
+| TC-GRN-040004 | Create GRN from Multiple POs - Edge Case - Partial POs | High | Edge Case |
+| TC-GRN-050001 | Create Manual GRN with Valid Data | High | Happy Path |
+| TC-GRN-050002 | Create Manual GRN without Permission | High | Negative |
+| TC-GRN-050003 | Create Manual GRN with Missing Vendor | Medium | Negative |
+| TC-GRN-050004 | Create Manual GRN with Empty Product Details | High | Negative |
+| TC-GRN-050005 | Create Manual GRN with Large Number of Products | Medium | Edge Case |
+| TC-GRN-060001 | Edit GRN Header - Happy Path | High | Happy Path |
+| TC-GRN-060002 | Edit GRN Header - Invalid Currency | High | Negative |
+| TC-GRN-060003 | Edit GRN Header - No Permission | High | Negative |
+| TC-GRN-060004 | Edit GRN Header - Empty Fields | High | Negative |
+| TC-GRN-060005 | Edit GRN Header - Future Date | High | Edge Case |
+| TC-GRN-070001 | Happy Path - Add Line Item | High | Happy Path |
+| TC-GRN-070002 | Invalid Input - Empty Product Name | High | Negative |
+| TC-GRN-070003 | No Permission - User Tries to Add Item | High | Negative |
+| TC-GRN-070004 | Edge Case - Add Item with Maximum Quantity | Medium | Edge Case |
+| TC-GRN-080001 | Edit Existing Line Item - Happy Path | High | Happy Path |
+| TC-GRN-080002 | Edit Line Item - Invalid Price Input | High | Negative |
+| TC-GRN-080003 | Edit Line Item - No Permission | High | Negative |
+| TC-GRN-080004 | Edit Line Item - No Line Items Exist | High | Edge Case |
+| TC-GRN-080005 | Edit Line Item - GRN in RECEIVED Status | High | Edge Case |
+| TC-GRN-090001 | Delete a valid line item from a draft GRN | Medium | Happy Path |
+| TC-GRN-090002 | Attempt to delete a line item without edit permission | Medium | Negative |
+| TC-GRN-090003 | Try to delete a line item from a received GRN | Medium | Negative |
+| TC-GRN-090005 | Delete multiple line items at once from a draft GRN | Medium | Happy Path |
+| TC-GRN-100001 | Happy Path - Add Extra Costs | Medium | Happy Path |
+| TC-GRN-100002 | Negative - No Permission to Add Costs | Medium | Negative |
+| TC-GRN-100003 | Edge Case - Invalid Cost Amount | Medium | Edge Case |
+| TC-GRN-110001 | Happy Path - Commit GRN | High | Happy Path |
+| TC-GRN-110002 | Negative - No Permission to Commit GRN | High | Negative |
+| TC-GRN-110003 | Negative - Missing Storage Location | High | Negative |
+| TC-GRN-110004 | Edge Case - Partially Received GRN | High | Edge Case |
+| TC-GRN-120001 | Void GRN - Happy Path | Medium | Happy Path |
+| TC-GRN-120002 | Void GRN - No Permission | Medium | Negative |
+| TC-GRN-120003 | Void GRN - Committed GRN | Medium | Edge Case |
+| TC-GRN-120004 | Void GRN - PO Status Reverted | Medium | Edge Case |
+| TC-GRN-130001 | View Financial Summary - Happy Path | High | Happy Path |
+| TC-GRN-130002 | View Financial Summary - No Permission | High | Negative |
+| TC-GRN-130003 | View Financial Summary - Invalid GRN | Medium | Edge Case |
+| TC-GRN-130004 | View Financial Summary - Outdated Calculations | High | Edge Case |
+| TC-GRN-140001 | View stock movements for committed GRN | High | Happy Path |
+| TC-GRN-140002 | User without permission cannot access stock movements | High | Negative |
+| TC-GRN-140003 | No stock movements when GRN is not committed | High | Edge Case |
+| TC-GRN-150001 | Add valid comment | Medium | Happy Path |
+| TC-GRN-150002 | Attempt to add comment without permission | Medium | Negative |
+| TC-GRN-150003 | Add comment with empty text | Medium | Negative |
+| TC-GRN-150004 | Add comment with very long text | Medium | Edge Case |
+| TC-GRN-150005 | Add multiple comments | Medium | Happy Path |
+| TC-GRN-160001 | Happy Path - Upload Valid Attachments | High | Happy Path |
+| TC-GRN-160002 | Negative - Upload Without Edit Permission | Medium | Negative |
+| TC-GRN-160003 | Negative - Upload Invalid File Type | Medium | Negative |
+| TC-GRN-160004 | Edge Case - Upload Maximum Allowed Files | Low | Edge Case |
+| TC-GRN-160005 | Negative - No Files to Upload | Low | Negative |
+| TC-GRN-170001 | View Activity Log with Valid GRN | Medium | Happy Path |
+| TC-GRN-170002 | View Activity Log without Permission | Medium | Negative |
+| TC-GRN-170003 | View Activity Log for Non-Existent GRN | Low | Edge Case |
+| TC-GRN-170004 | View Activity Log with No Activity | Low | Edge Case |
+| TC-GRN-180001 | Performing a bulk approval action | Low | Happy Path |
+| TC-GRN-180002 | User attempts to perform bulk action without edit permission | Low | Negative |
+| TC-GRN-180003 | User attempts to perform bulk action on a GRN in RECEIVED status | Low | Negative |
+| TC-GRN-180004 | Perform bulk action with no line items selected | Low | Edge Case |
 
 ---
 
-## TC-GRN00101 — View GRN List as Authenticated User
+## TC-GRN-010001 — View GRN List as Authenticated User
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -113,7 +113,7 @@ GRN list is displayed with current data. User can select a GRN to view details.
 
 ---
 
-## TC-GRN00102 — View GRN List with No GRNs
+## TC-GRN-010002 — View GRN List with No GRNs
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -135,7 +135,7 @@ Empty state message is displayed indicating no GRNs are available.
 
 ---
 
-## TC-GRN00103 — View GRN List with Insufficient Permissions
+## TC-GRN-010003 — View GRN List with Insufficient Permissions
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -157,7 +157,7 @@ Access is denied or appropriate error message is displayed.
 
 ---
 
-## TC-GRN00104 — View GRN List with Large Number of GRNs
+## TC-GRN-010004 — View GRN List with Large Number of GRNs
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -180,7 +180,7 @@ Pagination works as expected. User can scroll through multiple pages of GRNs.
 
 ---
 
-## TC-GRN00201 — Filter by GRN Number
+## TC-GRN-020001 — Filter by GRN Number
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -203,7 +203,7 @@ GRN list is filtered to show only the GRN with the entered number.
 
 ---
 
-## TC-GRN00202 — Clear Filters
+## TC-GRN-020002 — Clear Filters
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -226,7 +226,7 @@ GRN list returns to its initial state with all records visible.
 
 ---
 
-## TC-GRN00203 — Invalid Search Term
+## TC-GRN-020003 — Invalid Search Term
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -250,7 +250,7 @@ No GRNs are displayed and the list remains unfiltered.
 
 ---
 
-## TC-GRN00204 — Search with Empty Term
+## TC-GRN-020004 — Search with Empty Term
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -273,7 +273,7 @@ GRN list returns to its initial state with all records visible.
 
 ---
 
-## TC-GRN00205 — Filter by Vendor Name and Invoice Number
+## TC-GRN-020005 — Filter by Vendor Name and Invoice Number
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -297,7 +297,7 @@ GRN list is filtered to show only GRNs matching the entered vendor name and invo
 
 ---
 
-## TC-GRN00301 — Create GRN from Single PO - Happy Path
+## TC-GRN-030001 — Create GRN from Single PO - Happy Path
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -323,7 +323,7 @@ GRN created with status RECEIVED, GRN number auto-generated, line items populate
 
 ---
 
-## TC-GRN00302 — Create GRN without Create GRN Permission
+## TC-GRN-030002 — Create GRN without Create GRN Permission
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -345,7 +345,7 @@ User is unable to create GRN and receives an error message stating 'Insufficient
 
 ---
 
-## TC-GRN00303 — Create GRN with No Vendor
+## TC-GRN-030003 — Create GRN with No Vendor
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -367,7 +367,7 @@ User is unable to create GRN and receives an error message stating 'No vendor wi
 
 ---
 
-## TC-GRN00304 — Create GRN with Invalid PO
+## TC-GRN-030004 — Create GRN with Invalid PO
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -392,7 +392,7 @@ User is unable to create GRN and receives an error message stating 'Invalid purc
 
 ---
 
-## TC-GRN00305 — Create GRN with No Product in Catalog
+## TC-GRN-030005 — Create GRN with No Product in Catalog
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -416,7 +416,7 @@ User is unable to create GRN and receives an error message stating 'Products in 
 
 ---
 
-## TC-GRN00402 — Create GRN from Multiple POs - Invalid PO Selection
+## TC-GRN-040002 — Create GRN from Multiple POs - Invalid PO Selection
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -440,7 +440,7 @@ System displays error message prohibiting creation of GRN with POs from differen
 
 ---
 
-## TC-GRN00403 — Create GRN from Multiple POs - No Permission
+## TC-GRN-040003 — Create GRN from Multiple POs - No Permission
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -463,7 +463,7 @@ System displays permission denied error message preventing GRN creation.
 
 ---
 
-## TC-GRN00404 — Create GRN from Multiple POs - Edge Case - Partial POs
+## TC-GRN-040004 — Create GRN from Multiple POs - Edge Case - Partial POs
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -487,7 +487,7 @@ GRN created with line items from partially fulfilled POs, each line item referen
 
 ---
 
-## TC-GRN00501 — Create Manual GRN with Valid Data
+## TC-GRN-050001 — Create Manual GRN with Valid Data
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -513,7 +513,7 @@ GRN is created without PO reference, status set to RECEIVED, no PO status update
 
 ---
 
-## TC-GRN00502 — Create Manual GRN without Permission
+## TC-GRN-050002 — Create Manual GRN without Permission
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -535,7 +535,7 @@ User is unable to click 'Create New GRN' or an appropriate error message is disp
 
 ---
 
-## TC-GRN00503 — Create Manual GRN with Missing Vendor
+## TC-GRN-050003 — Create Manual GRN with Missing Vendor
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -559,7 +559,7 @@ Error message indicates that the vendor does not exist in the system.
 
 ---
 
-## TC-GRN00504 — Create Manual GRN with Empty Product Details
+## TC-GRN-050004 — Create Manual GRN with Empty Product Details
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -584,7 +584,7 @@ Error message indicates that product details cannot be empty.
 
 ---
 
-## TC-GRN00505 — Create Manual GRN with Large Number of Products
+## TC-GRN-050005 — Create Manual GRN with Large Number of Products
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -609,7 +609,7 @@ GRN is created without PO reference, status set to RECEIVED, no PO status update
 
 ---
 
-## TC-GRN00601 — Edit GRN Header - Happy Path
+## TC-GRN-060001 — Edit GRN Header - Happy Path
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -635,7 +635,7 @@ GRN header updated with new information, activity log records changes, financial
 
 ---
 
-## TC-GRN00602 — Edit GRN Header - Invalid Currency
+## TC-GRN-060002 — Edit GRN Header - Invalid Currency
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -659,7 +659,7 @@ System displays error message regarding invalid currency, GRN header remains unc
 
 ---
 
-## TC-GRN00603 — Edit GRN Header - No Permission
+## TC-GRN-060003 — Edit GRN Header - No Permission
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -682,7 +682,7 @@ System displays error message indicating insufficient permission, GRN header rem
 
 ---
 
-## TC-GRN00604 — Edit GRN Header - Empty Fields
+## TC-GRN-060004 — Edit GRN Header - Empty Fields
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -706,7 +706,7 @@ System displays error messages for all required fields, GRN header remains uncha
 
 ---
 
-## TC-GRN00605 — Edit GRN Header - Future Date
+## TC-GRN-060005 — Edit GRN Header - Future Date
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -730,7 +730,7 @@ System displays error message regarding invalid date, GRN header remains unchang
 
 ---
 
-## TC-GRN00701 — Happy Path - Add Line Item
+## TC-GRN-070001 — Happy Path - Add Line Item
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -755,7 +755,7 @@ New line item added to GRN, financial totals recalculated, activity log updated.
 
 ---
 
-## TC-GRN00702 — Invalid Input - Empty Product Name
+## TC-GRN-070002 — Invalid Input - Empty Product Name
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -781,7 +781,7 @@ Error message displayed for empty product name, no line item added.
 
 ---
 
-## TC-GRN00703 — No Permission - User Tries to Add Item
+## TC-GRN-070003 — No Permission - User Tries to Add Item
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -806,7 +806,7 @@ User receives permission denied error, unable to add line item.
 
 ---
 
-## TC-GRN00704 — Edge Case - Add Item with Maximum Quantity
+## TC-GRN-070004 — Edge Case - Add Item with Maximum Quantity
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -831,7 +831,7 @@ Maximum quantity enforced, financial totals recalculated, activity log updated.
 
 ---
 
-## TC-GRN00801 — Edit Existing Line Item - Happy Path
+## TC-GRN-080001 — Edit Existing Line Item - Happy Path
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -857,7 +857,7 @@ Line item updated, financial totals recalculated, activity log records changes.
 
 ---
 
-## TC-GRN00802 — Edit Line Item - Invalid Price Input
+## TC-GRN-080002 — Edit Line Item - Invalid Price Input
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -883,7 +883,7 @@ System displays error message and does not update line item.
 
 ---
 
-## TC-GRN00803 — Edit Line Item - No Permission
+## TC-GRN-080003 — Edit Line Item - No Permission
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -907,7 +907,7 @@ User is denied access and cannot edit line item.
 
 ---
 
-## TC-GRN00804 — Edit Line Item - No Line Items Exist
+## TC-GRN-080004 — Edit Line Item - No Line Items Exist
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -930,7 +930,7 @@ System displays message indicating no line items to edit.
 
 ---
 
-## TC-GRN00805 — Edit Line Item - GRN in RECEIVED Status
+## TC-GRN-080005 — Edit Line Item - GRN in RECEIVED Status
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -953,7 +953,7 @@ System displays message indicating GRN cannot be edited.
 
 ---
 
-## TC-GRN00901 — Delete a valid line item from a draft GRN
+## TC-GRN-090001 — Delete a valid line item from a draft GRN
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -977,7 +977,7 @@ Line item is removed, line numbers resequenced, financial totals recalculated, a
 
 ---
 
-## TC-GRN00902 — Attempt to delete a line item without edit permission
+## TC-GRN-090002 — Attempt to delete a line item without edit permission
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1000,7 +1000,7 @@ User is presented with an error message indicating insufficient permissions.
 
 ---
 
-## TC-GRN00903 — Try to delete a line item from a received GRN
+## TC-GRN-090003 — Try to delete a line item from a received GRN
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1023,7 +1023,7 @@ User is presented with a warning that the GRN is in a non-editable state and can
 
 ---
 
-## TC-GRN00905 — Delete multiple line items at once from a draft GRN
+## TC-GRN-090005 — Delete multiple line items at once from a draft GRN
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1047,7 +1047,7 @@ Selected line items are removed, line numbers resequenced, financial totals reca
 
 ---
 
-## TC-GRN01001 — Happy Path - Add Extra Costs
+## TC-GRN-100001 — Happy Path - Add Extra Costs
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1076,7 +1076,7 @@ Extra cost entries added to GRN, costs distributed to line items, line item tota
 
 ---
 
-## TC-GRN01002 — Negative - No Permission to Add Costs
+## TC-GRN-100002 — Negative - No Permission to Add Costs
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1098,7 +1098,7 @@ System displays error message indicating insufficient permissions, 'Add Extra Co
 
 ---
 
-## TC-GRN01003 — Edge Case - Invalid Cost Amount
+## TC-GRN-100003 — Edge Case - Invalid Cost Amount
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1125,7 +1125,7 @@ System displays error message for invalid amount, freight cost not added, handli
 
 ---
 
-## TC-GRN01101 — Happy Path - Commit GRN
+## TC-GRN-110001 — Happy Path - Commit GRN
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1151,7 +1151,7 @@ GRN status changed to COMMITTED, stock movements created, inventory quantities u
 
 ---
 
-## TC-GRN01102 — Negative - No Permission to Commit GRN
+## TC-GRN-110002 — Negative - No Permission to Commit GRN
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1175,7 +1175,7 @@ Error message displayed preventing GRN commitment.
 
 ---
 
-## TC-GRN01103 — Negative - Missing Storage Location
+## TC-GRN-110003 — Negative - Missing Storage Location
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1199,7 +1199,7 @@ Error message displayed indicating missing storage location.
 
 ---
 
-## TC-GRN01104 — Edge Case - Partially Received GRN
+## TC-GRN-110004 — Edge Case - Partially Received GRN
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1223,7 +1223,7 @@ Error message displayed preventing full GRN commitment.
 
 ---
 
-## TC-GRN01201 — Void GRN - Happy Path
+## TC-GRN-120001 — Void GRN - Happy Path
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1247,7 +1247,7 @@ The GRN status is updated to VOID.
 
 ---
 
-## TC-GRN01202 — Void GRN - No Permission
+## TC-GRN-120002 — Void GRN - No Permission
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1271,7 +1271,7 @@ The user is unable to void the GRN and receives an error message.
 
 ---
 
-## TC-GRN01203 — Void GRN - Committed GRN
+## TC-GRN-120003 — Void GRN - Committed GRN
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1297,7 +1297,7 @@ The GRN status is updated to RECEIVED, stock movements are reversed, and the JV 
 
 ---
 
-## TC-GRN01204 — Void GRN - PO Status Reverted
+## TC-GRN-120004 — Void GRN - PO Status Reverted
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1321,7 +1321,7 @@ The PO status is reverted.
 
 ---
 
-## TC-GRN01301 — View Financial Summary - Happy Path
+## TC-GRN-130001 — View Financial Summary - Happy Path
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1344,7 +1344,7 @@ User sees complete financial breakdown with tax details and accounting preview.
 
 ---
 
-## TC-GRN01302 — View Financial Summary - No Permission
+## TC-GRN-130002 — View Financial Summary - No Permission
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1367,7 +1367,7 @@ User is unable to view financial summary and receives appropriate access denied 
 
 ---
 
-## TC-GRN01303 — View Financial Summary - Invalid GRN
+## TC-GRN-130003 — View Financial Summary - Invalid GRN
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1391,7 +1391,7 @@ System displays error message or shows empty state indicating no financial summa
 
 ---
 
-## TC-GRN01304 — View Financial Summary - Outdated Calculations
+## TC-GRN-130004 — View Financial Summary - Outdated Calculations
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1414,7 +1414,7 @@ System displays message or state indicating financial summary is not available u
 
 ---
 
-## TC-GRN01401 — View stock movements for committed GRN
+## TC-GRN-140001 — View stock movements for committed GRN
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1438,7 +1438,7 @@ Stock movements are correctly displayed, showing the impact on inventory.
 
 ---
 
-## TC-GRN01402 — User without permission cannot access stock movements
+## TC-GRN-140002 — User without permission cannot access stock movements
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1463,7 +1463,7 @@ System denies access to stock movements and displays appropriate error message.
 
 ---
 
-## TC-GRN01403 — No stock movements when GRN is not committed
+## TC-GRN-140003 — No stock movements when GRN is not committed
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1487,7 +1487,7 @@ No stock movements are displayed, and user is informed that there are none.
 
 ---
 
-## TC-GRN01501 — Add valid comment
+## TC-GRN-150001 — Add valid comment
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1511,7 +1511,7 @@ Comment is added to GRN and visible to all users with access, activity log recor
 
 ---
 
-## TC-GRN01502 — Attempt to add comment without permission
+## TC-GRN-150002 — Attempt to add comment without permission
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1533,7 +1533,7 @@ User cannot see or add comments, system denies access.
 
 ---
 
-## TC-GRN01503 — Add comment with empty text
+## TC-GRN-150003 — Add comment with empty text
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1557,7 +1557,7 @@ System displays error message and does not add empty comment.
 
 ---
 
-## TC-GRN01504 — Add comment with very long text
+## TC-GRN-150004 — Add comment with very long text
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1581,7 +1581,7 @@ System displays error message and does not add comment with long text.
 
 ---
 
-## TC-GRN01505 — Add multiple comments
+## TC-GRN-150005 — Add multiple comments
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1606,7 +1606,7 @@ Multiple comments are added to GRN and visible to all users with access, activit
 
 ---
 
-## TC-GRN01601 — Happy Path - Upload Valid Attachments
+## TC-GRN-160001 — Happy Path - Upload Valid Attachments
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1631,7 +1631,7 @@ Attachments are uploaded and linked to GRN, files are accessible to authorized u
 
 ---
 
-## TC-GRN01602 — Negative - Upload Without Edit Permission
+## TC-GRN-160002 — Negative - Upload Without Edit Permission
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1655,7 +1655,7 @@ User cannot upload documents, error message displayed.
 
 ---
 
-## TC-GRN01603 — Negative - Upload Invalid File Type
+## TC-GRN-160003 — Negative - Upload Invalid File Type
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1680,7 +1680,7 @@ Upload fails, error message displayed.
 
 ---
 
-## TC-GRN01604 — Edge Case - Upload Maximum Allowed Files
+## TC-GRN-160004 — Edge Case - Upload Maximum Allowed Files
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1705,7 +1705,7 @@ Maximum allowed files are uploaded, no additional files can be added.
 
 ---
 
-## TC-GRN01605 — Negative - No Files to Upload
+## TC-GRN-160005 — Negative - No Files to Upload
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1729,7 +1729,7 @@ Upload fails, no files are uploaded.
 
 ---
 
-## TC-GRN01701 — View Activity Log with Valid GRN
+## TC-GRN-170001 — View Activity Log with Valid GRN
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1753,7 +1753,7 @@ User sees complete activity log of the GRN.
 
 ---
 
-## TC-GRN01702 — View Activity Log without Permission
+## TC-GRN-170002 — View Activity Log without Permission
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1777,7 +1777,7 @@ User cannot access the 'Activity Log' tab.
 
 ---
 
-## TC-GRN01703 — View Activity Log for Non-Existent GRN
+## TC-GRN-170003 — View Activity Log for Non-Existent GRN
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1801,7 +1801,7 @@ User sees an empty activity log.
 
 ---
 
-## TC-GRN01704 — View Activity Log with No Activity
+## TC-GRN-170004 — View Activity Log with No Activity
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1825,7 +1825,7 @@ User sees a message indicating no activity logs.
 
 ---
 
-## TC-GRN01801 — Performing a bulk approval action
+## TC-GRN-180001 — Performing a bulk approval action
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1850,7 +1850,7 @@ Selected items are updated to APPROVED status, activity log records the bulk app
 
 ---
 
-## TC-GRN01802 — User attempts to perform bulk action without edit permission
+## TC-GRN-180002 — User attempts to perform bulk action without edit permission
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1874,7 +1874,7 @@ User receives an error message indicating insufficient permissions, no bulk acti
 
 ---
 
-## TC-GRN01803 — User attempts to perform bulk action on a GRN in RECEIVED status
+## TC-GRN-180003 — User attempts to perform bulk action on a GRN in RECEIVED status
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1898,7 +1898,7 @@ User receives an error message indicating that the GRN cannot be edited in this 
 
 ---
 
-## TC-GRN01804 — Perform bulk action with no line items selected
+## TC-GRN-180004 — Perform bulk action with no line items selected
 
 > **As a** Purchase user, **I want** this GRN behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1922,4 +1922,4 @@ User receives a warning message to select at least one line item before performi
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 650ea0b</sub>
+<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>

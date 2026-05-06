@@ -11,141 +11,141 @@ _Generated from `tests/301-purchase-request.spec.ts` annotations. Edit annotatio
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-PR00101 | Create a basic purchase request with default values | Critical | Happy Path |
-| TC-PR00102 | Create a purchase request with FOC item | High | Happy Path |
-| TC-PR00103 | Attempt to create a purchase request with invalid delivery date | Critical | Negative |
-| TC-PR00104 | Create a purchase request without login | High | Negative |
-| TC-PR00105 | Add line items with zero quantity and unit price | High | Edge Case |
-| TC-PR00201 | Edit draft PR - Happy Path | High | Happy Path |
-| TC-PR00202 | Edit returned PR - Negative Case | High | Negative |
-| TC-PR00203 _(skipped)_ | Edit PR with version conflict - Edge Case | Medium | Edge Case |
-| TC-PR00301 | Submit valid PR with all required fields | Critical | Happy Path |
-| TC-PR00302 | Submit PR with missing required fields | High | Negative |
-| TC-PR00303 | Submit PR without required permissions | High | Negative |
-| TC-PR00304 | Submit PR with extremely large value | High | Edge Case |
-| TC-PR00305 | Submit PR with invalid item codes | High | Negative |
-| TC-PR00401 | View own pending PR as Requestor | High | Happy Path |
-| TC-PR00402 | Attempt to view PR with no permissions | High | Negative |
-| TC-PR00403 | View PR with all approvals completed | High | Happy Path |
-| TC-PR00404 | View PR with missing attachments | Medium | Edge Case |
-| TC-PR00501 | Approve Purchase Request - Happy Path | Critical | Happy Path |
-| TC-PR00502 | Approve Purchase Request - Invalid Approval Authority | High | Negative |
-| TC-PR00503 | Approve Purchase Request - No Additional Approvals Needed | Medium | Edge Case |
-| TC-PR00504 | Approve Purchase Request - Multiple Approvals Required | High | Edge Case |
-| TC-PR00601 | Approver rejects PR with valid reason | High | Happy Path |
-| TC-PR00602 | Reject PR with too short reason | High | Negative |
-| TC-PR00603 | Reject PR without reason | High | Negative |
-| TC-PR00604 | Reject PR with no permission | High | Negative |
-| TC-PR00605 | Reject PR with very high value | High | Happy Path |
-| TC-PR00701 _(skipped)_ | Happy Path - Recall PR | High | Happy Path |
-| TC-PR00702 _(skipped)_ | Negative - No Recall Reason | Medium | Negative |
-| TC-PR00703 _(skipped)_ | Edge Case - Multiple Approvals | Low | Edge Case |
-| TC-PR00704 _(skipped)_ | Negative - Insufficient Permissions | High | Negative |
-| TC-PR00801 | Cancel PR - Happy Path | High | Happy Path |
-| TC-PR00802 | Cancel PR - No Permission | Medium | Negative |
-| TC-PR00803 | Cancel PR - PR is Completed | High | Negative |
-| TC-PR00804 | Cancel PR - PR with Pending Approvals | Medium | Happy Path |
-| TC-PR00901 | Happy Path - Add Valid Attachment | High | Happy Path |
-| TC-PR00902 | Negative - Invalid File Type | Medium | Negative |
-| TC-PR00903 | Edge Case - Maximum File Size Exceeded | Medium | Edge Case |
-| TC-PR00904 | Negative - No Permission | High | Negative |
-| TC-PR01002 | Negative - Empty Comment | Medium | Negative |
-| TC-PR01003 | Edge Case - Comment Length Limit | Low | Edge Case |
-| TC-PR01004 | Negative - No Permission to Add Comment | Medium | Negative |
-| TC-PR01101 | Happy Path: Convert Approved PR to PO | Critical | Happy Path |
-| TC-PR01102 | Negative: Invalid Vendor | High | Negative |
-| TC-PR01103 | Edge Case: PR with No Delivery Date | Medium | Edge Case |
-| TC-PR01104 | Negative: No Permission to Convert PR | High | Negative |
-| TC-PR01201 | Happy Path - View Inventory and Add Item with Suggested Price | High | Happy Path |
-| TC-PR01202 | Negative - No Inventory Data Available | High | Negative |
-| TC-PR01203 | Edge Case - Below Reorder Point | High | Edge Case |
-| TC-PR01301 _(skipped)_ | Create Template from Existing PR | High | Happy Path |
-| TC-PR01302 _(skipped)_ | Duplicate Template Name | Medium | Edge Case |
-| TC-PR01303 _(skipped)_ | Create Organization-Wide Template | High | Happy Path |
-| TC-PR01304 _(skipped)_ | Invalid Template Name | High | Negative |
-| TC-PR01305 _(skipped)_ | No Line Items Included | High | Negative |
-| TC-PR01401 | Happy Path - Create PR with Visible Prices | High | Happy Path |
-| TC-PR01402 | Negative Case - Invalid Delivery Date | High | Negative |
-| TC-PR01404 | Negative Case - Hide Price with Invalid Toggle | High | Negative |
-| TC-PR01501 | Happy Path - Create PR with Full Delivery Details | High | Happy Path |
-| TC-PR01502 | Negative - Invalid Required Date | Medium | Negative |
-| TC-PR01503 | Edge Case - Long Comment | Medium | Edge Case |
-| TC-PR01504 | Negative - No Permission to Submit PR | High | Negative |
-| TC-PR01601 | Approve PR with FOC and full pricing visibility | High | Happy Path |
-| TC-PR01603 | Return PR for revision with FOC and full pricing visibility | High | Edge Case |
-| TC-PR01604 | Approve PR with hidden prices | High | Happy Path |
-| TC-PR01605 | Approve PR with override amounts over 20% | High | Edge Case |
-| TC-PR01701 | Happy Path - Valid Input | High | Happy Path |
-| TC-PR01703 | Edge Case - Empty Discount Rate | Medium | Edge Case |
-| TC-PR01705 | Edge Case - No Tax Profile | Medium | Edge Case |
-| TC-PR01801 | Return PR with valid reason | High | Happy Path |
-| TC-PR01802 | Return PR with empty reason | High | Negative |
-| TC-PR01803 | Return PR with minimum 10 character reason | High | Happy Path |
-| TC-PR01804 | Return PR with very high value and insufficient permissions | High | Negative |
-| TC-PR01902 | Submit PR with missing unit price | High | Negative |
-| TC-PR01903 | Submit PR with incomplete vendor selection | High | Negative |
-| TC-PR01904 | Submit PR with very high value | High | Edge Case |
-| TC-PR01905 | Submit PR with no permission | High | Negative |
-| TC-PR02001 | Happy Path - Reject Purchase Request with Valid Reason | High | Happy Path |
-| TC-PR02002 | Negative Case - Invalid Reason Length | High | Negative |
-| TC-PR02003 | Edge Case - Reject with No Reason Entered | Medium | Edge Case |
-| TC-PR02004 | Negative Case - No Permission to Reject | High | Negative |
-| TC-PR02005 | Edge Case - Reject with Existing Rejection | Medium | Edge Case |
-| TC-PR02101 | Approve Multiple Line Items | High | Happy Path |
-| TC-PR02102 | Reject Multiple Line Items | High | Happy Path |
-| TC-PR02103 | Return Multiple Line Items to Requestor | High | Happy Path |
-| TC-PR02104 | Split Multiple Line Items | High | Happy Path |
-| TC-PR02105 | Set Date Required for Multiple Line Items | High | Happy Path |
-| TC-PR02201 | Add a new budget allocation | High | Happy Path |
-| TC-PR02202 | Edit an existing budget allocation | High | Happy Path |
-| TC-PR02203 | Delete a budget allocation | High | Happy Path |
-| TC-PR02204 | Attempt to edit an allocation without permission | High | Negative |
-| TC-PR02205 | Attempt to delete a required allocation | High | Negative |
-| TC-PR02301 | Happy Path - Split PR with Valid Inputs | High | Happy Path |
-| TC-PR02302 | Negative - Insufficient Items for Split | High | Negative |
-| TC-PR02303 | Edge Case - No Items to Split | Medium | Edge Case |
-| TC-PR02304 | Negative - Invalid Reason for Return | High | Negative |
-| TC-PR10101 _(skipped)_ | Happy Path - Valid PR Data | Critical | Happy Path |
-| TC-PR10102 _(skipped)_ | Negative - No PR Data | High | Negative |
-| TC-PR10103 _(skipped)_ | Negative - Date Format Error | High | Negative |
-| TC-PR10104 _(skipped)_ | Edge Case - Year Change | Medium | Edge Case |
-| TC-PR10105 _(skipped)_ | Negative - Database Sequence Exhausted | High | Negative |
-| TC-PR10201 _(skipped)_ | Happy Path: Add Items and Verify Totals | Critical | Happy Path |
-| TC-PR10202 _(skipped)_ | Negative: Invalid Discount Percentage | High | Negative |
-| TC-PR10203 _(skipped)_ | Edge Case: Multi-Currency with Exchange Rate | Medium | Edge Case |
-| TC-PR10301 _(skipped)_ | Happy Path - General PR | Critical | Happy Path |
-| TC-PR10302 _(skipped)_ | Negative - Invalid Department ID | High | Negative |
-| TC-PR10303 _(skipped)_ | Edge Case - High Value Asset PR | High | Edge Case |
-| TC-PR10304 _(skipped)_ | Negative - No User Assigned to Role | High | Negative |
-| TC-PR10401 _(skipped)_ | Happy Path - Sufficient Funds | High | Happy Path |
-| TC-PR10402 _(skipped)_ | Negative Case - Insufficient Funds | High | Negative |
-| TC-PR10403 _(skipped)_ | Edge Case - No Budget Codes | High | Edge Case |
-| TC-PR10501 _(skipped)_ | Happy Path - PR Submitted Notification | Critical | Happy Path |
-| TC-PR10502 _(skipped)_ | Negative - Invalid Email Preference | High | Negative |
-| TC-PR10503 _(skipped)_ | Edge Case - PR Rejected with No Pending Approvals | Medium | Edge Case |
-| TC-PR10504 _(skipped)_ | Negative - User Not Authorized to Approve | High | Negative |
-| TC-PR20101 _(skipped)_ | Happy Path - PR Sync to ERP | High | Happy Path |
-| TC-PR20102 _(skipped)_ | Negative Case - ERP Sync Disabled | High | Negative |
-| TC-PR20103 _(skipped)_ | Edge Case - Multiple PRs in Batch | Medium | Edge Case |
-| TC-PR20201 _(skipped)_ | Import valid CSV file | Low | Happy Path |
-| TC-PR20203 _(skipped)_ | Duplicate PR import | Low | Edge Case |
-| TC-PR20204 _(skipped)_ | Import with unauthorized access | Low | Negative |
-| TC-PR20205 _(skipped)_ | Import with no file selected | Low | Edge Case |
-| TC-PR30101 _(skipped)_ | Happy Path - Reminder Notification Sent | Medium | Happy Path |
-| TC-PR30102 _(skipped)_ | Negative Case - Approver with No Pending Requests | Medium | Negative |
-| TC-PR30103 _(skipped)_ | Edge Case - Approver has 3 Reminders | Low | Edge Case |
-| TC-PR30104 _(skipped)_ | Negative Case - Approver with No Access | Low | Negative |
-| TC-PR30201 _(skipped)_ | Escalation for Overdue PRs with Valid Inputs | Medium | Happy Path |
-| TC-PR30202 _(skipped)_ | Escalation Job Fails Due to Database Error | High | Negative |
-| TC-PR30203 _(skipped)_ | Escalation Notification Sent to Approver Manager but No Manager Found | Medium | Edge Case |
-| TC-PR30204 _(skipped)_ | Escalation Job Runs During Non-Scheduled Time | Low | Edge Case |
-| TC-PR30301 _(skipped)_ | Happy Path - Scheduled Archival | High | Happy Path |
-| TC-PR30302 _(skipped)_ | Negative - Invalid Date Range | High | Negative |
-| TC-PR30303 _(skipped)_ | Edge Case - No Eligible PRs | Medium | Edge Case |
+| TC-PR-010001 | Create a basic purchase request with default values | Critical | Happy Path |
+| TC-PR-010002 | Create a purchase request with FOC item | High | Happy Path |
+| TC-PR-010003 | Attempt to create a purchase request with invalid delivery date | Critical | Negative |
+| TC-PR-010004 | Create a purchase request without login | High | Negative |
+| TC-PR-010005 | Add line items with zero quantity and unit price | High | Edge Case |
+| TC-PR-020001 | Edit draft PR - Happy Path | High | Happy Path |
+| TC-PR-020002 | Edit returned PR - Negative Case | High | Negative |
+| TC-PR-020003 _(skipped)_ | Edit PR with version conflict - Edge Case | Medium | Edge Case |
+| TC-PR-030001 | Submit valid PR with all required fields | Critical | Happy Path |
+| TC-PR-030002 | Submit PR with missing required fields | High | Negative |
+| TC-PR-030003 | Submit PR without required permissions | High | Negative |
+| TC-PR-030004 | Submit PR with extremely large value | High | Edge Case |
+| TC-PR-030005 | Submit PR with invalid item codes | High | Negative |
+| TC-PR-040001 | View own pending PR as Requestor | High | Happy Path |
+| TC-PR-040002 | Attempt to view PR with no permissions | High | Negative |
+| TC-PR-040003 | View PR with all approvals completed | High | Happy Path |
+| TC-PR-040004 | View PR with missing attachments | Medium | Edge Case |
+| TC-PR-050001 | Approve Purchase Request - Happy Path | Critical | Happy Path |
+| TC-PR-050002 | Approve Purchase Request - Invalid Approval Authority | High | Negative |
+| TC-PR-050003 | Approve Purchase Request - No Additional Approvals Needed | Medium | Edge Case |
+| TC-PR-050004 | Approve Purchase Request - Multiple Approvals Required | High | Edge Case |
+| TC-PR-060001 | Approver rejects PR with valid reason | High | Happy Path |
+| TC-PR-060002 | Reject PR with too short reason | High | Negative |
+| TC-PR-060003 | Reject PR without reason | High | Negative |
+| TC-PR-060004 | Reject PR with no permission | High | Negative |
+| TC-PR-060005 | Reject PR with very high value | High | Happy Path |
+| TC-PR-070001 _(skipped)_ | Happy Path - Recall PR | High | Happy Path |
+| TC-PR-070002 _(skipped)_ | Negative - No Recall Reason | Medium | Negative |
+| TC-PR-070003 _(skipped)_ | Edge Case - Multiple Approvals | Low | Edge Case |
+| TC-PR-070004 _(skipped)_ | Negative - Insufficient Permissions | High | Negative |
+| TC-PR-080001 | Cancel PR - Happy Path | High | Happy Path |
+| TC-PR-080002 | Cancel PR - No Permission | Medium | Negative |
+| TC-PR-080003 | Cancel PR - PR is Completed | High | Negative |
+| TC-PR-080004 | Cancel PR - PR with Pending Approvals | Medium | Happy Path |
+| TC-PR-090001 | Happy Path - Add Valid Attachment | High | Happy Path |
+| TC-PR-090002 | Negative - Invalid File Type | Medium | Negative |
+| TC-PR-090003 | Edge Case - Maximum File Size Exceeded | Medium | Edge Case |
+| TC-PR-090004 | Negative - No Permission | High | Negative |
+| TC-PR-110001 _(skipped)_ | Happy Path - Reminder Notification Sent | Medium | Happy Path |
+| TC-PR-110002 _(skipped)_ | Negative Case - Approver with No Pending Requests | Medium | Negative |
+| TC-PR-110003 _(skipped)_ | Edge Case - Approver has 3 Reminders | Low | Edge Case |
+| TC-PR-110004 _(skipped)_ | Negative Case - Approver with No Access | Low | Negative |
+| TC-PR-120001 _(skipped)_ | Escalation for Overdue PRs with Valid Inputs | Medium | Happy Path |
+| TC-PR-120002 _(skipped)_ | Escalation Job Fails Due to Database Error | High | Negative |
+| TC-PR-120003 _(skipped)_ | Escalation Notification Sent to Approver Manager but No Manager Found | Medium | Edge Case |
+| TC-PR-120004 _(skipped)_ | Escalation Job Runs During Non-Scheduled Time | Low | Edge Case |
+| TC-PR-130001 _(skipped)_ | Happy Path - Scheduled Archival | High | Happy Path |
+| TC-PR-130002 _(skipped)_ | Negative - Invalid Date Range | High | Negative |
+| TC-PR-130003 _(skipped)_ | Edge Case - No Eligible PRs | Medium | Edge Case |
+| TC-PR-210001 _(skipped)_ | Happy Path - PR Sync to ERP | High | Happy Path |
+| TC-PR-210002 _(skipped)_ | Negative Case - ERP Sync Disabled | High | Negative |
+| TC-PR-210003 _(skipped)_ | Edge Case - Multiple PRs in Batch | Medium | Edge Case |
+| TC-PR-220001 _(skipped)_ | Import valid CSV file | Low | Happy Path |
+| TC-PR-220003 _(skipped)_ | Duplicate PR import | Low | Edge Case |
+| TC-PR-220004 _(skipped)_ | Import with unauthorized access | Low | Negative |
+| TC-PR-220005 _(skipped)_ | Import with no file selected | Low | Edge Case |
+| TC-PR-310001 _(skipped)_ | Happy Path - Valid PR Data | Critical | Happy Path |
+| TC-PR-310002 _(skipped)_ | Negative - No PR Data | High | Negative |
+| TC-PR-310003 _(skipped)_ | Negative - Date Format Error | High | Negative |
+| TC-PR-310004 _(skipped)_ | Edge Case - Year Change | Medium | Edge Case |
+| TC-PR-310005 _(skipped)_ | Negative - Database Sequence Exhausted | High | Negative |
+| TC-PR-320001 _(skipped)_ | Happy Path: Add Items and Verify Totals | Critical | Happy Path |
+| TC-PR-320002 _(skipped)_ | Negative: Invalid Discount Percentage | High | Negative |
+| TC-PR-320003 _(skipped)_ | Edge Case: Multi-Currency with Exchange Rate | Medium | Edge Case |
+| TC-PR-330001 _(skipped)_ | Happy Path - General PR | Critical | Happy Path |
+| TC-PR-330002 _(skipped)_ | Negative - Invalid Department ID | High | Negative |
+| TC-PR-330003 _(skipped)_ | Edge Case - High Value Asset PR | High | Edge Case |
+| TC-PR-330004 _(skipped)_ | Negative - No User Assigned to Role | High | Negative |
+| TC-PR-340001 _(skipped)_ | Happy Path - Sufficient Funds | High | Happy Path |
+| TC-PR-340002 _(skipped)_ | Negative Case - Insufficient Funds | High | Negative |
+| TC-PR-340003 _(skipped)_ | Edge Case - No Budget Codes | High | Edge Case |
+| TC-PR-350001 _(skipped)_ | Happy Path - PR Submitted Notification | Critical | Happy Path |
+| TC-PR-350002 _(skipped)_ | Negative - Invalid Email Preference | High | Negative |
+| TC-PR-350003 _(skipped)_ | Edge Case - PR Rejected with No Pending Approvals | Medium | Edge Case |
+| TC-PR-350004 _(skipped)_ | Negative - User Not Authorized to Approve | High | Negative |
+| TC-PR-400002 | Negative - Empty Comment | Medium | Negative |
+| TC-PR-400003 | Edge Case - Comment Length Limit | Low | Edge Case |
+| TC-PR-400004 | Negative - No Permission to Add Comment | Medium | Negative |
+| TC-PR-410001 | Happy Path: Convert Approved PR to PO | Critical | Happy Path |
+| TC-PR-410002 | Negative: Invalid Vendor | High | Negative |
+| TC-PR-410003 | Edge Case: PR with No Delivery Date | Medium | Edge Case |
+| TC-PR-410004 | Negative: No Permission to Convert PR | High | Negative |
+| TC-PR-420001 | Happy Path - View Inventory and Add Item with Suggested Price | High | Happy Path |
+| TC-PR-420002 | Negative - No Inventory Data Available | High | Negative |
+| TC-PR-420003 | Edge Case - Below Reorder Point | High | Edge Case |
+| TC-PR-430001 _(skipped)_ | Create Template from Existing PR | High | Happy Path |
+| TC-PR-430002 _(skipped)_ | Duplicate Template Name | Medium | Edge Case |
+| TC-PR-430003 _(skipped)_ | Create Organization-Wide Template | High | Happy Path |
+| TC-PR-430004 _(skipped)_ | Invalid Template Name | High | Negative |
+| TC-PR-430005 _(skipped)_ | No Line Items Included | High | Negative |
+| TC-PR-440001 | Happy Path - Create PR with Visible Prices | High | Happy Path |
+| TC-PR-440002 | Negative Case - Invalid Delivery Date | High | Negative |
+| TC-PR-440004 | Negative Case - Hide Price with Invalid Toggle | High | Negative |
+| TC-PR-450001 | Happy Path - Create PR with Full Delivery Details | High | Happy Path |
+| TC-PR-450002 | Negative - Invalid Required Date | Medium | Negative |
+| TC-PR-450003 | Edge Case - Long Comment | Medium | Edge Case |
+| TC-PR-450004 | Negative - No Permission to Submit PR | High | Negative |
+| TC-PR-460001 | Approve PR with FOC and full pricing visibility | High | Happy Path |
+| TC-PR-460003 | Return PR for revision with FOC and full pricing visibility | High | Edge Case |
+| TC-PR-460004 | Approve PR with hidden prices | High | Happy Path |
+| TC-PR-460005 | Approve PR with override amounts over 20% | High | Edge Case |
+| TC-PR-470001 | Happy Path - Valid Input | High | Happy Path |
+| TC-PR-470003 | Edge Case - Empty Discount Rate | Medium | Edge Case |
+| TC-PR-470005 | Edge Case - No Tax Profile | Medium | Edge Case |
+| TC-PR-480001 | Return PR with valid reason | High | Happy Path |
+| TC-PR-480002 | Return PR with empty reason | High | Negative |
+| TC-PR-480003 | Return PR with minimum 10 character reason | High | Happy Path |
+| TC-PR-480004 | Return PR with very high value and insufficient permissions | High | Negative |
+| TC-PR-490002 | Submit PR with missing unit price | High | Negative |
+| TC-PR-490003 | Submit PR with incomplete vendor selection | High | Negative |
+| TC-PR-490004 | Submit PR with very high value | High | Edge Case |
+| TC-PR-490005 | Submit PR with no permission | High | Negative |
+| TC-PR-600001 | Happy Path - Reject Purchase Request with Valid Reason | High | Happy Path |
+| TC-PR-600002 | Negative Case - Invalid Reason Length | High | Negative |
+| TC-PR-600003 | Edge Case - Reject with No Reason Entered | Medium | Edge Case |
+| TC-PR-600004 | Negative Case - No Permission to Reject | High | Negative |
+| TC-PR-600005 | Edge Case - Reject with Existing Rejection | Medium | Edge Case |
+| TC-PR-610001 | Approve Multiple Line Items | High | Happy Path |
+| TC-PR-610002 | Reject Multiple Line Items | High | Happy Path |
+| TC-PR-610003 | Return Multiple Line Items to Requestor | High | Happy Path |
+| TC-PR-610004 | Split Multiple Line Items | High | Happy Path |
+| TC-PR-610005 | Set Date Required for Multiple Line Items | High | Happy Path |
+| TC-PR-620001 | Add a new budget allocation | High | Happy Path |
+| TC-PR-620002 | Edit an existing budget allocation | High | Happy Path |
+| TC-PR-620003 | Delete a budget allocation | High | Happy Path |
+| TC-PR-620004 | Attempt to edit an allocation without permission | High | Negative |
+| TC-PR-620005 | Attempt to delete a required allocation | High | Negative |
+| TC-PR-630001 | Happy Path - Split PR with Valid Inputs | High | Happy Path |
+| TC-PR-630002 | Negative - Insufficient Items for Split | High | Negative |
+| TC-PR-630003 | Edge Case - No Items to Split | Medium | Edge Case |
+| TC-PR-630004 | Negative - Invalid Reason for Return | High | Negative |
 
 ---
 
-## TC-PR00101 — Create a basic purchase request with default values
+## TC-PR-010001 — Create a basic purchase request with default values
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -177,7 +177,7 @@ System generates reference number, saves PR to database, logs activity, and redi
 
 ---
 
-## TC-PR00102 — Create a purchase request with FOC item
+## TC-PR-010002 — Create a purchase request with FOC item
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -207,7 +207,7 @@ System saves PR with FOC item correctly, calculates PR total, and logs activity.
 
 ---
 
-## TC-PR00103 — Attempt to create a purchase request with invalid delivery date
+## TC-PR-010003 — Attempt to create a purchase request with invalid delivery date
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -232,7 +232,7 @@ System displays error message for invalid date and does not save PR.
 
 ---
 
-## TC-PR00104 — Create a purchase request without login
+## TC-PR-010004 — Create a purchase request without login
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -253,7 +253,7 @@ System redirects user to login page or displays error message.
 
 ---
 
-## TC-PR00105 — Add line items with zero quantity and unit price
+## TC-PR-010005 — Add line items with zero quantity and unit price
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -277,7 +277,7 @@ System displays error message for zero quantity or unit price and does not add i
 
 ---
 
-## TC-PR00201 — Edit draft PR - Happy Path
+## TC-PR-020001 — Edit draft PR - Happy Path
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -301,7 +301,7 @@ PR header and line item details are updated, and PR remains in draft status. Ver
 
 ---
 
-## TC-PR00202 — Edit returned PR - Negative Case
+## TC-PR-020002 — Edit returned PR - Negative Case
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -324,7 +324,7 @@ System prevents modification and displays error message. PR remains in returned 
 
 ---
 
-## TC-PR00203 — Edit PR with version conflict - Edge Case _(skipped)_
+## TC-PR-020003 — Edit PR with version conflict - Edge Case _(skipped)_
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -350,7 +350,7 @@ User B is prompted to resolve conflict or discard changes. PR status remains unc
 
 ---
 
-## TC-PR00301 — Submit valid PR with all required fields
+## TC-PR-030001 — Submit valid PR with all required fields
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -375,7 +375,7 @@ PR is submitted successfully, status updated to 'In-progress', approval records 
 
 ---
 
-## TC-PR00302 — Submit PR with missing required fields
+## TC-PR-030002 — Submit PR with missing required fields
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -399,7 +399,7 @@ System displays error messages for missing fields.
 
 ---
 
-## TC-PR00303 — Submit PR without required permissions
+## TC-PR-030003 — Submit PR without required permissions
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -421,7 +421,7 @@ System displays an error message indicating insufficient permissions.
 
 ---
 
-## TC-PR00304 — Submit PR with extremely large value
+## TC-PR-030004 — Submit PR with extremely large value
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -445,7 +445,7 @@ System displays an error message indicating the value exceeds the limit.
 
 ---
 
-## TC-PR00305 — Submit PR with invalid item codes
+## TC-PR-030005 — Submit PR with invalid item codes
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -469,7 +469,7 @@ System displays error messages for invalid item codes.
 
 ---
 
-## TC-PR00401 — View own pending PR as Requestor
+## TC-PR-040001 — View own pending PR as Requestor
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -493,7 +493,7 @@ PR detail page is displayed with correct status and approver information
 
 ---
 
-## TC-PR00402 — Attempt to view PR with no permissions
+## TC-PR-040002 — Attempt to view PR with no permissions
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -516,7 +516,7 @@ User is unable to view PR detail page and receives appropriate error message
 
 ---
 
-## TC-PR00403 — View PR with all approvals completed
+## TC-PR-040003 — View PR with all approvals completed
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -540,7 +540,7 @@ PR detail page is displayed with all approved status and no pending approvals
 
 ---
 
-## TC-PR00404 — View PR with missing attachments
+## TC-PR-040004 — View PR with missing attachments
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -563,7 +563,7 @@ PR detail page displays missing attachment information
 
 ---
 
-## TC-PR00501 — Approve Purchase Request - Happy Path
+## TC-PR-050001 — Approve Purchase Request - Happy Path
 
 > **As a** Purchase user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -592,7 +592,7 @@ Purchase request is approved and all relevant notifications are sent.
 
 ---
 
-## TC-PR00502 — Approve Purchase Request - Invalid Approval Authority
+## TC-PR-050002 — Approve Purchase Request - Invalid Approval Authority
 
 > **As a** Purchase user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -616,7 +616,7 @@ System denies approval due to insufficient authority.
 
 ---
 
-## TC-PR00503 — Approve Purchase Request - No Additional Approvals Needed
+## TC-PR-050003 — Approve Purchase Request - No Additional Approvals Needed
 
 > **As a** Purchase user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -642,7 +642,7 @@ Purchase request is approved without additional approvals.
 
 ---
 
-## TC-PR00504 — Approve Purchase Request - Multiple Approvals Required
+## TC-PR-050004 — Approve Purchase Request - Multiple Approvals Required
 
 > **As a** Purchase user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -669,7 +669,7 @@ System correctly identifies next approver and sends notification.
 
 ---
 
-## TC-PR00601 — Approver rejects PR with valid reason
+## TC-PR-060001 — Approver rejects PR with valid reason
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -694,7 +694,7 @@ The PR status changes to 'Void', and a rejection notification is sent to the req
 
 ---
 
-## TC-PR00602 — Reject PR with too short reason
+## TC-PR-060002 — Reject PR with too short reason
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -719,7 +719,7 @@ A validation error is displayed, preventing confirmation.
 
 ---
 
-## TC-PR00603 — Reject PR without reason
+## TC-PR-060003 — Reject PR without reason
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -743,7 +743,7 @@ A validation error is displayed, preventing confirmation.
 
 ---
 
-## TC-PR00604 — Reject PR with no permission
+## TC-PR-060004 — Reject PR with no permission
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -766,7 +766,7 @@ The system displays an error message indicating insufficient permissions.
 
 ---
 
-## TC-PR00605 — Reject PR with very high value
+## TC-PR-060005 — Reject PR with very high value
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -791,7 +791,7 @@ The PR status changes to 'Void', and a rejection notification is sent to the req
 
 ---
 
-## TC-PR00701 — Happy Path - Recall PR _(skipped)_
+## TC-PR-070001 — Happy Path - Recall PR _(skipped)_
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -817,7 +817,7 @@ The PR is recalled, status changes to 'Draft', and notifications are sent to pen
 
 ---
 
-## TC-PR00702 — Negative - No Recall Reason _(skipped)_
+## TC-PR-070002 — Negative - No Recall Reason _(skipped)_
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -841,7 +841,7 @@ System prompts user to fill in recall reason and does not proceed with recall.
 
 ---
 
-## TC-PR00703 — Edge Case - Multiple Approvals _(skipped)_
+## TC-PR-070003 — Edge Case - Multiple Approvals _(skipped)_
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -867,7 +867,7 @@ The PR is recalled, status changes to 'Draft', and notifications are sent to all
 
 ---
 
-## TC-PR00704 — Negative - Insufficient Permissions _(skipped)_
+## TC-PR-070004 — Negative - Insufficient Permissions _(skipped)_
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -891,7 +891,7 @@ System denies the action and displays an error message indicating insufficient p
 
 ---
 
-## TC-PR00801 — Cancel PR - Happy Path
+## TC-PR-080001 — Cancel PR - Happy Path
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -916,7 +916,7 @@ PR status changes to 'Cancelled', all approvals are cancelled, budget is release
 
 ---
 
-## TC-PR00802 — Cancel PR - No Permission
+## TC-PR-080002 — Cancel PR - No Permission
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -938,7 +938,7 @@ System displays an error message stating 'Insufficient permissions to cancel thi
 
 ---
 
-## TC-PR00803 — Cancel PR - PR is Completed
+## TC-PR-080003 — Cancel PR - PR is Completed
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -960,7 +960,7 @@ System displays an error message stating 'PR cannot be cancelled as it is in the
 
 ---
 
-## TC-PR00804 — Cancel PR - PR with Pending Approvals
+## TC-PR-080004 — Cancel PR - PR with Pending Approvals
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -985,7 +985,7 @@ System cancels all pending approvals, PR status changes to 'Cancelled', budget i
 
 ---
 
-## TC-PR00901 — Happy Path - Add Valid Attachment
+## TC-PR-090001 — Happy Path - Add Valid Attachment
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1020,7 +1020,7 @@ Attachment is successfully added and displayed.
 
 ---
 
-## TC-PR00902 — Negative - Invalid File Type
+## TC-PR-090002 — Negative - Invalid File Type
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1047,7 +1047,7 @@ Invalid file type is rejected with an error message.
 
 ---
 
-## TC-PR00903 — Edge Case - Maximum File Size Exceeded
+## TC-PR-090003 — Edge Case - Maximum File Size Exceeded
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1074,7 +1074,7 @@ File size exceeds maximum limit and is rejected with an error message.
 
 ---
 
-## TC-PR00904 — Negative - No Permission
+## TC-PR-090004 — Negative - No Permission
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1100,7 +1100,907 @@ Department Manager does not have permission to add attachments.
 
 ---
 
-## TC-PR01002 — Negative - Empty Comment
+## TC-PR-110001 — Happy Path - Reminder Notification Sent _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Happy Path
+
+**Preconditions**
+
+A PR is created and pending for approval for 49 hours with reminder_count < 3
+
+**Steps**
+
+1. Navigate to /procurement/purchase-requests
+2. Wait for 49 hours
+3. Verify the system sends a reminder email to the approver
+
+**Expected**
+
+A reminder email is sent to the approver listing the pending PR.
+
+---
+
+## TC-PR-110002 — Negative Case - Approver with No Pending Requests _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Negative
+
+**Preconditions**
+
+A PR is created and pending for 49 hours; approver has no pending requests
+
+**Steps**
+
+1. Navigate to /procurement/purchase-requests
+2. Wait for 49 hours
+3. Verify no reminder email is sent to the approver
+
+**Expected**
+
+No reminder email is sent to the approver.
+
+---
+
+## TC-PR-110003 — Edge Case - Approver has 3 Reminders _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Low · **Test Type:** Edge Case
+
+**Preconditions**
+
+PR pending for 48 hours; approver has already received 2 reminder emails
+
+**Steps**
+
+1. Navigate to /procurement/purchase-requests
+2. Wait for 48 hours
+3. Verify no reminder email is sent to the approver
+
+**Expected**
+
+No reminder email is sent to the approver.
+
+---
+
+## TC-PR-110004 — Negative Case - Approver with No Access _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Low · **Test Type:** Negative
+
+**Preconditions**
+
+PR pending for 48 hours; approver has no access to view the PR
+
+**Steps**
+
+1. Navigate to /procurement/purchase-requests
+2. Wait for 48 hours
+3. Verify no reminder email is sent to the approver
+
+**Expected**
+
+No reminder email is sent to the approver.
+
+---
+
+## TC-PR-120001 — Escalation for Overdue PRs with Valid Inputs _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Happy Path
+
+**Preconditions**
+
+System is running and there are pending PRs that are overdue by more than 5 days
+
+**Steps**
+
+1. Navigate to /procurement/escalation
+2. Click 'Run Escalation Job'
+3. Wait for the job to complete
+
+**Expected**
+
+The system escalates all overdue PRs to their managers and logs the escalations, generates an escalation report.
+
+---
+
+## TC-PR-120002 — Escalation Job Fails Due to Database Error _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+Database is down or corrupted, preventing the query from running successfully
+
+**Steps**
+
+1. Simulate a database error by stopping the database service
+2. Navigate to /procurement/escalation
+3. Click 'Run Escalation Job'
+
+**Expected**
+
+An error message is displayed indicating the database issue, no PRs are escalated.
+
+---
+
+## TC-PR-120003 — Escalation Notification Sent to Approver Manager but No Manager Found _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Edge Case
+
+**Preconditions**
+
+The approver does not have a manager assigned in the system
+
+**Steps**
+
+1. Create a pending PR that will trigger escalation
+2. Run the escalation job
+3. Wait for the job to complete
+
+**Expected**
+
+The system attempts to send the escalation notification but fails because no manager is found, PR remains unescalated.
+
+---
+
+## TC-PR-120004 — Escalation Job Runs During Non-Scheduled Time _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Low · **Test Type:** Edge Case
+
+**Preconditions**
+
+System is running outside the scheduled time for the escalation job
+
+**Steps**
+
+1. Manually trigger the escalation job at an unscheduled time
+2. Navigate to /procurement/escalation
+3. Click 'Run Escalation Job'
+
+**Expected**
+
+The job runs but no PRs are escalated as the query condition is not met, no notifications are sent.
+
+---
+
+## TC-PR-130001 — Happy Path - Scheduled Archival _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Happy Path
+
+**Preconditions**
+
+System is set to run archival at 2 AM daily; current date is 2 years or more after the PRs to be archived
+
+**Steps**
+
+1. Navigate to /procurement/admin
+2. Wait for 2 AM
+3. Click on 'Run Archive Job'
+
+**Expected**
+
+All eligible PRs are archived according to the criteria, and a report is generated.
+
+---
+
+## TC-PR-130002 — Negative - Invalid Date Range _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+System is set to run archival at 2 AM daily; current date is less than 2 years from the PRs to be archived
+
+**Steps**
+
+1. Navigate to /procurement/admin
+2. Click on 'Run Archive Job'
+
+**Expected**
+
+No PRs are archived, and a notification is sent to the admin stating that the date range is invalid.
+
+---
+
+## TC-PR-130003 — Edge Case - No Eligible PRs _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Edge Case
+
+**Preconditions**
+
+All PRs are either new, in progress, or archived within the last 2 years
+
+**Steps**
+
+1. Navigate to /procurement/admin
+2. Click on 'Run Archive Job'
+
+**Expected**
+
+No PRs are archived, and a notification is sent to the admin stating that no PRs are eligible for archiving.
+
+---
+
+## TC-PR-210001 — Happy Path - PR Sync to ERP _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Happy Path
+
+**Preconditions**
+
+PR is approved and ERP sync is enabled
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click on approved PR with status 'Completed'
+3. Verify PR status is 'Approved/Completed'
+4. Wait for system to detect PR status change
+5. Verify system checks if ERP sync is enabled
+6. Verify system prepares PR data in ERP format
+7. Verify system calls ERP API endpoint
+8. Verify system receives ERP document ID
+9. Verify system saves sync record
+10. Verify system logs sync activity
+
+**Expected**
+
+PR data is successfully synced to the ERP system with all records saved and logged.
+
+---
+
+## TC-PR-210002 — Negative Case - ERP Sync Disabled _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+PR is approved and ERP sync is disabled
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click on approved PR with status 'Completed'
+3. Verify PR status is 'Approved/Completed'
+4. Wait for system to detect PR status change
+5. Verify system checks if ERP sync is enabled
+6. Verify system does not prepare PR data in ERP format
+7. Verify system does not call ERP API endpoint
+8. Verify system does not receive ERP document ID
+9. Verify system does not save sync record
+10. Verify system does not log sync activity
+
+**Expected**
+
+PR data is not synced to the ERP system as ERP sync is disabled.
+
+---
+
+## TC-PR-210003 — Edge Case - Multiple PRs in Batch _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Edge Case
+
+**Preconditions**
+
+Multiple PRs are approved and ERP sync is enabled
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click on multiple approved PRs with status 'Completed'
+3. Verify PR statuses are 'Approved/Completed'
+4. Wait for system to detect PR status change
+5. Verify system checks if ERP sync is enabled
+6. Verify system prepares PR data in ERP format for each PR
+7. Verify system calls ERP API endpoint for each PR
+8. Verify system receives ERP document ID for each PR
+9. Verify system saves sync record for each PR
+10. Verify system logs sync activity for each PR
+
+**Expected**
+
+All PR data is successfully synced to the ERP system with records saved and logged for each PR.
+
+---
+
+## TC-PR-220001 — Import valid CSV file _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Low · **Test Type:** Happy Path
+
+**Preconditions**
+
+User has permission to import purchase requests
+
+**Steps**
+
+1. Navigate to /import
+2. Click 'Select File' and upload valid CSV file
+3. Click 'Import'
+
+**Expected**
+
+System processes the file, creates PRs, logs import, and sends success summary to user
+
+---
+
+## TC-PR-220003 — Duplicate PR import _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Low · **Test Type:** Edge Case
+
+**Preconditions**
+
+User has permission to import; file has duplicate reference numbers
+
+**Steps**
+
+1. Navigate to /import
+2. Click 'Select File' and upload file with duplicate reference numbers
+3. Click 'Import'
+
+**Expected**
+
+System logs errors for duplicate records, creates valid PRs, and sends summary to user
+
+---
+
+## TC-PR-220004 — Import with unauthorized access _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Low · **Test Type:** Negative
+
+**Preconditions**
+
+User does not have permission to import purchase requests
+
+**Steps**
+
+1. Navigate to /import
+2. Click 'Select File' and upload valid CSV file
+3. Click 'Import'
+
+**Expected**
+
+System displays error message indicating insufficient permissions
+
+---
+
+## TC-PR-220005 — Import with no file selected _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Low · **Test Type:** Edge Case
+
+**Preconditions**
+
+User has permission to import purchase requests
+
+**Steps**
+
+1. Navigate to /import
+2. Click 'Import' without selecting a file
+
+**Expected**
+
+System displays error message indicating no file selected
+
+---
+
+## TC-PR-310001 — Happy Path - Valid PR Data _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Critical · **Test Type:** Happy Path
+
+**Preconditions**
+
+A new PR is created without a reference number
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click 'New Purchase Request'
+3. Fill in valid PR data
+4. Submit the PR
+
+**Expected**
+
+The system automatically generates and assigns a unique reference number in the format PR-2501-0001 and continues PR creation.
+
+---
+
+## TC-PR-310002 — Negative - No PR Data _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+A new PR is created without any PR data
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click 'New Purchase Request'
+3. Submit the PR without filling in any data
+
+**Expected**
+
+The system rejects the PR submission and displays an error message requiring PR data.
+
+---
+
+## TC-PR-310003 — Negative - Date Format Error _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+A new PR is created with an incorrect date format
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click 'New Purchase Request'
+3. Fill in the date with an incorrect format (e.g., 2025-02-15 instead of 2502)
+4. Submit the PR
+
+**Expected**
+
+The system rejects the PR submission and displays an error message about the date format.
+
+---
+
+## TC-PR-310004 — Edge Case - Year Change _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Edge Case
+
+**Preconditions**
+
+A new PR is created in the first month of a new financial year
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click 'New Purchase Request'
+3. Fill in the date for the first month of a new year (e.g., 2601)
+4. Submit the PR
+
+**Expected**
+
+The system correctly generates the reference number starting from PR-2601-0001.
+
+---
+
+## TC-PR-310005 — Negative - Database Sequence Exhausted _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+The database sequence for reference numbers has reached its maximum value
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click 'New Purchase Request'
+3. Submit the PR
+
+**Expected**
+
+The system generates an error message indicating that the reference number sequence has been exhausted.
+
+---
+
+## TC-PR-320001 — Happy Path: Add Items and Verify Totals _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Critical · **Test Type:** Happy Path
+
+**Preconditions**
+
+A PR with items is created and saved
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click 'Edit' on the PR
+3. Add a new line item with quantity, unit price, discount percentage, and tax rate
+4. Save the PR
+
+**Expected**
+
+Line totals, discounts, taxes, and total amount are correctly calculated and displayed.
+
+---
+
+## TC-PR-320002 — Negative: Invalid Discount Percentage _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+A PR with items and an invalid discount percentage is created and saved
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click 'Edit' on the PR
+3. Add a new line item with quantity, unit price, discount percentage set to over 100%, and tax rate
+4. Save the PR
+
+**Expected**
+
+The system displays an error message for the invalid discount percentage and does not calculate totals.
+
+---
+
+## TC-PR-320003 — Edge Case: Multi-Currency with Exchange Rate _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Edge Case
+
+**Preconditions**
+
+A PR with items is created and saved; the system uses multi-currency
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click 'Edit' on the PR
+3. Add a new line item with quantity, unit price, discount percentage, and tax rate
+4. Set the currency to a different currency than the base currency
+5. Enter an exchange rate
+6. Save the PR
+
+**Expected**
+
+Line totals, discounts, taxes, and total amount are calculated in the base currency using the exchange rate.
+
+---
+
+## TC-PR-330001 — Happy Path - General PR _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Critical · **Test Type:** Happy Path
+
+**Preconditions**
+
+A general PR with a total amount under $10,000 is submitted
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Fill the form with a general PR type and total amount less than $10,000
+3. Click 'Submit'
+
+**Expected**
+
+The approval chain includes only the department manager.
+
+---
+
+## TC-PR-330002 — Negative - Invalid Department ID _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+A PR is submitted with an invalid department ID
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Fill the form with a general PR type, total amount, and an invalid department ID
+3. Click 'Submit'
+
+**Expected**
+
+An error message is displayed indicating the department ID is invalid.
+
+---
+
+## TC-PR-330003 — Edge Case - High Value Asset PR _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Edge Case
+
+**Preconditions**
+
+A high-value asset PR is submitted with a total amount over $100,000
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Fill the form with an asset PR type, total amount over $100,000, and relevant department ID
+3. Click 'Submit'
+
+**Expected**
+
+The approval chain includes the department manager, asset manager, finance manager, and general manager.
+
+---
+
+## TC-PR-330004 — Negative - No User Assigned to Role _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+A PR is submitted for a role with no assigned user
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Fill the form with a general PR type, total amount, and a role with no assigned user
+3. Click 'Submit'
+
+**Expected**
+
+An error message is displayed indicating no user is assigned to the role.
+
+---
+
+## TC-PR-340001 — Happy Path - Sufficient Funds _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Happy Path
+
+**Preconditions**
+
+Login as Requestor; PR with budget codes; budget has sufficient funds
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Fill budget codes for line items
+3. Click 'Save'
+4. Verify system checks budget availability
+5. Wait for reservation confirmation
+6. Verify reservation ID recorded
+
+**Expected**
+
+System confirms sufficient funds, reserves budget, and records reservation ID.
+
+---
+
+## TC-PR-340002 — Negative Case - Insufficient Funds _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+Login as Requestor; PR with budget codes; budget has insufficient funds
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Fill budget codes for line items
+3. Click 'Save'
+4. Verify system checks budget availability
+5. Wait for error message
+6. Verify no reservation
+
+**Expected**
+
+System denies submission with insufficient funds error message.
+
+---
+
+## TC-PR-340003 — Edge Case - No Budget Codes _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Edge Case
+
+**Preconditions**
+
+Login as Requestor; PR without any budget codes
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Ensure no budget codes are filled
+3. Click 'Save'
+4. Verify system skips budget check
+5. Wait for success message
+
+**Expected**
+
+System allows submission without budget check since no budget codes are present.
+
+---
+
+## TC-PR-350001 — Happy Path - PR Submitted Notification _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Critical · **Test Type:** Happy Path
+
+**Preconditions**
+
+User A has a new PR PR-1234 pending approval by User B
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click on 'PR-1234'
+3. Verify 'Status' is 'Submitted'
+4. Wait for 5 minutes
+5. Navigate to email inbox or notification panel
+6. Verify email or in-app notification for User B
+
+**Expected**
+
+Notification is sent to User B with PR details and an approval link.
+
+---
+
+## TC-PR-350002 — Negative - Invalid Email Preference _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+User B has no email preference set
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click on 'PR-1234'
+3. Verify 'Status' is 'Submitted'
+4. Wait for 5 minutes
+5. Navigate to User B's profile
+6. Verify 'Email' preference is not enabled
+7. Navigate back to PR-1234
+8. Verify no email notification is sent to User B
+
+**Expected**
+
+Only in-app notification is generated and sent to User B.
+
+---
+
+## TC-PR-350003 — Edge Case - PR Rejected with No Pending Approvals _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Edge Case
+
+**Preconditions**
+
+User A has a PR PR-5678 in 'Rejected' status with no pending approvals
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click on 'PR-5678'
+3. Verify 'Status' is 'Rejected'
+4. Verify 'Rejected By' is User A
+5. Wait for 5 minutes
+6. Navigate to email inbox or notification panel
+7. Verify no notification is received by anyone
+
+**Expected**
+
+No notifications are sent as there are no pending approvals.
+
+---
+
+## TC-PR-350004 — Negative - User Not Authorized to Approve _(skipped)_
+
+> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+User C is not authorized to approve PRs and has a PR-6789 pending
+
+**Steps**
+
+1. Navigate to /procurement/purchase-request
+2. Click on 'PR-6789'
+3. Verify 'Status' is 'Submitted'
+4. Wait for 5 minutes
+5. Attempt to approve PR-6789
+6. Verify an error message is displayed
+
+**Expected**
+
+User C cannot approve PR-6789 and no notification is generated.
+
+---
+
+## TC-PR-400002 — Negative - Empty Comment
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1124,7 +2024,7 @@ Validation error is shown and comment is not posted. Page remains on comments se
 
 ---
 
-## TC-PR01003 — Edge Case - Comment Length Limit
+## TC-PR-400003 — Edge Case - Comment Length Limit
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1148,7 +2048,7 @@ Validation error is shown stating comment exceeds maximum length. Comment is not
 
 ---
 
-## TC-PR01004 — Negative - No Permission to Add Comment
+## TC-PR-400004 — Negative - No Permission to Add Comment
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1170,7 +2070,7 @@ Error message is shown stating user does not have permission to add a comment. P
 
 ---
 
-## TC-PR01101 — Happy Path: Convert Approved PR to PO
+## TC-PR-410001 — Happy Path: Convert Approved PR to PO
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1195,7 +2095,7 @@ PO is created with PR data, PR status changes to 'Completed', notification sent 
 
 ---
 
-## TC-PR01102 — Negative: Invalid Vendor
+## TC-PR-410002 — Negative: Invalid Vendor
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1219,7 +2119,7 @@ Error message displayed, PO not created, PR status remains unchanged, no notific
 
 ---
 
-## TC-PR01103 — Edge Case: PR with No Delivery Date
+## TC-PR-410003 — Edge Case: PR with No Delivery Date
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1242,7 +2142,7 @@ PO is created with default delivery date from PR, PR status changes to 'Complete
 
 ---
 
-## TC-PR01104 — Negative: No Permission to Convert PR
+## TC-PR-410004 — Negative: No Permission to Convert PR
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1264,7 +2164,7 @@ Access denied message displayed, PR status remains unchanged, no PO created, no 
 
 ---
 
-## TC-PR01201 — Happy Path - View Inventory and Add Item with Suggested Price
+## TC-PR-420001 — Happy Path - View Inventory and Add Item with Suggested Price
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1291,7 +2191,7 @@ Line item is added with correct inventory snapshot and suggested price.
 
 ---
 
-## TC-PR01202 — Negative - No Inventory Data Available
+## TC-PR-420002 — Negative - No Inventory Data Available
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1316,7 +2216,7 @@ Inventory panel does not display any data or warnings for nonexistent product.
 
 ---
 
-## TC-PR01203 — Edge Case - Below Reorder Point
+## TC-PR-420003 — Edge Case - Below Reorder Point
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1342,7 +2242,7 @@ System alerts user that the quantity requested is below the reorder point and su
 
 ---
 
-## TC-PR01301 — Create Template from Existing PR _(skipped)_
+## TC-PR-430001 — Create Template from Existing PR _(skipped)_
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1369,7 +2269,7 @@ Template is created successfully, with items copied from PR-2501-0042.
 
 ---
 
-## TC-PR01302 — Duplicate Template Name _(skipped)_
+## TC-PR-430002 — Duplicate Template Name _(skipped)_
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1393,7 +2293,7 @@ System displays an error message stating 'A template with this name already exis
 
 ---
 
-## TC-PR01303 — Create Organization-Wide Template _(skipped)_
+## TC-PR-430003 — Create Organization-Wide Template _(skipped)_
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1417,7 +2317,7 @@ Template is created with a status of 'Pending Approval', and a note is displayed
 
 ---
 
-## TC-PR01304 — Invalid Template Name _(skipped)_
+## TC-PR-430004 — Invalid Template Name _(skipped)_
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1441,7 +2341,7 @@ System displays an error message stating 'Template name must be between 3 and 10
 
 ---
 
-## TC-PR01305 — No Line Items Included _(skipped)_
+## TC-PR-430005 — No Line Items Included _(skipped)_
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1465,7 +2365,7 @@ System displays an error message stating 'At least one line item must be include
 
 ---
 
-## TC-PR01401 — Happy Path - Create PR with Visible Prices
+## TC-PR-440001 — Happy Path - Create PR with Visible Prices
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1499,7 +2399,7 @@ PR is created with all fields validated, auto-calculated amounts correct, and PR
 
 ---
 
-## TC-PR01402 — Negative Case - Invalid Delivery Date
+## TC-PR-440002 — Negative Case - Invalid Delivery Date
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1533,7 +2433,7 @@ System displays validation error for 'Delivery Date' field. PR cannot be submitt
 
 ---
 
-## TC-PR01404 — Negative Case - Hide Price with Invalid Toggle
+## TC-PR-440004 — Negative Case - Hide Price with Invalid Toggle
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1566,7 +2466,7 @@ System displays validation error for 'Unit Price', 'Discount', 'Tax Rate' fields
 
 ---
 
-## TC-PR01501 — Happy Path - Create PR with Full Delivery Details
+## TC-PR-450001 — Happy Path - Create PR with Full Delivery Details
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1597,7 +2497,7 @@ PR is created with all delivery details and saved with status = 'Pending Approva
 
 ---
 
-## TC-PR01502 — Negative - Invalid Required Date
+## TC-PR-450002 — Negative - Invalid Required Date
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1627,7 +2527,7 @@ System displays error message: 'Required date must be on or after today'
 
 ---
 
-## TC-PR01503 — Edge Case - Long Comment
+## TC-PR-450003 — Edge Case - Long Comment
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1657,7 +2557,7 @@ PR is created with long comment and saved with status = 'Pending Approval'
 
 ---
 
-## TC-PR01504 — Negative - No Permission to Submit PR
+## TC-PR-450004 — Negative - No Permission to Submit PR
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1688,7 +2588,7 @@ System displays error message: 'User does not have permission to submit purchase
 
 ---
 
-## TC-PR01601 — Approve PR with FOC and full pricing visibility
+## TC-PR-460001 — Approve PR with FOC and full pricing visibility
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1721,7 +2621,7 @@ PR is approved and status changes to 'Approved'
 
 ---
 
-## TC-PR01603 — Return PR for revision with FOC and full pricing visibility
+## TC-PR-460003 — Return PR for revision with FOC and full pricing visibility
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1754,7 +2654,7 @@ PR is returned for revision and status changes to 'Returned for Revision'
 
 ---
 
-## TC-PR01604 — Approve PR with hidden prices
+## TC-PR-460004 — Approve PR with hidden prices
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1785,7 +2685,7 @@ PR is approved and status changes to 'Approved' despite hidden prices
 
 ---
 
-## TC-PR01605 — Approve PR with override amounts over 20%
+## TC-PR-460005 — Approve PR with override amounts over 20%
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1818,7 +2718,7 @@ PR is approved and status changes to 'Approved' despite override amounts over 20
 
 ---
 
-## TC-PR01701 — Happy Path - Valid Input
+## TC-PR-470001 — Happy Path - Valid Input
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1846,7 +2746,7 @@ PR item pricing information is updated successfully. System calculates and updat
 
 ---
 
-## TC-PR01703 — Edge Case - Empty Discount Rate
+## TC-PR-470003 — Edge Case - Empty Discount Rate
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1871,7 +2771,7 @@ System calculates financial totals without discount, using unit price and any ta
 
 ---
 
-## TC-PR01705 — Edge Case - No Tax Profile
+## TC-PR-470005 — Edge Case - No Tax Profile
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1896,7 +2796,7 @@ System calculates financial totals without tax, using unit price and any discoun
 
 ---
 
-## TC-PR01801 — Return PR with valid reason
+## TC-PR-480001 — Return PR with valid reason
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1921,7 +2821,7 @@ PR status updated to 'Returned', requestor notified, and PR detail updated.
 
 ---
 
-## TC-PR01802 — Return PR with empty reason
+## TC-PR-480002 — Return PR with empty reason
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1946,7 +2846,7 @@ System validation error, requestor not notified, and PR status remains unchanged
 
 ---
 
-## TC-PR01803 — Return PR with minimum 10 character reason
+## TC-PR-480003 — Return PR with minimum 10 character reason
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1971,7 +2871,7 @@ PR status updated to 'Returned', requestor notified, and PR detail updated.
 
 ---
 
-## TC-PR01804 — Return PR with very high value and insufficient permissions
+## TC-PR-480004 — Return PR with very high value and insufficient permissions
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1996,7 +2896,7 @@ System error message, requestor not notified, and PR status remains unchanged.
 
 ---
 
-## TC-PR01902 — Submit PR with missing unit price
+## TC-PR-490002 — Submit PR with missing unit price
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2020,7 +2920,7 @@ PR record is updated with unit price, no further action required, confirmation d
 
 ---
 
-## TC-PR01903 — Submit PR with incomplete vendor selection
+## TC-PR-490003 — Submit PR with incomplete vendor selection
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2044,7 +2944,7 @@ PR record is updated with vendor selection, no further action required, confirma
 
 ---
 
-## TC-PR01904 — Submit PR with very high value
+## TC-PR-490004 — Submit PR with very high value
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2069,7 +2969,7 @@ PR record is updated to next stage, recipient is notified, submit activity is lo
 
 ---
 
-## TC-PR01905 — Submit PR with no permission
+## TC-PR-490005 — Submit PR with no permission
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2092,7 +2992,7 @@ Error message is displayed, PR record is not updated, no notifications sent, no 
 
 ---
 
-## TC-PR02001 — Happy Path - Reject Purchase Request with Valid Reason
+## TC-PR-600001 — Happy Path - Reject Purchase Request with Valid Reason
 
 > **As a** Purchase user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2117,7 +3017,7 @@ PR is updated to 'Void' status with a rejection timestamp, reason, and rejector.
 
 ---
 
-## TC-PR02002 — Negative Case - Invalid Reason Length
+## TC-PR-600002 — Negative Case - Invalid Reason Length
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2142,7 +3042,7 @@ System displays an error message indicating the rejection reason is too short.
 
 ---
 
-## TC-PR02003 — Edge Case - Reject with No Reason Entered
+## TC-PR-600003 — Edge Case - Reject with No Reason Entered
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2166,7 +3066,7 @@ System displays an error message indicating the rejection reason is required.
 
 ---
 
-## TC-PR02004 — Negative Case - No Permission to Reject
+## TC-PR-600004 — Negative Case - No Permission to Reject
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2189,7 +3089,7 @@ System displays an error message indicating the user does not have permission to
 
 ---
 
-## TC-PR02005 — Edge Case - Reject with Existing Rejection
+## TC-PR-600005 — Edge Case - Reject with Existing Rejection
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2214,7 +3114,7 @@ System displays an error message indicating the PR is already voided.
 
 ---
 
-## TC-PR02101 — Approve Multiple Line Items
+## TC-PR-610001 — Approve Multiple Line Items
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2239,7 +3139,7 @@ All selected line items are approved and updated in the system.
 
 ---
 
-## TC-PR02102 — Reject Multiple Line Items
+## TC-PR-610002 — Reject Multiple Line Items
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2265,7 +3165,7 @@ All selected line items are rejected and updated in the system with the reason p
 
 ---
 
-## TC-PR02103 — Return Multiple Line Items to Requestor
+## TC-PR-610003 — Return Multiple Line Items to Requestor
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2290,7 +3190,7 @@ All selected line items are returned to the requestor and updated in the system.
 
 ---
 
-## TC-PR02104 — Split Multiple Line Items
+## TC-PR-610004 — Split Multiple Line Items
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2316,7 +3216,7 @@ All selected line items are split as per the new values provided and updated in 
 
 ---
 
-## TC-PR02105 — Set Date Required for Multiple Line Items
+## TC-PR-610005 — Set Date Required for Multiple Line Items
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2342,7 +3242,7 @@ All selected line items have their 'Date Required' field updated and reflected i
 
 ---
 
-## TC-PR02201 — Add a new budget allocation
+## TC-PR-620001 — Add a new budget allocation
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2367,7 +3267,7 @@ The new budget allocation is added to the list and the total budget is updated.
 
 ---
 
-## TC-PR02202 — Edit an existing budget allocation
+## TC-PR-620002 — Edit an existing budget allocation
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2391,7 +3291,7 @@ The existing budget allocation is updated with the new amount and the total budg
 
 ---
 
-## TC-PR02203 — Delete a budget allocation
+## TC-PR-620003 — Delete a budget allocation
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2414,7 +3314,7 @@ The selected budget allocation is removed from the list and the total budget is 
 
 ---
 
-## TC-PR02204 — Attempt to edit an allocation without permission
+## TC-PR-620004 — Attempt to edit an allocation without permission
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2438,7 +3338,7 @@ The system displays an error message indicating that the user does not have perm
 
 ---
 
-## TC-PR02205 — Attempt to delete a required allocation
+## TC-PR-620005 — Attempt to delete a required allocation
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2461,7 +3361,7 @@ The system displays an error message indicating that the required allocation can
 
 ---
 
-## TC-PR02301 — Happy Path - Split PR with Valid Inputs
+## TC-PR-630001 — Happy Path - Split PR with Valid Inputs
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2491,7 +3391,7 @@ System processes the split, creating a new PR for returned items, updating the o
 
 ---
 
-## TC-PR02302 — Negative - Insufficient Items for Split
+## TC-PR-630002 — Negative - Insufficient Items for Split
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2515,7 +3415,7 @@ System does not enable the Split button, displaying an error message indicating 
 
 ---
 
-## TC-PR02303 — Edge Case - No Items to Split
+## TC-PR-630003 — Edge Case - No Items to Split
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2538,7 +3438,7 @@ System displays a message indicating no items can be split and returns to the PR
 
 ---
 
-## TC-PR02304 — Negative - Invalid Reason for Return
+## TC-PR-630004 — Negative - Invalid Reason for Return
 
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2567,905 +3467,5 @@ System displays an error message indicating the return reason must be at least 1
 
 ---
 
-## TC-PR10101 — Happy Path - Valid PR Data _(skipped)_
 
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Critical · **Test Type:** Happy Path
-
-**Preconditions**
-
-A new PR is created without a reference number
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Fill in valid PR data
-4. Submit the PR
-
-**Expected**
-
-The system automatically generates and assigns a unique reference number in the format PR-2501-0001 and continues PR creation.
-
----
-
-## TC-PR10102 — Negative - No PR Data _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Negative
-
-**Preconditions**
-
-A new PR is created without any PR data
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Submit the PR without filling in any data
-
-**Expected**
-
-The system rejects the PR submission and displays an error message requiring PR data.
-
----
-
-## TC-PR10103 — Negative - Date Format Error _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Negative
-
-**Preconditions**
-
-A new PR is created with an incorrect date format
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Fill in the date with an incorrect format (e.g., 2025-02-15 instead of 2502)
-4. Submit the PR
-
-**Expected**
-
-The system rejects the PR submission and displays an error message about the date format.
-
----
-
-## TC-PR10104 — Edge Case - Year Change _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Medium · **Test Type:** Edge Case
-
-**Preconditions**
-
-A new PR is created in the first month of a new financial year
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Fill in the date for the first month of a new year (e.g., 2601)
-4. Submit the PR
-
-**Expected**
-
-The system correctly generates the reference number starting from PR-2601-0001.
-
----
-
-## TC-PR10105 — Negative - Database Sequence Exhausted _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Negative
-
-**Preconditions**
-
-The database sequence for reference numbers has reached its maximum value
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Submit the PR
-
-**Expected**
-
-The system generates an error message indicating that the reference number sequence has been exhausted.
-
----
-
-## TC-PR10201 — Happy Path: Add Items and Verify Totals _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Critical · **Test Type:** Happy Path
-
-**Preconditions**
-
-A PR with items is created and saved
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click 'Edit' on the PR
-3. Add a new line item with quantity, unit price, discount percentage, and tax rate
-4. Save the PR
-
-**Expected**
-
-Line totals, discounts, taxes, and total amount are correctly calculated and displayed.
-
----
-
-## TC-PR10202 — Negative: Invalid Discount Percentage _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Negative
-
-**Preconditions**
-
-A PR with items and an invalid discount percentage is created and saved
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click 'Edit' on the PR
-3. Add a new line item with quantity, unit price, discount percentage set to over 100%, and tax rate
-4. Save the PR
-
-**Expected**
-
-The system displays an error message for the invalid discount percentage and does not calculate totals.
-
----
-
-## TC-PR10203 — Edge Case: Multi-Currency with Exchange Rate _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Medium · **Test Type:** Edge Case
-
-**Preconditions**
-
-A PR with items is created and saved; the system uses multi-currency
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click 'Edit' on the PR
-3. Add a new line item with quantity, unit price, discount percentage, and tax rate
-4. Set the currency to a different currency than the base currency
-5. Enter an exchange rate
-6. Save the PR
-
-**Expected**
-
-Line totals, discounts, taxes, and total amount are calculated in the base currency using the exchange rate.
-
----
-
-## TC-PR10301 — Happy Path - General PR _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Critical · **Test Type:** Happy Path
-
-**Preconditions**
-
-A general PR with a total amount under $10,000 is submitted
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Fill the form with a general PR type and total amount less than $10,000
-3. Click 'Submit'
-
-**Expected**
-
-The approval chain includes only the department manager.
-
----
-
-## TC-PR10302 — Negative - Invalid Department ID _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Negative
-
-**Preconditions**
-
-A PR is submitted with an invalid department ID
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Fill the form with a general PR type, total amount, and an invalid department ID
-3. Click 'Submit'
-
-**Expected**
-
-An error message is displayed indicating the department ID is invalid.
-
----
-
-## TC-PR10303 — Edge Case - High Value Asset PR _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Edge Case
-
-**Preconditions**
-
-A high-value asset PR is submitted with a total amount over $100,000
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Fill the form with an asset PR type, total amount over $100,000, and relevant department ID
-3. Click 'Submit'
-
-**Expected**
-
-The approval chain includes the department manager, asset manager, finance manager, and general manager.
-
----
-
-## TC-PR10304 — Negative - No User Assigned to Role _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Negative
-
-**Preconditions**
-
-A PR is submitted for a role with no assigned user
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Fill the form with a general PR type, total amount, and a role with no assigned user
-3. Click 'Submit'
-
-**Expected**
-
-An error message is displayed indicating no user is assigned to the role.
-
----
-
-## TC-PR10401 — Happy Path - Sufficient Funds _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Happy Path
-
-**Preconditions**
-
-Login as Requestor; PR with budget codes; budget has sufficient funds
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Fill budget codes for line items
-3. Click 'Save'
-4. Verify system checks budget availability
-5. Wait for reservation confirmation
-6. Verify reservation ID recorded
-
-**Expected**
-
-System confirms sufficient funds, reserves budget, and records reservation ID.
-
----
-
-## TC-PR10402 — Negative Case - Insufficient Funds _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Negative
-
-**Preconditions**
-
-Login as Requestor; PR with budget codes; budget has insufficient funds
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Fill budget codes for line items
-3. Click 'Save'
-4. Verify system checks budget availability
-5. Wait for error message
-6. Verify no reservation
-
-**Expected**
-
-System denies submission with insufficient funds error message.
-
----
-
-## TC-PR10403 — Edge Case - No Budget Codes _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Edge Case
-
-**Preconditions**
-
-Login as Requestor; PR without any budget codes
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Ensure no budget codes are filled
-3. Click 'Save'
-4. Verify system skips budget check
-5. Wait for success message
-
-**Expected**
-
-System allows submission without budget check since no budget codes are present.
-
----
-
-## TC-PR10501 — Happy Path - PR Submitted Notification _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Critical · **Test Type:** Happy Path
-
-**Preconditions**
-
-User A has a new PR PR-1234 pending approval by User B
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click on 'PR-1234'
-3. Verify 'Status' is 'Submitted'
-4. Wait for 5 minutes
-5. Navigate to email inbox or notification panel
-6. Verify email or in-app notification for User B
-
-**Expected**
-
-Notification is sent to User B with PR details and an approval link.
-
----
-
-## TC-PR10502 — Negative - Invalid Email Preference _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Negative
-
-**Preconditions**
-
-User B has no email preference set
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click on 'PR-1234'
-3. Verify 'Status' is 'Submitted'
-4. Wait for 5 minutes
-5. Navigate to User B's profile
-6. Verify 'Email' preference is not enabled
-7. Navigate back to PR-1234
-8. Verify no email notification is sent to User B
-
-**Expected**
-
-Only in-app notification is generated and sent to User B.
-
----
-
-## TC-PR10503 — Edge Case - PR Rejected with No Pending Approvals _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Medium · **Test Type:** Edge Case
-
-**Preconditions**
-
-User A has a PR PR-5678 in 'Rejected' status with no pending approvals
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click on 'PR-5678'
-3. Verify 'Status' is 'Rejected'
-4. Verify 'Rejected By' is User A
-5. Wait for 5 minutes
-6. Navigate to email inbox or notification panel
-7. Verify no notification is received by anyone
-
-**Expected**
-
-No notifications are sent as there are no pending approvals.
-
----
-
-## TC-PR10504 — Negative - User Not Authorized to Approve _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Negative
-
-**Preconditions**
-
-User C is not authorized to approve PRs and has a PR-6789 pending
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click on 'PR-6789'
-3. Verify 'Status' is 'Submitted'
-4. Wait for 5 minutes
-5. Attempt to approve PR-6789
-6. Verify an error message is displayed
-
-**Expected**
-
-User C cannot approve PR-6789 and no notification is generated.
-
----
-
-## TC-PR20101 — Happy Path - PR Sync to ERP _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Happy Path
-
-**Preconditions**
-
-PR is approved and ERP sync is enabled
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click on approved PR with status 'Completed'
-3. Verify PR status is 'Approved/Completed'
-4. Wait for system to detect PR status change
-5. Verify system checks if ERP sync is enabled
-6. Verify system prepares PR data in ERP format
-7. Verify system calls ERP API endpoint
-8. Verify system receives ERP document ID
-9. Verify system saves sync record
-10. Verify system logs sync activity
-
-**Expected**
-
-PR data is successfully synced to the ERP system with all records saved and logged.
-
----
-
-## TC-PR20102 — Negative Case - ERP Sync Disabled _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Negative
-
-**Preconditions**
-
-PR is approved and ERP sync is disabled
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click on approved PR with status 'Completed'
-3. Verify PR status is 'Approved/Completed'
-4. Wait for system to detect PR status change
-5. Verify system checks if ERP sync is enabled
-6. Verify system does not prepare PR data in ERP format
-7. Verify system does not call ERP API endpoint
-8. Verify system does not receive ERP document ID
-9. Verify system does not save sync record
-10. Verify system does not log sync activity
-
-**Expected**
-
-PR data is not synced to the ERP system as ERP sync is disabled.
-
----
-
-## TC-PR20103 — Edge Case - Multiple PRs in Batch _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Medium · **Test Type:** Edge Case
-
-**Preconditions**
-
-Multiple PRs are approved and ERP sync is enabled
-
-**Steps**
-
-1. Navigate to /procurement/purchase-request
-2. Click on multiple approved PRs with status 'Completed'
-3. Verify PR statuses are 'Approved/Completed'
-4. Wait for system to detect PR status change
-5. Verify system checks if ERP sync is enabled
-6. Verify system prepares PR data in ERP format for each PR
-7. Verify system calls ERP API endpoint for each PR
-8. Verify system receives ERP document ID for each PR
-9. Verify system saves sync record for each PR
-10. Verify system logs sync activity for each PR
-
-**Expected**
-
-All PR data is successfully synced to the ERP system with records saved and logged for each PR.
-
----
-
-## TC-PR20201 — Import valid CSV file _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Low · **Test Type:** Happy Path
-
-**Preconditions**
-
-User has permission to import purchase requests
-
-**Steps**
-
-1. Navigate to /import
-2. Click 'Select File' and upload valid CSV file
-3. Click 'Import'
-
-**Expected**
-
-System processes the file, creates PRs, logs import, and sends success summary to user
-
----
-
-## TC-PR20203 — Duplicate PR import _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Low · **Test Type:** Edge Case
-
-**Preconditions**
-
-User has permission to import; file has duplicate reference numbers
-
-**Steps**
-
-1. Navigate to /import
-2. Click 'Select File' and upload file with duplicate reference numbers
-3. Click 'Import'
-
-**Expected**
-
-System logs errors for duplicate records, creates valid PRs, and sends summary to user
-
----
-
-## TC-PR20204 — Import with unauthorized access _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Low · **Test Type:** Negative
-
-**Preconditions**
-
-User does not have permission to import purchase requests
-
-**Steps**
-
-1. Navigate to /import
-2. Click 'Select File' and upload valid CSV file
-3. Click 'Import'
-
-**Expected**
-
-System displays error message indicating insufficient permissions
-
----
-
-## TC-PR20205 — Import with no file selected _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Low · **Test Type:** Edge Case
-
-**Preconditions**
-
-User has permission to import purchase requests
-
-**Steps**
-
-1. Navigate to /import
-2. Click 'Import' without selecting a file
-
-**Expected**
-
-System displays error message indicating no file selected
-
----
-
-## TC-PR30101 — Happy Path - Reminder Notification Sent _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Medium · **Test Type:** Happy Path
-
-**Preconditions**
-
-A PR is created and pending for approval for 49 hours with reminder_count < 3
-
-**Steps**
-
-1. Navigate to /procurement/purchase-requests
-2. Wait for 49 hours
-3. Verify the system sends a reminder email to the approver
-
-**Expected**
-
-A reminder email is sent to the approver listing the pending PR.
-
----
-
-## TC-PR30102 — Negative Case - Approver with No Pending Requests _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Medium · **Test Type:** Negative
-
-**Preconditions**
-
-A PR is created and pending for 49 hours; approver has no pending requests
-
-**Steps**
-
-1. Navigate to /procurement/purchase-requests
-2. Wait for 49 hours
-3. Verify no reminder email is sent to the approver
-
-**Expected**
-
-No reminder email is sent to the approver.
-
----
-
-## TC-PR30103 — Edge Case - Approver has 3 Reminders _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Low · **Test Type:** Edge Case
-
-**Preconditions**
-
-PR pending for 48 hours; approver has already received 2 reminder emails
-
-**Steps**
-
-1. Navigate to /procurement/purchase-requests
-2. Wait for 48 hours
-3. Verify no reminder email is sent to the approver
-
-**Expected**
-
-No reminder email is sent to the approver.
-
----
-
-## TC-PR30104 — Negative Case - Approver with No Access _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Low · **Test Type:** Negative
-
-**Preconditions**
-
-PR pending for 48 hours; approver has no access to view the PR
-
-**Steps**
-
-1. Navigate to /procurement/purchase-requests
-2. Wait for 48 hours
-3. Verify no reminder email is sent to the approver
-
-**Expected**
-
-No reminder email is sent to the approver.
-
----
-
-## TC-PR30201 — Escalation for Overdue PRs with Valid Inputs _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Medium · **Test Type:** Happy Path
-
-**Preconditions**
-
-System is running and there are pending PRs that are overdue by more than 5 days
-
-**Steps**
-
-1. Navigate to /procurement/escalation
-2. Click 'Run Escalation Job'
-3. Wait for the job to complete
-
-**Expected**
-
-The system escalates all overdue PRs to their managers and logs the escalations, generates an escalation report.
-
----
-
-## TC-PR30202 — Escalation Job Fails Due to Database Error _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Negative
-
-**Preconditions**
-
-Database is down or corrupted, preventing the query from running successfully
-
-**Steps**
-
-1. Simulate a database error by stopping the database service
-2. Navigate to /procurement/escalation
-3. Click 'Run Escalation Job'
-
-**Expected**
-
-An error message is displayed indicating the database issue, no PRs are escalated.
-
----
-
-## TC-PR30203 — Escalation Notification Sent to Approver Manager but No Manager Found _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Medium · **Test Type:** Edge Case
-
-**Preconditions**
-
-The approver does not have a manager assigned in the system
-
-**Steps**
-
-1. Create a pending PR that will trigger escalation
-2. Run the escalation job
-3. Wait for the job to complete
-
-**Expected**
-
-The system attempts to send the escalation notification but fails because no manager is found, PR remains unescalated.
-
----
-
-## TC-PR30204 — Escalation Job Runs During Non-Scheduled Time _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Low · **Test Type:** Edge Case
-
-**Preconditions**
-
-System is running outside the scheduled time for the escalation job
-
-**Steps**
-
-1. Manually trigger the escalation job at an unscheduled time
-2. Navigate to /procurement/escalation
-3. Click 'Run Escalation Job'
-
-**Expected**
-
-The job runs but no PRs are escalated as the query condition is not met, no notifications are sent.
-
----
-
-## TC-PR30301 — Happy Path - Scheduled Archival _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Happy Path
-
-**Preconditions**
-
-System is set to run archival at 2 AM daily; current date is 2 years or more after the PRs to be archived
-
-**Steps**
-
-1. Navigate to /procurement/admin
-2. Wait for 2 AM
-3. Click on 'Run Archive Job'
-
-**Expected**
-
-All eligible PRs are archived according to the criteria, and a report is generated.
-
----
-
-## TC-PR30302 — Negative - Invalid Date Range _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Negative
-
-**Preconditions**
-
-System is set to run archival at 2 AM daily; current date is less than 2 years from the PRs to be archived
-
-**Steps**
-
-1. Navigate to /procurement/admin
-2. Click on 'Run Archive Job'
-
-**Expected**
-
-No PRs are archived, and a notification is sent to the admin stating that the date range is invalid.
-
----
-
-## TC-PR30303 — Edge Case - No Eligible PRs _(skipped)_
-
-> **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** Medium · **Test Type:** Edge Case
-
-**Preconditions**
-
-All PRs are either new, in progress, or archived within the last 2 years
-
-**Steps**
-
-1. Navigate to /procurement/admin
-2. Click on 'Run Archive Job'
-
-**Expected**
-
-No PRs are archived, and a notification is sent to the admin stating that no PRs are eligible for archiving.
-
----
-
-
-<sub>Last regenerated: 2026-05-06 · git 650ea0b</sub>
+<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>

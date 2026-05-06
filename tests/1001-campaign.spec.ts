@@ -10,17 +10,17 @@ import { CampaignPage, LIST_PATH } from "./pages/campaign.page";
 // Note: CSV mixes 'TC-CAM-' (3 letters) and 'TC-RP-' (2 letters) prefixes
 // for the same Campaign / Request-for-Pricing module. Both flatten to a
 // unified 'TC-CAM<area3><sub2>' (5 digits) for cross-module consistency.
-// Mapping: TC-CAM-001-01 → TC-CAM00101, TC-RP-007-01 → TC-CAM00701.
+// Mapping: TC-CAM-900001-01 → TC-CAM-010001, TC-RP-007-01 → TC-CAM-070001.
 // ─────────────────────────────────────────────────────────────────────────
 const requestorTest = createAuthTest("requestor@blueledgers.com");
 const purchaseTest = createAuthTest("purchase@blueledgers.com");
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAM001 — View Campaign List
+// TC-CAM-900001 — View Campaign List
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Campaign — List", () => {
   purchaseTest(
-    "TC-CAM00101 View Campaign List - Happy Path",
+    "TC-CAM-010001 View Campaign List - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as procurement staff and has permission to view campaign list" },
@@ -42,7 +42,7 @@ purchaseTest.describe("Campaign — List", () => {
   );
 
   purchaseTest(
-    "TC-CAM00103 View Campaign List - Empty Campaign List",
+    "TC-CAM-010003 View Campaign List - Empty Campaign List",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view campaign list but no campaigns are available" },
@@ -63,7 +63,7 @@ purchaseTest.describe("Campaign — List", () => {
   );
 
   purchaseTest(
-    "TC-CAM00104 View Campaign List - Filter by Status",
+    "TC-CAM-010004 View Campaign List - Filter by Status",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view campaign list" },
@@ -91,7 +91,7 @@ purchaseTest.describe("Campaign — List", () => {
 
 requestorTest.describe("Campaign — List — Permission denial", () => {
   requestorTest(
-    "TC-CAM00102 View Campaign List - Invalid Permissions",
+    "TC-CAM-010002 View Campaign List - Invalid Permissions",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in but does not have permission to view campaign list" },
@@ -116,11 +116,11 @@ requestorTest.describe("Campaign — List — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAM002 — Create Campaign (Wizard)
+// TC-CAM-900002 — Create Campaign (Wizard)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Campaign — Create wizard", () => {
   purchaseTest(
-    "TC-CAM00201 Happy Path - Create Campaign with All Valid Inputs",
+    "TC-CAM-020001 Happy Path - Create Campaign with All Valid Inputs",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Staff and has the necessary permissions" },
@@ -146,7 +146,7 @@ purchaseTest.describe("Campaign — Create wizard", () => {
   );
 
   purchaseTest(
-    "TC-CAM00202 Negative Path - Missing Required Fields",
+    "TC-CAM-020002 Negative Path - Missing Required Fields",
     {
       annotation: [
         { type: "preconditions", description: "User has the necessary permissions" },
@@ -172,7 +172,7 @@ purchaseTest.describe("Campaign — Create wizard", () => {
   );
 
   purchaseTest(
-    "TC-CAM00203 Negative Path - No Vendor Selected",
+    "TC-CAM-020003 Negative Path - No Vendor Selected",
     {
       annotation: [
         { type: "preconditions", description: "User has the necessary permissions" },
@@ -194,7 +194,7 @@ purchaseTest.describe("Campaign — Create wizard", () => {
   );
 
   purchaseTest(
-    "TC-CAM00204 Edge Case - Maximum Campaigns Per Week",
+    "TC-CAM-020004 Edge Case - Maximum Campaigns Per Week",
     {
       annotation: [
         { type: "preconditions", description: "User has reached the maximum number of campaigns per week" },
@@ -217,11 +217,11 @@ purchaseTest.describe("Campaign — Create wizard", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAM003 — Campaign Detail
+// TC-CAM-900003 — Campaign Detail
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Campaign — Detail", () => {
   purchaseTest(
-    "TC-CAM00301 View active campaign detail",
+    "TC-CAM-030001 View active campaign detail",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as procurement staff; an active campaign exists" },
@@ -248,7 +248,7 @@ purchaseTest.describe("Campaign — Detail", () => {
   );
 
   purchaseTest(
-    "TC-CAM00303 Campaign detail with draft status",
+    "TC-CAM-030003 Campaign detail with draft status",
     {
       annotation: [
         { type: "preconditions", description: "Campaign is in draft status; user is logged in as procurement staff" },
@@ -272,7 +272,7 @@ purchaseTest.describe("Campaign — Detail", () => {
   );
 
   purchaseTest(
-    "TC-CAM00304 View campaign detail with empty performance summary",
+    "TC-CAM-030004 View campaign detail with empty performance summary",
     {
       annotation: [
         { type: "preconditions", description: "Campaign has no submissions; user is logged in as procurement staff" },
@@ -296,7 +296,7 @@ purchaseTest.describe("Campaign — Detail", () => {
   );
 
   purchaseTest(
-    "TC-CAM00305 Campaign detail with future start date",
+    "TC-CAM-030005 Campaign detail with future start date",
     {
       annotation: [
         { type: "preconditions", description: "Campaign has a future start date; user is logged in as procurement staff" },
@@ -319,7 +319,7 @@ purchaseTest.describe("Campaign — Detail", () => {
 
 requestorTest.describe("Campaign — Detail — Permission denial", () => {
   requestorTest(
-    "TC-CAM00302 User with no permission to view campaign detail",
+    "TC-CAM-030002 User with no permission to view campaign detail",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in with a role that does not have permission to view campaign details" },
@@ -344,11 +344,11 @@ requestorTest.describe("Campaign — Detail — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAM004 — Edit Campaign
+// TC-CAM-900004 — Edit Campaign
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Campaign — Edit", () => {
   purchaseTest(
-    "TC-CAM00401 Edit Existing Campaign with Valid Data",
+    "TC-CAM-040001 Edit Existing Campaign with Valid Data",
     {
       annotation: [
         { type: "preconditions", description: "A campaign has been created and saved in the system" },
@@ -373,7 +373,7 @@ purchaseTest.describe("Campaign — Edit", () => {
   );
 
   purchaseTest(
-    "TC-CAM00402 Edit Campaign with Invalid Priority Value",
+    "TC-CAM-040002 Edit Campaign with Invalid Priority Value",
     {
       annotation: [
         { type: "preconditions", description: "A campaign has been created and saved in the system" },
@@ -394,7 +394,7 @@ purchaseTest.describe("Campaign — Edit", () => {
   );
 
   purchaseTest(
-    "TC-CAM00404 Edit Campaign with No Data Changes",
+    "TC-CAM-040004 Edit Campaign with No Data Changes",
     {
       annotation: [
         { type: "preconditions", description: "A campaign has been created and saved in the system" },
@@ -417,7 +417,7 @@ purchaseTest.describe("Campaign — Edit", () => {
 
 requestorTest.describe("Campaign — Edit — Permission denial", () => {
   requestorTest(
-    "TC-CAM00403 Edit Campaign with No Permission",
+    "TC-CAM-040003 Edit Campaign with No Permission",
     {
       annotation: [
         { type: "preconditions", description: "A campaign has been created and saved; user does not have permission to edit campaigns" },
@@ -449,11 +449,11 @@ requestorTest.describe("Campaign — Edit — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAM005 — Duplicate Campaign
+// TC-CAM-900005 — Duplicate Campaign
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Campaign — Duplicate", () => {
   purchaseTest(
-    "TC-CAM00501 Duplicate Campaign - Happy Path",
+    "TC-CAM-050001 Duplicate Campaign - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as a Procurement Staff and has access to the campaign list" },
@@ -478,7 +478,7 @@ purchaseTest.describe("Campaign — Duplicate", () => {
   );
 
   purchaseTest(
-    "TC-CAM00503 Duplicate Campaign - Empty Campaign List",
+    "TC-CAM-050003 Duplicate Campaign - Empty Campaign List",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as a Procurement Staff and the campaign list is empty" },
@@ -499,7 +499,7 @@ purchaseTest.describe("Campaign — Duplicate", () => {
   );
 
   purchaseTest(
-    "TC-CAM00504 Duplicate Campaign - Campaign with Attached Files",
+    "TC-CAM-050004 Duplicate Campaign - Campaign with Attached Files",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as a Procurement Staff and a campaign with attached files exists in the system" },
@@ -522,7 +522,7 @@ purchaseTest.describe("Campaign — Duplicate", () => {
 
 requestorTest.describe("Campaign — Duplicate — Permission denial", () => {
   requestorTest(
-    "TC-CAM00502 Duplicate Campaign - No Permission",
+    "TC-CAM-050002 Duplicate Campaign - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have permission to duplicate campaigns" },
@@ -554,11 +554,11 @@ requestorTest.describe("Campaign — Duplicate — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAM006 — Send Reminder
+// TC-CAM-900006 — Send Reminder
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Campaign — Send Reminder", () => {
   purchaseTest(
-    "TC-CAM00601 Send Reminder - Happy Path",
+    "TC-CAM-060001 Send Reminder - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Staff and has access to the vendor reminder feature" },
@@ -585,7 +585,7 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
   );
 
   purchaseTest(
-    "TC-CAM00603 Send Reminder - Invalid Vendor Status",
+    "TC-CAM-060003 Send Reminder - Invalid Vendor Status",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Staff" },
@@ -606,7 +606,7 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
   );
 
   purchaseTest(
-    "TC-CAM00604 Send Reminder - Reminder Already Sent",
+    "TC-CAM-060004 Send Reminder - Reminder Already Sent",
     {
       annotation: [
         { type: "preconditions", description: "Vendor has already received a reminder within the last 24 hours" },
@@ -627,7 +627,7 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
   );
 
   purchaseTest(
-    "TC-CAM00605 Send Reminder - Empty Reminder Message",
+    "TC-CAM-060005 Send Reminder - Empty Reminder Message",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Staff" },
@@ -658,7 +658,7 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
 
 requestorTest.describe("Campaign — Send Reminder — Permission denial", () => {
   requestorTest(
-    "TC-CAM00602 Send Reminder - No Permission",
+    "TC-CAM-060002 Send Reminder - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as a non-Procurement Staff member" },
@@ -680,11 +680,11 @@ requestorTest.describe("Campaign — Send Reminder — Permission denial", () =>
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAM007 (was TC-RP-007) — Mark as Expired
+// TC-CAM-900007 (was TC-RP-007) — Mark as Expired
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Campaign — Mark as Expired", () => {
   purchaseTest(
-    "TC-CAM00701 Mark campaign as expired - Happy Path",
+    "TC-CAM-070001 Mark campaign as expired - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "User has access to a campaign that is not already expired" },
@@ -711,7 +711,7 @@ purchaseTest.describe("Campaign — Mark as Expired", () => {
   );
 
   purchaseTest(
-    "TC-CAM00703 Mark campaign as expired - Campaign already expired",
+    "TC-CAM-070003 Mark campaign as expired - Campaign already expired",
     {
       annotation: [
         { type: "preconditions", description: "Selected campaign is already marked as expired" },
@@ -735,7 +735,7 @@ purchaseTest.describe("Campaign — Mark as Expired", () => {
   );
 
   purchaseTest(
-    "TC-CAM00704 Mark campaign as expired - Empty campaign list",
+    "TC-CAM-070004 Mark campaign as expired - Empty campaign list",
     {
       annotation: [
         { type: "preconditions", description: "Campaign list is empty" },
@@ -758,7 +758,7 @@ purchaseTest.describe("Campaign — Mark as Expired", () => {
 
 requestorTest.describe("Campaign — Mark as Expired — Permission denial", () => {
   requestorTest(
-    "TC-CAM00702 Mark campaign as expired - No Permission",
+    "TC-CAM-070002 Mark campaign as expired - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User has a role that does not have permission to mark campaigns as expired" },
@@ -780,11 +780,11 @@ requestorTest.describe("Campaign — Mark as Expired — Permission denial", () 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAM008 (was TC-RP-008) — Delete Campaign
+// TC-CAM-900008 (was TC-RP-008) — Delete Campaign
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Campaign — Delete", () => {
   purchaseTest(
-    "TC-CAM00801 Happy Path - Delete Campaign",
+    "TC-CAM-080001 Happy Path - Delete Campaign",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager and has a campaign in the campaign list" },
@@ -812,7 +812,7 @@ purchaseTest.describe("Campaign — Delete", () => {
   );
 
   purchaseTest(
-    "TC-CAM00802 Negative - No Campaign Selected",
+    "TC-CAM-080002 Negative - No Campaign Selected",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager" },
@@ -833,7 +833,7 @@ purchaseTest.describe("Campaign — Delete", () => {
   );
 
   purchaseTest(
-    "TC-CAM00803 Edge Case - Multiple Campaigns Selected",
+    "TC-CAM-080003 Edge Case - Multiple Campaigns Selected",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager and has multiple campaigns selected" },
@@ -856,7 +856,7 @@ purchaseTest.describe("Campaign — Delete", () => {
 
 requestorTest.describe("Campaign — Delete — Permission denial", () => {
   requestorTest(
-    "TC-CAM00804 Negative - No Permission",
+    "TC-CAM-080004 Negative - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Regular User" },
@@ -886,11 +886,11 @@ requestorTest.describe("Campaign — Delete — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAM009 (was TC-RP-009) — Export
+// TC-CAM-900009 (was TC-RP-009) — Export
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Campaign — Export", () => {
   purchaseTest(
-    "TC-CAM00901 Export campaign data - happy path",
+    "TC-CAM-090001 Export campaign data - happy path",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as procurement staff and has permission to export campaign data" },
@@ -917,7 +917,7 @@ purchaseTest.describe("Campaign — Export", () => {
   );
 
   purchaseTest(
-    "TC-CAM00903 Export campaign data - large dataset",
+    "TC-CAM-090003 Export campaign data - large dataset",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to export campaign data with a large dataset" },
@@ -938,7 +938,7 @@ purchaseTest.describe("Campaign — Export", () => {
   );
 
   purchaseTest(
-    "TC-CAM00904 Export campaign data - multiple exports",
+    "TC-CAM-090004 Export campaign data - multiple exports",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to export campaign data" },
@@ -961,7 +961,7 @@ purchaseTest.describe("Campaign — Export", () => {
 
 requestorTest.describe("Campaign — Export — Permission denial", () => {
   requestorTest(
-    "TC-CAM00902 Export campaign data - no permission",
+    "TC-CAM-090002 Export campaign data - no permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have permission to export campaign data" },
@@ -990,11 +990,11 @@ requestorTest.describe("Campaign — Export — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAM010 — Filter / Search
+// TC-CAM-900010 — Filter / Search
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Campaign — Filter / Search", () => {
   purchaseTest(
-    "TC-CAM01001 Filter by Status - Active",
+    "TC-CAM-100001 Filter by Status - Active",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Staff and is on the Campaigns page" },
@@ -1020,7 +1020,7 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
   );
 
   purchaseTest(
-    "TC-CAM01002 Search by Text - Valid Term",
+    "TC-CAM-100002 Search by Text - Valid Term",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Staff and is on the Campaigns page" },
@@ -1043,7 +1043,7 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
   );
 
   purchaseTest(
-    "TC-CAM01003 Filter by Status - No Campaigns",
+    "TC-CAM-100003 Filter by Status - No Campaigns",
     {
       annotation: [
         { type: "preconditions", description: "User is on the Campaigns page with no active campaigns" },
@@ -1064,7 +1064,7 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
   );
 
   purchaseTest(
-    "TC-CAM01004 Search by Text - No Matching Terms",
+    "TC-CAM-100004 Search by Text - No Matching Terms",
     {
       annotation: [
         { type: "preconditions", description: "User is on the Campaigns page" },
@@ -1088,7 +1088,7 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
   );
 
   purchaseTest(
-    "TC-CAM01005 Filter by Status - All Statuses",
+    "TC-CAM-100005 Filter by Status - All Statuses",
     {
       annotation: [
         { type: "preconditions", description: "User is on the Campaigns page" },

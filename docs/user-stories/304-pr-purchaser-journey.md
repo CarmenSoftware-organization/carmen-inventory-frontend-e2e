@@ -11,35 +11,35 @@ _Generated from `tests/304-pr-purchaser-journey.spec.ts` annotations. Edit annot
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-PRP0101 | List loads, My Pending tab default (PRs at Purchase stage) | High | Smoke |
-| TC-PRP0102 | Switch to All Documents tab broadens scope | Medium | Functional |
-| TC-PRP0103 | All Stage dropdown filters by status | Medium | Functional |
-| TC-PRP0104 | Filter panel opens and applies | Medium | Functional |
-| TC-PRP0105 | Search by PR reference filters list | Low | Functional |
-| TC-PRP0201 | Detail loads with Items tab default | High | Smoke |
-| TC-PRP0202 | Switch to Workflow History tab | Medium | Functional |
-| TC-PRP0203 | No standalone Approve/Reject/Return buttons (BRD discrepancy) | High | Authorization |
-| TC-PRP0204 | Edit button visible (entry to vendor/pricing edit) | High | Functional |
-| TC-PRP0301 | Click Edit → vendor/pricing fields become editable | High | Smoke |
-| TC-PRP0302 | Vendor field is editable (Purchaser scope) | High | CRUD |
-| TC-PRP0303 | Unit Price field is editable | High | CRUD |
-| TC-PRP0304 | Discount field is editable | Medium | CRUD |
-| TC-PRP0305 | Tax Profile field is editable | Medium | CRUD |
-| TC-PRP0306 | Approved Qty field stays read-only (HOD already set it) | High | Authorization |
-| TC-PRP0307 | Auto Allocate button populates vendors via scoring | Medium | Functional |
-| TC-PRP0308 | Multiple line items — pricing on each row independent | Medium | CRUD |
-| TC-PRP0309 | Save edits → exit edit mode + persist values | High | CRUD |
-| TC-PRP0310 | Cancel edits → discard changes, restore original | Medium | Functional |
-| TC-PRP0401 | Bulk Approve → PR advances to next stage (FC) | High | CRUD |
-| TC-PRP0402 | Bulk Reject (with reason) | High | CRUD |
-| TC-PRP0403 | Bulk Send for Review (return to HOD) | High | CRUD |
-| TC-PRP0404 | Bulk Split — split selected items | Low | Functional |
-| TC-PRP0405 | Cannot edit when PR is at non-Purchase stage (read-only) | Medium | Authorization |
-| TC-PRP0901 | Purchaser full flow: List → Detail → Edit (allocate vendor + price) → Bulk Approve → next stage | High | Smoke |
+| TC-PR-070101 | List loads, My Pending tab default (PRs at Purchase stage) | High | Smoke |
+| TC-PR-070102 | Switch to All Documents tab broadens scope | Medium | Functional |
+| TC-PR-070103 | All Stage dropdown filters by status | Medium | Functional |
+| TC-PR-070104 | Filter panel opens and applies | Medium | Functional |
+| TC-PR-070105 | Search by PR reference filters list | Low | Functional |
+| TC-PR-070201 | Detail loads with Items tab default | High | Smoke |
+| TC-PR-070202 | Switch to Workflow History tab | Medium | Functional |
+| TC-PR-070203 | No standalone Approve/Reject/Return buttons (BRD discrepancy) | High | Authorization |
+| TC-PR-070204 | Edit button visible (entry to vendor/pricing edit) | High | Functional |
+| TC-PR-070301 | Click Edit → vendor/pricing fields become editable | High | Smoke |
+| TC-PR-070302 | Vendor field is editable (Purchaser scope) | High | CRUD |
+| TC-PR-070303 | Unit Price field is editable | High | CRUD |
+| TC-PR-070304 | Discount field is editable | Medium | CRUD |
+| TC-PR-070305 | Tax Profile field is editable | Medium | CRUD |
+| TC-PR-070306 | Approved Qty field stays read-only (HOD already set it) | High | Authorization |
+| TC-PR-070307 | Auto Allocate button populates vendors via scoring | Medium | Functional |
+| TC-PR-070308 | Multiple line items — pricing on each row independent | Medium | CRUD |
+| TC-PR-070309 | Save edits → exit edit mode + persist values | High | CRUD |
+| TC-PR-070310 | Cancel edits → discard changes, restore original | Medium | Functional |
+| TC-PR-070401 | Bulk Approve → PR advances to next stage (FC) | High | CRUD |
+| TC-PR-070402 | Bulk Reject (with reason) | High | CRUD |
+| TC-PR-070403 | Bulk Send for Review (return to HOD) | High | CRUD |
+| TC-PR-070404 | Bulk Split — split selected items | Low | Functional |
+| TC-PR-070405 | Cannot edit when PR is at non-Purchase stage (read-only) | Medium | Authorization |
+| TC-PR-070901 | Purchaser full flow: List → Detail → Edit (allocate vendor + price) → Bulk Approve → next stage | High | Smoke |
 
 ---
 
-## TC-PRP0101 — List loads, My Pending tab default (PRs at Purchase stage)
+## TC-PR-070101 — List loads, My Pending tab default (PRs at Purchase stage)
 
 > **As a** Purchase user, **I want** the Pr Purchaser Journey list page to load successfully, **so that** I can manage Pr Purchaser Journey records.
 
@@ -60,7 +60,7 @@ URL is on PR list; My Pending tab is selected when present.
 
 ---
 
-## TC-PRP0102 — Switch to All Documents tab broadens scope
+## TC-PR-070102 — Switch to All Documents tab broadens scope
 
 > **As a** Purchase user, **I want** this Pr Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -80,7 +80,7 @@ All Documents tab becomes selected.
 
 ---
 
-## TC-PRP0103 — All Stage dropdown filters by status
+## TC-PR-070103 — All Stage dropdown filters by status
 
 > **As a** Purchase user, **I want** to filter the Pr Purchaser Journey list, **so that** I can narrow results to relevant records.
 
@@ -101,7 +101,7 @@ URL stays on PR list (filter applied or no-op when dropdown absent).
 
 ---
 
-## TC-PRP0104 — Filter panel opens and applies
+## TC-PR-070104 — Filter panel opens and applies
 
 > **As a** Purchase user, **I want** to filter the Pr Purchaser Journey list, **so that** I can narrow results to relevant records.
 
@@ -123,7 +123,7 @@ URL stays on PR list after applying the filter.
 
 ---
 
-## TC-PRP0105 — Search by PR reference filters list
+## TC-PR-070105 — Search by PR reference filters list
 
 > **As a** Purchase user, **I want** to filter the Pr Purchaser Journey list, **so that** I can narrow results to relevant records.
 
@@ -144,7 +144,7 @@ URL stays on PR list after typing in the search input.
 
 ---
 
-## TC-PRP0201 — Detail loads with Items tab default
+## TC-PR-070201 — Detail loads with Items tab default
 
 > **As a** Purchase user, **I want** core Pr Purchaser Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -165,7 +165,7 @@ URL is the detail URL; Items tab is selected when present.
 
 ---
 
-## TC-PRP0202 — Switch to Workflow History tab
+## TC-PR-070202 — Switch to Workflow History tab
 
 > **As a** Purchase user, **I want** this Pr Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -185,7 +185,7 @@ Workflow History tab becomes selected.
 
 ---
 
-## TC-PRP0203 — No standalone Approve/Reject/Return buttons (BRD discrepancy)
+## TC-PR-070203 — No standalone Approve/Reject/Return buttons (BRD discrepancy)
 
 > **As a** low-privilege user, **I should NOT** see Add/edit controls on Pr Purchaser Journey, **so that** role separation is enforced.
 
@@ -205,7 +205,7 @@ Standalone Approve, Reject, and Send for Review buttons are NOT visible at the p
 
 ---
 
-## TC-PRP0204 — Edit button visible (entry to vendor/pricing edit)
+## TC-PR-070204 — Edit button visible (entry to vendor/pricing edit)
 
 > **As a** Purchase user, **I want** this Pr Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -225,7 +225,7 @@ Edit button is visible (Purchaser can enter Edit Mode for vendor/pricing allocat
 
 ---
 
-## TC-PRP0301 — Click Edit → vendor/pricing fields become editable
+## TC-PR-070301 — Click Edit → vendor/pricing fields become editable
 
 > **As a** Purchase user, **I want** core Pr Purchaser Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -247,7 +247,7 @@ Save Draft (or Cancel) form-level button is visible.
 
 ---
 
-## TC-PRP0302 — Vendor field is editable (Purchaser scope)
+## TC-PR-070302 — Vendor field is editable (Purchaser scope)
 
 > **As a** Purchase user, **I want** to edit an existing Pr Purchaser Journey record, **so that** its data stays accurate.
 
@@ -269,7 +269,7 @@ Vendor input is editable (opposite of Approver, who sees it as read-only).
 
 ---
 
-## TC-PRP0303 — Unit Price field is editable
+## TC-PR-070303 — Unit Price field is editable
 
 > **As a** Purchase user, **I want** to edit an existing Pr Purchaser Journey record, **so that** its data stays accurate.
 
@@ -291,7 +291,7 @@ Unit Price input accepts the typed value.
 
 ---
 
-## TC-PRP0304 — Discount field is editable
+## TC-PR-070304 — Discount field is editable
 
 > **As a** Purchase user, **I want** to edit an existing Pr Purchaser Journey record, **so that** its data stays accurate.
 
@@ -313,7 +313,7 @@ Discount input is editable.
 
 ---
 
-## TC-PRP0305 — Tax Profile field is editable
+## TC-PR-070305 — Tax Profile field is editable
 
 > **As a** Purchase user, **I want** to edit an existing Pr Purchaser Journey record, **so that** its data stays accurate.
 
@@ -335,7 +335,7 @@ Tax Profile select is editable.
 
 ---
 
-## TC-PRP0306 — Approved Qty field stays read-only (HOD already set it)
+## TC-PR-070306 — Approved Qty field stays read-only (HOD already set it)
 
 > **As a** low-privilege user, **I should NOT** see Add/edit controls on Pr Purchaser Journey, **so that** role separation is enforced.
 
@@ -356,7 +356,7 @@ Approved Qty cell is disabled or non-editable for Purchaser (HOD already set it)
 
 ---
 
-## TC-PRP0307 — Auto Allocate button populates vendors via scoring
+## TC-PR-070307 — Auto Allocate button populates vendors via scoring
 
 > **As a** Purchase user, **I want** this Pr Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -377,7 +377,7 @@ URL stays on detail page after click (allocation runs).
 
 ---
 
-## TC-PRP0308 — Multiple line items — pricing on each row independent
+## TC-PR-070308 — Multiple line items — pricing on each row independent
 
 > **As a** Purchase user, **I want** to manage Pr Purchaser Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -401,7 +401,7 @@ Each row's Unit Price input retains its own value.
 
 ---
 
-## TC-PRP0309 — Save edits → exit edit mode + persist values
+## TC-PR-070309 — Save edits → exit edit mode + persist values
 
 > **As a** Purchase user, **I want** to edit an existing Pr Purchaser Journey record, **so that** its data stays accurate.
 
@@ -423,7 +423,7 @@ Form returns to view mode (Edit button visible again).
 
 ---
 
-## TC-PRP0310 — Cancel edits → discard changes, restore original
+## TC-PR-070310 — Cancel edits → discard changes, restore original
 
 > **As a** Purchase user, **I want** this Pr Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -445,7 +445,7 @@ Form returns to view mode (Edit button visible again).
 
 ---
 
-## TC-PRP0401 — Bulk Approve → PR advances to next stage (FC)
+## TC-PR-070401 — Bulk Approve → PR advances to next stage (FC)
 
 > **As a** FC user, **I want** to manage Pr Purchaser Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -468,7 +468,7 @@ URL stays on the PR ref (status advances to next stage).
 
 ---
 
-## TC-PRP0402 — Bulk Reject (with reason)
+## TC-PR-070402 — Bulk Reject (with reason)
 
 > **As a** Purchase user, **I want** to manage Pr Purchaser Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -492,7 +492,7 @@ URL stays on the PR ref after rejection.
 
 ---
 
-## TC-PRP0403 — Bulk Send for Review (return to HOD)
+## TC-PR-070403 — Bulk Send for Review (return to HOD)
 
 > **As a** HOD user, **I want** to manage Pr Purchaser Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -516,7 +516,7 @@ URL stays on the PR ref after send for review.
 
 ---
 
-## TC-PRP0404 — Bulk Split — split selected items
+## TC-PR-070404 — Bulk Split — split selected items
 
 > **As a** Purchase user, **I want** this Pr Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -538,7 +538,7 @@ Split UI appears (dialog or inline) — verified by URL stays on detail.
 
 ---
 
-## TC-PRP0405 — Cannot edit when PR is at non-Purchase stage (read-only)
+## TC-PR-070405 — Cannot edit when PR is at non-Purchase stage (read-only)
 
 > **As a** low-privilege user, **I should NOT** see Add/edit controls on Pr Purchaser Journey, **so that** role separation is enforced.
 
@@ -560,7 +560,7 @@ Edit button is absent OR detail is read-only — Purchaser cannot edit until PR 
 
 ---
 
-## TC-PRP0901 — Purchaser full flow: List → Detail → Edit (allocate vendor + price) → Bulk Approve → next stage
+## TC-PR-070901 — Purchaser full flow: List → Detail → Edit (allocate vendor + price) → Bulk Approve → next stage
 
 > **As a** Purchase user, **I want** the Pr Purchaser Journey list page to load successfully, **so that** I can manage Pr Purchaser Journey records.
 
@@ -585,4 +585,4 @@ URL stays on the PR ref after bulk approve; the journey completes end-to-end.
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 650ea0b</sub>
+<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>

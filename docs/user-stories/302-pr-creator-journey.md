@@ -11,51 +11,51 @@ _Generated from `tests/302-pr-creator-journey.spec.ts` annotations. Edit annotat
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-PRC0101 | List loads with My Pending tab and Creator's PRs visible | High | Smoke |
-| TC-PRC0102 | Switch to All Documents tab broadens scope | Medium | Functional |
-| TC-PRC0103 | Search by reference number filters list | Medium | Functional |
-| TC-PRC0104 | Filter by status (Draft) | Medium | Functional |
-| TC-PRC0105 | Sort list by Date | Low | Functional |
-| TC-PRC0106 | Click row navigates to PR detail | High | Smoke |
-| TC-PRC0107 | New PR button opens create dialog | High | Smoke |
-| TC-PRC0201 | Open Create dialog → Blank → form loads | High | Smoke |
-| TC-PRC0202 | Default values populated on the new form | High | Functional |
-| TC-PRC0203 | Fill header fields | High | CRUD |
-| TC-PRC0204 | Add 1 basic line item | High | CRUD |
-| TC-PRC0205 | Add line item with FOC flag | Medium | CRUD |
-| TC-PRC0206 | Add multiple line items — form stays on /new | Medium | CRUD |
-| TC-PRC0207 | Edit line item before save | Medium | CRUD |
-| TC-PRC0208 | Remove line item | Medium | CRUD |
-| TC-PRC0209 | Save as Draft → redirect to detail with PR number | High | CRUD |
-| TC-PRC0210 | Save without line items → button disabled or stays on form | Medium | Validation |
-| TC-PRC0211 | Delivery date in the past → validation prevents save | Medium | Validation |
-| TC-PRC0301 | Open Create dialog → Template option → picker opens | Medium | Smoke |
-| TC-PRC0302 | Select first template → form pre-fills | Medium | Functional |
-| TC-PRC0303 | Modify template-loaded items before save | Medium | CRUD |
-| TC-PRC0304 | Save template-based PR → Draft created | Medium | CRUD |
-| TC-PRC0305 | Empty-state message when no templates exist | Low | Functional |
-| TC-PRC0401 | Draft PR detail loads with Items tab default | High | Smoke |
-| TC-PRC0402 | Switch to Workflow History tab | Medium | Functional |
-| TC-PRC0403 | Edit / Delete / Submit buttons present for Draft | High | Functional |
-| TC-PRC0404 | Edit / Delete absent when status is In Progress | Medium | Authorization |
-| TC-PRC0501 | Click Edit → enter edit mode | High | Smoke |
-| TC-PRC0502 | Modify header description in edit mode | Medium | CRUD |
-| TC-PRC0503 | Modify line item quantity in edit mode | Medium | CRUD |
-| TC-PRC0504 | Add line item in edit mode | Medium | CRUD |
-| TC-PRC0505 | Save → exit edit mode + persist changes | High | CRUD |
-| TC-PRC0506 | Cancel → discard changes, restore original | Medium | Functional |
-| TC-PRC0601 | Submit → confirmation dialog appears | High | Smoke |
-| TC-PRC0602 | Cancel submit → stays on Draft | Medium | Functional |
-| TC-PRC0603 | Confirm submit → status moves to In Progress | High | CRUD |
-| TC-PRC0604 | Submit empty PR — button disabled or no transition | Medium | Validation |
-| TC-PRC0801 | Click Delete → confirmation dialog | High | Smoke |
-| TC-PRC0802 | Cancel delete → PR remains | Medium | Functional |
-| TC-PRC0803 | Confirm delete → list refreshed, PR gone | High | CRUD |
-| TC-PRC0901 | Full Creator flow: List → Create → Save Draft → Edit → Submit → In Progress | High | Smoke |
+| TC-PR-050101 | List loads with My Pending tab and Creator's PRs visible | High | Smoke |
+| TC-PR-050102 | Switch to All Documents tab broadens scope | Medium | Functional |
+| TC-PR-050103 | Search by reference number filters list | Medium | Functional |
+| TC-PR-050104 | Filter by status (Draft) | Medium | Functional |
+| TC-PR-050105 | Sort list by Date | Low | Functional |
+| TC-PR-050106 | Click row navigates to PR detail | High | Smoke |
+| TC-PR-050107 | New PR button opens create dialog | High | Smoke |
+| TC-PR-050201 | Open Create dialog → Blank → form loads | High | Smoke |
+| TC-PR-050202 | Default values populated on the new form | High | Functional |
+| TC-PR-050203 | Fill header fields | High | CRUD |
+| TC-PR-050204 | Add 1 basic line item | High | CRUD |
+| TC-PR-050205 | Add line item with FOC flag | Medium | CRUD |
+| TC-PR-050206 | Add multiple line items — form stays on /new | Medium | CRUD |
+| TC-PR-050207 | Edit line item before save | Medium | CRUD |
+| TC-PR-050208 | Remove line item | Medium | CRUD |
+| TC-PR-050209 | Save as Draft → redirect to detail with PR number | High | CRUD |
+| TC-PR-050210 | Save without line items → button disabled or stays on form | Medium | Validation |
+| TC-PR-050211 | Delivery date in the past → validation prevents save | Medium | Validation |
+| TC-PR-050301 | Open Create dialog → Template option → picker opens | Medium | Smoke |
+| TC-PR-050302 | Select first template → form pre-fills | Medium | Functional |
+| TC-PR-050303 | Modify template-loaded items before save | Medium | CRUD |
+| TC-PR-050304 | Save template-based PR → Draft created | Medium | CRUD |
+| TC-PR-050305 | Empty-state message when no templates exist | Low | Functional |
+| TC-PR-050401 | Draft PR detail loads with Items tab default | High | Smoke |
+| TC-PR-050402 | Switch to Workflow History tab | Medium | Functional |
+| TC-PR-050403 | Edit / Delete / Submit buttons present for Draft | High | Functional |
+| TC-PR-050404 | Edit / Delete absent when status is In Progress | Medium | Authorization |
+| TC-PR-050501 | Click Edit → enter edit mode | High | Smoke |
+| TC-PR-050502 | Modify header description in edit mode | Medium | CRUD |
+| TC-PR-050503 | Modify line item quantity in edit mode | Medium | CRUD |
+| TC-PR-050504 | Add line item in edit mode | Medium | CRUD |
+| TC-PR-050505 | Save → exit edit mode + persist changes | High | CRUD |
+| TC-PR-050506 | Cancel → discard changes, restore original | Medium | Functional |
+| TC-PR-050601 | Submit → confirmation dialog appears | High | Smoke |
+| TC-PR-050602 | Cancel submit → stays on Draft | Medium | Functional |
+| TC-PR-050603 | Confirm submit → status moves to In Progress | High | CRUD |
+| TC-PR-050604 | Submit empty PR — button disabled or no transition | Medium | Validation |
+| TC-PR-050801 | Click Delete → confirmation dialog | High | Smoke |
+| TC-PR-050802 | Cancel delete → PR remains | Medium | Functional |
+| TC-PR-050803 | Confirm delete → list refreshed, PR gone | High | CRUD |
+| TC-PR-050901 | Full Creator flow: List → Create → Save Draft → Edit → Submit → In Progress | High | Smoke |
 
 ---
 
-## TC-PRC0101 — List loads with My Pending tab and Creator's PRs visible
+## TC-PR-050101 — List loads with My Pending tab and Creator's PRs visible
 
 > **As a** Requestor user, **I want** the Pr Creator Journey list page to load successfully, **so that** I can manage Pr Creator Journey records.
 
@@ -77,7 +77,7 @@ URL is /procurement/purchase-request, My Pending tab has aria-selected=true, tab
 
 ---
 
-## TC-PRC0102 — Switch to All Documents tab broadens scope
+## TC-PR-050102 — Switch to All Documents tab broadens scope
 
 > **As a** Requestor user, **I want** this Pr Creator Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -98,7 +98,7 @@ All Documents tab becomes selected; the list re-renders.
 
 ---
 
-## TC-PRC0103 — Search by reference number filters list
+## TC-PR-050103 — Search by reference number filters list
 
 > **As a** Requestor user, **I want** to filter the Pr Creator Journey list, **so that** I can narrow results to relevant records.
 
@@ -120,7 +120,7 @@ List updates to rows whose reference contains the typed text.
 
 ---
 
-## TC-PRC0104 — Filter by status (Draft)
+## TC-PR-050104 — Filter by status (Draft)
 
 > **As a** Requestor user, **I want** to filter the Pr Creator Journey list, **so that** I can narrow results to relevant records.
 
@@ -142,7 +142,7 @@ List shows only PRs with Draft status (or empty state).
 
 ---
 
-## TC-PRC0105 — Sort list by Date
+## TC-PR-050105 — Sort list by Date
 
 > **As a** Requestor user, **I want** to sort the Pr Creator Journey list, **so that** I can find records in a useful order.
 
@@ -163,7 +163,7 @@ Column header shows a sort indicator and the list re-orders.
 
 ---
 
-## TC-PRC0106 — Click row navigates to PR detail
+## TC-PR-050106 — Click row navigates to PR detail
 
 > **As a** Requestor user, **I want** core Pr Creator Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -183,7 +183,7 @@ Navigates to /procurement/purchase-request/<id>.
 
 ---
 
-## TC-PRC0107 — New PR button opens create dialog
+## TC-PR-050107 — New PR button opens create dialog
 
 > **As a** Requestor user, **I want** core Pr Creator Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -203,7 +203,7 @@ Either a creation dialog opens or the URL changes to /new.
 
 ---
 
-## TC-PRC0201 — Open Create dialog → Blank → form loads
+## TC-PR-050201 — Open Create dialog → Blank → form loads
 
 > **As a** Requestor user, **I want** core Pr Creator Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -225,7 +225,7 @@ URL becomes /procurement/purchase-request/new and the create form is visible.
 
 ---
 
-## TC-PRC0202 — Default values populated on the new form
+## TC-PR-050202 — Default values populated on the new form
 
 > **As a** Requestor user, **I want** this Pr Creator Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -246,7 +246,7 @@ Form is at /new and a Draft indicator is shown when the badge is rendered.
 
 ---
 
-## TC-PRC0203 — Fill header fields
+## TC-PR-050203 — Fill header fields
 
 > **As a** Requestor user, **I want** to manage Pr Creator Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -268,7 +268,7 @@ Description input contains the value entered (E2E-PRC marker).
 
 ---
 
-## TC-PRC0204 — Add 1 basic line item
+## TC-PR-050204 — Add 1 basic line item
 
 > **As a** Requestor user, **I want** to create a new Pr Creator Journey record, **so that** it becomes available for downstream operations.
 
@@ -290,7 +290,7 @@ Form remains on /new — item add does not navigate away from the create form.
 
 ---
 
-## TC-PRC0205 — Add line item with FOC flag
+## TC-PR-050205 — Add line item with FOC flag
 
 > **As a** Requestor user, **I want** to create a new Pr Creator Journey record, **so that** it becomes available for downstream operations.
 
@@ -312,7 +312,7 @@ Form remains on /new after the FOC item is saved.
 
 ---
 
-## TC-PRC0206 — Add multiple line items — form stays on /new
+## TC-PR-050206 — Add multiple line items — form stays on /new
 
 > **As a** Requestor user, **I want** to create a new Pr Creator Journey record, **so that** it becomes available for downstream operations.
 
@@ -333,7 +333,7 @@ Form remains on /new after 3 items are added.
 
 ---
 
-## TC-PRC0207 — Edit line item before save
+## TC-PR-050207 — Edit line item before save
 
 > **As a** Requestor user, **I want** to edit an existing Pr Creator Journey record, **so that** its data stays accurate.
 
@@ -355,7 +355,7 @@ Form remains on /new after the edit.
 
 ---
 
-## TC-PRC0208 — Remove line item
+## TC-PR-050208 — Remove line item
 
 > **As a** Requestor user, **I want** to delete a Pr Creator Journey record, **so that** the list reflects only valid entries.
 
@@ -376,7 +376,7 @@ Form remains on /new after the remove.
 
 ---
 
-## TC-PRC0209 — Save as Draft → redirect to detail with PR number
+## TC-PR-050209 — Save as Draft → redirect to detail with PR number
 
 > **As a** Requestor user, **I want** to manage Pr Creator Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -397,7 +397,7 @@ URL changes to /purchase-request/<id> (not /new) and detail page renders.
 
 ---
 
-## TC-PRC0210 — Save without line items → button disabled or stays on form
+## TC-PR-050210 — Save without line items → button disabled or stays on form
 
 > **As a** Requestor user, **I want** the system to block invalid Pr Creator Journey submissions, **so that** data quality is preserved.
 
@@ -418,7 +418,7 @@ Either the Save button is disabled, or the form does not navigate away from /new
 
 ---
 
-## TC-PRC0211 — Delivery date in the past → validation prevents save
+## TC-PR-050211 — Delivery date in the past → validation prevents save
 
 > **As a** Requestor user, **I want** the system to block invalid Pr Creator Journey submissions, **so that** data quality is preserved.
 
@@ -440,7 +440,7 @@ Form does not navigate away from /new (validation rejects past date).
 
 ---
 
-## TC-PRC0301 — Open Create dialog → Template option → picker opens
+## TC-PR-050301 — Open Create dialog → Template option → picker opens
 
 > **As a** Requestor user, **I want** core Pr Creator Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -461,7 +461,7 @@ Template picker (dialog or listbox) is visible after selecting the From-Template
 
 ---
 
-## TC-PRC0302 — Select first template → form pre-fills
+## TC-PR-050302 — Select first template → form pre-fills
 
 > **As a** Requestor user, **I want** this Pr Creator Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -482,7 +482,7 @@ URL contains template_id query param (form is loading from a template).
 
 ---
 
-## TC-PRC0303 — Modify template-loaded items before save
+## TC-PR-050303 — Modify template-loaded items before save
 
 > **As a** Requestor user, **I want** to manage Pr Creator Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -503,7 +503,7 @@ Form remains on the template-load URL after the edit (no premature navigation).
 
 ---
 
-## TC-PRC0304 — Save template-based PR → Draft created
+## TC-PR-050304 — Save template-based PR → Draft created
 
 > **As a** Requestor user, **I want** to create a new Pr Creator Journey record, **so that** it becomes available for downstream operations.
 
@@ -524,7 +524,7 @@ URL changes to /purchase-request/<id> (not /new) after save.
 
 ---
 
-## TC-PRC0305 — Empty-state message when no templates exist
+## TC-PR-050305 — Empty-state message when no templates exist
 
 > **As a** Requestor user, **I want** a clear empty-state when no Pr Creator Journey records match my search, **so that** I know nothing was found.
 
@@ -547,7 +547,7 @@ An empty-state message ('No templates') is visible. Skipped if templates exist.
 
 ---
 
-## TC-PRC0401 — Draft PR detail loads with Items tab default
+## TC-PR-050401 — Draft PR detail loads with Items tab default
 
 > **As a** Requestor user, **I want** core Pr Creator Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -568,7 +568,7 @@ Detail URL is /procurement/purchase-request/<ref>; if Items tab is rendered, it 
 
 ---
 
-## TC-PRC0402 — Switch to Workflow History tab
+## TC-PR-050402 — Switch to Workflow History tab
 
 > **As a** Requestor user, **I want** this Pr Creator Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -588,7 +588,7 @@ Workflow History tab becomes selected after click.
 
 ---
 
-## TC-PRC0403 — Edit / Delete / Submit buttons present for Draft
+## TC-PR-050403 — Edit / Delete / Submit buttons present for Draft
 
 > **As a** Requestor user, **I want** this Pr Creator Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -608,7 +608,7 @@ Edit, Delete, and Submit buttons are all visible for Draft status.
 
 ---
 
-## TC-PRC0404 — Edit / Delete absent when status is In Progress
+## TC-PR-050404 — Edit / Delete absent when status is In Progress
 
 > **As a** low-privilege user, **I should NOT** see Add/edit controls on Pr Creator Journey, **so that** role separation is enforced.
 
@@ -630,7 +630,7 @@ Edit and Delete buttons are not visible (read-only mode).
 
 ---
 
-## TC-PRC0501 — Click Edit → enter edit mode
+## TC-PR-050501 — Click Edit → enter edit mode
 
 > **As a** Requestor user, **I want** core Pr Creator Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -651,7 +651,7 @@ Form becomes editable; Save (or Cancel) form-level button is visible.
 
 ---
 
-## TC-PRC0502 — Modify header description in edit mode
+## TC-PR-050502 — Modify header description in edit mode
 
 > **As a** Requestor user, **I want** to edit an existing Pr Creator Journey record, **so that** its data stays accurate.
 
@@ -673,7 +673,7 @@ After save the page returns to detail URL (no redirect to /new or list).
 
 ---
 
-## TC-PRC0503 — Modify line item quantity in edit mode
+## TC-PR-050503 — Modify line item quantity in edit mode
 
 > **As a** Requestor user, **I want** to edit an existing Pr Creator Journey record, **so that** its data stays accurate.
 
@@ -695,7 +695,7 @@ After save the page returns to the detail URL.
 
 ---
 
-## TC-PRC0504 — Add line item in edit mode
+## TC-PR-050504 — Add line item in edit mode
 
 > **As a** Requestor user, **I want** to create a new Pr Creator Journey record, **so that** it becomes available for downstream operations.
 
@@ -718,7 +718,7 @@ After save the page returns to the detail URL.
 
 ---
 
-## TC-PRC0505 — Save → exit edit mode + persist changes
+## TC-PR-050505 — Save → exit edit mode + persist changes
 
 > **As a** Requestor user, **I want** to edit an existing Pr Creator Journey record, **so that** its data stays accurate.
 
@@ -740,7 +740,7 @@ Form returns to view mode (Edit button visible again on detail page).
 
 ---
 
-## TC-PRC0506 — Cancel → discard changes, restore original
+## TC-PR-050506 — Cancel → discard changes, restore original
 
 > **As a** Requestor user, **I want** this Pr Creator Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -762,7 +762,7 @@ Form returns to view mode (Edit button visible again on detail page).
 
 ---
 
-## TC-PRC0601 — Submit → confirmation dialog appears
+## TC-PR-050601 — Submit → confirmation dialog appears
 
 > **As a** Requestor user, **I want** core Pr Creator Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -783,7 +783,7 @@ Confirmation dialog is visible.
 
 ---
 
-## TC-PRC0602 — Cancel submit → stays on Draft
+## TC-PR-050602 — Cancel submit → stays on Draft
 
 > **As a** Requestor user, **I want** this Pr Creator Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -804,7 +804,7 @@ Dialog closes; URL remains on the detail page (no submit transition).
 
 ---
 
-## TC-PRC0603 — Confirm submit → status moves to In Progress
+## TC-PR-050603 — Confirm submit → status moves to In Progress
 
 > **As a** Requestor user, **I want** to manage Pr Creator Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -825,7 +825,7 @@ Status badge updates to In Progress (asserted by submitDraftPR helper).
 
 ---
 
-## TC-PRC0604 — Submit empty PR — button disabled or no transition
+## TC-PR-050604 — Submit empty PR — button disabled or no transition
 
 > **As a** Requestor user, **I want** the system to block invalid Pr Creator Journey submissions, **so that** data quality is preserved.
 
@@ -846,7 +846,7 @@ Either Submit button is disabled, or clicking it does not move status to In Prog
 
 ---
 
-## TC-PRC0801 — Click Delete → confirmation dialog
+## TC-PR-050801 — Click Delete → confirmation dialog
 
 > **As a** Requestor user, **I want** core Pr Creator Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -867,7 +867,7 @@ Delete confirmation dialog is visible.
 
 ---
 
-## TC-PRC0802 — Cancel delete → PR remains
+## TC-PR-050802 — Cancel delete → PR remains
 
 > **As a** Requestor user, **I want** this Pr Creator Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -888,7 +888,7 @@ Dialog closes; URL remains on the detail page (PR is not deleted).
 
 ---
 
-## TC-PRC0803 — Confirm delete → list refreshed, PR gone
+## TC-PR-050803 — Confirm delete → list refreshed, PR gone
 
 > **As a** Requestor user, **I want** to delete a Pr Creator Journey record, **so that** the list reflects only valid entries.
 
@@ -909,7 +909,7 @@ Page navigates back to the PR list (URL ends at /procurement/purchase-request).
 
 ---
 
-## TC-PRC0901 — Full Creator flow: List → Create → Save Draft → Edit → Submit → In Progress
+## TC-PR-050901 — Full Creator flow: List → Create → Save Draft → Edit → Submit → In Progress
 
 > **As a** Requestor user, **I want** the Pr Creator Journey list page to load successfully, **so that** I can manage Pr Creator Journey records.
 
@@ -937,4 +937,4 @@ PR is created (detail URL with ref), edited (Edit button reappears post-save), s
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 650ea0b</sub>
+<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
