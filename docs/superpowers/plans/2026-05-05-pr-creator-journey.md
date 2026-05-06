@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Add `tests/302-pr-creator-journey.spec.ts` covering the Requestor's PR workflow as 41 persona-journey TCs grouped per source step (1-6, 8 + Golden Journey).
+**Goal:** Add `tests/302-pr-creator-journey.spec.ts` covering the Requestor's PR workflow as 41 persona-journey TCs grouped per source step (1-6, 8 + Golden Journey). Source docs live at `docs/persona-doc/Purchase Request/Creator/`.
 
 **Architecture:** New persona-journey spec sits alongside existing per-action `301-purchase-request.spec.ts`. Reuses `createAuthTest("requestor@blueledgers.com")` and the existing `PurchaseRequestPage` class (extended with ~15 helper methods). New `pr-creator.helpers.ts` provides journey-level composition (createDraftPR, submitDraftPR, deleteDraftPR). Each TC carries the 5-field annotation set; CSV/JSON reporters and Google Sheets sync are auto-wired aside from one `SYNC_TARGETS` entry.
 
@@ -385,7 +385,7 @@ import { createDraftPR, submitDraftPR, deleteDraftPR, e2eDescription } from "./p
 
 // Persona-journey spec — Creator (Requestor). Runs alongside 301-purchase-request.spec.ts
 // (per-action multi-role) without modifying it. Source docs:
-// Test case/Purchase Request/Creator/INDEX.md and step-01..08.md.
+// docs/persona-doc/Purchase Request/Creator/INDEX.md and step-01..08.md.
 const requestorTest = createAuthTest("requestor@blueledgers.com");
 
 const FUTURE_DATE = "2099-12-31";

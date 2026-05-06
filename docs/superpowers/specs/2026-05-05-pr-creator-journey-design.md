@@ -3,13 +3,13 @@
 **Date:** 2026-05-05
 **Status:** Draft — pending user approval
 **Scope:** Playwright persona-journey spec for the PR Creator (Requestor) workflow in `carmen-inventory-frontend`
-**Source documents:** `Test case/Purchase Request/Creator/` (INDEX.md + step-01..08.md)
+**Source documents:** `docs/persona-doc/Purchase Request/Creator/` (INDEX.md + step-01..08.md)
 
 ---
 
 ## 1. Purpose
 
-`carmen-inventory-frontend-e2e` already ships `tests/301-purchase-request.spec.ts` (~3,500 lines) — a per-action multi-role spec that exercises individual PR operations. The internal `Test case/Purchase Request/Creator/` documentation, however, is organized as a **persona journey**: the Requestor's experience walking through PR List → Create → Template → Detail → Edit → Submit → Returned → Delete.
+`carmen-inventory-frontend-e2e` already ships `tests/301-purchase-request.spec.ts` (~3,500 lines) — a per-action multi-role spec that exercises individual PR operations. The internal `docs/persona-doc/Purchase Request/Creator/` documentation, however, is organized as a **persona journey**: the Requestor's experience walking through PR List → Create → Template → Detail → Edit → Submit → Returned → Delete.
 
 This spec adds a parallel **persona-journey suite** (`tests/302-pr-creator-journey.spec.ts`) that mirrors the documentation's persona-step structure, covering the user's flow rather than per-action units. The existing 301 spec is **not modified** — both coexist with complementary perspectives:
 
@@ -83,6 +83,8 @@ tests/results/
 - Prefix `TC-PRC` (PR Creator) — does not collide with `TC-PR` in 301
 - Format `TC-PRC<step><nn>` where `<step>` is the source step number and `<nn>` is the TC index within that step
 - Step → ID range mapping:
+
+All step files live under `docs/persona-doc/Purchase Request/Creator/`.
 
 | Step | Doc file | TC range | Count |
 |---|---|---|---|
