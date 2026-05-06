@@ -937,4 +937,4 @@ PR is created (detail URL with ref), edited (Edit button reappears post-save), s
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 650ea0b</sub>
+<sub>Last regenerated: 2026-05-06 · git f17f7d9</sub>

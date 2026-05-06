@@ -17,7 +17,7 @@ const REPO_ROOT = resolve(__dirname, "..");
 const TESTS_DIR = join(REPO_ROOT, "tests");
 const OUT_DIR = join(REPO_ROOT, "docs", "user-stories");
 
-const TC_REGEX = /\b(TCS?-[A-Z]{0,4}\d{2,})\b/;
+const TC_REGEX = /\b(TC-[A-Z]{2,5}-\d{6}|TCS?-[A-Z]{0,4}\d{2,})\b/;
 
 const EMAIL_TO_ROLE = new Map<string, string>(
   TEST_USERS.map((u) => [u.email, u.role]),
