@@ -86,21 +86,10 @@ export class PurchaseRequestPage extends BasePage {
   }
 
   // ── List filters / search / sort / tabs ──────────────────────────────
-  searchInput(): Locator {
-    return this.page
-      .getByRole("searchbox")
-      .or(this.page.getByPlaceholder(/search|find/i))
-      .first();
-  }
-
   async searchFor(text: string) {
     const input = this.searchInput();
     await input.fill(text);
     await this.page.waitForLoadState("networkidle").catch(() => {});
-  }
-
-  filterButton(): Locator {
-    return this.page.getByRole("button", { name: /^filter$|filters?/i }).first();
   }
 
   async applyFilter(opts: { status?: string }) {
@@ -120,7 +109,7 @@ export class PurchaseRequestPage extends BasePage {
     if ((await apply.count()) > 0) await apply.click({ timeout: 5_000 }).catch(() => {});
   }
 
-  async sortBy(column: string, _order: "asc" | "desc" = "desc") {
+  async sortBy(column: string) {
     const header = this.page.getByRole("columnheader", { name: new RegExp(column, "i") }).first();
     if ((await header.count()) > 0) await header.click();
     await this.page.waitForLoadState("networkidle").catch(() => {});
@@ -131,7 +120,7 @@ export class PurchaseRequestPage extends BasePage {
   }
 
   tabAllDocuments(): Locator {
-    return this.page.getByRole("tab", { name: /all documents|all/i }).first();
+    return this.page.getByRole("tab", { name: /all documents|^all$/i }).first();
   }
 
   // ── Create dialog (list "Create Purchase Request" entry) ──────────────
