@@ -11,36 +11,36 @@ _Generated from `tests/160-price-list-template.spec.ts` annotations. Edit annota
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-PT00101 | Create Pricelist Template - Happy Path | Critical | Happy Path |
-| TC-PT00102 | Create Pricelist Template - Empty Template Name | High | Negative |
-| TC-PT00104 | Create Pricelist Template - No Permission | Critical | Negative |
-| TC-PT00105 | Create Pricelist Template - Missing Description | High | Negative |
-| TC-PT00201 | Add products to template - Happy Path | Critical | Happy Path |
-| TC-PT00202 | Add products to template - Invalid Input (max exceeded) | High | Negative |
-| TC-PT00203 | Add products to template - No Permission | Critical | Negative |
-| TC-PT00204 | Add products to template - Edge Case - Empty Selection | Medium | Edge Case |
-| TC-PT00301 | Edit template with valid data | High | Happy Path |
-| TC-PT00302 | Edit template with invalid validity period | High | Negative |
-| TC-PT00303 | Edit template without product selection | High | Negative |
-| TC-PT00304 | Edit template with minimal changes | High | Happy Path |
-| TC-PT00305 | Edit template with all fields in default state | High | Edge Case |
-| TC-PT00401 | Happy Path - Clone Existing Template | Medium | Happy Path |
-| TC-PT00402 | Negative - Invalid Template Name | Medium | Negative |
-| TC-PT00403 | Negative - No Permission to Clone | Medium | Negative |
-| TC-PT00404 _(skipped)_ | Edge Case - Maximum Templates Reached | Low | Edge Case |
-| TC-PT00501 | Activate Template - Happy Path | High | Happy Path |
-| TC-PT00503 | Activate Template - Invalid Input | Medium | Negative |
-| TC-PT00504 | Deactivate Template - No Permission | High | Negative |
-| TC-PT00505 | Template Status Change - Edge Case (rapid toggle) | Medium | Edge Case |
-| TC-PT00601 | Search and View Templates - Happy Path | High | Happy Path |
-| TC-PT00602 | Search and View Templates - Negative - Invalid Search Term | High | Negative |
-| TC-PT00603 | Search and View Templates - Negative - Insufficient Permission | High | Negative |
-| TC-PT00604 | Search and View Templates - Edge Case - Filter by Product Count | Medium | Edge Case |
-| TC-PT00605 | Search and View Templates - Edge Case - Sort by Name (Z-A) | Medium | Edge Case |
+| TC-PT-010001 | Create Pricelist Template - Happy Path | Critical | Happy Path |
+| TC-PT-010002 | Create Pricelist Template - Empty Template Name | High | Negative |
+| TC-PT-010004 | Create Pricelist Template - No Permission | Critical | Negative |
+| TC-PT-010005 | Create Pricelist Template - Missing Description | High | Negative |
+| TC-PT-020001 | Add products to template - Happy Path | Critical | Happy Path |
+| TC-PT-020002 | Add products to template - Invalid Input (max exceeded) | High | Negative |
+| TC-PT-020003 | Add products to template - No Permission | Critical | Negative |
+| TC-PT-020004 | Add products to template - Edge Case - Empty Selection | Medium | Edge Case |
+| TC-PT-030001 | Edit template with valid data | High | Happy Path |
+| TC-PT-030002 | Edit template with invalid validity period | High | Negative |
+| TC-PT-030003 | Edit template without product selection | High | Negative |
+| TC-PT-030004 | Edit template with minimal changes | High | Happy Path |
+| TC-PT-030005 | Edit template with all fields in default state | High | Edge Case |
+| TC-PT-040001 | Happy Path - Clone Existing Template | Medium | Happy Path |
+| TC-PT-040002 | Negative - Invalid Template Name | Medium | Negative |
+| TC-PT-040003 | Negative - No Permission to Clone | Medium | Negative |
+| TC-PT-040004 _(skipped)_ | Edge Case - Maximum Templates Reached | Low | Edge Case |
+| TC-PT-050001 | Activate Template - Happy Path | High | Happy Path |
+| TC-PT-050003 | Activate Template - Invalid Input | Medium | Negative |
+| TC-PT-050004 | Deactivate Template - No Permission | High | Negative |
+| TC-PT-050005 | Template Status Change - Edge Case (rapid toggle) | Medium | Edge Case |
+| TC-PT-060001 | Search and View Templates - Happy Path | High | Happy Path |
+| TC-PT-060002 | Search and View Templates - Negative - Invalid Search Term | High | Negative |
+| TC-PT-060003 | Search and View Templates - Negative - Insufficient Permission | High | Negative |
+| TC-PT-060004 | Search and View Templates - Edge Case - Filter by Product Count | Medium | Edge Case |
+| TC-PT-060005 | Search and View Templates - Edge Case - Sort by Name (Z-A) | Medium | Edge Case |
 
 ---
 
-## TC-PT00101 — Create Pricelist Template - Happy Path
+## TC-PT-010001 — Create Pricelist Template - Happy Path
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -65,7 +65,7 @@ Pricelist template is created successfully.
 
 ---
 
-## TC-PT00102 — Create Pricelist Template - Empty Template Name
+## TC-PT-010002 — Create Pricelist Template - Empty Template Name
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -89,7 +89,7 @@ Error message displayed for empty template name.
 
 ---
 
-## TC-PT00104 — Create Pricelist Template - No Permission
+## TC-PT-010004 — Create Pricelist Template - No Permission
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -111,7 +111,7 @@ User is redirected to unauthorized access page or 'New Pricelist Template' butto
 
 ---
 
-## TC-PT00105 — Create Pricelist Template - Missing Description
+## TC-PT-010005 — Create Pricelist Template - Missing Description
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -135,7 +135,7 @@ Error message displayed for missing description.
 
 ---
 
-## TC-PT00201 — Add products to template - Happy Path
+## TC-PT-020001 — Add products to template - Happy Path
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -161,7 +161,7 @@ The selected products are successfully added to the template.
 
 ---
 
-## TC-PT00202 — Add products to template - Invalid Input (max exceeded)
+## TC-PT-020002 — Add products to template - Invalid Input (max exceeded)
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -187,7 +187,7 @@ An error message is displayed stating that the maximum number of products per te
 
 ---
 
-## TC-PT00203 — Add products to template - No Permission
+## TC-PT-020003 — Add products to template - No Permission
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -211,7 +211,7 @@ The user is unable to add products to the template.
 
 ---
 
-## TC-PT00204 — Add products to template - Edge Case - Empty Selection
+## TC-PT-020004 — Add products to template - Edge Case - Empty Selection
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -236,7 +236,7 @@ The selected products list is empty and no products are added to the template.
 
 ---
 
-## TC-PT00301 — Edit template with valid data
+## TC-PT-030001 — Edit template with valid data
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -270,7 +270,7 @@ Template is saved successfully, doc_version incremented, success message display
 
 ---
 
-## TC-PT00302 — Edit template with invalid validity period
+## TC-PT-030002 — Edit template with invalid validity period
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -294,7 +294,7 @@ System shows error message for invalid validity period and template is not saved
 
 ---
 
-## TC-PT00303 — Edit template without product selection
+## TC-PT-030003 — Edit template without product selection
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -317,7 +317,7 @@ System shows error message that at least one product selection must exist and te
 
 ---
 
-## TC-PT00304 — Edit template with minimal changes
+## TC-PT-030004 — Edit template with minimal changes
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -341,7 +341,7 @@ Template is saved successfully, doc_version incremented, and changes logged in a
 
 ---
 
-## TC-PT00305 — Edit template with all fields in default state
+## TC-PT-030005 — Edit template with all fields in default state
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -364,7 +364,7 @@ Template remains unchanged, doc_version remains the same, and no changes are log
 
 ---
 
-## TC-PT00401 — Happy Path - Clone Existing Template
+## TC-PT-040001 — Happy Path - Clone Existing Template
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -389,7 +389,7 @@ New template is created with all products, configurations, and metadata. Success
 
 ---
 
-## TC-PT00402 — Negative - Invalid Template Name
+## TC-PT-040002 — Negative - Invalid Template Name
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -414,7 +414,7 @@ System displays error message for invalid name and does not create the template.
 
 ---
 
-## TC-PT00403 — Negative - No Permission to Clone
+## TC-PT-040003 — Negative - No Permission to Clone
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -437,7 +437,7 @@ System displays error message or denies access to the 'Clone Template' action.
 
 ---
 
-## TC-PT00404 — Edge Case - Maximum Templates Reached _(skipped)_
+## TC-PT-040004 — Edge Case - Maximum Templates Reached _(skipped)_
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -462,7 +462,7 @@ System displays error message indicating maximum templates have been reached and
 
 ---
 
-## TC-PT00501 — Activate Template - Happy Path
+## TC-PT-050001 — Activate Template - Happy Path
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -486,7 +486,7 @@ Template is activated and changes status to active.
 
 ---
 
-## TC-PT00503 — Activate Template - Invalid Input
+## TC-PT-050003 — Activate Template - Invalid Input
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -510,7 +510,7 @@ System displays error message indicating invalid input.
 
 ---
 
-## TC-PT00504 — Deactivate Template - No Permission
+## TC-PT-050004 — Deactivate Template - No Permission
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -534,7 +534,7 @@ System displays error message indicating insufficient permissions.
 
 ---
 
-## TC-PT00505 — Template Status Change - Edge Case (rapid toggle)
+## TC-PT-050005 — Template Status Change - Edge Case (rapid toggle)
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -560,7 +560,7 @@ Template successfully switches between active and deactivated states.
 
 ---
 
-## TC-PT00601 — Search and View Templates - Happy Path
+## TC-PT-060001 — Search and View Templates - Happy Path
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -585,7 +585,7 @@ System displays template detail page with relevant template information.
 
 ---
 
-## TC-PT00602 — Search and View Templates - Negative - Invalid Search Term
+## TC-PT-060002 — Search and View Templates - Negative - Invalid Search Term
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -608,7 +608,7 @@ System displays a message indicating no matching templates were found.
 
 ---
 
-## TC-PT00603 — Search and View Templates - Negative - Insufficient Permission
+## TC-PT-060003 — Search and View Templates - Negative - Insufficient Permission
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -629,7 +629,7 @@ System redirects the user to an unauthorized access page or shows a permission d
 
 ---
 
-## TC-PT00604 — Search and View Templates - Edge Case - Filter by Product Count
+## TC-PT-060004 — Search and View Templates - Edge Case - Filter by Product Count
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -655,7 +655,7 @@ System displays a filtered list of templates with a product count within the spe
 
 ---
 
-## TC-PT00605 — Search and View Templates - Edge Case - Sort by Name (Z-A)
+## TC-PT-060005 — Search and View Templates - Edge Case - Sort by Name (Z-A)
 
 > **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -680,4 +680,4 @@ System sorts the template list in descending alphabetical order based on the tem
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git f17f7d9</sub>
+<sub>Last regenerated: 2026-05-06 · git 9b238f5</sub>

@@ -11,37 +11,37 @@ _Generated from `tests/159-price-list.spec.ts` annotations. Edit annotations, no
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-PL00101 | Valid Login and Access to Price Lists Page | High | Happy Path |
-| TC-PL00102 | Search Filter with Invalid Keyword | Medium | Negative |
-| TC-PL00103 | View Price List Details with No Data | Medium | Edge Case |
-| TC-PL00104 | User Without Access to Price Lists Page | High | Negative |
-| TC-PL00105 | Filter by Expired Status | Medium | Happy Path |
-| TC-PL00201 | Happy Path - Create Valid Price List | High | Happy Path |
-| TC-PL00202 | Negative - Missing Vendor | Medium | Negative |
-| TC-PL00203 | Edge Case - Empty Unit Price | Medium | Edge Case |
-| TC-PL00301 | Happy Path - Valid Price List Click | High | Happy Path |
-| TC-PL00302 | Negative - No Price List Selected | Medium | Negative |
-| TC-PL00303 | Edge Case - User Without Edit Permission | High | Edge Case |
-| TC-PL00304 | Negative - User Without View Permission | Medium | Negative |
-| TC-PL00305 | Edge Case - Empty Line Items | High | Edge Case |
-| TC-PL00401 | Happy Path: Edit Price List Successfully | Medium | Happy Path |
-| TC-PL00402 | Negative: Invalid Date Input | Medium | Negative |
-| TC-PL00501 | Happy Path - Duplicate Price List | High | Happy Path |
-| TC-PL00502 | Negative - No Permission to Duplicate | Medium | Negative |
-| TC-PL00503 | Edge Case - Duplicate with No Source Price List | Low | Edge Case |
-| TC-PL00601 | Happy Path - Export Price List | High | Happy Path |
-| TC-PL00602 | Negative - Invalid Export Permission | Medium | Negative |
-| TC-PL00603 | Edge Case - Large Price List | Low | Edge Case |
-| TC-PL00702 | Negative - No Delete Permission | High | Negative |
-| TC-PL00703 | Negative - Click Cancel in Confirmation Dialog | Medium | Negative |
-| TC-PL00704 | Edge Case - Delete Price List from Detail Page | Medium | Edge Case |
-| TC-PL00801 | Happy Path - Mark Price List as Expired | Medium | Happy Path |
-| TC-PL00803 | Edge Case - Multiple Price Lists | Low | Edge Case |
-| TC-PL00804 | Negative - Price List Already Expired | Low | Negative |
+| TC-PL-010001 | Valid Login and Access to Price Lists Page | High | Happy Path |
+| TC-PL-010002 | Search Filter with Invalid Keyword | Medium | Negative |
+| TC-PL-010003 | View Price List Details with No Data | Medium | Edge Case |
+| TC-PL-010004 | User Without Access to Price Lists Page | High | Negative |
+| TC-PL-010005 | Filter by Expired Status | Medium | Happy Path |
+| TC-PL-020001 | Happy Path - Create Valid Price List | High | Happy Path |
+| TC-PL-020002 | Negative - Missing Vendor | Medium | Negative |
+| TC-PL-020003 | Edge Case - Empty Unit Price | Medium | Edge Case |
+| TC-PL-030001 | Happy Path - Valid Price List Click | High | Happy Path |
+| TC-PL-030002 | Negative - No Price List Selected | Medium | Negative |
+| TC-PL-030003 | Edge Case - User Without Edit Permission | High | Edge Case |
+| TC-PL-030004 | Negative - User Without View Permission | Medium | Negative |
+| TC-PL-030005 | Edge Case - Empty Line Items | High | Edge Case |
+| TC-PL-040001 | Happy Path: Edit Price List Successfully | Medium | Happy Path |
+| TC-PL-040002 | Negative: Invalid Date Input | Medium | Negative |
+| TC-PL-050001 | Happy Path - Duplicate Price List | High | Happy Path |
+| TC-PL-050002 | Negative - No Permission to Duplicate | Medium | Negative |
+| TC-PL-050003 | Edge Case - Duplicate with No Source Price List | Low | Edge Case |
+| TC-PL-060001 | Happy Path - Export Price List | High | Happy Path |
+| TC-PL-060002 | Negative - Invalid Export Permission | Medium | Negative |
+| TC-PL-060003 | Edge Case - Large Price List | Low | Edge Case |
+| TC-PL-070002 | Negative - No Delete Permission | High | Negative |
+| TC-PL-070003 | Negative - Click Cancel in Confirmation Dialog | Medium | Negative |
+| TC-PL-070004 | Edge Case - Delete Price List from Detail Page | Medium | Edge Case |
+| TC-PL-080001 | Happy Path - Mark Price List as Expired | Medium | Happy Path |
+| TC-PL-080003 | Edge Case - Multiple Price Lists | Low | Edge Case |
+| TC-PL-080004 | Negative - Price List Already Expired | Low | Negative |
 
 ---
 
-## TC-PL00101 — Valid Login and Access to Price Lists Page
+## TC-PL-010001 — Valid Login and Access to Price Lists Page
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -67,7 +67,7 @@ System navigates to /vendor-management/price-list and displays the Price Lists p
 
 ---
 
-## TC-PL00102 — Search Filter with Invalid Keyword
+## TC-PL-010002 — Search Filter with Invalid Keyword
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -90,7 +90,7 @@ System displays an empty table and no price lists are filtered.
 
 ---
 
-## TC-PL00103 — View Price List Details with No Data
+## TC-PL-010003 — View Price List Details with No Data
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -112,7 +112,7 @@ System displays an empty detail page for the selected price list.
 
 ---
 
-## TC-PL00104 — User Without Access to Price Lists Page
+## TC-PL-010004 — User Without Access to Price Lists Page
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -133,7 +133,7 @@ System displays an error message indicating insufficient access rights.
 
 ---
 
-## TC-PL00105 — Filter by Expired Status
+## TC-PL-010005 — Filter by Expired Status
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -156,7 +156,7 @@ System displays only expired price lists in the table.
 
 ---
 
-## TC-PL00201 — Happy Path - Create Valid Price List
+## TC-PL-020001 — Happy Path - Create Valid Price List
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -191,7 +191,7 @@ Price list is created successfully and displayed in the list.
 
 ---
 
-## TC-PL00202 — Negative - Missing Vendor
+## TC-PL-020002 — Negative - Missing Vendor
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -225,7 +225,7 @@ Error message displayed indicating 'Vendor' is required.
 
 ---
 
-## TC-PL00203 — Edge Case - Empty Unit Price
+## TC-PL-020003 — Edge Case - Empty Unit Price
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -260,7 +260,7 @@ Error message displayed indicating 'Unit Price' is required.
 
 ---
 
-## TC-PL00301 — Happy Path - Valid Price List Click
+## TC-PL-030001 — Happy Path - Valid Price List Click
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -283,7 +283,7 @@ System navigates to price list detail page and displays correct price list data.
 
 ---
 
-## TC-PL00302 — Negative - No Price List Selected
+## TC-PL-030002 — Negative - No Price List Selected
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -305,7 +305,7 @@ System displays error message or navigates to error page.
 
 ---
 
-## TC-PL00303 — Edge Case - User Without Edit Permission
+## TC-PL-030003 — Edge Case - User Without Edit Permission
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -327,7 +327,7 @@ System prevents user from accessing edit functionality.
 
 ---
 
-## TC-PL00304 — Negative - User Without View Permission
+## TC-PL-030004 — Negative - User Without View Permission
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -349,7 +349,7 @@ System denies user access or displays error message.
 
 ---
 
-## TC-PL00305 — Edge Case - Empty Line Items
+## TC-PL-030005 — Edge Case - Empty Line Items
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -371,7 +371,7 @@ System displays appropriate message or placeholder for line items.
 
 ---
 
-## TC-PL00401 — Happy Path: Edit Price List Successfully
+## TC-PL-040001 — Happy Path: Edit Price List Successfully
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -398,7 +398,7 @@ Price list is updated successfully, success message is displayed, and user retur
 
 ---
 
-## TC-PL00402 — Negative: Invalid Date Input
+## TC-PL-040002 — Negative: Invalid Date Input
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -423,7 +423,7 @@ System displays error message for invalid date format, price list is not updated
 
 ---
 
-## TC-PL00501 — Happy Path - Duplicate Price List
+## TC-PL-050001 — Happy Path - Duplicate Price List
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -449,7 +449,7 @@ New price list is created with pre-filled data; user can see the new price list 
 
 ---
 
-## TC-PL00502 — Negative - No Permission to Duplicate
+## TC-PL-050002 — Negative - No Permission to Duplicate
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -472,7 +472,7 @@ User sees appropriate error message or no 'Duplicate' option is available.
 
 ---
 
-## TC-PL00503 — Edge Case - Duplicate with No Source Price List
+## TC-PL-050003 — Edge Case - Duplicate with No Source Price List
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -495,7 +495,7 @@ User sees appropriate error message or no 'Duplicate' option is available.
 
 ---
 
-## TC-PL00601 — Happy Path - Export Price List
+## TC-PL-060001 — Happy Path - Export Price List
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -519,7 +519,7 @@ Price list file is downloaded to user's device.
 
 ---
 
-## TC-PL00602 — Negative - Invalid Export Permission
+## TC-PL-060002 — Negative - Invalid Export Permission
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -542,7 +542,7 @@ User cannot export price list and receives appropriate permission error.
 
 ---
 
-## TC-PL00603 — Edge Case - Large Price List
+## TC-PL-060003 — Edge Case - Large Price List
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -565,7 +565,7 @@ System handles large export requests without crashing or significant performance
 
 ---
 
-## TC-PL00702 — Negative - No Delete Permission
+## TC-PL-070002 — Negative - No Delete Permission
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -587,7 +587,7 @@ User receives permission denied message and cannot delete price list.
 
 ---
 
-## TC-PL00703 — Negative - Click Cancel in Confirmation Dialog
+## TC-PL-070003 — Negative - Click Cancel in Confirmation Dialog
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -610,7 +610,7 @@ Price list is not deleted and remains in the list.
 
 ---
 
-## TC-PL00704 — Edge Case - Delete Price List from Detail Page
+## TC-PL-070004 — Edge Case - Delete Price List from Detail Page
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -633,7 +633,7 @@ Price list is deleted successfully and system navigates back to list page.
 
 ---
 
-## TC-PL00801 — Happy Path - Mark Price List as Expired
+## TC-PL-080001 — Happy Path - Mark Price List as Expired
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -657,7 +657,7 @@ Price list status is updated to expired and success toast is displayed.
 
 ---
 
-## TC-PL00803 — Edge Case - Multiple Price Lists
+## TC-PL-080003 — Edge Case - Multiple Price Lists
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -680,7 +680,7 @@ Each selected price list's status is updated to expired and corresponding succes
 
 ---
 
-## TC-PL00804 — Negative - Price List Already Expired
+## TC-PL-080004 — Negative - Price List Already Expired
 
 > **As a** Purchase user, **I want** this Price List behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -704,4 +704,4 @@ User cannot mark an already expired price list as expired and no changes are mad
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git f17f7d9</sub>
+<sub>Last regenerated: 2026-05-06 · git 9b238f5</sub>

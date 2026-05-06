@@ -11,57 +11,57 @@ _Generated from `tests/701-store-requisition.spec.ts` annotations. Edit annotati
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-SR00101 | Happy Path - Create Store Requisition | High | Happy Path |
-| TC-SR00102 | Negative - User Not Assigned to Department | Medium | Negative |
-| TC-SR00103 | Edge Case - No Source Locations Available | Medium | Edge Case |
-| TC-SR00104 | Negative - Invalid Input - Missing Expected Delivery Date | Medium | Negative |
-| TC-SR00105 | Alternate Flow - Quick Create from Template | Medium | Alternate Flow |
-| TC-SR00201 | Happy Path - Add Single Item | Medium | Happy Path |
-| TC-SR00202 | Negative - Invalid Quantity | Medium | Negative |
-| TC-SR00203 | Edge Case - Insufficient Stock | Medium | Edge Case |
-| TC-SR00301 | Happy Path - Sufficient Inventory | High | Happy Path |
-| TC-SR00302 | Negative Case - Insufficient Inventory | High | Negative |
-| TC-SR00303 | Edge Case - No Inventory Records | Medium | Edge Case |
-| TC-SR00304 | Edge Case - Inventory System Unavailable | High | Edge Case |
-| TC-SR00401 | Save as Draft with Valid Input | Medium | Happy Path |
-| TC-SR00402 | Save as Draft with Missing Requisition Number | Medium | Negative |
-| TC-SR00403 | Auto-Save Draft Every 60 Seconds | Low | Edge Case |
-| TC-SR00404 | Save and Close with Valid Input | Medium | Happy Path |
-| TC-SR00405 | Save Failure due to Network/Database Issue | Medium | Negative |
-| TC-SR00501 | Submit approved requisition with valid items | Medium | Happy Path |
-| TC-SR00502 | Submit requisition with missing destination locations | Medium | Negative |
-| TC-SR00503 | Submit requisition with empty line items | High | Negative |
-| TC-SR00504 | Submit requisition as an unauthorized user | Low | Negative |
-| TC-SR00505 | Submit requisition with emergency flag | Medium | Edge Case |
-| TC-SR00601 | Navigate to Store Requisitions with Pending Approvals | High | Happy Path |
-| TC-SR00602 | View Requisition Details with Filtered Columns | Medium | Happy Path |
-| TC-SR00603 | Bulk Action - Export Selected Requisitions | Medium | Happy Path |
-| TC-SR00604 | No Pending Approvals - Empty State | Low | Edge Case |
-| TC-SR00605 | Delegate Approvals for Unavailable User | High | Negative |
-| TC-SR00701 | Approve Requisition with No Quantity Adjustments | High | Happy Path |
-| TC-SR00702 | Unauthorized User Attempts to Approve Requisition | Medium | Negative |
-| TC-SR00703 | Budget Exceeded During Approval | Medium | Edge Case |
-| TC-SR00801 | Happy Path - Approve Item | Medium | Happy Path |
-| TC-SR00802 | Negative - Insufficient Stock for Issuance | High | Negative |
-| TC-SR00803 | Negative - No Permission | High | Negative |
-| TC-SR00901 | Adjust approved quantity: Happy path | High | Happy Path |
-| TC-SR00902 | Decrease approved quantity: Insufficient issued quantity | Medium | Negative |
-| TC-SR00903 | Decrease approved quantity: Fully issued item | High | Edge Case |
-| TC-SR00904 | Increase approved quantity: Stock insufficient | Medium | Negative |
-| TC-SR00905 | Concurrent modification detected | Medium | Edge Case |
-| TC-SR01001 | Request Review with Valid Comments and Specific Items | Medium | Happy Path |
-| TC-SR01002 | Request Review with Invalid Comments | High | Negative |
-| TC-SR01003 | Request Review with No Specific Items Selected | Medium | Edge Case |
-| TC-SR01101 | Primary Actor Rejects Requisition Successfully | High | Happy Path |
-| TC-SR01102 | User Enters Insufficient Rejection Reason | High | Edge Case |
-| TC-SR01103 | User Accidentally Rejects Requisition | Medium | Negative |
-| TC-SR01104 | User Rejects Specific Items Only | Medium | Alternate Flow |
-| TC-SR01201 | Happy Path - Full Issuance | High | Happy Path |
-| TC-SR01203 | Edge Case - Partial Issuance | Medium | Edge Case |
+| TC-SR-010001 | Happy Path - Create Store Requisition | High | Happy Path |
+| TC-SR-010002 | Negative - User Not Assigned to Department | Medium | Negative |
+| TC-SR-010003 | Edge Case - No Source Locations Available | Medium | Edge Case |
+| TC-SR-010004 | Negative - Invalid Input - Missing Expected Delivery Date | Medium | Negative |
+| TC-SR-010005 | Alternate Flow - Quick Create from Template | Medium | Alternate Flow |
+| TC-SR-020001 | Happy Path - Add Single Item | Medium | Happy Path |
+| TC-SR-020002 | Negative - Invalid Quantity | Medium | Negative |
+| TC-SR-020003 | Edge Case - Insufficient Stock | Medium | Edge Case |
+| TC-SR-030001 | Happy Path - Sufficient Inventory | High | Happy Path |
+| TC-SR-030002 | Negative Case - Insufficient Inventory | High | Negative |
+| TC-SR-030003 | Edge Case - No Inventory Records | Medium | Edge Case |
+| TC-SR-030004 | Edge Case - Inventory System Unavailable | High | Edge Case |
+| TC-SR-040001 | Save as Draft with Valid Input | Medium | Happy Path |
+| TC-SR-040002 | Save as Draft with Missing Requisition Number | Medium | Negative |
+| TC-SR-040003 | Auto-Save Draft Every 60 Seconds | Low | Edge Case |
+| TC-SR-040004 | Save and Close with Valid Input | Medium | Happy Path |
+| TC-SR-040005 | Save Failure due to Network/Database Issue | Medium | Negative |
+| TC-SR-050001 | Submit approved requisition with valid items | Medium | Happy Path |
+| TC-SR-050002 | Submit requisition with missing destination locations | Medium | Negative |
+| TC-SR-050003 | Submit requisition with empty line items | High | Negative |
+| TC-SR-050004 | Submit requisition as an unauthorized user | Low | Negative |
+| TC-SR-050005 | Submit requisition with emergency flag | Medium | Edge Case |
+| TC-SR-060001 | Navigate to Store Requisitions with Pending Approvals | High | Happy Path |
+| TC-SR-060002 | View Requisition Details with Filtered Columns | Medium | Happy Path |
+| TC-SR-060003 | Bulk Action - Export Selected Requisitions | Medium | Happy Path |
+| TC-SR-060004 | No Pending Approvals - Empty State | Low | Edge Case |
+| TC-SR-060005 | Delegate Approvals for Unavailable User | High | Negative |
+| TC-SR-070001 | Approve Requisition with No Quantity Adjustments | High | Happy Path |
+| TC-SR-070002 | Unauthorized User Attempts to Approve Requisition | Medium | Negative |
+| TC-SR-070003 | Budget Exceeded During Approval | Medium | Edge Case |
+| TC-SR-080001 | Happy Path - Approve Item | Medium | Happy Path |
+| TC-SR-080002 | Negative - Insufficient Stock for Issuance | High | Negative |
+| TC-SR-080003 | Negative - No Permission | High | Negative |
+| TC-SR-090001 | Adjust approved quantity: Happy path | High | Happy Path |
+| TC-SR-090002 | Decrease approved quantity: Insufficient issued quantity | Medium | Negative |
+| TC-SR-090003 | Decrease approved quantity: Fully issued item | High | Edge Case |
+| TC-SR-090004 | Increase approved quantity: Stock insufficient | Medium | Negative |
+| TC-SR-090005 | Concurrent modification detected | Medium | Edge Case |
+| TC-SR-100001 | Request Review with Valid Comments and Specific Items | Medium | Happy Path |
+| TC-SR-100002 | Request Review with Invalid Comments | High | Negative |
+| TC-SR-100003 | Request Review with No Specific Items Selected | Medium | Edge Case |
+| TC-SR-110001 | Primary Actor Rejects Requisition Successfully | High | Happy Path |
+| TC-SR-110002 | User Enters Insufficient Rejection Reason | High | Edge Case |
+| TC-SR-110003 | User Accidentally Rejects Requisition | Medium | Negative |
+| TC-SR-110004 | User Rejects Specific Items Only | Medium | Alternate Flow |
+| TC-SR-120001 | Happy Path - Full Issuance | High | Happy Path |
+| TC-SR-120003 | Edge Case - Partial Issuance | Medium | Edge Case |
 
 ---
 
-## TC-SR00101 — Happy Path - Create Store Requisition
+## TC-SR-010001 — Happy Path - Create Store Requisition
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -90,7 +90,7 @@ Requisition is saved as draft successfully, inline item addition section is enab
 
 ---
 
-## TC-SR00102 — Negative - User Not Assigned to Department
+## TC-SR-010002 — Negative - User Not Assigned to Department
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -112,7 +112,7 @@ System displays error message 'You must be assigned to a department to create re
 
 ---
 
-## TC-SR00103 — Edge Case - No Source Locations Available
+## TC-SR-010003 — Edge Case - No Source Locations Available
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -135,7 +135,7 @@ System displays warning message 'No storage locations available for your departm
 
 ---
 
-## TC-SR00104 — Negative - Invalid Input - Missing Expected Delivery Date
+## TC-SR-010004 — Negative - Invalid Input - Missing Expected Delivery Date
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -161,7 +161,7 @@ System displays error message for missing expected delivery date, does not save 
 
 ---
 
-## TC-SR00105 — Alternate Flow - Quick Create from Template
+## TC-SR-010005 — Alternate Flow - Quick Create from Template
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -189,7 +189,7 @@ Requisition is saved as draft from template successfully, inline item addition s
 
 ---
 
-## TC-SR00201 — Happy Path - Add Single Item
+## TC-SR-020001 — Happy Path - Add Single Item
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -216,7 +216,7 @@ Item 'Office Chair' added to requisition with correct details.
 
 ---
 
-## TC-SR00202 — Negative - Invalid Quantity
+## TC-SR-020002 — Negative - Invalid Quantity
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -242,7 +242,7 @@ System displays error: 'Quantity must be greater than zero'.
 
 ---
 
-## TC-SR00203 — Edge Case - Insufficient Stock
+## TC-SR-020003 — Edge Case - Insufficient Stock
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -268,7 +268,7 @@ System displays warning: 'Requested quantity exceeds available stock' and sugges
 
 ---
 
-## TC-SR00301 — Happy Path - Sufficient Inventory
+## TC-SR-030001 — Happy Path - Sufficient Inventory
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -296,7 +296,7 @@ System correctly displays sufficient inventory status and available quantity.
 
 ---
 
-## TC-SR00302 — Negative Case - Insufficient Inventory
+## TC-SR-030002 — Negative Case - Insufficient Inventory
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -323,7 +323,7 @@ System correctly indicates insufficient inventory and provides suggested actions
 
 ---
 
-## TC-SR00303 — Edge Case - No Inventory Records
+## TC-SR-030003 — Edge Case - No Inventory Records
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -349,7 +349,7 @@ System correctly indicates no inventory records and suggests alternative actions
 
 ---
 
-## TC-SR00304 — Edge Case - Inventory System Unavailable
+## TC-SR-030004 — Edge Case - Inventory System Unavailable
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -375,7 +375,7 @@ System correctly handles unavailable inventory data by displaying cached informa
 
 ---
 
-## TC-SR00401 — Save as Draft with Valid Input
+## TC-SR-040001 — Save as Draft with Valid Input
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -397,7 +397,7 @@ System saves requisition with draft status and displays success toast.
 
 ---
 
-## TC-SR00402 — Save as Draft with Missing Requisition Number
+## TC-SR-040002 — Save as Draft with Missing Requisition Number
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -419,7 +419,7 @@ System displays validation error for missing requisition number.
 
 ---
 
-## TC-SR00403 — Auto-Save Draft Every 60 Seconds
+## TC-SR-040003 — Auto-Save Draft Every 60 Seconds
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -442,7 +442,7 @@ System displays auto-save indicator at [time] showing draft was auto-saved.
 
 ---
 
-## TC-SR00404 — Save and Close with Valid Input
+## TC-SR-040004 — Save and Close with Valid Input
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -464,7 +464,7 @@ System saves requisition with draft status, navigates to requisitions list, and 
 
 ---
 
-## TC-SR00405 — Save Failure due to Network/Database Issue
+## TC-SR-040005 — Save Failure due to Network/Database Issue
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -486,7 +486,7 @@ System displays error message 'Failed to save requisition. Please try again.' an
 
 ---
 
-## TC-SR00501 — Submit approved requisition with valid items
+## TC-SR-050001 — Submit approved requisition with valid items
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -514,7 +514,7 @@ Requisition status updated to In Progress, no errors.
 
 ---
 
-## TC-SR00502 — Submit requisition with missing destination locations
+## TC-SR-050002 — Submit requisition with missing destination locations
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -542,7 +542,7 @@ Requisition submitted successfully after correcting validation errors.
 
 ---
 
-## TC-SR00503 — Submit requisition with empty line items
+## TC-SR-050003 — Submit requisition with empty line items
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -565,7 +565,7 @@ System displays error message: 'Cannot submit requisition without items'.
 
 ---
 
-## TC-SR00504 — Submit requisition as an unauthorized user
+## TC-SR-050004 — Submit requisition as an unauthorized user
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -587,7 +587,7 @@ System displays error message: 'Unauthorized to perform this action'.
 
 ---
 
-## TC-SR00505 — Submit requisition with emergency flag
+## TC-SR-050005 — Submit requisition with emergency flag
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -611,7 +611,7 @@ Requisition submitted with emergency flag and routed to emergency approval workf
 
 ---
 
-## TC-SR00601 — Navigate to Store Requisitions with Pending Approvals
+## TC-SR-060001 — Navigate to Store Requisitions with Pending Approvals
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -635,7 +635,7 @@ User is navigated to the requisition detail page with all relevant information.
 
 ---
 
-## TC-SR00602 — View Requisition Details with Filtered Columns
+## TC-SR-060002 — View Requisition Details with Filtered Columns
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -659,7 +659,7 @@ Requisition list is sorted by total estimated value and filtered by the selected
 
 ---
 
-## TC-SR00603 — Bulk Action - Export Selected Requisitions
+## TC-SR-060003 — Bulk Action - Export Selected Requisitions
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -683,7 +683,7 @@ Selected requisitions are exported and a file is downloaded.
 
 ---
 
-## TC-SR00604 — No Pending Approvals - Empty State
+## TC-SR-060004 — No Pending Approvals - Empty State
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -705,7 +705,7 @@ System displays 'No pending approvals' message and shows empty state with icon.
 
 ---
 
-## TC-SR00605 — Delegate Approvals for Unavailable User
+## TC-SR-060005 — Delegate Approvals for Unavailable User
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -730,7 +730,7 @@ Pending approvals are transferred to the delegate user and a notification is sen
 
 ---
 
-## TC-SR00701 — Approve Requisition with No Quantity Adjustments
+## TC-SR-070001 — Approve Requisition with No Quantity Adjustments
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -758,7 +758,7 @@ Requisition is approved, workflow history updated, next stage assigned, notifica
 
 ---
 
-## TC-SR00702 — Unauthorized User Attempts to Approve Requisition
+## TC-SR-070002 — Unauthorized User Attempts to Approve Requisition
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -782,7 +782,7 @@ User is denied permission to approve requisition; Approve button remains disable
 
 ---
 
-## TC-SR00703 — Budget Exceeded During Approval
+## TC-SR-070003 — Budget Exceeded During Approval
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -807,7 +807,7 @@ Requisition is approved, workflow history updated, next stage assigned, notifica
 
 ---
 
-## TC-SR00801 — Happy Path - Approve Item
+## TC-SR-080001 — Happy Path - Approve Item
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -831,7 +831,7 @@ Item approved with green checkmark, approved quantity, approver name and timesta
 
 ---
 
-## TC-SR00802 — Negative - Insufficient Stock for Issuance
+## TC-SR-080002 — Negative - Insufficient Stock for Issuance
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -857,7 +857,7 @@ System displays error message for item with insufficient stock and prevents issu
 
 ---
 
-## TC-SR00803 — Negative - No Permission
+## TC-SR-080003 — Negative - No Permission
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -880,7 +880,7 @@ System displays message: 'Insufficient permission to approve this item'. Action 
 
 ---
 
-## TC-SR00901 — Adjust approved quantity: Happy path
+## TC-SR-090001 — Adjust approved quantity: Happy path
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -905,7 +905,7 @@ Line item approved quantity updated, history recorded, notification sent to requ
 
 ---
 
-## TC-SR00902 — Decrease approved quantity: Insufficient issued quantity
+## TC-SR-090002 — Decrease approved quantity: Insufficient issued quantity
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -929,7 +929,7 @@ Error message displayed: 'Cannot reduce below already issued quantity'.
 
 ---
 
-## TC-SR00903 — Decrease approved quantity: Fully issued item
+## TC-SR-090003 — Decrease approved quantity: Fully issued item
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -951,7 +951,7 @@ Action menu disabled, message displayed: 'Item fully issued. Cannot adjust appro
 
 ---
 
-## TC-SR00904 — Increase approved quantity: Stock insufficient
+## TC-SR-090004 — Increase approved quantity: Stock insufficient
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -975,7 +975,7 @@ Warning message displayed, increase not allowed.
 
 ---
 
-## TC-SR00905 — Concurrent modification detected
+## TC-SR-090005 — Concurrent modification detected
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -998,7 +998,7 @@ Message displayed, item reloaded with latest data, user can retry adjustment.
 
 ---
 
-## TC-SR01001 — Request Review with Valid Comments and Specific Items
+## TC-SR-100001 — Request Review with Valid Comments and Specific Items
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1023,7 +1023,7 @@ Review request sent to requestor; system displays success message; sends notific
 
 ---
 
-## TC-SR01002 — Request Review with Invalid Comments
+## TC-SR-100002 — Request Review with Invalid Comments
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1047,7 +1047,7 @@ System displays error message: 'Review comments are required (min 20 characters)
 
 ---
 
-## TC-SR01003 — Request Review with No Specific Items Selected
+## TC-SR-100003 — Request Review with No Specific Items Selected
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1072,7 +1072,7 @@ System asks: 'Apply review to all items or select specific items?'. User must se
 
 ---
 
-## TC-SR01101 — Primary Actor Rejects Requisition Successfully
+## TC-SR-110001 — Primary Actor Rejects Requisition Successfully
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1096,7 +1096,7 @@ Requisition status updates to 'Rejected', rejection reason is recorded, notifica
 
 ---
 
-## TC-SR01102 — User Enters Insufficient Rejection Reason
+## TC-SR-110002 — User Enters Insufficient Rejection Reason
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1120,7 +1120,7 @@ System displays error: 'Rejection reason must be at least 50 characters', user m
 
 ---
 
-## TC-SR01103 — User Accidentally Rejects Requisition
+## TC-SR-110003 — User Accidentally Rejects Requisition
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1144,7 +1144,7 @@ System displays success message: 'Requisition rejected', user can void rejection
 
 ---
 
-## TC-SR01104 — User Rejects Specific Items Only
+## TC-SR-110004 — User Rejects Specific Items Only
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1168,7 +1168,7 @@ Selected items are marked as rejected, other items continue approval process, re
 
 ---
 
-## TC-SR01201 — Happy Path - Full Issuance
+## TC-SR-120001 — Happy Path - Full Issuance
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1196,7 +1196,7 @@ Requisition is marked as completed, issuance document is generated, and stock ba
 
 ---
 
-## TC-SR01203 — Edge Case - Partial Issuance
+## TC-SR-120003 — Edge Case - Partial Issuance
 
 > **As a** Purchase user, **I want** this Store Requisition behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1225,4 +1225,4 @@ Requisition remains in progress status, and remaining quantities are tracked.
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git f17f7d9</sub>
+<sub>Last regenerated: 2026-05-06 · git 9b238f5</sub>
