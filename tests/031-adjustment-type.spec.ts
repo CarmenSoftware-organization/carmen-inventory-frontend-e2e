@@ -21,7 +21,7 @@ const opts = {
 
 test.describe("Adjustment Type — Smoke & CRUD", () => {
   test(
-    "TC-AT00101 หน้า list โหลดสำเร็จ",
+    "TC-AT-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
@@ -40,7 +40,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-AT00102 ปุ่ม Add แสดง",
+    "TC-AT-010002 ปุ่ม Add แสดง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/adjustment-type" },
@@ -57,7 +57,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-AT00103 ช่องค้นหาใช้งานได้",
+    "TC-AT-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/adjustment-type" },
@@ -75,7 +75,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-AT00104 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    "TC-AT-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/adjustment-type" },
@@ -95,7 +95,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-AT00105 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
+    "TC-AT-010005 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/adjustment-type/new" },
@@ -113,7 +113,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-AT00106 สร้างรายการใหม่ (Stock In) และปรากฏในตาราง",
+    "TC-AT-010006 สร้างรายการใหม่ (Stock In) และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record CODE ยังไม่มีอยู่ใน DB" },
@@ -143,10 +143,10 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-AT00107 แก้ไขชื่อและบันทึก",
+    "TC-AT-010007 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "TC-AT00106 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-AT-010006 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา CODE ใน list\n2. คลิกแถวเพื่อเปิด detail\n3. กดปุ่ม Edit\n4. แก้ name เป็น NAME_UPDATED\n5. กด Save" },
         { type: "expected", description: "Updated/success toast ปรากฏ (updated/success/สำเร็จ)" },
         { type: "priority", description: "High" },
@@ -171,10 +171,10 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-AT00115 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error",
+    "TC-AT-010015 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "TC-AT00107 ผ่านแล้ว → record มี name = NAME_UPDATED" },
+        { type: "preconditions", description: "TC-AT-010007 ผ่านแล้ว → record มี name = NAME_UPDATED" },
         { type: "steps", description: "1. ค้นหา CODE ใน list\n2. เปิด detail\n3. กด Edit\n4. clear code + name\n5. กด Save" },
         { type: "expected", description: "Save button ยังคง visible (form ไม่ submit; ยังอยู่ใน edit mode)" },
         { type: "priority", description: "Medium" },
@@ -196,10 +196,10 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-AT00108 ลบรายการ (Stock In)",
+    "TC-AT-010008 ลบรายการ (Stock In)",
     {
       annotation: [
-        { type: "preconditions", description: "TC-AT00115 ผ่านแล้ว → record CODE ยังคงมีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-AT-010015 ผ่านแล้ว → record CODE ยังคงมีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา CODE ใน list\n2. เปิด detail\n3. กด Edit\n4. กด Delete\n5. ยืนยัน Delete" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
         { type: "priority", description: "High" },
@@ -220,7 +220,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-AT00109 สร้างรายการใหม่ (Stock Out) และปรากฏในตาราง",
+    "TC-AT-010009 สร้างรายการใหม่ (Stock Out) และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record CODE_OUT ยังไม่มีอยู่ใน DB" },
@@ -249,10 +249,10 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-AT00110 ลบรายการ (Stock Out)",
+    "TC-AT-010010 ลบรายการ (Stock Out)",
     {
       annotation: [
-        { type: "preconditions", description: "TC-AT00109 ผ่านแล้ว → record CODE_OUT มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-AT-010009 ผ่านแล้ว → record CODE_OUT มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา CODE_OUT ใน list\n2. เปิด detail\n3. กด Edit\n4. กด Delete\n5. ยืนยัน Delete" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
         { type: "priority", description: "High" },
@@ -276,7 +276,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     prefix: "AT",
     listPath: PATH,
     makeHelper: (page) => new PageFormCrudHelper(page, opts),
-    // TC-AT00109/AT10 used by Stock Out create/delete — security cases start at 11 (TCS-AT00111..14)
+    // TC-AT-010009/AT10 used by Stock Out create/delete — security cases start at 11 (TCS-AT00111..14)
     startIndex: 11,
     skipAuth: true, // TCS-AT00114 skipped
   });
