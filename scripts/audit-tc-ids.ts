@@ -94,11 +94,20 @@ export async function auditFile(
     errors.push({ code: "MULTI_PREFIX", message: `Multiple prefixes in one spec: ${[...prefixes].join(", ")}`, file });
   }
 
-  // Duplicate check (within file)
-  const seen = new Set<string>();
-  for (const id of ids) {
-    if (seen.has(id)) errors.push({ code: "DUPLICATE", message: `Duplicate ID: ${id}`, file, testId: id });
-    seen.add(id);
+  // Duplicate check: a real duplicate is the same ID in 2+ test() titles.
+  // Annotation references (preconditions, etc.) are NOT duplicates.
+  const TEST_TITLE_RE = /\btest(?:\.skip)?\s*\(\s*(?:`|"|')([^`"']+)/g;
+  const titleSeen = new Set<string>();
+  let titleMatch: RegExpExecArray | null;
+  while ((titleMatch = TEST_TITLE_RE.exec(src)) !== null) {
+    const titleStr = titleMatch[1];
+    const idMatch = titleStr.match(/\bTC-([A-Z]{2,5})-(\d{6})\b/);
+    if (!idMatch) continue;
+    const fullId = `TC-${idMatch[1]}-${idMatch[2]}`;
+    if (titleSeen.has(fullId)) {
+      errors.push({ code: "DUPLICATE", message: `Duplicate ID in test titles: ${fullId}`, file, testId: fullId });
+    }
+    titleSeen.add(fullId);
   }
 
   return { file, errors, warnings, ids };

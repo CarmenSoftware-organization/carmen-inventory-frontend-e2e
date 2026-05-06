@@ -38,9 +38,9 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `080-location.spec.ts` | `LOC` | 01–05 | CRUD |
 | `101-product-category.spec.ts` | `CAT` | 01–15 (CATEG-collapsed), 02 (PRODU-collapsed), 03 (RECIP-collapsed), 20–29 | Multi-prefix collapse |
 | `150-vendor.spec.ts` | `VEN` | 01–05, 10–19 | CRUD + security |
-| `159-price-list.spec.ts` | `PL` | 01–05 | CRUD |
-| `160-price-list-template.spec.ts` | `PT` | 01–05 | CRUD |
-| `201-my-approvals.spec.ts` | `MA` | 01 (MY-collapsed), 02 (APPR-collapsed) | Multi-prefix collapse |
+| `159-price-list.spec.ts` | `PL` | 01–08, 90 | CRUD + sub-journeys + edge cases |
+| `160-price-list-template.spec.ts` | `PT` | 01–06, 90 | CRUD + sub-journeys + edge cases |
+| `201-my-approvals.spec.ts` | `MA` | 01–06, 90 | CRUD + edge cases |
 | `301-purchase-request.spec.ts` | `PR` | 01–23, 30–39 | Module entry point |
 | `302-pr-creator-journey.spec.ts` | `PR` | 05 | Sub-journey |
 | `303-pr-approver-journey.spec.ts` | `PR` | 06 | Sub-journey |
@@ -50,13 +50,13 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `401-purchase-order.spec.ts` | `PO` | 01–07, 10–19, 20–29, 30–39 | Module entry point |
 | `402-po-purchaser-journey.spec.ts` | `PO` | 06 | Sub-journey |
 | `403-po-approver-journey.spec.ts` | `PO` | 07 | Sub-journey |
-| `501-good-received-note.spec.ts` | `GRN` | 01–05, 10–19 | CRUD + security |
+| `501-good-received-note.spec.ts` | `GRN` | 01–18, 90 | CRUD + sub-journeys + security + edge cases |
 | `601-credit-note.spec.ts` | `CN` | 01–11, 20–29, 30–39 | CRUD + validation + integration |
 | `602-credit-note-reason.spec.ts` | `CNR` | 01–05 | CRUD |
-| `701-store-requisition.spec.ts` | `SR` | 01–05, 10–19 | CRUD + security |
-| `720-stock-issue.spec.ts` | `SI` | 01–05, 10–19 | CRUD + security |
-| `900-period-end.spec.ts` | `PE` | 01–04, 30–39 | CRUD + integration |
-| `1001-campaign.spec.ts` | `CAM` | 01–05 (RP-collapsed into 04) | Multi-prefix collapse |
+| `701-store-requisition.spec.ts` | `SR` | 01–12, 90 | CRUD + sub-journeys + security + edge cases |
+| `720-stock-issue.spec.ts` | `SI` | 01–06, 90 | CRUD + sub-journeys + edge cases |
+| `900-period-end.spec.ts` | `PE` | 01–04, 31–34, 90 | CRUD + integration + edge cases |
+| `1001-campaign.spec.ts` | `CAM` | 01–10, 90 | CRUD + sub-journeys + edge cases |
 
 ## Adding a new module
 
