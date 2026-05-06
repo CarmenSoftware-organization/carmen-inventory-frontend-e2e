@@ -85,6 +85,44 @@ export class PurchaseRequestPage extends BasePage {
     await this.page.waitForLoadState("networkidle");
   }
 
+  // ── List filters / search / sort / tabs ──────────────────────────────
+  async searchFor(text: string) {
+    const input = this.searchInput();
+    await input.fill(text);
+    await this.page.waitForLoadState("networkidle").catch(() => {});
+  }
+
+  async applyFilter(opts: { status?: string }) {
+    await this.filterButton().click();
+    if (opts.status) {
+      const trigger = this.page
+        .getByRole("dialog")
+        .getByLabel(/status/i)
+        .first()
+        .or(this.page.getByLabel(/status/i).first());
+      if ((await trigger.count()) > 0) {
+        await trigger.click();
+        await this.page.getByRole("option", { name: new RegExp(opts.status, "i") }).first().click();
+      }
+    }
+    const apply = this.page.getByRole("button", { name: /^apply$|^ok$/i }).first();
+    if ((await apply.count()) > 0) await apply.click({ timeout: 5_000 }).catch(() => {});
+  }
+
+  async sortBy(column: string) {
+    const header = this.page.getByRole("columnheader", { name: new RegExp(column, "i") }).first();
+    if ((await header.count()) > 0) await header.click();
+    await this.page.waitForLoadState("networkidle").catch(() => {});
+  }
+
+  tabMyPending(): Locator {
+    return this.page.getByRole("tab", { name: /my pending|my pr/i }).first();
+  }
+
+  tabAllDocuments(): Locator {
+    return this.page.getByRole("tab", { name: /all documents|^all$/i }).first();
+  }
+
   // ── Create dialog (list "Create Purchase Request" entry) ──────────────
   createDialogBlankOption(): Locator {
     return this.page.getByRole("button", { name: /blank|empty|start.*scratch|new pr/i }).first();
@@ -298,6 +336,90 @@ export class PurchaseRequestPage extends BasePage {
       this.page
         .locator('[data-sonner-toast], [role="status"], [role="alert"]')
         .filter({ hasText: /success|saved|created|updated|approved|rejected|submitted|สำเร็จ/i })
+        .first(),
+    ).toBeVisible({ timeout: 10_000 });
+  }
+
+  // ── Detail page tabs ─────────────────────────────────────────────────
+  tabItems(): Locator {
+    return this.page.getByRole("tab", { name: /^items$/i }).first();
+  }
+
+  tabWorkflowHistory(): Locator {
+    return this.page.getByRole("tab", { name: /workflow history|workflow/i }).first();
+  }
+
+  // ── Edit mode ────────────────────────────────────────────────────────
+  editModeButton(): Locator {
+    return this.page.getByRole("button", { name: /^edit$|edit pr|edit mode/i }).first();
+  }
+
+  async enterEditMode() {
+    await this.editModeButton().click();
+    await this.page.waitForLoadState("networkidle").catch(() => {});
+  }
+
+  async cancelEditMode() {
+    await this.cancelFormButton().click({ timeout: 5_000 }).catch(() => {});
+  }
+
+  // ── Line item mutation ───────────────────────────────────────────────
+  async removeLineItem(index: number) {
+    const row = this.itemRow(index);
+    const remove = row.getByRole("button", { name: /remove|delete|trash/i }).first();
+    if ((await remove.count()) > 0) await remove.click();
+  }
+
+  async editLineItem(index: number, fields: PRLineItemInput) {
+    const row = this.itemRow(index);
+    const editBtn = row.getByRole("button", { name: /edit/i }).first();
+    if ((await editBtn.count()) > 0) {
+      await editBtn.click();
+      await this.page.waitForLoadState("domcontentloaded").catch(() => {});
+    }
+    if (fields.quantity !== undefined) {
+      const q = this.page.getByLabel(/^quantity$|^qty$/i).first();
+      if ((await q.count()) > 0) await q.fill(String(fields.quantity));
+    }
+    if (fields.description !== undefined) {
+      const d = this.page.getByLabel(/item description/i).first();
+      if ((await d.count()) > 0) await d.fill(fields.description);
+    }
+    const save = this.page.getByRole("button", { name: /^save$|^update$/i }).last();
+    if ((await save.count()) > 0) await save.click({ timeout: 5_000 }).catch(() => {});
+  }
+
+  // ── Template picker (Step 3) ─────────────────────────────────────────
+  createDialogTemplateOption(): Locator {
+    return this.page.getByRole("button", { name: /from template|use template|template/i }).first();
+  }
+
+  // NOTE: dialog vs listbox shape is speculative — adjust once Step 3 UI is confirmed.
+  templatePicker(): Locator {
+    return this.page.getByRole("dialog").or(this.page.getByRole("listbox")).first();
+  }
+
+  templatePickerEmpty(): Locator {
+    return this.templatePicker().getByText(/no templates|empty|none available/i).first();
+  }
+
+  async selectFirstTemplate() {
+    const options = this.templatePicker().getByRole("option");
+    const links = this.templatePicker().getByRole("link");
+    if ((await options.count()) > 0) {
+      await options.first().click();
+    } else if ((await links.count()) > 0) {
+      await links.first().click();
+    }
+    await this.page.waitForLoadState("networkidle").catch(() => {});
+  }
+
+  // ── Status assertion ─────────────────────────────────────────────────
+  async expectStatus(status: string) {
+    await expect(
+      this.page
+        .locator("[data-slot='badge'], [class*='badge']")
+        .filter({ hasText: new RegExp(status, "i") })
         .first(),
     ).toBeVisible({ timeout: 10_000 });
   }

@@ -1110,4 +1110,4 @@ All campaigns are displayed with correct result count.
 ---
 
 
-<sub>Last regenerated: 2026-04-28 · git 9591f92</sub>
+<sub>Last regenerated: 2026-05-06 · git 2497e17</sub>
