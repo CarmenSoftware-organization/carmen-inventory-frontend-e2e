@@ -27,13 +27,18 @@ export default defineConfig({
   },
   projects: [
     {
+      name: "setup",
+      testMatch: /auth\.setup\.ts$/,
+      use: { ...devices["Desktop Chrome"] },
+    },
+    {
       name: "login",
-      testMatch: /login\.spec\.ts/,
+      testMatch: /001-login\.spec\.ts/,
       use: { ...devices["Desktop Chrome"] },
     },
     {
       name: "chromium",
-      testIgnore: /login\.spec\.ts/,
+      testIgnore: /001-login\.spec\.ts$|auth\.setup\.ts$/,
       use: { ...devices["Desktop Chrome"] },
     },
   ],
