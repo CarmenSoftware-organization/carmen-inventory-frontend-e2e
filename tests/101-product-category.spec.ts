@@ -15,11 +15,11 @@ const requestorTest = createAuthTest("requestor@blueledgers.com");
 const purchaseTest = createAuthTest("purchase@blueledgers.com");
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT001 — View Categories (tree/list)
+// TC-CAT-900001 — View Categories (tree/list)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — View", () => {
   purchaseTest(
-    "TC-CAT00101 View all categories",
+    "TC-CAT-010001 View all categories",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated and has category view permission" },
@@ -41,7 +41,7 @@ purchaseTest.describe("Product Category — View", () => {
   );
 
   purchaseTest(
-    "TC-CAT00103 Expand and collapse category levels",
+    "TC-CAT-010003 Expand and collapse category levels",
     {
       annotation: [
         { type: "preconditions", description: "User has category view permission" },
@@ -62,7 +62,7 @@ purchaseTest.describe("Product Category — View", () => {
   );
 
   purchaseTest(
-    "TC-CAT00104 Category hierarchy with very long names",
+    "TC-CAT-010004 Category hierarchy with very long names",
     {
       annotation: [
         { type: "preconditions", description: "User has category view permission" },
@@ -83,7 +83,7 @@ purchaseTest.describe("Product Category — View", () => {
   );
 
   purchaseTest(
-    "TC-CAT00105 Multiple levels of categories",
+    "TC-CAT-010005 Multiple levels of categories",
     {
       annotation: [
         { type: "preconditions", description: "User has category view permission" },
@@ -106,7 +106,7 @@ purchaseTest.describe("Product Category — View", () => {
 
 requestorTest.describe("Product Category — View — Permission denial", () => {
   requestorTest(
-    "TC-CAT00102 No permission to view categories",
+    "TC-CAT-010002 No permission to view categories",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated but does not have category view permission" },
@@ -130,11 +130,11 @@ requestorTest.describe("Product Category — View — Permission denial", () => 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT002 — Create Root Category
+// TC-CAT-900002 — Create Root Category
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Create Root", () => {
   purchaseTest(
-    "TC-CAT00201 Happy Path - Create Root Category",
+    "TC-CAT-020001 Happy Path - Create Root Category",
     {
       annotation: [
         { type: "preconditions", description: "User has category creation permission and 'Product Manager' or 'System Administrator' role" },
@@ -155,7 +155,7 @@ purchaseTest.describe("Product Category — Create Root", () => {
   );
 
   purchaseTest(
-    "TC-CAT00203 Edge Case - Category Name Exceeds Maximum Length",
+    "TC-CAT-020003 Edge Case - Category Name Exceeds Maximum Length",
     {
       annotation: [
         { type: "preconditions", description: "User has category creation permission" },
@@ -183,7 +183,7 @@ purchaseTest.describe("Product Category — Create Root", () => {
 
 requestorTest.describe("Product Category — Create Root — Permission denial", () => {
   requestorTest(
-    "TC-CAT00202 Negative - No Permission to Create Category",
+    "TC-CAT-020002 Negative - No Permission to Create Category",
     {
       annotation: [
         { type: "preconditions", description: "User does not have category creation permission" },
@@ -209,11 +209,11 @@ requestorTest.describe("Product Category — Create Root — Permission denial",
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT003 — Create Subcategory
+// TC-CAT-900003 — Create Subcategory
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Create Subcategory", () => {
   purchaseTest(
-    "TC-CAT00301 Happy Path - Create Subcategory",
+    "TC-CAT-030001 Happy Path - Create Subcategory",
     {
       annotation: [
         { type: "preconditions", description: "User has category creation permission; at least one root-level category exists; parent category is active" },
@@ -234,7 +234,7 @@ purchaseTest.describe("Product Category — Create Subcategory", () => {
   );
 
   purchaseTest(
-    "TC-CAT00302 Negative Case - Invalid Subcategory Name",
+    "TC-CAT-030002 Negative Case - Invalid Subcategory Name",
     {
       annotation: [
         { type: "preconditions", description: "User has category creation permission; at least one root-level category exists" },
@@ -255,7 +255,7 @@ purchaseTest.describe("Product Category — Create Subcategory", () => {
   );
 
   purchaseTest(
-    "TC-CAT00304 Edge Case - Maximum Subcategory Level",
+    "TC-CAT-030004 Edge Case - Maximum Subcategory Level",
     {
       annotation: [
         { type: "preconditions", description: "User has category creation permission; at least one root-level category exists" },
@@ -278,7 +278,7 @@ purchaseTest.describe("Product Category — Create Subcategory", () => {
 
 requestorTest.describe("Product Category — Create Subcategory — Permission denial", () => {
   requestorTest(
-    "TC-CAT00303 Negative Case - No Permission",
+    "TC-CAT-030003 Negative Case - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have category creation permission" },
@@ -300,11 +300,11 @@ requestorTest.describe("Product Category — Create Subcategory — Permission d
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT004 — Create Item Group
+// TC-CAT-900004 — Create Item Group
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Create Item Group", () => {
   purchaseTest(
-    "TC-CAT00401 Create Valid Item Group",
+    "TC-CAT-040001 Create Valid Item Group",
     {
       annotation: [
         { type: "preconditions", description: "User has category creation permission; at least one subcategory exists; parent subcategory is active" },
@@ -325,7 +325,7 @@ purchaseTest.describe("Product Category — Create Item Group", () => {
   );
 
   purchaseTest(
-    "TC-CAT00403 Create Item Group with Invalid Subcategory Selection",
+    "TC-CAT-040003 Create Item Group with Invalid Subcategory Selection",
     {
       annotation: [
         { type: "preconditions", description: "User has category creation permission; no subcategory exists" },
@@ -346,7 +346,7 @@ purchaseTest.describe("Product Category — Create Item Group", () => {
   );
 
   purchaseTest(
-    "TC-CAT00405 Create Item Group with Long Name",
+    "TC-CAT-040005 Create Item Group with Long Name",
     {
       annotation: [
         { type: "preconditions", description: "User has category creation permission; at least one subcategory exists" },
@@ -369,7 +369,7 @@ purchaseTest.describe("Product Category — Create Item Group", () => {
 
 requestorTest.describe("Product Category — Create Item Group — Permission denial", () => {
   requestorTest(
-    "TC-CAT00402 Create Item Group with Missing Permission",
+    "TC-CAT-040002 Create Item Group with Missing Permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have category creation permission" },
@@ -395,11 +395,11 @@ requestorTest.describe("Product Category — Create Item Group — Permission de
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT005 — Edit Category
+// TC-CAT-900005 — Edit Category
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Edit", () => {
   purchaseTest(
-    "TC-CAT00501 Edit Existing Category Name",
+    "TC-CAT-050001 Edit Existing Category Name",
     {
       annotation: [
         { type: "preconditions", description: "User has category edit permission; category exists; not actively referenced in critical processes" },
@@ -420,7 +420,7 @@ purchaseTest.describe("Product Category — Edit", () => {
   );
 
   purchaseTest(
-    "TC-CAT00502 Try to Edit Non-Existent Category",
+    "TC-CAT-050002 Try to Edit Non-Existent Category",
     {
       annotation: [
         { type: "preconditions", description: "User has category edit permission; category does not exist" },
@@ -441,7 +441,7 @@ purchaseTest.describe("Product Category — Edit", () => {
   );
 
   purchaseTest(
-    "TC-CAT00504 Edit Category with Invalid Input",
+    "TC-CAT-050004 Edit Category with Invalid Input",
     {
       annotation: [
         { type: "preconditions", description: "User has category edit permission; category exists" },
@@ -462,7 +462,7 @@ purchaseTest.describe("Product Category — Edit", () => {
   );
 
   purchaseTest(
-    "TC-CAT00505 Edit Category with Active Reference",
+    "TC-CAT-050005 Edit Category with Active Reference",
     {
       annotation: [
         { type: "preconditions", description: "Category is actively referenced in critical processes" },
@@ -485,7 +485,7 @@ purchaseTest.describe("Product Category — Edit", () => {
 
 requestorTest.describe("Product Category — Edit — Permission denial", () => {
   requestorTest(
-    "TC-CAT00503 Edit Category with No Permission",
+    "TC-CAT-050003 Edit Category with No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have category edit permission" },
@@ -507,11 +507,11 @@ requestorTest.describe("Product Category — Edit — Permission denial", () => 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT006 — Delete Category
+// TC-CAT-900006 — Delete Category
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Delete", () => {
   purchaseTest(
-    "TC-CAT00601 Delete existing category",
+    "TC-CAT-060001 Delete existing category",
     {
       annotation: [
         { type: "preconditions", description: "System Administrator logged in; category exists and is not marked as deleted" },
@@ -532,7 +532,7 @@ purchaseTest.describe("Product Category — Delete", () => {
   );
 
   purchaseTest(
-    "TC-CAT00602 Attempt to delete category with assigned products",
+    "TC-CAT-060002 Attempt to delete category with assigned products",
     {
       annotation: [
         { type: "preconditions", description: "Category exists and has at least one product assignment" },
@@ -553,7 +553,7 @@ purchaseTest.describe("Product Category — Delete", () => {
   );
 
   purchaseTest(
-    "TC-CAT00603 Attempt to delete non-existing category",
+    "TC-CAT-060003 Attempt to delete non-existing category",
     {
       annotation: [
         { type: "preconditions", description: "Non-existing category name entered" },
@@ -574,7 +574,7 @@ purchaseTest.describe("Product Category — Delete", () => {
   );
 
   purchaseTest(
-    "TC-CAT00604 Delete category after logging out",
+    "TC-CAT-060004 Delete category after logging out",
     {
       annotation: [
         { type: "preconditions", description: "Category exists and is not marked as deleted" },
@@ -596,11 +596,11 @@ purchaseTest.describe("Product Category — Delete", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT007 — Reorder / Drag-Drop
+// TC-CAT-900007 — Reorder / Drag-Drop
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Reorder / Drag-Drop", () => {
   purchaseTest(
-    "TC-CAT00701 Reorder Categories within Same Parent",
+    "TC-CAT-070001 Reorder Categories within Same Parent",
     {
       annotation: [
         { type: "preconditions", description: "User has category management permission; multiple categories exist at the same level; user is viewing the tree view" },
@@ -621,7 +621,7 @@ purchaseTest.describe("Product Category — Reorder / Drag-Drop", () => {
   );
 
   purchaseTest(
-    "TC-CAT00702 Move Category to Different Parent",
+    "TC-CAT-070002 Move Category to Different Parent",
     {
       annotation: [
         { type: "preconditions", description: "User has category management permission; multiple categories exist at different levels" },
@@ -642,7 +642,7 @@ purchaseTest.describe("Product Category — Reorder / Drag-Drop", () => {
   );
 
   purchaseTest(
-    "TC-CAT00704 Attempt to Drag Category Outside of Current Parent",
+    "TC-CAT-070004 Attempt to Drag Category Outside of Current Parent",
     {
       annotation: [
         { type: "preconditions", description: "User has category management permission; multiple categories exist at the same level" },
@@ -663,7 +663,7 @@ purchaseTest.describe("Product Category — Reorder / Drag-Drop", () => {
   );
 
   purchaseTest(
-    "TC-CAT00705 Drag Category with No Siblings",
+    "TC-CAT-070005 Drag Category with No Siblings",
     {
       annotation: [
         { type: "preconditions", description: "User has category management permission; single category exists" },
@@ -685,7 +685,7 @@ purchaseTest.describe("Product Category — Reorder / Drag-Drop", () => {
 
 requestorTest.describe("Product Category — Reorder — Permission denial", () => {
   requestorTest(
-    "TC-CAT00703 Unable to Reorder without Permission",
+    "TC-CAT-070003 Unable to Reorder without Permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have category management permission" },
@@ -706,11 +706,11 @@ requestorTest.describe("Product Category — Reorder — Permission denial", () 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT008 — View toggling (Tree / List)
+// TC-CAT-900008 — View toggling (Tree / List)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Tree/List view", () => {
   purchaseTest(
-    "TC-CAT00801 Switch from Tree to List View",
+    "TC-CAT-080001 Switch from Tree to List View",
     {
       annotation: [
         { type: "preconditions", description: "User is viewing Categories page with existing categories" },
@@ -733,7 +733,7 @@ purchaseTest.describe("Product Category — Tree/List view", () => {
   );
 
   purchaseTest(
-    "TC-CAT00802 Switch from List to Tree View",
+    "TC-CAT-080002 Switch from List to Tree View",
     {
       annotation: [
         { type: "preconditions", description: "User is viewing Categories page with existing categories in List view" },
@@ -756,7 +756,7 @@ purchaseTest.describe("Product Category — Tree/List view", () => {
   );
 
   purchaseTest(
-    "TC-CAT00803 Negative: Switch View with No Categories",
+    "TC-CAT-080003 Negative: Switch View with No Categories",
     {
       annotation: [
         { type: "preconditions", description: "User is viewing Categories page with no categories" },
@@ -777,7 +777,7 @@ purchaseTest.describe("Product Category — Tree/List view", () => {
   );
 
   purchaseTest(
-    "TC-CAT00804 Edge Case: Switch Views Multiple Times",
+    "TC-CAT-080004 Edge Case: Switch Views Multiple Times",
     {
       annotation: [
         { type: "preconditions", description: "User is viewing Categories page with existing categories" },
@@ -799,11 +799,11 @@ purchaseTest.describe("Product Category — Tree/List view", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT009 — Search
+// TC-CAT-900009 — Search
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Search", () => {
   purchaseTest(
-    "TC-CAT00901 Happy Path - Search for Existing Category",
+    "TC-CAT-090001 Happy Path - Search for Existing Category",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view categories" },
@@ -826,7 +826,7 @@ purchaseTest.describe("Product Category — Search", () => {
   );
 
   purchaseTest(
-    "TC-CAT00902 Negative Case - Search with Invalid Input",
+    "TC-CAT-090002 Negative Case - Search with Invalid Input",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view categories" },
@@ -849,7 +849,7 @@ purchaseTest.describe("Product Category — Search", () => {
   );
 
   purchaseTest(
-    "TC-CAT00903 Edge Case - Search with Empty Input",
+    "TC-CAT-090003 Edge Case - Search with Empty Input",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view categories" },
@@ -872,7 +872,7 @@ purchaseTest.describe("Product Category — Search", () => {
 
 requestorTest.describe("Product Category — Search — Permission denial", () => {
   requestorTest(
-    "TC-CAT00904 Negative Case - User without Permission",
+    "TC-CAT-090004 Negative Case - User without Permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have permission to view categories" },
@@ -894,11 +894,11 @@ requestorTest.describe("Product Category — Search — Permission denial", () =
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT010 — Filters
+// TC-CAT-900010 — Filters
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Filters", () => {
   purchaseTest(
-    "TC-CAT01001 Apply multiple filters successfully",
+    "TC-CAT-100001 Apply multiple filters successfully",
     {
       annotation: [
         { type: "preconditions", description: "User is viewing Categories page; multiple categories exist with varied attributes" },
@@ -921,7 +921,7 @@ purchaseTest.describe("Product Category — Filters", () => {
   );
 
   purchaseTest(
-    "TC-CAT01002 Apply filters with invalid input",
+    "TC-CAT-100002 Apply filters with invalid input",
     {
       annotation: [
         { type: "preconditions", description: "User is viewing Categories page; multiple categories exist" },
@@ -942,7 +942,7 @@ purchaseTest.describe("Product Category — Filters", () => {
   );
 
   purchaseTest(
-    "TC-CAT01003 Apply filters with no categories matching",
+    "TC-CAT-100003 Apply filters with no categories matching",
     {
       annotation: [
         { type: "preconditions", description: "User is viewing Categories page; multiple categories exist" },
@@ -962,7 +962,7 @@ purchaseTest.describe("Product Category — Filters", () => {
   );
 
   purchaseTest(
-    "TC-CAT01004 Apply filters with no filters applied",
+    "TC-CAT-100004 Apply filters with no filters applied",
     {
       annotation: [
         { type: "preconditions", description: "User is viewing Categories page; multiple categories exist" },
@@ -983,11 +983,11 @@ purchaseTest.describe("Product Category — Filters", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT011 — Breadcrumb Navigation
+// TC-CAT-900011 — Breadcrumb Navigation
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Breadcrumb", () => {
   purchaseTest(
-    "TC-CAT01101 Select a Category with Breadcrumbs",
+    "TC-CAT-110001 Select a Category with Breadcrumbs",
     {
       annotation: [
         { type: "preconditions", description: "User has logged in and selected a category in the tree view" },
@@ -1008,7 +1008,7 @@ purchaseTest.describe("Product Category — Breadcrumb", () => {
   );
 
   purchaseTest(
-    "TC-CAT01102 Navigate Up a Level Using Breadcrumbs",
+    "TC-CAT-110002 Navigate Up a Level Using Breadcrumbs",
     {
       annotation: [
         { type: "preconditions", description: "User has selected a category in the tree view with at least one parent" },
@@ -1029,7 +1029,7 @@ purchaseTest.describe("Product Category — Breadcrumb", () => {
   );
 
   purchaseTest(
-    "TC-CAT01103 Breadcrumb Trail Displays Correctly with Multiple Parents",
+    "TC-CAT-110003 Breadcrumb Trail Displays Correctly with Multiple Parents",
     {
       annotation: [
         { type: "preconditions", description: "User has selected a category with multiple levels of parents" },
@@ -1050,7 +1050,7 @@ purchaseTest.describe("Product Category — Breadcrumb", () => {
   );
 
   purchaseTest(
-    "TC-CAT01104 Breadcrumb Trail Not Displayed for Single-Level Categories",
+    "TC-CAT-110004 Breadcrumb Trail Not Displayed for Single-Level Categories",
     {
       annotation: [
         { type: "preconditions", description: "User has selected a top-level category with no parent" },
@@ -1071,7 +1071,7 @@ purchaseTest.describe("Product Category — Breadcrumb", () => {
   );
 
   purchaseTest(
-    "TC-CAT01105 Breadcrumb Trail Missing When No Category Selected",
+    "TC-CAT-110005 Breadcrumb Trail Missing When No Category Selected",
     {
       annotation: [
         { type: "preconditions", description: "User has not selected any category" },
@@ -1089,11 +1089,11 @@ purchaseTest.describe("Product Category — Breadcrumb", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT012 — Item Counts
+// TC-CAT-900012 — Item Counts
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Item Counts", () => {
   purchaseTest(
-    "TC-CAT01201 View Category Item Counts - Happy Path",
+    "TC-CAT-120001 View Category Item Counts - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated and viewing category hierarchy in tree view" },
@@ -1114,7 +1114,7 @@ purchaseTest.describe("Product Category — Item Counts", () => {
   );
 
   purchaseTest(
-    "TC-CAT01202 View Category Item Counts - No Product Assignments",
+    "TC-CAT-120002 View Category Item Counts - No Product Assignments",
     {
       annotation: [
         { type: "preconditions", description: "Selected category has no product assignments" },
@@ -1135,7 +1135,7 @@ purchaseTest.describe("Product Category — Item Counts", () => {
   );
 
   purchaseTest(
-    "TC-CAT01204 View Category Item Counts - Edge Case - Category with No Descendants",
+    "TC-CAT-120004 View Category Item Counts - Edge Case - Category with No Descendants",
     {
       annotation: [
         { type: "preconditions", description: "Selected category has no descendant categories" },
@@ -1156,7 +1156,7 @@ purchaseTest.describe("Product Category — Item Counts", () => {
   );
 
   purchaseTest(
-    "TC-CAT01205 View Category Item Counts - Edge Case - All Categories Empty",
+    "TC-CAT-120005 View Category Item Counts - Edge Case - All Categories Empty",
     {
       annotation: [
         { type: "preconditions", description: "All categories have no product assignments" },
@@ -1179,7 +1179,7 @@ purchaseTest.describe("Product Category — Item Counts", () => {
 
 requestorTest.describe("Product Category — Item Counts — Permission denial", () => {
   requestorTest(
-    "TC-CAT01203 View Category Item Counts - User with Limited Permissions",
+    "TC-CAT-120003 View Category Item Counts - User with Limited Permissions",
     {
       annotation: [
         { type: "preconditions", description: "User has limited permissions to view category counts" },
@@ -1201,11 +1201,11 @@ requestorTest.describe("Product Category — Item Counts — Permission denial",
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT013 — Move Category
+// TC-CAT-900013 — Move Category
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Move", () => {
   purchaseTest(
-    "TC-CAT01301 Move Category to a Valid Parent with Permission",
+    "TC-CAT-130001 Move Category to a Valid Parent with Permission",
     {
       annotation: [
         { type: "preconditions", description: "User has category management permission; target parent exists and accepts children" },
@@ -1226,7 +1226,7 @@ purchaseTest.describe("Product Category — Move", () => {
   );
 
   purchaseTest(
-    "TC-CAT01302 Attempt to Move Category to Same Parent",
+    "TC-CAT-130002 Attempt to Move Category to Same Parent",
     {
       annotation: [
         { type: "preconditions", description: "Target parent is the same as the current parent" },
@@ -1247,7 +1247,7 @@ purchaseTest.describe("Product Category — Move", () => {
   );
 
   purchaseTest(
-    "TC-CAT01303 Move Category to Invalid Parent",
+    "TC-CAT-130003 Move Category to Invalid Parent",
     {
       annotation: [
         { type: "preconditions", description: "Target parent does not accept children at appropriate level" },
@@ -1268,7 +1268,7 @@ purchaseTest.describe("Product Category — Move", () => {
   );
 
   purchaseTest(
-    "TC-CAT01305 Move Category When Parent Hierarchy Would Form a Loop",
+    "TC-CAT-130005 Move Category When Parent Hierarchy Would Form a Loop",
     {
       annotation: [
         { type: "preconditions", description: "Target parent would create a circular reference if the move were to happen" },
@@ -1291,7 +1291,7 @@ purchaseTest.describe("Product Category — Move", () => {
 
 requestorTest.describe("Product Category — Move — Permission denial", () => {
   requestorTest(
-    "TC-CAT01304 Move Category without Permission",
+    "TC-CAT-130004 Move Category without Permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have category management permission" },
@@ -1313,11 +1313,11 @@ requestorTest.describe("Product Category — Move — Permission denial", () => 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT014 — Activate / Deactivate
+// TC-CAT-900014 — Activate / Deactivate
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Activate / Deactivate", () => {
   purchaseTest(
-    "TC-CAT01401 Activate Category with Valid Permission",
+    "TC-CAT-140001 Activate Category with Valid Permission",
     {
       annotation: [
         { type: "preconditions", description: "User has category edit permission; category exists and is not deleted" },
@@ -1338,7 +1338,7 @@ purchaseTest.describe("Product Category — Activate / Deactivate", () => {
   );
 
   purchaseTest(
-    "TC-CAT01403 Attempt to Activate Deactivated Category with Valid Permission",
+    "TC-CAT-140003 Attempt to Activate Deactivated Category with Valid Permission",
     {
       annotation: [
         { type: "preconditions", description: "User has category edit permission; category exists and is deactivated" },
@@ -1359,7 +1359,7 @@ purchaseTest.describe("Product Category — Activate / Deactivate", () => {
   );
 
   purchaseTest(
-    "TC-CAT01405 Attempt to Activate Non-Existent Category",
+    "TC-CAT-140005 Attempt to Activate Non-Existent Category",
     {
       annotation: [
         { type: "preconditions", description: "User has category edit permission; category does not exist" },
@@ -1381,11 +1381,11 @@ purchaseTest.describe("Product Category — Activate / Deactivate", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT015 — View Category Detail
+// TC-CAT-900015 — View Category Detail
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — View Detail", () => {
   purchaseTest(
-    "TC-CAT01501 View existing category details",
+    "TC-CAT-150001 View existing category details",
     {
       annotation: [
         { type: "preconditions", description: "User has selected a category in tree or list view; has permission to view category details" },
@@ -1406,7 +1406,7 @@ purchaseTest.describe("Product Category — View Detail", () => {
   );
 
   purchaseTest(
-    "TC-CAT01502 Verify category not found error",
+    "TC-CAT-150002 Verify category not found error",
     {
       annotation: [
         { type: "preconditions", description: "Non-existent category selected" },
@@ -1427,7 +1427,7 @@ purchaseTest.describe("Product Category — View Detail", () => {
   );
 
   purchaseTest(
-    "TC-CAT01504 Edge case - category with zero products",
+    "TC-CAT-150004 Edge case - category with zero products",
     {
       annotation: [
         { type: "preconditions", description: "Category has zero products" },
@@ -1450,7 +1450,7 @@ purchaseTest.describe("Product Category — View Detail", () => {
 
 requestorTest.describe("Product Category — View Detail — Permission denial", () => {
   requestorTest(
-    "TC-CAT01503 Access category without permission",
+    "TC-CAT-150003 Access category without permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have permission to view category details" },
@@ -1472,11 +1472,11 @@ requestorTest.describe("Product Category — View Detail — Permission denial",
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT201 — Cross-module: Product Creation
+// TC-CAT-900201 — Cross-module: Product Creation
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Product creation integration", () => {
   purchaseTest(
-    "TC-CAT20101 Happy Path - Valid Category Selection",
+    "TC-CAT-210001 Happy Path - Valid Category Selection",
     {
       annotation: [
         { type: "preconditions", description: "Categories are available and accessible to the Product module" },
@@ -1496,7 +1496,7 @@ purchaseTest.describe("Product Category — Product creation integration", () =>
   );
 
   purchaseTest(
-    "TC-CAT20102 Negative Case - Unavailable Category",
+    "TC-CAT-210002 Negative Case - Unavailable Category",
     {
       annotation: [
         { type: "preconditions", description: "Categories are available and accessible to the Product module" },
@@ -1516,7 +1516,7 @@ purchaseTest.describe("Product Category — Product creation integration", () =>
   );
 
   purchaseTest(
-    "TC-CAT20103 Edge Case - Multiple Category Selection",
+    "TC-CAT-210003 Edge Case - Multiple Category Selection",
     {
       annotation: [
         { type: "preconditions", description: "Categories are available and accessible to the Product module" },
@@ -1537,11 +1537,11 @@ purchaseTest.describe("Product Category — Product creation integration", () =>
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT202 — Cross-module: Inventory Reports
+// TC-CAT-900202 — Cross-module: Inventory Reports
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Inventory report integration", () => {
   purchaseTest(
-    "TC-CAT20201 Happy Path - Generate Inventory Report with Valid Categories",
+    "TC-CAT-220001 Happy Path - Generate Inventory Report with Valid Categories",
     {
       annotation: [
         { type: "preconditions", description: "Category data is available for reporting; product categories are valid" },
@@ -1561,7 +1561,7 @@ purchaseTest.describe("Product Category — Inventory report integration", () =>
   );
 
   purchaseTest(
-    "TC-CAT20202 Negative Case - Generate Report Without Valid Categories",
+    "TC-CAT-220002 Negative Case - Generate Report Without Valid Categories",
     {
       annotation: [
         { type: "preconditions", description: "Category data is partially invalid or missing" },
@@ -1581,7 +1581,7 @@ purchaseTest.describe("Product Category — Inventory report integration", () =>
   );
 
   purchaseTest(
-    "TC-CAT20203 Edge Case - Generate Report with Maximum Number of Categories",
+    "TC-CAT-220003 Edge Case - Generate Report with Maximum Number of Categories",
     {
       annotation: [
         { type: "preconditions", description: "System allows a maximum number of categories for reporting; database contains the maximum number of categories" },
@@ -1602,11 +1602,11 @@ purchaseTest.describe("Product Category — Inventory report integration", () =>
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT203 — Cross-module: Procurement
+// TC-CAT-900203 — Cross-module: Procurement
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Procurement integration", () => {
   purchaseTest(
-    "TC-CAT20301 Happy Path - Category-based Purchase Request",
+    "TC-CAT-230001 Happy Path - Category-based Purchase Request",
     {
       annotation: [
         { type: "preconditions", description: "Categories are available and assigned to products; user has permission to create purchase requests" },
@@ -1626,7 +1626,7 @@ purchaseTest.describe("Product Category — Procurement integration", () => {
   );
 
   purchaseTest(
-    "TC-CAT20302 Negative Case - Invalid Category Selection",
+    "TC-CAT-230002 Negative Case - Invalid Category Selection",
     {
       annotation: [
         { type: "preconditions", description: "Categories are available; an invalid category is selected" },
@@ -1646,7 +1646,7 @@ purchaseTest.describe("Product Category — Procurement integration", () => {
   );
 
   purchaseTest(
-    "TC-CAT20303 Edge Case - No Categories Available",
+    "TC-CAT-230003 Edge Case - No Categories Available",
     {
       annotation: [
         { type: "preconditions", description: "No categories are available; user has permission to create purchase requests" },
@@ -1666,7 +1666,7 @@ purchaseTest.describe("Product Category — Procurement integration", () => {
   );
 
   purchaseTest(
-    "TC-CAT20305 Happy Path - Spend Analysis by Category",
+    "TC-CAT-230005 Happy Path - Spend Analysis by Category",
     {
       annotation: [
         { type: "preconditions", description: "Categories are available and associated with purchase orders; spend analysis feature is enabled" },
@@ -1687,11 +1687,11 @@ purchaseTest.describe("Product Category — Procurement integration", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-CAT204 — Cross-module: Recipe Costs
+// TC-CAT-900204 — Cross-module: Recipe Costs
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Recipe cost integration", () => {
   purchaseTest(
-    "TC-CAT20401 Happy Path - Recipe Cost Calculation by Category",
+    "TC-CAT-240001 Happy Path - Recipe Cost Calculation by Category",
     {
       annotation: [
         { type: "preconditions", description: "Category data available for recipe queries; recipe ingredients have categories" },
@@ -1711,7 +1711,7 @@ purchaseTest.describe("Product Category — Recipe cost integration", () => {
   );
 
   purchaseTest(
-    "TC-CAT20402 Negative - Invalid Ingredient Selection",
+    "TC-CAT-240002 Negative - Invalid Ingredient Selection",
     {
       annotation: [
         { type: "preconditions", description: "Recipe ingredients have categories" },
@@ -1731,7 +1731,7 @@ purchaseTest.describe("Product Category — Recipe cost integration", () => {
   );
 
   purchaseTest(
-    "TC-CAT20404 Happy Path - Ingredient Usage Analysis by Category",
+    "TC-CAT-240004 Happy Path - Ingredient Usage Analysis by Category",
     {
       annotation: [
         { type: "preconditions", description: "Recipe ingredients have categories" },
