@@ -57,7 +57,7 @@ export interface TCResultRow {
   note: string;
 }
 
-const TC_REGEX = /\b(TCS?-[A-Z]{0,4}\d{2,})\b/g;
+const TC_REGEX = /\b(TC-[A-Z]{2,5}-\d{6}|TCS?-[A-Z]{0,4}\d{2,})\b/g;
 
 function statusLabel(result: TestResult): string {
   switch (result.status) {
