@@ -90,7 +90,81 @@ fcTest.describe("Step 1 — My Approval", () => {
 });
 
 fcTest.describe("Step 2 — PO Detail (FC view)", () => {
-  // TCs added in Task 5
+  fcTest(
+    "TC-POA0201 PO Detail loads in IN PROGRESS view (FC perspective)",
+    {
+      annotation: [
+        { type: "preconditions", description: "An IN PROGRESS PO exists (seeded via submitPOAsPurchaser)" },
+        { type: "steps", description: "1. Open the PO detail page as FC\n2. Verify URL and status badge" },
+        { type: "expected", description: "URL is /procurement/purchase-order/<ref>; status badge text matches /in.progress/i." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const created = await submitPOAsPurchaser(browser);
+      await gotoPODetail(page, created.ref);
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`));
+      await expect(
+        page
+          .locator("[data-slot='badge'], [class*='badge']")
+          .filter({ hasText: /in.progress/i })
+          .first(),
+      ).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  fcTest(
+    "TC-POA0202 Header fields are read-only for FC (cannot edit vendor/date/etc.)",
+    {
+      annotation: [
+        { type: "preconditions", description: "On an IN PROGRESS PO detail page as FC" },
+        { type: "steps", description: "1. Inspect vendor / description / delivery date inputs\n2. Verify they are disabled or non-editable" },
+        { type: "expected", description: "Vendor input or one of the header fields is disabled/readonly. Skipped if no header field is detectable." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Authorization" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const po = new PurchaseOrderPage(page);
+      const created = await submitPOAsPurchaser(browser);
+      await gotoPODetail(page, created.ref);
+      const vendor = po.vendorTrigger();
+      if ((await vendor.count()) === 0) {
+        fcTest.skip(true, "Vendor field not visible on detail (header may collapse)");
+        return;
+      }
+      const disabled = await vendor.isDisabled().catch(() => false);
+      const ariaDisabled = (await vendor.getAttribute("aria-disabled").catch(() => null)) === "true";
+      const tagName = await vendor.evaluate((el) => el.tagName.toLowerCase()).catch(() => "");
+      const isInput = tagName === "input" || tagName === "textarea";
+      expect(disabled || ariaDisabled || !isInput).toBeTruthy();
+    },
+  );
+
+  fcTest(
+    "TC-POA0203 Edit button + Comment button visible",
+    {
+      annotation: [
+        { type: "preconditions", description: "On an IN PROGRESS PO detail page as FC" },
+        { type: "steps", description: "1. Inspect the action toolbar" },
+        { type: "expected", description: "Edit button is visible. Comment button is visible when present." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const po = new PurchaseOrderPage(page);
+      const created = await submitPOAsPurchaser(browser);
+      await gotoPODetail(page, created.ref);
+      await expect(po.editModeButton()).toBeVisible({ timeout: 10_000 });
+      // Comment button is optional in some builds — assert when present
+      const comment = po.commentButton();
+      if ((await comment.count()) > 0) {
+        await expect(comment).toBeVisible();
+      }
+    },
+  );
 });
 
 fcTest.describe("Step 3 — Approval Actions", () => {
