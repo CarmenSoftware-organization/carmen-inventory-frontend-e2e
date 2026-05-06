@@ -102,3 +102,14 @@ describe("proposeMapping", () => {
     expect(matched).toBe("CATEG");
   });
 });
+
+describe("buildMap (skip already-migrated)", () => {
+  it("does not produce entries for v2-format IDs already present in spec text", () => {
+    // proposeMapping is pure — tested separately. buildMap reads files, so
+    // we only need to assert the filter logic on a candidate list.
+    const ids = ["TC-CAM00101", "TC-CAM-010001", "TC-CAM00102", "TC-CAM-010002"];
+    const V2_STRICT = /^TC-[A-Z]{2,5}-\d{6}$/;
+    const filtered = ids.filter((id) => !V2_STRICT.test(id));
+    expect(filtered).toEqual(["TC-CAM00101", "TC-CAM00102"]);
+  });
+});

@@ -310,9 +310,11 @@ export function proposeMapping(
 export function buildMap(): MigrationMap {
   const modules: MigrationMap["modules"] = {};
   const TC_RE = /\bTC-?[A-Z]{1,5}-?\d{2,}\b/g;
+  const V2_STRICT = /^TC-[A-Z]{2,5}-\d{6}$/;
   for (const cfg of SPEC_CONFIG) {
     const src = readFileSync(resolve(process.cwd(), cfg.specFile), "utf8");
-    const ids = Array.from(new Set(src.match(TC_RE) ?? []));
+    const ids = Array.from(new Set(src.match(TC_RE) ?? []))
+      .filter((id) => !V2_STRICT.test(id)); // skip already-migrated v2 IDs
     // Sort prefixes longest-first to avoid shorter prefix shadowing longer one
     // e.g. "CAT" must not match before "CATEG" for TC-CATEG12345
     const sortedPrefixes = [...cfg.oldPrefixes].sort((a, b) => b.length - a.length);
