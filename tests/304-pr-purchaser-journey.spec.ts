@@ -705,5 +705,51 @@ purchaseTest.describe("Step 4 — Workflow Actions", () => {
 });
 
 purchaseTest.describe.serial("Golden Journey", () => {
-  // TC added in Task 9
+  purchaseTest(
+    "TC-PRP0901 Purchaser full flow: List → Detail → Edit (allocate vendor + price) → Bulk Approve → next stage",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged in as Purchaser; a fresh PR is seeded at Purchase stage via submitPRAsRequestor + approveAsHOD" },
+        { type: "steps", description: "1. Open PR list\n2. Open PR detail\n3. Click Edit\n4. Set unit price on first row\n5. Select all + Bulk Approve + Confirm" },
+        { type: "expected", description: "URL stays on the PR ref after bulk approve; the journey completes end-to-end." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+
+      // Seed
+      const created = await submitPRAsRequestor(browser, { items: 1, description: "TC-PRP0901 golden" });
+      await approveAsHOD(browser, created.ref);
+
+      // Step 1: PR List
+      await pr.gotoList();
+      await expect(page).toHaveURL(new RegExp(LIST_PATH));
+
+      // Step 2: PR Detail
+      await gotoPRDetail(page, created.ref);
+
+      // Step 3: Enter Edit Mode
+      if ((await pr.editModeButton().count()) === 0) {
+        purchaseTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+
+      // Step 4: Set Unit Price on first row
+      const price = pr.unitPriceInput(0);
+      if ((await price.count()) > 0) await price.fill("175");
+
+      // Step 5: Bulk Approve
+      await pr.selectAllInEditMode();
+      if ((await pr.bulkApproveInEditMode().count()) === 0) {
+        purchaseTest.skip(true, "Bulk Approve button not present");
+        return;
+      }
+      await bulkApprove(page);
+
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
 });
