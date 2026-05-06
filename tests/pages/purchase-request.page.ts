@@ -423,4 +423,79 @@ export class PurchaseRequestPage extends BasePage {
         .first(),
     ).toBeVisible({ timeout: 10_000 });
   }
+
+  // ── Edit-mode bulk toolbar (Approver actions) ─────────────────────────────────────────────────
+  // The live UI exposes Approve / Reject / Send for Review / Split only as
+  // bulk-toolbar actions in Edit Mode (BRD discrepancy: no per-row buttons).
+  // The toolbar appears after at least one row is selected via Select All
+  // or per-row checkboxes.
+  bulkActionToolbar(): Locator {
+    return this.page
+      .locator("[data-slot='toolbar'], [role='toolbar']")
+      .filter({ has: this.page.getByRole("button", { name: /approve|reject|review|split/i }) })
+      .first();
+  }
+
+  selectAllCheckboxInEditMode(): Locator {
+    return this.page
+      .getByRole("checkbox", { name: /select all|^all$/i })
+      .first();
+  }
+
+  async selectAllInEditMode() {
+    const cb = this.selectAllCheckboxInEditMode();
+    if ((await cb.count()) > 0) await cb.check({ force: true });
+  }
+
+  bulkApproveInEditMode(): Locator {
+    return this.bulkActionToolbar().getByRole("button", { name: /^approve$|purchase approve/i }).first();
+  }
+
+  bulkRejectInEditMode(): Locator {
+    return this.bulkActionToolbar().getByRole("button", { name: /^reject$/i }).first();
+  }
+
+  bulkSendForReviewInEditMode(): Locator {
+    return this.bulkActionToolbar().getByRole("button", { name: /send for review|return for revision/i }).first();
+  }
+
+  bulkSplitInEditMode(): Locator {
+    return this.bulkActionToolbar().getByRole("button", { name: /^split$/i }).first();
+  }
+
+  // ── Edit-mode editable fields (Approver Edit Mode per FR-PR-011A) ─────
+  approvedQtyInput(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/approved.*(qty|quantity)/i).first();
+  }
+
+  itemNoteInput(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/item note|note/i).first();
+  }
+
+  deliveryPointInput(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/delivery point/i).first();
+  }
+
+  // ── Edit-mode read-only fields (Approver cannot edit per FR-PR-011A) ──
+  // Returns the cell/input element; tests assert it has [disabled], [readonly],
+  // or is a non-input element (e.g. a span).
+  vendorReadOnlyCell(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/vendor/i).first();
+  }
+
+  unitPriceReadOnlyCell(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/unit price/i).first();
+  }
+
+  discountReadOnlyCell(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/discount/i).first();
+  }
+
+  taxReadOnlyCell(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/tax/i).first();
+  }
+
+  focQtyReadOnlyCell(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/foc.*qty|free.*charge/i).first();
+  }
 }
