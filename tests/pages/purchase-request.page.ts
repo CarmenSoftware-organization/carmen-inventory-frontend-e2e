@@ -423,4 +423,43 @@ export class PurchaseRequestPage extends BasePage {
         .first(),
     ).toBeVisible({ timeout: 10_000 });
   }
+
+  // ── Edit-mode bulk toolbar (Approver actions) ─────────────────────────────────────────────────
+  // The live UI exposes Approve / Reject / Send for Review / Split only as
+  // bulk-toolbar actions in Edit Mode (BRD discrepancy: no per-row buttons).
+  // The toolbar appears after at least one row is selected via Select All
+  // or per-row checkboxes.
+  bulkActionToolbar(): Locator {
+    return this.page
+      .locator("[data-slot='toolbar'], [role='toolbar']")
+      .filter({ has: this.page.getByRole("button", { name: /approve|reject|review|split/i }) })
+      .first();
+  }
+
+  selectAllCheckboxInEditMode(): Locator {
+    return this.page
+      .getByRole("checkbox", { name: /select all|^all$/i })
+      .first();
+  }
+
+  async selectAllInEditMode() {
+    const cb = this.selectAllCheckboxInEditMode();
+    if ((await cb.count()) > 0) await cb.check({ force: true });
+  }
+
+  bulkApproveInEditMode(): Locator {
+    return this.bulkActionToolbar().getByRole("button", { name: /^approve$|purchase approve/i }).first();
+  }
+
+  bulkRejectInEditMode(): Locator {
+    return this.bulkActionToolbar().getByRole("button", { name: /^reject$/i }).first();
+  }
+
+  bulkSendForReviewInEditMode(): Locator {
+    return this.bulkActionToolbar().getByRole("button", { name: /send for review|return for revision/i }).first();
+  }
+
+  bulkSplitInEditMode(): Locator {
+    return this.bulkActionToolbar().getByRole("button", { name: /^split$/i }).first();
+  }
 }
