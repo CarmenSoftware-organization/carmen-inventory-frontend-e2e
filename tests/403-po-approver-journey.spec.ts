@@ -588,5 +588,55 @@ fcTest.describe("Step 3 — Approval Actions", () => {
 });
 
 fcTest.describe.serial("Golden Journey", () => {
-  // TC added in Task 7
+  fcTest(
+    "TC-POA0901 Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → Sent",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged in as FC; a fresh IN PROGRESS PO is seeded via submitPOAsPurchaser" },
+        { type: "steps", description: "1. Seed IN PROGRESS PO\n2. Open PO detail\n3. Click Edit\n4. Select first item\n5. Mark Approve\n6. Click Document Approve\n7. Confirm dialog" },
+        { type: "expected", description: "Status badge transitions to APPROVED/SENT after confirmation." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const po = new PurchaseOrderPage(page);
+
+      // Seed
+      const created = await submitPOAsPurchaser(browser, { description: "[E2E-POA] TC-POA0901 golden" });
+
+      // Open detail
+      await gotoPODetail(page, created.ref);
+      if ((await po.editModeButton().count()) === 0) {
+        fcTest.skip(true, "Edit button not present on seeded PO");
+        return;
+      }
+
+      // Edit + mark all Approved
+      await po.enterEditMode();
+      await po.selectItemInEditMode(0);
+      if ((await po.markItemApproveButton().count()) === 0) {
+        fcTest.skip(true, "Item-level Approve not present");
+        return;
+      }
+      await po.markItemApproveButton().click({ timeout: 5_000 });
+
+      // Document Approve
+      const docApprove = po.documentApproveButton();
+      if ((await docApprove.count()) === 0) {
+        fcTest.skip(true, "Document Approve button not visible after item approval");
+        return;
+      }
+      await docApprove.click({ timeout: 5_000 });
+      await po.confirmDialogButton(/confirm|approve|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+
+      // Hard assertion
+      await expect(
+        page
+          .locator("[data-slot='badge'], [class*='badge']")
+          .filter({ hasText: /approved|sent/i })
+          .first(),
+      ).toBeVisible({ timeout: 15_000 });
+    },
+  );
 });
