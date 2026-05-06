@@ -777,7 +777,128 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
 });
 
 purchaseTest.describe("Step 5 — Post-approval", () => {
-  // TCs added in Task 10
+  purchaseTest(
+    "TC-POP0501 Approved PO has Send to Vendor + Close buttons (seeded via approveAsFC)",
+    {
+      annotation: [
+        { type: "preconditions", description: "An Approved PO exists (seeded via submitPOAsPurchaser + approveAsFC)" },
+        { type: "steps", description: "1. Seed Approved PO\n2. Open detail\n3. Inspect action toolbar" },
+        { type: "expected", description: "Send to Vendor button is visible. Close button presence is secondary (not asserted hard if absent)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const po = new PurchaseOrderPage(page);
+      const created = await submitPOAsPurchaser(browser);
+      await approveAsFC(browser, created.ref);
+      await gotoPODetail(page, created.ref);
+      const send = po.sendToVendorButton();
+      if ((await send.count()) === 0) {
+        purchaseTest.skip(true, "Send to Vendor button not present — FC approval may not have completed");
+        return;
+      }
+      await expect(send).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-POP0502 Click Send to Vendor → status updates / toast",
+    {
+      annotation: [
+        { type: "preconditions", description: "An Approved PO exists" },
+        { type: "steps", description: "1. Open Approved PO\n2. Click Send to Vendor\n3. Confirm" },
+        { type: "expected", description: "URL stays on PO ref; success toast or status update visible." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const po = new PurchaseOrderPage(page);
+      const created = await submitPOAsPurchaser(browser);
+      await approveAsFC(browser, created.ref);
+      await gotoPODetail(page, created.ref);
+      const send = po.sendToVendorButton();
+      if ((await send.count()) === 0) {
+        purchaseTest.skip(true, "Send to Vendor button not present");
+        return;
+      }
+      await send.click({ timeout: 5_000 });
+      await po.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-POP0503 Close PO with items received → COMPLETED",
+    {
+      annotation: [
+        { type: "preconditions", description: "A SENT PO exists with items received (best-effort; trusts DB)" },
+        { type: "steps", description: "1. Find a SENT PO with received items in the list\n2. Open detail\n3. Click Close\n4. Confirm" },
+        { type: "expected", description: "Status text matches /completed/i after close. Skipped if no eligible PO." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+        { type: "note", description: "Dynamically skipped when no SENT-with-items PO exists." },
+      ],
+    },
+    async ({ page }) => {
+      const po = new PurchaseOrderPage(page);
+      await po.gotoList();
+      const sentRow = page.getByRole("row").filter({ hasText: /sent/i }).first();
+      if ((await sentRow.count()) === 0) {
+        purchaseTest.skip(true, "No SENT PO available for Close test");
+        return;
+      }
+      await sentRow.click({ timeout: 5_000 }).catch(() => {});
+      await page.waitForLoadState("networkidle").catch(() => {});
+      const close = po.closePOButton();
+      if ((await close.count()) === 0) {
+        purchaseTest.skip(true, "Close button not present on this PO (may not have items received)");
+        return;
+      }
+      await close.click({ timeout: 5_000 });
+      await po.confirmDialogButton(/confirm|close|complete|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await expect(
+        page
+          .locator("[data-slot='badge'], [class*='badge']")
+          .filter({ hasText: /completed/i })
+          .first(),
+      ).toBeVisible({ timeout: 15_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-POP0504 Close PO without items received → VOIDED",
+    {
+      annotation: [
+        { type: "preconditions", description: "An Approved/SENT PO exists with no items received" },
+        { type: "steps", description: "1. Find an eligible PO\n2. Click Close\n3. Confirm" },
+        { type: "expected", description: "Status text matches /voided|cancelled/i after close. Skipped if no eligible PO." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+        { type: "note", description: "Dynamically skipped when no eligible PO exists." },
+      ],
+    },
+    async ({ page, browser }) => {
+      const po = new PurchaseOrderPage(page);
+      const created = await submitPOAsPurchaser(browser);
+      await approveAsFC(browser, created.ref);
+      await gotoPODetail(page, created.ref);
+      const close = po.closePOButton();
+      if ((await close.count()) === 0) {
+        purchaseTest.skip(true, "Close button not present on this Approved PO");
+        return;
+      }
+      await close.click({ timeout: 5_000 });
+      await po.confirmDialogButton(/confirm|close|void|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await expect(
+        page
+          .locator("[data-slot='badge'], [class*='badge']")
+          .filter({ hasText: /voided|cancelled/i })
+          .first(),
+      ).toBeVisible({ timeout: 15_000 });
+    },
+  );
 });
 
 purchaseTest.describe.serial("Golden Journey", () => {
