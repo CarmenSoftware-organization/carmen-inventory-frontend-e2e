@@ -48,11 +48,18 @@ export async function createDraftPR(
   }
 
   await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
-  await page.waitForURL(/purchase-request\/[^\/]+$/, { timeout: 15_000 }).catch(() => {});
+  await page.waitForURL(/purchase-request\/(?!new$)[^\/?#]+$/, { timeout: 15_000 }).catch(() => {});
 
   const url = page.url();
+  if (url.endsWith("/new") || url.includes("/new?")) {
+    throw new Error(`createDraftPR: save did not redirect — still on ${url}. PR was not created.`);
+  }
   const refMatch = url.match(/purchase-request\/([^\/?#]+)/);
-  return { ref: refMatch?.[1] ?? "", url };
+  const ref = refMatch?.[1];
+  if (!ref || ref === "new") {
+    throw new Error(`createDraftPR: could not extract PR ref from URL: ${url}`);
+  }
+  return { ref, url };
 }
 
 /**
@@ -80,5 +87,5 @@ export async function deleteDraftPR(page: Page, ref: string): Promise<void> {
   }
   await pr.deleteButton().click({ timeout: 5_000 }).catch(() => {});
   await pr.confirmDialogButton(/confirm|delete|yes/i).click({ timeout: 5_000 }).catch(() => {});
-  await page.waitForURL(LIST_PATH, { timeout: 10_000 }).catch(() => {});
+  await page.waitForURL(/\/procurement\/purchase-request($|\?)/, { timeout: 10_000 }).catch(() => {});
 }
