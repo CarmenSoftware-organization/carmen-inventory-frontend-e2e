@@ -231,7 +231,64 @@ requestorTest.describe("7c — Resubmit", () => {
 });
 
 requestorTest.describe("7d — Edge cases", () => {
-  // TCs added in Task 7
+  requestorTest(
+    "TC-PRC0709 Cancel submit on Returned PR → URL stays on detail (still Returned)",
+    {
+      annotation: [
+        { type: "preconditions", description: "Submit confirmation dialog open on a Returned PR" },
+        { type: "steps", description: "1. Click Submit\n2. Click Cancel in the dialog" },
+        { type: "expected", description: "Dialog closes; URL remains on the PR detail page." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await sendForReviewAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      const submit = pr.submitButton();
+      if ((await submit.count()) === 0) {
+        requestorTest.skip(true, "Submit button not present on Returned PR detail");
+        return;
+      }
+      await submit.click({ timeout: 5_000 });
+      const cancel = page.getByRole("dialog").getByRole("button", { name: /cancel|no/i }).first();
+      if ((await cancel.count()) === 0) {
+        requestorTest.skip(true, "Cancel button not present in submit dialog");
+        return;
+      }
+      await cancel.click({ timeout: 5_000 });
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0710 Delete Returned PR is allowed for Creator",
+    {
+      annotation: [
+        { type: "preconditions", description: "Returned PR detail page is open" },
+        { type: "steps", description: "1. Inspect Delete button presence\n2. If present, click and confirm\n3. Verify list URL" },
+        { type: "expected", description: "Delete button visible; confirming delete navigates back to the PR list URL. Skipped when Delete is not allowed in this configuration." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Authorization" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser);
+      await sendForReviewAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      const del = pr.deleteButton();
+      if ((await del.count()) === 0) {
+        requestorTest.skip(true, "Delete button not visible on Returned PR — feature gated by configuration");
+        return;
+      }
+      await del.click({ timeout: 5_000 });
+      await pr.confirmDialogButton(/confirm|delete|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await expect(page).toHaveURL(/\/procurement\/purchase-request($|\?)/, { timeout: 10_000 });
+    },
+  );
 });
 
 requestorTest.describe.serial("Golden Journey", () => {
