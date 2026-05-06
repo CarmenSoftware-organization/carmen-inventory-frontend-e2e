@@ -126,5 +126,8 @@ if (import.meta.main) {
     );
     process.exit(2);
   }
-  syncModule(process.argv[moduleFlag + 1], { dryRun });
+  syncModule(process.argv[moduleFlag + 1], { dryRun }).catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
 }
