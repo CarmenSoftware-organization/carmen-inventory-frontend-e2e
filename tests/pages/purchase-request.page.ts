@@ -498,4 +498,33 @@ export class PurchaseRequestPage extends BasePage {
   focQtyReadOnlyCell(rowIndex: number): Locator {
     return this.itemRow(rowIndex).getByLabel(/foc.*qty|free.*charge/i).first();
   }
+
+  // ── Edit-mode editable fields (Purchaser scope per FR-PR-011A) ────────
+  // Purchaser allocates vendor + pricing in Edit Mode. These locators
+  // target the SAME DOM cells as the *ReadOnlyCell methods above; tests
+  // assert toBeEditable() here vs toBeDisabled() on the read-only ones.
+  vendorInput(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/vendor/i).first();
+  }
+
+  unitPriceInput(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/unit price/i).first();
+  }
+
+  discountInput(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/discount/i).first();
+  }
+
+  taxProfileSelect(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/tax/i).first();
+  }
+
+  autoAllocateButton(): Locator {
+    return this.page.getByRole("button", { name: /auto allocate/i }).first();
+  }
+
+  // ── Read-only verification (Purchaser cannot edit Approved Qty) ───────
+  approvedQtyReadOnlyCell(rowIndex: number): Locator {
+    return this.itemRow(rowIndex).getByLabel(/approved.*(qty|quantity)/i).first();
+  }
 }

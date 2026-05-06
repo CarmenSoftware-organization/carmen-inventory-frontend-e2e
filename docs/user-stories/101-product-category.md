@@ -1929,4 +1929,4 @@ Ingredient usage is correctly displayed by category.
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git d345f91</sub>
+<sub>Last regenerated: 2026-05-06 · git 4322f02</sub>
