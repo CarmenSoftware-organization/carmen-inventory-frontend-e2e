@@ -5,7 +5,7 @@ _Generated from `tests/303-pr-approver-journey.spec.ts` annotations. Edit annota
 **Module:** Pr Approver Journey
 **Spec:** `tests/303-pr-approver-journey.spec.ts`
 **Default role:** FC
-**Total test cases:** 25 (13 High / 10 Medium / 2 Low)
+**Total test cases:** 27 (15 High / 10 Medium / 2 Low)
 
 ## Test Cases at a Glance
 
@@ -36,6 +36,8 @@ _Generated from `tests/303-pr-approver-journey.spec.ts` annotations. Edit annota
 | TC-PRA0410 | Bulk Send for Review via toolbar | High | CRUD |
 | TC-PRA0411 | Bulk Split via toolbar | Low | Functional |
 | TC-PRA0412 | Cancel edit → discard changes | Medium | Functional |
+| TC-PRA0501 | FC sees PRs from multiple departments | High | Authorization |
+| TC-PRA0901 | HOD full flow: My Approval → List → Detail → Edit → Adjust Qty → Bulk Approve | High | Smoke |
 
 ---
 
@@ -573,5 +575,51 @@ Form returns to view mode (Edit button visible again).
 
 ---
 
+## TC-PRA0501 — FC sees PRs from multiple departments
 
-<sub>Last regenerated: 2026-05-06 · git 148f7d6</sub>
+> **As a** low-privilege user, **I should NOT** see Add/edit controls on Pr Approver Journey, **so that** role separation is enforced.
+
+**Priority:** High · **Test Type:** Authorization
+
+**Preconditions**
+
+Logged in as FC (fc@blueledgers.com); pending PRs exist in DB across multiple departments
+
+**Steps**
+
+1. Navigate to PR list as FC
+2. Open All Documents tab
+3. Read department column values from rows
+
+**Expected**
+
+At least 2 distinct department values appear in the list (skipped if DB lacks cross-dept PRs).
+
+---
+
+## TC-PRA0901 — HOD full flow: My Approval → List → Detail → Edit → Adjust Qty → Bulk Approve
+
+> **As a** HOD user, **I want** the Pr Approver Journey list page to load successfully, **so that** I can manage Pr Approver Journey records.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Logged in as HOD; a fresh pending PR is seeded via submitPRAsRequestor
+
+**Steps**
+
+1. Open My Approvals
+2. Open PR detail
+3. Click Edit
+4. Adjust Approved Qty on first row
+5. Select all + Bulk Approve + Confirm
+
+**Expected**
+
+URL stays on the PR ref after bulk approve; the journey completes end-to-end.
+
+---
+
+
+<sub>Last regenerated: 2026-05-06 · git d345f91</sub>
