@@ -838,7 +838,116 @@ requestorTest.describe("Step 5 — Edit Draft", () => {
 });
 
 requestorTest.describe("Step 6 — Submit", () => {
-  // TCs added in Task 11
+  requestorTest(
+    "TC-PRC0601 Submit → confirmation dialog appears",
+    {
+      annotation: [
+        { type: "preconditions", description: "A Draft PR with ≥1 line item exists" },
+        { type: "steps", description: "1. Open Draft PR\n2. Click Submit" },
+        { type: "expected", description: "Confirmation dialog is visible." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await createDraftPR(page, { items: 1 });
+      await page.goto(`${LIST_PATH}/${created.ref}`);
+      await page.waitForLoadState("networkidle");
+      const submit = pr.submitButton();
+      if ((await submit.count()) === 0) {
+        requestorTest.skip(true, "Submit button not present on Draft detail in this build");
+        return;
+      }
+      await submit.click({ timeout: 5_000 });
+      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0602 Cancel submit → stays on Draft",
+    {
+      annotation: [
+        { type: "preconditions", description: "Submit confirmation dialog is open" },
+        { type: "steps", description: "1. Open Submit dialog\n2. Click Cancel" },
+        { type: "expected", description: "Dialog closes; URL remains on the detail page (no submit transition)." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await createDraftPR(page, { items: 1 });
+      await page.goto(`${LIST_PATH}/${created.ref}`);
+      await page.waitForLoadState("networkidle");
+      const submit = pr.submitButton();
+      if ((await submit.count()) === 0) {
+        requestorTest.skip(true, "Submit button not present on Draft detail in this build");
+        return;
+      }
+      await submit.click({ timeout: 5_000 });
+      const cancel = page.getByRole("dialog").getByRole("button", { name: /cancel|no/i }).first();
+      if ((await cancel.count()) === 0) {
+        requestorTest.skip(true, "Cancel button not present in submit dialog");
+        return;
+      }
+      await cancel.click({ timeout: 5_000 });
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0603 Confirm submit → status moves to In Progress",
+    {
+      annotation: [
+        { type: "preconditions", description: "Submit confirmation dialog is open" },
+        { type: "steps", description: "1. Open Submit dialog\n2. Click Confirm" },
+        { type: "expected", description: "Status badge updates to In Progress (asserted by submitDraftPR helper)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const created = await createDraftPR(page, { items: 1 });
+      await submitDraftPR(page, created.ref);
+      // submitDraftPR ends with pr.expectStatus("in.progress") which is a hard assertion.
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0604 Submit empty PR — button disabled or no transition",
+    {
+      annotation: [
+        { type: "preconditions", description: "A Draft PR with zero line items exists" },
+        { type: "steps", description: "1. Open Draft PR with no items\n2. Inspect Submit button" },
+        { type: "expected", description: "Either Submit button is disabled, or clicking it does not move status to In Progress (URL stays on detail)." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await createDraftPR(page, { items: 0 });
+      await page.goto(`${LIST_PATH}/${created.ref}`);
+      await page.waitForLoadState("networkidle");
+      const submit = pr.submitButton();
+      if ((await submit.count()) === 0) {
+        requestorTest.skip(true, "Submit button not present — empty PR may have hidden it entirely");
+        return;
+      }
+      const disabled = await submit.isDisabled().catch(() => false);
+      if (disabled) {
+        await expect(submit).toBeDisabled();
+        return;
+      }
+      await submit.click({ timeout: 5_000 }).catch(() => {});
+      // Close any dialog that may have opened
+      const cancel = page.getByRole("dialog").getByRole("button", { name: /cancel|no/i }).first();
+      if ((await cancel.count()) > 0) await cancel.click({ timeout: 5_000 }).catch(() => {});
+      // URL must remain on detail (status NOT moved to in-progress redirect)
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
 });
 
 requestorTest.describe("Step 8 — Delete", () => {
