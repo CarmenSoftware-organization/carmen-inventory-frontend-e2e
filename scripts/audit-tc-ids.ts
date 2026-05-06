@@ -66,27 +66,43 @@ export async function auditFile(
   const ids: string[] = [];
   const prefixes = new Set<string>();
 
-  // 1. Find every TC-* candidate
-  const candidates = src.match(ANY_RE) ?? [];
-  for (const candidate of candidates) {
-    const strict = candidate.match(/^TC-([A-Z]{2,5})-(\d{2})(\d{4})$/);
+  // Extract IDs from test() / test.skip() titles only (not comments or helper args)
+  const TEST_TITLE_RE = /\btest(?:\.skip)?\s*\(\s*(?:`|"|')([^`"']+)/g;
+  const TC_IN_TITLE = /\bTC-([A-Z]{2,5})-(\d{2})(\d{4})\b|\bTC[S]?-[A-Z]{1,5}[-]?\d{2,}\b/g;
+
+  const titleIds: string[] = [];
+  const titleSeen = new Set<string>();
+  let titleMatch: RegExpExecArray | null;
+
+  // 1. Extract all TC IDs from test() titles
+  while ((titleMatch = TEST_TITLE_RE.exec(src)) !== null) {
+    const titleStr = titleMatch[1];
+    const tcMatches = titleStr.match(TC_IN_TITLE) ?? [];
+    for (const id of tcMatches) {
+      titleIds.push(id);
+    }
+  }
+
+  // 2. Validate FORMAT and catalog properties for IDs in titles only
+  for (const id of titleIds) {
+    const strict = id.match(/^TC-([A-Z]{2,5})-(\d{2})(\d{4})$/);
     if (!strict) {
       if (!opts.legacyMode) {
-        errors.push({ code: "FORMAT", message: `Invalid TC ID: ${candidate}`, file, testId: candidate });
+        errors.push({ code: "FORMAT", message: `Invalid TC ID in test title: ${id}`, file, testId: id });
       }
       continue;
     }
     const [, prefix, section] = strict;
-    ids.push(candidate);
+    ids.push(id);
     prefixes.add(prefix);
 
     const mod = catalog.modules.get(prefix);
     if (!mod) {
-      errors.push({ code: "UNKNOWN_PREFIX", message: `Prefix "${prefix}" not in catalog`, file, testId: candidate });
+      errors.push({ code: "UNKNOWN_PREFIX", message: `Prefix "${prefix}" not in catalog`, file, testId: id });
       continue;
     }
     if (!mod.sections.has(section)) {
-      errors.push({ code: "UNKNOWN_SECTION", message: `Section ${section} not registered for ${prefix}`, file, testId: candidate });
+      errors.push({ code: "UNKNOWN_SECTION", message: `Section ${section} not registered for ${prefix}`, file, testId: id });
     }
   }
 
@@ -94,11 +110,9 @@ export async function auditFile(
     errors.push({ code: "MULTI_PREFIX", message: `Multiple prefixes in one spec: ${[...prefixes].join(", ")}`, file });
   }
 
-  // Duplicate check: a real duplicate is the same ID in 2+ test() titles.
-  // Annotation references (preconditions, etc.) are NOT duplicates.
-  const TEST_TITLE_RE = /\btest(?:\.skip)?\s*\(\s*(?:`|"|')([^`"']+)/g;
-  const titleSeen = new Set<string>();
-  let titleMatch: RegExpExecArray | null;
+  // 3. Duplicate check: a real duplicate is the same ID in 2+ test() titles.
+  // Reset TEST_TITLE_RE for second pass
+  TEST_TITLE_RE.lastIndex = 0;
   while ((titleMatch = TEST_TITLE_RE.exec(src)) !== null) {
     const titleStr = titleMatch[1];
     const idMatch = titleStr.match(/\bTC-([A-Z]{2,5})-(\d{6})\b/);

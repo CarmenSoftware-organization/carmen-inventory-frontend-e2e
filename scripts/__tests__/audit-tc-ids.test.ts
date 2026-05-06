@@ -35,4 +35,14 @@ describe("audit-tc-ids", () => {
     const dups = result.errors.filter((e) => e.code === "DUPLICATE");
     expect(dups.length).toBe(1);
   });
+
+  it("ignores TC IDs in comments", async () => {
+    const result = await auditFile(`${FIXTURES}/audit-comment-refs.spec.ts`);
+    expect(result.errors).toEqual([]);
+  });
+
+  it("ignores TC IDs in helper config arguments", async () => {
+    const result = await auditFile(`${FIXTURES}/audit-helper-config.spec.ts`);
+    expect(result.errors).toEqual([]);
+  });
 });
