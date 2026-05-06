@@ -42,22 +42,36 @@ describe("proposeMapping", () => {
     });
   });
 
-  it("auto-maps 100-series section to 30s when no explicit mapping", () => {
-    const r = proposeMapping("TC-CN10101", "CN", "CN");
-    expect(r.new).toBe("TC-CN-300001");
-    expect(r.needsReview).toBe(false);
+  it("auto-maps 100-series section linearly into 30s", () => {
+    // 101 → 31, 102 → 32, ..., 109 → 39 (preserves uniqueness across codes)
+    expect(proposeMapping("TC-CN10101", "CN", "CN").new).toBe("TC-CN-310001");
+    expect(proposeMapping("TC-CN10501", "CN", "CN").new).toBe("TC-CN-350001");
+    expect(proposeMapping("TC-CN10101", "CN", "CN").needsReview).toBe(false);
   });
 
-  it("auto-maps 200-series section to 20s", () => {
-    const r = proposeMapping("TC-PO20101", "PO", "PO");
-    expect(r.new).toBe("TC-PO-200001");
-    expect(r.needsReview).toBe(false);
+  it("auto-maps 200-series section linearly into 20s", () => {
+    // 201 → 21, 202 → 22, ..., 209 → 29
+    expect(proposeMapping("TC-PO20101", "PO", "PO").new).toBe("TC-PO-210001");
+    expect(proposeMapping("TC-PO20201", "PO", "PO").new).toBe("TC-PO-220001");
   });
 
-  it("auto-maps 300-series section to 10s", () => {
-    const r = proposeMapping("TC-PR30101", "PR", "PR");
-    expect(r.new).toBe("TC-PR-100001");
-    expect(r.needsReview).toBe(false);
+  it("auto-maps 300-series section linearly into 10s", () => {
+    // 301 → 11, 302 → 12, ..., 309 → 19
+    expect(proposeMapping("TC-PR30101", "PR", "PR").new).toBe("TC-PR-110001");
+    expect(proposeMapping("TC-PR30301", "PR", "PR").new).toBe("TC-PR-130001");
+  });
+
+  it("avoids collisions for distinct hundreds-codes within same module", () => {
+    // 101 and 102 must map to DIFFERENT new IDs even with the same legacy seq
+    const a = proposeMapping("TC-CN10101", "CN", "CN");
+    const b = proposeMapping("TC-CN10201", "CN", "CN");
+    expect(a.new).not.toBe(b.new);
+  });
+
+  it("flags codes >= 110 as needsReview (out of clean linear range)", () => {
+    const r = proposeMapping("TC-PR11001", "PR", "PR");
+    expect(r.needsReview).toBe(true);
+    expect(r.new).toBe("TC-PR-900001");
   });
 
   it("preserves full 4 digits as seq when sub-journey collapses with default-only", () => {

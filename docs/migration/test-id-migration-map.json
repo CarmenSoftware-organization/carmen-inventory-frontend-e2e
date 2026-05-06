@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-05-06T14:04:22.308Z",
+  "generatedAt": "2026-05-06T14:09:15.599Z",
   "modules": {
     "LOGIN": {
       "specFile": "tests/001-login.spec.ts",
@@ -4598,136 +4598,136 @@
         },
         {
           "old": "TC-PE10101",
-          "new": "TC-PE-300001",
-          "rule": "5-digit:section=101->30,seq=01->0001",
+          "new": "TC-PE-310001",
+          "rule": "5-digit:section=101->31,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10102",
-          "new": "TC-PE-300002",
-          "rule": "5-digit:section=101->30,seq=02->0002",
+          "new": "TC-PE-310002",
+          "rule": "5-digit:section=101->31,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10103",
-          "new": "TC-PE-300003",
-          "rule": "5-digit:section=101->30,seq=03->0003",
+          "new": "TC-PE-310003",
+          "rule": "5-digit:section=101->31,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10105",
-          "new": "TC-PE-300005",
-          "rule": "5-digit:section=101->30,seq=05->0005",
+          "new": "TC-PE-310005",
+          "rule": "5-digit:section=101->31,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10201",
-          "new": "TC-PE-300001",
-          "rule": "5-digit:section=102->30,seq=01->0001",
+          "new": "TC-PE-320001",
+          "rule": "5-digit:section=102->32,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10204",
-          "new": "TC-PE-300004",
-          "rule": "5-digit:section=102->30,seq=04->0004",
+          "new": "TC-PE-320004",
+          "rule": "5-digit:section=102->32,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10205",
-          "new": "TC-PE-300005",
-          "rule": "5-digit:section=102->30,seq=05->0005",
+          "new": "TC-PE-320005",
+          "rule": "5-digit:section=102->32,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10301",
-          "new": "TC-PE-300001",
-          "rule": "5-digit:section=103->30,seq=01->0001",
+          "new": "TC-PE-330001",
+          "rule": "5-digit:section=103->33,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10302",
-          "new": "TC-PE-300002",
-          "rule": "5-digit:section=103->30,seq=02->0002",
+          "new": "TC-PE-330002",
+          "rule": "5-digit:section=103->33,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10303",
-          "new": "TC-PE-300003",
-          "rule": "5-digit:section=103->30,seq=03->0003",
+          "new": "TC-PE-330003",
+          "rule": "5-digit:section=103->33,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10304",
-          "new": "TC-PE-300004",
-          "rule": "5-digit:section=103->30,seq=04->0004",
+          "new": "TC-PE-330004",
+          "rule": "5-digit:section=103->33,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10305",
-          "new": "TC-PE-300005",
-          "rule": "5-digit:section=103->30,seq=05->0005",
+          "new": "TC-PE-330005",
+          "rule": "5-digit:section=103->33,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10401",
-          "new": "TC-PE-300001",
-          "rule": "5-digit:section=104->30,seq=01->0001",
+          "new": "TC-PE-340001",
+          "rule": "5-digit:section=104->34,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10402",
-          "new": "TC-PE-300002",
-          "rule": "5-digit:section=104->30,seq=02->0002",
+          "new": "TC-PE-340002",
+          "rule": "5-digit:section=104->34,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10403",
-          "new": "TC-PE-300003",
-          "rule": "5-digit:section=104->30,seq=03->0003",
+          "new": "TC-PE-340003",
+          "rule": "5-digit:section=104->34,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10404",
-          "new": "TC-PE-300004",
-          "rule": "5-digit:section=104->30,seq=04->0004",
+          "new": "TC-PE-340004",
+          "rule": "5-digit:section=104->34,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PE10405",
-          "new": "TC-PE-300005",
-          "rule": "5-digit:section=104->30,seq=05->0005",
+          "new": "TC-PE-340005",
+          "rule": "5-digit:section=104->34,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
@@ -5756,296 +5756,296 @@
         },
         {
           "old": "TC-PR10101",
-          "new": "TC-PR-300001",
-          "rule": "5-digit:section=101->30,seq=01->0001",
+          "new": "TC-PR-310001",
+          "rule": "5-digit:section=101->31,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10102",
-          "new": "TC-PR-300002",
-          "rule": "5-digit:section=101->30,seq=02->0002",
+          "new": "TC-PR-310002",
+          "rule": "5-digit:section=101->31,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10103",
-          "new": "TC-PR-300003",
-          "rule": "5-digit:section=101->30,seq=03->0003",
+          "new": "TC-PR-310003",
+          "rule": "5-digit:section=101->31,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10104",
-          "new": "TC-PR-300004",
-          "rule": "5-digit:section=101->30,seq=04->0004",
+          "new": "TC-PR-310004",
+          "rule": "5-digit:section=101->31,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10105",
-          "new": "TC-PR-300005",
-          "rule": "5-digit:section=101->30,seq=05->0005",
+          "new": "TC-PR-310005",
+          "rule": "5-digit:section=101->31,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10201",
-          "new": "TC-PR-300001",
-          "rule": "5-digit:section=102->30,seq=01->0001",
+          "new": "TC-PR-320001",
+          "rule": "5-digit:section=102->32,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10202",
-          "new": "TC-PR-300002",
-          "rule": "5-digit:section=102->30,seq=02->0002",
+          "new": "TC-PR-320002",
+          "rule": "5-digit:section=102->32,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10203",
-          "new": "TC-PR-300003",
-          "rule": "5-digit:section=102->30,seq=03->0003",
+          "new": "TC-PR-320003",
+          "rule": "5-digit:section=102->32,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10301",
-          "new": "TC-PR-300001",
-          "rule": "5-digit:section=103->30,seq=01->0001",
+          "new": "TC-PR-330001",
+          "rule": "5-digit:section=103->33,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10302",
-          "new": "TC-PR-300002",
-          "rule": "5-digit:section=103->30,seq=02->0002",
+          "new": "TC-PR-330002",
+          "rule": "5-digit:section=103->33,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10303",
-          "new": "TC-PR-300003",
-          "rule": "5-digit:section=103->30,seq=03->0003",
+          "new": "TC-PR-330003",
+          "rule": "5-digit:section=103->33,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10304",
-          "new": "TC-PR-300004",
-          "rule": "5-digit:section=103->30,seq=04->0004",
+          "new": "TC-PR-330004",
+          "rule": "5-digit:section=103->33,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10401",
-          "new": "TC-PR-300001",
-          "rule": "5-digit:section=104->30,seq=01->0001",
+          "new": "TC-PR-340001",
+          "rule": "5-digit:section=104->34,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10402",
-          "new": "TC-PR-300002",
-          "rule": "5-digit:section=104->30,seq=02->0002",
+          "new": "TC-PR-340002",
+          "rule": "5-digit:section=104->34,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10403",
-          "new": "TC-PR-300003",
-          "rule": "5-digit:section=104->30,seq=03->0003",
+          "new": "TC-PR-340003",
+          "rule": "5-digit:section=104->34,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10501",
-          "new": "TC-PR-300001",
-          "rule": "5-digit:section=105->30,seq=01->0001",
+          "new": "TC-PR-350001",
+          "rule": "5-digit:section=105->35,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10502",
-          "new": "TC-PR-300002",
-          "rule": "5-digit:section=105->30,seq=02->0002",
+          "new": "TC-PR-350002",
+          "rule": "5-digit:section=105->35,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10503",
-          "new": "TC-PR-300003",
-          "rule": "5-digit:section=105->30,seq=03->0003",
+          "new": "TC-PR-350003",
+          "rule": "5-digit:section=105->35,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR10504",
-          "new": "TC-PR-300004",
-          "rule": "5-digit:section=105->30,seq=04->0004",
+          "new": "TC-PR-350004",
+          "rule": "5-digit:section=105->35,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR20101",
-          "new": "TC-PR-200001",
-          "rule": "5-digit:section=201->20,seq=01->0001",
+          "new": "TC-PR-210001",
+          "rule": "5-digit:section=201->21,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR20102",
-          "new": "TC-PR-200002",
-          "rule": "5-digit:section=201->20,seq=02->0002",
+          "new": "TC-PR-210002",
+          "rule": "5-digit:section=201->21,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR20103",
-          "new": "TC-PR-200003",
-          "rule": "5-digit:section=201->20,seq=03->0003",
+          "new": "TC-PR-210003",
+          "rule": "5-digit:section=201->21,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR20201",
-          "new": "TC-PR-200001",
-          "rule": "5-digit:section=202->20,seq=01->0001",
+          "new": "TC-PR-220001",
+          "rule": "5-digit:section=202->22,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR20203",
-          "new": "TC-PR-200003",
-          "rule": "5-digit:section=202->20,seq=03->0003",
+          "new": "TC-PR-220003",
+          "rule": "5-digit:section=202->22,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR20204",
-          "new": "TC-PR-200004",
-          "rule": "5-digit:section=202->20,seq=04->0004",
+          "new": "TC-PR-220004",
+          "rule": "5-digit:section=202->22,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR20205",
-          "new": "TC-PR-200005",
-          "rule": "5-digit:section=202->20,seq=05->0005",
+          "new": "TC-PR-220005",
+          "rule": "5-digit:section=202->22,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR30101",
-          "new": "TC-PR-100001",
-          "rule": "5-digit:section=301->10,seq=01->0001",
+          "new": "TC-PR-110001",
+          "rule": "5-digit:section=301->11,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR30102",
-          "new": "TC-PR-100002",
-          "rule": "5-digit:section=301->10,seq=02->0002",
+          "new": "TC-PR-110002",
+          "rule": "5-digit:section=301->11,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR30103",
-          "new": "TC-PR-100003",
-          "rule": "5-digit:section=301->10,seq=03->0003",
+          "new": "TC-PR-110003",
+          "rule": "5-digit:section=301->11,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR30104",
-          "new": "TC-PR-100004",
-          "rule": "5-digit:section=301->10,seq=04->0004",
+          "new": "TC-PR-110004",
+          "rule": "5-digit:section=301->11,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR30201",
-          "new": "TC-PR-100001",
-          "rule": "5-digit:section=302->10,seq=01->0001",
+          "new": "TC-PR-120001",
+          "rule": "5-digit:section=302->12,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR30202",
-          "new": "TC-PR-100002",
-          "rule": "5-digit:section=302->10,seq=02->0002",
+          "new": "TC-PR-120002",
+          "rule": "5-digit:section=302->12,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR30203",
-          "new": "TC-PR-100003",
-          "rule": "5-digit:section=302->10,seq=03->0003",
+          "new": "TC-PR-120003",
+          "rule": "5-digit:section=302->12,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR30204",
-          "new": "TC-PR-100004",
-          "rule": "5-digit:section=302->10,seq=04->0004",
+          "new": "TC-PR-120004",
+          "rule": "5-digit:section=302->12,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR30301",
-          "new": "TC-PR-100001",
-          "rule": "5-digit:section=303->10,seq=01->0001",
+          "new": "TC-PR-130001",
+          "rule": "5-digit:section=303->13,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR30302",
-          "new": "TC-PR-100002",
-          "rule": "5-digit:section=303->10,seq=02->0002",
+          "new": "TC-PR-130002",
+          "rule": "5-digit:section=303->13,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PR30303",
-          "new": "TC-PR-100003",
-          "rule": "5-digit:section=303->10,seq=03->0003",
+          "new": "TC-PR-130003",
+          "rule": "5-digit:section=303->13,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
@@ -7386,24 +7386,24 @@
         },
         {
           "old": "TC-PRT20101",
-          "new": "TC-PRT-200001",
-          "rule": "5-digit:section=201->20,seq=01->0001",
+          "new": "TC-PRT-210001",
+          "rule": "5-digit:section=201->21,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PRT20103",
-          "new": "TC-PRT-200003",
-          "rule": "5-digit:section=201->20,seq=03->0003",
+          "new": "TC-PRT-210003",
+          "rule": "5-digit:section=201->21,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PRT20102",
-          "new": "TC-PRT-200002",
-          "rule": "5-digit:section=201->20,seq=02->0002",
+          "new": "TC-PRT-210002",
+          "rule": "5-digit:section=201->21,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
@@ -7418,32 +7418,32 @@
         },
         {
           "old": "TC-PRT20201",
-          "new": "TC-PRT-200001",
-          "rule": "5-digit:section=202->20,seq=01->0001",
+          "new": "TC-PRT-220001",
+          "rule": "5-digit:section=202->22,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PRT20203",
-          "new": "TC-PRT-200003",
-          "rule": "5-digit:section=202->20,seq=03->0003",
+          "new": "TC-PRT-220003",
+          "rule": "5-digit:section=202->22,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PRT20204",
-          "new": "TC-PRT-200004",
-          "rule": "5-digit:section=202->20,seq=04->0004",
+          "new": "TC-PRT-220004",
+          "rule": "5-digit:section=202->22,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PRT20205",
-          "new": "TC-PRT-200005",
-          "rule": "5-digit:section=202->20,seq=05->0005",
+          "new": "TC-PRT-220005",
+          "rule": "5-digit:section=202->22,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
@@ -7458,24 +7458,24 @@
         },
         {
           "old": "TC-PRT20301",
-          "new": "TC-PRT-200001",
-          "rule": "5-digit:section=203->20,seq=01->0001",
+          "new": "TC-PRT-230001",
+          "rule": "5-digit:section=203->23,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PRT20303",
-          "new": "TC-PRT-200003",
-          "rule": "5-digit:section=203->20,seq=03->0003",
+          "new": "TC-PRT-230003",
+          "rule": "5-digit:section=203->23,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PRT20302",
-          "new": "TC-PRT-200002",
-          "rule": "5-digit:section=203->20,seq=02->0002",
+          "new": "TC-PRT-230002",
+          "rule": "5-digit:section=203->23,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
@@ -7832,256 +7832,256 @@
         },
         {
           "old": "TC-PO10101",
-          "new": "TC-PO-300001",
-          "rule": "5-digit:section=101->30,seq=01->0001",
+          "new": "TC-PO-310001",
+          "rule": "5-digit:section=101->31,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10102",
-          "new": "TC-PO-300002",
-          "rule": "5-digit:section=101->30,seq=02->0002",
+          "new": "TC-PO-310002",
+          "rule": "5-digit:section=101->31,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10103",
-          "new": "TC-PO-300003",
-          "rule": "5-digit:section=101->30,seq=03->0003",
+          "new": "TC-PO-310003",
+          "rule": "5-digit:section=101->31,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10104",
-          "new": "TC-PO-300004",
-          "rule": "5-digit:section=101->30,seq=04->0004",
+          "new": "TC-PO-310004",
+          "rule": "5-digit:section=101->31,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10201",
-          "new": "TC-PO-300001",
-          "rule": "5-digit:section=102->30,seq=01->0001",
+          "new": "TC-PO-320001",
+          "rule": "5-digit:section=102->32,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10202",
-          "new": "TC-PO-300002",
-          "rule": "5-digit:section=102->30,seq=02->0002",
+          "new": "TC-PO-320002",
+          "rule": "5-digit:section=102->32,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10203",
-          "new": "TC-PO-300003",
-          "rule": "5-digit:section=102->30,seq=03->0003",
+          "new": "TC-PO-320003",
+          "rule": "5-digit:section=102->32,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10204",
-          "new": "TC-PO-300004",
-          "rule": "5-digit:section=102->30,seq=04->0004",
+          "new": "TC-PO-320004",
+          "rule": "5-digit:section=102->32,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10205",
-          "new": "TC-PO-300005",
-          "rule": "5-digit:section=102->30,seq=05->0005",
+          "new": "TC-PO-320005",
+          "rule": "5-digit:section=102->32,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10301",
-          "new": "TC-PO-300001",
-          "rule": "5-digit:section=103->30,seq=01->0001",
+          "new": "TC-PO-330001",
+          "rule": "5-digit:section=103->33,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10302",
-          "new": "TC-PO-300002",
-          "rule": "5-digit:section=103->30,seq=02->0002",
+          "new": "TC-PO-330002",
+          "rule": "5-digit:section=103->33,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10303",
-          "new": "TC-PO-300003",
-          "rule": "5-digit:section=103->30,seq=03->0003",
+          "new": "TC-PO-330003",
+          "rule": "5-digit:section=103->33,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10401",
-          "new": "TC-PO-300001",
-          "rule": "5-digit:section=104->30,seq=01->0001",
+          "new": "TC-PO-340001",
+          "rule": "5-digit:section=104->34,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10402",
-          "new": "TC-PO-300002",
-          "rule": "5-digit:section=104->30,seq=02->0002",
+          "new": "TC-PO-340002",
+          "rule": "5-digit:section=104->34,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10403",
-          "new": "TC-PO-300003",
-          "rule": "5-digit:section=104->30,seq=03->0003",
+          "new": "TC-PO-340003",
+          "rule": "5-digit:section=104->34,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10501",
-          "new": "TC-PO-300001",
-          "rule": "5-digit:section=105->30,seq=01->0001",
+          "new": "TC-PO-350001",
+          "rule": "5-digit:section=105->35,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10502",
-          "new": "TC-PO-300002",
-          "rule": "5-digit:section=105->30,seq=02->0002",
+          "new": "TC-PO-350002",
+          "rule": "5-digit:section=105->35,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10503",
-          "new": "TC-PO-300003",
-          "rule": "5-digit:section=105->30,seq=03->0003",
+          "new": "TC-PO-350003",
+          "rule": "5-digit:section=105->35,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10504",
-          "new": "TC-PO-300004",
-          "rule": "5-digit:section=105->30,seq=04->0004",
+          "new": "TC-PO-350004",
+          "rule": "5-digit:section=105->35,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO10505",
-          "new": "TC-PO-300005",
-          "rule": "5-digit:section=105->30,seq=05->0005",
+          "new": "TC-PO-350005",
+          "rule": "5-digit:section=105->35,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO20101",
-          "new": "TC-PO-200001",
-          "rule": "5-digit:section=201->20,seq=01->0001",
+          "new": "TC-PO-210001",
+          "rule": "5-digit:section=201->21,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO20102",
-          "new": "TC-PO-200002",
-          "rule": "5-digit:section=201->20,seq=02->0002",
+          "new": "TC-PO-210002",
+          "rule": "5-digit:section=201->21,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO20103",
-          "new": "TC-PO-200003",
-          "rule": "5-digit:section=201->20,seq=03->0003",
+          "new": "TC-PO-210003",
+          "rule": "5-digit:section=201->21,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO20104",
-          "new": "TC-PO-200004",
-          "rule": "5-digit:section=201->20,seq=04->0004",
+          "new": "TC-PO-210004",
+          "rule": "5-digit:section=201->21,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO20105",
-          "new": "TC-PO-200005",
-          "rule": "5-digit:section=201->20,seq=05->0005",
+          "new": "TC-PO-210005",
+          "rule": "5-digit:section=201->21,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO20201",
-          "new": "TC-PO-200001",
-          "rule": "5-digit:section=202->20,seq=01->0001",
+          "new": "TC-PO-220001",
+          "rule": "5-digit:section=202->22,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO20202",
-          "new": "TC-PO-200002",
-          "rule": "5-digit:section=202->20,seq=02->0002",
+          "new": "TC-PO-220002",
+          "rule": "5-digit:section=202->22,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO20203",
-          "new": "TC-PO-200003",
-          "rule": "5-digit:section=202->20,seq=03->0003",
+          "new": "TC-PO-220003",
+          "rule": "5-digit:section=202->22,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO30101",
-          "new": "TC-PO-100001",
-          "rule": "5-digit:section=301->10,seq=01->0001",
+          "new": "TC-PO-110001",
+          "rule": "5-digit:section=301->11,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO30102",
-          "new": "TC-PO-100002",
-          "rule": "5-digit:section=301->10,seq=02->0002",
+          "new": "TC-PO-110002",
+          "rule": "5-digit:section=301->11,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO30103",
-          "new": "TC-PO-100003",
-          "rule": "5-digit:section=301->10,seq=03->0003",
+          "new": "TC-PO-110003",
+          "rule": "5-digit:section=301->11,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-PO30104",
-          "new": "TC-PO-100004",
-          "rule": "5-digit:section=301->10,seq=04->0004",
+          "new": "TC-PO-110004",
+          "rule": "5-digit:section=301->11,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
@@ -8958,635 +8958,635 @@
         },
         {
           "old": "TC-CN10101",
-          "new": "TC-CN-300001",
-          "rule": "5-digit:section=101->30,seq=01->0001",
+          "new": "TC-CN-310001",
+          "rule": "5-digit:section=101->31,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10102",
-          "new": "TC-CN-300002",
-          "rule": "5-digit:section=101->30,seq=02->0002",
+          "new": "TC-CN-310002",
+          "rule": "5-digit:section=101->31,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10103",
-          "new": "TC-CN-300003",
-          "rule": "5-digit:section=101->30,seq=03->0003",
+          "new": "TC-CN-310003",
+          "rule": "5-digit:section=101->31,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10104",
-          "new": "TC-CN-300004",
-          "rule": "5-digit:section=101->30,seq=04->0004",
+          "new": "TC-CN-310004",
+          "rule": "5-digit:section=101->31,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10105",
-          "new": "TC-CN-300005",
-          "rule": "5-digit:section=101->30,seq=05->0005",
+          "new": "TC-CN-310005",
+          "rule": "5-digit:section=101->31,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10201",
-          "new": "TC-CN-300001",
-          "rule": "5-digit:section=102->30,seq=01->0001",
+          "new": "TC-CN-320001",
+          "rule": "5-digit:section=102->32,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10202",
-          "new": "TC-CN-300002",
-          "rule": "5-digit:section=102->30,seq=02->0002",
+          "new": "TC-CN-320002",
+          "rule": "5-digit:section=102->32,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10203",
-          "new": "TC-CN-300003",
-          "rule": "5-digit:section=102->30,seq=03->0003",
+          "new": "TC-CN-320003",
+          "rule": "5-digit:section=102->32,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10204",
-          "new": "TC-CN-300004",
-          "rule": "5-digit:section=102->30,seq=04->0004",
+          "new": "TC-CN-320004",
+          "rule": "5-digit:section=102->32,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10205",
-          "new": "TC-CN-300005",
-          "rule": "5-digit:section=102->30,seq=05->0005",
+          "new": "TC-CN-320005",
+          "rule": "5-digit:section=102->32,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10301",
-          "new": "TC-CN-300001",
-          "rule": "5-digit:section=103->30,seq=01->0001",
+          "new": "TC-CN-330001",
+          "rule": "5-digit:section=103->33,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10302",
-          "new": "TC-CN-300002",
-          "rule": "5-digit:section=103->30,seq=02->0002",
+          "new": "TC-CN-330002",
+          "rule": "5-digit:section=103->33,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10401",
-          "new": "TC-CN-300001",
-          "rule": "5-digit:section=104->30,seq=01->0001",
+          "new": "TC-CN-340001",
+          "rule": "5-digit:section=104->34,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10402",
-          "new": "TC-CN-300002",
-          "rule": "5-digit:section=104->30,seq=02->0002",
+          "new": "TC-CN-340002",
+          "rule": "5-digit:section=104->34,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10403",
-          "new": "TC-CN-300003",
-          "rule": "5-digit:section=104->30,seq=03->0003",
+          "new": "TC-CN-340003",
+          "rule": "5-digit:section=104->34,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10404",
-          "new": "TC-CN-300004",
-          "rule": "5-digit:section=104->30,seq=04->0004",
+          "new": "TC-CN-340004",
+          "rule": "5-digit:section=104->34,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10501",
-          "new": "TC-CN-300001",
-          "rule": "5-digit:section=105->30,seq=01->0001",
+          "new": "TC-CN-350001",
+          "rule": "5-digit:section=105->35,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10502",
-          "new": "TC-CN-300002",
-          "rule": "5-digit:section=105->30,seq=02->0002",
+          "new": "TC-CN-350002",
+          "rule": "5-digit:section=105->35,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10503",
-          "new": "TC-CN-300003",
-          "rule": "5-digit:section=105->30,seq=03->0003",
+          "new": "TC-CN-350003",
+          "rule": "5-digit:section=105->35,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10504",
-          "new": "TC-CN-300004",
-          "rule": "5-digit:section=105->30,seq=04->0004",
+          "new": "TC-CN-350004",
+          "rule": "5-digit:section=105->35,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10601",
-          "new": "TC-CN-300001",
-          "rule": "5-digit:section=106->30,seq=01->0001",
+          "new": "TC-CN-360001",
+          "rule": "5-digit:section=106->36,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10604",
-          "new": "TC-CN-300004",
-          "rule": "5-digit:section=106->30,seq=04->0004",
+          "new": "TC-CN-360004",
+          "rule": "5-digit:section=106->36,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN10605",
-          "new": "TC-CN-300005",
-          "rule": "5-digit:section=106->30,seq=05->0005",
+          "new": "TC-CN-360005",
+          "rule": "5-digit:section=106->36,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20101",
-          "new": "TC-CN-200001",
-          "rule": "5-digit:section=201->20,seq=01->0001",
+          "new": "TC-CN-210001",
+          "rule": "5-digit:section=201->21,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20103",
-          "new": "TC-CN-200003",
-          "rule": "5-digit:section=201->20,seq=03->0003",
+          "new": "TC-CN-210003",
+          "rule": "5-digit:section=201->21,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20104",
-          "new": "TC-CN-200004",
-          "rule": "5-digit:section=201->20,seq=04->0004",
+          "new": "TC-CN-210004",
+          "rule": "5-digit:section=201->21,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20201",
-          "new": "TC-CN-200001",
-          "rule": "5-digit:section=202->20,seq=01->0001",
+          "new": "TC-CN-220001",
+          "rule": "5-digit:section=202->22,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20202",
-          "new": "TC-CN-200002",
-          "rule": "5-digit:section=202->20,seq=02->0002",
+          "new": "TC-CN-220002",
+          "rule": "5-digit:section=202->22,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20203",
-          "new": "TC-CN-200003",
-          "rule": "5-digit:section=202->20,seq=03->0003",
+          "new": "TC-CN-220003",
+          "rule": "5-digit:section=202->22,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20204",
-          "new": "TC-CN-200004",
-          "rule": "5-digit:section=202->20,seq=04->0004",
+          "new": "TC-CN-220004",
+          "rule": "5-digit:section=202->22,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20205",
-          "new": "TC-CN-200005",
-          "rule": "5-digit:section=202->20,seq=05->0005",
+          "new": "TC-CN-220005",
+          "rule": "5-digit:section=202->22,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20301",
-          "new": "TC-CN-200001",
-          "rule": "5-digit:section=203->20,seq=01->0001",
+          "new": "TC-CN-230001",
+          "rule": "5-digit:section=203->23,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20302",
-          "new": "TC-CN-200002",
-          "rule": "5-digit:section=203->20,seq=02->0002",
+          "new": "TC-CN-230002",
+          "rule": "5-digit:section=203->23,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20303",
-          "new": "TC-CN-200003",
-          "rule": "5-digit:section=203->20,seq=03->0003",
+          "new": "TC-CN-230003",
+          "rule": "5-digit:section=203->23,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20304",
-          "new": "TC-CN-200004",
-          "rule": "5-digit:section=203->20,seq=04->0004",
+          "new": "TC-CN-230004",
+          "rule": "5-digit:section=203->23,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20305",
-          "new": "TC-CN-200005",
-          "rule": "5-digit:section=203->20,seq=05->0005",
+          "new": "TC-CN-230005",
+          "rule": "5-digit:section=203->23,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20401",
-          "new": "TC-CN-200001",
-          "rule": "5-digit:section=204->20,seq=01->0001",
+          "new": "TC-CN-240001",
+          "rule": "5-digit:section=204->24,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20402",
-          "new": "TC-CN-200002",
-          "rule": "5-digit:section=204->20,seq=02->0002",
+          "new": "TC-CN-240002",
+          "rule": "5-digit:section=204->24,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20403",
-          "new": "TC-CN-200003",
-          "rule": "5-digit:section=204->20,seq=03->0003",
+          "new": "TC-CN-240003",
+          "rule": "5-digit:section=204->24,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20404",
-          "new": "TC-CN-200004",
-          "rule": "5-digit:section=204->20,seq=04->0004",
+          "new": "TC-CN-240004",
+          "rule": "5-digit:section=204->24,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20501",
-          "new": "TC-CN-200001",
-          "rule": "5-digit:section=205->20,seq=01->0001",
+          "new": "TC-CN-250001",
+          "rule": "5-digit:section=205->25,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20502",
-          "new": "TC-CN-200002",
-          "rule": "5-digit:section=205->20,seq=02->0002",
+          "new": "TC-CN-250002",
+          "rule": "5-digit:section=205->25,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20503",
-          "new": "TC-CN-200003",
-          "rule": "5-digit:section=205->20,seq=03->0003",
+          "new": "TC-CN-250003",
+          "rule": "5-digit:section=205->25,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20504",
-          "new": "TC-CN-200004",
-          "rule": "5-digit:section=205->20,seq=04->0004",
+          "new": "TC-CN-250004",
+          "rule": "5-digit:section=205->25,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20602",
-          "new": "TC-CN-200002",
-          "rule": "5-digit:section=206->20,seq=02->0002",
+          "new": "TC-CN-260002",
+          "rule": "5-digit:section=206->26,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20603",
-          "new": "TC-CN-200003",
-          "rule": "5-digit:section=206->20,seq=03->0003",
+          "new": "TC-CN-260003",
+          "rule": "5-digit:section=206->26,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20604",
-          "new": "TC-CN-200004",
-          "rule": "5-digit:section=206->20,seq=04->0004",
+          "new": "TC-CN-260004",
+          "rule": "5-digit:section=206->26,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20605",
-          "new": "TC-CN-200005",
-          "rule": "5-digit:section=206->20,seq=05->0005",
+          "new": "TC-CN-260005",
+          "rule": "5-digit:section=206->26,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20702",
-          "new": "TC-CN-200002",
-          "rule": "5-digit:section=207->20,seq=02->0002",
+          "new": "TC-CN-270002",
+          "rule": "5-digit:section=207->27,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20703",
-          "new": "TC-CN-200003",
-          "rule": "5-digit:section=207->20,seq=03->0003",
+          "new": "TC-CN-270003",
+          "rule": "5-digit:section=207->27,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20704",
-          "new": "TC-CN-200004",
-          "rule": "5-digit:section=207->20,seq=04->0004",
+          "new": "TC-CN-270004",
+          "rule": "5-digit:section=207->27,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20705",
-          "new": "TC-CN-200005",
-          "rule": "5-digit:section=207->20,seq=05->0005",
+          "new": "TC-CN-270005",
+          "rule": "5-digit:section=207->27,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20801",
-          "new": "TC-CN-200001",
-          "rule": "5-digit:section=208->20,seq=01->0001",
+          "new": "TC-CN-280001",
+          "rule": "5-digit:section=208->28,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20802",
-          "new": "TC-CN-200002",
-          "rule": "5-digit:section=208->20,seq=02->0002",
+          "new": "TC-CN-280002",
+          "rule": "5-digit:section=208->28,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20803",
-          "new": "TC-CN-200003",
-          "rule": "5-digit:section=208->20,seq=03->0003",
+          "new": "TC-CN-280003",
+          "rule": "5-digit:section=208->28,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20804",
-          "new": "TC-CN-200004",
-          "rule": "5-digit:section=208->20,seq=04->0004",
+          "new": "TC-CN-280004",
+          "rule": "5-digit:section=208->28,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20805",
-          "new": "TC-CN-200005",
-          "rule": "5-digit:section=208->20,seq=05->0005",
+          "new": "TC-CN-280005",
+          "rule": "5-digit:section=208->28,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20901",
-          "new": "TC-CN-200001",
-          "rule": "5-digit:section=209->20,seq=01->0001",
+          "new": "TC-CN-290001",
+          "rule": "5-digit:section=209->29,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20902",
-          "new": "TC-CN-200002",
-          "rule": "5-digit:section=209->20,seq=02->0002",
+          "new": "TC-CN-290002",
+          "rule": "5-digit:section=209->29,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20903",
-          "new": "TC-CN-200003",
-          "rule": "5-digit:section=209->20,seq=03->0003",
+          "new": "TC-CN-290003",
+          "rule": "5-digit:section=209->29,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20904",
-          "new": "TC-CN-200004",
-          "rule": "5-digit:section=209->20,seq=04->0004",
+          "new": "TC-CN-290004",
+          "rule": "5-digit:section=209->29,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN20905",
-          "new": "TC-CN-200005",
-          "rule": "5-digit:section=209->20,seq=05->0005",
+          "new": "TC-CN-290005",
+          "rule": "5-digit:section=209->29,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CN21003",
-          "new": "TC-CN-210003",
-          "rule": "5-digit:section=210->21,seq=03->0003",
-          "needsReview": false,
+          "new": "TC-CN-900003",
+          "rule": "5-digit:section=210->90,seq=03->0003",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21101",
-          "new": "TC-CN-210001",
-          "rule": "5-digit:section=211->21,seq=01->0001",
-          "needsReview": false,
+          "new": "TC-CN-900001",
+          "rule": "5-digit:section=211->90,seq=01->0001",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21102",
-          "new": "TC-CN-210002",
-          "rule": "5-digit:section=211->21,seq=02->0002",
-          "needsReview": false,
+          "new": "TC-CN-900002",
+          "rule": "5-digit:section=211->90,seq=02->0002",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21103",
-          "new": "TC-CN-210003",
-          "rule": "5-digit:section=211->21,seq=03->0003",
-          "needsReview": false,
+          "new": "TC-CN-900003",
+          "rule": "5-digit:section=211->90,seq=03->0003",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21104",
-          "new": "TC-CN-210004",
-          "rule": "5-digit:section=211->21,seq=04->0004",
-          "needsReview": false,
+          "new": "TC-CN-900004",
+          "rule": "5-digit:section=211->90,seq=04->0004",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21105",
-          "new": "TC-CN-210005",
-          "rule": "5-digit:section=211->21,seq=05->0005",
-          "needsReview": false,
+          "new": "TC-CN-900005",
+          "rule": "5-digit:section=211->90,seq=05->0005",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21201",
-          "new": "TC-CN-210001",
-          "rule": "5-digit:section=212->21,seq=01->0001",
-          "needsReview": false,
+          "new": "TC-CN-900001",
+          "rule": "5-digit:section=212->90,seq=01->0001",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21202",
-          "new": "TC-CN-210002",
-          "rule": "5-digit:section=212->21,seq=02->0002",
-          "needsReview": false,
+          "new": "TC-CN-900002",
+          "rule": "5-digit:section=212->90,seq=02->0002",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21203",
-          "new": "TC-CN-210003",
-          "rule": "5-digit:section=212->21,seq=03->0003",
-          "needsReview": false,
+          "new": "TC-CN-900003",
+          "rule": "5-digit:section=212->90,seq=03->0003",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21204",
-          "new": "TC-CN-210004",
-          "rule": "5-digit:section=212->21,seq=04->0004",
-          "needsReview": false,
+          "new": "TC-CN-900004",
+          "rule": "5-digit:section=212->90,seq=04->0004",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21301",
-          "new": "TC-CN-210001",
-          "rule": "5-digit:section=213->21,seq=01->0001",
-          "needsReview": false,
+          "new": "TC-CN-900001",
+          "rule": "5-digit:section=213->90,seq=01->0001",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21302",
-          "new": "TC-CN-210002",
-          "rule": "5-digit:section=213->21,seq=02->0002",
-          "needsReview": false,
+          "new": "TC-CN-900002",
+          "rule": "5-digit:section=213->90,seq=02->0002",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21303",
-          "new": "TC-CN-210003",
-          "rule": "5-digit:section=213->21,seq=03->0003",
-          "needsReview": false,
+          "new": "TC-CN-900003",
+          "rule": "5-digit:section=213->90,seq=03->0003",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21304",
-          "new": "TC-CN-210004",
-          "rule": "5-digit:section=213->21,seq=04->0004",
-          "needsReview": false,
+          "new": "TC-CN-900004",
+          "rule": "5-digit:section=213->90,seq=04->0004",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21401",
-          "new": "TC-CN-210001",
-          "rule": "5-digit:section=214->21,seq=01->0001",
-          "needsReview": false,
+          "new": "TC-CN-900001",
+          "rule": "5-digit:section=214->90,seq=01->0001",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21402",
-          "new": "TC-CN-210002",
-          "rule": "5-digit:section=214->21,seq=02->0002",
-          "needsReview": false,
+          "new": "TC-CN-900002",
+          "rule": "5-digit:section=214->90,seq=02->0002",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         },
         {
           "old": "TC-CN21403",
-          "new": "TC-CN-210003",
-          "rule": "5-digit:section=214->21,seq=03->0003",
-          "needsReview": false,
+          "new": "TC-CN-900003",
+          "rule": "5-digit:section=214->90,seq=03->0003",
+          "needsReview": true,
           "helperGenerated": false,
-          "note": ""
+          "note": "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)"
         }
       ]
     },
@@ -10236,24 +10236,24 @@
         },
         {
           "old": "TC-CAT20101",
-          "new": "TC-CAT-200001",
-          "rule": "5-digit:section=201->20,seq=01->0001",
+          "new": "TC-CAT-210001",
+          "rule": "5-digit:section=201->21,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CAT20102",
-          "new": "TC-CAT-200002",
-          "rule": "5-digit:section=201->20,seq=02->0002",
+          "new": "TC-CAT-210002",
+          "rule": "5-digit:section=201->21,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CAT20103",
-          "new": "TC-CAT-200003",
-          "rule": "5-digit:section=201->20,seq=03->0003",
+          "new": "TC-CAT-210003",
+          "rule": "5-digit:section=201->21,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
@@ -10268,24 +10268,24 @@
         },
         {
           "old": "TC-CAT20201",
-          "new": "TC-CAT-200001",
-          "rule": "5-digit:section=202->20,seq=01->0001",
+          "new": "TC-CAT-220001",
+          "rule": "5-digit:section=202->22,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CAT20202",
-          "new": "TC-CAT-200002",
-          "rule": "5-digit:section=202->20,seq=02->0002",
+          "new": "TC-CAT-220002",
+          "rule": "5-digit:section=202->22,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CAT20203",
-          "new": "TC-CAT-200003",
-          "rule": "5-digit:section=202->20,seq=03->0003",
+          "new": "TC-CAT-220003",
+          "rule": "5-digit:section=202->22,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
@@ -10300,32 +10300,32 @@
         },
         {
           "old": "TC-CAT20301",
-          "new": "TC-CAT-200001",
-          "rule": "5-digit:section=203->20,seq=01->0001",
+          "new": "TC-CAT-230001",
+          "rule": "5-digit:section=203->23,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CAT20302",
-          "new": "TC-CAT-200002",
-          "rule": "5-digit:section=203->20,seq=02->0002",
+          "new": "TC-CAT-230002",
+          "rule": "5-digit:section=203->23,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CAT20303",
-          "new": "TC-CAT-200003",
-          "rule": "5-digit:section=203->20,seq=03->0003",
+          "new": "TC-CAT-230003",
+          "rule": "5-digit:section=203->23,seq=03->0003",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CAT20305",
-          "new": "TC-CAT-200005",
-          "rule": "5-digit:section=203->20,seq=05->0005",
+          "new": "TC-CAT-230005",
+          "rule": "5-digit:section=203->23,seq=05->0005",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
@@ -10340,24 +10340,24 @@
         },
         {
           "old": "TC-CAT20401",
-          "new": "TC-CAT-200001",
-          "rule": "5-digit:section=204->20,seq=01->0001",
+          "new": "TC-CAT-240001",
+          "rule": "5-digit:section=204->24,seq=01->0001",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CAT20402",
-          "new": "TC-CAT-200002",
-          "rule": "5-digit:section=204->20,seq=02->0002",
+          "new": "TC-CAT-240002",
+          "rule": "5-digit:section=204->24,seq=02->0002",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""
         },
         {
           "old": "TC-CAT20404",
-          "new": "TC-CAT-200004",
-          "rule": "5-digit:section=204->20,seq=04->0004",
+          "new": "TC-CAT-240004",
+          "rule": "5-digit:section=204->24,seq=04->0004",
           "needsReview": false,
           "helperGenerated": false,
           "note": ""

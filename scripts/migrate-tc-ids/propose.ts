@@ -22,10 +22,11 @@ type SectionMap = Record<string, Record<string, string>>;
 // Section-map convention used below:
 //   For 5-digit legacy IDs (TC-XX SSS NN): SSS keys map to a 2-digit new section.
 //   3-digit codes 001..099 strip leading zeros (001 -> "01", 023 -> "23").
-//   3-digit codes 100..199 auto-derive to 30..39 (groups of 10: 100-109→30, 110-119→31…).
-//   3-digit codes 200..299 auto-derive to 20..29 similarly.
-//   3-digit codes 300..399 auto-derive to 10..19 similarly.
-//   Codes >= 400 land in "90" (placeholder) and the entry is flagged needsReview.
+//   3-digit codes 101..109 auto-derive linearly to 31..39 (Integration range).
+//   3-digit codes 201..209 auto-derive linearly to 21..29 (Validation range).
+//   3-digit codes 301..309 auto-derive linearly to 11..19 (Security range).
+//   Codes 100/200/300 or >= 110/210/310 or >= 400 land in "90" (placeholder),
+//   flagged needsReview.
 //   For 4-digit sub-journey legacy IDs (TC-XXX SSNN):
 //     A) Explicit sub-section key → split 2+2; seq from last 2 digits.
 //     B) Default-only (no explicit keys) → preserve full 4 digits as seq to avoid collisions.
@@ -187,26 +188,26 @@ export function proposeMapping(
         sectionNew = String(sectionNum).padStart(2, "0");
         needsReview = false;
         note = "";
-      } else if (sectionNum >= 100 && sectionNum <= 199) {
-        // 100-199 → 30-39: each group of 10 old sections maps to one new section
-        // e.g. 100-109 → 30, 110-119 → 31, ..., 190-199 → 39
-        sectionNew = String(30 + Math.floor((sectionNum - 100) / 10)).padStart(2, "0");
+      } else if (sectionNum >= 101 && sectionNum <= 109) {
+        // Linear: 101→31, 102→32, ..., 109→39 (Integration range, no collisions)
+        sectionNew = String(30 + (sectionNum - 100)).padStart(2, "0");
         needsReview = false;
         note = "";
-      } else if (sectionNum >= 200 && sectionNum <= 299) {
-        // 200-299 → 20-29
-        sectionNew = String(20 + Math.floor((sectionNum - 200) / 10)).padStart(2, "0");
+      } else if (sectionNum >= 201 && sectionNum <= 209) {
+        // Linear: 201→21, 202→22, ..., 209→29 (Validation range)
+        sectionNew = String(20 + (sectionNum - 200)).padStart(2, "0");
         needsReview = false;
         note = "";
-      } else if (sectionNum >= 300 && sectionNum <= 399) {
-        // 300-399 → 10-19
-        sectionNew = String(10 + Math.floor((sectionNum - 300) / 10)).padStart(2, "0");
+      } else if (sectionNum >= 301 && sectionNum <= 309) {
+        // Linear: 301→11, 302→12, ..., 309→19 (Security range)
+        sectionNew = String(10 + (sectionNum - 300)).padStart(2, "0");
         needsReview = false;
         note = "";
       } else {
+        // 100, 110+, 200, 210+, 300, 310+, or any code >= 400 — placeholder
         sectionNew = "90";
         needsReview = true;
-        note = "Reviewer: unrecognised section code range";
+        note = "Reviewer: section code outside auto-derive range (1xx/2xx/3xx must be 101-109/201-209/301-309)";
       }
     }
 
