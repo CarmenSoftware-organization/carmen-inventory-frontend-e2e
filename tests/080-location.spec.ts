@@ -23,7 +23,7 @@ const opts = {
 
 test.describe("Location — Smoke & CRUD", () => {
   test(
-    "TC-LOC00101 หน้า list โหลดสำเร็จ",
+    "TC-LOC-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
@@ -40,7 +40,7 @@ test.describe("Location — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-LOC00102 ปุ่ม Add แสดง",
+    "TC-LOC-010002 ปุ่ม Add แสดง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/location" },
@@ -57,7 +57,7 @@ test.describe("Location — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-LOC00103 ช่องค้นหาใช้งานได้",
+    "TC-LOC-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/location" },
@@ -75,7 +75,7 @@ test.describe("Location — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-LOC00104 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    "TC-LOC-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/location" },
@@ -93,7 +93,7 @@ test.describe("Location — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-LOC00105 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
+    "TC-LOC-010005 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/location/new" },
@@ -111,7 +111,7 @@ test.describe("Location — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-LOC00106 สร้างรายการใหม่และปรากฏในตาราง",
+    "TC-LOC-010006 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record CODE/NAME ยังไม่มีอยู่ใน DB" },
@@ -146,10 +146,10 @@ test.describe("Location — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-LOC00107 แก้ไขชื่อและบันทึก",
+    "TC-LOC-010007 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "TC-LOC00106 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-LOC-010006 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด detail\n3. กด Edit\n4. clear name แล้วใส่ NAME_UPDATED\n5. กด Save" },
         { type: "expected", description: "Updated/success toast ปรากฏ (updated/success/สำเร็จ)" },
         { type: "priority", description: "High" },
@@ -171,10 +171,10 @@ test.describe("Location — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-LOC00113 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error",
+    "TC-LOC-010013 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "TC-LOC00107 ผ่านแล้ว → record มี name = NAME_UPDATED" },
+        { type: "preconditions", description: "TC-LOC-010007 ผ่านแล้ว → record มี name = NAME_UPDATED" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด detail\n3. กด Edit\n4. clear code + name\n5. กด Save" },
         { type: "expected", description: "Save button ยังคง visible (form ไม่ submit; ยังอยู่ใน edit mode)" },
         { type: "priority", description: "Medium" },
@@ -194,10 +194,10 @@ test.describe("Location — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-LOC00108 ลบรายการ",
+    "TC-LOC-010008 ลบรายการ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-LOC00113 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-LOC-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด detail\n3. กด Edit\n4. กด Delete\n5. ยืนยัน Delete" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
         { type: "priority", description: "High" },
@@ -218,7 +218,7 @@ test.describe("Location — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-LOC00114 สร้าง location_type = Direct และลบ",
+    "TC-LOC-010014 สร้าง location_type = Direct และลบ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record CODE_DIRECT/NAME_DIRECT ยังไม่มีอยู่ใน DB" },
@@ -260,7 +260,7 @@ test.describe("Location — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-LOC00115 สร้าง location_type = Consignment และลบ",
+    "TC-LOC-010015 สร้าง location_type = Consignment และลบ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record CODE_CONSIGN/NAME_CONSIGN ยังไม่มีอยู่ใน DB" },
