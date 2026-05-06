@@ -53,6 +53,44 @@ export class PurchaseOrderPage extends BasePage {
     return this.page.getByRole("row").filter({ hasText: text }).first();
   }
 
+  // ── List filters / search / sort / tabs ──────────────────────────────
+  tabMyPending(): Locator {
+    return this.page.getByRole("tab", { name: /my pending|my po/i }).first();
+  }
+
+  tabAllDocuments(): Locator {
+    return this.page.getByRole("tab", { name: /all documents|^all$/i }).first();
+  }
+
+  async searchFor(text: string) {
+    const input = this.searchInput();
+    await input.fill(text);
+    await this.page.waitForLoadState("networkidle").catch(() => {});
+  }
+
+  async applyFilter(opts: { status?: string }) {
+    await this.filterButton().click();
+    if (opts.status) {
+      const trigger = this.page
+        .getByRole("dialog")
+        .getByLabel(/status/i)
+        .first()
+        .or(this.page.getByLabel(/status/i).first());
+      if ((await trigger.count()) > 0) {
+        await trigger.click();
+        await this.page.getByRole("option", { name: new RegExp(opts.status, "i") }).first().click();
+      }
+    }
+    const apply = this.page.getByRole("button", { name: /^apply$|^ok$/i }).first();
+    if ((await apply.count()) > 0) await apply.click({ timeout: 5_000 }).catch(() => {});
+  }
+
+  async sortBy(column: string) {
+    const header = this.page.getByRole("columnheader", { name: new RegExp(column, "i") }).first();
+    if ((await header.count()) > 0) await header.click();
+    await this.page.waitForLoadState("networkidle").catch(() => {});
+  }
+
   // ── Form ─────────────────────────────────────────────────────────────
   vendorTrigger(): Locator {
     return this.page.getByLabel(/vendor/i).first();
