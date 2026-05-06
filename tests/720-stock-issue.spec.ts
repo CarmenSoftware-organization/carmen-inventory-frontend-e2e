@@ -11,11 +11,11 @@ const requestorTest = createAuthTest("requestor@blueledgers.com");
 const purchaseTest = createAuthTest("purchase@blueledgers.com");
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SI001 — View Issue List
+// TC-SI-900001 — View Issue List
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Stock Issue — List", () => {
   purchaseTest(
-    "TC-SI00101 Happy Path - View Issue List",
+    "TC-SI-010001 Happy Path - View Issue List",
     {
       annotation: [
         { type: "preconditions", description: "User has access to Stock Issues view and has store_operations.view permission" },
@@ -37,7 +37,7 @@ purchaseTest.describe("Stock Issue — List", () => {
   );
 
   purchaseTest(
-    "TC-SI00103 Edge Case - No Issues",
+    "TC-SI-010003 Edge Case - No Issues",
     {
       annotation: [
         { type: "preconditions", description: "User has access; no issues exist in Issue stage with DIRECT destinations" },
@@ -58,7 +58,7 @@ purchaseTest.describe("Stock Issue — List", () => {
   );
 
   purchaseTest(
-    "TC-SI00104 Edge Case - Pagination",
+    "TC-SI-010004 Edge Case - Pagination",
     {
       annotation: [
         { type: "preconditions", description: "User has access to Stock Issues view and has store_operations.view permission" },
@@ -82,11 +82,11 @@ purchaseTest.describe("Stock Issue — List", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SI002 — View Issue Detail
+// TC-SI-900002 — View Issue Detail
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Stock Issue — View Detail", () => {
   purchaseTest(
-    "TC-SI00201 View existing issue with all details",
+    "TC-SI-020001 View existing issue with all details",
     {
       annotation: [
         { type: "preconditions", description: "A StoreRequisition exists at Issue stage; destinationLocationType is DIRECT; user has view permission" },
@@ -113,7 +113,7 @@ purchaseTest.describe("Stock Issue — View Detail", () => {
   );
 
   purchaseTest(
-    "TC-SI00202 View issue with missing department assignment",
+    "TC-SI-020002 View issue with missing department assignment",
     {
       annotation: [
         { type: "preconditions", description: "A StoreRequisition exists at Issue stage; destinationLocationType is DIRECT; user has view permission; department is not assigned" },
@@ -136,7 +136,7 @@ purchaseTest.describe("Stock Issue — View Detail", () => {
 
 requestorTest.describe("Stock Issue — View Detail — Permission denial", () => {
   requestorTest(
-    "TC-SI00203 View issue without view permission",
+    "TC-SI-020003 View issue without view permission",
     {
       annotation: [
         { type: "preconditions", description: "A StoreRequisition exists at Issue stage; destinationLocationType is DIRECT; user does not have view permission" },
@@ -161,11 +161,11 @@ requestorTest.describe("Stock Issue — View Detail — Permission denial", () =
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SI003 — Search & Filter
+// TC-SI-900003 — Search & Filter
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Stock Issue — Search & Filter", () => {
   purchaseTest(
-    "TC-SI00301 Happy Path - Search by SR Reference Number",
+    "TC-SI-030001 Happy Path - Search by SR Reference Number",
     {
       annotation: [
         { type: "preconditions", description: "User has access to Stock Issues view" },
@@ -188,7 +188,7 @@ purchaseTest.describe("Stock Issue — Search & Filter", () => {
   );
 
   purchaseTest(
-    "TC-SI00302 Negative Case - Invalid Search Term",
+    "TC-SI-030002 Negative Case - Invalid Search Term",
     {
       annotation: [
         { type: "preconditions", description: "User has access to Stock Issues view" },
@@ -212,7 +212,7 @@ purchaseTest.describe("Stock Issue — Search & Filter", () => {
   );
 
   purchaseTest(
-    "TC-SI00303 Edge Case - Empty Search Term",
+    "TC-SI-030003 Edge Case - Empty Search Term",
     {
       annotation: [
         { type: "preconditions", description: "User has access to Stock Issues view" },
@@ -235,7 +235,7 @@ purchaseTest.describe("Stock Issue — Search & Filter", () => {
   );
 
   purchaseTest(
-    "TC-SI00305 Edge Case - Multiple Filters",
+    "TC-SI-030005 Edge Case - Multiple Filters",
     {
       annotation: [
         { type: "preconditions", description: "User has access to Stock Issues view" },
@@ -260,7 +260,7 @@ purchaseTest.describe("Stock Issue — Search & Filter", () => {
 
 requestorTest.describe("Stock Issue — Search & Filter — Permission denial", () => {
   requestorTest(
-    "TC-SI00304 Negative Case - No Permission",
+    "TC-SI-030004 Negative Case - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User does not have access to Stock Issues view" },
@@ -285,11 +285,11 @@ requestorTest.describe("Stock Issue — Search & Filter — Permission denial", 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SI004 — View Full SR
+// TC-SI-900004 — View Full SR
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Stock Issue — View Full SR", () => {
   purchaseTest(
-    "TC-SI00401 Happy Path - View Full SR from Issue Detail",
+    "TC-SI-040001 Happy Path - View Full SR from Issue Detail",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in and has SR view permission. Issue view is displayed." },
@@ -314,7 +314,7 @@ purchaseTest.describe("Stock Issue — View Full SR", () => {
   );
 
   purchaseTest(
-    "TC-SI00403 Edge Case - Empty SR Reference Link",
+    "TC-SI-040003 Edge Case - Empty SR Reference Link",
     {
       annotation: [
         { type: "preconditions", description: "User has SR view permission. Issue view is displayed with an empty SR reference link." },
@@ -335,7 +335,7 @@ purchaseTest.describe("Stock Issue — View Full SR", () => {
   );
 
   purchaseTest(
-    "TC-SI00404 Negative - User at Issue Stage No Permissions",
+    "TC-SI-040004 Negative - User at Issue Stage No Permissions",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in and has SR view permission. Issue view is displayed with SR at Issue stage." },
@@ -356,7 +356,7 @@ purchaseTest.describe("Stock Issue — View Full SR", () => {
   );
 
   purchaseTest(
-    "TC-SI00405 Happy Path - Print SR",
+    "TC-SI-040005 Happy Path - Print SR",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in and has SR view and print permission. Issue view is displayed with SR at Issue stage." },
@@ -383,7 +383,7 @@ purchaseTest.describe("Stock Issue — View Full SR", () => {
 
 requestorTest.describe("Stock Issue — View Full SR — Permission denial", () => {
   requestorTest(
-    "TC-SI00402 Negative - No SR View Permission",
+    "TC-SI-040002 Negative - No SR View Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in but does not have SR view permission. Issue view is displayed." },
@@ -413,11 +413,11 @@ requestorTest.describe("Stock Issue — View Full SR — Permission denial", () 
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SI005 — Print Stock Issue
+// TC-SI-900005 — Print Stock Issue
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Stock Issue — Print", () => {
   purchaseTest(
-    "TC-SI00501 Happy Path: Warehouse Staff prints a stock issue document",
+    "TC-SI-050001 Happy Path: Warehouse Staff prints a stock issue document",
     {
       annotation: [
         { type: "preconditions", description: "Issue exists at Issue/Complete stage and user has view permission" },
@@ -442,7 +442,7 @@ purchaseTest.describe("Stock Issue — Print", () => {
   );
 
   purchaseTest(
-    "TC-SI00503 Edge Case: Multiple items with zero quantity",
+    "TC-SI-050003 Edge Case: Multiple items with zero quantity",
     {
       annotation: [
         { type: "preconditions", description: "Issue exists with multiple items, some having zero quantity" },
@@ -463,7 +463,7 @@ purchaseTest.describe("Stock Issue — Print", () => {
   );
 
   purchaseTest(
-    "TC-SI00504 Negative: Issue does not exist",
+    "TC-SI-050004 Negative: Issue does not exist",
     {
       annotation: [
         { type: "preconditions", description: "Issue does not exist in the system" },
@@ -484,7 +484,7 @@ purchaseTest.describe("Stock Issue — Print", () => {
   );
 
   purchaseTest(
-    "TC-SI00505 Edge Case: Issue at Cancel stage",
+    "TC-SI-050005 Edge Case: Issue at Cancel stage",
     {
       annotation: [
         { type: "preconditions", description: "Issue exists but is at Cancel stage" },
@@ -510,7 +510,7 @@ purchaseTest.describe("Stock Issue — Print", () => {
 
 requestorTest.describe("Stock Issue — Print — Permission denial", () => {
   requestorTest(
-    "TC-SI00502 Negative: User without permission attempts to print",
+    "TC-SI-050002 Negative: User without permission attempts to print",
     {
       annotation: [
         { type: "preconditions", description: "Issue exists at Issue/Complete stage but user does not have view permission" },
@@ -542,11 +542,11 @@ requestorTest.describe("Stock Issue — Print — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-SI006 — Expense Allocation
+// TC-SI-900006 — Expense Allocation
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Stock Issue — Expense Allocation", () => {
   purchaseTest(
-    "TC-SI00601 Happy Path - View Expense Allocation",
+    "TC-SI-060001 Happy Path - View Expense Allocation",
     {
       annotation: [
         { type: "preconditions", description: "SR status is Completed; user has permission to view costs" },
@@ -570,7 +570,7 @@ purchaseTest.describe("Stock Issue — Expense Allocation", () => {
   );
 
   purchaseTest(
-    "TC-SI00603 Edge Case - SR with No Expense Allocation",
+    "TC-SI-060003 Edge Case - SR with No Expense Allocation",
     {
       annotation: [
         { type: "preconditions", description: "SR status is Completed; user has permission to view costs; SR has no expense allocation" },
@@ -590,7 +590,7 @@ purchaseTest.describe("Stock Issue — Expense Allocation", () => {
   );
 
   purchaseTest(
-    "TC-SI00604 Negative - Invalid SR ID",
+    "TC-SI-060004 Negative - Invalid SR ID",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to view costs" },
@@ -612,7 +612,7 @@ purchaseTest.describe("Stock Issue — Expense Allocation", () => {
 
 requestorTest.describe("Stock Issue — Expense Allocation — Permission denial", () => {
   requestorTest(
-    "TC-SI00602 Negative - No Permission to View Costs",
+    "TC-SI-060002 Negative - No Permission to View Costs",
     {
       annotation: [
         { type: "preconditions", description: "SR status is Completed; user does not have permission to view costs" },
