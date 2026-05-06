@@ -16,11 +16,11 @@ const VALID_DESCRIPTION = "Office supplies pricelist for 2023";
 const INVALID_NAME = "   "; // whitespace-only
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PT001 — Create Pricelist Template
+// TC-PT-900001 — Create Pricelist Template
 // ─────────────────────────────────────────────────────────────────────────
 procurementManagerTest.describe("Pricelist Template — Create", () => {
   procurementManagerTest(
-    "TC-PT00101 Create Pricelist Template - Happy Path",
+    "TC-PT-010001 Create Pricelist Template - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager and has access to Pricelist Templates" },
@@ -45,7 +45,7 @@ procurementManagerTest.describe("Pricelist Template — Create", () => {
   );
 
   procurementManagerTest(
-    "TC-PT00102 Create Pricelist Template - Empty Template Name",
+    "TC-PT-010002 Create Pricelist Template - Empty Template Name",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager and has access to Pricelist Templates" },
@@ -70,7 +70,7 @@ procurementManagerTest.describe("Pricelist Template — Create", () => {
   );
 
   procurementManagerTest(
-    "TC-PT00105 Create Pricelist Template - Missing Description",
+    "TC-PT-010005 Create Pricelist Template - Missing Description",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager and has access to Pricelist Templates" },
@@ -97,7 +97,7 @@ procurementManagerTest.describe("Pricelist Template — Create", () => {
 
 procurementStaffTest.describe("Pricelist Template — Create — Permission denial", () => {
   procurementStaffTest(
-    "TC-PT00104 Create Pricelist Template - No Permission",
+    "TC-PT-010004 Create Pricelist Template - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Staff and has access to Pricelist Templates list page only" },
@@ -128,11 +128,11 @@ procurementStaffTest.describe("Pricelist Template — Create — Permission deni
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PT002 — Add products to template
+// TC-PT-900002 — Add products to template
 // ─────────────────────────────────────────────────────────────────────────
 procurementManagerTest.describe("Pricelist Template — Add products", () => {
   procurementManagerTest(
-    "TC-PT00201 Add products to template - Happy Path",
+    "TC-PT-020001 Add products to template - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager; has access to a product template; at least 10 products exist" },
@@ -174,7 +174,7 @@ procurementManagerTest.describe("Pricelist Template — Add products", () => {
   );
 
   procurementManagerTest(
-    "TC-PT00202 Add products to template - Invalid Input (max exceeded)",
+    "TC-PT-020002 Add products to template - Invalid Input (max exceeded)",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager and has access to the product template" },
@@ -215,7 +215,7 @@ procurementManagerTest.describe("Pricelist Template — Add products", () => {
   );
 
   procurementManagerTest(
-    "TC-PT00204 Add products to template - Edge Case - Empty Selection",
+    "TC-PT-020004 Add products to template - Edge Case - Empty Selection",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager and has access to the product template" },
@@ -257,7 +257,7 @@ procurementManagerTest.describe("Pricelist Template — Add products", () => {
 
 procurementStaffTest.describe("Pricelist Template — Add products — Permission denial", () => {
   procurementStaffTest(
-    "TC-PT00203 Add products to template - No Permission",
+    "TC-PT-020003 Add products to template - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Staff and has no access to the product template" },
@@ -289,11 +289,11 @@ procurementStaffTest.describe("Pricelist Template — Add products — Permissio
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PT003 — Edit template
+// TC-PT-900003 — Edit template
 // ─────────────────────────────────────────────────────────────────────────
 procurementManagerTest.describe("Pricelist Template — Edit", () => {
   procurementManagerTest(
-    "TC-PT00301 Edit template with valid data",
+    "TC-PT-030001 Edit template with valid data",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager and has permission to edit templates" },
@@ -335,7 +335,7 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
   );
 
   procurementManagerTest(
-    "TC-PT00302 Edit template with invalid validity period",
+    "TC-PT-030002 Edit template with invalid validity period",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager and has permission to edit templates" },
@@ -366,7 +366,7 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
   );
 
   procurementManagerTest(
-    "TC-PT00303 Edit template without product selection",
+    "TC-PT-030003 Edit template without product selection",
     {
       annotation: [
         { type: "preconditions", description: "Procurement Manager has permission to edit templates and no products are linked to the template" },
@@ -396,7 +396,7 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
   );
 
   procurementManagerTest(
-    "TC-PT00304 Edit template with minimal changes",
+    "TC-PT-030004 Edit template with minimal changes",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager and has permission to edit templates" },
@@ -423,7 +423,7 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
   );
 
   procurementManagerTest(
-    "TC-PT00305 Edit template with all fields in default state",
+    "TC-PT-030005 Edit template with all fields in default state",
     {
       annotation: [
         { type: "preconditions", description: "Procurement Manager has permission to edit templates; template is in its default state with no changes made" },
@@ -450,11 +450,11 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PT004 — Clone template
+// TC-PT-900004 — Clone template
 // ─────────────────────────────────────────────────────────────────────────
 procurementManagerTest.describe("Pricelist Template — Clone", () => {
   procurementManagerTest(
-    "TC-PT00401 Happy Path - Clone Existing Template",
+    "TC-PT-040001 Happy Path - Clone Existing Template",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager; template library is available" },
@@ -490,7 +490,7 @@ procurementManagerTest.describe("Pricelist Template — Clone", () => {
   );
 
   procurementManagerTest(
-    "TC-PT00402 Negative - Invalid Template Name",
+    "TC-PT-040002 Negative - Invalid Template Name",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager; template library is available; user enters invalid name" },
@@ -520,7 +520,7 @@ procurementManagerTest.describe("Pricelist Template — Clone", () => {
   );
 
   procurementManagerTest.skip(
-    "TC-PT00404 Edge Case - Maximum Templates Reached",
+    "TC-PT-040004 Edge Case - Maximum Templates Reached",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Manager; template library is available; maximum allowed templates have been created" },
@@ -541,7 +541,7 @@ procurementManagerTest.describe("Pricelist Template — Clone", () => {
 
 procurementStaffTest.describe("Pricelist Template — Clone — Permission denial", () => {
   procurementStaffTest(
-    "TC-PT00403 Negative - No Permission to Clone",
+    "TC-PT-040003 Negative - No Permission to Clone",
     {
       annotation: [
         { type: "preconditions", description: "User is logged in as Procurement Staff; template library is available" },
@@ -573,11 +573,11 @@ procurementStaffTest.describe("Pricelist Template — Clone — Permission denia
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PT005 — Activate / Deactivate template
+// TC-PT-900005 — Activate / Deactivate template
 // ─────────────────────────────────────────────────────────────────────────
 procurementManagerTest.describe("Pricelist Template — Activate / Deactivate", () => {
   procurementManagerTest(
-    "TC-PT00501 Activate Template - Happy Path",
+    "TC-PT-050001 Activate Template - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "Template is in a deactivated state and user has permission to activate templates" },
@@ -608,7 +608,7 @@ procurementManagerTest.describe("Pricelist Template — Activate / Deactivate", 
   );
 
   procurementManagerTest(
-    "TC-PT00503 Activate Template - Invalid Input",
+    "TC-PT-050003 Activate Template - Invalid Input",
     {
       annotation: [
         { type: "preconditions", description: "Template is in a deactivated state and user has permission to activate templates" },
@@ -636,7 +636,7 @@ procurementManagerTest.describe("Pricelist Template — Activate / Deactivate", 
   );
 
   procurementManagerTest(
-    "TC-PT00505 Template Status Change - Edge Case (rapid toggle)",
+    "TC-PT-050005 Template Status Change - Edge Case (rapid toggle)",
     {
       annotation: [
         { type: "preconditions", description: "Template is in an active state and user has permission to deactivate templates" },
@@ -672,7 +672,7 @@ procurementManagerTest.describe("Pricelist Template — Activate / Deactivate", 
 
 procurementStaffTest.describe("Pricelist Template — Activate / Deactivate — Permission denial", () => {
   procurementStaffTest(
-    "TC-PT00504 Deactivate Template - No Permission",
+    "TC-PT-050004 Deactivate Template - No Permission",
     {
       annotation: [
         { type: "preconditions", description: "Template is in an active state and user does not have permission to deactivate templates" },
@@ -704,11 +704,11 @@ procurementStaffTest.describe("Pricelist Template — Activate / Deactivate — 
 });
 
 // ─────────────────────────────────────────────────────────────────────────
-// TC-PT006 — Search and View
+// TC-PT-900006 — Search and View
 // ─────────────────────────────────────────────────────────────────────────
 procurementManagerTest.describe("Pricelist Template — Search and View", () => {
   procurementManagerTest(
-    "TC-PT00601 Search and View Templates - Happy Path",
+    "TC-PT-060001 Search and View Templates - Happy Path",
     {
       annotation: [
         { type: "preconditions", description: "User is logged into Carmen Inventory with permissions to view templates" },
@@ -740,7 +740,7 @@ procurementManagerTest.describe("Pricelist Template — Search and View", () => 
   );
 
   procurementManagerTest(
-    "TC-PT00602 Search and View Templates - Negative - Invalid Search Term",
+    "TC-PT-060002 Search and View Templates - Negative - Invalid Search Term",
     {
       annotation: [
         { type: "preconditions", description: "User is logged into Carmen Inventory with permissions to view templates" },
@@ -767,7 +767,7 @@ procurementManagerTest.describe("Pricelist Template — Search and View", () => 
   );
 
   procurementManagerTest(
-    "TC-PT00604 Search and View Templates - Edge Case - Filter by Product Count",
+    "TC-PT-060004 Search and View Templates - Edge Case - Filter by Product Count",
     {
       annotation: [
         { type: "preconditions", description: "User is logged into Carmen Inventory with permissions to view templates" },
@@ -799,7 +799,7 @@ procurementManagerTest.describe("Pricelist Template — Search and View", () => 
   );
 
   procurementManagerTest(
-    "TC-PT00605 Search and View Templates - Edge Case - Sort by Name (Z-A)",
+    "TC-PT-060005 Search and View Templates - Edge Case - Sort by Name (Z-A)",
     {
       annotation: [
         { type: "preconditions", description: "User is logged into Carmen Inventory with permissions to view templates" },
@@ -831,7 +831,7 @@ procurementManagerTest.describe("Pricelist Template — Search and View", () => 
 
 procurementStaffTest.describe("Pricelist Template — Search and View — Permission denial", () => {
   procurementStaffTest(
-    "TC-PT00603 Search and View Templates - Negative - Insufficient Permission",
+    "TC-PT-060003 Search and View Templates - Negative - Insufficient Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is logged into Carmen Inventory but does not have permissions to view templates" },
