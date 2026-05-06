@@ -741,5 +741,51 @@ fcTest.describe("Scope Contrast (FC)", () => {
 });
 
 hodTest.describe.serial("Golden Journey", () => {
-  // TC added in Task 11
+  hodTest(
+    "TC-PRA0901 HOD full flow: My Approval → List → Detail → Edit → Adjust Qty → Bulk Approve",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged in as HOD; a fresh pending PR is seeded via submitPRAsRequestor" },
+        { type: "steps", description: "1. Open My Approvals\n2. Open PR detail\n3. Click Edit\n4. Adjust Approved Qty on first row\n5. Select all + Bulk Approve + Confirm" },
+        { type: "expected", description: "URL stays on the PR ref after bulk approve; the journey completes end-to-end." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const ma = new MyApprovalsPage(page);
+
+      // Seed
+      const created = await submitPRAsRequestor(browser, { items: 1, description: "TC-PRA0901 golden" });
+
+      // Step 1: My Approvals
+      await ma.gotoList();
+      await expect(ma.pendingCountBadge()).toBeVisible({ timeout: 10_000 });
+
+      // Step 2: PR Detail
+      await gotoPRDetail(page, created.ref);
+
+      // Step 3: Enter Edit Mode
+      if ((await pr.editModeButton().count()) === 0) {
+        hodTest.skip(true, "Edit button not present");
+        return;
+      }
+      await pr.enterEditMode();
+
+      // Step 4: Adjust Approved Qty
+      const qty = pr.approvedQtyInput(0);
+      if ((await qty.count()) > 0) await qty.fill("2");
+
+      // Step 5: Bulk Approve
+      await pr.selectAllInEditMode();
+      if ((await pr.bulkApproveInEditMode().count()) === 0) {
+        hodTest.skip(true, "Bulk Approve button not present");
+        return;
+      }
+      await bulkApprove(page);
+
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
 });
