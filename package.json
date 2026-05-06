@@ -22,7 +22,8 @@
     "install-browsers": "playwright install --with-deps",
     "audit:tc-ids": "bun run scripts/audit-tc-ids.ts",
     "audit:tc-ids:legacy": "bun run scripts/audit-tc-ids.ts --legacy-mode",
-    "migrate:tc-propose": "bun run scripts/migrate-tc-ids/propose.ts"
+    "migrate:tc-propose": "bun run scripts/migrate-tc-ids/propose.ts",
+    "migrate:tc-apply": "bun run scripts/migrate-tc-ids/apply.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
