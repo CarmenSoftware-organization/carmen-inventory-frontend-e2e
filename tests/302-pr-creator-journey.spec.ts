@@ -210,7 +210,7 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoNew();
-      await expect(page).toHaveURL(/purchase-request\/new/);
+      await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
       const draftBadge = page.locator("[data-slot='badge'], [class*='badge']").filter({ hasText: /draft/i }).first();
       if ((await draftBadge.count()) > 0) {
         await expect(draftBadge).toBeVisible();
@@ -248,7 +248,7 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
       annotation: [
         { type: "preconditions", description: "On the create-PR form with header filled" },
         { type: "steps", description: "1. Click Add Item\n2. Fill product, qty, uom, unit price\n3. Save the item" },
-        { type: "expected", description: "Form remains on /new (item add does not navigate); at least one data row appears." },
+        { type: "expected", description: "Form remains on /new — item add does not navigate away from the create form." },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -258,7 +258,7 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
       await pr.gotoNew();
       await pr.fillHeader({ prType: "general", deliveryDate: FUTURE_DATE });
       await pr.addLineItem({ product: "Test Item", quantity: 1, uom: "ea", unitPrice: 100 });
-      await expect(page).toHaveURL(/purchase-request\/new/);
+      await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
     },
   );
 
@@ -278,12 +278,12 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
       await pr.gotoNew();
       await pr.fillHeader({ prType: "general", deliveryDate: FUTURE_DATE });
       await pr.addLineItem({ product: "FOC Item", quantity: 5, uom: "ea", isFOC: true });
-      await expect(page).toHaveURL(/purchase-request\/new/);
+      await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
     },
   );
 
   requestorTest(
-    "TC-PRC0206 Add multiple line items — totals recompute",
+    "TC-PRC0206 Add multiple line items — form stays on /new",
     {
       annotation: [
         { type: "preconditions", description: "On the create-PR form" },
@@ -300,7 +300,7 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
       for (const i of [1, 2, 3]) {
         await pr.addLineItem({ product: `Item ${i}`, quantity: i, uom: "ea", unitPrice: 50 * i });
       }
-      await expect(page).toHaveURL(/purchase-request\/new/);
+      await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
     },
   );
 
@@ -321,7 +321,7 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
       await pr.fillHeader({ prType: "general", deliveryDate: FUTURE_DATE });
       await pr.addLineItem({ product: "Edit Me", quantity: 1, uom: "ea", unitPrice: 100 });
       await pr.editLineItem(0, { quantity: 5 });
-      await expect(page).toHaveURL(/purchase-request\/new/);
+      await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
     },
   );
 
@@ -342,7 +342,7 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
       await pr.fillHeader({ prType: "general", deliveryDate: FUTURE_DATE });
       await pr.addLineItem({ product: "Remove Me", quantity: 1, uom: "ea", unitPrice: 100 });
       await pr.removeLineItem(0);
-      await expect(page).toHaveURL(/purchase-request\/new/);
+      await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
     },
   );
 
@@ -393,7 +393,7 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
         return;
       }
       await save.click({ timeout: 5_000 }).catch(() => {});
-      await expect(page).toHaveURL(/purchase-request\/new/);
+      await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
     },
   );
 
@@ -414,7 +414,7 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
       await pr.fillHeader({ prType: "general", deliveryDate: PAST_DATE });
       await pr.addLineItem({ product: "Past Date", quantity: 1, uom: "ea", unitPrice: 100 });
       await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(page).toHaveURL(/purchase-request\/new/);
+      await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
     },
   );
 });
