@@ -11,11 +11,11 @@ const requestorTest = createAuthTest("requestor@blueledgers.com");
 const purchaseTest = createAuthTest("purchase@blueledgers.com");
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PL001 — Login & List page access
+// TC-PL-900001 — Login & List page access
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Price List — List & Filter", () => {
   purchaseTest(
-    "TC-PL00101 Valid Login and Access to Price Lists Page",
+    "TC-PL-010001 Valid Login and Access to Price Lists Page",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated and has access to Vendor Management module" },
@@ -38,7 +38,7 @@ purchaseTest.describe("Price List — List & Filter", () => {
   );
 
   purchaseTest(
-    "TC-PL00102 Search Filter with Invalid Keyword",
+    "TC-PL-010002 Search Filter with Invalid Keyword",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated and has access to Vendor Management module" },
@@ -62,7 +62,7 @@ purchaseTest.describe("Price List — List & Filter", () => {
   );
 
   purchaseTest(
-    "TC-PL00103 View Price List Details with No Data",
+    "TC-PL-010003 View Price List Details with No Data",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated and has access to Vendor Management module" },
@@ -90,7 +90,7 @@ purchaseTest.describe("Price List — List & Filter", () => {
   );
 
   purchaseTest(
-    "TC-PL00105 Filter by Expired Status",
+    "TC-PL-010005 Filter by Expired Status",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated; has access to Vendor Management module; system has expired price lists" },
@@ -120,7 +120,7 @@ purchaseTest.describe("Price List — List & Filter", () => {
 
 requestorTest.describe("Price List — List access — Permission denial", () => {
   requestorTest(
-    "TC-PL00104 User Without Access to Price Lists Page",
+    "TC-PL-010004 User Without Access to Price Lists Page",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated but does not have access to Vendor Management module" },
@@ -142,11 +142,11 @@ requestorTest.describe("Price List — List access — Permission denial", () =>
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PL002 — Create Price List
+// TC-PL-900002 — Create Price List
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Price List — Create", () => {
   purchaseTest(
-    "TC-PL00201 Happy Path - Create Valid Price List",
+    "TC-PL-020001 Happy Path - Create Valid Price List",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated; has permission to create price lists; vendor directory contains at least one vendor; product catalog contains at least one product" },
@@ -172,7 +172,7 @@ purchaseTest.describe("Price List — Create", () => {
   );
 
   purchaseTest(
-    "TC-PL00202 Negative - Missing Vendor",
+    "TC-PL-020002 Negative - Missing Vendor",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to create price lists; product catalog contains at least one product" },
@@ -198,7 +198,7 @@ purchaseTest.describe("Price List — Create", () => {
   );
 
   purchaseTest(
-    "TC-PL00203 Edge Case - Empty Unit Price",
+    "TC-PL-020003 Edge Case - Empty Unit Price",
     {
       annotation: [
         { type: "preconditions", description: "User has permission to create price lists; vendor directory has at least one vendor; product catalog has at least one product" },
@@ -225,11 +225,11 @@ purchaseTest.describe("Price List — Create", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PL003 — View Price List Detail
+// TC-PL-900003 — View Price List Detail
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Price List — View detail", () => {
   purchaseTest(
-    "TC-PL00301 Happy Path - Valid Price List Click",
+    "TC-PL-030001 Happy Path - Valid Price List Click",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated with valid session; a price list exists" },
@@ -257,7 +257,7 @@ purchaseTest.describe("Price List — View detail", () => {
   );
 
   purchaseTest(
-    "TC-PL00302 Negative - No Price List Selected",
+    "TC-PL-030002 Negative - No Price List Selected",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated with valid session" },
@@ -281,7 +281,7 @@ purchaseTest.describe("Price List — View detail", () => {
   );
 
   purchaseTest(
-    "TC-PL00305 Edge Case - Empty Line Items",
+    "TC-PL-030005 Edge Case - Empty Line Items",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated; a price list with no line items exists" },
@@ -310,7 +310,7 @@ purchaseTest.describe("Price List — View detail", () => {
 
 requestorTest.describe("Price List — View / Edit — Permission denial", () => {
   requestorTest(
-    "TC-PL00303 Edge Case - User Without Edit Permission",
+    "TC-PL-030003 Edge Case - User Without Edit Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated with valid session and lacks edit permissions" },
@@ -341,7 +341,7 @@ requestorTest.describe("Price List — View / Edit — Permission denial", () =>
   );
 
   requestorTest(
-    "TC-PL00304 Negative - User Without View Permission",
+    "TC-PL-030004 Negative - User Without View Permission",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated with valid session but lacks view permissions" },
@@ -367,11 +367,11 @@ requestorTest.describe("Price List — View / Edit — Permission denial", () =>
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PL004 — Edit Price List
+// TC-PL-900004 — Edit Price List
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Price List — Edit", () => {
   purchaseTest(
-    "TC-PL00401 Happy Path: Edit Price List Successfully",
+    "TC-PL-040001 Happy Path: Edit Price List Successfully",
     {
       annotation: [
         { type: "preconditions", description: "User authenticated with valid session; price list exists and is editable; user has edit permissions" },
@@ -402,7 +402,7 @@ purchaseTest.describe("Price List — Edit", () => {
   );
 
   purchaseTest(
-    "TC-PL00402 Negative: Invalid Date Input",
+    "TC-PL-040002 Negative: Invalid Date Input",
     {
       annotation: [
         { type: "preconditions", description: "Price list exists and is editable; user has edit permissions; user inputs invalid date format" },
@@ -431,11 +431,11 @@ purchaseTest.describe("Price List — Edit", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PL005 — Duplicate
+// TC-PL-900005 — Duplicate
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Price List — Duplicate", () => {
   purchaseTest(
-    "TC-PL00501 Happy Path - Duplicate Price List",
+    "TC-PL-050001 Happy Path - Duplicate Price List",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated with valid session; a source price list exists" },
@@ -470,7 +470,7 @@ purchaseTest.describe("Price List — Duplicate", () => {
   );
 
   purchaseTest(
-    "TC-PL00503 Edge Case - Duplicate with No Source Price List",
+    "TC-PL-050003 Edge Case - Duplicate with No Source Price List",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated with valid session but no source price list exists" },
@@ -498,7 +498,7 @@ purchaseTest.describe("Price List — Duplicate", () => {
 
 requestorTest.describe("Price List — Duplicate — Permission denial", () => {
   requestorTest(
-    "TC-PL00502 Negative - No Permission to Duplicate",
+    "TC-PL-050002 Negative - No Permission to Duplicate",
     {
       annotation: [
         { type: "preconditions", description: "User authenticated but lacks permission to duplicate price list" },
@@ -533,11 +533,11 @@ requestorTest.describe("Price List — Duplicate — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PL006 — Export
+// TC-PL-900006 — Export
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Price List — Export", () => {
   purchaseTest(
-    "TC-PL00601 Happy Path - Export Price List",
+    "TC-PL-060001 Happy Path - Export Price List",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated; price list exists" },
@@ -564,7 +564,7 @@ purchaseTest.describe("Price List — Export", () => {
   );
 
   purchaseTest(
-    "TC-PL00603 Edge Case - Large Price List",
+    "TC-PL-060003 Edge Case - Large Price List",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated; price list contains a large number of entries" },
@@ -593,7 +593,7 @@ purchaseTest.describe("Price List — Export", () => {
 
 requestorTest.describe("Price List — Export — Permission denial", () => {
   requestorTest(
-    "TC-PL00602 Negative - Invalid Export Permission",
+    "TC-PL-060002 Negative - Invalid Export Permission",
     {
       annotation: [
         { type: "preconditions", description: "User authenticated but does not have permission to export" },
@@ -622,11 +622,11 @@ requestorTest.describe("Price List — Export — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PL007 — Delete
+// TC-PL-900007 — Delete
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Price List — Delete", () => {
   purchaseTest(
-    "TC-PL00703 Negative - Click Cancel in Confirmation Dialog",
+    "TC-PL-070003 Negative - Click Cancel in Confirmation Dialog",
     {
       annotation: [
         { type: "preconditions", description: "User authenticated; price list exists; user has delete permission" },
@@ -660,7 +660,7 @@ purchaseTest.describe("Price List — Delete", () => {
   );
 
   purchaseTest(
-    "TC-PL00704 Edge Case - Delete Price List from Detail Page",
+    "TC-PL-070004 Edge Case - Delete Price List from Detail Page",
     {
       annotation: [
         { type: "preconditions", description: "User authenticated; price list exists; user has delete permission" },
@@ -696,7 +696,7 @@ purchaseTest.describe("Price List — Delete", () => {
 
 requestorTest.describe("Price List — Delete — Permission denial", () => {
   requestorTest(
-    "TC-PL00702 Negative - No Delete Permission",
+    "TC-PL-070002 Negative - No Delete Permission",
     {
       annotation: [
         { type: "preconditions", description: "User authenticated; price list exists; user does not have delete permission" },
@@ -731,11 +731,11 @@ requestorTest.describe("Price List — Delete — Permission denial", () => {
 });
 
 // ═════════════════════════════════════════════════════════════════════════
-// TC-PL008 — Mark as Expired
+// TC-PL-900008 — Mark as Expired
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Price List — Mark as Expired", () => {
   purchaseTest(
-    "TC-PL00801 Happy Path - Mark Price List as Expired",
+    "TC-PL-080001 Happy Path - Mark Price List as Expired",
     {
       annotation: [
         { type: "preconditions", description: "User is authenticated; a price list with non-expired status exists" },
@@ -769,7 +769,7 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
   );
 
   purchaseTest(
-    "TC-PL00803 Edge Case - Multiple Price Lists",
+    "TC-PL-080003 Edge Case - Multiple Price Lists",
     {
       annotation: [
         { type: "preconditions", description: "Multiple price lists exist with at least one having a non-expired status" },
@@ -803,7 +803,7 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
   );
 
   purchaseTest(
-    "TC-PL00804 Negative - Price List Already Expired",
+    "TC-PL-080004 Negative - Price List Already Expired",
     {
       annotation: [
         { type: "preconditions", description: "A price list with expired status exists" },
