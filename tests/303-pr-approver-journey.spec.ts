@@ -22,7 +22,7 @@ const REVIEW_STAGE = "Purchase";
 
 hodTest.describe("Step 1 — My Approval Dashboard", () => {
   hodTest(
-    "TC-PRA0101 Dashboard loads with Total Pending count visible",
+    "TC-PR-060101 Dashboard loads with Total Pending count visible",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as HOD (hod@blueledgers.com)" },
@@ -40,7 +40,7 @@ hodTest.describe("Step 1 — My Approval Dashboard", () => {
   );
 
   hodTest(
-    "TC-PRA0102 Click pending PR row navigates to PR detail",
+    "TC-PR-060102 Click pending PR row navigates to PR detail",
     {
       annotation: [
         { type: "preconditions", description: "On My Approvals dashboard with at least one pending PR row" },
@@ -65,7 +65,7 @@ hodTest.describe("Step 1 — My Approval Dashboard", () => {
   );
 
   hodTest(
-    "TC-PRA0103 Pending count matches actual list row count",
+    "TC-PR-060103 Pending count matches actual list row count",
     {
       annotation: [
         { type: "preconditions", description: "On My Approvals dashboard" },
@@ -88,7 +88,7 @@ hodTest.describe("Step 1 — My Approval Dashboard", () => {
   );
 
   hodTest(
-    "TC-PRA0104 Filter tabs render and filter when present",
+    "TC-PR-060104 Filter tabs render and filter when present",
     {
       annotation: [
         { type: "preconditions", description: "On My Approvals dashboard" },
@@ -114,7 +114,7 @@ hodTest.describe("Step 1 — My Approval Dashboard", () => {
 
 hodTest.describe("Step 2 — PR List (Approver View)", () => {
   hodTest(
-    "TC-PRA0201 My Pending tab shows PRs at HOD stage",
+    "TC-PR-060201 My Pending tab shows PRs at HOD stage",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as HOD; navigated to PR list" },
@@ -135,7 +135,7 @@ hodTest.describe("Step 2 — PR List (Approver View)", () => {
   );
 
   hodTest(
-    "TC-PRA0202 All Documents tab broadens scope",
+    "TC-PR-060202 All Documents tab broadens scope",
     {
       annotation: [
         { type: "preconditions", description: "On the PR list page" },
@@ -159,7 +159,7 @@ hodTest.describe("Step 2 — PR List (Approver View)", () => {
   );
 
   hodTest(
-    "TC-PRA0203 All Stage dropdown filters by status",
+    "TC-PR-060203 All Stage dropdown filters by status",
     {
       annotation: [
         { type: "preconditions", description: "On the PR list page" },
@@ -185,7 +185,7 @@ hodTest.describe("Step 2 — PR List (Approver View)", () => {
   );
 
   hodTest(
-    "TC-PRA0204 Filter panel opens and applies",
+    "TC-PR-060204 Filter panel opens and applies",
     {
       annotation: [
         { type: "preconditions", description: "On the PR list page" },
@@ -209,7 +209,7 @@ hodTest.describe("Step 2 — PR List (Approver View)", () => {
   );
 
   hodTest(
-    "TC-PRA0205 Search by PR reference filters list",
+    "TC-PR-060205 Search by PR reference filters list",
     {
       annotation: [
         { type: "preconditions", description: "On the PR list page; at least one PR exists with a known reference" },
@@ -235,7 +235,7 @@ hodTest.describe("Step 2 — PR List (Approver View)", () => {
 
 hodTest.describe("Step 3 — PR Detail (Read-only)", () => {
   hodTest(
-    "TC-PRA0301 Detail loads with Items tab default",
+    "TC-PR-060301 Detail loads with Items tab default",
     {
       annotation: [
         { type: "preconditions", description: "A pending PR (In Progress, HOD stage) exists; created via submitPRAsRequestor" },
@@ -257,7 +257,7 @@ hodTest.describe("Step 3 — PR Detail (Read-only)", () => {
   );
 
   hodTest(
-    "TC-PRA0302 Switch to Workflow History tab",
+    "TC-PR-060302 Switch to Workflow History tab",
     {
       annotation: [
         { type: "preconditions", description: "On a pending PR detail page" },
@@ -282,7 +282,7 @@ hodTest.describe("Step 3 — PR Detail (Read-only)", () => {
   );
 
   hodTest(
-    "TC-PRA0303 No standalone Approve/Reject/Return buttons (BRD discrepancy)",
+    "TC-PR-060303 No standalone Approve/Reject/Return buttons (BRD discrepancy)",
     {
       annotation: [
         { type: "preconditions", description: "On a pending PR detail page (read-only view)" },
@@ -308,7 +308,7 @@ hodTest.describe("Step 3 — PR Detail (Read-only)", () => {
   );
 
   hodTest(
-    "TC-PRA0304 Edit button visible (entry to bulk actions)",
+    "TC-PR-060304 Edit button visible (entry to bulk actions)",
     {
       annotation: [
         { type: "preconditions", description: "On a pending PR detail page" },
@@ -329,7 +329,7 @@ hodTest.describe("Step 3 — PR Detail (Read-only)", () => {
 
 hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
   hodTest(
-    "TC-PRA0401 Click Edit → edit mode active",
+    "TC-PR-060401 Click Edit → edit mode active",
     {
       annotation: [
         { type: "preconditions", description: "A pending PR detail page is open" },
@@ -354,7 +354,7 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
   );
 
   hodTest(
-    "TC-PRA0402 Approved Quantity field is editable",
+    "TC-PR-060402 Approved Quantity field is editable",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
@@ -385,7 +385,7 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
   );
 
   hodTest(
-    "TC-PRA0403 Item Note field is editable",
+    "TC-PR-060403 Item Note field is editable",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
@@ -415,7 +415,7 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
   );
 
   hodTest(
-    "TC-PRA0404 Delivery Point field is editable",
+    "TC-PR-060404 Delivery Point field is editable",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
@@ -444,7 +444,7 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
   );
 
   hodTest(
-    "TC-PRA0405 Vendor field is read-only",
+    "TC-PR-060405 Vendor field is read-only",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
@@ -477,7 +477,7 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
   );
 
   hodTest(
-    "TC-PRA0406 Unit Price field is read-only",
+    "TC-PR-060406 Unit Price field is read-only",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
@@ -510,7 +510,7 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
   );
 
   hodTest(
-    "TC-PRA0407 Discount / Tax / FOC Qty are read-only",
+    "TC-PR-060407 Discount / Tax / FOC Qty are read-only",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
@@ -547,7 +547,7 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
   );
 
   hodTest(
-    "TC-PRA0408 Bulk Approve via Select All → toolbar",
+    "TC-PR-060408 Bulk Approve via Select All → toolbar",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a pending PR" },
@@ -579,7 +579,7 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
   );
 
   hodTest(
-    "TC-PRA0409 Bulk Reject via toolbar (with reason)",
+    "TC-PR-060409 Bulk Reject via toolbar (with reason)",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a pending PR" },
@@ -609,7 +609,7 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
   );
 
   hodTest(
-    "TC-PRA0410 Bulk Send for Review via toolbar",
+    "TC-PR-060410 Bulk Send for Review via toolbar",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a pending PR" },
@@ -639,7 +639,7 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
   );
 
   hodTest(
-    "TC-PRA0411 Bulk Split via toolbar",
+    "TC-PR-060411 Bulk Split via toolbar",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a pending PR" },
@@ -670,7 +670,7 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
   );
 
   hodTest(
-    "TC-PRA0412 Cancel edit → discard changes",
+    "TC-PR-060412 Cancel edit → discard changes",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
@@ -699,7 +699,7 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
 
 fcTest.describe("Scope Contrast (FC)", () => {
   fcTest(
-    "TC-PRA0501 FC sees PRs from multiple departments",
+    "TC-PR-060501 FC sees PRs from multiple departments",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as FC (fc@blueledgers.com); pending PRs exist in DB across multiple departments" },
@@ -742,7 +742,7 @@ fcTest.describe("Scope Contrast (FC)", () => {
 
 hodTest.describe.serial("Golden Journey", () => {
   hodTest(
-    "TC-PRA0901 HOD full flow: My Approval → List → Detail → Edit → Adjust Qty → Bulk Approve",
+    "TC-PR-060901 HOD full flow: My Approval → List → Detail → Edit → Adjust Qty → Bulk Approve",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as HOD; a fresh pending PR is seeded via submitPRAsRequestor" },
@@ -757,7 +757,7 @@ hodTest.describe.serial("Golden Journey", () => {
       const ma = new MyApprovalsPage(page);
 
       // Seed
-      const created = await submitPRAsRequestor(browser, { items: 1, description: "TC-PRA0901 golden" });
+      const created = await submitPRAsRequestor(browser, { items: 1, description: "TC-PR-060901 golden" });
 
       // Step 1: My Approvals
       await ma.gotoList();

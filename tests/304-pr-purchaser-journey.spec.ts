@@ -20,7 +20,7 @@ const REVIEW_STAGE = "HOD";
 
 purchaseTest.describe("Step 1 — PR List (Purchaser View)", () => {
   purchaseTest(
-    "TC-PRP0101 List loads, My Pending tab default (PRs at Purchase stage)",
+    "TC-PR-070101 List loads, My Pending tab default (PRs at Purchase stage)",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Purchaser (purchase@blueledgers.com)" },
@@ -41,7 +41,7 @@ purchaseTest.describe("Step 1 — PR List (Purchaser View)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0102 Switch to All Documents tab broadens scope",
+    "TC-PR-070102 Switch to All Documents tab broadens scope",
     {
       annotation: [
         { type: "preconditions", description: "On the PR list page" },
@@ -65,7 +65,7 @@ purchaseTest.describe("Step 1 — PR List (Purchaser View)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0103 All Stage dropdown filters by status",
+    "TC-PR-070103 All Stage dropdown filters by status",
     {
       annotation: [
         { type: "preconditions", description: "On the PR list page" },
@@ -91,7 +91,7 @@ purchaseTest.describe("Step 1 — PR List (Purchaser View)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0104 Filter panel opens and applies",
+    "TC-PR-070104 Filter panel opens and applies",
     {
       annotation: [
         { type: "preconditions", description: "On the PR list page" },
@@ -115,7 +115,7 @@ purchaseTest.describe("Step 1 — PR List (Purchaser View)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0105 Search by PR reference filters list",
+    "TC-PR-070105 Search by PR reference filters list",
     {
       annotation: [
         { type: "preconditions", description: "On the PR list page; at least one PR exists with a known reference" },
@@ -141,7 +141,7 @@ purchaseTest.describe("Step 1 — PR List (Purchaser View)", () => {
 
 purchaseTest.describe("Step 2 — PR Detail (Read-only)", () => {
   purchaseTest(
-    "TC-PRP0201 Detail loads with Items tab default",
+    "TC-PR-070201 Detail loads with Items tab default",
     {
       annotation: [
         { type: "preconditions", description: "PR exists at Purchase stage (seeded via submitPRAsRequestor + approveAsHOD)" },
@@ -164,7 +164,7 @@ purchaseTest.describe("Step 2 — PR Detail (Read-only)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0202 Switch to Workflow History tab",
+    "TC-PR-070202 Switch to Workflow History tab",
     {
       annotation: [
         { type: "preconditions", description: "On a Purchase-stage PR detail page" },
@@ -190,7 +190,7 @@ purchaseTest.describe("Step 2 — PR Detail (Read-only)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0203 No standalone Approve/Reject/Return buttons (BRD discrepancy)",
+    "TC-PR-070203 No standalone Approve/Reject/Return buttons (BRD discrepancy)",
     {
       annotation: [
         { type: "preconditions", description: "On a Purchase-stage PR detail page (read-only view)" },
@@ -217,7 +217,7 @@ purchaseTest.describe("Step 2 — PR Detail (Read-only)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0204 Edit button visible (entry to vendor/pricing edit)",
+    "TC-PR-070204 Edit button visible (entry to vendor/pricing edit)",
     {
       annotation: [
         { type: "preconditions", description: "On a Purchase-stage PR detail page" },
@@ -239,7 +239,7 @@ purchaseTest.describe("Step 2 — PR Detail (Read-only)", () => {
 
 purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
   purchaseTest(
-    "TC-PRP0301 Click Edit → vendor/pricing fields become editable",
+    "TC-PR-070301 Click Edit → vendor/pricing fields become editable",
     {
       annotation: [
         { type: "preconditions", description: "PR exists at Purchase stage" },
@@ -264,7 +264,7 @@ purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0302 Vendor field is editable (Purchaser scope)",
+    "TC-PR-070302 Vendor field is editable (Purchaser scope)",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Purchase-stage PR with at least one item" },
@@ -294,7 +294,7 @@ purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0303 Unit Price field is editable",
+    "TC-PR-070303 Unit Price field is editable",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Purchase-stage PR with at least one item" },
@@ -326,7 +326,7 @@ purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0304 Discount field is editable",
+    "TC-PR-070304 Discount field is editable",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
@@ -356,7 +356,7 @@ purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0305 Tax Profile field is editable",
+    "TC-PR-070305 Tax Profile field is editable",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
@@ -388,7 +388,7 @@ purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0306 Approved Qty field stays read-only (HOD already set it)",
+    "TC-PR-070306 Approved Qty field stays read-only (HOD already set it)",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Purchase-stage PR with at least one item" },
@@ -422,7 +422,7 @@ purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0307 Auto Allocate button populates vendors via scoring",
+    "TC-PR-070307 Auto Allocate button populates vendors via scoring",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Purchase-stage PR with at least one item" },
@@ -453,7 +453,7 @@ purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0308 Multiple line items — pricing on each row independent",
+    "TC-PR-070308 Multiple line items — pricing on each row independent",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Purchase-stage PR with multiple items" },
@@ -487,7 +487,7 @@ purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0309 Save edits → exit edit mode + persist values",
+    "TC-PR-070309 Save edits → exit edit mode + persist values",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Purchase-stage PR with vendor/price edits" },
@@ -515,7 +515,7 @@ purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
   );
 
   purchaseTest(
-    "TC-PRP0310 Cancel edits → discard changes, restore original",
+    "TC-PR-070310 Cancel edits → discard changes, restore original",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
@@ -545,7 +545,7 @@ purchaseTest.describe("Step 3 — Edit Mode (Vendor & Pricing)", () => {
 
 purchaseTest.describe("Step 4 — Workflow Actions", () => {
   purchaseTest(
-    "TC-PRP0401 Bulk Approve → PR advances to next stage (FC)",
+    "TC-PR-070401 Bulk Approve → PR advances to next stage (FC)",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
@@ -576,7 +576,7 @@ purchaseTest.describe("Step 4 — Workflow Actions", () => {
   );
 
   purchaseTest(
-    "TC-PRP0402 Bulk Reject (with reason)",
+    "TC-PR-070402 Bulk Reject (with reason)",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
@@ -607,7 +607,7 @@ purchaseTest.describe("Step 4 — Workflow Actions", () => {
   );
 
   purchaseTest(
-    "TC-PRP0403 Bulk Send for Review (return to HOD)",
+    "TC-PR-070403 Bulk Send for Review (return to HOD)",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
@@ -638,7 +638,7 @@ purchaseTest.describe("Step 4 — Workflow Actions", () => {
   );
 
   purchaseTest(
-    "TC-PRP0404 Bulk Split — split selected items",
+    "TC-PR-070404 Bulk Split — split selected items",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Purchase-stage PR" },
@@ -670,7 +670,7 @@ purchaseTest.describe("Step 4 — Workflow Actions", () => {
   );
 
   purchaseTest(
-    "TC-PRP0405 Cannot edit when PR is at non-Purchase stage (read-only)",
+    "TC-PR-070405 Cannot edit when PR is at non-Purchase stage (read-only)",
     {
       annotation: [
         { type: "preconditions", description: "PR is at HOD stage (not yet approved by HOD), viewed by Purchaser" },
@@ -706,7 +706,7 @@ purchaseTest.describe("Step 4 — Workflow Actions", () => {
 
 purchaseTest.describe.serial("Golden Journey", () => {
   purchaseTest(
-    "TC-PRP0901 Purchaser full flow: List → Detail → Edit (allocate vendor + price) → Bulk Approve → next stage",
+    "TC-PR-070901 Purchaser full flow: List → Detail → Edit (allocate vendor + price) → Bulk Approve → next stage",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Purchaser; a fresh PR is seeded at Purchase stage via submitPRAsRequestor + approveAsHOD" },
@@ -720,7 +720,7 @@ purchaseTest.describe.serial("Golden Journey", () => {
       const pr = new PurchaseRequestPage(page);
 
       // Seed
-      const created = await submitPRAsRequestor(browser, { items: 1, description: "TC-PRP0901 golden" });
+      const created = await submitPRAsRequestor(browser, { items: 1, description: "TC-PR-070901 golden" });
       await approveAsHOD(browser, created.ref);
 
       // Step 1: PR List
