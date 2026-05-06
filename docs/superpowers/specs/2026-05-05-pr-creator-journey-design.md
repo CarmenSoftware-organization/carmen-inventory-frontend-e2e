@@ -256,18 +256,18 @@ Each entry below maps to one `test(...)` call in `302-pr-creator-journey.spec.ts
 ### Coverage summary
 | Type | Count |
 |---|---|
-| Smoke | 8 |
-| CRUD | 22 |
-| Validation | 6 |
-| Functional | 10 |
+| Smoke | 10 |
+| CRUD | 15 |
+| Validation | 3 |
+| Functional | 12 |
 | Authorization | 1 |
 | **Total** | **41** |
 
 | Priority | Count |
 |---|---|
-| High | 13 |
+| High | 17 |
 | Medium | 22 |
-| Low | 6 |
+| Low | 2 |
 
 ## 7. Annotation contract (per CLAUDE.md)
 

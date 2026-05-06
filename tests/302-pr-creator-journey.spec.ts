@@ -1,6 +1,6 @@
 import { test as baseTest, expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
-import { PurchaseRequestPage, LIST_PATH, NEW_PATH } from "./pages/purchase-request.page";
+import { PurchaseRequestPage, LIST_PATH } from "./pages/purchase-request.page";
 import { createDraftPR, submitDraftPR, deleteDraftPR, e2eDescription } from "./pages/pr-creator.helpers";
 
 // Persona-journey spec — Creator (Requestor). Runs alongside 301-purchase-request.spec.ts
