@@ -741,4 +741,4 @@ URL stays on PO ref after Send to Vendor (full lifecycle completes end-to-end).
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git ca61be4</sub>
+<sub>Last regenerated: 2026-05-06 · git 650ea0b</sub>
