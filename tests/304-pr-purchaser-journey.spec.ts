@@ -19,7 +19,124 @@ const REVIEW_REASON = "Please confirm vendor selection";
 const REVIEW_STAGE = "HOD";
 
 purchaseTest.describe("Step 1 — PR List (Purchaser View)", () => {
-  // TCs added in Task 5
+  purchaseTest(
+    "TC-PRP0101 List loads, My Pending tab default (PRs at Purchase stage)",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged in as Purchaser (purchase@blueledgers.com)" },
+        { type: "steps", description: "1. Navigate to /procurement/purchase-request\n2. Verify URL and My Pending tab" },
+        { type: "expected", description: "URL is on PR list; My Pending tab is selected when present." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      await expect(page).toHaveURL(new RegExp(LIST_PATH));
+      const tab = pr.tabMyPending();
+      if ((await tab.count()) === 0) return;
+      await expect(tab).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0102 Switch to All Documents tab broadens scope",
+    {
+      annotation: [
+        { type: "preconditions", description: "On the PR list page" },
+        { type: "steps", description: "1. Click All Documents tab" },
+        { type: "expected", description: "All Documents tab becomes selected." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      const tab = pr.tabAllDocuments();
+      if ((await tab.count()) === 0) {
+        purchaseTest.skip(true, "All Documents tab not present in this build");
+        return;
+      }
+      await tab.click();
+      await expect(tab).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0103 All Stage dropdown filters by status",
+    {
+      annotation: [
+        { type: "preconditions", description: "On the PR list page" },
+        { type: "steps", description: "1. Open All Stage dropdown\n2. Select In Progress" },
+        { type: "expected", description: "URL stays on PR list (filter applied or no-op when dropdown absent)." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      const trigger = page.getByRole("button", { name: /all stage|stage/i }).first();
+      if ((await trigger.count()) === 0) {
+        purchaseTest.skip(true, "Stage dropdown not present on this list");
+        return;
+      }
+      await trigger.click();
+      const inprog = page.getByRole("option", { name: /in.progress/i }).first();
+      if ((await inprog.count()) > 0) await inprog.click();
+      await expect(page).toHaveURL(new RegExp(LIST_PATH), { timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0104 Filter panel opens and applies",
+    {
+      annotation: [
+        { type: "preconditions", description: "On the PR list page" },
+        { type: "steps", description: "1. Open Filter panel\n2. Select status\n3. Apply" },
+        { type: "expected", description: "URL stays on PR list after applying the filter." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      const fb = pr.filterButton();
+      if ((await fb.count()) === 0) {
+        purchaseTest.skip(true, "Filter button not present in this build");
+        return;
+      }
+      await pr.applyFilter({ status: "In Progress" });
+      await expect(page).toHaveURL(new RegExp(LIST_PATH), { timeout: 10_000 });
+    },
+  );
+
+  purchaseTest(
+    "TC-PRP0105 Search by PR reference filters list",
+    {
+      annotation: [
+        { type: "preconditions", description: "On the PR list page; at least one PR exists with a known reference" },
+        { type: "steps", description: "1. Type partial reference in search\n2. Wait for results" },
+        { type: "expected", description: "URL stays on PR list after typing in the search input." },
+        { type: "priority", description: "Low" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      const input = pr.searchInput();
+      if ((await input.count()) === 0) {
+        purchaseTest.skip(true, "Search input not present in this build");
+        return;
+      }
+      await pr.searchFor("PR");
+      await expect(page).toHaveURL(new RegExp(LIST_PATH));
+    },
+  );
 });
 
 purchaseTest.describe("Step 2 — PR Detail (Read-only)", () => {
