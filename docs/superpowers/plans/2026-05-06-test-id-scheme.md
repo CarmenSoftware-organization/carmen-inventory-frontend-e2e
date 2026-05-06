@@ -548,20 +548,58 @@ export function proposeMapping(
   const lookup = (section: string) => sectionMap?.[oldPrefix]?.[section] ?? sectionMap?.[oldPrefix]?.default;
 
   if (digits.length === 5) {
-    const sectionOld = digits.slice(0, 3);
-    const seqOld = digits.slice(3);
-    const sectionNew = lookup(sectionOld) ?? lookup("default") ?? "90";
-    const seqNew = String(parseInt(seqOld, 10)).padStart(4, "0");
+    const trySectionOld = digits.slice(0, 3);
+    const trySeqOld = digits.slice(3);
+
+    // Three cases:
+    //   A) Explicit mapping: sectionMap[oldPrefix][trySectionOld] is defined
+    //      → split as 3+2; section = mapped value; seq = parsed last-2 digits
+    //   B) Default fallback: only sectionMap[oldPrefix]["default"] is defined
+    //      → keep whole digit string as old seq; new seq resets to 0001 (reviewer reassigns)
+    //   C) No mapping at all: derive section by stripping leading zeros
+    const explicit = sectionMap?.[oldPrefix]?.[trySectionOld];
+    const defaultOnly = explicit === undefined ? sectionMap?.[oldPrefix]?.["default"] : undefined;
+
+    let sectionOld: string;
+    let seqOldStr: string;
+    let sectionNew: string;
+    let seqNew: string;
+    let needsReview: boolean;
+    let note: string;
+
+    if (explicit !== undefined) {
+      sectionOld = trySectionOld;
+      seqOldStr = trySeqOld;
+      sectionNew = explicit;
+      seqNew = String(parseInt(trySeqOld, 10)).padStart(4, "0");
+      needsReview = false;
+      note = "";
+    } else if (defaultOnly !== undefined) {
+      sectionOld = "default";
+      seqOldStr = digits;
+      sectionNew = defaultOnly;
+      seqNew = "0001";
+      needsReview = true;
+      note = `Reviewer: confirm sequence reassignment from ${digits}`;
+    } else {
+      sectionOld = trySectionOld;
+      seqOldStr = trySeqOld;
+      sectionNew = String(parseInt(trySectionOld, 10)).padStart(2, "0");
+      seqNew = String(parseInt(trySeqOld, 10)).padStart(4, "0");
+      needsReview = false;
+      note = "";
+    }
+
     const rule = collapsed
-      ? `5-digit:prefix-collapse(${oldPrefix}->${newPrefix}),section=${sectionOld}->${sectionNew},seq=${seqOld}->${seqNew}`
-      : `5-digit:section=${sectionOld}->${sectionNew},seq=${seqOld}->${seqNew}`;
+      ? `5-digit:prefix-collapse(${oldPrefix}->${newPrefix}),section=${sectionOld}->${sectionNew},seq=${seqOldStr}->${seqNew}`
+      : `5-digit:section=${sectionOld}->${sectionNew},seq=${seqOldStr}->${seqNew}`;
     return {
       old: oldId,
       new: `TC-${newPrefix}-${sectionNew}${seqNew}`,
       rule,
-      needsReview: collapsed && parseInt(seqOld, 10) > 99,
+      needsReview,
       helperGenerated,
-      note: collapsed && parseInt(seqOld, 10) > 99 ? "Reviewer: confirm sequence reassignment from " + seqOld : "",
+      note,
     };
   }
 
