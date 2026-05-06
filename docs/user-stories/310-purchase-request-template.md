@@ -11,70 +11,70 @@ _Generated from `tests/310-purchase-request-template.spec.ts` annotations. Edit 
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-PRT00101 | Happy Path - Create Template with Valid Data | High | Happy Path |
-| TC-PRT00102 | Negative - No Permission to Create Template | High | Negative |
-| TC-PRT00103 | Edge Case - Create Template without Assigned Department | High | Edge Case |
-| TC-PRT00104 | Negative - Empty Fields for Template | High | Negative |
-| TC-PRT00201 | View template with valid permissions | High | Happy Path |
-| TC-PRT00203 | View non-existent template | High | Negative |
-| TC-PRT00204 | View template with no budget allocations | Medium | Edge Case |
-| TC-PRT00205 | View template with very long usage history | Medium | Edge Case |
-| TC-PRT00301 | Edit Template - Happy Path | High | Happy Path |
-| TC-PRT00302 | Edit Template - Invalid Input | High | Negative |
-| TC-PRT00303 | Edit Template - No Permission | High | Negative |
-| TC-PRT00304 | Edit Template - Template In ReadOnly Status | High | Edge Case |
-| TC-PRT00305 | Edit Template - No Existing Template | High | Edge Case |
-| TC-PRT00401 | Delete valid template - Happy Path | Medium | Happy Path |
-| TC-PRT00402 | Attempt to delete default template - Negative Case | Medium | Negative |
-| TC-PRT00403 | Delete template with no permissions - Negative Case | Medium | Negative |
-| TC-PRT00404 | Attempt to delete template that does not exist - Negative Case | Low | Negative |
-| TC-PRT00405 | Delete template with multiple selections - Edge Case | Medium | Edge Case |
-| TC-PRT00501 | Clone existing template successfully | Medium | Happy Path |
-| TC-PRT00502 | User without permission cannot clone template | Medium | Negative |
-| TC-PRT00503 | Clone template with non-existent source | Medium | Negative |
-| TC-PRT00504 | Clone template with different departments | Medium | Edge Case |
-| TC-PRT00601 | Set Default Template Successfully | Medium | Happy Path |
-| TC-PRT00602 | Set Default Template with No Permission | Medium | Negative |
-| TC-PRT00603 | Set Default Template with Invalid Template | Medium | Negative |
-| TC-PRT00604 | Set Default Template for Unrelated Department | Medium | Negative |
-| TC-PRT00605 | Set Default Template with Multiple Selections | Medium | Edge Case |
-| TC-PRT00701 | Add valid item to template | High | Happy Path |
-| TC-PRT00702 | Add item with missing budget code | High | Negative |
-| TC-PRT00703 | Add item with no permission | High | Negative |
-| TC-PRT00704 | Add item with zero quantity | High | Negative |
-| TC-PRT00705 | Add item with very large quantity | High | Edge Case |
-| TC-PRT00801 | Edit existing template item successfully | High | Happy Path |
-| TC-PRT00802 | Attempt to edit template without permission | High | Negative |
-| TC-PRT00803 | Edit template item with invalid quantity | High | Negative |
-| TC-PRT00804 | Edit template item with no selected item | High | Negative |
-| TC-PRT00805 | Edit template item with minimal changes | Medium | Edge Case |
-| TC-PRT00901 | Delete template item - happy path | Medium | Happy Path |
-| TC-PRT00902 | Delete template item - no permission | Medium | Negative |
-| TC-PRT00903 | Delete template item - no items present | Low | Edge Case |
-| TC-PRT01001 | Search for template by name | High | Happy Path |
-| TC-PRT01002 | Filter templates by category | High | Happy Path |
-| TC-PRT01003 | Search with invalid input | High | Negative |
-| TC-PRT01004 | Filter with no permission | High | Negative |
-| TC-PRT01005 | Edge case - search with empty input | Medium | Edge Case |
-| TC-PRT01101 | Bulk Template Creation | Medium | Happy Path |
-| TC-PRT01102 | Bulk Template Deletion Without Permission | High | Negative |
-| TC-PRT01103 | Bulk Template Update with Invalid Data | Medium | Negative |
-| TC-PRT01104 | Bulk Template Operation with Empty Selection | Medium | Edge Case |
-| TC-PRT01105 | Bulk Template Operation on Single Template | Medium | Edge Case |
-| TC-PRT20101 | Happy Path - Convert Template to Purchase Request | High | Happy Path |
-| TC-PRT20102 | Negative Case - Insufficient Permissions | High | Negative |
-| TC-PRT20103 | Edge Case - Template with Empty Fields | Medium | Edge Case |
-| TC-PRT20201 | Valid Budget Code Input | High | Happy Path |
-| TC-PRT20203 | No Budget Code Selection | High | Negative |
-| TC-PRT20204 | Budget Code Exceeds Character Limit | High | Edge Case |
-| TC-PRT20205 | User Without Save Permission | High | Negative |
-| TC-PRT20301 | Browse Catalog and Retrieve Valid Data | Medium | Happy Path |
-| TC-PRT20302 | Browse Catalog with Invalid Permission | Medium | Negative |
-| TC-PRT20303 | Retrieve Catalog Data After Server Timeout | Medium | Edge Case |
+| TC-PRT-010001 | Happy Path - Create Template with Valid Data | High | Happy Path |
+| TC-PRT-010002 | Negative - No Permission to Create Template | High | Negative |
+| TC-PRT-010003 | Edge Case - Create Template without Assigned Department | High | Edge Case |
+| TC-PRT-010004 | Negative - Empty Fields for Template | High | Negative |
+| TC-PRT-020001 | View template with valid permissions | High | Happy Path |
+| TC-PRT-020003 | View non-existent template | High | Negative |
+| TC-PRT-020004 | View template with no budget allocations | Medium | Edge Case |
+| TC-PRT-020005 | View template with very long usage history | Medium | Edge Case |
+| TC-PRT-030001 | Edit Template - Happy Path | High | Happy Path |
+| TC-PRT-030002 | Edit Template - Invalid Input | High | Negative |
+| TC-PRT-030003 | Edit Template - No Permission | High | Negative |
+| TC-PRT-030004 | Edit Template - Template In ReadOnly Status | High | Edge Case |
+| TC-PRT-030005 | Edit Template - No Existing Template | High | Edge Case |
+| TC-PRT-040001 | Delete valid template - Happy Path | Medium | Happy Path |
+| TC-PRT-040002 | Attempt to delete default template - Negative Case | Medium | Negative |
+| TC-PRT-040003 | Delete template with no permissions - Negative Case | Medium | Negative |
+| TC-PRT-040004 | Attempt to delete template that does not exist - Negative Case | Low | Negative |
+| TC-PRT-040005 | Delete template with multiple selections - Edge Case | Medium | Edge Case |
+| TC-PRT-050001 | Clone existing template successfully | Medium | Happy Path |
+| TC-PRT-050002 | User without permission cannot clone template | Medium | Negative |
+| TC-PRT-050003 | Clone template with non-existent source | Medium | Negative |
+| TC-PRT-050004 | Clone template with different departments | Medium | Edge Case |
+| TC-PRT-060001 | Set Default Template Successfully | Medium | Happy Path |
+| TC-PRT-060002 | Set Default Template with No Permission | Medium | Negative |
+| TC-PRT-060003 | Set Default Template with Invalid Template | Medium | Negative |
+| TC-PRT-060004 | Set Default Template for Unrelated Department | Medium | Negative |
+| TC-PRT-060005 | Set Default Template with Multiple Selections | Medium | Edge Case |
+| TC-PRT-070001 | Add valid item to template | High | Happy Path |
+| TC-PRT-070002 | Add item with missing budget code | High | Negative |
+| TC-PRT-070003 | Add item with no permission | High | Negative |
+| TC-PRT-070004 | Add item with zero quantity | High | Negative |
+| TC-PRT-070005 | Add item with very large quantity | High | Edge Case |
+| TC-PRT-080001 | Edit existing template item successfully | High | Happy Path |
+| TC-PRT-080002 | Attempt to edit template without permission | High | Negative |
+| TC-PRT-080003 | Edit template item with invalid quantity | High | Negative |
+| TC-PRT-080004 | Edit template item with no selected item | High | Negative |
+| TC-PRT-080005 | Edit template item with minimal changes | Medium | Edge Case |
+| TC-PRT-090001 | Delete template item - happy path | Medium | Happy Path |
+| TC-PRT-090002 | Delete template item - no permission | Medium | Negative |
+| TC-PRT-090003 | Delete template item - no items present | Low | Edge Case |
+| TC-PRT-100001 | Search for template by name | High | Happy Path |
+| TC-PRT-100002 | Filter templates by category | High | Happy Path |
+| TC-PRT-100003 | Search with invalid input | High | Negative |
+| TC-PRT-100004 | Filter with no permission | High | Negative |
+| TC-PRT-100005 | Edge case - search with empty input | Medium | Edge Case |
+| TC-PRT-110001 | Bulk Template Creation | Medium | Happy Path |
+| TC-PRT-110002 | Bulk Template Deletion Without Permission | High | Negative |
+| TC-PRT-110003 | Bulk Template Update with Invalid Data | Medium | Negative |
+| TC-PRT-110004 | Bulk Template Operation with Empty Selection | Medium | Edge Case |
+| TC-PRT-110005 | Bulk Template Operation on Single Template | Medium | Edge Case |
+| TC-PRT-210001 | Happy Path - Convert Template to Purchase Request | High | Happy Path |
+| TC-PRT-210002 | Negative Case - Insufficient Permissions | High | Negative |
+| TC-PRT-210003 | Edge Case - Template with Empty Fields | Medium | Edge Case |
+| TC-PRT-220001 | Valid Budget Code Input | High | Happy Path |
+| TC-PRT-220003 | No Budget Code Selection | High | Negative |
+| TC-PRT-220004 | Budget Code Exceeds Character Limit | High | Edge Case |
+| TC-PRT-220005 | User Without Save Permission | High | Negative |
+| TC-PRT-230001 | Browse Catalog and Retrieve Valid Data | Medium | Happy Path |
+| TC-PRT-230002 | Browse Catalog with Invalid Permission | Medium | Negative |
+| TC-PRT-230003 | Retrieve Catalog Data After Server Timeout | Medium | Edge Case |
 
 ---
 
-## TC-PRT00101 — Happy Path - Create Template with Valid Data
+## TC-PRT-010001 — Happy Path - Create Template with Valid Data
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -102,7 +102,7 @@ Purchase request template is successfully created and saved.
 
 ---
 
-## TC-PRT00102 — Negative - No Permission to Create Template
+## TC-PRT-010002 — Negative - No Permission to Create Template
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -124,7 +124,7 @@ System displays permission denied message.
 
 ---
 
-## TC-PRT00103 — Edge Case - Create Template without Assigned Department
+## TC-PRT-010003 — Edge Case - Create Template without Assigned Department
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -146,7 +146,7 @@ System displays error message indicating user needs to be assigned to a departme
 
 ---
 
-## TC-PRT00104 — Negative - Empty Fields for Template
+## TC-PRT-010004 — Negative - Empty Fields for Template
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -170,7 +170,7 @@ System displays error message for required fields not filled.
 
 ---
 
-## TC-PRT00201 — View template with valid permissions
+## TC-PRT-020001 — View template with valid permissions
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -193,7 +193,7 @@ All template details are correctly displayed.
 
 ---
 
-## TC-PRT00203 — View non-existent template
+## TC-PRT-020003 — View non-existent template
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -216,7 +216,7 @@ User receives an error message or is informed that the template does not exist.
 
 ---
 
-## TC-PRT00204 — View template with no budget allocations
+## TC-PRT-020004 — View template with no budget allocations
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -239,7 +239,7 @@ The budget allocations section shows no entries.
 
 ---
 
-## TC-PRT00205 — View template with very long usage history
+## TC-PRT-020005 — View template with very long usage history
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -262,7 +262,7 @@ The usage history is truncated or paginated, allowing users to view a reasonable
 
 ---
 
-## TC-PRT00301 — Edit Template - Happy Path
+## TC-PRT-030001 — Edit Template - Happy Path
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -288,7 +288,7 @@ Template is updated with new description, quantity, and price. Changes are refle
 
 ---
 
-## TC-PRT00302 — Edit Template - Invalid Input
+## TC-PRT-030002 — Edit Template - Invalid Input
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -313,7 +313,7 @@ Error message displayed stating that quantity cannot be negative.
 
 ---
 
-## TC-PRT00303 — Edit Template - No Permission
+## TC-PRT-030003 — Edit Template - No Permission
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -337,7 +337,7 @@ User is unable to make any changes and receives a permission denied message.
 
 ---
 
-## TC-PRT00304 — Edit Template - Template In ReadOnly Status
+## TC-PRT-030004 — Edit Template - Template In ReadOnly Status
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -361,7 +361,7 @@ User is unable to make any changes and receives a message stating the template i
 
 ---
 
-## TC-PRT00305 — Edit Template - No Existing Template
+## TC-PRT-030005 — Edit Template - No Existing Template
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -384,7 +384,7 @@ User is unable to perform any actions on a non-existent template.
 
 ---
 
-## TC-PRT00401 — Delete valid template - Happy Path
+## TC-PRT-040001 — Delete valid template - Happy Path
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -408,7 +408,7 @@ Template is successfully deleted from the system.
 
 ---
 
-## TC-PRT00402 — Attempt to delete default template - Negative Case
+## TC-PRT-040002 — Attempt to delete default template - Negative Case
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -430,7 +430,7 @@ System prevents deletion of the default template and displays an error message.
 
 ---
 
-## TC-PRT00403 — Delete template with no permissions - Negative Case
+## TC-PRT-040003 — Delete template with no permissions - Negative Case
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -452,7 +452,7 @@ System displays an error message indicating that the user does not have the requ
 
 ---
 
-## TC-PRT00404 — Attempt to delete template that does not exist - Negative Case
+## TC-PRT-040004 — Attempt to delete template that does not exist - Negative Case
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -474,7 +474,7 @@ System displays an error message indicating that the template does not exist.
 
 ---
 
-## TC-PRT00405 — Delete template with multiple selections - Edge Case
+## TC-PRT-040005 — Delete template with multiple selections - Edge Case
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -498,7 +498,7 @@ Selected templates are successfully deleted from the system.
 
 ---
 
-## TC-PRT00501 — Clone existing template successfully
+## TC-PRT-050001 — Clone existing template successfully
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -521,7 +521,7 @@ The new template is created as a copy of the source template with all details in
 
 ---
 
-## TC-PRT00502 — User without permission cannot clone template
+## TC-PRT-050002 — User without permission cannot clone template
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -543,7 +543,7 @@ User receives an access denied message or the 'Clone' option is grayed out.
 
 ---
 
-## TC-PRT00503 — Clone template with non-existent source
+## TC-PRT-050003 — Clone template with non-existent source
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -565,7 +565,7 @@ User is informed that the source template does not exist.
 
 ---
 
-## TC-PRT00504 — Clone template with different departments
+## TC-PRT-050004 — Clone template with different departments
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -588,7 +588,7 @@ The new template's department matches the user's department, indicating the clon
 
 ---
 
-## TC-PRT00601 — Set Default Template Successfully
+## TC-PRT-060001 — Set Default Template Successfully
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -613,7 +613,7 @@ Template is marked as default and a success message is displayed.
 
 ---
 
-## TC-PRT00602 — Set Default Template with No Permission
+## TC-PRT-060002 — Set Default Template with No Permission
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -636,7 +636,7 @@ User receives an error message indicating they do not have permission to manage 
 
 ---
 
-## TC-PRT00603 — Set Default Template with Invalid Template
+## TC-PRT-060003 — Set Default Template with Invalid Template
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -659,7 +659,7 @@ User receives an error message indicating the selected template is invalid.
 
 ---
 
-## TC-PRT00604 — Set Default Template for Unrelated Department
+## TC-PRT-060004 — Set Default Template for Unrelated Department
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -683,7 +683,7 @@ User receives an error message indicating they do not have access to the templat
 
 ---
 
-## TC-PRT00605 — Set Default Template with Multiple Selections
+## TC-PRT-060005 — Set Default Template with Multiple Selections
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -707,7 +707,7 @@ User receives an error message indicating only one template can be set as defaul
 
 ---
 
-## TC-PRT00701 — Add valid item to template
+## TC-PRT-070001 — Add valid item to template
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -735,7 +735,7 @@ Item 'Desk' is added to the template with correct details and saved successfully
 
 ---
 
-## TC-PRT00702 — Add item with missing budget code
+## TC-PRT-070002 — Add item with missing budget code
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -761,7 +761,7 @@ Error message is displayed stating that a budget code is required.
 
 ---
 
-## TC-PRT00703 — Add item with no permission
+## TC-PRT-070003 — Add item with no permission
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -783,7 +783,7 @@ User is redirected to an access denied page or similar.
 
 ---
 
-## TC-PRT00704 — Add item with zero quantity
+## TC-PRT-070004 — Add item with zero quantity
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -811,7 +811,7 @@ Error message is displayed stating that quantity cannot be zero.
 
 ---
 
-## TC-PRT00705 — Add item with very large quantity
+## TC-PRT-070005 — Add item with very large quantity
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -839,7 +839,7 @@ Error message is displayed stating that quantity is too large.
 
 ---
 
-## TC-PRT00801 — Edit existing template item successfully
+## TC-PRT-080001 — Edit existing template item successfully
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -863,7 +863,7 @@ The item is updated with the new quantity; template total is recalculated.
 
 ---
 
-## TC-PRT00802 — Attempt to edit template without permission
+## TC-PRT-080002 — Attempt to edit template without permission
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -886,7 +886,7 @@ User receives an error message indicating insufficient permission to edit the te
 
 ---
 
-## TC-PRT00803 — Edit template item with invalid quantity
+## TC-PRT-080003 — Edit template item with invalid quantity
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -910,7 +910,7 @@ User receives an error message indicating the invalid input and item is not upda
 
 ---
 
-## TC-PRT00804 — Edit template item with no selected item
+## TC-PRT-080004 — Edit template item with no selected item
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -932,7 +932,7 @@ User receives an error message indicating that no item is selected.
 
 ---
 
-## TC-PRT00805 — Edit template item with minimal changes
+## TC-PRT-080005 — Edit template item with minimal changes
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -956,7 +956,7 @@ The item is updated with the new minimal price; template total is recalculated.
 
 ---
 
-## TC-PRT00901 — Delete template item - happy path
+## TC-PRT-090001 — Delete template item - happy path
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -982,7 +982,7 @@ Selected item is removed from the template, template total recalculated, and del
 
 ---
 
-## TC-PRT00902 — Delete template item - no permission
+## TC-PRT-090002 — Delete template item - no permission
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1006,7 +1006,7 @@ User is unable to navigate to edit mode and cannot delete items.
 
 ---
 
-## TC-PRT00903 — Delete template item - no items present
+## TC-PRT-090003 — Delete template item - no items present
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1031,7 +1031,7 @@ User is informed that no items are present to delete.
 
 ---
 
-## TC-PRT01001 — Search for template by name
+## TC-PRT-100001 — Search for template by name
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1054,7 +1054,7 @@ A filtered list of templates containing 'example template' is displayed.
 
 ---
 
-## TC-PRT01002 — Filter templates by category
+## TC-PRT-100002 — Filter templates by category
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1079,7 +1079,7 @@ Templates are filtered by the selected category.
 
 ---
 
-## TC-PRT01003 — Search with invalid input
+## TC-PRT-100003 — Search with invalid input
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1102,7 +1102,7 @@ No templates are displayed and an error message is shown.
 
 ---
 
-## TC-PRT01004 — Filter with no permission
+## TC-PRT-100004 — Filter with no permission
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1123,7 +1123,7 @@ User is redirected to unauthorized access page or an error message is displayed.
 
 ---
 
-## TC-PRT01005 — Edge case - search with empty input
+## TC-PRT-100005 — Edge case - search with empty input
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1146,7 +1146,7 @@ All templates are displayed.
 
 ---
 
-## TC-PRT01101 — Bulk Template Creation
+## TC-PRT-110001 — Bulk Template Creation
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1171,7 +1171,7 @@ Bulk templates are created successfully.
 
 ---
 
-## TC-PRT01102 — Bulk Template Deletion Without Permission
+## TC-PRT-110002 — Bulk Template Deletion Without Permission
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1196,7 +1196,7 @@ System denies deletion and displays error message.
 
 ---
 
-## TC-PRT01103 — Bulk Template Update with Invalid Data
+## TC-PRT-110003 — Bulk Template Update with Invalid Data
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1221,7 +1221,7 @@ System prevents submission and displays error messages for invalid data.
 
 ---
 
-## TC-PRT01104 — Bulk Template Operation with Empty Selection
+## TC-PRT-110004 — Bulk Template Operation with Empty Selection
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1244,7 +1244,7 @@ System displays error message indicating no templates selected.
 
 ---
 
-## TC-PRT01105 — Bulk Template Operation on Single Template
+## TC-PRT-110005 — Bulk Template Operation on Single Template
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1269,7 +1269,7 @@ System performs the operation on the single selected template.
 
 ---
 
-## TC-PRT20101 — Happy Path - Convert Template to Purchase Request
+## TC-PRT-210001 — Happy Path - Convert Template to Purchase Request
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1293,7 +1293,7 @@ Purchase request is created with template details and saved successfully.
 
 ---
 
-## TC-PRT20102 — Negative Case - Insufficient Permissions
+## TC-PRT-210002 — Negative Case - Insufficient Permissions
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1316,7 +1316,7 @@ User is unable to use template and receives an appropriate error message.
 
 ---
 
-## TC-PRT20103 — Edge Case - Template with Empty Fields
+## TC-PRT-210003 — Edge Case - Template with Empty Fields
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1339,7 +1339,7 @@ Fields with no data in the template are not populated in the purchase request fo
 
 ---
 
-## TC-PRT20201 — Valid Budget Code Input
+## TC-PRT-220001 — Valid Budget Code Input
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1362,7 +1362,7 @@ Template is saved successfully with the valid budget code.
 
 ---
 
-## TC-PRT20203 — No Budget Code Selection
+## TC-PRT-220003 — No Budget Code Selection
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1385,7 +1385,7 @@ Error message displayed prompting the selection of a valid budget code.
 
 ---
 
-## TC-PRT20204 — Budget Code Exceeds Character Limit
+## TC-PRT-220004 — Budget Code Exceeds Character Limit
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1408,7 +1408,7 @@ Error message displayed indicating the budget code exceeds the character limit.
 
 ---
 
-## TC-PRT20205 — User Without Save Permission
+## TC-PRT-220005 — User Without Save Permission
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1431,7 +1431,7 @@ System denies the save operation and prompts the user about insufficient permiss
 
 ---
 
-## TC-PRT20301 — Browse Catalog and Retrieve Valid Data
+## TC-PRT-230001 — Browse Catalog and Retrieve Valid Data
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1454,7 +1454,7 @@ The catalog data is successfully retrieved and displayed for the user.
 
 ---
 
-## TC-PRT20302 — Browse Catalog with Invalid Permission
+## TC-PRT-230002 — Browse Catalog with Invalid Permission
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1477,7 +1477,7 @@ The system denies access or displays an appropriate error message indicating ins
 
 ---
 
-## TC-PRT20303 — Retrieve Catalog Data After Server Timeout
+## TC-PRT-230003 — Retrieve Catalog Data After Server Timeout
 
 > **As a** Purchase user, **I want** this Purchase Request Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -1502,4 +1502,4 @@ The system handles the server timeout gracefully and provides appropriate feedba
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 9b238f5</sub>
+<sub>Last regenerated: 2026-05-06 · git a840c0e</sub>

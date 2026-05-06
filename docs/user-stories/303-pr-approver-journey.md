@@ -11,37 +11,37 @@ _Generated from `tests/303-pr-approver-journey.spec.ts` annotations. Edit annota
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-PRA0101 | Dashboard loads with Total Pending count visible | High | Smoke |
-| TC-PRA0102 | Click pending PR row navigates to PR detail | High | Smoke |
-| TC-PRA0103 | Pending count matches actual list row count | Medium | Functional |
-| TC-PRA0104 | Filter tabs render and filter when present | Medium | Functional |
-| TC-PRA0201 | My Pending tab shows PRs at HOD stage | High | Smoke |
-| TC-PRA0202 | All Documents tab broadens scope | Medium | Functional |
-| TC-PRA0203 | All Stage dropdown filters by status | Medium | Functional |
-| TC-PRA0204 | Filter panel opens and applies | Medium | Functional |
-| TC-PRA0205 | Search by PR reference filters list | Low | Functional |
-| TC-PRA0301 | Detail loads with Items tab default | High | Smoke |
-| TC-PRA0302 | Switch to Workflow History tab | Medium | Functional |
-| TC-PRA0303 | No standalone Approve/Reject/Return buttons (BRD discrepancy) | High | Authorization |
-| TC-PRA0304 | Edit button visible (entry to bulk actions) | High | Functional |
-| TC-PRA0401 | Click Edit → edit mode active | High | Smoke |
-| TC-PRA0402 | Approved Quantity field is editable | High | CRUD |
-| TC-PRA0403 | Item Note field is editable | Medium | CRUD |
-| TC-PRA0404 | Delivery Point field is editable | Medium | CRUD |
-| TC-PRA0405 | Vendor field is read-only | High | Authorization |
-| TC-PRA0406 | Unit Price field is read-only | High | Authorization |
-| TC-PRA0407 | Discount / Tax / FOC Qty are read-only | Medium | Authorization |
-| TC-PRA0408 | Bulk Approve via Select All → toolbar | High | CRUD |
-| TC-PRA0409 | Bulk Reject via toolbar (with reason) | High | CRUD |
-| TC-PRA0410 | Bulk Send for Review via toolbar | High | CRUD |
-| TC-PRA0411 | Bulk Split via toolbar | Low | Functional |
-| TC-PRA0412 | Cancel edit → discard changes | Medium | Functional |
-| TC-PRA0501 | FC sees PRs from multiple departments | High | Authorization |
-| TC-PRA0901 | HOD full flow: My Approval → List → Detail → Edit → Adjust Qty → Bulk Approve | High | Smoke |
+| TC-PR-060101 | Dashboard loads with Total Pending count visible | High | Smoke |
+| TC-PR-060102 | Click pending PR row navigates to PR detail | High | Smoke |
+| TC-PR-060103 | Pending count matches actual list row count | Medium | Functional |
+| TC-PR-060104 | Filter tabs render and filter when present | Medium | Functional |
+| TC-PR-060201 | My Pending tab shows PRs at HOD stage | High | Smoke |
+| TC-PR-060202 | All Documents tab broadens scope | Medium | Functional |
+| TC-PR-060203 | All Stage dropdown filters by status | Medium | Functional |
+| TC-PR-060204 | Filter panel opens and applies | Medium | Functional |
+| TC-PR-060205 | Search by PR reference filters list | Low | Functional |
+| TC-PR-060301 | Detail loads with Items tab default | High | Smoke |
+| TC-PR-060302 | Switch to Workflow History tab | Medium | Functional |
+| TC-PR-060303 | No standalone Approve/Reject/Return buttons (BRD discrepancy) | High | Authorization |
+| TC-PR-060304 | Edit button visible (entry to bulk actions) | High | Functional |
+| TC-PR-060401 | Click Edit → edit mode active | High | Smoke |
+| TC-PR-060402 | Approved Quantity field is editable | High | CRUD |
+| TC-PR-060403 | Item Note field is editable | Medium | CRUD |
+| TC-PR-060404 | Delivery Point field is editable | Medium | CRUD |
+| TC-PR-060405 | Vendor field is read-only | High | Authorization |
+| TC-PR-060406 | Unit Price field is read-only | High | Authorization |
+| TC-PR-060407 | Discount / Tax / FOC Qty are read-only | Medium | Authorization |
+| TC-PR-060408 | Bulk Approve via Select All → toolbar | High | CRUD |
+| TC-PR-060409 | Bulk Reject via toolbar (with reason) | High | CRUD |
+| TC-PR-060410 | Bulk Send for Review via toolbar | High | CRUD |
+| TC-PR-060411 | Bulk Split via toolbar | Low | Functional |
+| TC-PR-060412 | Cancel edit → discard changes | Medium | Functional |
+| TC-PR-060501 | FC sees PRs from multiple departments | High | Authorization |
+| TC-PR-060901 | HOD full flow: My Approval → List → Detail → Edit → Adjust Qty → Bulk Approve | High | Smoke |
 
 ---
 
-## TC-PRA0101 — Dashboard loads with Total Pending count visible
+## TC-PR-060101 — Dashboard loads with Total Pending count visible
 
 > **As a** FC user, **I want** core Pr Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -62,7 +62,7 @@ My Approvals dashboard loads; pending count badge is visible.
 
 ---
 
-## TC-PRA0102 — Click pending PR row navigates to PR detail
+## TC-PR-060102 — Click pending PR row navigates to PR detail
 
 > **As a** FC user, **I want** core Pr Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -82,7 +82,7 @@ URL navigates to /procurement/purchase-request/<ref>.
 
 ---
 
-## TC-PRA0103 — Pending count matches actual list row count
+## TC-PR-060103 — Pending count matches actual list row count
 
 > **As a** FC user, **I want** this Pr Approver Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -103,7 +103,7 @@ Badge value equals the visible row count (or both are zero).
 
 ---
 
-## TC-PRA0104 — Filter tabs render and filter when present
+## TC-PR-060104 — Filter tabs render and filter when present
 
 > **As a** FC user, **I want** to filter the Pr Approver Journey list, **so that** I can narrow results to relevant records.
 
@@ -124,7 +124,7 @@ PR tab becomes selected (skipped if dashboard has no tabs).
 
 ---
 
-## TC-PRA0201 — My Pending tab shows PRs at HOD stage
+## TC-PR-060201 — My Pending tab shows PRs at HOD stage
 
 > **As a** HOD user, **I want** core Pr Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -145,7 +145,7 @@ URL is on PR list and the My Pending tab is selected when present.
 
 ---
 
-## TC-PRA0202 — All Documents tab broadens scope
+## TC-PR-060202 — All Documents tab broadens scope
 
 > **As a** FC user, **I want** this Pr Approver Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -165,7 +165,7 @@ All Documents tab becomes selected.
 
 ---
 
-## TC-PRA0203 — All Stage dropdown filters by status
+## TC-PR-060203 — All Stage dropdown filters by status
 
 > **As a** FC user, **I want** to filter the Pr Approver Journey list, **so that** I can narrow results to relevant records.
 
@@ -186,7 +186,7 @@ URL stays on PR list (filter applied or no-op when dropdown absent).
 
 ---
 
-## TC-PRA0204 — Filter panel opens and applies
+## TC-PR-060204 — Filter panel opens and applies
 
 > **As a** FC user, **I want** to filter the Pr Approver Journey list, **so that** I can narrow results to relevant records.
 
@@ -208,7 +208,7 @@ URL stays on PR list after applying the filter.
 
 ---
 
-## TC-PRA0205 — Search by PR reference filters list
+## TC-PR-060205 — Search by PR reference filters list
 
 > **As a** FC user, **I want** to filter the Pr Approver Journey list, **so that** I can narrow results to relevant records.
 
@@ -229,7 +229,7 @@ URL stays on PR list after typing in the search input.
 
 ---
 
-## TC-PRA0301 — Detail loads with Items tab default
+## TC-PR-060301 — Detail loads with Items tab default
 
 > **As a** FC user, **I want** core Pr Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -250,7 +250,7 @@ URL is the detail URL; Items tab is selected when present.
 
 ---
 
-## TC-PRA0302 — Switch to Workflow History tab
+## TC-PR-060302 — Switch to Workflow History tab
 
 > **As a** FC user, **I want** this Pr Approver Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -270,7 +270,7 @@ Workflow History tab becomes selected.
 
 ---
 
-## TC-PRA0303 — No standalone Approve/Reject/Return buttons (BRD discrepancy)
+## TC-PR-060303 — No standalone Approve/Reject/Return buttons (BRD discrepancy)
 
 > **As a** low-privilege user, **I should NOT** see Add/edit controls on Pr Approver Journey, **so that** role separation is enforced.
 
@@ -290,7 +290,7 @@ Standalone Approve, Reject, and Send for Review buttons are NOT visible at the p
 
 ---
 
-## TC-PRA0304 — Edit button visible (entry to bulk actions)
+## TC-PR-060304 — Edit button visible (entry to bulk actions)
 
 > **As a** FC user, **I want** this Pr Approver Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -310,7 +310,7 @@ Edit button is visible (HOD can enter Edit Mode for bulk actions).
 
 ---
 
-## TC-PRA0401 — Click Edit → edit mode active
+## TC-PR-060401 — Click Edit → edit mode active
 
 > **As a** FC user, **I want** core Pr Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -331,7 +331,7 @@ Save Draft (or Cancel) form-level button is visible.
 
 ---
 
-## TC-PRA0402 — Approved Quantity field is editable
+## TC-PR-060402 — Approved Quantity field is editable
 
 > **As a** FC user, **I want** to edit an existing Pr Approver Journey record, **so that** its data stays accurate.
 
@@ -353,7 +353,7 @@ Approved Qty input is visible and accepts a value.
 
 ---
 
-## TC-PRA0403 — Item Note field is editable
+## TC-PR-060403 — Item Note field is editable
 
 > **As a** FC user, **I want** to edit an existing Pr Approver Journey record, **so that** its data stays accurate.
 
@@ -375,7 +375,7 @@ Item Note input accepts the typed value.
 
 ---
 
-## TC-PRA0404 — Delivery Point field is editable
+## TC-PR-060404 — Delivery Point field is editable
 
 > **As a** FC user, **I want** to edit an existing Pr Approver Journey record, **so that** its data stays accurate.
 
@@ -397,7 +397,7 @@ Delivery Point input is editable.
 
 ---
 
-## TC-PRA0405 — Vendor field is read-only
+## TC-PR-060405 — Vendor field is read-only
 
 > **As a** low-privilege user, **I should NOT** see Add/edit controls on Pr Approver Journey, **so that** role separation is enforced.
 
@@ -418,7 +418,7 @@ Vendor cell is disabled or non-editable per FR-PR-011A.
 
 ---
 
-## TC-PRA0406 — Unit Price field is read-only
+## TC-PR-060406 — Unit Price field is read-only
 
 > **As a** low-privilege user, **I should NOT** see Add/edit controls on Pr Approver Journey, **so that** role separation is enforced.
 
@@ -439,7 +439,7 @@ Unit Price cell is disabled or non-editable per FR-PR-011A.
 
 ---
 
-## TC-PRA0407 — Discount / Tax / FOC Qty are read-only
+## TC-PR-060407 — Discount / Tax / FOC Qty are read-only
 
 > **As a** low-privilege user, **I should NOT** see Add/edit controls on Pr Approver Journey, **so that** role separation is enforced.
 
@@ -460,7 +460,7 @@ All three cells are disabled or non-editable per FR-PR-011A / FR-PR-024.
 
 ---
 
-## TC-PRA0408 — Bulk Approve via Select All → toolbar
+## TC-PR-060408 — Bulk Approve via Select All → toolbar
 
 > **As a** FC user, **I want** to manage Pr Approver Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -483,7 +483,7 @@ Status transitions away from In Progress (toast / next-stage / reload state).
 
 ---
 
-## TC-PRA0409 — Bulk Reject via toolbar (with reason)
+## TC-PR-060409 — Bulk Reject via toolbar (with reason)
 
 > **As a** FC user, **I want** to manage Pr Approver Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -507,7 +507,7 @@ URL stays on the PR ref after rejection (status badge updates).
 
 ---
 
-## TC-PRA0410 — Bulk Send for Review via toolbar
+## TC-PR-060410 — Bulk Send for Review via toolbar
 
 > **As a** FC user, **I want** to manage Pr Approver Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -531,7 +531,7 @@ URL stays on the PR ref after send for review.
 
 ---
 
-## TC-PRA0411 — Bulk Split via toolbar
+## TC-PR-060411 — Bulk Split via toolbar
 
 > **As a** FC user, **I want** this Pr Approver Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -553,7 +553,7 @@ Split UI appears (dialog or inline) — verified by URL stays on detail.
 
 ---
 
-## TC-PRA0412 — Cancel edit → discard changes
+## TC-PR-060412 — Cancel edit → discard changes
 
 > **As a** FC user, **I want** this Pr Approver Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -575,7 +575,7 @@ Form returns to view mode (Edit button visible again).
 
 ---
 
-## TC-PRA0501 — FC sees PRs from multiple departments
+## TC-PR-060501 — FC sees PRs from multiple departments
 
 > **As a** low-privilege user, **I should NOT** see Add/edit controls on Pr Approver Journey, **so that** role separation is enforced.
 
@@ -597,7 +597,7 @@ At least 2 distinct department values appear in the list (skipped if DB lacks cr
 
 ---
 
-## TC-PRA0901 — HOD full flow: My Approval → List → Detail → Edit → Adjust Qty → Bulk Approve
+## TC-PR-060901 — HOD full flow: My Approval → List → Detail → Edit → Adjust Qty → Bulk Approve
 
 > **As a** HOD user, **I want** the Pr Approver Journey list page to load successfully, **so that** I can manage Pr Approver Journey records.
 
@@ -622,4 +622,4 @@ URL stays on the PR ref after bulk approve; the journey completes end-to-end.
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 9b238f5</sub>
+<sub>Last regenerated: 2026-05-06 · git a840c0e</sub>

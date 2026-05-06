@@ -11,29 +11,29 @@ _Generated from `tests/403-po-approver-journey.spec.ts` annotations. Edit annota
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-POA0101 | My Approval dashboard loads with Total Pending count visible | High | Smoke |
-| TC-POA0102 | PO filter tab shows pending POs (DRAFT + IN PROGRESS) | High | Functional |
-| TC-POA0103 | Click pending PO row navigates to PO detail | High | Smoke |
-| TC-POA0201 | PO Detail loads in IN PROGRESS view (FC perspective) | High | Smoke |
-| TC-POA0202 | Header fields are read-only for FC (cannot edit vendor/date/etc.) | High | Authorization |
-| TC-POA0203 | Edit button + Comment button visible | Medium | Functional |
-| TC-POA0301 | Edit mode → select item → Approve toolbar appears | High | Smoke |
-| TC-POA0302 | Mark item Approved → green badge appears on item row | High | CRUD |
-| TC-POA0303 | Mark item Review → amber badge + Send Back footer button appears | High | CRUD |
-| TC-POA0304 | Mark item Reject → reject badge + footer Reject button appears | Medium | CRUD |
-| TC-POA0305 | All items Approved → Document Approve button enabled in footer | High | Functional |
-| TC-POA0306 | Click Approve PO → confirmation dialog ('Once approved, PO will be sent to vendor') | High | Smoke |
-| TC-POA0307 | Confirm Approve → status moves to APPROVED/SENT | High | CRUD |
-| TC-POA0308 | Click Send Back → dialog with stage selector + per-item reason | Medium | Smoke |
-| TC-POA0309 | Confirm Send Back → PO returned (status updates) | Medium | CRUD |
-| TC-POA0310 | Click Reject → dialog with optional reason field | Medium | Smoke |
-| TC-POA0311 | Confirm Reject → PO marked REJECTED | Medium | CRUD |
-| TC-POA0312 | Cancel edit mode (no item marked) → exits without saving | Low | Functional |
-| TC-POA0901 | Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → Sent | High | Smoke |
+| TC-PO-070101 | My Approval dashboard loads with Total Pending count visible | High | Smoke |
+| TC-PO-070102 | PO filter tab shows pending POs (DRAFT + IN PROGRESS) | High | Functional |
+| TC-PO-070103 | Click pending PO row navigates to PO detail | High | Smoke |
+| TC-PO-070201 | PO Detail loads in IN PROGRESS view (FC perspective) | High | Smoke |
+| TC-PO-070202 | Header fields are read-only for FC (cannot edit vendor/date/etc.) | High | Authorization |
+| TC-PO-070203 | Edit button + Comment button visible | Medium | Functional |
+| TC-PO-070301 | Edit mode → select item → Approve toolbar appears | High | Smoke |
+| TC-PO-070302 | Mark item Approved → green badge appears on item row | High | CRUD |
+| TC-PO-070303 | Mark item Review → amber badge + Send Back footer button appears | High | CRUD |
+| TC-PO-070304 | Mark item Reject → reject badge + footer Reject button appears | Medium | CRUD |
+| TC-PO-070305 | All items Approved → Document Approve button enabled in footer | High | Functional |
+| TC-PO-070306 | Click Approve PO → confirmation dialog ('Once approved, PO will be sent to vendor') | High | Smoke |
+| TC-PO-070307 | Confirm Approve → status moves to APPROVED/SENT | High | CRUD |
+| TC-PO-070308 | Click Send Back → dialog with stage selector + per-item reason | Medium | Smoke |
+| TC-PO-070309 | Confirm Send Back → PO returned (status updates) | Medium | CRUD |
+| TC-PO-070310 | Click Reject → dialog with optional reason field | Medium | Smoke |
+| TC-PO-070311 | Confirm Reject → PO marked REJECTED | Medium | CRUD |
+| TC-PO-070312 | Cancel edit mode (no item marked) → exits without saving | Low | Functional |
+| TC-PO-070901 | Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → Sent | High | Smoke |
 
 ---
 
-## TC-POA0101 — My Approval dashboard loads with Total Pending count visible
+## TC-PO-070101 — My Approval dashboard loads with Total Pending count visible
 
 > **As a** FC user, **I want** core Po Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -54,7 +54,7 @@ URL contains 'approval' or 'dashboard'; a count/badge or row count is visible.
 
 ---
 
-## TC-POA0102 — PO filter tab shows pending POs (DRAFT + IN PROGRESS)
+## TC-PO-070102 — PO filter tab shows pending POs (DRAFT + IN PROGRESS)
 
 > **As a** FC user, **I want** to filter the Po Approver Journey list, **so that** I can narrow results to relevant records.
 
@@ -75,7 +75,7 @@ PO tab is selected (aria-selected=true) when present.
 
 ---
 
-## TC-POA0103 — Click pending PO row navigates to PO detail
+## TC-PO-070103 — Click pending PO row navigates to PO detail
 
 > **As a** FC user, **I want** core Po Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -97,7 +97,7 @@ URL navigates to /procurement/purchase-order/<ref>.
 
 ---
 
-## TC-POA0201 — PO Detail loads in IN PROGRESS view (FC perspective)
+## TC-PO-070201 — PO Detail loads in IN PROGRESS view (FC perspective)
 
 > **As a** FC user, **I want** core Po Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -118,7 +118,7 @@ URL is /procurement/purchase-order/<ref>; status badge text matches /in.progress
 
 ---
 
-## TC-POA0202 — Header fields are read-only for FC (cannot edit vendor/date/etc.)
+## TC-PO-070202 — Header fields are read-only for FC (cannot edit vendor/date/etc.)
 
 > **As a** low-privilege user, **I should NOT** see Add/edit controls on Po Approver Journey, **so that** role separation is enforced.
 
@@ -139,7 +139,7 @@ Vendor input or one of the header fields is disabled/readonly. Skipped if no hea
 
 ---
 
-## TC-POA0203 — Edit button + Comment button visible
+## TC-PO-070203 — Edit button + Comment button visible
 
 > **As a** FC user, **I want** this Po Approver Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -159,7 +159,7 @@ Edit button is visible. Comment button is visible when present.
 
 ---
 
-## TC-POA0301 — Edit mode → select item → Approve toolbar appears
+## TC-PO-070301 — Edit mode → select item → Approve toolbar appears
 
 > **As a** FC user, **I want** core Po Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -181,7 +181,7 @@ Item action toolbar (Approve/Review/Reject) becomes visible.
 
 ---
 
-## TC-POA0302 — Mark item Approved → green badge appears on item row
+## TC-PO-070302 — Mark item Approved → green badge appears on item row
 
 > **As a** FC user, **I want** to manage Po Approver Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -203,7 +203,7 @@ Item row shows an Approved badge.
 
 ---
 
-## TC-POA0303 — Mark item Review → amber badge + Send Back footer button appears
+## TC-PO-070303 — Mark item Review → amber badge + Send Back footer button appears
 
 > **As a** FC user, **I want** to manage Po Approver Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -225,7 +225,7 @@ Item row shows a Review badge; document Send Back button is visible in footer.
 
 ---
 
-## TC-POA0304 — Mark item Reject → reject badge + footer Reject button appears
+## TC-PO-070304 — Mark item Reject → reject badge + footer Reject button appears
 
 > **As a** FC user, **I want** to manage Po Approver Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -247,7 +247,7 @@ Item row shows a Reject badge; document Reject button is visible in footer.
 
 ---
 
-## TC-POA0305 — All items Approved → Document Approve button enabled in footer
+## TC-PO-070305 — All items Approved → Document Approve button enabled in footer
 
 > **As a** FC user, **I want** this Po Approver Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -269,7 +269,7 @@ Document Approve button is visible (and enabled when present).
 
 ---
 
-## TC-POA0306 — Click Approve PO → confirmation dialog ('Once approved, PO will be sent to vendor')
+## TC-PO-070306 — Click Approve PO → confirmation dialog ('Once approved, PO will be sent to vendor')
 
 > **As a** FC user, **I want** core Po Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -290,7 +290,7 @@ Confirmation dialog is visible.
 
 ---
 
-## TC-POA0307 — Confirm Approve → status moves to APPROVED/SENT
+## TC-PO-070307 — Confirm Approve → status moves to APPROVED/SENT
 
 > **As a** FC user, **I want** to manage Po Approver Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -312,7 +312,7 @@ Status badge text matches /approved|sent/i after confirmation.
 
 ---
 
-## TC-POA0308 — Click Send Back → dialog with stage selector + per-item reason
+## TC-PO-070308 — Click Send Back → dialog with stage selector + per-item reason
 
 > **As a** FC user, **I want** core Po Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -333,7 +333,7 @@ Send Back dialog is visible.
 
 ---
 
-## TC-POA0309 — Confirm Send Back → PO returned (status updates)
+## TC-PO-070309 — Confirm Send Back → PO returned (status updates)
 
 > **As a** FC user, **I want** to edit an existing Po Approver Journey record, **so that** its data stays accurate.
 
@@ -356,7 +356,7 @@ URL stays on PO ref after confirmation.
 
 ---
 
-## TC-POA0310 — Click Reject → dialog with optional reason field
+## TC-PO-070310 — Click Reject → dialog with optional reason field
 
 > **As a** FC user, **I want** core Po Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -377,7 +377,7 @@ Reject dialog is visible.
 
 ---
 
-## TC-POA0311 — Confirm Reject → PO marked REJECTED
+## TC-PO-070311 — Confirm Reject → PO marked REJECTED
 
 > **As a** FC user, **I want** to manage Po Approver Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -400,7 +400,7 @@ Status badge text matches /rejected/i after confirmation.
 
 ---
 
-## TC-POA0312 — Cancel edit mode (no item marked) → exits without saving
+## TC-PO-070312 — Cancel edit mode (no item marked) → exits without saving
 
 > **As a** FC user, **I want** this Po Approver Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -421,7 +421,7 @@ Form returns to view mode (Edit button visible again).
 
 ---
 
-## TC-POA0901 — Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → Sent
+## TC-PO-070901 — Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → Sent
 
 > **As a** FC user, **I want** core Po Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -448,4 +448,4 @@ Status badge transitions to APPROVED/SENT after confirmation.
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 9b238f5</sub>
+<sub>Last regenerated: 2026-05-06 · git a840c0e</sub>
