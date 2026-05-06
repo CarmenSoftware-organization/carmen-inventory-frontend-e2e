@@ -274,4 +274,75 @@ export class PurchaseOrderPage extends BasePage {
   closePOButton(): Locator {
     return this.page.getByRole("button", { name: /^close$|close po|mark as complete/i }).first();
   }
+
+  // ── FC Approval Actions (Edit Mode item-level + document-level) ──────
+  // The FC PO approval flow uses item-level marking (Approve/Review/Reject)
+  // that surfaces an action toolbar, plus document-level footer buttons
+  // (Approve PO / Send Back / Reject) whose visibility depends on the
+  // item-state mix. Distinct from PR's bulk-toolbar pattern.
+
+  selectItemRow(index: number): Locator {
+    // Skip header row (nth(0)); data rows start at nth(1)
+    return this.page.getByRole("row").nth(index + 1).getByRole("checkbox").first();
+  }
+
+  async selectItemInEditMode(index: number) {
+    const cb = this.selectItemRow(index);
+    if ((await cb.count()) > 0) await cb.check({ force: true });
+  }
+
+  itemActionToolbar(): Locator {
+    return this.page
+      .locator("[data-slot='toolbar'], [role='toolbar']")
+      .filter({ has: this.page.getByRole("button", { name: /approve|review|reject/i }) })
+      .first();
+  }
+
+  markItemApproveButton(): Locator {
+    return this.itemActionToolbar().getByRole("button", { name: /^approve$/i }).first();
+  }
+
+  markItemReviewButton(): Locator {
+    return this.itemActionToolbar().getByRole("button", { name: /^review$/i }).first();
+  }
+
+  markItemRejectButton(): Locator {
+    return this.itemActionToolbar().getByRole("button", { name: /^reject$/i }).first();
+  }
+
+  itemBadge(index: number, status?: string): Locator {
+    const row = this.page.getByRole("row").nth(index + 1);
+    const re = status ? new RegExp(status, "i") : /approved|review|rejected/i;
+    return row.locator("[data-slot='badge'], [class*='badge']").filter({ hasText: re }).first();
+  }
+
+  // Document-level footer buttons — scoped to footer / dialog area to avoid
+  // collision with item-level Approve/Reject buttons.
+  documentApproveButton(): Locator {
+    return this.page
+      .locator("footer, [data-slot='footer']")
+      .getByRole("button", { name: /approve po|approve.*purchase order|^approve$/i })
+      .first()
+      .or(this.page.getByRole("button", { name: /approve po|approve.*purchase order/i }).last());
+  }
+
+  documentSendBackButton(): Locator {
+    return this.page
+      .locator("footer, [data-slot='footer']")
+      .getByRole("button", { name: /send back|return for|^send$/i })
+      .first()
+      .or(this.page.getByRole("button", { name: /send back|return for/i }).last());
+  }
+
+  documentRejectButton(): Locator {
+    return this.page
+      .locator("footer, [data-slot='footer']")
+      .getByRole("button", { name: /reject po|^reject$/i })
+      .first()
+      .or(this.page.getByRole("button", { name: /reject po/i }).last());
+  }
+
+  commentButton(): Locator {
+    return this.page.getByRole("button", { name: /^comment$|add comment/i }).first();
+  }
 }
