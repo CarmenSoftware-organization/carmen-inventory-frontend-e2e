@@ -11,7 +11,7 @@ const NAME_UPDATED = `E2E VEN Upd ${UID}`;
 
 test.describe("Vendor — List smoke", () => {
   test(
-    "TC-VEN00101 หน้า list โหลดสำเร็จ",
+    "TC-VEN-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com via createAuthTest fixture; ผู้ใช้มีสิทธิ์เข้าถึง vendor-management" },
@@ -29,7 +29,7 @@ test.describe("Vendor — List smoke", () => {
   });
 
   test(
-    "TC-VEN00102 ปุ่ม Add แสดง",
+    "TC-VEN-010002 ปุ่ม Add แสดง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor" },
@@ -46,7 +46,7 @@ test.describe("Vendor — List smoke", () => {
   });
 
   test(
-    "TC-VEN00103 ช่องค้นหาใช้งานได้",
+    "TC-VEN-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor" },
@@ -64,7 +64,7 @@ test.describe("Vendor — List smoke", () => {
   });
 
   test(
-    "TC-VEN00104 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    "TC-VEN-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor" },
@@ -82,7 +82,7 @@ test.describe("Vendor — List smoke", () => {
   });
 
   test(
-    "TC-VEN00105 Filter status (active/inactive) ใช้งานได้",
+    "TC-VEN-010005 Filter status (active/inactive) ใช้งานได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor" },
@@ -128,7 +128,7 @@ test.describe("Vendor — List smoke", () => {
 
 test.describe("Vendor — Create happy path", () => {
   test(
-    "TC-VEN00106 เปิดหน้า new form สำเร็จ",
+    "TC-VEN-010006 เปิดหน้า new form สำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; ผู้ใช้มีสิทธิ์สร้าง vendor" },
@@ -148,7 +148,7 @@ test.describe("Vendor — Create happy path", () => {
   });
 
   test(
-    "TC-VEN00107 เลือก business type จาก dropdown ได้",
+    "TC-VEN-010007 เลือก business type จาก dropdown ได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new; backend ต้องมีข้อมูล business types อย่างน้อย 1 รายการ (ถ้าไม่มีจะ skip)" },
@@ -163,7 +163,7 @@ test.describe("Vendor — Create happy path", () => {
     await vendor.gotoNew();
     const count = await vendor.businessTypeOptionCount();
     if (count === 0) {
-      test.skip(true, "No business types seeded in backend — skipping TC-VEN00107.");
+      test.skip(true, "No business types seeded in backend — skipping TC-VEN-010007.");
       return;
     }
     const label = await vendor.pickBusinessType();
@@ -173,7 +173,7 @@ test.describe("Vendor — Create happy path", () => {
   });
 
   test(
-    "TC-VEN00108 สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ",
+    "TC-VEN-010008 สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; vendor CODE/NAME ยังไม่มีใน DB" },
@@ -203,7 +203,7 @@ test.describe("Vendor — Create happy path", () => {
   });
 
   test(
-    "TC-VEN00109 สร้าง vendor พร้อม address 1 รายการ",
+    "TC-VEN-010009 สร้าง vendor พร้อม address 1 รายการ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; vendor CODE+'A' ยังไม่มีใน DB" },
@@ -247,7 +247,7 @@ test.describe("Vendor — Create happy path", () => {
   });
 
   test(
-    "TC-VEN00110 สร้าง vendor พร้อม contact 1 รายการ (primary)",
+    "TC-VEN-010010 สร้าง vendor พร้อม contact 1 รายการ (primary)",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; vendor CODE+'C' ยังไม่มีใน DB" },
@@ -281,7 +281,7 @@ test.describe("Vendor — Create happy path", () => {
 
 test.describe("Vendor — Tabs & dynamic arrays", () => {
   test(
-    "TC-VEN00111 สลับ tab ทั้ง 4 tabs ได้",
+    "TC-VEN-010011 สลับ tab ทั้ง 4 tabs ได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
@@ -301,7 +301,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
   });
 
   test(
-    "TC-VEN00112 เพิ่ม address row ได้หลาย row",
+    "TC-VEN-010012 เพิ่ม address row ได้หลาย row",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab address" },
@@ -323,7 +323,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
   });
 
   test(
-    "TC-VEN00113 ลบ address row ได้",
+    "TC-VEN-010013 ลบ address row ได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab address" },
@@ -345,7 +345,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
   });
 
   test(
-    "TC-VEN00114 เพิ่ม contact row ได้หลาย row",
+    "TC-VEN-010014 เพิ่ม contact row ได้หลาย row",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab contact" },
@@ -366,7 +366,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
   });
 
   test(
-    "TC-VEN00115 ลบ contact row ได้",
+    "TC-VEN-010015 ลบ contact row ได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab contact" },
@@ -389,7 +389,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
   });
 
   test(
-    "TC-VEN00116 เปลี่ยน primary contact ได้ (radio exclusive)",
+    "TC-VEN-010016 เปลี่ยน primary contact ได้ (radio exclusive)",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab contact" },
@@ -415,7 +415,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
   });
 
   test(
-    "TC-VEN00117 เพิ่ม info row (label/value) ได้",
+    "TC-VEN-010017 เพิ่ม info row (label/value) ได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab info" },
@@ -436,7 +436,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
   });
 
   test(
-    "TC-VEN00118 ลบ info row ได้",
+    "TC-VEN-010018 ลบ info row ได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab info" },
@@ -460,7 +460,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
 
 test.describe("Vendor — Validation", () => {
   test(
-    "TC-VEN00119 บันทึกโดยไม่กรอก code ต้องแสดง error",
+    "TC-VEN-010019 บันทึกโดยไม่กรอก code ต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
@@ -481,7 +481,7 @@ test.describe("Vendor — Validation", () => {
   });
 
   test(
-    "TC-VEN00120 บันทึกโดยไม่กรอก name ต้องแสดง error",
+    "TC-VEN-010020 บันทึกโดยไม่กรอก name ต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
@@ -502,7 +502,7 @@ test.describe("Vendor — Validation", () => {
   });
 
   test(
-    "TC-VEN00121 code เกิน 10 ตัวอักษรต้องถูก reject",
+    "TC-VEN-010021 code เกิน 10 ตัวอักษรต้องถูก reject",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
@@ -523,7 +523,7 @@ test.describe("Vendor — Validation", () => {
   });
 
   test(
-    "TC-VEN00122 name เกิน 100 ตัวอักษรต้องถูก reject",
+    "TC-VEN-010022 name เกิน 100 ตัวอักษรต้องถูก reject",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
@@ -544,7 +544,7 @@ test.describe("Vendor — Validation", () => {
   });
 
   test(
-    "TC-VEN00123 address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement)",
+    "TC-VEN-010023 address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement)",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
@@ -573,7 +573,7 @@ test.describe("Vendor — Validation", () => {
   });
 
   test(
-    "TC-VEN00124 contact email รูปแบบผิดต้องแสดง error",
+    "TC-VEN-010024 contact email รูปแบบผิดต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
@@ -600,10 +600,10 @@ test.describe("Vendor — Validation", () => {
 
 test.describe("Vendor — Edit, delete, cleanup", () => {
   test(
-    "TC-VEN00125 แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ",
+    "TC-VEN-010025 แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-VEN00108 ผ่านแล้ว → vendor ที่ NAME มีอยู่ใน DB; logged in as purchase@blueledgers.com" },
+        { type: "preconditions", description: "TC-VEN-010008 ผ่านแล้ว → vendor ที่ NAME มีอยู่ใน DB; logged in as purchase@blueledgers.com" },
         { type: "steps", description: "1. ไปที่ list และเปิด detail ของ vendor ตาม NAME\n2. กด Edit\n3. สลับไป tab general\n4. แก้ name เป็น NAME_UPDATED\n5. กด Save\n6. กลับ list ค้นหาด้วย NAME_UPDATED" },
         { type: "expected", description: "Save toast/feedback ปรากฏ และ NAME_UPDATED ค้นเจอใน list ภายใน 10s" },
         { type: "priority", description: "High" },
@@ -626,10 +626,10 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
   });
 
   test(
-    "TC-VEN00126 เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่",
+    "TC-VEN-010026 เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่",
     {
       annotation: [
-        { type: "preconditions", description: "TC-VEN00125 ผ่านแล้ว → vendor ที่ NAME_UPDATED มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-VEN-010025 ผ่านแล้ว → vendor ที่ NAME_UPDATED มีอยู่ใน DB" },
         { type: "steps", description: "1. ไปที่ list และค้นหาด้วย NAME_UPDATED\n2. เปิด row actions ของ row นั้น\n3. คลิก menuitem Delete\n4. ใน alertdialog กด Cancel" },
         { type: "expected", description: "Alertdialog ปิดและแถวของ NAME_UPDATED ยังคง visible (ไม่ถูกลบ)" },
         { type: "priority", description: "Medium" },
@@ -657,10 +657,10 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
   });
 
   test(
-    "TC-VEN00127 ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก)",
+    "TC-VEN-010027 ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก)",
     {
       annotation: [
-        { type: "preconditions", description: "TC-VEN00126 ผ่านแล้ว → vendor ที่ NAME_UPDATED ยังคงอยู่ใน DB" },
+        { type: "preconditions", description: "TC-VEN-010026 ผ่านแล้ว → vendor ที่ NAME_UPDATED ยังคงอยู่ใน DB" },
         { type: "steps", description: "1. ไปที่ list และค้นหาด้วย NAME_UPDATED\n2. เปิด row actions\n3. คลิก menuitem Delete\n4. ใน alertdialog กดยืนยัน Delete/Confirm" },
         { type: "expected", description: "Success toast ('success/deleted/สำเร็จ') ปรากฏภายใน 10s" },
         { type: "priority", description: "High" },
@@ -690,10 +690,10 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
   });
 
   test(
-    "TC-VEN00128 หลังลบแล้วค้นหาไม่พบ row นั้นอีก",
+    "TC-VEN-010028 หลังลบแล้วค้นหาไม่พบ row นั้นอีก",
     {
       annotation: [
-        { type: "preconditions", description: "TC-VEN00127 ผ่านแล้ว → vendor ที่ NAME_UPDATED ถูกลบจาก DB แล้ว" },
+        { type: "preconditions", description: "TC-VEN-010027 ผ่านแล้ว → vendor ที่ NAME_UPDATED ถูกลบจาก DB แล้ว" },
         { type: "steps", description: "1. ไปที่ list\n2. ค้นหาด้วย NAME_UPDATED" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ยืนยันว่าลบได้สำเร็จจริง)" },
         { type: "priority", description: "Medium" },
@@ -709,7 +709,7 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
 });
 
 // Mop-up: best-effort cleanup of any vendors this run created via UID prefix.
-// Uses the same row-actions dropdown pattern as TC-VEN00127. Silent on failure —
+// Uses the same row-actions dropdown pattern as TC-VEN-010027. Silent on failure —
 // the suite's actual assertions already ran; this is hygiene, not a check.
 test.afterAll(async ({ browser }) => {
   const context = await browser.newContext();
