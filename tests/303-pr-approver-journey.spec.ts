@@ -698,7 +698,46 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
 });
 
 fcTest.describe("Scope Contrast (FC)", () => {
-  // TC added in Task 10
+  fcTest(
+    "TC-PRA0501 FC sees PRs from multiple departments",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged in as FC (fc@blueledgers.com); pending PRs exist in DB across multiple departments" },
+        { type: "steps", description: "1. Navigate to PR list as FC\n2. Open All Documents tab\n3. Read department column values from rows" },
+        { type: "expected", description: "At least 2 distinct department values appear in the list (skipped if DB lacks cross-dept PRs)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Authorization" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      await pr.gotoList();
+      const tab = pr.tabAllDocuments();
+      if ((await tab.count()) > 0) await tab.click();
+      const deptCells = page.getByRole("cell").filter({
+        has: page.locator("[data-column='department'], [aria-label*='department' i]"),
+      });
+      const cellCount = await deptCells.count();
+      if (cellCount === 0) {
+        const rows = page.getByRole("row");
+        const rowCount = await rows.count();
+        if (rowCount < 3) {
+          fcTest.skip(true, "Fewer than 2 data rows visible — cannot assert cross-dept scope");
+          return;
+        }
+      }
+      const distinct = new Set<string>();
+      for (let i = 0; i < Math.min(cellCount, 20); i++) {
+        const text = (await deptCells.nth(i).textContent())?.trim() ?? "";
+        if (text) distinct.add(text);
+      }
+      if (distinct.size === 0) {
+        fcTest.skip(true, "Department column not present on this list view");
+        return;
+      }
+      expect(distinct.size).toBeGreaterThanOrEqual(2);
+    },
+  );
 });
 
 hodTest.describe.serial("Golden Journey", () => {
