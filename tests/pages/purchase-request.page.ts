@@ -339,4 +339,81 @@ export class PurchaseRequestPage extends BasePage {
         .first(),
     ).toBeVisible({ timeout: 10_000 });
   }
+
+  // ── Detail page tabs ─────────────────────────────────────────────────
+  tabItems(): Locator {
+    return this.page.getByRole("tab", { name: /^items$/i }).first();
+  }
+
+  tabWorkflowHistory(): Locator {
+    return this.page.getByRole("tab", { name: /workflow history|workflow|history/i }).first();
+  }
+
+  // ── Edit mode ────────────────────────────────────────────────────────
+  editModeButton(): Locator {
+    return this.page.getByRole("button", { name: /^edit$|edit pr|edit mode/i }).first();
+  }
+
+  async enterEditMode() {
+    await this.editModeButton().click();
+    await this.page.waitForLoadState("networkidle").catch(() => {});
+  }
+
+  async cancelEditMode() {
+    await this.cancelFormButton().click({ timeout: 5_000 }).catch(() => {});
+  }
+
+  // ── Line item mutation ───────────────────────────────────────────────
+  async removeLineItem(index: number) {
+    const row = this.itemRow(index);
+    const remove = row.getByRole("button", { name: /remove|delete|trash/i }).first();
+    if ((await remove.count()) > 0) await remove.click();
+  }
+
+  async editLineItem(index: number, fields: PRLineItemInput) {
+    const row = this.itemRow(index);
+    const editBtn = row.getByRole("button", { name: /edit/i }).first();
+    if ((await editBtn.count()) > 0) await editBtn.click();
+    if (fields.quantity !== undefined) {
+      const q = this.page.getByLabel(/^quantity$|^qty$/i).first();
+      if ((await q.count()) > 0) await q.fill(String(fields.quantity));
+    }
+    if (fields.description !== undefined) {
+      const d = this.page.getByLabel(/item description/i).first();
+      if ((await d.count()) > 0) await d.fill(fields.description);
+    }
+    const save = this.page.getByRole("button", { name: /^save$|^update$/i }).last();
+    if ((await save.count()) > 0) await save.click({ timeout: 5_000 }).catch(() => {});
+  }
+
+  // ── Template picker (Step 3) ─────────────────────────────────────────
+  createDialogTemplateOption(): Locator {
+    return this.page.getByRole("button", { name: /from template|use template|template/i }).first();
+  }
+
+  templatePicker(): Locator {
+    return this.page.getByRole("dialog").or(this.page.getByRole("listbox")).first();
+  }
+
+  templatePickerEmpty(): Locator {
+    return this.templatePicker().getByText(/no templates|empty|none available/i).first();
+  }
+
+  async selectFirstTemplate() {
+    const options = this.templatePicker().getByRole("option");
+    const links = this.templatePicker().getByRole("link");
+    if ((await options.count()) > 0) {
+      await options.first().click();
+    } else if ((await links.count()) > 0) {
+      await links.first().click();
+    }
+    await this.page.waitForLoadState("networkidle").catch(() => {});
+  }
+
+  // ── Status assertion ─────────────────────────────────────────────────
+  async expectStatus(status: string) {
+    await expect(
+      this.statusBadge().filter({ hasText: new RegExp(status, "i") }).first(),
+    ).toBeVisible({ timeout: 10_000 });
+  }
 }
