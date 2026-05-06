@@ -276,8 +276,6 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     prefix: "AT",
     listPath: PATH,
     makeHelper: (page) => new PageFormCrudHelper(page, opts),
-    // TC-AT-010009/AT10 used by Stock Out create/delete — security cases start at 11 (TCS-AT00111..14)
-    startIndex: 11,
-    skipAuth: true, // TCS-AT00114 skipped
+    skipAuth: true, // TC-AT-100004 skipped
   });
 });

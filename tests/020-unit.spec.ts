@@ -77,5 +77,5 @@ test.describe("Unit — Smoke", () => {
     await expect(list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
-  addListOnlySecurityCases(test, { prefix: "UN", listPath: PATH, skipTcs: ["TCS-UN00112"] });
+  addListOnlySecurityCases(test, { prefix: "UN", listPath: PATH, skipTcs: ["TC-UN-100004"] });
 });

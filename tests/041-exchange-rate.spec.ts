@@ -41,5 +41,5 @@ test.describe("Exchange Rate — Smoke", () => {
     await expect(list.addButton()).toBeVisible();
   });
 
-  addListOnlySecurityCases(test, { prefix: "ER", listPath: PATH, skipTcs: ["TCS-ER00109", "TCS-ER00110", "TCS-ER00111", "TCS-ER00112"] });
+  addListOnlySecurityCases(test, { prefix: "ER", listPath: PATH, skipTcs: ["TC-ER-100001", "TC-ER-100002", "TC-ER-100003", "TC-ER-100004"] });
 });

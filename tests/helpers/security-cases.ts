@@ -35,14 +35,14 @@ export function addDialogSecurityCases(
     prefix: string;
     listPath: string;
     makeHelper: (page: Page) => DialogCrudHelper;
-    /** Skip the authorization case (TC-XX00112) */
+    /** Skip the authorization case (TC-XX-100004) */
     skipAuth?: boolean;
   },
 ) {
   const { prefix, listPath, makeHelper, skipAuth = false } = opts;
 
   test(
-    `TCS-${prefix}00109 XSS payload ในชื่อต้องไม่รัน script`,
+    `TC-${prefix}-100001 XSS payload ในชื่อต้องไม่รัน script`,
     {
       annotation: [
         { type: "preconditions", description: `Logged in user with permission to access ${listPath}; XSS dialog guard attached` },
@@ -68,7 +68,7 @@ export function addDialogSecurityCases(
   });
 
   test(
-    `TCS-${prefix}00110 SQL injection payload ต้องไม่ทำให้ระบบ crash`,
+    `TC-${prefix}-100002 SQL injection payload ต้องไม่ทำให้ระบบ crash`,
     {
       annotation: [
         { type: "preconditions", description: `Logged in user with permission to access ${listPath}` },
@@ -87,7 +87,7 @@ export function addDialogSecurityCases(
   });
 
   test(
-    `TCS-${prefix}00111 ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100`,
+    `TC-${prefix}-100003 ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100`,
     {
       annotation: [
         { type: "preconditions", description: `Logged in user with permission to access ${listPath}` },
@@ -109,7 +109,7 @@ export function addDialogSecurityCases(
 
   const dialogAuthTest = skipAuth ? test.skip : test;
   dialogAuthTest(
-    `TCS-${prefix}00112 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`,
+    `TC-${prefix}-100004 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`,
     {
       annotation: [
         { type: "preconditions", description: `Test user requestor@blueledgers.com (low-privilege role) มีอยู่จริง; module list path = ${listPath}` },
@@ -156,18 +156,15 @@ export function addPageFormSecurityCases(
     prefix: string;
     listPath: string;
     makeHelper: (page: Page) => PageFormCrudHelper;
-    /** First TC number for the 4 security cases (default 9 → TC-XX00109..12) */
-    startIndex?: number;
-    /** Skip the authorization case (the last of the 4) */
+    /** Skip the authorization case (TC-XX-100004) */
     skipAuth?: boolean;
   },
 ) {
-  const { prefix, listPath, makeHelper, startIndex = 9, skipAuth = false } = opts;
-  const pad = (n: number) => `001${String(n).padStart(2, "0")}`;
-  const tcXss = `TCS-${prefix}${pad(startIndex)}`;
-  const tcSql = `TCS-${prefix}${pad(startIndex + 1)}`;
-  const tcLen = `TCS-${prefix}${pad(startIndex + 2)}`;
-  const tcAuth = `TCS-${prefix}${pad(startIndex + 3)}`;
+  const { prefix, listPath, makeHelper, skipAuth = false } = opts;
+  const tcXss = `TC-${prefix}-100001`;
+  const tcSql = `TC-${prefix}-100002`;
+  const tcLen = `TC-${prefix}-100003`;
+  const tcAuth = `TC-${prefix}-100004`;
 
   test(
     `${tcXss} XSS payload ในชื่อต้องไม่รัน script`,
@@ -276,8 +273,8 @@ export function addListOnlySecurityCases(
   const { prefix, listPath, skipTcs = [] } = opts;
   const t = (tc: string) => (skipTcs.includes(tc) ? test.skip : test);
 
-  t(`TCS-${prefix}00109`)(
-    `TCS-${prefix}00109 XSS payload ในช่องค้นหาต้องไม่รัน script`,
+  t(`TC-${prefix}-100001`)(
+    `TC-${prefix}-100001 XSS payload ในช่องค้นหาต้องไม่รัน script`,
     {
       annotation: [
         { type: "preconditions", description: `Logged in user with permission to access ${listPath}; XSS dialog guard attached` },
@@ -295,8 +292,8 @@ export function addListOnlySecurityCases(
     await expect(list.addButton()).toBeVisible();
   });
 
-  t(`TCS-${prefix}00110`)(
-    `TCS-${prefix}00110 SQL injection payload ในช่องค้นหาต้องไม่ crash`,
+  t(`TC-${prefix}-100002`)(
+    `TC-${prefix}-100002 SQL injection payload ในช่องค้นหาต้องไม่ crash`,
     {
       annotation: [
         { type: "preconditions", description: `Logged in user with permission to access ${listPath}` },
@@ -313,8 +310,8 @@ export function addListOnlySecurityCases(
     await expect(list.addButton()).toBeVisible();
   });
 
-  t(`TCS-${prefix}00111`)(
-    `TCS-${prefix}00111 ค้นหาด้วย string ยาวมากต้องไม่ crash`,
+  t(`TC-${prefix}-100003`)(
+    `TC-${prefix}-100003 ค้นหาด้วย string ยาวมากต้องไม่ crash`,
     {
       annotation: [
         { type: "preconditions", description: `Logged in user with permission to access ${listPath}` },
@@ -331,8 +328,8 @@ export function addListOnlySecurityCases(
     await expect(list.addButton()).toBeVisible();
   });
 
-  t(`TCS-${prefix}00112`)(
-    `TCS-${prefix}00112 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`,
+  t(`TC-${prefix}-100004`)(
+    `TC-${prefix}-100004 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`,
     {
       annotation: [
         { type: "preconditions", description: `Test user requestor@blueledgers.com (low-privilege role) มีอยู่จริง; module list path = ${listPath}` },
