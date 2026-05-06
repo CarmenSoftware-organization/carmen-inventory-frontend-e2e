@@ -22,10 +22,14 @@ type SectionMap = Record<string, Record<string, string>>;
 // Section-map convention used below:
 //   For 5-digit legacy IDs (TC-XX SSS NN): SSS keys map to a 2-digit new section.
 //   3-digit codes 001..099 strip leading zeros (001 -> "01", 023 -> "23").
-//   3-digit codes >= 100 land in "90" (placeholder) and the entry is flagged needsReview.
-//   For 4-digit sub-journey legacy IDs (TC-XXX SSNN): "default" key collapses ALL
-//   sub-sections into one new section. Reviewer must reassign sequence numbers
-//   per-entry to break collisions before applying — every entry is needsReview.
+//   3-digit codes 100..199 auto-derive to 30..39 (groups of 10: 100-109→30, 110-119→31…).
+//   3-digit codes 200..299 auto-derive to 20..29 similarly.
+//   3-digit codes 300..399 auto-derive to 10..19 similarly.
+//   Codes >= 400 land in "90" (placeholder) and the entry is flagged needsReview.
+//   For 4-digit sub-journey legacy IDs (TC-XXX SSNN):
+//     A) Explicit sub-section key → split 2+2; seq from last 2 digits.
+//     B) Default-only (no explicit keys) → preserve full 4 digits as seq to avoid collisions.
+//     C) No mapping → section "90", needsReview.
 export const SPEC_CONFIG: Array<{
   specFile: string;
   newPrefix: string;
@@ -74,38 +78,27 @@ export const SPEC_CONFIG: Array<{
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06",
     } } },
 
-  // Modules with hundreds-codes (100+ go to "90" placeholder; reviewer reassigns)
+  // Modules with hundreds-codes (auto-derive handles 100-399; reviewer no longer needed for those)
   { specFile: "tests/900-period-end.spec.ts", newPrefix: "PE", oldPrefixes: ["PE"], sectionMap: { PE: {
       "001": "01", "002": "02", "003": "03", "004": "04",
-      "101": "90", "102": "90", "103": "90", "104": "90",
     } } },
   { specFile: "tests/301-purchase-request.spec.ts", newPrefix: "PR", oldPrefixes: ["PR"], sectionMap: { PR: {
       "001": "01", "002": "02", "003": "03", "004": "04",
       "005": "05", "006": "06", "007": "07", "008": "08", "009": "09",
       "010": "10", "011": "11", "012": "12", "013": "13", "014": "14", "015": "15", "016": "16", "017": "17", "018": "18", "019": "19",
       "020": "20", "021": "21", "022": "22", "023": "23",
-      "101": "90", "102": "90", "103": "90", "104": "90", "105": "90",
-      "201": "90", "202": "90",
-      "301": "90", "302": "90", "303": "90",
     } } },
   { specFile: "tests/310-purchase-request-template.spec.ts", newPrefix: "PRT", oldPrefixes: ["PRT"], sectionMap: { PRT: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06",
       "007": "07", "008": "08", "009": "09", "010": "10", "011": "11",
-      "201": "90", "202": "90", "203": "90",
     } } },
   { specFile: "tests/401-purchase-order.spec.ts", newPrefix: "PO", oldPrefixes: ["PO"], sectionMap: { PO: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06",
       "020": "20",
-      "101": "90", "102": "90", "103": "90", "104": "90", "105": "90",
-      "201": "90", "202": "90",
-      "301": "90",
     } } },
   { specFile: "tests/601-credit-note.spec.ts", newPrefix: "CN", oldPrefixes: ["CN"], sectionMap: { CN: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06",
       "007": "07", "008": "08", "009": "09", "010": "10", "011": "11",
-      "101": "90", "102": "90", "103": "90", "104": "90", "105": "90", "106": "90",
-      "201": "90", "202": "90", "203": "90", "204": "90", "205": "90", "206": "90", "207": "90",
-      "208": "90", "209": "90", "210": "90", "211": "90", "212": "90", "213": "90", "214": "90",
     } } },
 
   // Multi-prefix collapse (CATEG, PRODU, RECIP all roll into CAT module)
@@ -114,15 +107,14 @@ export const SPEC_CONFIG: Array<{
         "001": "01", "002": "02", "003": "03", "004": "04", "005": "05",
         "006": "06", "007": "07", "008": "08", "009": "09",
         "010": "10", "011": "11", "012": "12", "013": "13", "014": "14", "015": "15",
-        "201": "90", "202": "90", "203": "90", "204": "90",
       },
       CATEG: { default: "01" },
       PRODU: { default: "02" },
       RECIP: { default: "03" },
     } },
 
-  // Sub-journey collapses — every entry is needsReview because old sub-section
-  // sequences will collide (PRC0101 and PRC0201 both -> seq 0001 in new section 05)
+  // Sub-journey collapses — default-only maps preserve full 4-digit string as seq,
+  // so PRC0101 → seq 0101 and PRC0201 → seq 0201 in new section 05 (no collision)
   { specFile: "tests/302-pr-creator-journey.spec.ts", newPrefix: "PR", oldPrefixes: ["PRC"], sectionMap: { PRC: { default: "05" } } },
   { specFile: "tests/303-pr-approver-journey.spec.ts", newPrefix: "PR", oldPrefixes: ["PRA"], sectionMap: { PRA: { default: "06" } } },
   { specFile: "tests/304-pr-purchaser-journey.spec.ts", newPrefix: "PR", oldPrefixes: ["PRP"], sectionMap: { PRP: { default: "07" } } },
@@ -141,8 +133,13 @@ export function proposeMapping(
   const trail = oldId.slice(`TC-${oldPrefix}`.length);
   const digits = trail.replace(/^-/, "");
 
-  // Helper-generated security tests live in TC-XX001 09–12 by convention; mark them.
-  const helperGenerated = /(09|10|11|12)$/.test(digits) && digits.length === 5 && digits.startsWith("001");
+  // helperGenerated detection was over-eager: it flagged any seq 09-12 of section
+  // 001 as a security-helper ID, but those slots are also used by regular CRUD
+  // tests (e.g. TC-VEN00109..112 are normal vendor tests). The actual helper-
+  // generated TCs aren't in spec text — they're produced by tests/helpers/security-
+  // cases.ts at runtime — so they don't appear in the migration map at all.
+  // The flag is dropped; helperGenerated is always false.
+  const helperGenerated = false;
 
   const lookup = (section: string) => sectionMap?.[oldPrefix]?.[section] ?? sectionMap?.[oldPrefix]?.default;
 
@@ -181,12 +178,36 @@ export function proposeMapping(
       needsReview = true;
       note = `Reviewer: confirm sequence reassignment from ${digits}`;
     } else {
+      // Case C: no mapping at all — auto-derive section by range
       sectionOld = trySectionOld;
       seqOldStr = trySeqOld;
-      sectionNew = String(parseInt(trySectionOld, 10)).padStart(2, "0");
       seqNew = String(parseInt(trySeqOld, 10)).padStart(4, "0");
-      needsReview = false;
-      note = "";
+      const sectionNum = parseInt(trySectionOld, 10);
+      if (sectionNum >= 1 && sectionNum <= 99) {
+        sectionNew = String(sectionNum).padStart(2, "0");
+        needsReview = false;
+        note = "";
+      } else if (sectionNum >= 100 && sectionNum <= 199) {
+        // 100-199 → 30-39: each group of 10 old sections maps to one new section
+        // e.g. 100-109 → 30, 110-119 → 31, ..., 190-199 → 39
+        sectionNew = String(30 + Math.floor((sectionNum - 100) / 10)).padStart(2, "0");
+        needsReview = false;
+        note = "";
+      } else if (sectionNum >= 200 && sectionNum <= 299) {
+        // 200-299 → 20-29
+        sectionNew = String(20 + Math.floor((sectionNum - 200) / 10)).padStart(2, "0");
+        needsReview = false;
+        note = "";
+      } else if (sectionNum >= 300 && sectionNum <= 399) {
+        // 300-399 → 10-19
+        sectionNew = String(10 + Math.floor((sectionNum - 300) / 10)).padStart(2, "0");
+        needsReview = false;
+        note = "";
+      } else {
+        sectionNew = "90";
+        needsReview = true;
+        note = "Reviewer: unrecognised section code range";
+      }
     }
 
     const rule = collapsed
@@ -205,19 +226,57 @@ export function proposeMapping(
   if (digits.length === 4) {
     const sectionOld = digits.slice(0, 2);
     const seqOld = digits.slice(2);
-    const mapped = lookup(sectionOld) ?? lookup("default");
-    const sectionNew = mapped ?? "90";
-    const seqNew = seqOld.padStart(4, "0");
+
+    const explicit4 = sectionMap?.[oldPrefix]?.[sectionOld];
+    // Default-only: sectionMap has default but no explicit entry for sectionOld
+    const hasExplicitKeys = Object.keys(sectionMap?.[oldPrefix] ?? {}).some((k) => k !== "default");
+    const defaultOnly4 = explicit4 === undefined && !hasExplicitKeys
+      ? sectionMap?.[oldPrefix]?.["default"]
+      : undefined;
+
+    let sectionNew4: string;
+    let seqNew4: string;
+    let needsReview4: boolean;
+    let note4: string;
+    let ruleSection: string;
+    let ruleSeq: string;
+
+    if (explicit4 !== undefined) {
+      // Case A: explicit sub-section mapping
+      sectionNew4 = explicit4;
+      seqNew4 = String(parseInt(seqOld, 10)).padStart(4, "0");
+      needsReview4 = false;
+      note4 = "";
+      ruleSection = `${sectionOld}->${sectionNew4}`;
+      ruleSeq = `${seqOld}->${seqNew4}`;
+    } else if (defaultOnly4 !== undefined) {
+      // Case B: default-only — preserve full 4-digit string as seq to avoid collisions
+      sectionNew4 = defaultOnly4;
+      seqNew4 = digits;
+      needsReview4 = false;
+      note4 = "";
+      ruleSection = `default->${sectionNew4}`;
+      ruleSeq = `${digits}->${seqNew4}`;
+    } else {
+      // Case C: no mapping — placeholder section, seq from last 2 digits
+      sectionNew4 = "90";
+      seqNew4 = seqOld.padStart(4, "0");
+      needsReview4 = true;
+      note4 = "Reviewer: assign correct section block";
+      ruleSection = `${sectionOld}->no-section->placeholder`;
+      ruleSeq = `${seqOld}->${seqNew4}`;
+    }
+
     const rule = collapsed
-      ? `4-digit:prefix-collapse(${oldPrefix}->${newPrefix}),section=${sectionOld}->${sectionNew},seq=${seqOld}->${seqNew}`
-      : `4-digit:section=${sectionOld}->${sectionNew},seq=${seqOld}->${seqNew}`;
+      ? `4-digit:prefix-collapse(${oldPrefix}->${newPrefix}),section=${ruleSection},seq=${ruleSeq}`
+      : `4-digit:section=${ruleSection},seq=${ruleSeq}`;
     return {
       old: oldId,
-      new: `TC-${newPrefix}-${sectionNew}${seqNew}`,
+      new: `TC-${newPrefix}-${sectionNew4}${seqNew4}`,
       rule,
-      needsReview: mapped === undefined,
+      needsReview: needsReview4,
       helperGenerated: false,
-      note: mapped === undefined ? "Reviewer: assign correct section block" : "",
+      note: note4,
     };
   }
 

@@ -41,4 +41,41 @@ describe("proposeMapping", () => {
       note: "Reviewer: confirm sequence reassignment from 12345",
     });
   });
+
+  it("auto-maps 100-series section to 30s when no explicit mapping", () => {
+    const r = proposeMapping("TC-CN10101", "CN", "CN");
+    expect(r.new).toBe("TC-CN-300001");
+    expect(r.needsReview).toBe(false);
+  });
+
+  it("auto-maps 200-series section to 20s", () => {
+    const r = proposeMapping("TC-PO20101", "PO", "PO");
+    expect(r.new).toBe("TC-PO-200001");
+    expect(r.needsReview).toBe(false);
+  });
+
+  it("auto-maps 300-series section to 10s", () => {
+    const r = proposeMapping("TC-PR30101", "PR", "PR");
+    expect(r.new).toBe("TC-PR-100001");
+    expect(r.needsReview).toBe(false);
+  });
+
+  it("preserves full 4 digits as seq when sub-journey collapses with default-only", () => {
+    const r = proposeMapping("TC-PRC0301", "PRC", "PR", { PRC: { default: "05" } });
+    expect(r.new).toBe("TC-PR-050301");
+    expect(r.needsReview).toBe(false);
+    expect(r.rule).toContain("section=default->05");
+    expect(r.rule).toContain("seq=0301->0301");
+  });
+
+  it("does not collide when multiple 4-digit sub-sections collapse via default", () => {
+    const a = proposeMapping("TC-PRC0101", "PRC", "PR", { PRC: { default: "05" } });
+    const b = proposeMapping("TC-PRC0201", "PRC", "PR", { PRC: { default: "05" } });
+    expect(a.new).not.toBe(b.new);
+  });
+
+  it("never flags CRUD tests at seq 09-12 as helperGenerated", () => {
+    const r = proposeMapping("TC-VEN00109", "VEN", "VEN", { VEN: { "001": "01" } });
+    expect(r.helperGenerated).toBe(false);
+  });
 });
