@@ -10,10 +10,14 @@ export interface MapEntry {
   note: string;
 }
 
+export interface ModuleEntry {
+  newPrefix: string;
+  specs: Array<{ specFile: string; entries: MapEntry[] }>;
+}
 export interface MigrationMap {
   version: 1;
   generatedAt: string;
-  modules: Record<string, { specFile: string; newPrefix: string; entries: MapEntry[] }>;
+  modules: Record<string, ModuleEntry>;
 }
 
 type SectionMap = Record<string, Record<string, string>>;
@@ -309,13 +313,16 @@ export function buildMap(): MigrationMap {
   for (const cfg of SPEC_CONFIG) {
     const src = readFileSync(resolve(process.cwd(), cfg.specFile), "utf8");
     const ids = Array.from(new Set(src.match(TC_RE) ?? []));
+    // Sort prefixes longest-first to avoid shorter prefix shadowing longer one
+    // e.g. "CAT" must not match before "CATEG" for TC-CATEG12345
+    const sortedPrefixes = [...cfg.oldPrefixes].sort((a, b) => b.length - a.length);
     const entries = ids.map((oldId) => {
-      const matched = cfg.oldPrefixes.find((p) => oldId.startsWith(`TC-${p}`));
+      const matched = sortedPrefixes.find((p) => oldId.startsWith(`TC-${p}`));
       if (!matched) return null;
       return proposeMapping(oldId, matched, cfg.newPrefix, cfg.sectionMap);
     }).filter((e): e is MapEntry => e !== null);
-    modules[cfg.newPrefix] ??= { specFile: cfg.specFile, newPrefix: cfg.newPrefix, entries: [] };
-    modules[cfg.newPrefix].entries.push(...entries);
+    modules[cfg.newPrefix] ??= { newPrefix: cfg.newPrefix, specs: [] };
+    modules[cfg.newPrefix].specs.push({ specFile: cfg.specFile, entries });
   }
   return { version: 1, generatedAt: new Date().toISOString(), modules };
 }

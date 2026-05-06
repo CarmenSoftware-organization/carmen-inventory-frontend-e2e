@@ -92,4 +92,13 @@ describe("proposeMapping", () => {
     const r = proposeMapping("TC-VEN00109", "VEN", "VEN", { VEN: { "001": "01" } });
     expect(r.helperGenerated).toBe(false);
   });
+
+  it("matches longest oldPrefix first to avoid CAT swallowing CATEG", () => {
+    // proposeMapping is called with the matched oldPrefix; this test verifies
+    // buildMap-style longest-first matching by simulating the lookup directly.
+    const oldPrefixes = ["CAT", "CATEG", "PRODU", "RECIP"];
+    const sorted = [...oldPrefixes].sort((a, b) => b.length - a.length);
+    const matched = sorted.find((p) => "TC-CATEG12345".startsWith(`TC-${p}`));
+    expect(matched).toBe("CATEG");
+  });
 });

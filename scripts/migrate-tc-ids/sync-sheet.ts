@@ -55,6 +55,9 @@ export async function syncModule(
   const mod = map.modules[modulePrefix];
   if (!mod) throw new Error(`Module ${modulePrefix} not in migration map`);
 
+  // Aggregate entries from all specs in this module
+  const allEntries = mod.specs.flatMap((s) => s.entries);
+
   const tabName = TAB_FOR_PREFIX[modulePrefix];
   if (!tabName) throw new Error(`No sheet tab mapped for prefix ${modulePrefix}`);
 
@@ -69,9 +72,9 @@ export async function syncModule(
 
   if (opts.dryRun) {
     console.log(
-      `[dry-run] Would back up tab "${tabName}" and update ${mod.entries.length} IDs`,
+      `[dry-run] Would back up tab "${tabName}" and update ${allEntries.length} IDs`,
     );
-    for (const e of mod.entries) console.log(`  ${e.old}  →  ${e.new}`);
+    for (const e of allEntries) console.log(`  ${e.old}  →  ${e.new}`);
     return;
   }
 
@@ -87,7 +90,7 @@ export async function syncModule(
   if (idCol === -1) throw new Error(`No Test ID column in tab ${tabName}`);
 
   const updates: { range: string; values: string[][] }[] = [];
-  const oldToNew = new Map(mod.entries.map((e) => [e.old, e.new]));
+  const oldToNew = new Map(allEntries.map((e) => [e.old, e.new]));
 
   for (let i = 1; i < rows.length; i++) {
     const oldId = rows[i][idCol];
