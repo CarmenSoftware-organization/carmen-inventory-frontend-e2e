@@ -5,7 +5,7 @@ _Generated from `tests/304-pr-purchaser-journey.spec.ts` annotations. Edit annot
 **Module:** Pr Purchaser Journey
 **Spec:** `tests/304-pr-purchaser-journey.spec.ts`
 **Default role:** Purchase
-**Total test cases:** 24 (12 High / 10 Medium / 2 Low)
+**Total test cases:** 25 (13 High / 10 Medium / 2 Low)
 
 ## Test Cases at a Glance
 
@@ -35,6 +35,7 @@ _Generated from `tests/304-pr-purchaser-journey.spec.ts` annotations. Edit annot
 | TC-PRP0403 | Bulk Send for Review (return to HOD) | High | CRUD |
 | TC-PRP0404 | Bulk Split — split selected items | Low | Functional |
 | TC-PRP0405 | Cannot edit when PR is at non-Purchase stage (read-only) | Medium | Authorization |
+| TC-PRP0901 | Purchaser full flow: List → Detail → Edit (allocate vendor + price) → Bulk Approve → next stage | High | Smoke |
 
 ---
 
@@ -559,5 +560,29 @@ Edit button is absent OR detail is read-only — Purchaser cannot edit until PR 
 
 ---
 
+## TC-PRP0901 — Purchaser full flow: List → Detail → Edit (allocate vendor + price) → Bulk Approve → next stage
 
-<sub>Last regenerated: 2026-05-06 · git de39a97</sub>
+> **As a** Purchase user, **I want** the Pr Purchaser Journey list page to load successfully, **so that** I can manage Pr Purchaser Journey records.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Logged in as Purchaser; a fresh PR is seeded at Purchase stage via submitPRAsRequestor + approveAsHOD
+
+**Steps**
+
+1. Open PR list
+2. Open PR detail
+3. Click Edit
+4. Set unit price on first row
+5. Select all + Bulk Approve + Confirm
+
+**Expected**
+
+URL stays on the PR ref after bulk approve; the journey completes end-to-end.
+
+---
+
+
+<sub>Last regenerated: 2026-05-06 · git 4322f02</sub>

@@ -704,4 +704,4 @@ User cannot mark an already expired price list as expired and no changes are mad
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git ee8b1fa</sub>
+<sub>Last regenerated: 2026-05-06 · git 4322f02</sub>
