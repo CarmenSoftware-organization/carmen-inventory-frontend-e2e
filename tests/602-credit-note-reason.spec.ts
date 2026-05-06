@@ -17,7 +17,7 @@ const opts = {
 
 test.describe("Credit Note Reason — Smoke & CRUD", () => {
   test(
-    "TC-CNR00101 หน้า list โหลดสำเร็จ",
+    "TC-CNR-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
@@ -34,7 +34,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CNR00102 ปุ่ม Add แสดง",
+    "TC-CNR-010002 ปุ่ม Add แสดง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/credit-note-reason" },
@@ -51,7 +51,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CNR00103 ช่องค้นหาใช้งานได้",
+    "TC-CNR-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/credit-note-reason" },
@@ -69,7 +69,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CNR00104 ค้นหาคำที่ไม่มีต้องแสดง empty state",
+    "TC-CNR-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/credit-note-reason" },
@@ -87,7 +87,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CNR00105 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
+    "TC-CNR-010005 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/credit-note-reason" },
@@ -107,7 +107,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CNR00106 สร้างรายการใหม่และปรากฏในตาราง",
+    "TC-CNR-010006 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
@@ -131,10 +131,10 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CNR00107 แก้ไขชื่อและบันทึก",
+    "TC-CNR-010007 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CNR00106 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-CNR-010006 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด edit dialog\n3. clear name แล้วกรอก NAME_UPDATED\n4. กด Save\n5. ค้นหา NAME_UPDATED ใน list" },
         { type: "expected", description: "Updated/success toast ปรากฏ; แถวที่มี NAME_UPDATED ปรากฏใน list" },
         { type: "priority", description: "High" },
@@ -157,10 +157,10 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CNR00113 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
+    "TC-CNR-010013 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CNR00107 ผ่านแล้ว → record มี name = NAME_UPDATED" },
+        { type: "preconditions", description: "TC-CNR-010007 ผ่านแล้ว → record มี name = NAME_UPDATED" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด edit dialog\n3. clear name\n4. กด Save\n5. กด Cancel เพื่อปิด dialog" },
         { type: "expected", description: "Error message ปรากฏใน dialog (form ไม่ submit; ยังอยู่ใน edit mode)" },
         { type: "priority", description: "Medium" },
@@ -179,10 +179,10 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CNR00108 ลบรายการ",
+    "TC-CNR-010008 ลบรายการ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CNR00113 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-CNR-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. กด Delete บนแถว\n3. ยืนยัน Delete ใน confirm dialog" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
         { type: "priority", description: "High" },
