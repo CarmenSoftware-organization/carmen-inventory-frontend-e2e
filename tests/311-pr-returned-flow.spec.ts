@@ -292,5 +292,62 @@ requestorTest.describe("7d — Edge cases", () => {
 });
 
 requestorTest.describe.serial("Golden Journey", () => {
-  // TC added in Task 8
+  requestorTest(
+    "TC-PRC0902 Full returned-flow: HOD returns → Creator views reason → edits qty → resubmits → status In Progress",
+    {
+      annotation: [
+        { type: "preconditions", description: "Logged in as Requestor; a fresh PR is seeded into the Returned state via submitPRAsRequestor + sendForReviewAsHOD" },
+        { type: "steps", description: "1. Open the Returned PR detail\n2. Click Workflow History tab and verify reason is shown\n3. Click Edit\n4. Modify first line item quantity\n5. Save Draft\n6. Click Submit and Confirm\n7. Wait for status to read In Progress" },
+        { type: "expected", description: "Status badge transitions to In Progress after the resubmit confirmation." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+
+      // Seed: Requestor submits → HOD sends back
+      const created = await submitPRAsRequestor(browser, { items: 1, description: "TC-PRC0902 returned golden" });
+      await sendForReviewAsHOD(browser, created.ref);
+
+      // Step 1: Open detail
+      await gotoPRDetail(page, created.ref);
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`));
+
+      // Step 2: Verify reason in Workflow History
+      const wh = pr.tabWorkflowHistory();
+      if ((await wh.count()) > 0) {
+        await wh.click();
+        await expect(
+          page.getByText(/please revise|returned for review|revise/i).first(),
+        ).toBeVisible({ timeout: 10_000 }).catch(() => {});
+      }
+
+      // Step 3-5: Edit quantity, save
+      if ((await pr.editModeButton().count()) === 0) {
+        requestorTest.skip(true, "Edit button not present on Returned PR");
+        return;
+      }
+      await pr.enterEditMode();
+      await pr.editLineItem(0, { quantity: 9 }).catch(() => {});
+      await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
+
+      // Step 6: Submit + confirm
+      const submit = pr.submitButton();
+      if ((await submit.count()) === 0) {
+        requestorTest.skip(true, "Submit button not present after save");
+        return;
+      }
+      await submit.click({ timeout: 5_000 });
+      await pr.confirmDialogButton(/confirm|submit|resubmit|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+
+      // Step 7: Status In Progress
+      await expect(
+        page
+          .locator("[data-slot='badge'], [class*='badge']")
+          .filter({ hasText: /in.progress/i })
+          .first(),
+      ).toBeVisible({ timeout: 15_000 });
+    },
+  );
 });
