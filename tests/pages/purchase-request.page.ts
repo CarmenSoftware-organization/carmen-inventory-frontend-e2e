@@ -346,7 +346,7 @@ export class PurchaseRequestPage extends BasePage {
   }
 
   tabWorkflowHistory(): Locator {
-    return this.page.getByRole("tab", { name: /workflow history|workflow|history/i }).first();
+    return this.page.getByRole("tab", { name: /workflow history|workflow/i }).first();
   }
 
   // ── Edit mode ────────────────────────────────────────────────────────
@@ -373,7 +373,10 @@ export class PurchaseRequestPage extends BasePage {
   async editLineItem(index: number, fields: PRLineItemInput) {
     const row = this.itemRow(index);
     const editBtn = row.getByRole("button", { name: /edit/i }).first();
-    if ((await editBtn.count()) > 0) await editBtn.click();
+    if ((await editBtn.count()) > 0) {
+      await editBtn.click();
+      await this.page.waitForLoadState("domcontentloaded").catch(() => {});
+    }
     if (fields.quantity !== undefined) {
       const q = this.page.getByLabel(/^quantity$|^qty$/i).first();
       if ((await q.count()) > 0) await q.fill(String(fields.quantity));
@@ -391,6 +394,7 @@ export class PurchaseRequestPage extends BasePage {
     return this.page.getByRole("button", { name: /from template|use template|template/i }).first();
   }
 
+  // NOTE: dialog vs listbox shape is speculative — adjust once Step 3 UI is confirmed.
   templatePicker(): Locator {
     return this.page.getByRole("dialog").or(this.page.getByRole("listbox")).first();
   }
@@ -413,7 +417,10 @@ export class PurchaseRequestPage extends BasePage {
   // ── Status assertion ─────────────────────────────────────────────────
   async expectStatus(status: string) {
     await expect(
-      this.statusBadge().filter({ hasText: new RegExp(status, "i") }).first(),
+      this.page
+        .locator("[data-slot='badge'], [class*='badge']")
+        .filter({ hasText: new RegExp(status, "i") })
+        .first(),
     ).toBeVisible({ timeout: 10_000 });
   }
 }
