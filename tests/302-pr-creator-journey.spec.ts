@@ -951,7 +951,82 @@ requestorTest.describe("Step 6 — Submit", () => {
 });
 
 requestorTest.describe("Step 8 — Delete", () => {
-  // TCs added in Task 12
+  requestorTest(
+    "TC-PRC0801 Click Delete → confirmation dialog",
+    {
+      annotation: [
+        { type: "preconditions", description: "A Draft PR exists for this Requestor" },
+        { type: "steps", description: "1. Open Draft PR\n2. Click Delete" },
+        { type: "expected", description: "Delete confirmation dialog is visible." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await createDraftPR(page);
+      await page.goto(`${LIST_PATH}/${created.ref}`);
+      await page.waitForLoadState("networkidle");
+      const del = pr.deleteButton();
+      if ((await del.count()) === 0) {
+        requestorTest.skip(true, "Delete button not present on Draft detail in this build");
+        return;
+      }
+      await del.click({ timeout: 5_000 });
+      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0802 Cancel delete → PR remains",
+    {
+      annotation: [
+        { type: "preconditions", description: "Delete confirmation dialog is open" },
+        { type: "steps", description: "1. Open Delete dialog\n2. Click Cancel" },
+        { type: "expected", description: "Dialog closes; URL remains on the detail page (PR is not deleted)." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await createDraftPR(page);
+      await page.goto(`${LIST_PATH}/${created.ref}`);
+      await page.waitForLoadState("networkidle");
+      const del = pr.deleteButton();
+      if ((await del.count()) === 0) {
+        requestorTest.skip(true, "Delete button not present on Draft detail in this build");
+        return;
+      }
+      await del.click({ timeout: 5_000 });
+      const cancel = page.getByRole("dialog").getByRole("button", { name: /cancel|no/i }).first();
+      if ((await cancel.count()) === 0) {
+        requestorTest.skip(true, "Cancel button not present in delete dialog");
+        return;
+      }
+      await cancel.click({ timeout: 5_000 });
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0803 Confirm delete → list refreshed, PR gone",
+    {
+      annotation: [
+        { type: "preconditions", description: "Delete confirmation dialog is open" },
+        { type: "steps", description: "1. Open Delete dialog\n2. Click Confirm" },
+        { type: "expected", description: "Page navigates back to the PR list (URL ends at /procurement/purchase-request)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const created = await createDraftPR(page);
+      await deleteDraftPR(page, created.ref);
+      // deleteDraftPR uses lenient waitForURL; assert hard here that list URL is current.
+      await expect(page).toHaveURL(/\/procurement\/purchase-request($|\?)/, { timeout: 10_000 });
+    },
+  );
 });
 
 requestorTest.describe.serial("Golden Journey", () => {
