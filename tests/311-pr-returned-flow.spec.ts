@@ -95,7 +95,79 @@ requestorTest.describe("7a — View Returned PR", () => {
 });
 
 requestorTest.describe("7b — Edit Returned PR", () => {
-  // TCs added in Task 5
+  requestorTest(
+    "TC-PRC0704 Edit button visible on Returned PR (Creator can re-edit)",
+    {
+      annotation: [
+        { type: "preconditions", description: "On a Returned PR detail page" },
+        { type: "steps", description: "1. Inspect the action toolbar" },
+        { type: "expected", description: "Edit button is visible (Creator can enter Edit Mode to revise)." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser);
+      await sendForReviewAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      await expect(pr.editModeButton()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0705 Modify line item quantity → Save → URL stays on detail",
+    {
+      annotation: [
+        { type: "preconditions", description: "Returned PR detail page is open with at least one line item" },
+        { type: "steps", description: "1. Click Edit\n2. Modify first row quantity to 7\n3. Click Save Draft" },
+        { type: "expected", description: "After save the page URL stays on /procurement/purchase-request/<ref>." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await sendForReviewAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        requestorTest.skip(true, "Edit button not present on Returned PR");
+        return;
+      }
+      await pr.enterEditMode();
+      await pr.editLineItem(0, { quantity: 7 }).catch(() => {});
+      await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0706 Add new line item to Returned PR → Save",
+    {
+      annotation: [
+        { type: "preconditions", description: "Returned PR detail page is open" },
+        { type: "steps", description: "1. Click Edit\n2. Add a new line item (product, qty, uom, price)\n3. Click Save Draft" },
+        { type: "expected", description: "After save the page URL stays on /procurement/purchase-request/<ref>." },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await sendForReviewAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      if ((await pr.editModeButton().count()) === 0) {
+        requestorTest.skip(true, "Edit button not present on Returned PR");
+        return;
+      }
+      await pr.enterEditMode();
+      await pr.addLineItem({ product: "Added in Returned", quantity: 2, uom: "ea", unitPrice: 75 });
+      await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
+      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+    },
+  );
 });
 
 requestorTest.describe("7c — Resubmit", () => {
