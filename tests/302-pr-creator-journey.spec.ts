@@ -28,9 +28,11 @@ requestorTest.describe("Step 1 — PR List", () => {
       await pr.gotoList();
       await expect(page).toHaveURL(new RegExp(LIST_PATH));
       const tab = pr.tabMyPending();
-      if ((await tab.count()) > 0) {
-        await expect(tab).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 }).catch(() => {});
+      if ((await tab.count()) === 0) {
+        // Tab UI not present — list URL check above is sufficient for the smoke
+        return;
       }
+      await expect(tab).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 });
     },
   );
 
@@ -49,10 +51,12 @@ requestorTest.describe("Step 1 — PR List", () => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
       const tab = pr.tabAllDocuments();
-      if ((await tab.count()) > 0) {
-        await tab.click();
-        await expect(tab).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 }).catch(() => {});
+      if ((await tab.count()) === 0) {
+        requestorTest.skip(true, "All Documents tab not present in this build");
+        return;
       }
+      await tab.click();
+      await expect(tab).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 });
     },
   );
 
@@ -71,10 +75,12 @@ requestorTest.describe("Step 1 — PR List", () => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
       const input = pr.searchInput();
-      if ((await input.count()) > 0) {
-        await pr.searchFor("PR");
-        await expect(page.getByRole("table")).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      if ((await input.count()) === 0) {
+        requestorTest.skip(true, "Search input not present in this build");
+        return;
       }
+      await pr.searchFor("PR");
+      await expect(page).toHaveURL(new RegExp(LIST_PATH));
     },
   );
 
@@ -93,9 +99,12 @@ requestorTest.describe("Step 1 — PR List", () => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
       const fb = pr.filterButton();
-      if ((await fb.count()) > 0) {
-        await pr.applyFilter({ status: "Draft" });
+      if ((await fb.count()) === 0) {
+        requestorTest.skip(true, "Filter button not present in this build");
+        return;
       }
+      await pr.applyFilter({ status: "Draft" });
+      await expect(page).toHaveURL(new RegExp(LIST_PATH));
     },
   );
 
@@ -113,7 +122,8 @@ requestorTest.describe("Step 1 — PR List", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      await pr.sortBy("date").catch(() => {});
+      await pr.sortBy("date");
+      await expect(page).toHaveURL(new RegExp(LIST_PATH));
     },
   );
 
@@ -132,13 +142,17 @@ requestorTest.describe("Step 1 — PR List", () => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
       const firstRow = page.getByRole("row").nth(1);
-      if ((await firstRow.count()) > 0) {
-        const link = firstRow.getByRole("link").first();
-        if ((await link.count()) > 0) {
-          await link.click();
-          await expect(page).toHaveURL(/purchase-request\/[^\/]+$/, { timeout: 10_000 });
-        }
+      if ((await firstRow.count()) === 0) {
+        requestorTest.skip(true, "No PR rows exist for this Requestor");
+        return;
       }
+      const link = firstRow.getByRole("link").first();
+      if ((await link.count()) === 0) {
+        requestorTest.skip(true, "First row does not contain a navigation link");
+        return;
+      }
+      await link.click();
+      await expect(page).toHaveURL(/purchase-request\/(?!new$)[^\/?#]+$/, { timeout: 10_000 });
     },
   );
 
