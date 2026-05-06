@@ -16,7 +16,7 @@ const FUTURE_DATE = "2099-12-31";
 
 purchaseTest.describe("Step 1 — PO List", () => {
   purchaseTest(
-    "TC-POP0101 List loads with PO statuses (DRAFT / IN PROGRESS / APPROVED / etc.)",
+    "TC-PO-060101 List loads with PO statuses (DRAFT / IN PROGRESS / APPROVED / etc.)",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Purchaser (purchase@blueledgers.com)" },
@@ -37,7 +37,7 @@ purchaseTest.describe("Step 1 — PO List", () => {
   );
 
   purchaseTest(
-    "TC-POP0102 Switch to All Documents tab broadens scope",
+    "TC-PO-060102 Switch to All Documents tab broadens scope",
     {
       annotation: [
         { type: "preconditions", description: "On the PO list page" },
@@ -61,7 +61,7 @@ purchaseTest.describe("Step 1 — PO List", () => {
   );
 
   purchaseTest(
-    "TC-POP0103 Filter by status (DRAFT)",
+    "TC-PO-060103 Filter by status (DRAFT)",
     {
       annotation: [
         { type: "preconditions", description: "On the PO list page" },
@@ -85,7 +85,7 @@ purchaseTest.describe("Step 1 — PO List", () => {
   );
 
   purchaseTest(
-    "TC-POP0104 Search by PO reference",
+    "TC-PO-060104 Search by PO reference",
     {
       annotation: [
         { type: "preconditions", description: "On the PO list page" },
@@ -109,7 +109,7 @@ purchaseTest.describe("Step 1 — PO List", () => {
   );
 
   purchaseTest(
-    "TC-POP0105 Sort by Date",
+    "TC-PO-060105 Sort by Date",
     {
       annotation: [
         { type: "preconditions", description: "On the PO list page" },
@@ -131,7 +131,7 @@ purchaseTest.describe("Step 1 — PO List", () => {
 purchaseTest.describe("Step 2 — Create PO", () => {
   // ─ Blank method (4 TCs) ─────────────────────────────────────────────
   purchaseTest(
-    "TC-POP0201 Open Create dropdown → Blank → form loads",
+    "TC-PO-060201 Open Create dropdown → Blank → form loads",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Purchaser; on PO list" },
@@ -156,7 +156,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
   );
 
   purchaseTest(
-    "TC-POP0202 Fill header (vendor, delivery date, description) + add 1 line item",
+    "TC-PO-060202 Fill header (vendor, delivery date, description) + add 1 line item",
     {
       annotation: [
         { type: "preconditions", description: "On the create-PO form (blank)" },
@@ -174,7 +174,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
         purchaseTest.skip(true, "Description input not present");
         return;
       }
-      await desc.fill("[E2E-POP] TC-POP0202");
+      await desc.fill("[E2E-POP] TC-PO-060202");
       const date = po.deliveryDateInput();
       if ((await date.count()) > 0) await date.fill(FUTURE_DATE);
       await po.addItemToPO({ product: "Test Item", quantity: 1, uom: "ea", unitPrice: 100 });
@@ -183,7 +183,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
   );
 
   purchaseTest(
-    "TC-POP0203 Save Draft → redirect to detail with PO number",
+    "TC-PO-060203 Save Draft → redirect to detail with PO number",
     {
       annotation: [
         { type: "preconditions", description: "Header + ≥1 line item filled on create form" },
@@ -197,7 +197,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
       const po = new PurchaseOrderPage(page);
       await po.gotoNew();
       const desc = po.descriptionInput();
-      if ((await desc.count()) > 0) await desc.fill("[E2E-POP] TC-POP0203 save draft");
+      if ((await desc.count()) > 0) await desc.fill("[E2E-POP] TC-PO-060203 save draft");
       const date = po.deliveryDateInput();
       if ((await date.count()) > 0) await date.fill(FUTURE_DATE);
       await po.addItemToPO({ product: "Save Item", quantity: 1, uom: "ea", unitPrice: 100 });
@@ -207,7 +207,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
   );
 
   purchaseTest(
-    "TC-POP0204 Save without items → button disabled or stays on /new",
+    "TC-PO-060204 Save without items → button disabled or stays on /new",
     {
       annotation: [
         { type: "preconditions", description: "On the create-PO form with header but no items" },
@@ -233,7 +233,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
 
   // ─ From Price List wizard (4 TCs) ───────────────────────────────────
   purchaseTest(
-    "TC-POP0205 Open Create → From Price List → wizard step 1 (Select Vendors)",
+    "TC-PO-060205 Open Create → From Price List → wizard step 1 (Select Vendors)",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Purchaser; on PO list" },
@@ -261,7 +261,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
   );
 
   purchaseTest(
-    "TC-POP0206 Select vendor → wizard step 2 (Review items)",
+    "TC-PO-060206 Select vendor → wizard step 2 (Review items)",
     {
       annotation: [
         { type: "preconditions", description: "From Price List wizard step 1 is open" },
@@ -299,7 +299,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
   );
 
   purchaseTest(
-    "TC-POP0207 Submit Price List wizard → POs created (URL changes from /new to detail)",
+    "TC-PO-060207 Submit Price List wizard → POs created (URL changes from /new to detail)",
     {
       annotation: [
         { type: "preconditions", description: "From Price List wizard step 2 (Review) is open" },
@@ -340,7 +340,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
   );
 
   purchaseTest(
-    "TC-POP0208 Skip dynamically if no price list / vendors available",
+    "TC-PO-060208 Skip dynamically if no price list / vendors available",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Purchaser; on PO list" },
@@ -378,7 +378,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
 
   // ─ From PR wizard (4 TCs) ───────────────────────────────────────────
   purchaseTest(
-    "TC-POP0209 Open Create → From PR → wizard step 1 (Select Approved PRs)",
+    "TC-PO-060209 Open Create → From PR → wizard step 1 (Select Approved PRs)",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Purchaser; on PO list" },
@@ -405,7 +405,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
   );
 
   purchaseTest(
-    "TC-POP0210 Select approved PR → wizard step 2 (Review POs grouped by vendor)",
+    "TC-PO-060210 Select approved PR → wizard step 2 (Review POs grouped by vendor)",
     {
       annotation: [
         { type: "preconditions", description: "From PR wizard step 1 is open with at least one approved PR" },
@@ -442,7 +442,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
   );
 
   purchaseTest(
-    "TC-POP0211 Submit From PR wizard → POs created",
+    "TC-PO-060211 Submit From PR wizard → POs created",
     {
       annotation: [
         { type: "preconditions", description: "From PR wizard step 2 is open" },
@@ -481,7 +481,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
   );
 
   purchaseTest(
-    "TC-POP0212 Skip dynamically if no approved PR available",
+    "TC-PO-060212 Skip dynamically if no approved PR available",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Purchaser; on PO list" },
@@ -519,7 +519,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
 
 purchaseTest.describe("Step 3 — PO Detail", () => {
   purchaseTest(
-    "TC-POP0301 Detail loads (DRAFT) with header + items table",
+    "TC-PO-060301 Detail loads (DRAFT) with header + items table",
     {
       annotation: [
         { type: "preconditions", description: "A Draft PO exists for this Purchaser (seeded via submitPOAsPurchaser)" },
@@ -537,7 +537,7 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
   );
 
   purchaseTest(
-    "TC-POP0302 Item Details panel — Details / Quantity / Pricing tabs",
+    "TC-PO-060302 Item Details panel — Details / Quantity / Pricing tabs",
     {
       annotation: [
         { type: "preconditions", description: "On a Draft PO detail page with at least one item" },
@@ -562,7 +562,7 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
   );
 
   purchaseTest(
-    "TC-POP0303 Edit / Delete / Submit buttons present for DRAFT",
+    "TC-PO-060303 Edit / Delete / Submit buttons present for DRAFT",
     {
       annotation: [
         { type: "preconditions", description: "On a Draft PO detail page" },
@@ -581,7 +581,7 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
   );
 
   purchaseTest(
-    "TC-POP0304 Read-only state for SENT/COMPLETED status (best-effort)",
+    "TC-PO-060304 Read-only state for SENT/COMPLETED status (best-effort)",
     {
       annotation: [
         { type: "preconditions", description: "A SENT or COMPLETED PO exists in the DB (any non-Draft, non-In-Progress)" },
@@ -617,7 +617,7 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
 
 purchaseTest.describe("Step 4 — Edit Mode", () => {
   purchaseTest(
-    "TC-POP0401 Click Edit on DRAFT → edit mode active (Save/Cancel visible)",
+    "TC-PO-060401 Click Edit on DRAFT → edit mode active (Save/Cancel visible)",
     {
       annotation: [
         { type: "preconditions", description: "A Draft PO exists" },
@@ -641,7 +641,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
   );
 
   purchaseTest(
-    "TC-POP0402 Modify line item quantity → Save → URL stays on detail",
+    "TC-PO-060402 Modify line item quantity → Save → URL stays on detail",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Draft PO with at least one item" },
@@ -668,7 +668,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
   );
 
   purchaseTest(
-    "TC-POP0403 Add new line item in edit mode → Save",
+    "TC-PO-060403 Add new line item in edit mode → Save",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Draft PO" },
@@ -694,7 +694,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
   );
 
   purchaseTest(
-    "TC-POP0404 Cancel edit (no unsaved changes) → exits without dialog",
+    "TC-PO-060404 Cancel edit (no unsaved changes) → exits without dialog",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on a Draft PO with no changes typed" },
@@ -719,7 +719,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
   );
 
   purchaseTest(
-    "TC-POP0405 Submit Draft PO → confirmation dialog → status moves to IN PROGRESS",
+    "TC-PO-060405 Submit Draft PO → confirmation dialog → status moves to IN PROGRESS",
     {
       annotation: [
         { type: "preconditions", description: "A Draft PO with ≥1 item exists" },
@@ -745,7 +745,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
   );
 
   purchaseTest(
-    "TC-POP0406 Delete IN PROGRESS PO via Edit Mode",
+    "TC-PO-060406 Delete IN PROGRESS PO via Edit Mode",
     {
       annotation: [
         { type: "preconditions", description: "An IN PROGRESS PO exists (post-submit). DRAFT also acceptable." },
@@ -778,7 +778,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
 
 purchaseTest.describe("Step 5 — Post-approval", () => {
   purchaseTest(
-    "TC-POP0501 Approved PO has Send to Vendor + Close buttons (seeded via approveAsFC)",
+    "TC-PO-060501 Approved PO has Send to Vendor + Close buttons (seeded via approveAsFC)",
     {
       annotation: [
         { type: "preconditions", description: "An Approved PO exists (seeded via submitPOAsPurchaser + approveAsFC)" },
@@ -803,7 +803,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
   );
 
   purchaseTest(
-    "TC-POP0502 Click Send to Vendor → status updates / toast",
+    "TC-PO-060502 Click Send to Vendor → status updates / toast",
     {
       annotation: [
         { type: "preconditions", description: "An Approved PO exists" },
@@ -830,7 +830,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
   );
 
   purchaseTest(
-    "TC-POP0503 Close PO with items received → COMPLETED",
+    "TC-PO-060503 Close PO with items received → COMPLETED",
     {
       annotation: [
         { type: "preconditions", description: "A SENT PO exists with items received (best-effort; trusts DB)" },
@@ -868,7 +868,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
   );
 
   purchaseTest(
-    "TC-POP0504 Close PO without items received → VOIDED",
+    "TC-PO-060504 Close PO without items received → VOIDED",
     {
       annotation: [
         { type: "preconditions", description: "An Approved/SENT PO exists with no items received" },
@@ -903,7 +903,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
 
 purchaseTest.describe.serial("Golden Journey", () => {
   purchaseTest(
-    "TC-POP0901 Full Purchaser flow: Create blank → Save Draft → Submit → FC approves → Send to Vendor",
+    "TC-PO-060901 Full Purchaser flow: Create blank → Save Draft → Submit → FC approves → Send to Vendor",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as Purchaser" },
@@ -917,7 +917,7 @@ purchaseTest.describe.serial("Golden Journey", () => {
       const po = new PurchaseOrderPage(page);
 
       // Step 1-3: Create and submit (helper does it all)
-      const created = await submitPOAsPurchaser(browser, { description: "[E2E-POP] TC-POP0901 golden" });
+      const created = await submitPOAsPurchaser(browser, { description: "[E2E-POP] TC-PO-060901 golden" });
 
       // Step 4: FC approves via cross-context
       await approveAsFC(browser, created.ref);

@@ -16,7 +16,7 @@ const REJECT_REASON = "Vendor pricing exceeds budget";
 
 fcTest.describe("Step 1 — My Approval", () => {
   fcTest(
-    "TC-POA0101 My Approval dashboard loads with Total Pending count visible",
+    "TC-PO-070101 My Approval dashboard loads with Total Pending count visible",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as FC (fc@blueledgers.com)" },
@@ -37,7 +37,7 @@ fcTest.describe("Step 1 — My Approval", () => {
   );
 
   fcTest(
-    "TC-POA0102 PO filter tab shows pending POs (DRAFT + IN PROGRESS)",
+    "TC-PO-070102 PO filter tab shows pending POs (DRAFT + IN PROGRESS)",
     {
       annotation: [
         { type: "preconditions", description: "On My Approval dashboard with at least one pending PO" },
@@ -62,7 +62,7 @@ fcTest.describe("Step 1 — My Approval", () => {
   );
 
   fcTest(
-    "TC-POA0103 Click pending PO row navigates to PO detail",
+    "TC-PO-070103 Click pending PO row navigates to PO detail",
     {
       annotation: [
         { type: "preconditions", description: "On My Approval dashboard with at least one pending PO row (seeded via submitPOAsPurchaser)" },
@@ -91,7 +91,7 @@ fcTest.describe("Step 1 — My Approval", () => {
 
 fcTest.describe("Step 2 — PO Detail (FC view)", () => {
   fcTest(
-    "TC-POA0201 PO Detail loads in IN PROGRESS view (FC perspective)",
+    "TC-PO-070201 PO Detail loads in IN PROGRESS view (FC perspective)",
     {
       annotation: [
         { type: "preconditions", description: "An IN PROGRESS PO exists (seeded via submitPOAsPurchaser)" },
@@ -115,7 +115,7 @@ fcTest.describe("Step 2 — PO Detail (FC view)", () => {
   );
 
   fcTest(
-    "TC-POA0202 Header fields are read-only for FC (cannot edit vendor/date/etc.)",
+    "TC-PO-070202 Header fields are read-only for FC (cannot edit vendor/date/etc.)",
     {
       annotation: [
         { type: "preconditions", description: "On an IN PROGRESS PO detail page as FC" },
@@ -143,7 +143,7 @@ fcTest.describe("Step 2 — PO Detail (FC view)", () => {
   );
 
   fcTest(
-    "TC-POA0203 Edit button + Comment button visible",
+    "TC-PO-070203 Edit button + Comment button visible",
     {
       annotation: [
         { type: "preconditions", description: "On an IN PROGRESS PO detail page as FC" },
@@ -170,7 +170,7 @@ fcTest.describe("Step 2 — PO Detail (FC view)", () => {
 fcTest.describe("Step 3 — Approval Actions", () => {
   // ─ Item-level marking (4 TCs) ───────────────────────────────────────
   fcTest(
-    "TC-POA0301 Edit mode → select item → Approve toolbar appears",
+    "TC-PO-070301 Edit mode → select item → Approve toolbar appears",
     {
       annotation: [
         { type: "preconditions", description: "An IN PROGRESS PO with ≥1 item exists (seeded via submitPOAsPurchaser)" },
@@ -200,7 +200,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {
   );
 
   fcTest(
-    "TC-POA0302 Mark item Approved → green badge appears on item row",
+    "TC-PO-070302 Mark item Approved → green badge appears on item row",
     {
       annotation: [
         { type: "preconditions", description: "Item action toolbar visible on a row" },
@@ -231,7 +231,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {
   );
 
   fcTest(
-    "TC-POA0303 Mark item Review → amber badge + Send Back footer button appears",
+    "TC-PO-070303 Mark item Review → amber badge + Send Back footer button appears",
     {
       annotation: [
         { type: "preconditions", description: "Item action toolbar visible on a row" },
@@ -263,7 +263,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {
   );
 
   fcTest(
-    "TC-POA0304 Mark item Reject → reject badge + footer Reject button appears",
+    "TC-PO-070304 Mark item Reject → reject badge + footer Reject button appears",
     {
       annotation: [
         { type: "preconditions", description: "Item action toolbar visible on a row" },
@@ -296,7 +296,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {
 
   // ─ Document Approve flow (3 TCs) ────────────────────────────────────
   fcTest(
-    "TC-POA0305 All items Approved → Document Approve button enabled in footer",
+    "TC-PO-070305 All items Approved → Document Approve button enabled in footer",
     {
       annotation: [
         { type: "preconditions", description: "An IN PROGRESS PO with ≥1 item exists" },
@@ -326,7 +326,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {
   );
 
   fcTest(
-    "TC-POA0306 Click Approve PO → confirmation dialog ('Once approved, PO will be sent to vendor')",
+    "TC-PO-070306 Click Approve PO → confirmation dialog ('Once approved, PO will be sent to vendor')",
     {
       annotation: [
         { type: "preconditions", description: "All items marked Approved; Document Approve button visible" },
@@ -362,7 +362,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {
   );
 
   fcTest(
-    "TC-POA0307 Confirm Approve → status moves to APPROVED/SENT",
+    "TC-PO-070307 Confirm Approve → status moves to APPROVED/SENT",
     {
       annotation: [
         { type: "preconditions", description: "Document Approve confirmation dialog open" },
@@ -405,7 +405,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {
 
   // ─ Document Send Back flow (2 TCs) ──────────────────────────────────
   fcTest(
-    "TC-POA0308 Click Send Back → dialog with stage selector + per-item reason",
+    "TC-PO-070308 Click Send Back → dialog with stage selector + per-item reason",
     {
       annotation: [
         { type: "preconditions", description: "Item marked Review; Document Send Back button visible" },
@@ -441,7 +441,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {
   );
 
   fcTest(
-    "TC-POA0309 Confirm Send Back → PO returned (status updates)",
+    "TC-PO-070309 Confirm Send Back → PO returned (status updates)",
     {
       annotation: [
         { type: "preconditions", description: "Send Back dialog open" },
@@ -481,7 +481,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {
 
   // ─ Document Reject flow (2 TCs) ─────────────────────────────────────
   fcTest(
-    "TC-POA0310 Click Reject → dialog with optional reason field",
+    "TC-PO-070310 Click Reject → dialog with optional reason field",
     {
       annotation: [
         { type: "preconditions", description: "Item marked Reject; Document Reject button visible" },
@@ -517,7 +517,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {
   );
 
   fcTest(
-    "TC-POA0311 Confirm Reject → PO marked REJECTED",
+    "TC-PO-070311 Confirm Reject → PO marked REJECTED",
     {
       annotation: [
         { type: "preconditions", description: "Reject dialog open" },
@@ -562,7 +562,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {
 
   // ─ Edit Mode Cancel (1 TC) ──────────────────────────────────────────
   fcTest(
-    "TC-POA0312 Cancel edit mode (no item marked) → exits without saving",
+    "TC-PO-070312 Cancel edit mode (no item marked) → exits without saving",
     {
       annotation: [
         { type: "preconditions", description: "Edit mode active on an IN PROGRESS PO with no item marked" },
@@ -589,7 +589,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {
 
 fcTest.describe.serial("Golden Journey", () => {
   fcTest(
-    "TC-POA0901 Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → Sent",
+    "TC-PO-070901 Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → Sent",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as FC; a fresh IN PROGRESS PO is seeded via submitPOAsPurchaser" },
@@ -603,7 +603,7 @@ fcTest.describe.serial("Golden Journey", () => {
       const po = new PurchaseOrderPage(page);
 
       // Seed
-      const created = await submitPOAsPurchaser(browser, { description: "[E2E-POA] TC-POA0901 golden" });
+      const created = await submitPOAsPurchaser(browser, { description: "[E2E-POA] TC-PO-070901 golden" });
 
       // Open detail
       await gotoPODetail(page, created.ref);
