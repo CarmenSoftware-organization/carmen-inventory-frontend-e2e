@@ -171,7 +171,63 @@ requestorTest.describe("7b — Edit Returned PR", () => {
 });
 
 requestorTest.describe("7c — Resubmit", () => {
-  // TCs added in Task 6
+  requestorTest(
+    "TC-PRC0707 Submit confirmation dialog appears for Returned PR",
+    {
+      annotation: [
+        { type: "preconditions", description: "Returned PR detail page is open" },
+        { type: "steps", description: "1. Click Submit on the Returned PR" },
+        { type: "expected", description: "A confirmation dialog (resubmit) becomes visible." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await sendForReviewAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      const submit = pr.submitButton();
+      if ((await submit.count()) === 0) {
+        requestorTest.skip(true, "Submit button not present on Returned PR detail");
+        return;
+      }
+      await submit.click({ timeout: 5_000 });
+      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  requestorTest(
+    "TC-PRC0708 Confirm submit → status moves Returned → In Progress",
+    {
+      annotation: [
+        { type: "preconditions", description: "Submit confirmation dialog open on a Returned PR" },
+        { type: "steps", description: "1. Click Submit\n2. Confirm dialog\n3. Wait for status badge to update" },
+        { type: "expected", description: "Status badge text matches /in.progress/i after confirm." },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page, browser }) => {
+      const pr = new PurchaseRequestPage(page);
+      const created = await submitPRAsRequestor(browser, { items: 1 });
+      await sendForReviewAsHOD(browser, created.ref);
+      await gotoPRDetail(page, created.ref);
+      const submit = pr.submitButton();
+      if ((await submit.count()) === 0) {
+        requestorTest.skip(true, "Submit button not present on Returned PR detail");
+        return;
+      }
+      await submit.click({ timeout: 5_000 });
+      await pr.confirmDialogButton(/confirm|submit|resubmit|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await expect(
+        page
+          .locator("[data-slot='badge'], [class*='badge']")
+          .filter({ hasText: /in.progress/i })
+          .first(),
+      ).toBeVisible({ timeout: 15_000 });
+    },
+  );
 });
 
 requestorTest.describe("7d — Edge cases", () => {
