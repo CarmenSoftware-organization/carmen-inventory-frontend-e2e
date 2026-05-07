@@ -712,19 +712,12 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
 // Uses the same row-actions dropdown pattern as TC-VEN-010027. Silent on failure —
 // the suite's actual assertions already ran; this is hygiene, not a check.
 test.afterAll(async ({ browser }) => {
-  const context = await browser.newContext();
+  const { authFile } = await import("./fixtures/auth.paths");
+  const context = await browser.newContext({
+    storageState: authFile("purchase@blueledgers.com"),
+  });
   const page = await context.newPage();
   try {
-    // Authenticate
-    const { LoginPage } = await import("./pages/login.page");
-    const { getPasswordFor } = await import("./test-users");
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.loginWithRetry(
-      "purchase@blueledgers.com",
-      getPasswordFor("purchase@blueledgers.com"),
-    );
-
     const vendor = new VendorPage(page);
     for (const suffix of ["addr", "ctc"]) {
       const name = `${NAME} ${suffix}`;

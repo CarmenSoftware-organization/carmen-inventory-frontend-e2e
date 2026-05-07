@@ -14,8 +14,8 @@ bun run install-browsers        # one-time: installs Chromium
 bun test                        # all tests (starts the frontend via webServer)
 bun run test:ui                 # Playwright UI mode
 bun run test:headed             # headed browser
-bun run test:login              # only login.spec.ts
-bun run test -- login.spec.ts   # single file
+bun run test:login              # only 001-login.spec.ts
+bun run test -- 001-login.spec.ts   # single file
 bun run test -- -g "TC-L00101"     # single test by title
 bun run report                  # open last HTML report
 ```
@@ -26,9 +26,10 @@ bun run report                  # open last HTML report
 
 ## Architecture
 
-- **`playwright.config.ts`** — two projects: `login` (runs `login.spec.ts`) and `chromium` (everything else). The split enables selective runs (`bun run test:login`) and keeps the noisy login suite out of the default reporter output when iterating on feature tests. Projects do **not** imply order — use Playwright `dependencies` if you need that. `workers: 1` because (a) the backend rate-limits repeated failed logins (observable via TC-L00130-style tests) and (b) role-based tests share backend state and cannot safely interleave.
+- **`playwright.config.ts`** — three projects: `setup` (runs `auth.setup.ts` to pre-authenticate every role and persist storageState), `login` (runs `001-login.spec.ts`), and `chromium` (every other spec; depends on `setup` so cookies are pre-loaded). The split enables selective runs (`bun run test:login`) and keeps the noisy login suite out of the default reporter output when iterating on feature tests. The `chromium`→`setup` dependency is wired explicitly; `login` is independent on purpose because it exercises real UI login. `workers: 1` because (a) the backend rate-limits repeated failed logins (observable via TC-L00130-style tests) and (b) role-based tests share backend state and cannot safely interleave.
 - **`tests/pages/`** — page objects. Each class wraps a `Page` and exposes **locator factories** (arrow functions returning `Locator`), not pre-created locators — this avoids stale references across navigations.
-- **`tests/fixtures/auth.fixture.ts`** — `createAuthTest(email)` returns a `test` object with an auto-running `authenticatedPage` fixture that logs in via `LoginPage.loginWithRetry` before the test body. Use for specs that assume an authenticated session.
+- **`tests/fixtures/auth.fixture.ts`** — `createAuthTest(email)` returns a `test` whose browser context boots from `.auth/<email>.json` (produced by the `setup` project). Specs that consume the helper need no other auth setup.
+- **`tests/auth.setup.ts`** — Playwright `setup` project. Runs once per `bun run test` invocation, logs in every entry of `TEST_USERS` via the real UI, and writes the resulting browser context to `.auth/<email>.json`. The `chromium` project depends on `setup`, so chromium tests start with cookies pre-loaded and never hit `/login`. The `login` project (`001-login.spec.ts`) deliberately does **not** depend on setup — it tests the UI login flow itself. `.auth/` is gitignored and regenerated each run.
 - **`tests/test-users.ts`** — canonical list of role-based test accounts. Most share password `12345678`; `TT` uses `Qaz123!@#`. `getPasswordFor(email)` handles the lookup.
 
 ## Conventions

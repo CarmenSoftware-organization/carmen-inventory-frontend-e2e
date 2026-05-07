@@ -1,22 +1,17 @@
-import { test as base, expect } from "@playwright/test";
-import { LoginPage } from "../pages/login.page";
-import { TEST_PASSWORD } from "../test-users";
+import { test as base } from "@playwright/test";
+import { authFile } from "./auth.paths";
 
 /**
- * Extended test fixture that provides an authenticated page.
- * Logs in before each test using the specified user email.
+ * Returns a Playwright `test` whose browser context boots with the
+ * given user's persisted cookies. The persisted state is produced
+ * once per run by tests/auth.setup.ts (registered as the `setup`
+ * Playwright project). Specs that previously relied on the
+ * loginWithRetry auto-fixture keep their existing call shape:
+ *
+ *     const test = createAuthTest("purchase@blueledgers.com");
  */
 export function createAuthTest(email: string) {
-  return base.extend<{ authenticatedPage: void }>({
-    authenticatedPage: [
-      async ({ page }, use) => {
-        const loginPage = new LoginPage(page);
-        await loginPage.goto();
-        await loginPage.loginWithRetry(email, TEST_PASSWORD);
-        await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
-        await use();
-      },
-      { auto: true },
-    ],
+  return base.extend({
+    storageState: authFile(email),
   });
 }
