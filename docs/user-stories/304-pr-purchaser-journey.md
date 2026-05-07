@@ -47,16 +47,16 @@ _Generated from `tests/304-pr-purchaser-journey.spec.ts` annotations. Edit annot
 
 **Preconditions**
 
-Logged in as Purchaser (purchase@blueledgers.com)
+Login เป็น Purchaser (purchase@blueledgers.com)
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Verify URL and My Pending tab
+1. ไปที่ /procurement/purchase-request
+2. ตรวจสอบ URL และแท็บ My Pending
 
 **Expected**
 
-URL is on PR list; My Pending tab is selected when present.
+URL อยู่ที่หน้า PR list; แท็บ My Pending ถูกเลือกเมื่อมีอยู่
 
 ---
 
@@ -68,15 +68,15 @@ URL is on PR list; My Pending tab is selected when present.
 
 **Preconditions**
 
-On the PR list page
+อยู่ที่หน้า PR list
 
 **Steps**
 
-1. Click All Documents tab
+1. คลิกแท็บ All Documents
 
 **Expected**
 
-All Documents tab becomes selected.
+แท็บ All Documents ถูกเลือก
 
 ---
 
@@ -88,16 +88,16 @@ All Documents tab becomes selected.
 
 **Preconditions**
 
-On the PR list page
+อยู่ที่หน้า PR list
 
 **Steps**
 
-1. Open All Stage dropdown
-2. Select In Progress
+1. เปิด dropdown All Stage
+2. เลือก In Progress
 
 **Expected**
 
-URL stays on PR list (filter applied or no-op when dropdown absent).
+URL ยังคงอยู่ที่หน้า PR list (filter ถูกใช้งานหรือไม่มีผลเมื่อ dropdown ไม่มีอยู่)
 
 ---
 
@@ -109,17 +109,17 @@ URL stays on PR list (filter applied or no-op when dropdown absent).
 
 **Preconditions**
 
-On the PR list page
+อยู่ที่หน้า PR list
 
 **Steps**
 
-1. Open Filter panel
-2. Select status
+1. เปิดแผง Filter
+2. เลือก status
 3. Apply
 
 **Expected**
 
-URL stays on PR list after applying the filter.
+URL ยังคงอยู่ที่หน้า PR list หลังจากใช้ filter
 
 ---
 
@@ -131,16 +131,16 @@ URL stays on PR list after applying the filter.
 
 **Preconditions**
 
-On the PR list page; at least one PR exists with a known reference
+อยู่ที่หน้า PR list; มี PR อย่างน้อยหนึ่งรายการที่มี reference ที่รู้จัก
 
 **Steps**
 
-1. Type partial reference in search
-2. Wait for results
+1. พิมพ์ reference บางส่วนใน search
+2. รอผลลัพธ์
 
 **Expected**
 
-URL stays on PR list after typing in the search input.
+URL ยังคงอยู่ที่หน้า PR list หลังจากพิมพ์ใน search input
 
 ---
 
@@ -152,16 +152,16 @@ URL stays on PR list after typing in the search input.
 
 **Preconditions**
 
-PR exists at Purchase stage (seeded via submitPRAsRequestor + approveAsHOD)
+PR มีอยู่ที่ขั้นตอน Purchase (seeded ผ่าน submitPRAsRequestor + approveAsHOD)
 
 **Steps**
 
-1. Open the PR detail page
-2. Verify Items tab is the default
+1. เปิดหน้า PR detail
+2. ตรวจสอบว่าแท็บ Items เป็นค่าเริ่มต้น
 
 **Expected**
 
-URL is the detail URL; Items tab is selected when present.
+URL เป็น detail URL; แท็บ Items ถูกเลือกเมื่อมีอยู่
 
 ---
 
@@ -173,15 +173,15 @@ URL is the detail URL; Items tab is selected when present.
 
 **Preconditions**
 
-On a Purchase-stage PR detail page
+อยู่ที่หน้า PR detail ขั้นตอน Purchase
 
 **Steps**
 
-1. Click Workflow History tab
+1. คลิกแท็บ Workflow History
 
 **Expected**
 
-Workflow History tab becomes selected.
+แท็บ Workflow History ถูกเลือก
 
 ---
 
@@ -193,15 +193,15 @@ Workflow History tab becomes selected.
 
 **Preconditions**
 
-On a Purchase-stage PR detail page (read-only view)
+อยู่ที่หน้า PR detail ขั้นตอน Purchase (read-only view)
 
 **Steps**
 
-1. Inspect detail page header / action toolbar
+1. ตรวจสอบ header / action toolbar ของหน้า detail
 
 **Expected**
 
-Standalone Approve, Reject, and Send for Review buttons are NOT visible at the page header (per BRD discrepancy — actions live in Edit Mode bulk toolbar).
+ปุ่ม Approve, Reject และ Send for Review แบบ standalone ต้องไม่ visible ที่ header ของหน้า (ตาม BRD discrepancy — actions อยู่ใน bulk toolbar ของ Edit Mode)
 
 ---
 
@@ -213,15 +213,15 @@ Standalone Approve, Reject, and Send for Review buttons are NOT visible at the p
 
 **Preconditions**
 
-On a Purchase-stage PR detail page
+อยู่ที่หน้า PR detail ขั้นตอน Purchase
 
 **Steps**
 
-1. Inspect the action toolbar
+1. ตรวจสอบ action toolbar
 
 **Expected**
 
-Edit button is visible (Purchaser can enter Edit Mode for vendor/pricing allocation).
+ปุ่ม Edit visible (Purchaser สามารถเข้า Edit Mode สำหรับ vendor/pricing allocation ได้)
 
 ---
 
@@ -233,17 +233,17 @@ Edit button is visible (Purchaser can enter Edit Mode for vendor/pricing allocat
 
 **Preconditions**
 
-PR exists at Purchase stage
+PR มีอยู่ที่ขั้นตอน Purchase
 
 **Steps**
 
-1. Open Purchase-stage PR
-2. Click Edit
-3. Verify Save/Cancel form-level buttons appear
+1. เปิด PR ขั้นตอน Purchase
+2. คลิก Edit
+3. ตรวจสอบว่าปุ่ม Save/Cancel ระดับฟอร์มปรากฏขึ้น
 
 **Expected**
 
-Save Draft (or Cancel) form-level button is visible.
+ปุ่ม Save Draft (หรือ Cancel) ระดับฟอร์ม visible
 
 ---
 
@@ -255,17 +255,17 @@ Save Draft (or Cancel) form-level button is visible.
 
 **Preconditions**
 
-Edit mode active on a Purchase-stage PR with at least one item
+Edit mode active อยู่บน PR ขั้นตอน Purchase ที่มีอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Enter edit mode
-2. Locate Vendor input on first row
-3. Verify it is editable
+1. เข้า edit mode
+2. หา Vendor input ในแถวแรก
+3. ตรวจสอบว่าแก้ไขได้
 
 **Expected**
 
-Vendor input is editable (opposite of Approver, who sees it as read-only).
+Vendor input แก้ไขได้ (ตรงข้ามกับ Approver ที่มองเห็นเป็น read-only)
 
 ---
 
@@ -277,17 +277,17 @@ Vendor input is editable (opposite of Approver, who sees it as read-only).
 
 **Preconditions**
 
-Edit mode active on a Purchase-stage PR with at least one item
+Edit mode active อยู่บน PR ขั้นตอน Purchase ที่มีอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Enter edit mode
-2. Locate Unit Price input
-3. Type a value
+1. เข้า edit mode
+2. หา Unit Price input
+3. พิมพ์ค่า
 
 **Expected**
 
-Unit Price input accepts the typed value.
+Unit Price input รับค่าที่พิมพ์ได้
 
 ---
 
@@ -299,17 +299,17 @@ Unit Price input accepts the typed value.
 
 **Preconditions**
 
-Edit mode active on a Purchase-stage PR
+Edit mode active อยู่บน PR ขั้นตอน Purchase
 
 **Steps**
 
-1. Enter edit mode
-2. Locate Discount input
-3. Verify editable
+1. เข้า edit mode
+2. หา Discount input
+3. ตรวจสอบว่าแก้ไขได้
 
 **Expected**
 
-Discount input is editable.
+Discount input แก้ไขได้
 
 ---
 
@@ -321,17 +321,17 @@ Discount input is editable.
 
 **Preconditions**
 
-Edit mode active on a Purchase-stage PR
+Edit mode active อยู่บน PR ขั้นตอน Purchase
 
 **Steps**
 
-1. Enter edit mode
-2. Locate Tax Profile select
-3. Verify editable
+1. เข้า edit mode
+2. หา Tax Profile select
+3. ตรวจสอบว่าแก้ไขได้
 
 **Expected**
 
-Tax Profile select is editable.
+Tax Profile select แก้ไขได้
 
 ---
 
@@ -343,16 +343,16 @@ Tax Profile select is editable.
 
 **Preconditions**
 
-Edit mode active on a Purchase-stage PR with at least one item
+Edit mode active อยู่บน PR ขั้นตอน Purchase ที่มีอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Enter edit mode
-2. Locate Approved Qty cell on first row
+1. เข้า edit mode
+2. หาช่อง Approved Qty ในแถวแรก
 
 **Expected**
 
-Approved Qty cell is disabled or non-editable for Purchaser (HOD already set it).
+ช่อง Approved Qty ถูก disabled หรือแก้ไขไม่ได้สำหรับ Purchaser (HOD กำหนดค่าไว้แล้ว)
 
 ---
 
@@ -364,16 +364,16 @@ Approved Qty cell is disabled or non-editable for Purchaser (HOD already set it)
 
 **Preconditions**
 
-Edit mode active on a Purchase-stage PR with at least one item
+Edit mode active อยู่บน PR ขั้นตอน Purchase ที่มีอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Enter edit mode
-2. Click Auto Allocate
+1. เข้า edit mode
+2. คลิก Auto Allocate
 
 **Expected**
 
-URL stays on detail page after click (allocation runs).
+URL ยังคงอยู่ที่หน้า detail หลังจากคลิก (allocation ทำงาน)
 
 ---
 
@@ -385,19 +385,19 @@ URL stays on detail page after click (allocation runs).
 
 **Preconditions**
 
-Edit mode active on a Purchase-stage PR with multiple items
+Edit mode active อยู่บน PR ขั้นตอน Purchase ที่มีหลายรายการ
 
 **Steps**
 
-1. Seed PR with 2 items
-2. Enter edit mode
-3. Set unit price on row 0
-4. Set unit price on row 1
-5. Verify both values present
+1. Seed PR ด้วย 2 รายการ
+2. เข้า edit mode
+3. กำหนด unit price ในแถว 0
+4. กำหนด unit price ในแถว 1
+5. ตรวจสอบว่าทั้งสองค่ามีอยู่
 
 **Expected**
 
-Each row's Unit Price input retains its own value.
+Unit Price input ของแต่ละแถวเก็บค่าของตัวเองไว้
 
 ---
 
@@ -409,17 +409,17 @@ Each row's Unit Price input retains its own value.
 
 **Preconditions**
 
-Edit mode active on a Purchase-stage PR with vendor/price edits
+Edit mode active อยู่บน PR ขั้นตอน Purchase ที่มีการแก้ไข vendor/price
 
 **Steps**
 
-1. Enter edit mode
-2. Set unit price
-3. Click Save Draft
+1. เข้า edit mode
+2. กำหนด unit price
+3. คลิก Save Draft
 
 **Expected**
 
-Form returns to view mode (Edit button visible again).
+ฟอร์มกลับไปที่ view mode (ปุ่ม Edit visible อีกครั้ง)
 
 ---
 
@@ -431,17 +431,17 @@ Form returns to view mode (Edit button visible again).
 
 **Preconditions**
 
-Edit mode active on a Purchase-stage PR
+Edit mode active อยู่บน PR ขั้นตอน Purchase
 
 **Steps**
 
-1. Enter edit mode
-2. Type into Unit Price
-3. Click Cancel
+1. เข้า edit mode
+2. พิมพ์ใน Unit Price
+3. คลิก Cancel
 
 **Expected**
 
-Form returns to view mode (Edit button visible again).
+ฟอร์มกลับไปที่ view mode (ปุ่ม Edit visible อีกครั้ง)
 
 ---
 
@@ -453,18 +453,18 @@ Form returns to view mode (Edit button visible again).
 
 **Preconditions**
 
-Edit mode active on a Purchase-stage PR
+Edit mode active อยู่บน PR ขั้นตอน Purchase
 
 **Steps**
 
-1. Enter edit mode
-2. Select all rows
-3. Click Approve in bulk toolbar
+1. เข้า edit mode
+2. เลือกทุกแถว
+3. คลิก Approve ใน bulk toolbar
 4. Confirm
 
 **Expected**
 
-URL stays on the PR ref (status advances to next stage).
+URL ยังคงอยู่ที่ PR ref (status เลื่อนไปขั้นตอนถัดไป)
 
 ---
 
@@ -476,19 +476,19 @@ URL stays on the PR ref (status advances to next stage).
 
 **Preconditions**
 
-Edit mode active on a Purchase-stage PR
+Edit mode active อยู่บน PR ขั้นตอน Purchase
 
 **Steps**
 
-1. Enter edit mode
-2. Select all rows
-3. Click Reject
-4. Enter reason
+1. เข้า edit mode
+2. เลือกทุกแถว
+3. คลิก Reject
+4. กรอกเหตุผล
 5. Confirm
 
 **Expected**
 
-URL stays on the PR ref after rejection.
+URL ยังคงอยู่ที่ PR ref หลังจาก reject
 
 ---
 
@@ -500,19 +500,19 @@ URL stays on the PR ref after rejection.
 
 **Preconditions**
 
-Edit mode active on a Purchase-stage PR
+Edit mode active อยู่บน PR ขั้นตอน Purchase
 
 **Steps**
 
-1. Enter edit mode
-2. Select all rows
-3. Click Send for Review
-4. Enter reason + stage
+1. เข้า edit mode
+2. เลือกทุกแถว
+3. คลิก Send for Review
+4. กรอกเหตุผล + stage
 5. Confirm
 
 **Expected**
 
-URL stays on the PR ref after send for review.
+URL ยังคงอยู่ที่ PR ref หลังจาก send for review
 
 ---
 
@@ -524,17 +524,17 @@ URL stays on the PR ref after send for review.
 
 **Preconditions**
 
-Edit mode active on a Purchase-stage PR
+Edit mode active อยู่บน PR ขั้นตอน Purchase
 
 **Steps**
 
-1. Enter edit mode
-2. Select all rows
-3. Click Split
+1. เข้า edit mode
+2. เลือกทุกแถว
+3. คลิก Split
 
 **Expected**
 
-Split UI appears (dialog or inline) — verified by URL stays on detail.
+Split UI ปรากฏขึ้น (dialog หรือ inline) — ตรวจสอบโดย URL ยังคงอยู่ที่หน้า detail
 
 ---
 
@@ -546,17 +546,17 @@ Split UI appears (dialog or inline) — verified by URL stays on detail.
 
 **Preconditions**
 
-PR is at HOD stage (not yet approved by HOD), viewed by Purchaser
+PR อยู่ที่ขั้นตอน HOD (ยังไม่ได้รับการ approve จาก HOD) ดูโดย Purchaser
 
 **Steps**
 
-1. Seed PR at HOD stage (skip approveAsHOD)
-2. Open detail as Purchaser
-3. Inspect Edit button
+1. Seed PR ที่ขั้นตอน HOD (ข้าม approveAsHOD)
+2. เปิด detail ในฐานะ Purchaser
+3. ตรวจสอบปุ่ม Edit
 
 **Expected**
 
-Edit button is absent OR detail is read-only — Purchaser cannot edit until PR reaches Purchase stage.
+ปุ่ม Edit ไม่มีอยู่ หรือ detail เป็น read-only — Purchaser ไม่สามารถแก้ไขได้จนกว่า PR จะถึงขั้นตอน Purchase
 
 ---
 
@@ -568,21 +568,21 @@ Edit button is absent OR detail is read-only — Purchaser cannot edit until PR 
 
 **Preconditions**
 
-Logged in as Purchaser; a fresh PR is seeded at Purchase stage via submitPRAsRequestor + approveAsHOD
+Login เป็น Purchaser; PR ใหม่ถูก seed ที่ขั้นตอน Purchase ผ่าน submitPRAsRequestor + approveAsHOD
 
 **Steps**
 
-1. Open PR list
-2. Open PR detail
-3. Click Edit
-4. Set unit price on first row
-5. Select all + Bulk Approve + Confirm
+1. เปิด PR list
+2. เปิด PR detail
+3. คลิก Edit
+4. กำหนด unit price ในแถวแรก
+5. เลือกทั้งหมด + Bulk Approve + Confirm
 
 **Expected**
 
-URL stays on the PR ref after bulk approve; the journey completes end-to-end.
+URL ยังคงอยู่ที่ PR ref หลังจาก bulk approve; journey เสร็จสมบูรณ์ตั้งแต่ต้นจนจบ
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

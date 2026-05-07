@@ -23,13 +23,13 @@ procurementManagerTest.describe("Pricelist Template — Create", () => {
     "TC-PT-010001 Create Pricelist Template - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager and has access to Pricelist Templates" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager และมีสิทธิ์เข้าถึง Pricelist Templates" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Click 'New Pricelist Template'\n3. Fill 'Template Name' with 'Office Supplies'\n4. Fill 'Description' with 'Office supplies pricelist for 2023'\n5. Click 'Save'",
+            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'New Pricelist Template'\n3. กรอก 'Template Name' ด้วย 'Office Supplies'\n4. กรอก 'Description' ด้วย 'Office supplies pricelist for 2023'\n5. คลิก 'Save'",
         },
-        { type: "expected", description: "Pricelist template is created successfully." },
+        { type: "expected", description: "Pricelist template สร้างสำเร็จ" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -48,13 +48,13 @@ procurementManagerTest.describe("Pricelist Template — Create", () => {
     "TC-PT-010002 Create Pricelist Template - Empty Template Name",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager and has access to Pricelist Templates" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager และมีสิทธิ์เข้าถึง Pricelist Templates" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Click 'New Pricelist Template'\n3. Fill 'Description' with 'Office supplies pricelist for 2023'\n4. Click 'Save'",
+            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'New Pricelist Template'\n3. กรอก 'Description' ด้วย 'Office supplies pricelist for 2023'\n4. คลิก 'Save'",
         },
-        { type: "expected", description: "Error message displayed for empty template name." },
+        { type: "expected", description: "แสดงข้อความ error สำหรับชื่อ template ว่างเปล่า" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -73,13 +73,13 @@ procurementManagerTest.describe("Pricelist Template — Create", () => {
     "TC-PT-010005 Create Pricelist Template - Missing Description",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager and has access to Pricelist Templates" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager และมีสิทธิ์เข้าถึง Pricelist Templates" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Click 'New Pricelist Template'\n3. Fill 'Template Name' with 'Office Supplies'\n4. Click 'Save'",
+            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'New Pricelist Template'\n3. กรอก 'Template Name' ด้วย 'Office Supplies'\n4. คลิก 'Save'",
         },
-        { type: "expected", description: "Error message displayed for missing description." },
+        { type: "expected", description: "แสดงข้อความ error สำหรับ description ที่ขาดหายไป" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -100,12 +100,12 @@ procurementStaffTest.describe("Pricelist Template — Create — Permission deni
     "TC-PT-010004 Create Pricelist Template - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Staff and has access to Pricelist Templates list page only" },
+        { type: "preconditions", description: "Login เป็น Procurement Staff และมีสิทธิ์เข้าถึงเฉพาะหน้า list ของ Pricelist Templates" },
         {
           type: "steps",
-          description: "1. Navigate to /vendor-management/price-list-template\n2. Click 'New Pricelist Template'",
+          description: "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'New Pricelist Template'",
         },
-        { type: "expected", description: "User is redirected to unauthorized access page or 'New Pricelist Template' button is hidden/disabled." },
+        { type: "expected", description: "ผู้ใช้ถูก redirect ไปยังหน้าไม่มีสิทธิ์เข้าถึงหรือปุ่ม 'New Pricelist Template' ถูกซ่อน/disabled" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Negative" },
       ],
@@ -135,13 +135,13 @@ procurementManagerTest.describe("Pricelist Template — Add products", () => {
     "TC-PT-020001 Add products to template - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager; has access to a product template; at least 10 products exist" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager; มีสิทธิ์เข้าถึง product template; มี product อย่างน้อย 10 รายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Open an existing template\n3. Click 'Add Products' button\n4. Select 10 products from the product list\n5. Click 'Confirm Selection' button\n6. Verify that the selected products are listed in the template",
+            "1. ไปที่ /vendor-management/price-list-template\n2. เปิด template ที่มีอยู่\n3. คลิกปุ่ม 'Add Products'\n4. เลือก 10 product จาก product list\n5. คลิกปุ่ม 'Confirm Selection'\n6. ตรวจสอบว่า product ที่เลือกแสดงอยู่ใน template",
         },
-        { type: "expected", description: "The selected products are successfully added to the template." },
+        { type: "expected", description: "product ที่เลือกถูกเพิ่มใน template สำเร็จ" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -177,13 +177,13 @@ procurementManagerTest.describe("Pricelist Template — Add products", () => {
     "TC-PT-020002 Add products to template - Invalid Input (max exceeded)",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager and has access to the product template" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager และมีสิทธิ์เข้าถึง product template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Open an existing template\n3. Click 'Add Products' button\n4. Select 500 products from the product list\n5. Click 'Confirm Selection' button\n6. Verify that an error message is displayed",
+            "1. ไปที่ /vendor-management/price-list-template\n2. เปิด template ที่มีอยู่\n3. คลิกปุ่ม 'Add Products'\n4. เลือก 500 product จาก product list\n5. คลิกปุ่ม 'Confirm Selection'\n6. ตรวจสอบว่าแสดงข้อความ error",
         },
-        { type: "expected", description: "An error message is displayed stating that the maximum number of products per template has been exceeded." },
+        { type: "expected", description: "แสดงข้อความ error แจ้งว่าจำนวน product สูงสุดต่อ template เกินกำหนด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -218,13 +218,13 @@ procurementManagerTest.describe("Pricelist Template — Add products", () => {
     "TC-PT-020004 Add products to template - Edge Case - Empty Selection",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager and has access to the product template" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager และมีสิทธิ์เข้าถึง product template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Open an existing template\n3. Click 'Add Products' button\n4. Wait for 5 seconds\n5. Verify that the selected products list is empty",
+            "1. ไปที่ /vendor-management/price-list-template\n2. เปิด template ที่มีอยู่\n3. คลิกปุ่ม 'Add Products'\n4. รอ 5 วินาที\n5. ตรวจสอบว่า list ของ product ที่เลือกว่างเปล่า",
         },
-        { type: "expected", description: "The selected products list is empty and no products are added to the template." },
+        { type: "expected", description: "list ของ product ที่เลือกว่างเปล่าและไม่มี product ถูกเพิ่มใน template" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -260,13 +260,13 @@ procurementStaffTest.describe("Pricelist Template — Add products — Permissio
     "TC-PT-020003 Add products to template - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Staff and has no access to the product template" },
+        { type: "preconditions", description: "Login เป็น Procurement Staff และไม่มีสิทธิ์เข้าถึง product template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Click 'Add Products' button\n3. Wait for 5 seconds\n4. Verify that the 'Add Products' button is disabled",
+            "1. ไปที่ /vendor-management/price-list-template\n2. คลิกปุ่ม 'Add Products'\n3. รอ 5 วินาที\n4. ตรวจสอบว่าปุ่ม 'Add Products' ถูก disabled",
         },
-        { type: "expected", description: "The user is unable to add products to the template." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถเพิ่ม product ใน template ได้" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Negative" },
       ],
@@ -296,13 +296,13 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
     "TC-PT-030001 Edit template with valid data",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager and has permission to edit templates" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager และมีสิทธิ์แก้ไข template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template/[id]\n2. Click 'Edit'\n3. Fill in template name\n4. Fill in description\n5. Select currency\n6. Enter validity period\n7. Fill in vendor instructions\n8. Toggle allow multi-MOQ switch\n9. Toggle require lead time switch\n10. Enter max items per submission\n11. Toggle send reminders switch\n12. Select 14 and 7 days in reminder checkboxes\n13. Enter escalation days\n14. Click 'Save Changes'",
+            "1. ไปที่ /vendor-management/price-list-template/[id]\n2. คลิก 'Edit'\n3. กรอกชื่อ template\n4. กรอก description\n5. เลือก currency\n6. กรอก validity period\n7. กรอก vendor instructions\n8. สลับ switch allow multi-MOQ\n9. สลับ switch require lead time\n10. กรอก max items per submission\n11. สลับ switch send reminders\n12. เลือก 14 และ 7 วันใน reminder checkboxes\n13. กรอก escalation days\n14. คลิก 'Save Changes'",
         },
-        { type: "expected", description: "Template is saved successfully, doc_version incremented, success message displayed, and changes logged in audit trail." },
+        { type: "expected", description: "template บันทึกสำเร็จ doc_version เพิ่มขึ้น แสดงข้อความสำเร็จ และบันทึกการเปลี่ยนแปลงใน audit trail" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -338,13 +338,13 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
     "TC-PT-030002 Edit template with invalid validity period",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager and has permission to edit templates" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager และมีสิทธิ์แก้ไข template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template/[id]\n2. Click 'Edit'\n3. Enter validity period of 0 days\n4. Click 'Save Changes'",
+            "1. ไปที่ /vendor-management/price-list-template/[id]\n2. คลิก 'Edit'\n3. กรอก validity period เป็น 0 วัน\n4. คลิก 'Save Changes'",
         },
-        { type: "expected", description: "System shows error message for invalid validity period and template is not saved." },
+        { type: "expected", description: "ระบบแสดงข้อความ error สำหรับ validity period ที่ไม่ถูกต้องและ template ไม่ถูกบันทึก" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -369,13 +369,13 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
     "TC-PT-030003 Edit template without product selection",
     {
       annotation: [
-        { type: "preconditions", description: "Procurement Manager has permission to edit templates and no products are linked to the template" },
+        { type: "preconditions", description: "Procurement Manager มีสิทธิ์แก้ไข template และไม่มี product เชื่อมโยงกับ template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template/[id]\n2. Click 'Edit'\n3. Click 'Save Changes'",
+            "1. ไปที่ /vendor-management/price-list-template/[id]\n2. คลิก 'Edit'\n3. คลิก 'Save Changes'",
         },
-        { type: "expected", description: "System shows error message that at least one product selection must exist and template is not saved." },
+        { type: "expected", description: "ระบบแสดงข้อความ error แจ้งว่าต้องมี product selection อย่างน้อย 1 รายการและ template ไม่ถูกบันทึก" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -399,13 +399,13 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
     "TC-PT-030004 Edit template with minimal changes",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager and has permission to edit templates" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager และมีสิทธิ์แก้ไข template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template/[id]\n2. Click 'Edit'\n3. Change validity period to 1 day\n4. Click 'Save Changes'",
+            "1. ไปที่ /vendor-management/price-list-template/[id]\n2. คลิก 'Edit'\n3. เปลี่ยน validity period เป็น 1 วัน\n4. คลิก 'Save Changes'",
         },
-        { type: "expected", description: "Template is saved successfully, doc_version incremented, and changes logged in audit trail." },
+        { type: "expected", description: "template บันทึกสำเร็จ doc_version เพิ่มขึ้น และบันทึกการเปลี่ยนแปลงใน audit trail" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -426,13 +426,13 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
     "TC-PT-030005 Edit template with all fields in default state",
     {
       annotation: [
-        { type: "preconditions", description: "Procurement Manager has permission to edit templates; template is in its default state with no changes made" },
+        { type: "preconditions", description: "Procurement Manager มีสิทธิ์แก้ไข template; template อยู่ในสถานะ default โดยไม่มีการเปลี่ยนแปลง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template/[id]\n2. Click 'Edit'\n3. Click 'Save Changes'",
+            "1. ไปที่ /vendor-management/price-list-template/[id]\n2. คลิก 'Edit'\n3. คลิก 'Save Changes'",
         },
-        { type: "expected", description: "Template remains unchanged, doc_version remains the same, and no changes are logged in audit trail." },
+        { type: "expected", description: "template ไม่มีการเปลี่ยนแปลง doc_version คงเดิม และไม่มีการบันทึกการเปลี่ยนแปลงใน audit trail" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -457,13 +457,13 @@ procurementManagerTest.describe("Pricelist Template — Clone", () => {
     "TC-PT-040001 Happy Path - Clone Existing Template",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager; template library is available" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager; template library พร้อมใช้งาน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Click on 'Details' of existing template\n3. Click 'Clone Template'\n4. Fill 'New Template Name' with 'Copy of Original Name'\n5. Click 'Clone'",
+            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'Details' ของ template ที่มีอยู่\n3. คลิก 'Clone Template'\n4. กรอก 'New Template Name' ด้วย 'Copy of Original Name'\n5. คลิก 'Clone'",
         },
-        { type: "expected", description: "New template is created with all products, configurations, and metadata. Success message is displayed." },
+        { type: "expected", description: "template ใหม่สร้างสำเร็จพร้อม product, การตั้งค่า และ metadata ทั้งหมด แสดงข้อความสำเร็จ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -493,13 +493,13 @@ procurementManagerTest.describe("Pricelist Template — Clone", () => {
     "TC-PT-040002 Negative - Invalid Template Name",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager; template library is available; user enters invalid name" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager; template library พร้อมใช้งาน; ผู้ใช้กรอกชื่อที่ไม่ถูกต้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Click on 'Details' of existing template\n3. Click 'Clone Template'\n4. Fill 'New Template Name' with invalid name (e.g., only spaces or special characters)\n5. Click 'Clone'",
+            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'Details' ของ template ที่มีอยู่\n3. คลิก 'Clone Template'\n4. กรอก 'New Template Name' ด้วยชื่อที่ไม่ถูกต้อง (เช่น มีแต่ space หรือ special character)\n5. คลิก 'Clone'",
         },
-        { type: "expected", description: "System displays error message for invalid name and does not create the template." },
+        { type: "expected", description: "ระบบแสดงข้อความ error สำหรับชื่อที่ไม่ถูกต้องและไม่สร้าง template" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -523,13 +523,13 @@ procurementManagerTest.describe("Pricelist Template — Clone", () => {
     "TC-PT-040004 Edge Case - Maximum Templates Reached",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager; template library is available; maximum allowed templates have been created" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager; template library พร้อมใช้งาน; สร้าง template ครบจำนวนสูงสุดที่อนุญาตแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Click on 'Details' of existing template\n3. Click 'Clone Template'",
+            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'Details' ของ template ที่มีอยู่\n3. คลิก 'Clone Template'",
         },
-        { type: "expected", description: "System displays error message indicating maximum templates have been reached and cloning is not possible." },
+        { type: "expected", description: "ระบบแสดงข้อความ error แจ้งว่าถึงจำนวน template สูงสุดแล้วและไม่สามารถ clone ได้" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: "Backend / quota limit. Cannot reliably exhaust template quota in E2E. Verify with API/integration tests instead." },
@@ -544,13 +544,13 @@ procurementStaffTest.describe("Pricelist Template — Clone — Permission denia
     "TC-PT-040003 Negative - No Permission to Clone",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Staff; template library is available" },
+        { type: "preconditions", description: "Login เป็น Procurement Staff; template library พร้อมใช้งาน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Click on 'Details' of existing template\n3. Attempt to click 'Clone Template'",
+            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'Details' ของ template ที่มีอยู่\n3. พยายามคลิก 'Clone Template'",
         },
-        { type: "expected", description: "System displays error message or denies access to the 'Clone Template' action." },
+        { type: "expected", description: "ระบบแสดงข้อความ error หรือปฏิเสธการเข้าถึง action 'Clone Template'" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -580,13 +580,13 @@ procurementManagerTest.describe("Pricelist Template — Activate / Deactivate", 
     "TC-PT-050001 Activate Template - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "Template is in a deactivated state and user has permission to activate templates" },
+        { type: "preconditions", description: "template อยู่ในสถานะ deactivated และผู้ใช้มีสิทธิ์ activate template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Locate the deactivated template\n3. Click 'Activate' button\n4. Confirm activation",
+            "1. ไปที่ /vendor-management/price-list-template\n2. หา template ที่ถูก deactivated\n3. คลิกปุ่ม 'Activate'\n4. ยืนยันการ activate",
         },
-        { type: "expected", description: "Template is activated and changes status to active." },
+        { type: "expected", description: "template ถูก activate และสถานะเปลี่ยนเป็น active" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -611,13 +611,13 @@ procurementManagerTest.describe("Pricelist Template — Activate / Deactivate", 
     "TC-PT-050003 Activate Template - Invalid Input",
     {
       annotation: [
-        { type: "preconditions", description: "Template is in a deactivated state and user has permission to activate templates" },
+        { type: "preconditions", description: "template อยู่ในสถานะ deactivated และผู้ใช้มีสิทธิ์ activate template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Locate the deactivated template\n3. Click 'Activate' button\n4. Enter invalid data",
+            "1. ไปที่ /vendor-management/price-list-template\n2. หา template ที่ถูก deactivated\n3. คลิกปุ่ม 'Activate'\n4. กรอกข้อมูลที่ไม่ถูกต้อง",
         },
-        { type: "expected", description: "System displays error message indicating invalid input." },
+        { type: "expected", description: "ระบบแสดงข้อความ error แจ้ง input ที่ไม่ถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -639,13 +639,13 @@ procurementManagerTest.describe("Pricelist Template — Activate / Deactivate", 
     "TC-PT-050005 Template Status Change - Edge Case (rapid toggle)",
     {
       annotation: [
-        { type: "preconditions", description: "Template is in an active state and user has permission to deactivate templates" },
+        { type: "preconditions", description: "template อยู่ในสถานะ active และผู้ใช้มีสิทธิ์ deactivate template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Locate the active template\n3. Click 'Deactivate' button\n4. Confirm deactivation\n5. Immediately re-activate the template\n6. Confirm re-activation",
+            "1. ไปที่ /vendor-management/price-list-template\n2. หา template ที่ active\n3. คลิกปุ่ม 'Deactivate'\n4. ยืนยันการ deactivate\n5. re-activate template ทันที\n6. ยืนยันการ re-activate",
         },
-        { type: "expected", description: "Template successfully switches between active and deactivated states." },
+        { type: "expected", description: "template สลับระหว่างสถานะ active และ deactivated ได้สำเร็จ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -675,13 +675,13 @@ procurementStaffTest.describe("Pricelist Template — Activate / Deactivate — 
     "TC-PT-050004 Deactivate Template - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Template is in an active state and user does not have permission to deactivate templates" },
+        { type: "preconditions", description: "template อยู่ในสถานะ active และผู้ใช้ไม่มีสิทธิ์ deactivate template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Locate the active template\n3. Click 'Deactivate' button\n4. Confirm deactivation attempt",
+            "1. ไปที่ /vendor-management/price-list-template\n2. หา template ที่ active\n3. คลิกปุ่ม 'Deactivate'\n4. ยืนยันการพยายาม deactivate",
         },
-        { type: "expected", description: "System displays error message indicating insufficient permissions." },
+        { type: "expected", description: "ระบบแสดงข้อความ error แจ้งว่าสิทธิ์ไม่เพียงพอ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -711,13 +711,13 @@ procurementManagerTest.describe("Pricelist Template — Search and View", () => 
     "TC-PT-060001 Search and View Templates - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged into Carmen Inventory with permissions to view templates" },
+        { type: "preconditions", description: "Login เข้า Carmen Inventory พร้อมสิทธิ์ดู template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Click on 'All' status tab\n3. Enter 'example' in the search field\n4. Click 'Search'\n5. Click on a template card",
+            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก status tab 'All'\n3. กรอก 'example' ในช่องค้นหา\n4. คลิก 'Search'\n5. คลิก template card",
         },
-        { type: "expected", description: "System displays template detail page with relevant template information." },
+        { type: "expected", description: "ระบบแสดงหน้า detail ของ template พร้อมข้อมูล template ที่เกี่ยวข้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -743,13 +743,13 @@ procurementManagerTest.describe("Pricelist Template — Search and View", () => 
     "TC-PT-060002 Search and View Templates - Negative - Invalid Search Term",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged into Carmen Inventory with permissions to view templates" },
+        { type: "preconditions", description: "Login เข้า Carmen Inventory พร้อมสิทธิ์ดู template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Enter 'nonexistent' in the search field\n3. Click 'Search'",
+            "1. ไปที่ /vendor-management/price-list-template\n2. กรอก 'nonexistent' ในช่องค้นหา\n3. คลิก 'Search'",
         },
-        { type: "expected", description: "System displays a message indicating no matching templates were found." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งว่าไม่พบ template ที่ตรงกัน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -770,13 +770,13 @@ procurementManagerTest.describe("Pricelist Template — Search and View", () => 
     "TC-PT-060004 Search and View Templates - Edge Case - Filter by Product Count",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged into Carmen Inventory with permissions to view templates" },
+        { type: "preconditions", description: "Login เข้า Carmen Inventory พร้อมสิทธิ์ดู template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Click on 'All' status tab\n3. Click on 'Filter by Product Count'\n4. Enter '0' in the min count field\n5. Enter '10' in the max count field\n6. Click 'Apply Filter'",
+            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก status tab 'All'\n3. คลิก 'Filter by Product Count'\n4. กรอก '0' ในช่องจำนวนต่ำสุด\n5. กรอก '10' ในช่องจำนวนสูงสุด\n6. คลิก 'Apply Filter'",
         },
-        { type: "expected", description: "System displays a filtered list of templates with a product count within the specified range." },
+        { type: "expected", description: "ระบบแสดง list ของ template ที่กรองแล้วโดยมีจำนวน product อยู่ในช่วงที่ระบุ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -802,13 +802,13 @@ procurementManagerTest.describe("Pricelist Template — Search and View", () => 
     "TC-PT-060005 Search and View Templates - Edge Case - Sort by Name (Z-A)",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged into Carmen Inventory with permissions to view templates" },
+        { type: "preconditions", description: "Login เข้า Carmen Inventory พร้อมสิทธิ์ดู template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list-template\n2. Click on 'All' status tab\n3. Click on the 'Name' column header\n4. Click on the 'Z-A' sorting option",
+            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก status tab 'All'\n3. คลิก header คอลัมน์ 'Name'\n4. คลิกตัวเลือกเรียงลำดับ 'Z-A'",
         },
-        { type: "expected", description: "System sorts the template list in descending alphabetical order based on the template name." },
+        { type: "expected", description: "ระบบเรียงลำดับ list ของ template ตามตัวอักษรจาก Z-A ตามชื่อ template" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -834,9 +834,9 @@ procurementStaffTest.describe("Pricelist Template — Search and View — Permis
     "TC-PT-060003 Search and View Templates - Negative - Insufficient Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged into Carmen Inventory but does not have permissions to view templates" },
-        { type: "steps", description: "1. Navigate to /vendor-management/price-list-template" },
-        { type: "expected", description: "System redirects the user to an unauthorized access page or shows a permission denied message." },
+        { type: "preconditions", description: "Login เข้า Carmen Inventory แต่ไม่มีสิทธิ์ดู template" },
+        { type: "steps", description: "1. ไปที่ /vendor-management/price-list-template" },
+        { type: "expected", description: "ระบบ redirect ผู้ใช้ไปยังหน้าไม่มีสิทธิ์เข้าถึงหรือแสดงข้อความปฏิเสธสิทธิ์" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],

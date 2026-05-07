@@ -44,13 +44,13 @@ requestorTest.describe("PR — Create", () => {
     "TC-PR-010001 Create a basic purchase request with default values",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor (requestor@blueledgers.com); on list page" },
+        { type: "preconditions", description: "Login เป็น Requestor (requestor@blueledgers.com); อยู่ที่หน้า list" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Verify default values are pre-filled (date, department, location, currency, status)\n4. Select PR type as General\n5. Enter delivery date\n6. Add one line item with product details auto-filled\n7. Enter item description and specifications\n8. Enter quantity and unit of measure\n9. Click 'Add' to add item\n10. System calculates line totals and PR total\n11. Fill in any additional notes or internal notes\n12. Click 'Save as Draft'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. ตรวจสอบว่าค่า default ถูกกรอกล่วงหน้า (date, department, location, currency, status)\n4. เลือก PR type เป็น General\n5. กรอก delivery date\n6. เพิ่ม line item พร้อมรายละเอียด product ที่ auto-fill\n7. กรอกคำอธิบายและ specifications ของรายการ\n8. กรอก quantity และ unit of measure\n9. กด 'Add' เพื่อเพิ่มรายการ\n10. ระบบคำนวณยอดรวมของ line และยอดรวม PR\n11. กรอก additional notes หรือ internal notes\n12. กด 'Save as Draft'",
         },
-        { type: "expected", description: "System generates reference number, saves PR to database, logs activity, and redirects to PR detail page with all fields populated correctly." },
+        { type: "expected", description: "ระบบสร้างเลขอ้างอิง, บันทึก PR ลงฐานข้อมูล, บันทึก activity และ redirect ไปยังหน้ารายละเอียด PR พร้อมข้อมูลครบถ้วน" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -77,13 +77,13 @@ requestorTest.describe("PR — Create", () => {
     "TC-PR-010002 Create a purchase request with FOC item",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor and has FOC quantities available" },
+        { type: "preconditions", description: "Login เป็น Requestor และมี FOC quantities" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Select PR type as General\n4. Add one line item and select FOC option\n5. Enter FOC quantity and unit\n6. System sets unit price to 0\n7. Click 'Add' to add item\n8. System calculates line totals and PR total\n9. Fill in any additional notes or internal notes\n10. Click 'Save as Draft'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. เลือก PR type เป็น General\n4. เพิ่ม line item และเลือก FOC option\n5. กรอก FOC quantity และ unit\n6. ระบบตั้ง unit price เป็น 0\n7. กด 'Add' เพื่อเพิ่มรายการ\n8. ระบบคำนวณยอดรวมของ line และยอดรวม PR\n9. กรอก additional notes หรือ internal notes\n10. กด 'Save as Draft'",
         },
-        { type: "expected", description: "System saves PR with FOC item correctly, calculates PR total, and logs activity." },
+        { type: "expected", description: "ระบบบันทึก PR พร้อมรายการ FOC ถูกต้อง, คำนวณยอดรวม PR และบันทึก activity" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -103,13 +103,13 @@ requestorTest.describe("PR — Create", () => {
     "TC-PR-010003 Attempt to create a purchase request with invalid delivery date",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor" },
+        { type: "preconditions", description: "Login เป็น Requestor" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Select PR type as General\n4. Enter invalid delivery date in the past\n5. Click 'Save as Draft'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. เลือก PR type เป็น General\n4. กรอก delivery date ที่ไม่ถูกต้อง (วันที่ในอดีต)\n5. กด 'Save as Draft'",
         },
-        { type: "expected", description: "System displays error message for invalid date and does not save PR." },
+        { type: "expected", description: "ระบบแสดงข้อความ error สำหรับวันที่ไม่ถูกต้องและไม่บันทึก PR" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Negative" },
       ],
@@ -129,13 +129,13 @@ requestorTest.describe("PR — Create", () => {
     "TC-PR-010005 Add line items with zero quantity and unit price",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor" },
+        { type: "preconditions", description: "Login เป็น Requestor" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Add one line item with zero quantity and unit price\n4. Click 'Add'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. เพิ่ม line item ที่มี quantity และ unit price เป็นศูนย์\n4. กด 'Add'",
         },
-        { type: "expected", description: "System displays error message for zero quantity or unit price and does not add item." },
+        { type: "expected", description: "ระบบแสดงข้อความ error สำหรับ quantity หรือ unit price เป็นศูนย์ และไม่เพิ่มรายการ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -155,9 +155,9 @@ noAuthTest(
   "TC-PR-010004 Create a purchase request without login",
   {
     annotation: [
-      { type: "preconditions", description: "User is not logged in (no auth fixture)" },
-      { type: "steps", description: "1. Navigate to /procurement/purchase-request" },
-      { type: "expected", description: "System redirects user to login page or displays error message." },
+      { type: "preconditions", description: "ผู้ใช้ยังไม่ได้ login (ไม่มี auth fixture)" },
+      { type: "steps", description: "1. ไปที่ /procurement/purchase-request" },
+      { type: "expected", description: "ระบบ redirect ผู้ใช้ไปยังหน้า login หรือแสดงข้อความ error" },
       { type: "priority", description: "High" },
       { type: "testType", description: "Negative" },
     ],
@@ -176,13 +176,13 @@ requestorTest.describe("PR — Edit", () => {
     "TC-PR-020001 Edit draft PR - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "A draft PR exists with at least one line item and correct header information" },
+        { type: "preconditions", description: "มี draft PR ที่มีอย่างน้อยหนึ่ง line item และข้อมูล header ถูกต้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on existing draft PR\n3. Modify delivery date, add a note, and edit one line item\n4. Click 'Save Draft'",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก draft PR ที่มีอยู่\n3. แก้ไข delivery date, เพิ่ม note และแก้ไข line item หนึ่งรายการ\n4. กด 'Save Draft'",
         },
-        { type: "expected", description: "PR header and line item details are updated, and PR remains in draft status. Version number is incremented." },
+        { type: "expected", description: "ข้อมูล header และ line item ของ PR ถูกอัปเดต และ PR ยังคงอยู่ในสถานะ draft, version number เพิ่มขึ้น" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -208,13 +208,13 @@ requestorTest.describe("PR — Edit", () => {
     "TC-PR-020002 Edit returned PR - Negative Case",
     {
       annotation: [
-        { type: "preconditions", description: "A returned PR exists with a rejection reason" },
+        { type: "preconditions", description: "มี PR ที่ถูกส่งคืนพร้อมเหตุผลการ reject" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on returned PR\n3. Attempt to modify delivery date and notes",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก PR ที่ถูกส่งคืน\n3. พยายามแก้ไข delivery date และ notes",
         },
-        { type: "expected", description: "System prevents modification and displays error message. PR remains in returned status." },
+        { type: "expected", description: "ระบบป้องกันการแก้ไขและแสดงข้อความ error, PR ยังคงอยู่ในสถานะ returned" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -236,13 +236,13 @@ requestorTest.describe("PR — Edit", () => {
     "TC-PR-020003 Edit PR with version conflict - Edge Case",
     {
       annotation: [
-        { type: "preconditions", description: "Multiple users attempt to edit the same PR simultaneously, leading to version conflict" },
+        { type: "preconditions", description: "ผู้ใช้หลายคนพยายามแก้ไข PR เดียวกันพร้อมกัน ทำให้เกิด version conflict" },
         {
           type: "steps",
           description:
-            "1. User A and User B both have draft PR open\n2. User A modifies PR and saves\n3. User B modifies PR and attempts to save\n4. User B receives version conflict warning",
+            "1. User A และ User B เปิด draft PR เดียวกัน\n2. User A แก้ไข PR และบันทึก\n3. User B แก้ไข PR และพยายามบันทึก\n4. User B ได้รับการแจ้งเตือน version conflict",
         },
-        { type: "expected", description: "User B is prompted to resolve conflict or discard changes. PR status remains unchanged." },
+        { type: "expected", description: "User B ถูกกระตุ้นให้แก้ไข conflict หรือยกเลิกการเปลี่ยนแปลง, สถานะ PR ไม่เปลี่ยนแปลง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: "Requires concurrent multi-user session orchestration; tracked but skipped in single-worker E2E." },
@@ -260,13 +260,13 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
     "TC-PR-030001 Submit valid PR with all required fields",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor and has a draft PR ready" },
+        { type: "preconditions", description: "Login เป็น Requestor และมี draft PR พร้อมแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Submit for Approval' button\n3. Wait for validation\n4. Verify validation passes\n5. Confirm submission",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Submit for Approval'\n3. รอการ validate\n4. ตรวจสอบว่าการ validate ผ่าน\n5. ยืนยันการส่ง",
         },
-        { type: "expected", description: "PR is submitted successfully, status updated to 'In-progress', approval records created, and first approver notified." },
+        { type: "expected", description: "PR ถูกส่งสำเร็จ, สถานะอัปเดตเป็น 'In-progress', สร้าง approval records และแจ้ง approver คนแรก" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -289,13 +289,13 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
     "TC-PR-030002 Submit PR with missing required fields",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor and has a draft PR with missing fields" },
+        { type: "preconditions", description: "Login เป็น Requestor และมี draft PR ที่ขาดข้อมูลบางส่วน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Submit for Approval' button\n3. Wait for validation\n4. Verify validation fails",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Submit for Approval'\n3. รอการ validate\n4. ตรวจสอบว่าการ validate ล้มเหลว",
         },
-        { type: "expected", description: "System displays error messages for missing fields." },
+        { type: "expected", description: "ระบบแสดงข้อความ error สำหรับฟิลด์ที่ขาดหาย" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -313,13 +313,13 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
     "TC-PR-030004 Submit PR with extremely large value",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor and has a draft PR with an extremely large value" },
+        { type: "preconditions", description: "Login เป็น Requestor และมี draft PR ที่มีมูลค่าสูงมาก" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Submit for Approval' button\n3. Wait for validation\n4. Verify validation fails",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Submit for Approval'\n3. รอการ validate\n4. ตรวจสอบว่าการ validate ล้มเหลว",
         },
-        { type: "expected", description: "System displays an error message indicating the value exceeds the limit." },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่ามูลค่าเกินขีดจำกัด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -338,13 +338,13 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
     "TC-PR-030005 Submit PR with invalid item codes",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor and has a draft PR with invalid item codes" },
+        { type: "preconditions", description: "Login เป็น Requestor และมี draft PR ที่มี item codes ไม่ถูกต้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Submit for Approval' button\n3. Wait for validation\n4. Verify validation fails",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Submit for Approval'\n3. รอการ validate\n4. ตรวจสอบว่าการ validate ล้มเหลว",
         },
-        { type: "expected", description: "System displays error messages for invalid item codes." },
+        { type: "expected", description: "ระบบแสดงข้อความ error สำหรับ item codes ที่ไม่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -365,9 +365,9 @@ fcTest.describe("PR — Submit — FC permission denial", () => {
     "TC-PR-030003 Submit PR without required permissions",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Budget Manager (FC) and has a draft PR" },
-        { type: "steps", description: "1. Navigate to /procurement/purchase-request\n2. Click 'Submit for Approval' button" },
-        { type: "expected", description: "System displays an error message indicating insufficient permissions." },
+        { type: "preconditions", description: "Login เป็น Budget Manager (FC) และมี draft PR" },
+        { type: "steps", description: "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Submit for Approval'" },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่าสิทธิ์ไม่เพียงพอ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -395,13 +395,13 @@ requestorTest.describe("PR — View — Requestor", () => {
     "TC-PR-040001 View own pending PR as Requestor",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor and has a pending PR" },
+        { type: "preconditions", description: "Login เป็น Requestor และมี PR ที่กำลัง pending" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on pending PR reference number\n3. Verify PR status badge is 'In-progress'\n4. Verify approver names and timestamps are displayed",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกหมายเลขอ้างอิงของ PR ที่กำลัง pending\n3. ตรวจสอบว่า PR status badge เป็น 'In-progress'\n4. ตรวจสอบว่าชื่อ approver และ timestamps แสดงผล",
         },
-        { type: "expected", description: "PR detail page is displayed with correct status and approver information" },
+        { type: "expected", description: "หน้ารายละเอียด PR แสดงผลพร้อมสถานะและข้อมูล approver ที่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -423,13 +423,13 @@ requestorTest.describe("PR — View — Requestor", () => {
     "TC-PR-040002 Attempt to view PR with no permissions",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in but does not have permission to view PRs" },
+        { type: "preconditions", description: "Login เข้าระบบแล้วแต่ไม่มีสิทธิ์ในการดู PR" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on PR reference number\n3. Verify system redirects to error or access denied page",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกหมายเลขอ้างอิงของ PR\n3. ตรวจสอบว่าระบบ redirect ไปยังหน้า error หรือ access denied",
         },
-        { type: "expected", description: "User is unable to view PR detail page and receives appropriate error message" },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถดูหน้ารายละเอียด PR ได้และได้รับข้อความ error ที่เหมาะสม" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -449,13 +449,13 @@ hodTest.describe("PR — View — Approver perspective", () => {
     "TC-PR-040003 View PR with all approvals completed",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as an Approver (HOD) and a PR is fully approved" },
+        { type: "preconditions", description: "Login เป็น Approver (HOD) และมี PR ที่ถูก approve ครบทุกขั้นตอนแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on fully approved PR reference number\n3. Verify PR status badge is 'Approved'\n4. Verify all approval stages are completed with 'Approved' status",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกหมายเลขอ้างอิงของ PR ที่ถูก approve ครบแล้ว\n3. ตรวจสอบว่า PR status badge เป็น 'Approved'\n4. ตรวจสอบว่าทุก approval stage เสร็จสิ้นพร้อมสถานะ 'Approved'",
         },
-        { type: "expected", description: "PR detail page is displayed with all approved status and no pending approvals" },
+        { type: "expected", description: "หน้ารายละเอียด PR แสดงผลพร้อมสถานะ approved ทั้งหมดและไม่มี pending approvals" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -477,13 +477,13 @@ hodTest.describe("PR — View — Approver perspective", () => {
     "TC-PR-040004 View PR with missing attachments",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as an Approver (HOD) and a PR has a missing attachment" },
+        { type: "preconditions", description: "Login เป็น Approver (HOD) และมี PR ที่ขาด attachment" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on PR reference number with missing attachments\n3. Verify 'Attachments' list shows missing files",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกหมายเลขอ้างอิงของ PR ที่ขาด attachments\n3. ตรวจสอบว่ารายการ 'Attachments' แสดงไฟล์ที่ขาดหาย",
         },
-        { type: "expected", description: "PR detail page displays missing attachment information" },
+        { type: "expected", description: "หน้ารายละเอียด PR แสดงข้อมูล attachment ที่ขาดหาย" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -511,13 +511,13 @@ hodTest.describe("PR — Approve", () => {
     "TC-PR-050001 Approve Purchase Request - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "Department Manager has received a PR for approval and has the necessary permissions" },
+        { type: "preconditions", description: "Department Manager ได้รับ PR สำหรับการ approve และมีสิทธิ์ที่จำเป็น" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on the 'View' link for the purchase request\n3. Verify PR details\n4. Fill in comments if any\n5. Click 'Approve'\n6. Verify system validates approver authority\n7. Wait for system to update approval record\n8. Verify PR status is updated to 'Approved'\n9. Verify notifications are sent to PR creator and purchasing staff",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกลิงก์ 'View' ของ purchase request\n3. ตรวจสอบรายละเอียด PR\n4. กรอก comments ถ้ามี\n5. กด 'Approve'\n6. ตรวจสอบว่าระบบ validate สิทธิ์ approver\n7. รอระบบอัปเดต approval record\n8. ตรวจสอบว่าสถานะ PR อัปเดตเป็น 'Approved'\n9. ตรวจสอบว่าส่งการแจ้งเตือนถึงผู้สร้าง PR และพนักงาน purchasing",
         },
-        { type: "expected", description: "Purchase request is approved and all relevant notifications are sent." },
+        { type: "expected", description: "Purchase request ถูก approve และส่งการแจ้งเตือนที่เกี่ยวข้องทั้งหมด" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -541,13 +541,13 @@ hodTest.describe("PR — Approve", () => {
     "TC-PR-050003 Approve Purchase Request - No Additional Approvals Needed",
     {
       annotation: [
-        { type: "preconditions", description: "System is configured to require only department manager approval for this PR" },
+        { type: "preconditions", description: "ระบบตั้งค่าให้ต้องการ approval จาก department manager เท่านั้นสำหรับ PR นี้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on the 'View' link for the purchase request\n3. Verify PR details\n4. Fill in comments if any\n5. Click 'Approve'\n6. Verify system updates PR status to 'Approved'",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกลิงก์ 'View' ของ purchase request\n3. ตรวจสอบรายละเอียด PR\n4. กรอก comments ถ้ามี\n5. กด 'Approve'\n6. ตรวจสอบว่าระบบอัปเดตสถานะ PR เป็น 'Approved'",
         },
-        { type: "expected", description: "Purchase request is approved without additional approvals." },
+        { type: "expected", description: "Purchase request ถูก approve โดยไม่ต้องการการ approve เพิ่มเติม" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -570,13 +570,13 @@ hodTest.describe("PR — Approve", () => {
     "TC-PR-050004 Approve Purchase Request - Multiple Approvals Required",
     {
       annotation: [
-        { type: "preconditions", description: "System is configured to require both department and finance manager approvals for this PR" },
+        { type: "preconditions", description: "ระบบตั้งค่าให้ต้องการ approval จากทั้ง department manager และ finance manager สำหรับ PR นี้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on the 'View' link for the purchase request\n3. Verify PR details\n4. Fill in comments if any\n5. Click 'Approve'\n6. Verify system identifies next approver\n7. Verify system sends notification to next approver",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกลิงก์ 'View' ของ purchase request\n3. ตรวจสอบรายละเอียด PR\n4. กรอก comments ถ้ามี\n5. กด 'Approve'\n6. ตรวจสอบว่าระบบระบุ approver ลำดับถัดไป\n7. ตรวจสอบว่าระบบส่งการแจ้งเตือนถึง approver ลำดับถัดไป",
         },
-        { type: "expected", description: "System correctly identifies next approver and sends notification." },
+        { type: "expected", description: "ระบบระบุ approver ลำดับถัดไปได้ถูกต้องและส่งการแจ้งเตือน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -600,13 +600,13 @@ fcTest.describe("PR — Approve — FC permission denial", () => {
     "TC-PR-050002 Approve Purchase Request - Invalid Approval Authority",
     {
       annotation: [
-        { type: "preconditions", description: "Finance Manager (FC) has received a PR for approval but does not have the necessary permissions for this stage" },
+        { type: "preconditions", description: "Finance Manager (FC) ได้รับ PR สำหรับการ approve แต่ไม่มีสิทธิ์ที่จำเป็นสำหรับขั้นตอนนี้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on the 'View' link for the purchase request\n3. Try to click 'Approve'\n4. Verify system denies permission",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกลิงก์ 'View' ของ purchase request\n3. พยายามกด 'Approve'\n4. ตรวจสอบว่าระบบปฏิเสธสิทธิ์",
         },
-        { type: "expected", description: "System denies approval due to insufficient authority." },
+        { type: "expected", description: "ระบบปฏิเสธการ approve เนื่องจาก authority ไม่เพียงพอ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -640,13 +640,13 @@ hodTest.describe("PR — Reject", () => {
     "TC-PR-060001 Approver rejects PR with valid reason",
     {
       annotation: [
-        { type: "preconditions", description: "A PR is created and assigned to a department manager who has approval rights" },
+        { type: "preconditions", description: "PR ถูกสร้างและมอบหมายให้ department manager ที่มีสิทธิ์ approve" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'View' on the assigned PR\n3. Click 'Reject' button\n4. Enter rejection reason in dialog\n5. Click 'Confirm Rejection'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'View' บน PR ที่ถูกมอบหมาย\n3. กดปุ่ม 'Reject'\n4. กรอกเหตุผลการ reject ใน dialog\n5. กด 'Confirm Rejection'",
         },
-        { type: "expected", description: "The PR status changes to 'Void', and a rejection notification is sent to the requestor." },
+        { type: "expected", description: "สถานะ PR เปลี่ยนเป็น 'Void' และส่งการแจ้งเตือนการ reject ถึง requestor" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -671,13 +671,13 @@ hodTest.describe("PR — Reject", () => {
     "TC-PR-060002 Reject PR with too short reason",
     {
       annotation: [
-        { type: "preconditions", description: "A PR is created and assigned to a department manager who has approval rights" },
+        { type: "preconditions", description: "PR ถูกสร้างและมอบหมายให้ department manager ที่มีสิทธิ์ approve" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'View' on the assigned PR\n3. Click 'Reject' button\n4. Enter reason less than 10 characters\n5. Click 'Confirm Rejection'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'View' บน PR ที่ถูกมอบหมาย\n3. กดปุ่ม 'Reject'\n4. กรอกเหตุผลที่มีความยาวน้อยกว่า 10 ตัวอักษร\n5. กด 'Confirm Rejection'",
         },
-        { type: "expected", description: "A validation error is displayed, preventing confirmation." },
+        { type: "expected", description: "แสดง validation error ป้องกันการยืนยัน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -702,13 +702,13 @@ hodTest.describe("PR — Reject", () => {
     "TC-PR-060003 Reject PR without reason",
     {
       annotation: [
-        { type: "preconditions", description: "A PR is created and assigned to a department manager who has approval rights" },
+        { type: "preconditions", description: "PR ถูกสร้างและมอบหมายให้ department manager ที่มีสิทธิ์ approve" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'View' on the assigned PR\n3. Click 'Reject' button\n4. Click 'Confirm Rejection' without entering reason",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'View' บน PR ที่ถูกมอบหมาย\n3. กดปุ่ม 'Reject'\n4. กด 'Confirm Rejection' โดยไม่กรอกเหตุผล",
         },
-        { type: "expected", description: "A validation error is displayed, preventing confirmation." },
+        { type: "expected", description: "แสดง validation error ป้องกันการยืนยัน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -734,13 +734,13 @@ fcTest.describe("PR — Reject — Permission denial", () => {
     "TC-PR-060004 Reject PR with no permission",
     {
       annotation: [
-        { type: "preconditions", description: "A PR is created and assigned to a budget manager (FC) who does not have approval rights" },
+        { type: "preconditions", description: "PR ถูกสร้างและมอบหมายให้ budget manager (FC) ที่ไม่มีสิทธิ์ approve" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'View' on the assigned PR\n3. Click 'Reject' button (expected to fail)",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'View' บน PR ที่ถูกมอบหมาย\n3. กดปุ่ม 'Reject' (คาดว่าจะล้มเหลว)",
         },
-        { type: "expected", description: "The system displays an error message indicating insufficient permissions." },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่าสิทธิ์ไม่เพียงพอ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -770,13 +770,13 @@ gmTest.describe("PR — Reject — High-value GM scope", () => {
     "TC-PR-060005 Reject PR with very high value",
     {
       annotation: [
-        { type: "preconditions", description: "A PR with very high value is created and assigned to a general manager who has approval rights" },
+        { type: "preconditions", description: "PR มูลค่าสูงมากถูกสร้างและมอบหมายให้ general manager ที่มีสิทธิ์ approve" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'View' on the assigned PR\n3. Click 'Reject' button\n4. Enter rejection reason in dialog\n5. Click 'Confirm Rejection'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'View' บน PR ที่ถูกมอบหมาย\n3. กดปุ่ม 'Reject'\n4. กรอกเหตุผลการ reject ใน dialog\n5. กด 'Confirm Rejection'",
         },
-        { type: "expected", description: "The PR status changes to 'Void', and a rejection notification is sent to the requestor." },
+        { type: "expected", description: "สถานะ PR เปลี่ยนเป็น 'Void' และส่งการแจ้งเตือนการ reject ถึง requestor" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -805,13 +805,13 @@ requestorTest.describe("PR — Recall — Feature pending", () => {
     "TC-PR-070001 Happy Path - Recall PR",
     {
       annotation: [
-        { type: "preconditions", description: "A requestor has submitted a PR and it is in a pending approval state" },
+        { type: "preconditions", description: "requestor ส่ง PR แล้วและอยู่ในสถานะ pending approval" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click the PR that is in pending state\n3. Click 'Recall' button\n4. Click 'Yes' on confirmation dialog\n5. Fill in recall reason if prompted\n6. Click 'Confirm Recall'",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก PR ที่อยู่ในสถานะ pending\n3. กดปุ่ม 'Recall'\n4. กด 'Yes' บน dialog ยืนยัน\n5. กรอกเหตุผลการ recall หากมีการถาม\n6. กด 'Confirm Recall'",
         },
-        { type: "expected", description: "The PR is recalled, status changes to 'Draft', and notifications are sent to pending approvers." },
+        { type: "expected", description: "PR ถูก recall, สถานะเปลี่ยนเป็น 'Draft' และส่งการแจ้งเตือนถึง approver ที่กำลัง pending" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -824,13 +824,13 @@ requestorTest.describe("PR — Recall — Feature pending", () => {
     "TC-PR-070002 Negative - No Recall Reason",
     {
       annotation: [
-        { type: "preconditions", description: "A requestor has submitted a PR and it is in a pending approval state" },
+        { type: "preconditions", description: "requestor ส่ง PR แล้วและอยู่ในสถานะ pending approval" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click the PR that is in pending state\n3. Click 'Recall' button\n4. Click 'Yes' on confirmation dialog without filling in reason",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก PR ที่อยู่ในสถานะ pending\n3. กดปุ่ม 'Recall'\n4. กด 'Yes' บน dialog ยืนยันโดยไม่กรอกเหตุผล",
         },
-        { type: "expected", description: "System prompts user to fill in recall reason and does not proceed with recall." },
+        { type: "expected", description: "ระบบแจ้งให้ผู้ใช้กรอกเหตุผลการ recall และไม่ดำเนินการ recall ต่อ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -843,13 +843,13 @@ requestorTest.describe("PR — Recall — Feature pending", () => {
     "TC-PR-070003 Edge Case - Multiple Approvals",
     {
       annotation: [
-        { type: "preconditions", description: "A requestor has submitted a PR and it is in a state with multiple pending approvals" },
+        { type: "preconditions", description: "requestor ส่ง PR แล้วและอยู่ในสถานะที่มี pending approvals หลายรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click the PR that is in pending state with multiple approvals\n3. Click 'Recall' button\n4. Click 'Yes' on confirmation dialog\n5. Fill in recall reason if prompted\n6. Click 'Confirm Recall'",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก PR ที่อยู่ในสถานะ pending พร้อม approvals หลายรายการ\n3. กดปุ่ม 'Recall'\n4. กด 'Yes' บน dialog ยืนยัน\n5. กรอกเหตุผลการ recall หากมีการถาม\n6. กด 'Confirm Recall'",
         },
-        { type: "expected", description: "The PR is recalled, status changes to 'Draft', and notifications are sent to all pending approvers." },
+        { type: "expected", description: "PR ถูก recall, สถานะเปลี่ยนเป็น 'Draft' และส่งการแจ้งเตือนถึง approver ทั้งหมดที่กำลัง pending" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -862,13 +862,13 @@ requestorTest.describe("PR — Recall — Feature pending", () => {
     "TC-PR-070004 Negative - Insufficient Permissions",
     {
       annotation: [
-        { type: "preconditions", description: "A department manager has submitted a PR and it is in a pending approval state" },
+        { type: "preconditions", description: "department manager ส่ง PR แล้วและอยู่ในสถานะ pending approval" },
         {
           type: "steps",
           description:
-            "1. Department manager logs in\n2. Navigate to /procurement/purchase-request\n3. Click the PR that is in pending state\n4. Attempt to click 'Recall' button",
+            "1. department manager Login เข้าระบบ\n2. ไปที่ /procurement/purchase-request\n3. คลิก PR ที่อยู่ในสถานะ pending\n4. พยายามกดปุ่ม 'Recall'",
         },
-        { type: "expected", description: "System denies the action and displays an error message indicating insufficient permissions." },
+        { type: "expected", description: "ระบบปฏิเสธการดำเนินการและแสดงข้อความ error ว่าสิทธิ์ไม่เพียงพอ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -886,13 +886,13 @@ requestorTest.describe("PR — Cancel — Requestor", () => {
     "TC-PR-080001 Cancel PR - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor; an active PR exists in the system" },
+        { type: "preconditions", description: "Login เป็น Requestor; มี PR ที่ active อยู่ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Open' on the PR to be cancelled\n3. Click 'Cancel PR'\n4. Fill in the cancellation reason: 'Incorrect item description'\n5. Confirm cancellation",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Open' บน PR ที่จะยกเลิก\n3. กด 'Cancel PR'\n4. กรอกเหตุผลการยกเลิก: 'Incorrect item description'\n5. ยืนยันการยกเลิก",
         },
-        { type: "expected", description: "PR status changes to 'Cancelled', all approvals are cancelled, budget is released if reserved, notifications are sent, and confirmation message is displayed." },
+        { type: "expected", description: "สถานะ PR เปลี่ยนเป็น 'Cancelled', ยกเลิก approvals ทั้งหมด, คืน budget ถ้ามีการ reserve, ส่งการแจ้งเตือน และแสดงข้อความยืนยัน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -917,9 +917,9 @@ requestorTest.describe("PR — Cancel — Requestor", () => {
     "TC-PR-080003 Cancel PR - PR is Completed",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor; a PR with status 'Completed' exists" },
-        { type: "steps", description: "1. Navigate to /procurement/purchase-request\n2. Click 'Open' on the completed PR" },
-        { type: "expected", description: "System displays an error message stating 'PR cannot be cancelled as it is in the Completed status.'" },
+        { type: "preconditions", description: "Login เป็น Requestor; มี PR ที่มีสถานะ 'Completed'" },
+        { type: "steps", description: "1. ไปที่ /procurement/purchase-request\n2. กด 'Open' บน PR ที่ completed" },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่า 'PR cannot be cancelled as it is in the Completed status.'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -949,9 +949,9 @@ fcTest.describe("PR — Cancel — Permission denial", () => {
     "TC-PR-080002 Cancel PR - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Budget Manager (FC); an active PR exists" },
-        { type: "steps", description: "1. Navigate to /procurement/purchase-request\n2. Click 'Open' on the PR to be cancelled" },
-        { type: "expected", description: "System displays an error message stating 'Insufficient permissions to cancel this PR.'" },
+        { type: "preconditions", description: "Login เป็น Budget Manager (FC); มี PR ที่ active" },
+        { type: "steps", description: "1. ไปที่ /procurement/purchase-request\n2. กด 'Open' บน PR ที่จะยกเลิก" },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่า 'Insufficient permissions to cancel this PR.'" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -981,13 +981,13 @@ hodTest.describe("PR — Cancel — Department manager", () => {
     "TC-PR-080004 Cancel PR - PR with Pending Approvals",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Department Manager (HOD); a PR with pending approvals exists" },
+        { type: "preconditions", description: "Login เป็น Department Manager (HOD); มี PR ที่มี pending approvals" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Open' on the PR with pending approvals\n3. Click 'Cancel PR'\n4. Fill in the cancellation reason: 'Change in requirement'\n5. Confirm cancellation",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Open' บน PR ที่มี pending approvals\n3. กด 'Cancel PR'\n4. กรอกเหตุผลการยกเลิก: 'Change in requirement'\n5. ยืนยันการยกเลิก",
         },
-        { type: "expected", description: "System cancels all pending approvals, PR status changes to 'Cancelled', budget is released if reserved, notifications are sent, and confirmation message is displayed." },
+        { type: "expected", description: "ระบบยกเลิก approvals ที่ pending ทั้งหมด, สถานะ PR เปลี่ยนเป็น 'Cancelled', คืน budget ถ้ามีการ reserve, ส่งการแจ้งเตือน และแสดงข้อความยืนยัน" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1016,13 +1016,13 @@ requestorTest.describe("PR — Attachments", () => {
     "TC-PR-090001 Happy Path - Add Valid Attachment",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor with an existing PR open" },
+        { type: "preconditions", description: "Login เป็น Requestor และมี PR ที่เปิดอยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Attachments' section\n3. Click 'Add Attachment'\n4. Click file picker\n5. Select valid file\n6. Verify file size and type are validated\n7. Fill 'Description' field\n8. Select 'Quote' as attachment type\n9. Click 'Upload'\n10. Verify upload progress\n11. Verify file is uploaded to storage\n12. Verify attachment record is created in database\n13. Verify activity is logged\n14. Verify success message is displayed\n15. Verify updated attachments list",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกส่วน 'Attachments'\n3. กด 'Add Attachment'\n4. คลิก file picker\n5. เลือกไฟล์ที่ถูกต้อง\n6. ตรวจสอบว่าขนาดและประเภทไฟล์ถูก validate\n7. กรอกฟิลด์ 'Description'\n8. เลือก 'Quote' เป็นประเภท attachment\n9. กด 'Upload'\n10. ตรวจสอบ upload progress\n11. ตรวจสอบว่าไฟล์ถูก upload ไปที่ storage\n12. ตรวจสอบว่าสร้าง attachment record ในฐานข้อมูล\n13. ตรวจสอบว่า activity ถูกบันทึก\n14. ตรวจสอบว่าแสดงข้อความสำเร็จ\n15. ตรวจสอบรายการ attachments ที่อัปเดตแล้ว",
         },
-        { type: "expected", description: "Attachment is successfully added and displayed." },
+        { type: "expected", description: "Attachment ถูกเพิ่มและแสดงผลสำเร็จ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1051,13 +1051,13 @@ requestorTest.describe("PR — Attachments", () => {
     "TC-PR-090002 Negative - Invalid File Type",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor with an existing PR open" },
+        { type: "preconditions", description: "Login เป็น Requestor และมี PR ที่เปิดอยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Attachments' section\n3. Click 'Add Attachment'\n4. Click file picker\n5. Select invalid file type (e.g., .exe)\n6. Verify system validation error message\n7. Close file picker",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกส่วน 'Attachments'\n3. กด 'Add Attachment'\n4. คลิก file picker\n5. เลือกประเภทไฟล์ที่ไม่ถูกต้อง (เช่น .exe)\n6. ตรวจสอบข้อความ error จาก validation ของระบบ\n7. ปิด file picker",
         },
-        { type: "expected", description: "Invalid file type is rejected with an error message." },
+        { type: "expected", description: "ประเภทไฟล์ที่ไม่ถูกต้องถูกปฏิเสธพร้อมข้อความ error" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -1071,13 +1071,13 @@ requestorTest.describe("PR — Attachments", () => {
     "TC-PR-090003 Edge Case - Maximum File Size Exceeded",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor with an existing PR open. Maximum file size limit is known." },
+        { type: "preconditions", description: "Login เป็น Requestor และมี PR ที่เปิดอยู่ ทราบขีดจำกัดขนาดไฟล์สูงสุด" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Attachments' section\n3. Click 'Add Attachment'\n4. Click file picker\n5. Select file that exceeds maximum size limit\n6. Verify system validation error message\n7. Close file picker",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกส่วน 'Attachments'\n3. กด 'Add Attachment'\n4. คลิก file picker\n5. เลือกไฟล์ที่เกินขีดจำกัดขนาดสูงสุด\n6. ตรวจสอบข้อความ error จาก validation ของระบบ\n7. ปิด file picker",
         },
-        { type: "expected", description: "File size exceeds maximum limit and is rejected with an error message." },
+        { type: "expected", description: "ขนาดไฟล์เกินขีดจำกัดสูงสุดและถูกปฏิเสธพร้อมข้อความ error" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1093,13 +1093,13 @@ hodTest.describe("PR — Attachments — Permission denial", () => {
     "TC-PR-090004 Negative - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Department Manager with an existing PR open" },
+        { type: "preconditions", description: "Login เป็น Department Manager และมี PR ที่เปิดอยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Attachments' section\n3. Click 'Add Attachment'\n4. Click file picker\n5. Select valid file\n6. Verify system validation error message about no permission",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกส่วน 'Attachments'\n3. กด 'Add Attachment'\n4. คลิก file picker\n5. เลือกไฟล์ที่ถูกต้อง\n6. ตรวจสอบข้อความ error จาก validation เกี่ยวกับการไม่มีสิทธิ์",
         },
-        { type: "expected", description: "Department Manager does not have permission to add attachments." },
+        { type: "expected", description: "Department Manager ไม่มีสิทธิ์ในการเพิ่ม attachments" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1129,13 +1129,13 @@ requestorTest.describe("PR — Comments", () => {
     "TC-PR-400002 Negative - Empty Comment",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor and has a PR created" },
+        { type: "preconditions", description: "Login เป็น Requestor และมี PR ที่สร้างแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Add Comment'\n3. Fill comment text ''\n4. Click 'Post Comment'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Add Comment'\n3. กรอกข้อความ comment เป็น ''\n4. กด 'Post Comment'",
         },
-        { type: "expected", description: "Validation error is shown and comment is not posted. Page remains on comments section." },
+        { type: "expected", description: "แสดง validation error และไม่ส่ง comment, หน้ายังคงอยู่ที่ส่วน comments" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -1162,13 +1162,13 @@ requestorTest.describe("PR — Comments", () => {
     "TC-PR-400003 Edge Case - Comment Length Limit",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor and has a PR created" },
+        { type: "preconditions", description: "Login เป็น Requestor และมี PR ที่สร้างแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Add Comment'\n3. Fill comment text 'a'. Repeat this process 2001 times\n4. Click 'Post Comment'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Add Comment'\n3. กรอกข้อความ comment เป็น 'a' ทำซ้ำ 2001 ครั้ง\n4. กด 'Post Comment'",
         },
-        { type: "expected", description: "Validation error is shown stating comment exceeds maximum length. Comment is not posted. Page remains on comments section." },
+        { type: "expected", description: "แสดง validation error ว่า comment เกินความยาวสูงสุด, ไม่ส่ง comment, หน้ายังคงอยู่ที่ส่วน comments" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1199,9 +1199,9 @@ fcTest.describe("PR — Comments — Permission denial", () => {
     "TC-PR-400004 Negative - No Permission to Add Comment",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Finance Manager (FC) and has a PR created" },
-        { type: "steps", description: "1. Navigate to /procurement/purchase-request\n2. Click 'Add Comment'" },
-        { type: "expected", description: "Error message is shown stating user does not have permission to add a comment. Page remains on comments section." },
+        { type: "preconditions", description: "Login เป็น Finance Manager (FC) และมี PR ที่สร้างแล้ว" },
+        { type: "steps", description: "1. ไปที่ /procurement/purchase-request\n2. กด 'Add Comment'" },
+        { type: "expected", description: "แสดงข้อความ error ว่าผู้ใช้ไม่มีสิทธิ์เพิ่ม comment, หน้ายังคงอยู่ที่ส่วน comments" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -1231,13 +1231,13 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
     "TC-PR-410001 Happy Path: Convert Approved PR to PO",
     {
       annotation: [
-        { type: "preconditions", description: "An approved PR exists in the system" },
+        { type: "preconditions", description: "มี PR ที่ approved อยู่ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Convert to PO'\n3. Fill 'Vendor' field\n4. Adjust 'Delivery Date'\n5. Click 'Create PO'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Convert to PO'\n3. กรอกฟิลด์ 'Vendor'\n4. ปรับ 'Delivery Date'\n5. กด 'Create PO'",
         },
-        { type: "expected", description: "PO is created with PR data, PR status changes to 'Completed', notification sent to creator, success message displayed." },
+        { type: "expected", description: "PO ถูกสร้างด้วยข้อมูลจาก PR, สถานะ PR เปลี่ยนเป็น 'Completed', ส่งการแจ้งเตือนถึงผู้สร้าง, แสดงข้อความสำเร็จ" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1260,13 +1260,13 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
     "TC-PR-410002 Negative: Invalid Vendor",
     {
       annotation: [
-        { type: "preconditions", description: "An approved PR exists in the system" },
+        { type: "preconditions", description: "มี PR ที่ approved อยู่ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Convert to PO'\n3. Fill 'Vendor' field with invalid input\n4. Click 'Create PO'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Convert to PO'\n3. กรอกฟิลด์ 'Vendor' ด้วยข้อมูลที่ไม่ถูกต้อง\n4. กด 'Create PO'",
         },
-        { type: "expected", description: "Error message displayed, PO not created, PR status remains unchanged, no notification sent." },
+        { type: "expected", description: "แสดงข้อความ error, ไม่สร้าง PO, สถานะ PR ไม่เปลี่ยนแปลง, ไม่ส่งการแจ้งเตือน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1293,9 +1293,9 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
     "TC-PR-410003 Edge Case: PR with No Delivery Date",
     {
       annotation: [
-        { type: "preconditions", description: "An approved PR exists in the system with no delivery date" },
-        { type: "steps", description: "1. Navigate to /procurement/purchase-request\n2. Click 'Convert to PO'\n3. Click 'Create PO'" },
-        { type: "expected", description: "PO is created with default delivery date from PR, PR status changes to 'Completed', notification sent to creator, success message displayed." },
+        { type: "preconditions", description: "มี PR ที่ approved อยู่ในระบบโดยไม่มี delivery date" },
+        { type: "steps", description: "1. ไปที่ /procurement/purchase-request\n2. กด 'Convert to PO'\n3. กด 'Create PO'" },
+        { type: "expected", description: "PO ถูกสร้างด้วย delivery date default จาก PR, สถานะ PR เปลี่ยนเป็น 'Completed', ส่งการแจ้งเตือนถึงผู้สร้าง, แสดงข้อความสำเร็จ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1319,9 +1319,9 @@ requestorTest.describe("PR — Convert to PO — Permission denial", () => {
     "TC-PR-410004 Negative: No Permission to Convert PR",
     {
       annotation: [
-        { type: "preconditions", description: "An approved PR exists; only purchasing staff can convert PRs" },
-        { type: "steps", description: "1. Navigate to /procurement/purchase-request\n2. Click 'Convert to PO'" },
-        { type: "expected", description: "Access denied message displayed, PR status remains unchanged, no PO created, no notification sent." },
+        { type: "preconditions", description: "มี PR ที่ approved; เฉพาะ purchasing staff เท่านั้นที่สามารถแปลง PR ได้" },
+        { type: "steps", description: "1. ไปที่ /procurement/purchase-request\n2. กด 'Convert to PO'" },
+        { type: "expected", description: "แสดงข้อความ access denied, สถานะ PR ไม่เปลี่ยนแปลง, ไม่สร้าง PO, ไม่ส่งการแจ้งเตือน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1351,13 +1351,13 @@ requestorTest.describe("PR — Inventory snapshot", () => {
     "TC-PR-420001 Happy Path - View Inventory and Add Item with Suggested Price",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor with permission to create purchase requests" },
+        { type: "preconditions", description: "Login เป็น Requestor ที่มีสิทธิ์สร้าง purchase requests" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Click 'Add Line Item'\n4. Search for 'Chicken Breast'\n5. Verify inventory panel displays correct quantities and prices\n6. Enter requested quantity: 20 kg\n7. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. กด 'Add Line Item'\n4. ค้นหา 'Chicken Breast'\n5. ตรวจสอบว่า inventory panel แสดง quantities และ prices ที่ถูกต้อง\n6. กรอก quantity ที่ต้องการ: 20 kg\n7. กด 'Save'",
         },
-        { type: "expected", description: "Line item is added with correct inventory snapshot and suggested price." },
+        { type: "expected", description: "Line item ถูกเพิ่มพร้อม inventory snapshot ที่ถูกต้องและราคาที่แนะนำ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1374,13 +1374,13 @@ requestorTest.describe("PR — Inventory snapshot", () => {
     "TC-PR-420002 Negative - No Inventory Data Available",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor with permission to create purchase requests" },
+        { type: "preconditions", description: "Login เป็น Requestor ที่มีสิทธิ์สร้าง purchase requests" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Click 'Add Line Item'\n4. Search for 'Nonexistent Product'\n5. Verify no inventory panel is displayed",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. กด 'Add Line Item'\n4. ค้นหา 'Nonexistent Product'\n5. ตรวจสอบว่าไม่มี inventory panel แสดงผล",
         },
-        { type: "expected", description: "Inventory panel does not display any data or warnings for nonexistent product." },
+        { type: "expected", description: "Inventory panel ไม่แสดงข้อมูลหรือคำเตือนสำหรับ product ที่ไม่มีอยู่" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1399,13 +1399,13 @@ requestorTest.describe("PR — Inventory snapshot", () => {
     "TC-PR-420003 Edge Case - Below Reorder Point",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor with permission to create purchase requests" },
+        { type: "preconditions", description: "Login เป็น Requestor ที่มีสิทธิ์สร้าง purchase requests" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Click 'Add Line Item'\n4. Search for 'Beef'\n5. Verify inventory panel shows '⚠️ Below reorder point'\n6. Enter requested quantity: 50 kg",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. กด 'Add Line Item'\n4. ค้นหา 'Beef'\n5. ตรวจสอบว่า inventory panel แสดง '⚠️ Below reorder point'\n6. กรอก quantity ที่ต้องการ: 50 kg",
         },
-        { type: "expected", description: "System alerts user that the quantity requested is below the reorder point and suggests the suggested reorder quantity." },
+        { type: "expected", description: "ระบบแจ้งเตือนผู้ใช้ว่า quantity ที่ขอต่ำกว่า reorder point และแนะนำ reorder quantity" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1427,13 +1427,13 @@ purchaseTest.describe("PR — Save as Template — Feature pending", () => {
     "TC-PR-430001 Create Template from Existing PR",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Purchasing Staff and has access to PR-2501-0042" },
+        { type: "preconditions", description: "Login เป็น Purchasing Staff และมีสิทธิ์เข้าถึง PR-2501-0042" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Open' on PR-2501-0042\n3. Click 'Save as Template' button\n4. Fill 'Template Name' with 'Weekly Market List - Vegetables'\n5. Select 'Market List' as Template Type\n6. Fill 'Description' with 'Standard weekly order for fresh vegetables'\n7. Click 'Create Template'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Open' บน PR-2501-0042\n3. กดปุ่ม 'Save as Template'\n4. กรอก 'Template Name' ด้วย 'Weekly Market List - Vegetables'\n5. เลือก 'Market List' เป็น Template Type\n6. กรอก 'Description' ด้วย 'Standard weekly order for fresh vegetables'\n7. กด 'Create Template'",
         },
-        { type: "expected", description: "Template is created successfully, with items copied from PR-2501-0042." },
+        { type: "expected", description: "Template ถูกสร้างสำเร็จพร้อม items ที่คัดลอกจาก PR-2501-0042" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -1446,13 +1446,13 @@ purchaseTest.describe("PR — Save as Template — Feature pending", () => {
     "TC-PR-430002 Duplicate Template Name",
     {
       annotation: [
-        { type: "preconditions", description: "A template named 'Weekly Market List - Vegetables' already exists in the user's department" },
+        { type: "preconditions", description: "มี template ชื่อ 'Weekly Market List - Vegetables' อยู่ในแผนกของผู้ใช้แล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Save as Template' on PR-2501-0042\n3. Fill 'Template Name' with 'Weekly Market List - Vegetables'\n4. Click 'Create Template'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Save as Template' บน PR-2501-0042\n3. กรอก 'Template Name' ด้วย 'Weekly Market List - Vegetables'\n4. กด 'Create Template'",
         },
-        { type: "expected", description: "System displays an error message stating 'A template with this name already exists in your department'. Suggests adding a date or version number to the name." },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่า 'A template with this name already exists in your department' และแนะนำให้เพิ่มวันที่หรือหมายเลข version ในชื่อ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -1465,13 +1465,13 @@ purchaseTest.describe("PR — Save as Template — Feature pending", () => {
     "TC-PR-430003 Create Organization-Wide Template",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Purchasing Staff and has permission to create organization-wide templates" },
+        { type: "preconditions", description: "Login เป็น Purchasing Staff และมีสิทธิ์สร้าง organization-wide templates" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Save as Template' on PR-2501-0042\n3. Select 'Organization Wide' as Visibility\n4. Click 'Create Template'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Save as Template' บน PR-2501-0042\n3. เลือก 'Organization Wide' เป็น Visibility\n4. กด 'Create Template'",
         },
-        { type: "expected", description: "Template is created with a status of 'Pending Approval', and a note is displayed indicating the template requires purchasing manager approval." },
+        { type: "expected", description: "Template ถูกสร้างพร้อมสถานะ 'Pending Approval' และแสดงหมายเหตุว่า template ต้องการการ approve จาก purchasing manager" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -1484,13 +1484,13 @@ purchaseTest.describe("PR — Save as Template — Feature pending", () => {
     "TC-PR-430004 Invalid Template Name",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Purchasing Staff" },
+        { type: "preconditions", description: "Login เป็น Purchasing Staff" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Save as Template' on PR-2501-0042\n3. Fill 'Template Name' with a name less than 3 characters\n4. Click 'Create Template'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Save as Template' บน PR-2501-0042\n3. กรอก 'Template Name' ด้วยชื่อที่มีความยาวน้อยกว่า 3 ตัวอักษร\n4. กด 'Create Template'",
         },
-        { type: "expected", description: "System displays an error message stating 'Template name must be between 3 and 100 characters.'" },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่า 'Template name must be between 3 and 100 characters.'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -1503,13 +1503,13 @@ purchaseTest.describe("PR — Save as Template — Feature pending", () => {
     "TC-PR-430005 No Line Items Included",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Purchasing Staff and has access to PR-2501-0042" },
+        { type: "preconditions", description: "Login เป็น Purchasing Staff และมีสิทธิ์เข้าถึง PR-2501-0042" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Save as Template' on PR-2501-0042\n3. Uncheck 'Include all line items'\n4. Click 'Create Template'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Save as Template' บน PR-2501-0042\n3. ยกเลิกการเลือก 'Include all line items'\n4. กด 'Create Template'",
         },
-        { type: "expected", description: "System displays an error message stating 'At least one line item must be included in the template.'" },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่า 'At least one line item must be included in the template.'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -1527,13 +1527,13 @@ requestorTest.describe("PR — Pricing visibility", () => {
     "TC-PR-440001 Happy Path - Create PR with Visible Prices",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor; PR System is operational; Inventory API is available" },
+        { type: "preconditions", description: "Login เป็น Requestor; ระบบ PR พร้อมใช้งาน; Inventory API พร้อมใช้งาน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Fill in 'Department' (auto-filled)\n4. Set 'Delivery Date' to future date\n5. Fill in 'Description'\n6. Fill in 'Justification'\n7. Click 'Add Item'\n8. Search and select 'Product'\n9. Verify 'On-Hand' and 'On-Order' quantities are displayed\n10. Fill in 'Quantity', 'Unit of Measure', 'Vendor Name'\n11. Fill in 'Unit Price', 'Discount', 'Tax Rate'\n12. Click 'Save'\n13. Repeat steps 7-12 for additional items\n14. Submit PR",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. กรอก 'Department' (auto-fill)\n4. ตั้ง 'Delivery Date' เป็นวันที่ในอนาคต\n5. กรอก 'Description'\n6. กรอก 'Justification'\n7. กด 'Add Item'\n8. ค้นหาและเลือก 'Product'\n9. ตรวจสอบว่า 'On-Hand' และ 'On-Order' quantities แสดงผล\n10. กรอก 'Quantity', 'Unit of Measure', 'Vendor Name'\n11. กรอก 'Unit Price', 'Discount', 'Tax Rate'\n12. กด 'Save'\n13. ทำซ้ำขั้นตอน 7-12 สำหรับรายการเพิ่มเติม\n14. submit PR",
         },
-        { type: "expected", description: "PR is created with all fields validated, auto-calculated amounts correct, and PR status set to 'Pending Approval'. Confirmation message with PR reference number is displayed." },
+        { type: "expected", description: "PR ถูกสร้างพร้อม validate ทุกฟิลด์, คำนวณยอดเงินอัตโนมัติถูกต้อง และสถานะ PR ตั้งเป็น 'Pending Approval', แสดงข้อความยืนยันพร้อมหมายเลขอ้างอิง PR" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1553,13 +1553,13 @@ requestorTest.describe("PR — Pricing visibility", () => {
     "TC-PR-440002 Negative Case - Invalid Delivery Date",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor; PR System is operational; Inventory API is available" },
+        { type: "preconditions", description: "Login เป็น Requestor; ระบบ PR พร้อมใช้งาน; Inventory API พร้อมใช้งาน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Fill in 'Department' (auto-filled)\n4. Set 'Delivery Date' to past date\n5. Fill in 'Description'\n6. Fill in 'Justification'\n7. Click 'Add Item'\n8. Search and select 'Product'\n9. Verify 'On-Hand' and 'On-Order' quantities are displayed\n10. Fill in 'Quantity', 'Unit of Measure', 'Vendor Name'\n11. Fill in 'Unit Price', 'Discount', 'Tax Rate'\n12. Click 'Save'\n13. Repeat steps 7-12 for additional items\n14. Attempt to Submit PR",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. กรอก 'Department' (auto-fill)\n4. ตั้ง 'Delivery Date' เป็นวันที่ในอดีต\n5. กรอก 'Description'\n6. กรอก 'Justification'\n7. กด 'Add Item'\n8. ค้นหาและเลือก 'Product'\n9. ตรวจสอบว่า 'On-Hand' และ 'On-Order' quantities แสดงผล\n10. กรอก 'Quantity', 'Unit of Measure', 'Vendor Name'\n11. กรอก 'Unit Price', 'Discount', 'Tax Rate'\n12. กด 'Save'\n13. ทำซ้ำขั้นตอน 7-12 สำหรับรายการเพิ่มเติม\n14. พยายาม submit PR",
         },
-        { type: "expected", description: "System displays validation error for 'Delivery Date' field. PR cannot be submitted with a past date." },
+        { type: "expected", description: "ระบบแสดง validation error สำหรับฟิลด์ 'Delivery Date', PR ไม่สามารถ submit ด้วยวันที่ในอดีต" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1578,13 +1578,13 @@ requestorTest.describe("PR — Pricing visibility", () => {
     "TC-PR-440004 Negative Case - Hide Price with Invalid Toggle",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor; PR System is operational; Inventory API is available" },
+        { type: "preconditions", description: "Login เป็น Requestor; ระบบ PR พร้อมใช้งาน; Inventory API พร้อมใช้งาน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Fill in 'Department' (auto-filled)\n4. Set 'Delivery Date' to future date\n5. Fill in 'Description'\n6. Fill in 'Justification'\n7. Toggle 'Hide Price' to 'true'\n8. Click 'Add Item'\n9. Search and select 'Product'\n10. Verify 'On-Hand' and 'On-Order' quantities are displayed\n11. Fill in 'Quantity', 'Unit of Measure', 'Vendor Name'\n12. Attempt to fill in 'Unit Price', 'Discount', 'Tax Rate'\n13. Submit PR",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. กรอก 'Department' (auto-fill)\n4. ตั้ง 'Delivery Date' เป็นวันที่ในอนาคต\n5. กรอก 'Description'\n6. กรอก 'Justification'\n7. Toggle 'Hide Price' เป็น 'true'\n8. กด 'Add Item'\n9. ค้นหาและเลือก 'Product'\n10. ตรวจสอบว่า 'On-Hand' และ 'On-Order' quantities แสดงผล\n11. กรอก 'Quantity', 'Unit of Measure', 'Vendor Name'\n12. พยายามกรอก 'Unit Price', 'Discount', 'Tax Rate'\n13. submit PR",
         },
-        { type: "expected", description: "System displays validation error for 'Unit Price', 'Discount', 'Tax Rate' fields. PR cannot be submitted with hidden prices." },
+        { type: "expected", description: "ระบบแสดง validation error สำหรับฟิลด์ 'Unit Price', 'Discount', 'Tax Rate', PR ไม่สามารถ submit ด้วยราคาที่ซ่อน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1607,13 +1607,13 @@ requestorTest.describe("PR — Delivery details", () => {
     "TC-PR-450001 Happy Path - Create PR with Full Delivery Details",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor with permissions to create PRs" },
+        { type: "preconditions", description: "Login เป็น Requestor ที่มีสิทธิ์สร้าง PR" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Create New'\n3. Fill in header fields (Department, Delivery Date, Description, Justification)\n4. Click 'Add Item'\n5. Fill in item fields (Product, Quantity, UOM, Vendor, Pricing)\n6. Expand 'Item Details' section\n7. Enter comment: 'Deliver to back kitchen entrance, handle with care, keep refrigerated'\n8. Select required date: 2025-02-15\n9. Select delivery point: DOCK-A - Main Kitchen Loading Dock\n10. Review all items with delivery details summary\n11. Submit PR",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Create New'\n3. กรอก header fields (Department, Delivery Date, Description, Justification)\n4. กด 'Add Item'\n5. กรอก item fields (Product, Quantity, UOM, Vendor, Pricing)\n6. ขยายส่วน 'Item Details'\n7. กรอก comment: 'Deliver to back kitchen entrance, handle with care, keep refrigerated'\n8. เลือก required date: 2025-02-15\n9. เลือก delivery point: DOCK-A - Main Kitchen Loading Dock\n10. ตรวจสอบรายการทั้งหมดพร้อมสรุป delivery details\n11. submit PR",
         },
-        { type: "expected", description: "PR is created with all delivery details and saved with status = 'Pending Approval'" },
+        { type: "expected", description: "PR ถูกสร้างพร้อม delivery details ทั้งหมดและบันทึกด้วยสถานะ = 'Pending Approval'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1632,13 +1632,13 @@ requestorTest.describe("PR — Delivery details", () => {
     "TC-PR-450002 Negative - Invalid Required Date",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor with permissions to create PRs" },
+        { type: "preconditions", description: "Login เป็น Requestor ที่มีสิทธิ์สร้าง PR" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Create New'\n3. Fill in header fields\n4. Click 'Add Item'\n5. Fill in item fields\n6. Expand 'Item Details' section\n7. Enter comment\n8. Select required date: 2024-02-15 (past date)\n9. Try to select delivery point\n10. Submit PR",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Create New'\n3. กรอก header fields\n4. กด 'Add Item'\n5. กรอก item fields\n6. ขยายส่วน 'Item Details'\n7. กรอก comment\n8. เลือก required date: 2024-02-15 (วันที่ในอดีต)\n9. พยายามเลือก delivery point\n10. submit PR",
         },
-        { type: "expected", description: "System displays error message: 'Required date must be on or after today'" },
+        { type: "expected", description: "ระบบแสดงข้อความ error: 'Required date must be on or after today'" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -1657,13 +1657,13 @@ requestorTest.describe("PR — Delivery details", () => {
     "TC-PR-450003 Edge Case - Long Comment",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor with permissions to create PRs" },
+        { type: "preconditions", description: "Login เป็น Requestor ที่มีสิทธิ์สร้าง PR" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Create New'\n3. Fill in header fields\n4. Click 'Add Item'\n5. Fill in item fields\n6. Expand 'Item Details' section\n7. Enter comment: 'a' repeated 500 times\n8. Verify character counter: '500/500'\n9. Select required date\n10. Submit PR",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Create New'\n3. กรอก header fields\n4. กด 'Add Item'\n5. กรอก item fields\n6. ขยายส่วน 'Item Details'\n7. กรอก comment: 'a' ซ้ำ 500 ครั้ง\n8. ตรวจสอบตัวนับตัวอักษร: '500/500'\n9. เลือก required date\n10. submit PR",
         },
-        { type: "expected", description: "PR is created with long comment and saved with status = 'Pending Approval'" },
+        { type: "expected", description: "PR ถูกสร้างพร้อม comment ที่ยาวและบันทึกด้วยสถานะ = 'Pending Approval'" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1683,13 +1683,13 @@ fcTest.describe("PR — Delivery details — Permission denial", () => {
     "TC-PR-450004 Negative - No Permission to Submit PR",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Budget Manager with no permission to submit PRs" },
+        { type: "preconditions", description: "Login เป็น Budget Manager ที่ไม่มีสิทธิ์ submit PR" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Create New'\n3. Fill in header fields\n4. Click 'Add Item'\n5. Fill in item fields\n6. Expand 'Item Details'\n7. Enter comment\n8. Select required date\n9. Select delivery point\n10. Review items with delivery details\n11. Attempt to submit PR",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Create New'\n3. กรอก header fields\n4. กด 'Add Item'\n5. กรอก item fields\n6. ขยาย 'Item Details'\n7. กรอก comment\n8. เลือก required date\n9. เลือก delivery point\n10. ตรวจสอบรายการพร้อม delivery details\n11. พยายาม submit PR",
         },
-        { type: "expected", description: "System displays error message: 'User does not have permission to submit purchase requests'" },
+        { type: "expected", description: "ระบบแสดงข้อความ error: 'User does not have permission to submit purchase requests'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1716,13 +1716,13 @@ hodTest.describe("PR — Approve detail review", () => {
     "TC-PR-460001 Approve PR with FOC and full pricing visibility",
     {
       annotation: [
-        { type: "preconditions", description: "A PR with FOC and detailed pricing information has been created and is pending approval" },
+        { type: "preconditions", description: "มี PR ที่มี FOC และข้อมูล pricing ครบถ้วนถูกสร้างและรอ approval" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-requests/my-approvals\n2. Click on PR-2501-0001\n3. Verify all header fields are visible\n4. Verify FOC quantities are visible\n5. Verify vendor names are visible\n6. Verify net amount calculations are correct\n7. Verify tax rates and amounts are calculated\n8. Verify delivery details are visible\n9. Verify override amounts are highlighted\n10. Click on 'Approve' button\n11. Enter optional approval comment\n12. Confirm approval action\n13. Verify PR status changes to 'Approved'",
+            "1. ไปที่ /procurement/purchase-requests/my-approvals\n2. คลิก PR-2501-0001\n3. ตรวจสอบว่า header fields ทั้งหมด visible\n4. ตรวจสอบว่า FOC quantities visible\n5. ตรวจสอบว่าชื่อ vendor visible\n6. ตรวจสอบว่าการคำนวณ net amount ถูกต้อง\n7. ตรวจสอบว่า tax rates และ amounts คำนวณถูกต้อง\n8. ตรวจสอบว่า delivery details visible\n9. ตรวจสอบว่า override amounts ถูก highlight\n10. กดปุ่ม 'Approve'\n11. กรอก approval comment (ไม่บังคับ)\n12. ยืนยันการ approve\n13. ตรวจสอบว่าสถานะ PR เปลี่ยนเป็น 'Approved'",
         },
-        { type: "expected", description: "PR is approved and status changes to 'Approved'" },
+        { type: "expected", description: "PR ถูก approve และสถานะเปลี่ยนเป็น 'Approved'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1745,13 +1745,13 @@ hodTest.describe("PR — Approve detail review", () => {
     "TC-PR-460003 Return PR for revision with FOC and full pricing visibility",
     {
       annotation: [
-        { type: "preconditions", description: "A PR with FOC and detailed pricing information has been created and is pending approval" },
+        { type: "preconditions", description: "มี PR ที่มี FOC และข้อมูล pricing ครบถ้วนถูกสร้างและรอ approval" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-requests/my-approvals\n2. Click on PR-2501-0001\n3. Verify all header fields are visible\n4. Verify FOC quantities are visible\n5. Verify vendor names are visible\n6. Verify net amount calculations are correct\n7. Verify tax rates and amounts are calculated\n8. Verify delivery details are visible\n9. Enter required return comment\n10. Click on 'Return for Revision' button\n11. Enter required return comment\n12. Confirm return action\n13. Verify PR status changes to 'Returned for Revision'",
+            "1. ไปที่ /procurement/purchase-requests/my-approvals\n2. คลิก PR-2501-0001\n3. ตรวจสอบว่า header fields ทั้งหมด visible\n4. ตรวจสอบว่า FOC quantities visible\n5. ตรวจสอบว่าชื่อ vendor visible\n6. ตรวจสอบว่าการคำนวณ net amount ถูกต้อง\n7. ตรวจสอบว่า tax rates และ amounts คำนวณถูกต้อง\n8. ตรวจสอบว่า delivery details visible\n9. กรอก return comment ที่บังคับ\n10. กดปุ่ม 'Return for Revision'\n11. กรอก return comment ที่บังคับ\n12. ยืนยันการส่งคืน\n13. ตรวจสอบว่าสถานะ PR เปลี่ยนเป็น 'Returned for Revision'",
         },
-        { type: "expected", description: "PR is returned for revision and status changes to 'Returned for Revision'" },
+        { type: "expected", description: "PR ถูกส่งคืนเพื่อแก้ไขและสถานะเปลี่ยนเป็น 'Returned for Revision'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1775,13 +1775,13 @@ hodTest.describe("PR — Approve detail review", () => {
     "TC-PR-460004 Approve PR with hidden prices",
     {
       annotation: [
-        { type: "preconditions", description: "A PR with FOC and detailed pricing, with hide_price=true, has been created and is pending approval" },
+        { type: "preconditions", description: "มี PR ที่มี FOC และ pricing ครบถ้วน พร้อม hide_price=true ถูกสร้างและรอ approval" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-requests/my-approvals\n2. Click on PR-2501-0001\n3. Verify 'Requestor chose to hide prices' badge is visible\n4. Verify vendor names are visible\n5. Verify net amount calculations are correct\n6. Verify tax rates and amounts are calculated\n7. Verify delivery details are visible\n8. Click on 'Approve' button\n9. Enter optional approval comment\n10. Confirm approval action\n11. Verify PR status changes to 'Approved'",
+            "1. ไปที่ /procurement/purchase-requests/my-approvals\n2. คลิก PR-2501-0001\n3. ตรวจสอบว่า badge 'Requestor chose to hide prices' visible\n4. ตรวจสอบว่าชื่อ vendor visible\n5. ตรวจสอบว่าการคำนวณ net amount ถูกต้อง\n6. ตรวจสอบว่า tax rates และ amounts คำนวณถูกต้อง\n7. ตรวจสอบว่า delivery details visible\n8. กดปุ่ม 'Approve'\n9. กรอก approval comment (ไม่บังคับ)\n10. ยืนยันการ approve\n11. ตรวจสอบว่าสถานะ PR เปลี่ยนเป็น 'Approved'",
         },
-        { type: "expected", description: "PR is approved and status changes to 'Approved' despite hidden prices" },
+        { type: "expected", description: "PR ถูก approve และสถานะเปลี่ยนเป็น 'Approved' แม้ราคาจะถูกซ่อน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1804,13 +1804,13 @@ hodTest.describe("PR — Approve detail review", () => {
     "TC-PR-460005 Approve PR with override amounts over 20%",
     {
       annotation: [
-        { type: "preconditions", description: "A PR with FOC, detailed pricing and override amounts >20% has been created and is pending approval" },
+        { type: "preconditions", description: "มี PR ที่มี FOC, pricing ครบถ้วนและ override amounts >20% ถูกสร้างและรอ approval" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-requests/my-approvals\n2. Click on PR-2501-0001\n3. Verify all header fields are visible\n4. Verify FOC quantities are visible\n5. Verify vendor names are visible\n6. Verify net amount calculations are correct\n7. Verify tax rates and amounts are calculated\n8. Verify override amounts are highlighted\n9. Verify override amounts exceed 20%\n10. Click on 'Approve' button\n11. Enter optional approval comment\n12. Confirm approval action\n13. Verify PR status changes to 'Approved'",
+            "1. ไปที่ /procurement/purchase-requests/my-approvals\n2. คลิก PR-2501-0001\n3. ตรวจสอบว่า header fields ทั้งหมด visible\n4. ตรวจสอบว่า FOC quantities visible\n5. ตรวจสอบว่าชื่อ vendor visible\n6. ตรวจสอบว่าการคำนวณ net amount ถูกต้อง\n7. ตรวจสอบว่า tax rates และ amounts คำนวณถูกต้อง\n8. ตรวจสอบว่า override amounts ถูก highlight\n9. ตรวจสอบว่า override amounts เกิน 20%\n10. กดปุ่ม 'Approve'\n11. กรอก approval comment (ไม่บังคับ)\n12. ยืนยันการ approve\n13. ตรวจสอบว่าสถานะ PR เปลี่ยนเป็น 'Approved'",
         },
-        { type: "expected", description: "PR is approved and status changes to 'Approved' despite override amounts over 20%" },
+        { type: "expected", description: "PR ถูก approve และสถานะเปลี่ยนเป็น 'Approved' แม้ override amounts จะเกิน 20%" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1838,13 +1838,13 @@ purchaseTest.describe("PR — Edit pricing", () => {
     "TC-PR-470001 Happy Path - Valid Input",
     {
       annotation: [
-        { type: "preconditions", description: "Purchasing Staff has the necessary role; PR is created and item details are displayed" },
+        { type: "preconditions", description: "Purchasing Staff มี role ที่จำเป็น; PR ถูกสร้างและแสดงรายละเอียด item แล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Edit' on PR detail page\n3. Select valid vendor from dropdown\n4. Select correct currency\n5. Enter valid unit price\n6. Select applicable tax profile\n7. Enter valid discount rate\n8. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Edit' บนหน้ารายละเอียด PR\n3. เลือก vendor ที่ถูกต้องจาก dropdown\n4. เลือก currency ที่ถูกต้อง\n5. กรอก unit price ที่ถูกต้อง\n6. เลือก tax profile ที่ใช้งาน\n7. กรอก discount rate ที่ถูกต้อง\n8. กด 'Save'",
         },
-        { type: "expected", description: "PR item pricing information is updated successfully. System calculates and updates all financial totals, logs changes, and displays success message." },
+        { type: "expected", description: "ข้อมูล pricing ของ PR item อัปเดตสำเร็จ, ระบบคำนวณและอัปเดตยอดเงินทั้งหมด, บันทึกการเปลี่ยนแปลง และแสดงข้อความสำเร็จ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1867,13 +1867,13 @@ purchaseTest.describe("PR — Edit pricing", () => {
     "TC-PR-470003 Edge Case - Empty Discount Rate",
     {
       annotation: [
-        { type: "preconditions", description: "Purchasing Staff has the necessary role; PR is created and item details are displayed" },
+        { type: "preconditions", description: "Purchasing Staff มี role ที่จำเป็น; PR ถูกสร้างและแสดงรายละเอียด item แล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Edit' on PR detail page\n3. Enter valid vendor, currency, and unit price\n4. Leave discount rate empty\n5. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Edit' บนหน้ารายละเอียด PR\n3. กรอก vendor, currency และ unit price ที่ถูกต้อง\n4. ปล่อย discount rate ว่างไว้\n5. กด 'Save'",
         },
-        { type: "expected", description: "System calculates financial totals without discount, using unit price and any tax override. No error message is displayed, and PR is saved with correct pricing information." },
+        { type: "expected", description: "ระบบคำนวณยอดเงินโดยไม่มี discount โดยใช้ unit price และ tax override ถ้ามี, ไม่แสดงข้อความ error และบันทึก PR พร้อมข้อมูล pricing ที่ถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1895,13 +1895,13 @@ purchaseTest.describe("PR — Edit pricing", () => {
     "TC-PR-470005 Edge Case - No Tax Profile",
     {
       annotation: [
-        { type: "preconditions", description: "Purchasing Staff has the necessary role; PR is created and item details are displayed; no tax profile is assigned" },
+        { type: "preconditions", description: "Purchasing Staff มี role ที่จำเป็น; PR ถูกสร้างและแสดงรายละเอียด item แล้ว; ไม่มีการกำหนด tax profile" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Edit' on PR detail page\n3. Enter valid vendor, currency, and unit price\n4. Leave tax profile selection blank\n5. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Edit' บนหน้ารายละเอียด PR\n3. กรอก vendor, currency และ unit price ที่ถูกต้อง\n4. ปล่อยการเลือก tax profile ว่างไว้\n5. กด 'Save'",
         },
-        { type: "expected", description: "System calculates financial totals without tax, using unit price and any discount override. No error message is displayed, and PR is saved with correct pricing information." },
+        { type: "expected", description: "ระบบคำนวณยอดเงินโดยไม่มี tax โดยใช้ unit price และ discount override ถ้ามี, ไม่แสดงข้อความ error และบันทึก PR พร้อมข้อมูล pricing ที่ถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1928,13 +1928,13 @@ hodTest.describe("PR — Return for revision", () => {
     "TC-PR-480001 Return PR with valid reason",
     {
       annotation: [
-        { type: "preconditions", description: "Department Manager has pending PRs and access to return function" },
+        { type: "preconditions", description: "Department Manager มี pending PRs และมีสิทธิ์ใช้ฟังก์ชัน return" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Select pending PR\n3. Click 'Return' button\n4. Enter 'Reason for revision' with 15 characters\n5. Click 'Confirm Return'",
+            "1. ไปที่ /procurement/purchase-request\n2. เลือก PR ที่กำลัง pending\n3. กดปุ่ม 'Return'\n4. กรอก 'Reason for revision' ด้วยข้อความ 15 ตัวอักษร\n5. กด 'Confirm Return'",
         },
-        { type: "expected", description: "PR status updated to 'Returned', requestor notified, and PR detail updated." },
+        { type: "expected", description: "สถานะ PR อัปเดตเป็น 'Returned', แจ้ง requestor และอัปเดตรายละเอียด PR" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1958,13 +1958,13 @@ hodTest.describe("PR — Return for revision", () => {
     "TC-PR-480002 Return PR with empty reason",
     {
       annotation: [
-        { type: "preconditions", description: "Department Manager has pending PRs and access to return function" },
+        { type: "preconditions", description: "Department Manager มี pending PRs และมีสิทธิ์ใช้ฟังก์ชัน return" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Select pending PR\n3. Click 'Return' button\n4. Leave 'Reason for revision' field empty\n5. Click 'Confirm Return'",
+            "1. ไปที่ /procurement/purchase-request\n2. เลือก PR ที่กำลัง pending\n3. กดปุ่ม 'Return'\n4. ปล่อยฟิลด์ 'Reason for revision' ว่างไว้\n5. กด 'Confirm Return'",
         },
-        { type: "expected", description: "System validation error, requestor not notified, and PR status remains unchanged." },
+        { type: "expected", description: "ระบบแสดง validation error, ไม่แจ้ง requestor และสถานะ PR ไม่เปลี่ยนแปลง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1988,13 +1988,13 @@ hodTest.describe("PR — Return for revision", () => {
     "TC-PR-480003 Return PR with minimum 10 character reason",
     {
       annotation: [
-        { type: "preconditions", description: "Department Manager has pending PRs and access to return function" },
+        { type: "preconditions", description: "Department Manager มี pending PRs และมีสิทธิ์ใช้ฟังก์ชัน return" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Select pending PR\n3. Click 'Return' button\n4. Enter 'Reason for revision' with 10 characters\n5. Click 'Confirm Return'",
+            "1. ไปที่ /procurement/purchase-request\n2. เลือก PR ที่กำลัง pending\n3. กดปุ่ม 'Return'\n4. กรอก 'Reason for revision' ด้วยข้อความ 10 ตัวอักษร\n5. กด 'Confirm Return'",
         },
-        { type: "expected", description: "PR status updated to 'Returned', requestor notified, and PR detail updated." },
+        { type: "expected", description: "สถานะ PR อัปเดตเป็น 'Returned', แจ้ง requestor และอัปเดตรายละเอียด PR" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -2020,13 +2020,13 @@ fcTest.describe("PR — Return for revision — Permission denial", () => {
     "TC-PR-480004 Return PR with very high value and insufficient permissions",
     {
       annotation: [
-        { type: "preconditions", description: "Finance Manager has pending PRs and insufficient permissions to return" },
+        { type: "preconditions", description: "Finance Manager มี pending PRs และสิทธิ์ไม่เพียงพอในการ return" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Select pending PR\n3. Click 'Return' button\n4. Enter 'Reason for revision' with 15 characters\n5. Click 'Confirm Return'",
+            "1. ไปที่ /procurement/purchase-request\n2. เลือก PR ที่กำลัง pending\n3. กดปุ่ม 'Return'\n4. กรอก 'Reason for revision' ด้วยข้อความ 15 ตัวอักษร\n5. กด 'Confirm Return'",
         },
-        { type: "expected", description: "System error message, requestor not notified, and PR status remains unchanged." },
+        { type: "expected", description: "ระบบแสดงข้อความ error, ไม่แจ้ง requestor และสถานะ PR ไม่เปลี่ยนแปลง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -2056,13 +2056,13 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
     "TC-PR-490002 Submit PR with missing unit price",
     {
       annotation: [
-        { type: "preconditions", description: "Purchasing staff has completed vendor allocation and pricing for all items except unit price" },
+        { type: "preconditions", description: "Purchasing staff ได้กำหนด vendor และ pricing ครบทุก item ยกเว้น unit price" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Submit' button\n3. Verify validation error for missing unit price\n4. Fill in unit price and click 'Submit'",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Submit'\n3. ตรวจสอบ validation error สำหรับ unit price ที่ขาดหาย\n4. กรอก unit price และกด 'Submit'",
         },
-        { type: "expected", description: "PR record is updated with unit price, no further action required, confirmation dialog appears, next stage/recipient is Finance Manager, success message is displayed, PR detail page shows updated status." },
+        { type: "expected", description: "PR record อัปเดตด้วย unit price, ไม่ต้องดำเนินการเพิ่มเติม, dialog ยืนยันปรากฏ, ขั้นตอน/ผู้รับถัดไปคือ Finance Manager, แสดงข้อความสำเร็จ, หน้า PR detail แสดงสถานะที่อัปเดต" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -2085,13 +2085,13 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
     "TC-PR-490003 Submit PR with incomplete vendor selection",
     {
       annotation: [
-        { type: "preconditions", description: "Purchasing staff has completed vendor allocation and pricing for all items except vendor selection" },
+        { type: "preconditions", description: "Purchasing staff ได้กำหนด vendor และ pricing ครบทุก item ยกเว้นการเลือก vendor" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Submit' button\n3. Verify validation error for missing vendor selection\n4. Select vendor and click 'Submit'",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Submit'\n3. ตรวจสอบ validation error สำหรับการเลือก vendor ที่ขาดหาย\n4. เลือก vendor และกด 'Submit'",
         },
-        { type: "expected", description: "PR record is updated with vendor selection, no further action required, confirmation dialog appears, next stage/recipient is Finance Manager, success message is displayed, PR detail page shows updated status." },
+        { type: "expected", description: "PR record อัปเดตด้วยการเลือก vendor, ไม่ต้องดำเนินการเพิ่มเติม, dialog ยืนยันปรากฏ, ขั้นตอน/ผู้รับถัดไปคือ Finance Manager, แสดงข้อความสำเร็จ, หน้า PR detail แสดงสถานะที่อัปเดต" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -2114,13 +2114,13 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
     "TC-PR-490004 Submit PR with very high value",
     {
       annotation: [
-        { type: "preconditions", description: "Purchasing staff has completed vendor allocation and pricing for a very high-value item" },
+        { type: "preconditions", description: "Purchasing staff ได้กำหนด vendor และ pricing สำหรับ item มูลค่าสูงมาก" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Submit' button\n3. Verify confirmation dialog appears\n4. Verify next stage/recipient is General Manager\n5. Click 'Confirm Submit'",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Submit'\n3. ตรวจสอบว่า dialog ยืนยันปรากฏ\n4. ตรวจสอบว่าขั้นตอน/ผู้รับถัดไปคือ General Manager\n5. กด 'Confirm Submit'",
         },
-        { type: "expected", description: "PR record is updated to next stage, recipient is notified, submit activity is logged, success message is displayed, PR detail page shows updated status." },
+        { type: "expected", description: "PR record อัปเดตเป็นขั้นตอนถัดไป, แจ้งผู้รับ, บันทึก submit activity, แสดงข้อความสำเร็จ, หน้า PR detail แสดงสถานะที่อัปเดต" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -2144,13 +2144,13 @@ requestorTest.describe("PR — Submit after vendor allocation — Permission den
     "TC-PR-490005 Submit PR with no permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is not a purchasing staff" },
+        { type: "preconditions", description: "ผู้ใช้ไม่ใช่ purchasing staff" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Submit' button\n3. Verify error message indicating insufficient permission",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Submit'\n3. ตรวจสอบข้อความ error ว่าสิทธิ์ไม่เพียงพอ",
         },
-        { type: "expected", description: "Error message is displayed, PR record is not updated, no notifications sent, no activity logged in PR detail page." },
+        { type: "expected", description: "แสดงข้อความ error, PR record ไม่ถูกอัปเดต, ไม่ส่งการแจ้งเตือน, ไม่บันทึก activity ในหน้า PR detail" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -2180,13 +2180,13 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
     "TC-PR-600001 Happy Path - Reject Purchase Request with Valid Reason",
     {
       annotation: [
-        { type: "preconditions", description: "A PR exists; purchasing staff has the necessary role" },
+        { type: "preconditions", description: "มี PR อยู่; purchasing staff มี role ที่จำเป็น" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'View' on the relevant PR\n3. Click 'Reject' button\n4. Enter 'Items discontinued' as the rejection reason\n5. Click 'Confirm Rejection'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'View' บน PR ที่เกี่ยวข้อง\n3. กดปุ่ม 'Reject'\n4. กรอก 'Items discontinued' เป็นเหตุผลการ reject\n5. กด 'Confirm Rejection'",
         },
-        { type: "expected", description: "PR is updated to 'Void' status with a rejection timestamp, reason, and rejector." },
+        { type: "expected", description: "PR อัปเดตเป็นสถานะ 'Void' พร้อม rejection timestamp, เหตุผล และผู้ reject" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -2210,13 +2210,13 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
     "TC-PR-600002 Negative Case - Invalid Reason Length",
     {
       annotation: [
-        { type: "preconditions", description: "A PR exists; purchasing staff has the necessary role" },
+        { type: "preconditions", description: "มี PR อยู่; purchasing staff มี role ที่จำเป็น" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'View' on the relevant PR\n3. Click 'Reject' button\n4. Enter 'I' as the rejection reason\n5. Click 'Confirm Rejection'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'View' บน PR ที่เกี่ยวข้อง\n3. กดปุ่ม 'Reject'\n4. กรอก 'I' เป็นเหตุผลการ reject\n5. กด 'Confirm Rejection'",
         },
-        { type: "expected", description: "System displays an error message indicating the rejection reason is too short." },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่าเหตุผลการ reject สั้นเกินไป" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -2241,13 +2241,13 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
     "TC-PR-600003 Edge Case - Reject with No Reason Entered",
     {
       annotation: [
-        { type: "preconditions", description: "A PR exists; purchasing staff has the necessary role" },
+        { type: "preconditions", description: "มี PR อยู่; purchasing staff มี role ที่จำเป็น" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'View' on the relevant PR\n3. Click 'Reject' button\n4. Click 'Confirm Rejection' without entering a reason",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'View' บน PR ที่เกี่ยวข้อง\n3. กดปุ่ม 'Reject'\n4. กด 'Confirm Rejection' โดยไม่กรอกเหตุผล",
         },
-        { type: "expected", description: "System displays an error message indicating the rejection reason is required." },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่าต้องกรอกเหตุผลการ reject" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -2271,13 +2271,13 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
     "TC-PR-600005 Edge Case - Reject with Existing Rejection",
     {
       annotation: [
-        { type: "preconditions", description: "A PR exists; has a previous rejection; purchasing staff has the necessary role" },
+        { type: "preconditions", description: "มี PR อยู่; มีการ reject ก่อนหน้า; purchasing staff มี role ที่จำเป็น" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'View' on the relevant PR\n3. Click 'Reject' button\n4. Enter 'Items discontinued' as the rejection reason\n5. Click 'Confirm Rejection'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'View' บน PR ที่เกี่ยวข้อง\n3. กดปุ่ม 'Reject'\n4. กรอก 'Items discontinued' เป็นเหตุผลการ reject\n5. กด 'Confirm Rejection'",
         },
-        { type: "expected", description: "System displays an error message indicating the PR is already voided." },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่า PR ถูก void แล้ว" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -2307,13 +2307,13 @@ requestorTest.describe("PR — Reject by Purchase Staff — Permission denial", 
     "TC-PR-600004 Negative Case - No Permission to Reject",
     {
       annotation: [
-        { type: "preconditions", description: "A PR exists; a user without purchasing staff role attempts to reject" },
+        { type: "preconditions", description: "มี PR อยู่; ผู้ใช้ที่ไม่มี purchasing staff role พยายาม reject" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'View' on the relevant PR\n3. Click 'Reject' button",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'View' บน PR ที่เกี่ยวข้อง\n3. กดปุ่ม 'Reject'",
         },
-        { type: "expected", description: "System displays an error message indicating the user does not have permission to reject." },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่าผู้ใช้ไม่มีสิทธิ์ reject" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -2343,13 +2343,13 @@ hodTest.describe("PR — Bulk actions", () => {
     "TC-PR-610001 Approve Multiple Line Items",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Department Manager with approval rights; multiple PR line items exist with varying statuses" },
+        { type: "preconditions", description: "Login เป็น Department Manager ที่มีสิทธิ์ approve; มี PR line items หลายรายการที่มีสถานะต่างกัน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Select multiple line items using the checkbox\n3. Click 'Bulk Actions' dropdown\n4. Select 'Approve'\n5. Confirm approval",
+            "1. ไปที่ /procurement/purchase-request\n2. เลือก line items หลายรายการโดยใช้ checkbox\n3. คลิก dropdown 'Bulk Actions'\n4. เลือก 'Approve'\n5. ยืนยันการ approve",
         },
-        { type: "expected", description: "All selected line items are approved and updated in the system." },
+        { type: "expected", description: "Line items ที่เลือกทั้งหมดถูก approve และอัปเดตในระบบ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -2379,13 +2379,13 @@ hodTest.describe("PR — Bulk actions", () => {
     "TC-PR-610002 Reject Multiple Line Items",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Department Manager with rejection rights; multiple PR line items exist" },
+        { type: "preconditions", description: "Login เป็น Department Manager ที่มีสิทธิ์ reject; มี PR line items หลายรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Select multiple line items using the checkbox\n3. Click 'Bulk Actions' dropdown\n4. Select 'Reject'\n5. Provide rejection reason\n6. Confirm rejection",
+            "1. ไปที่ /procurement/purchase-request\n2. เลือก line items หลายรายการโดยใช้ checkbox\n3. คลิก dropdown 'Bulk Actions'\n4. เลือก 'Reject'\n5. กรอกเหตุผลการ reject\n6. ยืนยันการ reject",
         },
-        { type: "expected", description: "All selected line items are rejected and updated in the system with the reason provided." },
+        { type: "expected", description: "Line items ที่เลือกทั้งหมดถูก reject และอัปเดตในระบบพร้อมเหตุผลที่ระบุ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -2415,13 +2415,13 @@ hodTest.describe("PR — Bulk actions", () => {
     "TC-PR-610003 Return Multiple Line Items to Requestor",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Department Manager with return rights; multiple PR line items exist" },
+        { type: "preconditions", description: "Login เป็น Department Manager ที่มีสิทธิ์ return; มี PR line items หลายรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Select multiple line items using the checkbox\n3. Click 'Bulk Actions' dropdown\n4. Select 'Return to Requestor'\n5. Confirm return",
+            "1. ไปที่ /procurement/purchase-request\n2. เลือก line items หลายรายการโดยใช้ checkbox\n3. คลิก dropdown 'Bulk Actions'\n4. เลือก 'Return to Requestor'\n5. ยืนยันการส่งคืน",
         },
-        { type: "expected", description: "All selected line items are returned to the requestor and updated in the system." },
+        { type: "expected", description: "Line items ที่เลือกทั้งหมดถูกส่งคืน requestor และอัปเดตในระบบ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -2449,13 +2449,13 @@ hodTest.describe("PR — Bulk actions", () => {
     "TC-PR-610004 Split Multiple Line Items",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Department Manager with split rights; multiple PR line items exist" },
+        { type: "preconditions", description: "Login เป็น Department Manager ที่มีสิทธิ์ split; มี PR line items หลายรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Select multiple line items using the checkbox\n3. Click 'Bulk Actions' dropdown\n4. Select 'Split'\n5. Enter new split values\n6. Confirm split",
+            "1. ไปที่ /procurement/purchase-request\n2. เลือก line items หลายรายการโดยใช้ checkbox\n3. คลิก dropdown 'Bulk Actions'\n4. เลือก 'Split'\n5. กรอกค่า split ใหม่\n6. ยืนยันการ split",
         },
-        { type: "expected", description: "All selected line items are split as per the new values provided and updated in the system." },
+        { type: "expected", description: "Line items ที่เลือกทั้งหมดถูก split ตามค่าที่กำหนดและอัปเดตในระบบ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -2483,13 +2483,13 @@ hodTest.describe("PR — Bulk actions", () => {
     "TC-PR-610005 Set Date Required for Multiple Line Items",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Department Manager with date required setting rights; multiple PR line items exist" },
+        { type: "preconditions", description: "Login เป็น Department Manager ที่มีสิทธิ์ตั้งค่า date required; มี PR line items หลายรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Select multiple line items using the checkbox\n3. Click 'Bulk Actions' dropdown\n4. Select 'Set Date Required'\n5. Enter new date required\n6. Confirm update",
+            "1. ไปที่ /procurement/purchase-request\n2. เลือก line items หลายรายการโดยใช้ checkbox\n3. คลิก dropdown 'Bulk Actions'\n4. เลือก 'Set Date Required'\n5. กรอก date required ใหม่\n6. ยืนยันการอัปเดต",
         },
-        { type: "expected", description: "All selected line items have their 'Date Required' field updated and reflected in the system." },
+        { type: "expected", description: "Line items ที่เลือกทั้งหมดมีฟิลด์ 'Date Required' อัปเดตและแสดงผลในระบบ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -2522,13 +2522,13 @@ fcTest.describe("PR — Budget allocation", () => {
     "TC-PR-620001 Add a new budget allocation",
     {
       annotation: [
-        { type: "preconditions", description: "Finance Manager is logged in and has a PR in the budget tab" },
+        { type: "preconditions", description: "Login เป็น Finance Manager และมี PR ในแท็บ budget" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Edit Budget'\n3. Fill in the 'Amount' field with a value\n4. Fill in the 'Description' field with a brief description\n5. Click 'Add Allocation'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'Edit Budget'\n3. กรอกฟิลด์ 'Amount' ด้วยค่าที่ต้องการ\n4. กรอกฟิลด์ 'Description' ด้วยคำอธิบายสั้น\n5. กด 'Add Allocation'",
         },
-        { type: "expected", description: "The new budget allocation is added to the list and the total budget is updated." },
+        { type: "expected", description: "เพิ่ม budget allocation ใหม่ในรายการและอัปเดต total budget" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -2555,13 +2555,13 @@ fcTest.describe("PR — Budget allocation", () => {
     "TC-PR-620002 Edit an existing budget allocation",
     {
       annotation: [
-        { type: "preconditions", description: "Finance Manager is logged in and has at least one existing budget allocation in the PR" },
+        { type: "preconditions", description: "Login เป็น Finance Manager และมี budget allocation ที่มีอยู่แล้วอย่างน้อยหนึ่งรายการใน PR" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click the pencil icon next to an existing budget allocation\n3. Change the 'Amount' value\n4. Click 'Save Changes'",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกไอคอนดินสอถัดจาก budget allocation ที่มีอยู่\n3. เปลี่ยนค่า 'Amount'\n4. กด 'Save Changes'",
         },
-        { type: "expected", description: "The existing budget allocation is updated with the new amount and the total budget is recalculated." },
+        { type: "expected", description: "Budget allocation ที่มีอยู่ถูกอัปเดตด้วยจำนวนเงินใหม่และคำนวณ total budget ใหม่" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -2582,13 +2582,13 @@ fcTest.describe("PR — Budget allocation", () => {
     "TC-PR-620003 Delete a budget allocation",
     {
       annotation: [
-        { type: "preconditions", description: "Finance Manager is logged in and has at least one existing budget allocation in the PR" },
+        { type: "preconditions", description: "Login เป็น Finance Manager และมี budget allocation ที่มีอยู่แล้วอย่างน้อยหนึ่งรายการใน PR" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click the trash can icon next to an existing budget allocation\n3. Confirm the deletion",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกไอคอนถังขยะถัดจาก budget allocation ที่มีอยู่\n3. ยืนยันการลบ",
         },
-        { type: "expected", description: "The selected budget allocation is removed from the list and the total budget is recalculated." },
+        { type: "expected", description: "Budget allocation ที่เลือกถูกลบออกจากรายการและคำนวณ total budget ใหม่" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -2609,13 +2609,13 @@ fcTest.describe("PR — Budget allocation", () => {
     "TC-PR-620005 Attempt to delete a required allocation",
     {
       annotation: [
-        { type: "preconditions", description: "Finance Manager is logged in and has a PR with a required budget allocation" },
+        { type: "preconditions", description: "Login เป็น Finance Manager และมี PR ที่มี budget allocation ที่จำเป็น" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click the trash can icon next to a required budget allocation\n3. Confirm the deletion",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกไอคอนถังขยะถัดจาก budget allocation ที่จำเป็น\n3. ยืนยันการลบ",
         },
-        { type: "expected", description: "The system displays an error message indicating that the required allocation cannot be deleted." },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่า required allocation ไม่สามารถลบได้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -2638,13 +2638,13 @@ purchaseTest.describe("PR — Budget allocation — Permission denial", () => {
     "TC-PR-620004 Attempt to edit an allocation without permission",
     {
       annotation: [
-        { type: "preconditions", description: "Purchasing Staff is logged in and has a PR in the budget tab" },
+        { type: "preconditions", description: "Login เป็น Purchasing Staff และมี PR ในแท็บ budget" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click the pencil icon next to an existing budget allocation\n3. Change the 'Amount' value\n4. Click 'Save Changes'",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกไอคอนดินสอถัดจาก budget allocation ที่มีอยู่\n3. เปลี่ยนค่า 'Amount'\n4. กด 'Save Changes'",
         },
-        { type: "expected", description: "The system displays an error message indicating that the user does not have permission to edit this allocation." },
+        { type: "expected", description: "ระบบแสดงข้อความ error ว่าผู้ใช้ไม่มีสิทธิ์แก้ไข allocation นี้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -2674,13 +2674,13 @@ hodTest.describe("PR — Split", () => {
     "TC-PR-630001 Happy Path - Split PR with Valid Inputs",
     {
       annotation: [
-        { type: "preconditions", description: "A PR exists with at least two items that need approval" },
+        { type: "preconditions", description: "มี PR ที่มีอย่างน้อยสอง items ที่ต้องการ approve" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on PR detail page\n3. Review items and identify items to approve and return\n4. Select two or more items to split\n5. Click on 'Split' button\n6. Select 'By Approval Status' split option\n7. Assign items to 'Approved' and 'Return for Revision' groups\n8. Enter return reason for returned items (at least 10 characters)\n9. Review split preview\n10. Click on 'Confirm Split'",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกหน้ารายละเอียด PR\n3. ตรวจสอบรายการและระบุรายการที่จะ approve และส่งคืน\n4. เลือกสองรายการขึ้นไปเพื่อ split\n5. กดปุ่ม 'Split'\n6. เลือก split option 'By Approval Status'\n7. มอบหมายรายการให้กลุ่ม 'Approved' และ 'Return for Revision'\n8. กรอกเหตุผลการส่งคืนสำหรับรายการที่ถูกส่งคืน (อย่างน้อย 10 ตัวอักษร)\n9. ตรวจสอบ split preview\n10. กด 'Confirm Split'",
         },
-        { type: "expected", description: "System processes the split, creating a new PR for returned items, updating the original PR with only approved items, setting the appropriate statuses, logging activity, and sending a notification to the requestor." },
+        { type: "expected", description: "ระบบประมวลผลการ split, สร้าง PR ใหม่สำหรับรายการที่ถูกส่งคืน, อัปเดต PR เดิมด้วยเฉพาะรายการที่ approved, ตั้งสถานะที่เหมาะสม, บันทึก activity และส่งการแจ้งเตือนถึง requestor" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -2702,13 +2702,13 @@ hodTest.describe("PR — Split", () => {
     "TC-PR-630002 Negative - Insufficient Items for Split",
     {
       annotation: [
-        { type: "preconditions", description: "A PR exists with less than two items that need approval" },
+        { type: "preconditions", description: "มี PR ที่มีน้อยกว่าสอง items ที่ต้องการ approve" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on PR detail page\n3. Review items and identify items to approve and return\n4. Attempt to select less than two items to split",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกหน้ารายละเอียด PR\n3. ตรวจสอบรายการและระบุรายการที่จะ approve และส่งคืน\n4. พยายามเลือกน้อยกว่าสองรายการเพื่อ split",
         },
-        { type: "expected", description: "System does not enable the Split button, displaying an error message indicating that at least two items are required for splitting." },
+        { type: "expected", description: "ระบบไม่เปิดใช้งานปุ่ม Split และแสดงข้อความ error ว่าต้องการอย่างน้อยสองรายการในการ split" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -2733,13 +2733,13 @@ hodTest.describe("PR — Split", () => {
     "TC-PR-630003 Edge Case - No Items to Split",
     {
       annotation: [
-        { type: "preconditions", description: "A PR exists with all items already approved" },
+        { type: "preconditions", description: "มี PR ที่ทุก items ถูก approve แล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on PR detail page\n3. Review items and identify no items to approve or return",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกหน้ารายละเอียด PR\n3. ตรวจสอบรายการและพบว่าไม่มีรายการที่จะ approve หรือส่งคืน",
         },
-        { type: "expected", description: "System displays a message indicating no items can be split and returns to the PR detail page without any action taken." },
+        { type: "expected", description: "ระบบแสดงข้อความว่าไม่มีรายการที่สามารถ split ได้และกลับไปยังหน้ารายละเอียด PR โดยไม่มีการดำเนินการ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -2760,13 +2760,13 @@ hodTest.describe("PR — Split", () => {
     "TC-PR-630004 Negative - Invalid Reason for Return",
     {
       annotation: [
-        { type: "preconditions", description: "A PR exists with at least two items that need approval" },
+        { type: "preconditions", description: "มี PR ที่มีอย่างน้อยสองรายการที่ต้องการ approval" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on PR detail page\n3. Review items and identify items to approve and return\n4. Select two or more items to split\n5. Click on 'Split' button\n6. Select 'By Approval Status' split option\n7. Assign items to 'Approved' and 'Return for Revision' groups\n8. Enter a return reason with less than 10 characters\n9. Attempt to confirm split",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกหน้ารายละเอียด PR\n3. ตรวจสอบรายการและระบุรายการที่จะ approve และส่งคืน\n4. เลือกสองรายการขึ้นไปเพื่อ split\n5. คลิกปุ่ม 'Split'\n6. เลือกตัวเลือก split 'By Approval Status'\n7. กำหนดรายการไปยังกลุ่ม 'Approved' และ 'Return for Revision'\n8. กรอกเหตุผลการส่งคืนที่มีความยาวน้อยกว่า 10 ตัวอักษร\n9. พยายาม confirm split",
         },
-        { type: "expected", description: "System displays an error message indicating the return reason must be at least 10 characters long and does not allow the split to proceed." },
+        { type: "expected", description: "ระบบแสดงข้อความผิดพลาดว่าเหตุผลการส่งคืนต้องมีความยาวอย่างน้อย 10 ตัวอักษร และไม่อนุญาตให้ดำเนินการ split ต่อ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -2797,13 +2797,13 @@ requestorTest.describe("PR — Reference number generation — Backend only", ()
     "TC-PR-310001 Happy Path - Valid PR Data",
     {
       annotation: [
-        { type: "preconditions", description: "A new PR is created without a reference number" },
+        { type: "preconditions", description: "สร้าง PR ใหม่โดยยังไม่มีหมายเลขอ้างอิง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Fill in valid PR data\n4. Submit the PR",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก 'New Purchase Request'\n3. กรอกข้อมูล PR ที่ถูกต้อง\n4. Submit PR",
         },
-        { type: "expected", description: "The system automatically generates and assigns a unique reference number in the format PR-2501-0001 and continues PR creation." },
+        { type: "expected", description: "ระบบสร้างและกำหนดหมายเลขอ้างอิง unique ในรูปแบบ PR-2501-0001 โดยอัตโนมัติ และดำเนินการสร้าง PR ต่อไป" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -2816,13 +2816,13 @@ requestorTest.describe("PR — Reference number generation — Backend only", ()
     "TC-PR-310002 Negative - No PR Data",
     {
       annotation: [
-        { type: "preconditions", description: "A new PR is created without any PR data" },
+        { type: "preconditions", description: "สร้าง PR ใหม่โดยไม่มีข้อมูล PR ใดๆ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Submit the PR without filling in any data",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก 'New Purchase Request'\n3. Submit PR โดยไม่กรอกข้อมูลใดๆ",
         },
-        { type: "expected", description: "The system rejects the PR submission and displays an error message requiring PR data." },
+        { type: "expected", description: "ระบบปฏิเสธการ submit PR และแสดงข้อความผิดพลาดที่กำหนดให้ต้องกรอกข้อมูล PR" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -2835,13 +2835,13 @@ requestorTest.describe("PR — Reference number generation — Backend only", ()
     "TC-PR-310003 Negative - Date Format Error",
     {
       annotation: [
-        { type: "preconditions", description: "A new PR is created with an incorrect date format" },
+        { type: "preconditions", description: "สร้าง PR ใหม่โดยใช้รูปแบบวันที่ที่ไม่ถูกต้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Fill in the date with an incorrect format (e.g., 2025-02-15 instead of 2502)\n4. Submit the PR",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก 'New Purchase Request'\n3. กรอกวันที่ในรูปแบบที่ไม่ถูกต้อง (เช่น 2025-02-15 แทนที่จะเป็น 2502)\n4. Submit PR",
         },
-        { type: "expected", description: "The system rejects the PR submission and displays an error message about the date format." },
+        { type: "expected", description: "ระบบปฏิเสธการ submit PR และแสดงข้อความผิดพลาดเกี่ยวกับรูปแบบวันที่" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -2854,13 +2854,13 @@ requestorTest.describe("PR — Reference number generation — Backend only", ()
     "TC-PR-310004 Edge Case - Year Change",
     {
       annotation: [
-        { type: "preconditions", description: "A new PR is created in the first month of a new financial year" },
+        { type: "preconditions", description: "สร้าง PR ใหม่ในเดือนแรกของปีการเงินใหม่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Fill in the date for the first month of a new year (e.g., 2601)\n4. Submit the PR",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก 'New Purchase Request'\n3. กรอกวันที่เป็นเดือนแรกของปีใหม่ (เช่น 2601)\n4. Submit PR",
         },
-        { type: "expected", description: "The system correctly generates the reference number starting from PR-2601-0001." },
+        { type: "expected", description: "ระบบสร้างหมายเลขอ้างอิงได้ถูกต้องโดยเริ่มต้นจาก PR-2601-0001" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -2873,13 +2873,13 @@ requestorTest.describe("PR — Reference number generation — Backend only", ()
     "TC-PR-310005 Negative - Database Sequence Exhausted",
     {
       annotation: [
-        { type: "preconditions", description: "The database sequence for reference numbers has reached its maximum value" },
+        { type: "preconditions", description: "ลำดับฐานข้อมูลสำหรับหมายเลขอ้างอิงถึงค่าสูงสุดแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Submit the PR",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก 'New Purchase Request'\n3. Submit PR",
         },
-        { type: "expected", description: "The system generates an error message indicating that the reference number sequence has been exhausted." },
+        { type: "expected", description: "ระบบสร้างข้อความผิดพลาดแสดงว่าลำดับหมายเลขอ้างอิงหมดแล้ว" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -2894,13 +2894,13 @@ requestorTest.describe("PR — Calculation — Backend only", () => {
     "TC-PR-320001 Happy Path: Add Items and Verify Totals",
     {
       annotation: [
-        { type: "preconditions", description: "A PR with items is created and saved" },
+        { type: "preconditions", description: "สร้างและบันทึก PR ที่มีรายการสินค้าแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Edit' on the PR\n3. Add a new line item with quantity, unit price, discount percentage, and tax rate\n4. Save the PR",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก 'Edit' ที่ PR\n3. เพิ่มรายการสินค้าใหม่พร้อมจำนวน, ราคาต่อหน่วย, เปอร์เซ็นต์ส่วนลด และอัตราภาษี\n4. บันทึก PR",
         },
-        { type: "expected", description: "Line totals, discounts, taxes, and total amount are correctly calculated and displayed." },
+        { type: "expected", description: "ยอดรวมรายการ, ส่วนลด, ภาษี และยอดรวมทั้งหมดคำนวณและแสดงผลได้ถูกต้อง" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -2913,13 +2913,13 @@ requestorTest.describe("PR — Calculation — Backend only", () => {
     "TC-PR-320002 Negative: Invalid Discount Percentage",
     {
       annotation: [
-        { type: "preconditions", description: "A PR with items and an invalid discount percentage is created and saved" },
+        { type: "preconditions", description: "สร้างและบันทึก PR ที่มีรายการสินค้าพร้อมเปอร์เซ็นต์ส่วนลดที่ไม่ถูกต้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Edit' on the PR\n3. Add a new line item with quantity, unit price, discount percentage set to over 100%, and tax rate\n4. Save the PR",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก 'Edit' ที่ PR\n3. เพิ่มรายการสินค้าใหม่พร้อมจำนวน, ราคาต่อหน่วย, เปอร์เซ็นต์ส่วนลดที่เกิน 100% และอัตราภาษี\n4. บันทึก PR",
         },
-        { type: "expected", description: "The system displays an error message for the invalid discount percentage and does not calculate totals." },
+        { type: "expected", description: "ระบบแสดงข้อความผิดพลาดสำหรับเปอร์เซ็นต์ส่วนลดที่ไม่ถูกต้อง และไม่คำนวณยอดรวม" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -2932,13 +2932,13 @@ requestorTest.describe("PR — Calculation — Backend only", () => {
     "TC-PR-320003 Edge Case: Multi-Currency with Exchange Rate",
     {
       annotation: [
-        { type: "preconditions", description: "A PR with items is created and saved; the system uses multi-currency" },
+        { type: "preconditions", description: "สร้างและบันทึก PR ที่มีรายการสินค้าแล้ว; ระบบใช้สกุลเงินหลายสกุล" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Edit' on the PR\n3. Add a new line item with quantity, unit price, discount percentage, and tax rate\n4. Set the currency to a different currency than the base currency\n5. Enter an exchange rate\n6. Save the PR",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก 'Edit' ที่ PR\n3. เพิ่มรายการสินค้าใหม่พร้อมจำนวน, ราคาต่อหน่วย, เปอร์เซ็นต์ส่วนลด และอัตราภาษี\n4. ตั้งค่าสกุลเงินเป็นสกุลที่ต่างจากสกุลเงินหลัก\n5. กรอกอัตราแลกเปลี่ยน\n6. บันทึก PR",
         },
-        { type: "expected", description: "Line totals, discounts, taxes, and total amount are calculated in the base currency using the exchange rate." },
+        { type: "expected", description: "ยอดรวมรายการ, ส่วนลด, ภาษี และยอดรวมทั้งหมดคำนวณในสกุลเงินหลักโดยใช้อัตราแลกเปลี่ยน" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -2953,13 +2953,13 @@ requestorTest.describe("PR — Approval chain config — Backend only", () => {
     "TC-PR-330001 Happy Path - General PR",
     {
       annotation: [
-        { type: "preconditions", description: "A general PR with a total amount under $10,000 is submitted" },
+        { type: "preconditions", description: "Submit PR ทั่วไปที่มียอดรวมต่ำกว่า $10,000" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Fill the form with a general PR type and total amount less than $10,000\n3. Click 'Submit'",
+            "1. ไปที่ /procurement/purchase-request\n2. กรอกแบบฟอร์มด้วยประเภท PR ทั่วไปและยอดรวมน้อยกว่า $10,000\n3. คลิก 'Submit'",
         },
-        { type: "expected", description: "The approval chain includes only the department manager." },
+        { type: "expected", description: "ขั้นตอน approval chain มีเพียง department manager เท่านั้น" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -2972,13 +2972,13 @@ requestorTest.describe("PR — Approval chain config — Backend only", () => {
     "TC-PR-330002 Negative - Invalid Department ID",
     {
       annotation: [
-        { type: "preconditions", description: "A PR is submitted with an invalid department ID" },
+        { type: "preconditions", description: "Submit PR ด้วย department ID ที่ไม่ถูกต้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Fill the form with a general PR type, total amount, and an invalid department ID\n3. Click 'Submit'",
+            "1. ไปที่ /procurement/purchase-request\n2. กรอกแบบฟอร์มด้วยประเภท PR ทั่วไป, ยอดรวม และ department ID ที่ไม่ถูกต้อง\n3. คลิก 'Submit'",
         },
-        { type: "expected", description: "An error message is displayed indicating the department ID is invalid." },
+        { type: "expected", description: "แสดงข้อความผิดพลาดระบุว่า department ID ไม่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -2991,13 +2991,13 @@ requestorTest.describe("PR — Approval chain config — Backend only", () => {
     "TC-PR-330003 Edge Case - High Value Asset PR",
     {
       annotation: [
-        { type: "preconditions", description: "A high-value asset PR is submitted with a total amount over $100,000" },
+        { type: "preconditions", description: "Submit PR ทรัพย์สินมูลค่าสูงที่มียอดรวมเกิน $100,000" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Fill the form with an asset PR type, total amount over $100,000, and relevant department ID\n3. Click 'Submit'",
+            "1. ไปที่ /procurement/purchase-request\n2. กรอกแบบฟอร์มด้วยประเภท PR ทรัพย์สิน, ยอดรวมเกิน $100,000 และ department ID ที่เกี่ยวข้อง\n3. คลิก 'Submit'",
         },
-        { type: "expected", description: "The approval chain includes the department manager, asset manager, finance manager, and general manager." },
+        { type: "expected", description: "ขั้นตอน approval chain ประกอบด้วย department manager, asset manager, finance manager และ general manager" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3010,13 +3010,13 @@ requestorTest.describe("PR — Approval chain config — Backend only", () => {
     "TC-PR-330004 Negative - No User Assigned to Role",
     {
       annotation: [
-        { type: "preconditions", description: "A PR is submitted for a role with no assigned user" },
+        { type: "preconditions", description: "Submit PR สำหรับ role ที่ไม่มีผู้ใช้ที่กำหนด" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Fill the form with a general PR type, total amount, and a role with no assigned user\n3. Click 'Submit'",
+            "1. ไปที่ /procurement/purchase-request\n2. กรอกแบบฟอร์มด้วยประเภท PR ทั่วไป, ยอดรวม และ role ที่ไม่มีผู้ใช้ที่กำหนด\n3. คลิก 'Submit'",
         },
-        { type: "expected", description: "An error message is displayed indicating no user is assigned to the role." },
+        { type: "expected", description: "แสดงข้อความผิดพลาดระบุว่าไม่มีผู้ใช้ที่กำหนดใน role นั้น" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3031,13 +3031,13 @@ requestorTest.describe("PR — Budget reservation — Backend only", () => {
     "TC-PR-340001 Happy Path - Sufficient Funds",
     {
       annotation: [
-        { type: "preconditions", description: "Login as Requestor; PR with budget codes; budget has sufficient funds" },
+        { type: "preconditions", description: "Login เป็น Requestor; มี PR พร้อม budget codes; budget มีเงินเพียงพอ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Fill budget codes for line items\n3. Click 'Save'\n4. Verify system checks budget availability\n5. Wait for reservation confirmation\n6. Verify reservation ID recorded",
+            "1. ไปที่ /procurement/purchase-request\n2. กรอก budget codes สำหรับรายการสินค้า\n3. คลิก 'Save'\n4. ตรวจสอบว่าระบบตรวจสอบความพร้อมของ budget\n5. รอการยืนยันการจอง\n6. ตรวจสอบว่าบันทึก reservation ID แล้ว",
         },
-        { type: "expected", description: "System confirms sufficient funds, reserves budget, and records reservation ID." },
+        { type: "expected", description: "ระบบยืนยันว่ามีเงินเพียงพอ, จอง budget และบันทึก reservation ID" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3050,13 +3050,13 @@ requestorTest.describe("PR — Budget reservation — Backend only", () => {
     "TC-PR-340002 Negative Case - Insufficient Funds",
     {
       annotation: [
-        { type: "preconditions", description: "Login as Requestor; PR with budget codes; budget has insufficient funds" },
+        { type: "preconditions", description: "Login เป็น Requestor; มี PR พร้อม budget codes; budget มีเงินไม่เพียงพอ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Fill budget codes for line items\n3. Click 'Save'\n4. Verify system checks budget availability\n5. Wait for error message\n6. Verify no reservation",
+            "1. ไปที่ /procurement/purchase-request\n2. กรอก budget codes สำหรับรายการสินค้า\n3. คลิก 'Save'\n4. ตรวจสอบว่าระบบตรวจสอบความพร้อมของ budget\n5. รอข้อความผิดพลาด\n6. ตรวจสอบว่าไม่มีการจอง",
         },
-        { type: "expected", description: "System denies submission with insufficient funds error message." },
+        { type: "expected", description: "ระบบปฏิเสธการ submit พร้อมข้อความผิดพลาดว่าเงินไม่เพียงพอ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3069,13 +3069,13 @@ requestorTest.describe("PR — Budget reservation — Backend only", () => {
     "TC-PR-340003 Edge Case - No Budget Codes",
     {
       annotation: [
-        { type: "preconditions", description: "Login as Requestor; PR without any budget codes" },
+        { type: "preconditions", description: "Login เป็น Requestor; มี PR ที่ไม่มี budget codes ใดๆ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Ensure no budget codes are filled\n3. Click 'Save'\n4. Verify system skips budget check\n5. Wait for success message",
+            "1. ไปที่ /procurement/purchase-request\n2. ตรวจสอบให้แน่ใจว่าไม่มีการกรอก budget codes\n3. คลิก 'Save'\n4. ตรวจสอบว่าระบบข้ามการตรวจสอบ budget\n5. รอข้อความสำเร็จ",
         },
-        { type: "expected", description: "System allows submission without budget check since no budget codes are present." },
+        { type: "expected", description: "ระบบอนุญาตให้ submit ได้โดยไม่ต้องตรวจสอบ budget เนื่องจากไม่มี budget codes" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3090,13 +3090,13 @@ requestorTest.describe("PR — Notifications — Backend only", () => {
     "TC-PR-350001 Happy Path - PR Submitted Notification",
     {
       annotation: [
-        { type: "preconditions", description: "User A has a new PR PR-1234 pending approval by User B" },
+        { type: "preconditions", description: "User A มี PR ใหม่ PR-1234 รอ approval จาก User B" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on 'PR-1234'\n3. Verify 'Status' is 'Submitted'\n4. Wait for 5 minutes\n5. Navigate to email inbox or notification panel\n6. Verify email or in-app notification for User B",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกที่ 'PR-1234'\n3. ตรวจสอบว่า 'Status' เป็น 'Submitted'\n4. รอ 5 นาที\n5. ไปที่กล่อง email หรือแผง notification\n6. ตรวจสอบ email หรือ in-app notification สำหรับ User B",
         },
-        { type: "expected", description: "Notification is sent to User B with PR details and an approval link." },
+        { type: "expected", description: "ส่ง notification ไปยัง User B พร้อมรายละเอียด PR และลิงก์ approval" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3109,13 +3109,13 @@ requestorTest.describe("PR — Notifications — Backend only", () => {
     "TC-PR-350002 Negative - Invalid Email Preference",
     {
       annotation: [
-        { type: "preconditions", description: "User B has no email preference set" },
+        { type: "preconditions", description: "User B ไม่ได้ตั้งค่า email preference" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on 'PR-1234'\n3. Verify 'Status' is 'Submitted'\n4. Wait for 5 minutes\n5. Navigate to User B's profile\n6. Verify 'Email' preference is not enabled\n7. Navigate back to PR-1234\n8. Verify no email notification is sent to User B",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกที่ 'PR-1234'\n3. ตรวจสอบว่า 'Status' เป็น 'Submitted'\n4. รอ 5 นาที\n5. ไปที่โปรไฟล์ของ User B\n6. ตรวจสอบว่า 'Email' preference ยังไม่ได้เปิดใช้\n7. กลับไปที่ PR-1234\n8. ตรวจสอบว่าไม่มีการส่ง email notification ไปยัง User B",
         },
-        { type: "expected", description: "Only in-app notification is generated and sent to User B." },
+        { type: "expected", description: "สร้างและส่งเฉพาะ in-app notification ไปยัง User B เท่านั้น" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3128,13 +3128,13 @@ requestorTest.describe("PR — Notifications — Backend only", () => {
     "TC-PR-350003 Edge Case - PR Rejected with No Pending Approvals",
     {
       annotation: [
-        { type: "preconditions", description: "User A has a PR PR-5678 in 'Rejected' status with no pending approvals" },
+        { type: "preconditions", description: "User A มี PR PR-5678 ที่มีสถานะ 'Rejected' และไม่มีการ approval ที่รอดำเนินการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on 'PR-5678'\n3. Verify 'Status' is 'Rejected'\n4. Verify 'Rejected By' is User A\n5. Wait for 5 minutes\n6. Navigate to email inbox or notification panel\n7. Verify no notification is received by anyone",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกที่ 'PR-5678'\n3. ตรวจสอบว่า 'Status' เป็น 'Rejected'\n4. ตรวจสอบว่า 'Rejected By' เป็น User A\n5. รอ 5 นาที\n6. ไปที่กล่อง email หรือแผง notification\n7. ตรวจสอบว่าไม่มีใครได้รับ notification",
         },
-        { type: "expected", description: "No notifications are sent as there are no pending approvals." },
+        { type: "expected", description: "ไม่มีการส่ง notification เนื่องจากไม่มีการ approval ที่รอดำเนินการ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3147,13 +3147,13 @@ requestorTest.describe("PR — Notifications — Backend only", () => {
     "TC-PR-350004 Negative - User Not Authorized to Approve",
     {
       annotation: [
-        { type: "preconditions", description: "User C is not authorized to approve PRs and has a PR-6789 pending" },
+        { type: "preconditions", description: "User C ไม่มีสิทธิ์ approve PR และมี PR-6789 ที่รอดำเนินการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on 'PR-6789'\n3. Verify 'Status' is 'Submitted'\n4. Wait for 5 minutes\n5. Attempt to approve PR-6789\n6. Verify an error message is displayed",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกที่ 'PR-6789'\n3. ตรวจสอบว่า 'Status' เป็น 'Submitted'\n4. รอ 5 นาที\n5. พยายาม approve PR-6789\n6. ตรวจสอบว่าแสดงข้อความผิดพลาด",
         },
-        { type: "expected", description: "User C cannot approve PR-6789 and no notification is generated." },
+        { type: "expected", description: "User C ไม่สามารถ approve PR-6789 และไม่มีการสร้าง notification" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3168,13 +3168,13 @@ requestorTest.describe("PR — ERP sync — Backend only", () => {
     "TC-PR-210001 Happy Path - PR Sync to ERP",
     {
       annotation: [
-        { type: "preconditions", description: "PR is approved and ERP sync is enabled" },
+        { type: "preconditions", description: "PR ได้รับ approval แล้วและเปิดใช้งาน ERP sync" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on approved PR with status 'Completed'\n3. Verify PR status is 'Approved/Completed'\n4. Wait for system to detect PR status change\n5. Verify system checks if ERP sync is enabled\n6. Verify system prepares PR data in ERP format\n7. Verify system calls ERP API endpoint\n8. Verify system receives ERP document ID\n9. Verify system saves sync record\n10. Verify system logs sync activity",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกที่ PR ที่ approved แล้วที่มีสถานะ 'Completed'\n3. ตรวจสอบว่าสถานะ PR เป็น 'Approved/Completed'\n4. รอให้ระบบตรวจจับการเปลี่ยนแปลงสถานะ PR\n5. ตรวจสอบว่าระบบตรวจสอบว่าเปิดใช้งาน ERP sync\n6. ตรวจสอบว่าระบบเตรียมข้อมูล PR ในรูปแบบ ERP\n7. ตรวจสอบว่าระบบเรียก ERP API endpoint\n8. ตรวจสอบว่าระบบได้รับ ERP document ID\n9. ตรวจสอบว่าระบบบันทึก sync record\n10. ตรวจสอบว่าระบบ log กิจกรรม sync",
         },
-        { type: "expected", description: "PR data is successfully synced to the ERP system with all records saved and logged." },
+        { type: "expected", description: "ข้อมูล PR ถูก sync ไปยังระบบ ERP สำเร็จพร้อมบันทึกและ log ทุก record" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3187,13 +3187,13 @@ requestorTest.describe("PR — ERP sync — Backend only", () => {
     "TC-PR-210002 Negative Case - ERP Sync Disabled",
     {
       annotation: [
-        { type: "preconditions", description: "PR is approved and ERP sync is disabled" },
+        { type: "preconditions", description: "PR ได้รับ approval แล้วและปิดใช้งาน ERP sync" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on approved PR with status 'Completed'\n3. Verify PR status is 'Approved/Completed'\n4. Wait for system to detect PR status change\n5. Verify system checks if ERP sync is enabled\n6. Verify system does not prepare PR data in ERP format\n7. Verify system does not call ERP API endpoint\n8. Verify system does not receive ERP document ID\n9. Verify system does not save sync record\n10. Verify system does not log sync activity",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกที่ PR ที่ approved แล้วที่มีสถานะ 'Completed'\n3. ตรวจสอบว่าสถานะ PR เป็น 'Approved/Completed'\n4. รอให้ระบบตรวจจับการเปลี่ยนแปลงสถานะ PR\n5. ตรวจสอบว่าระบบตรวจสอบว่าเปิดใช้งาน ERP sync\n6. ตรวจสอบว่าระบบไม่เตรียมข้อมูล PR ในรูปแบบ ERP\n7. ตรวจสอบว่าระบบไม่เรียก ERP API endpoint\n8. ตรวจสอบว่าระบบไม่ได้รับ ERP document ID\n9. ตรวจสอบว่าระบบไม่บันทึก sync record\n10. ตรวจสอบว่าระบบไม่ log กิจกรรม sync",
         },
-        { type: "expected", description: "PR data is not synced to the ERP system as ERP sync is disabled." },
+        { type: "expected", description: "ข้อมูล PR ไม่ถูก sync ไปยังระบบ ERP เนื่องจากปิดใช้งาน ERP sync" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3206,13 +3206,13 @@ requestorTest.describe("PR — ERP sync — Backend only", () => {
     "TC-PR-210003 Edge Case - Multiple PRs in Batch",
     {
       annotation: [
-        { type: "preconditions", description: "Multiple PRs are approved and ERP sync is enabled" },
+        { type: "preconditions", description: "PR หลายรายการได้รับ approval แล้วและเปิดใช้งาน ERP sync" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click on multiple approved PRs with status 'Completed'\n3. Verify PR statuses are 'Approved/Completed'\n4. Wait for system to detect PR status change\n5. Verify system checks if ERP sync is enabled\n6. Verify system prepares PR data in ERP format for each PR\n7. Verify system calls ERP API endpoint for each PR\n8. Verify system receives ERP document ID for each PR\n9. Verify system saves sync record for each PR\n10. Verify system logs sync activity for each PR",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิกที่ PR ที่ approved แล้วหลายรายการที่มีสถานะ 'Completed'\n3. ตรวจสอบว่าสถานะ PR เป็น 'Approved/Completed'\n4. รอให้ระบบตรวจจับการเปลี่ยนแปลงสถานะ PR\n5. ตรวจสอบว่าระบบตรวจสอบว่าเปิดใช้งาน ERP sync\n6. ตรวจสอบว่าระบบเตรียมข้อมูล PR ในรูปแบบ ERP สำหรับแต่ละ PR\n7. ตรวจสอบว่าระบบเรียก ERP API endpoint สำหรับแต่ละ PR\n8. ตรวจสอบว่าระบบได้รับ ERP document ID สำหรับแต่ละ PR\n9. ตรวจสอบว่าระบบบันทึก sync record สำหรับแต่ละ PR\n10. ตรวจสอบว่าระบบ log กิจกรรม sync สำหรับแต่ละ PR",
         },
-        { type: "expected", description: "All PR data is successfully synced to the ERP system with records saved and logged for each PR." },
+        { type: "expected", description: "ข้อมูล PR ทั้งหมดถูก sync ไปยังระบบ ERP สำเร็จพร้อมบันทึกและ log สำหรับแต่ละ PR" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3227,12 +3227,12 @@ requestorTest.describe("PR — CSV import — Backend only", () => {
     "TC-PR-220001 Import valid CSV file",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to import purchase requests" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ import purchase requests" },
         {
           type: "steps",
-          description: "1. Navigate to /import\n2. Click 'Select File' and upload valid CSV file\n3. Click 'Import'",
+          description: "1. ไปที่ /import\n2. คลิก 'Select File' และอัปโหลดไฟล์ CSV ที่ถูกต้อง\n3. คลิก 'Import'",
         },
-        { type: "expected", description: "System processes the file, creates PRs, logs import, and sends success summary to user" },
+        { type: "expected", description: "ระบบประมวลผลไฟล์, สร้าง PR, log การ import และส่งสรุปผลสำเร็จให้ผู้ใช้" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3245,13 +3245,13 @@ requestorTest.describe("PR — CSV import — Backend only", () => {
     "TC-PR-220003 Duplicate PR import",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to import; file has duplicate reference numbers" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ import; ไฟล์มีหมายเลขอ้างอิงที่ซ้ำกัน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /import\n2. Click 'Select File' and upload file with duplicate reference numbers\n3. Click 'Import'",
+            "1. ไปที่ /import\n2. คลิก 'Select File' และอัปโหลดไฟล์ที่มีหมายเลขอ้างอิงซ้ำกัน\n3. คลิก 'Import'",
         },
-        { type: "expected", description: "System logs errors for duplicate records, creates valid PRs, and sends summary to user" },
+        { type: "expected", description: "ระบบ log ข้อผิดพลาดสำหรับ record ที่ซ้ำกัน, สร้าง PR ที่ถูกต้อง และส่งสรุปผลให้ผู้ใช้" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3264,13 +3264,13 @@ requestorTest.describe("PR — CSV import — Backend only", () => {
     "TC-PR-220004 Import with unauthorized access",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have permission to import purchase requests" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์ import purchase requests" },
         {
           type: "steps",
           description:
-            "1. Navigate to /import\n2. Click 'Select File' and upload valid CSV file\n3. Click 'Import'",
+            "1. ไปที่ /import\n2. คลิก 'Select File' และอัปโหลดไฟล์ CSV ที่ถูกต้อง\n3. คลิก 'Import'",
         },
-        { type: "expected", description: "System displays error message indicating insufficient permissions" },
+        { type: "expected", description: "ระบบแสดงข้อความผิดพลาดระบุว่าสิทธิ์ไม่เพียงพอ" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3283,12 +3283,12 @@ requestorTest.describe("PR — CSV import — Backend only", () => {
     "TC-PR-220005 Import with no file selected",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to import purchase requests" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ import purchase requests" },
         {
           type: "steps",
-          description: "1. Navigate to /import\n2. Click 'Import' without selecting a file",
+          description: "1. ไปที่ /import\n2. คลิก 'Import' โดยไม่เลือกไฟล์",
         },
-        { type: "expected", description: "System displays error message indicating no file selected" },
+        { type: "expected", description: "ระบบแสดงข้อความผิดพลาดระบุว่าไม่ได้เลือกไฟล์" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -3303,13 +3303,13 @@ requestorTest.describe("PR — Reminder — Time-based, backend only", () => {
     "TC-PR-110001 Happy Path - Reminder Notification Sent",
     {
       annotation: [
-        { type: "preconditions", description: "A PR is created and pending for approval for 49 hours with reminder_count < 3" },
+        { type: "preconditions", description: "สร้าง PR แล้วและรอ approval มา 49 ชั่วโมงโดยมี reminder_count < 3" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-requests\n2. Wait for 49 hours\n3. Verify the system sends a reminder email to the approver",
+            "1. ไปที่ /procurement/purchase-requests\n2. รอ 49 ชั่วโมง\n3. ตรวจสอบว่าระบบส่ง email แจ้งเตือนไปยัง approver",
         },
-        { type: "expected", description: "A reminder email is sent to the approver listing the pending PR." },
+        { type: "expected", description: "ส่ง email แจ้งเตือนไปยัง approver พร้อมรายการ PR ที่รอดำเนินการ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -3322,13 +3322,13 @@ requestorTest.describe("PR — Reminder — Time-based, backend only", () => {
     "TC-PR-110002 Negative Case - Approver with No Pending Requests",
     {
       annotation: [
-        { type: "preconditions", description: "A PR is created and pending for 49 hours; approver has no pending requests" },
+        { type: "preconditions", description: "สร้าง PR แล้วและรอดำเนินการมา 49 ชั่วโมง; approver ไม่มีคำขอที่รอดำเนินการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-requests\n2. Wait for 49 hours\n3. Verify no reminder email is sent to the approver",
+            "1. ไปที่ /procurement/purchase-requests\n2. รอ 49 ชั่วโมง\n3. ตรวจสอบว่าไม่มีการส่ง email แจ้งเตือนไปยัง approver",
         },
-        { type: "expected", description: "No reminder email is sent to the approver." },
+        { type: "expected", description: "ไม่มีการส่ง email แจ้งเตือนไปยัง approver" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -3341,13 +3341,13 @@ requestorTest.describe("PR — Reminder — Time-based, backend only", () => {
     "TC-PR-110003 Edge Case - Approver has 3 Reminders",
     {
       annotation: [
-        { type: "preconditions", description: "PR pending for 48 hours; approver has already received 2 reminder emails" },
+        { type: "preconditions", description: "PR รอดำเนินการมา 48 ชั่วโมง; approver ได้รับ email แจ้งเตือนไปแล้ว 2 ครั้ง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-requests\n2. Wait for 48 hours\n3. Verify no reminder email is sent to the approver",
+            "1. ไปที่ /procurement/purchase-requests\n2. รอ 48 ชั่วโมง\n3. ตรวจสอบว่าไม่มีการส่ง email แจ้งเตือนไปยัง approver",
         },
-        { type: "expected", description: "No reminder email is sent to the approver." },
+        { type: "expected", description: "ไม่มีการส่ง email แจ้งเตือนไปยัง approver" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -3360,13 +3360,13 @@ requestorTest.describe("PR — Reminder — Time-based, backend only", () => {
     "TC-PR-110004 Negative Case - Approver with No Access",
     {
       annotation: [
-        { type: "preconditions", description: "PR pending for 48 hours; approver has no access to view the PR" },
+        { type: "preconditions", description: "PR รอดำเนินการมา 48 ชั่วโมง; approver ไม่มีสิทธิ์ดู PR" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-requests\n2. Wait for 48 hours\n3. Verify no reminder email is sent to the approver",
+            "1. ไปที่ /procurement/purchase-requests\n2. รอ 48 ชั่วโมง\n3. ตรวจสอบว่าไม่มีการส่ง email แจ้งเตือนไปยัง approver",
         },
-        { type: "expected", description: "No reminder email is sent to the approver." },
+        { type: "expected", description: "ไม่มีการส่ง email แจ้งเตือนไปยัง approver" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -3381,13 +3381,13 @@ requestorTest.describe("PR — Escalation — Time-based, backend only", () => {
     "TC-PR-120001 Escalation for Overdue PRs with Valid Inputs",
     {
       annotation: [
-        { type: "preconditions", description: "System is running and there are pending PRs that are overdue by more than 5 days" },
+        { type: "preconditions", description: "ระบบกำลังทำงานและมี PR ที่รอดำเนินการเกินกำหนดมากกว่า 5 วัน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/escalation\n2. Click 'Run Escalation Job'\n3. Wait for the job to complete",
+            "1. ไปที่ /procurement/escalation\n2. คลิก 'Run Escalation Job'\n3. รอให้ job เสร็จสิ้น",
         },
-        { type: "expected", description: "The system escalates all overdue PRs to their managers and logs the escalations, generates an escalation report." },
+        { type: "expected", description: "ระบบส่งเรื่อง PR ที่เกินกำหนดทั้งหมดไปยัง manager และ log การส่งเรื่อง พร้อมสร้างรายงาน escalation" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -3400,13 +3400,13 @@ requestorTest.describe("PR — Escalation — Time-based, backend only", () => {
     "TC-PR-120002 Escalation Job Fails Due to Database Error",
     {
       annotation: [
-        { type: "preconditions", description: "Database is down or corrupted, preventing the query from running successfully" },
+        { type: "preconditions", description: "ฐานข้อมูลล่มหรือเสียหาย ทำให้ไม่สามารถรัน query ได้สำเร็จ" },
         {
           type: "steps",
           description:
-            "1. Simulate a database error by stopping the database service\n2. Navigate to /procurement/escalation\n3. Click 'Run Escalation Job'",
+            "1. จำลองข้อผิดพลาดของฐานข้อมูลโดยหยุด database service\n2. ไปที่ /procurement/escalation\n3. คลิก 'Run Escalation Job'",
         },
-        { type: "expected", description: "An error message is displayed indicating the database issue, no PRs are escalated." },
+        { type: "expected", description: "แสดงข้อความผิดพลาดระบุปัญหาฐานข้อมูล ไม่มี PR ที่ถูกส่งเรื่องต่อ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -3419,13 +3419,13 @@ requestorTest.describe("PR — Escalation — Time-based, backend only", () => {
     "TC-PR-120003 Escalation Notification Sent to Approver Manager but No Manager Found",
     {
       annotation: [
-        { type: "preconditions", description: "The approver does not have a manager assigned in the system" },
+        { type: "preconditions", description: "approver ไม่มี manager ที่กำหนดในระบบ" },
         {
           type: "steps",
           description:
-            "1. Create a pending PR that will trigger escalation\n2. Run the escalation job\n3. Wait for the job to complete",
+            "1. สร้าง PR ที่รอดำเนินการซึ่งจะทริกเกอร์ escalation\n2. รัน escalation job\n3. รอให้ job เสร็จสิ้น",
         },
-        { type: "expected", description: "The system attempts to send the escalation notification but fails because no manager is found, PR remains unescalated." },
+        { type: "expected", description: "ระบบพยายามส่ง escalation notification แต่ล้มเหลวเนื่องจากไม่พบ manager ทำให้ PR ยังคงไม่ถูก escalate" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -3438,13 +3438,13 @@ requestorTest.describe("PR — Escalation — Time-based, backend only", () => {
     "TC-PR-120004 Escalation Job Runs During Non-Scheduled Time",
     {
       annotation: [
-        { type: "preconditions", description: "System is running outside the scheduled time for the escalation job" },
+        { type: "preconditions", description: "ระบบกำลังทำงานนอกเวลาที่กำหนดไว้สำหรับ escalation job" },
         {
           type: "steps",
           description:
-            "1. Manually trigger the escalation job at an unscheduled time\n2. Navigate to /procurement/escalation\n3. Click 'Run Escalation Job'",
+            "1. ทริกเกอร์ escalation job ด้วยตนเองในเวลาที่ไม่ได้กำหนด\n2. ไปที่ /procurement/escalation\n3. คลิก 'Run Escalation Job'",
         },
-        { type: "expected", description: "The job runs but no PRs are escalated as the query condition is not met, no notifications are sent." },
+        { type: "expected", description: "Job รันแต่ไม่มี PR ที่ถูก escalate เนื่องจากเงื่อนไข query ไม่ตรง และไม่มีการส่ง notification" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -3459,12 +3459,12 @@ requestorTest.describe("PR — Archival — Time-based, backend only", () => {
     "TC-PR-130001 Happy Path - Scheduled Archival",
     {
       annotation: [
-        { type: "preconditions", description: "System is set to run archival at 2 AM daily; current date is 2 years or more after the PRs to be archived" },
+        { type: "preconditions", description: "ระบบตั้งค่าให้รัน archival ทุกวันเวลา 2 AM; วันที่ปัจจุบันห่างจาก PR ที่จะ archive 2 ปีขึ้นไป" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/admin\n2. Wait for 2 AM\n3. Click on 'Run Archive Job'",
+          description: "1. ไปที่ /procurement/admin\n2. รอเวลา 2 AM\n3. คลิก 'Run Archive Job'",
         },
-        { type: "expected", description: "All eligible PRs are archived according to the criteria, and a report is generated." },
+        { type: "expected", description: "PR ทั้งหมดที่มีคุณสมบัติถูก archive ตามเกณฑ์ และสร้างรายงาน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -3477,12 +3477,12 @@ requestorTest.describe("PR — Archival — Time-based, backend only", () => {
     "TC-PR-130002 Negative - Invalid Date Range",
     {
       annotation: [
-        { type: "preconditions", description: "System is set to run archival at 2 AM daily; current date is less than 2 years from the PRs to be archived" },
+        { type: "preconditions", description: "ระบบตั้งค่าให้รัน archival ทุกวันเวลา 2 AM; วันที่ปัจจุบันห่างจาก PR ที่จะ archive น้อยกว่า 2 ปี" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/admin\n2. Click on 'Run Archive Job'",
+          description: "1. ไปที่ /procurement/admin\n2. คลิก 'Run Archive Job'",
         },
-        { type: "expected", description: "No PRs are archived, and a notification is sent to the admin stating that the date range is invalid." },
+        { type: "expected", description: "ไม่มี PR ที่ถูก archive และส่ง notification ไปยัง admin แจ้งว่าช่วงวันที่ไม่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -3495,12 +3495,12 @@ requestorTest.describe("PR — Archival — Time-based, backend only", () => {
     "TC-PR-130003 Edge Case - No Eligible PRs",
     {
       annotation: [
-        { type: "preconditions", description: "All PRs are either new, in progress, or archived within the last 2 years" },
+        { type: "preconditions", description: "PR ทั้งหมดเป็นแบบใหม่, กำลังดำเนินการ หรือถูก archive ภายใน 2 ปีที่ผ่านมา" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/admin\n2. Click on 'Run Archive Job'",
+          description: "1. ไปที่ /procurement/admin\n2. คลิก 'Run Archive Job'",
         },
-        { type: "expected", description: "No PRs are archived, and a notification is sent to the admin stating that no PRs are eligible for archiving." },
+        { type: "expected", description: "ไม่มี PR ที่ถูก archive และส่ง notification ไปยัง admin แจ้งว่าไม่มี PR ที่มีคุณสมบัติสำหรับการ archive" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_TIME },

@@ -83,22 +83,22 @@ _Generated from `tests/310-purchase-request-template.spec.ts` annotations. Edit 
 
 **Preconditions**
 
-User has 'Create Purchase Request Template' permission; assigned to at least one department; at least one budget code and account exist
+ผู้ใช้มีสิทธิ์ 'Create Purchase Request Template'; ถูกกำหนดให้อย่างน้อยหนึ่งแผนก; มี budget code และ account อย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'New Purchase Request'
-3. Fill Item Specifications
-4. Fill Quantity
-5. Fill Pricing
-6. Select Budget Code
-7. Select Account
-8. Click 'Save'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'New Purchase Request'
+3. กรอก Item Specifications
+4. กรอก Quantity
+5. กรอก Pricing
+6. เลือก Budget Code
+7. เลือก Account
+8. คลิก 'Save'
 
 **Expected**
 
-Purchase request template is successfully created and saved.
+Purchase request template ถูกสร้างและบันทึกสำเร็จ
 
 ---
 
@@ -111,16 +111,16 @@ Purchase request template is successfully created and saved.
 
 **Preconditions**
 
-User lacks 'Create Purchase Request Template' permission
+ผู้ใช้ไม่มีสิทธิ์ 'Create Purchase Request Template'
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'New Purchase Request'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'New Purchase Request'
 
 **Expected**
 
-System displays permission denied message.
+ระบบแสดงข้อความ permission denied
 
 ---
 
@@ -133,16 +133,16 @@ System displays permission denied message.
 
 **Preconditions**
 
-User has create permission but is not assigned to any department
+ผู้ใช้มีสิทธิ์สร้างแต่ไม่ได้ถูกกำหนดให้กับแผนกใดๆ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'New Purchase Request'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'New Purchase Request'
 
 **Expected**
 
-System displays error message indicating user needs to be assigned to a department.
+ระบบแสดงข้อความแสดงข้อผิดพลาดว่าผู้ใช้ต้องถูกกำหนดให้กับแผนก
 
 ---
 
@@ -155,18 +155,18 @@ System displays error message indicating user needs to be assigned to a departme
 
 **Preconditions**
 
-User has create permission; assigned to at least one department
+ผู้ใช้มีสิทธิ์สร้าง; ถูกกำหนดให้อย่างน้อยหนึ่งแผนก
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'New Purchase Request'
-3. Fill only part of the required fields
-4. Click 'Save'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'New Purchase Request'
+3. กรอกเฉพาะบางส่วนของ required fields
+4. คลิก 'Save'
 
 **Expected**
 
-System displays error message for required fields not filled.
+ระบบแสดงข้อความแสดงข้อผิดพลาดสำหรับ required fields ที่ยังไม่ได้กรอก
 
 ---
 
@@ -179,17 +179,17 @@ System displays error message for required fields not filled.
 
 **Preconditions**
 
-User has 'View Purchase Request Templates' permission; template exists in the system
+ผู้ใช้มีสิทธิ์ 'View Purchase Request Templates'; template มีอยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on a template card
-3. Verify all metadata, configured items, budget allocations, and usage history are displayed
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกที่ template card
+3. ตรวจสอบว่า metadata, configured items, budget allocations และ usage history ทั้งหมดแสดงผล
 
 **Expected**
 
-All template details are correctly displayed.
+รายละเอียด template ทั้งหมดแสดงผลถูกต้อง
 
 ---
 
@@ -202,17 +202,17 @@ All template details are correctly displayed.
 
 **Preconditions**
 
-User has 'View Purchase Request Templates' permission
+ผู้ใช้มีสิทธิ์ 'View Purchase Request Templates'
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on a non-existent template link
-3. Verify error message or access is denied
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกที่ link template ที่ไม่มีอยู่
+3. ตรวจสอบข้อความแสดงข้อผิดพลาดหรือการปฏิเสธการเข้าถึง
 
 **Expected**
 
-User receives an error message or is informed that the template does not exist.
+ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดหรือได้รับแจ้งว่า template ไม่มีอยู่
 
 ---
 
@@ -225,17 +225,17 @@ User receives an error message or is informed that the template does not exist.
 
 **Preconditions**
 
-User has view permission; template exists with no budget allocations
+ผู้ใช้มีสิทธิ์ view; template มีอยู่โดยไม่มี budget allocations
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on a template card
-3. Verify that there are no budget allocation entries displayed
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกที่ template card
+3. ตรวจสอบว่าไม่มี budget allocation entries แสดงผล
 
 **Expected**
 
-The budget allocations section shows no entries.
+ส่วน budget allocations ไม่แสดง entries ใดๆ
 
 ---
 
@@ -248,17 +248,17 @@ The budget allocations section shows no entries.
 
 **Preconditions**
 
-User has view permission; template exists with a very long usage history
+ผู้ใช้มีสิทธิ์ view; template มีอยู่พร้อม usage history ที่ยาวมาก
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on a template card
-3. Verify that the usage history is truncated or paginated
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกที่ template card
+3. ตรวจสอบว่า usage history ถูก truncated หรือแบ่งหน้า
 
 **Expected**
 
-The usage history is truncated or paginated, allowing users to view a reasonable amount of data.
+usage history ถูก truncated หรือแบ่งหน้า ทำให้ผู้ใช้สามารถดูข้อมูลได้ในปริมาณที่เหมาะสม
 
 ---
 
@@ -271,20 +271,20 @@ The usage history is truncated or paginated, allowing users to view a reasonable
 
 **Preconditions**
 
-User has edit permission; template exists and is in editable status (Draft or Active); user is template creator or has elevated privilege
+ผู้ใช้มีสิทธิ์แก้ไข; template มีอยู่และอยู่ในสถานะที่แก้ไขได้ (Draft หรือ Active); ผู้ใช้เป็นผู้สร้าง template หรือมีสิทธิ์สูงกว่า
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on 'Edit' for an existing template
-3. Fill in updated description
-4. Adjust quantity or price
-5. Verify changes are saved
-6. Click 'Save'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Edit' สำหรับ template ที่มีอยู่
+3. กรอก description ที่อัปเดต
+4. ปรับ quantity หรือ price
+5. ตรวจสอบว่าการเปลี่ยนแปลงถูกบันทึก
+6. คลิก 'Save'
 
 **Expected**
 
-Template is updated with new description, quantity, and price. Changes are reflected in the template.
+Template ถูกอัปเดตด้วย description, quantity และ price ใหม่ การเปลี่ยนแปลงสะท้อนใน template
 
 ---
 
@@ -297,19 +297,19 @@ Template is updated with new description, quantity, and price. Changes are refle
 
 **Preconditions**
 
-User has edit permission; template exists and is in editable status
+ผู้ใช้มีสิทธิ์แก้ไข; template มีอยู่และอยู่ในสถานะที่แก้ไขได้
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on 'Edit' for an existing template
-3. Fill in a negative quantity value
-4. Attempt to save
-5. Verify error message
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Edit' สำหรับ template ที่มีอยู่
+3. กรอกค่า quantity ที่เป็นลบ
+4. พยายาม save
+5. ตรวจสอบข้อความแสดงข้อผิดพลาด
 
 **Expected**
 
-Error message displayed stating that quantity cannot be negative.
+แสดงข้อความแสดงข้อผิดพลาดว่า quantity ต้องไม่เป็นค่าลบ
 
 ---
 
@@ -322,18 +322,18 @@ Error message displayed stating that quantity cannot be negative.
 
 **Preconditions**
 
-User is not template creator and does not have elevated privilege
+ผู้ใช้ไม่ใช่ผู้สร้าง template และไม่มีสิทธิ์สูงกว่า
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on 'Edit' for an existing template
-3. Attempt to make any changes
-4. Verify inability to save changes
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Edit' สำหรับ template ที่มีอยู่
+3. พยายามทำการเปลี่ยนแปลงใดๆ
+4. ตรวจสอบว่าไม่สามารถ save การเปลี่ยนแปลงได้
 
 **Expected**
 
-User is unable to make any changes and receives a permission denied message.
+ผู้ใช้ไม่สามารถทำการเปลี่ยนแปลงได้และได้รับข้อความ permission denied
 
 ---
 
@@ -346,18 +346,18 @@ User is unable to make any changes and receives a permission denied message.
 
 **Preconditions**
 
-Template is in non-editable status (Locked or Inactive)
+Template อยู่ในสถานะที่แก้ไขไม่ได้ (Locked หรือ Inactive)
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on 'Edit' for a template in non-editable status
-3. Attempt to make any changes
-4. Verify inability to save changes
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Edit' สำหรับ template ที่อยู่ในสถานะที่แก้ไขไม่ได้
+3. พยายามทำการเปลี่ยนแปลงใดๆ
+4. ตรวจสอบว่าไม่สามารถ save การเปลี่ยนแปลงได้
 
 **Expected**
 
-User is unable to make any changes and receives a message stating the template is read-only.
+ผู้ใช้ไม่สามารถทำการเปลี่ยนแปลงได้และได้รับข้อความว่า template เป็น read-only
 
 ---
 
@@ -370,17 +370,17 @@ User is unable to make any changes and receives a message stating the template i
 
 **Preconditions**
 
-User has edit permission; template does not exist
+ผู้ใช้มีสิทธิ์แก้ไข; template ไม่มีอยู่
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Attempt to click on 'Edit' for a non-existent template
-3. Verify no actions can be performed
+1. ไปที่ /procurement/purchase-request-template
+2. พยายามคลิก 'Edit' สำหรับ template ที่ไม่มีอยู่
+3. ตรวจสอบว่าไม่สามารถดำเนินการใดๆ ได้
 
 **Expected**
 
-User is unable to perform any actions on a non-existent template.
+ผู้ใช้ไม่สามารถดำเนินการใดๆ กับ template ที่ไม่มีอยู่ได้
 
 ---
 
@@ -393,18 +393,18 @@ User is unable to perform any actions on a non-existent template.
 
 **Preconditions**
 
-User has delete permission; template exists and is not marked as default for its department
+ผู้ใช้มีสิทธิ์ลบ; template มีอยู่และไม่ได้ถูกกำหนดเป็น default ของแผนก
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Select the template to delete
-3. Click 'Delete'
-4. Confirm the deletion
+1. ไปที่ /procurement/purchase-request-template
+2. เลือก template ที่ต้องการลบ
+3. คลิก 'Delete'
+4. Confirm การลบ
 
 **Expected**
 
-Template is successfully deleted from the system.
+Template ถูกลบออกจากระบบสำเร็จ
 
 ---
 
@@ -417,16 +417,16 @@ Template is successfully deleted from the system.
 
 **Preconditions**
 
-User has delete permission; default template exists in the system for the department
+ผู้ใช้มีสิทธิ์ลบ; default template มีอยู่ในระบบสำหรับแผนก
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Attempt to delete the default template
+1. ไปที่ /procurement/purchase-request-template
+2. พยายามลบ default template
 
 **Expected**
 
-System prevents deletion of the default template and displays an error message.
+ระบบป้องกันการลบ default template และแสดงข้อความแสดงข้อผิดพลาด
 
 ---
 
@@ -439,16 +439,16 @@ System prevents deletion of the default template and displays an error message.
 
 **Preconditions**
 
-User does not have 'Delete Purchase Request Template' permission
+ผู้ใช้ไม่มีสิทธิ์ 'Delete Purchase Request Template'
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Attempt to delete any template
+1. ไปที่ /procurement/purchase-request-template
+2. พยายามลบ template ใดๆ
 
 **Expected**
 
-System displays an error message indicating that the user does not have the required permission.
+ระบบแสดงข้อความแสดงข้อผิดพลาดว่าผู้ใช้ไม่มีสิทธิ์ที่ต้องการ
 
 ---
 
@@ -461,16 +461,16 @@ System displays an error message indicating that the user does not have the requ
 
 **Preconditions**
 
-User has delete permission; template does not exist in the system
+ผู้ใช้มีสิทธิ์ลบ; template ไม่มีอยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Attempt to delete a non-existent template
+1. ไปที่ /procurement/purchase-request-template
+2. พยายามลบ template ที่ไม่มีอยู่
 
 **Expected**
 
-System displays an error message indicating that the template does not exist.
+ระบบแสดงข้อความแสดงข้อผิดพลาดว่า template ไม่มีอยู่
 
 ---
 
@@ -483,18 +483,18 @@ System displays an error message indicating that the template does not exist.
 
 **Preconditions**
 
-User has delete permission; multiple templates exist and are not marked as default
+ผู้ใช้มีสิทธิ์ลบ; มี template หลายรายการและไม่มีรายการใดถูกกำหนดเป็น default
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Select multiple templates
-3. Click 'Delete'
-4. Confirm the deletion
+1. ไปที่ /procurement/purchase-request-template
+2. เลือก template หลายรายการ
+3. คลิก 'Delete'
+4. Confirm การลบ
 
 **Expected**
 
-Selected templates are successfully deleted from the system.
+template ที่เลือกถูกลบออกจากระบบสำเร็จ
 
 ---
 
@@ -507,17 +507,17 @@ Selected templates are successfully deleted from the system.
 
 **Preconditions**
 
-User has create permission; source template exists and is accessible
+ผู้ใช้มีสิทธิ์สร้าง; source template มีอยู่และเข้าถึงได้
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Clone' on the source template
-3. Confirm the clone operation
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Clone' ที่ source template
+3. Confirm การ clone
 
 **Expected**
 
-The new template is created as a copy of the source template with all details intact.
+template ใหม่ถูกสร้างเป็นสำเนาของ source template พร้อมรายละเอียดครบถ้วน
 
 ---
 
@@ -530,16 +530,16 @@ The new template is created as a copy of the source template with all details in
 
 **Preconditions**
 
-User does not have create permission; source template exists and is accessible
+ผู้ใช้ไม่มีสิทธิ์สร้าง; source template มีอยู่และเข้าถึงได้
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Attempt to click 'Clone' on the source template
+1. ไปที่ /procurement/purchase-request-template
+2. พยายามคลิก 'Clone' ที่ source template
 
 **Expected**
 
-User receives an access denied message or the 'Clone' option is grayed out.
+ผู้ใช้ได้รับข้อความ access denied หรือตัวเลือก 'Clone' ถูก grayed out
 
 ---
 
@@ -552,16 +552,16 @@ User receives an access denied message or the 'Clone' option is grayed out.
 
 **Preconditions**
 
-User has create permission; source template does not exist
+ผู้ใช้มีสิทธิ์สร้าง; source template ไม่มีอยู่
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Attempt to click 'Clone' on a non-existent template
+1. ไปที่ /procurement/purchase-request-template
+2. พยายามคลิก 'Clone' ที่ template ที่ไม่มีอยู่
 
 **Expected**
 
-User is informed that the source template does not exist.
+ผู้ใช้ได้รับแจ้งว่า source template ไม่มีอยู่
 
 ---
 
@@ -574,17 +574,17 @@ User is informed that the source template does not exist.
 
 **Preconditions**
 
-User has create permission; source template exists and is from a different department
+ผู้ใช้มีสิทธิ์สร้าง; source template มีอยู่และมาจากแผนกอื่น
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Clone' on the source template
-3. Verify that the new template's department is the same as the user's department
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Clone' ที่ source template
+3. ตรวจสอบว่าแผนกของ template ใหม่ตรงกับแผนกของผู้ใช้
 
 **Expected**
 
-The new template's department matches the user's department, indicating the cloning operation is restricted to the user's department.
+แผนกของ template ใหม่ตรงกับแผนกของผู้ใช้ แสดงให้เห็นว่าการ clone ถูกจำกัดไว้ที่แผนกของผู้ใช้
 
 ---
 
@@ -597,19 +597,19 @@ The new template's department matches the user's department, indicating the clon
 
 **Preconditions**
 
-User has 'Manage Default Templates' permission; template exists and is in Active status; user has access to template's department
+ผู้ใช้มีสิทธิ์ 'Manage Default Templates'; template มีอยู่และอยู่ในสถานะ Active; ผู้ใช้เข้าถึงแผนกของ template ได้
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Manage Templates'
-3. Select template
-4. Click 'Set as Default'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Manage Templates'
+3. เลือก template
+4. คลิก 'Set as Default'
 5. Confirm
 
 **Expected**
 
-Template is marked as default and a success message is displayed.
+Template ถูกกำหนดเป็น default และแสดงข้อความสำเร็จ
 
 ---
 
@@ -622,17 +622,17 @@ Template is marked as default and a success message is displayed.
 
 **Preconditions**
 
-User does not have 'Manage Default Templates' permission
+ผู้ใช้ไม่มีสิทธิ์ 'Manage Default Templates'
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Manage Templates'
-3. Attempt to select template and set as default
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Manage Templates'
+3. พยายามเลือก template และกำหนดเป็น default
 
 **Expected**
 
-User receives an error message indicating they do not have permission to manage default templates.
+ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่าไม่มีสิทธิ์ manage default templates
 
 ---
 
@@ -645,17 +645,17 @@ User receives an error message indicating they do not have permission to manage 
 
 **Preconditions**
 
-User has manage permission; template does not exist or is in Inactive status
+ผู้ใช้มีสิทธิ์ manage; template ไม่มีอยู่หรืออยู่ในสถานะ Inactive
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Manage Templates'
-3. Attempt to select non-existent or inactive template and set as default
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Manage Templates'
+3. พยายามเลือก template ที่ไม่มีอยู่หรือ inactive แล้วกำหนดเป็น default
 
 **Expected**
 
-User receives an error message indicating the selected template is invalid.
+ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่า template ที่เลือกไม่ถูกต้อง
 
 ---
 
@@ -668,18 +668,18 @@ User receives an error message indicating the selected template is invalid.
 
 **Preconditions**
 
-User has manage permission; template exists; user does not have access to template's department
+ผู้ใช้มีสิทธิ์ manage; template มีอยู่; ผู้ใช้ไม่มีสิทธิ์เข้าถึงแผนกของ template
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Manage Templates'
-3. Select template
-4. Attempt to set as default
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Manage Templates'
+3. เลือก template
+4. พยายามกำหนดเป็น default
 
 **Expected**
 
-User receives an error message indicating they do not have access to the template's department.
+ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่าไม่มีสิทธิ์เข้าถึงแผนกของ template
 
 ---
 
@@ -692,18 +692,18 @@ User receives an error message indicating they do not have access to the templat
 
 **Preconditions**
 
-Multiple templates exist and are in Active status
+มี template หลายรายการและอยู่ในสถานะ Active
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Manage Templates'
-3. Select multiple templates
-4. Attempt to set as default
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Manage Templates'
+3. เลือก template หลายรายการ
+4. พยายามกำหนดเป็น default
 
 **Expected**
 
-User receives an error message indicating only one template can be set as default at a time.
+ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่าสามารถกำหนด default ได้เพียงหนึ่ง template ในแต่ละครั้ง
 
 ---
 
@@ -716,22 +716,22 @@ User receives an error message indicating only one template can be set as defaul
 
 **Preconditions**
 
-User is in edit mode of a template; has permission to edit; has at least one budget and account code
+ผู้ใช้อยู่ใน edit mode ของ template; มีสิทธิ์แก้ไข; มี budget และ account code อย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Add Item'
-3. Fill 'Item Name' with 'Desk'
-4. Fill 'Quantity' with '50'
-5. Fill 'Price' with '100.50'
-6. Select 'Budget Code' from dropdown
-7. Select 'Account Code' from dropdown
-8. Click 'Save'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Add Item'
+3. กรอก 'Item Name' ด้วย 'Desk'
+4. กรอก 'Quantity' ด้วย '50'
+5. กรอก 'Price' ด้วย '100.50'
+6. เลือก 'Budget Code' จาก dropdown
+7. เลือก 'Account Code' จาก dropdown
+8. คลิก 'Save'
 
 **Expected**
 
-Item 'Desk' is added to the template with correct details and saved successfully.
+Item 'Desk' ถูกเพิ่มเข้า template พร้อมรายละเอียดที่ถูกต้องและบันทึกสำเร็จ
 
 ---
 
@@ -744,20 +744,20 @@ Item 'Desk' is added to the template with correct details and saved successfully
 
 **Preconditions**
 
-User is in edit mode of a template; has permission to edit; no budget code exists
+ผู้ใช้อยู่ใน edit mode ของ template; มีสิทธิ์แก้ไข; ไม่มี budget code
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Add Item'
-3. Fill 'Item Name' with 'Chair'
-4. Fill 'Quantity' with '25'
-5. Fill 'Price' with '75.00'
-6. Click 'Save'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Add Item'
+3. กรอก 'Item Name' ด้วย 'Chair'
+4. กรอก 'Quantity' ด้วย '25'
+5. กรอก 'Price' ด้วย '75.00'
+6. คลิก 'Save'
 
 **Expected**
 
-Error message is displayed stating that a budget code is required.
+แสดงข้อความแสดงข้อผิดพลาดว่าต้องระบุ budget code
 
 ---
 
@@ -770,16 +770,16 @@ Error message is displayed stating that a budget code is required.
 
 **Preconditions**
 
-User is in edit mode of a template; does not have permission to edit
+ผู้ใช้อยู่ใน edit mode ของ template; ไม่มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Add Item'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Add Item'
 
 **Expected**
 
-User is redirected to an access denied page or similar.
+ผู้ใช้ถูก redirect ไปที่หน้า access denied หรือที่คล้ายกัน
 
 ---
 
@@ -792,22 +792,22 @@ User is redirected to an access denied page or similar.
 
 **Preconditions**
 
-User is in edit mode of a template; has permission to edit
+ผู้ใช้อยู่ใน edit mode ของ template; มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Add Item'
-3. Fill 'Item Name' with 'Table'
-4. Fill 'Quantity' with '0'
-5. Fill 'Price' with '200.00'
-6. Select 'Budget Code' from dropdown
-7. Select 'Account Code' from dropdown
-8. Click 'Save'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Add Item'
+3. กรอก 'Item Name' ด้วย 'Table'
+4. กรอก 'Quantity' ด้วย '0'
+5. กรอก 'Price' ด้วย '200.00'
+6. เลือก 'Budget Code' จาก dropdown
+7. เลือก 'Account Code' จาก dropdown
+8. คลิก 'Save'
 
 **Expected**
 
-Error message is displayed stating that quantity cannot be zero.
+แสดงข้อความแสดงข้อผิดพลาดว่า quantity ต้องไม่เป็นศูนย์
 
 ---
 
@@ -820,22 +820,22 @@ Error message is displayed stating that quantity cannot be zero.
 
 **Preconditions**
 
-User is in edit mode of a template; has permission to edit
+ผู้ใช้อยู่ใน edit mode ของ template; มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Add Item'
-3. Fill 'Item Name' with 'File Cabinet'
-4. Fill 'Quantity' with '999999999999999'
-5. Fill 'Price' with '150.00'
-6. Select 'Budget Code' from dropdown
-7. Select 'Account Code' from dropdown
-8. Click 'Save'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Add Item'
+3. กรอก 'Item Name' ด้วย 'File Cabinet'
+4. กรอก 'Quantity' ด้วย '999999999999999'
+5. กรอก 'Price' ด้วย '150.00'
+6. เลือก 'Budget Code' จาก dropdown
+7. เลือก 'Account Code' จาก dropdown
+8. คลิก 'Save'
 
 **Expected**
 
-Error message is displayed stating that quantity is too large.
+แสดงข้อความแสดงข้อผิดพลาดว่า quantity มีค่ามากเกินไป
 
 ---
 
@@ -848,18 +848,18 @@ Error message is displayed stating that quantity is too large.
 
 **Preconditions**
 
-User is viewing a template in edit mode; template contains at least one item; user has edit permission
+ผู้ใช้กำลังดู template ใน edit mode; template มีอย่างน้อยหนึ่งรายการ; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on an existing item in the template list
-3. Modify the item's quantity
-4. Click 'Save'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกที่รายการที่มีอยู่ใน template list
+3. แก้ไข quantity ของรายการ
+4. คลิก 'Save'
 
 **Expected**
 
-The item is updated with the new quantity; template total is recalculated.
+รายการถูกอัปเดตด้วย quantity ใหม่; ยอดรวม template ถูกคำนวณใหม่
 
 ---
 
@@ -872,17 +872,17 @@ The item is updated with the new quantity; template total is recalculated.
 
 **Preconditions**
 
-User is viewing a template in edit mode; template contains at least one item; user does not have edit permission
+ผู้ใช้กำลังดู template ใน edit mode; template มีอย่างน้อยหนึ่งรายการ; ผู้ใช้ไม่มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on an existing item in the template list
-3. Attempt to modify the item's quantity
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกที่รายการที่มีอยู่ใน template list
+3. พยายามแก้ไข quantity ของรายการ
 
 **Expected**
 
-User receives an error message indicating insufficient permission to edit the template.
+ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่ามีสิทธิ์ไม่เพียงพอในการแก้ไข template
 
 ---
 
@@ -895,18 +895,18 @@ User receives an error message indicating insufficient permission to edit the te
 
 **Preconditions**
 
-User is viewing a template in edit mode; template contains at least one item
+ผู้ใช้กำลังดู template ใน edit mode; template มีอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on an existing item in the template list
-3. Enter an invalid quantity value (e.g., negative number)
-4. Click 'Save'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกที่รายการที่มีอยู่ใน template list
+3. กรอกค่า quantity ที่ไม่ถูกต้อง (เช่น ค่าลบ)
+4. คลิก 'Save'
 
 **Expected**
 
-User receives an error message indicating the invalid input and item is not updated.
+ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่า input ไม่ถูกต้องและรายการไม่ได้รับการอัปเดต
 
 ---
 
@@ -919,16 +919,16 @@ User receives an error message indicating the invalid input and item is not upda
 
 **Preconditions**
 
-User is viewing a template in edit mode; template contains at least one item
+ผู้ใช้กำลังดู template ใน edit mode; template มีอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Attempt to click 'Save' without selecting an item
+1. ไปที่ /procurement/purchase-request-template
+2. พยายามคลิก 'Save' โดยไม่เลือกรายการ
 
 **Expected**
 
-User receives an error message indicating that no item is selected.
+ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่าไม่ได้เลือกรายการ
 
 ---
 
@@ -941,18 +941,18 @@ User receives an error message indicating that no item is selected.
 
 **Preconditions**
 
-User is viewing a template in edit mode; template contains at least one item
+ผู้ใช้กำลังดู template ใน edit mode; template มีอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on an existing item in the template list
-3. Modify the item's price by the smallest possible amount
-4. Click 'Save'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกที่รายการที่มีอยู่ใน template list
+3. แก้ไข price ของรายการด้วยจำนวนที่น้อยที่สุดที่เป็นไปได้
+4. คลิก 'Save'
 
 **Expected**
 
-The item is updated with the new minimal price; template total is recalculated.
+รายการถูกอัปเดตด้วย price ขั้นต่ำใหม่; ยอดรวม template ถูกคำนวณใหม่
 
 ---
 
@@ -965,20 +965,20 @@ The item is updated with the new minimal price; template total is recalculated.
 
 **Preconditions**
 
-User has edit permission; viewing a template in edit mode; template contains at least one item
+ผู้ใช้มีสิทธิ์แก้ไข; กำลังดู template ใน edit mode; template มีอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on 'Edit' for the specific template
-3. Click on the 'Items' tab
-4. Select an item in the list
-5. Click 'Delete' button
-6. Confirm deletion if prompted
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Edit' สำหรับ template ที่ต้องการ
+3. คลิกที่แท็บ 'Items'
+4. เลือกรายการใน list
+5. คลิกปุ่ม 'Delete'
+6. Confirm การลบหากมีการแจ้งเตือน
 
 **Expected**
 
-Selected item is removed from the template, template total recalculated, and deletion logged.
+รายการที่เลือกถูกลบออกจาก template, ยอดรวม template ถูกคำนวณใหม่, และการลบถูกบันทึกไว้
 
 ---
 
@@ -991,18 +991,18 @@ Selected item is removed from the template, template total recalculated, and del
 
 **Preconditions**
 
-User does not have edit permission; viewing a template in view mode; template contains at least one item
+ผู้ใช้ไม่มีสิทธิ์แก้ไข; กำลังดู template ใน view mode; template มีอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on 'View' for the specific template
-3. Attempt to click 'Edit' button
-4. Verify that 'Edit' button is disabled or not visible
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'View' สำหรับ template ที่ต้องการ
+3. พยายามคลิกปุ่ม 'Edit'
+4. ตรวจสอบว่าปุ่ม 'Edit' ถูก disabled หรือไม่ visible
 
 **Expected**
 
-User is unable to navigate to edit mode and cannot delete items.
+ผู้ใช้ไม่สามารถนำทางไปยัง edit mode และไม่สามารถลบรายการได้
 
 ---
 
@@ -1015,19 +1015,19 @@ User is unable to navigate to edit mode and cannot delete items.
 
 **Preconditions**
 
-User has edit permission; template contains no items
+ผู้ใช้มีสิทธิ์แก้ไข; template ไม่มีรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click on 'Edit' for the specific template
-3. Click on the 'Items' tab
-4. Attempt to delete an item
-5. Verify that the item list is empty and no delete option is available
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Edit' สำหรับ template ที่ต้องการ
+3. คลิกที่แท็บ 'Items'
+4. พยายามลบรายการ
+5. ตรวจสอบว่า item list ว่างเปล่าและไม่มีตัวเลือกลบ
 
 **Expected**
 
-User is informed that no items are present to delete.
+ผู้ใช้ได้รับแจ้งว่าไม่มีรายการที่จะลบ
 
 ---
 
@@ -1040,17 +1040,17 @@ User is informed that no items are present to delete.
 
 **Preconditions**
 
-User has access to templates list; at least one template exists
+ผู้ใช้มีสิทธิ์เข้าถึง templates list; มี template อย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Fill 'Search' with 'example template'
-3. Click 'Search'
+1. ไปที่ /procurement/purchase-request-template
+2. กรอก 'Search' ด้วย 'example template'
+3. คลิก 'Search'
 
 **Expected**
 
-A filtered list of templates containing 'example template' is displayed.
+แสดง list ของ template ที่ค้นหาเจอที่มีคำว่า 'example template'
 
 ---
 
@@ -1063,19 +1063,19 @@ A filtered list of templates containing 'example template' is displayed.
 
 **Preconditions**
 
-User has access to templates list; at least one template exists
+ผู้ใช้มีสิทธิ์เข้าถึง templates list; มี template อย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Filter' button
-3. Select 'Category' from dropdown
-4. Select a category
-5. Click 'Apply' button
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกปุ่ม 'Filter'
+3. เลือก 'Category' จาก dropdown
+4. เลือก category
+5. คลิกปุ่ม 'Apply'
 
 **Expected**
 
-Templates are filtered by the selected category.
+Template ถูก filter ตาม category ที่เลือก
 
 ---
 
@@ -1088,17 +1088,17 @@ Templates are filtered by the selected category.
 
 **Preconditions**
 
-User has access to templates list; at least one template exists
+ผู้ใช้มีสิทธิ์เข้าถึง templates list; มี template อย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Fill 'Search' with '!@#'
-3. Click 'Search'
+1. ไปที่ /procurement/purchase-request-template
+2. กรอก 'Search' ด้วย '!@#'
+3. คลิก 'Search'
 
 **Expected**
 
-No templates are displayed and an error message is shown.
+ไม่แสดง template และแสดงข้อความแสดงข้อผิดพลาด
 
 ---
 
@@ -1111,15 +1111,15 @@ No templates are displayed and an error message is shown.
 
 **Preconditions**
 
-User does not have permission to view templates
+ผู้ใช้ไม่มีสิทธิ์ดู templates
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
+1. ไปที่ /procurement/purchase-request-template
 
 **Expected**
 
-User is redirected to unauthorized access page or an error message is displayed.
+ผู้ใช้ถูก redirect ไปที่หน้า unauthorized access หรือแสดงข้อความแสดงข้อผิดพลาด
 
 ---
 
@@ -1132,17 +1132,17 @@ User is redirected to unauthorized access page or an error message is displayed.
 
 **Preconditions**
 
-User has access to templates list; at least one template exists
+ผู้ใช้มีสิทธิ์เข้าถึง templates list; มี template อย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Clear 'Search' input field
-3. Click 'Search'
+1. ไปที่ /procurement/purchase-request-template
+2. ล้าง input field 'Search'
+3. คลิก 'Search'
 
 **Expected**
 
-All templates are displayed.
+แสดง template ทั้งหมด
 
 ---
 
@@ -1155,19 +1155,19 @@ All templates are displayed.
 
 **Preconditions**
 
-User has 'Bulk Operations' permission; templates list contains multiple templates
+ผู้ใช้มีสิทธิ์ 'Bulk Operations'; templates list มี template หลายรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Bulk Operations' tab
-3. Select 'Create Templates' option
-4. Fill in template details for multiple templates
-5. Click 'Submit'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกแท็บ 'Bulk Operations'
+3. เลือกตัวเลือก 'Create Templates'
+4. กรอกรายละเอียด template สำหรับหลาย template
+5. คลิก 'Submit'
 
 **Expected**
 
-Bulk templates are created successfully.
+Bulk templates ถูกสร้างสำเร็จ
 
 ---
 
@@ -1180,19 +1180,19 @@ Bulk templates are created successfully.
 
 **Preconditions**
 
-User does not have 'Bulk Operations' permission
+ผู้ใช้ไม่มีสิทธิ์ 'Bulk Operations'
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Bulk Operations' tab
-3. Select 'Delete Templates' option
-4. Select multiple templates
-5. Click 'Confirm'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกแท็บ 'Bulk Operations'
+3. เลือกตัวเลือก 'Delete Templates'
+4. เลือก template หลายรายการ
+5. คลิก 'Confirm'
 
 **Expected**
 
-System denies deletion and displays error message.
+ระบบปฏิเสธการลบและแสดงข้อความแสดงข้อผิดพลาด
 
 ---
 
@@ -1205,19 +1205,19 @@ System denies deletion and displays error message.
 
 **Preconditions**
 
-User has bulk operations permission
+ผู้ใช้มีสิทธิ์ bulk operations
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Bulk Operations' tab
-3. Select 'Update Templates' option
-4. Fill in invalid data for multiple templates
-5. Click 'Submit'
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกแท็บ 'Bulk Operations'
+3. เลือกตัวเลือก 'Update Templates'
+4. กรอกข้อมูลที่ไม่ถูกต้องสำหรับหลาย template
+5. คลิก 'Submit'
 
 **Expected**
 
-System prevents submission and displays error messages for invalid data.
+ระบบป้องกันการ submit และแสดงข้อความแสดงข้อผิดพลาดสำหรับข้อมูลที่ไม่ถูกต้อง
 
 ---
 
@@ -1230,17 +1230,17 @@ System prevents submission and displays error messages for invalid data.
 
 **Preconditions**
 
-User has bulk operations permission
+ผู้ใช้มีสิทธิ์ bulk operations
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Bulk Operations' tab
-3. Attempt to perform any bulk operation without selecting any templates
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกแท็บ 'Bulk Operations'
+3. พยายามดำเนิน bulk operation ใดๆ โดยไม่เลือก template
 
 **Expected**
 
-System displays error message indicating no templates selected.
+ระบบแสดงข้อความแสดงข้อผิดพลาดว่าไม่ได้เลือก template
 
 ---
 
@@ -1253,19 +1253,19 @@ System displays error message indicating no templates selected.
 
 **Preconditions**
 
-User has bulk operations permission; multiple templates exist
+ผู้ใช้มีสิทธิ์ bulk operations; มี template หลายรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Bulk Operations' tab
-3. Select a single template
-4. Perform a bulk operation (e.g., update, delete)
-5. Confirm operation
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกแท็บ 'Bulk Operations'
+3. เลือก template เดียว
+4. ดำเนิน bulk operation (เช่น update, delete)
+5. Confirm การดำเนินการ
 
 **Expected**
 
-System performs the operation on the single selected template.
+ระบบดำเนินการกับ template ที่เลือกเพียงรายการเดียว
 
 ---
 
@@ -1278,18 +1278,18 @@ System performs the operation on the single selected template.
 
 **Preconditions**
 
-User has a valid template saved in the system
+ผู้ใช้มี template ที่ถูกต้องบันทึกอยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Use Template' button
-3. Verify template details are populated in the purchase request form
-4. Click 'Save' button
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกปุ่ม 'Use Template'
+3. ตรวจสอบว่ารายละเอียด template ถูกกรอกใน purchase request form
+4. คลิกปุ่ม 'Save'
 
 **Expected**
 
-Purchase request is created with template details and saved successfully.
+Purchase request ถูกสร้างพร้อมรายละเอียด template และบันทึกสำเร็จ
 
 ---
 
@@ -1302,17 +1302,17 @@ Purchase request is created with template details and saved successfully.
 
 **Preconditions**
 
-User does not have permission to use templates
+ผู้ใช้ไม่มีสิทธิ์ใช้ templates
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Attempt to click 'Use Template' button
-3. Verify error message stating permission denied
+1. ไปที่ /procurement/purchase-request-template
+2. พยายามคลิกปุ่ม 'Use Template'
+3. ตรวจสอบข้อความแสดงข้อผิดพลาดว่า permission denied
 
 **Expected**
 
-User is unable to use template and receives an appropriate error message.
+ผู้ใช้ไม่สามารถใช้ template และได้รับข้อความแสดงข้อผิดพลาดที่เหมาะสม
 
 ---
 
@@ -1325,17 +1325,17 @@ User is unable to use template and receives an appropriate error message.
 
 **Preconditions**
 
-User has a template with some empty fields
+ผู้ใช้มี template ที่มี field ว่างบางส่วน
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Use Template' button
-3. Verify fields with no data are left empty in the purchase request form
+1. ไปที่ /procurement/purchase-request-template
+2. คลิกปุ่ม 'Use Template'
+3. ตรวจสอบว่า field ที่ไม่มีข้อมูลถูกปล่อยว่างใน purchase request form
 
 **Expected**
 
-Fields with no data in the template are not populated in the purchase request form.
+Field ที่ไม่มีข้อมูลใน template ไม่ถูกกรอกใน purchase request form
 
 ---
 
@@ -1348,17 +1348,17 @@ Fields with no data in the template are not populated in the purchase request fo
 
 **Preconditions**
 
-User has access to the Templates Module and is on the item form with a valid budget code
+ผู้ใช้มีสิทธิ์เข้าถึง Templates Module และอยู่ที่ item form พร้อม budget code ที่ถูกต้อง
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Fill 'Budget Code' field with valid code
-3. Click 'Save Template'
+1. ไปที่ /procurement/purchase-request-template
+2. กรอก field 'Budget Code' ด้วย code ที่ถูกต้อง
+3. คลิก 'Save Template'
 
 **Expected**
 
-Template is saved successfully with the valid budget code.
+Template ถูกบันทึกสำเร็จพร้อม budget code ที่ถูกต้อง
 
 ---
 
@@ -1371,17 +1371,17 @@ Template is saved successfully with the valid budget code.
 
 **Preconditions**
 
-User has access to the Templates Module and is on the item form without selecting a budget code
+ผู้ใช้มีสิทธิ์เข้าถึง Templates Module และอยู่ที่ item form โดยไม่ได้เลือก budget code
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Leave 'Budget Code' field blank
-3. Click 'Save Template'
+1. ไปที่ /procurement/purchase-request-template
+2. ปล่อย field 'Budget Code' ว่าง
+3. คลิก 'Save Template'
 
 **Expected**
 
-Error message displayed prompting the selection of a valid budget code.
+แสดงข้อความแสดงข้อผิดพลาดให้เลือก budget code ที่ถูกต้อง
 
 ---
 
@@ -1394,17 +1394,17 @@ Error message displayed prompting the selection of a valid budget code.
 
 **Preconditions**
 
-User is on the item form with a budget code exceeding the allowed character limit
+ผู้ใช้อยู่ที่ item form พร้อม budget code ที่เกิน character limit ที่อนุญาต
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Fill 'Budget Code' field with code exceeding the allowed limit
-3. Click 'Save Template'
+1. ไปที่ /procurement/purchase-request-template
+2. กรอก field 'Budget Code' ด้วย code ที่เกิน limit ที่อนุญาต
+3. คลิก 'Save Template'
 
 **Expected**
 
-Error message displayed indicating the budget code exceeds the character limit.
+แสดงข้อความแสดงข้อผิดพลาดว่า budget code เกิน character limit
 
 ---
 
@@ -1417,17 +1417,17 @@ Error message displayed indicating the budget code exceeds the character limit.
 
 **Preconditions**
 
-User has access to the Templates Module but does not have permission to save templates
+ผู้ใช้มีสิทธิ์เข้าถึง Templates Module แต่ไม่มีสิทธิ์บันทึก templates
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Fill 'Budget Code' field with valid code
-3. Click 'Save Template'
+1. ไปที่ /procurement/purchase-request-template
+2. กรอก field 'Budget Code' ด้วย code ที่ถูกต้อง
+3. คลิก 'Save Template'
 
 **Expected**
 
-System denies the save operation and prompts the user about insufficient permissions.
+ระบบปฏิเสธการบันทึกและแจ้งผู้ใช้เกี่ยวกับสิทธิ์ที่ไม่เพียงพอ
 
 ---
 
@@ -1440,17 +1440,17 @@ System denies the save operation and prompts the user about insufficient permiss
 
 **Preconditions**
 
-User is logged into the system with appropriate permissions
+ผู้ใช้ Login เข้าสู่ระบบพร้อมสิทธิ์ที่เหมาะสม
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Browse Catalog'
-3. Verify the catalog data is retrieved and displayed correctly
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Browse Catalog'
+3. ตรวจสอบว่าข้อมูล catalog ถูกดึงและแสดงผลอย่างถูกต้อง
 
 **Expected**
 
-The catalog data is successfully retrieved and displayed for the user.
+ข้อมูล catalog ถูกดึงและแสดงผลให้ผู้ใช้สำเร็จ
 
 ---
 
@@ -1463,17 +1463,17 @@ The catalog data is successfully retrieved and displayed for the user.
 
 **Preconditions**
 
-User is logged into the system but does not have appropriate permissions
+ผู้ใช้ Login เข้าสู่ระบบแต่ไม่มีสิทธิ์ที่เหมาะสม
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Browse Catalog'
-3. Verify the system denies access or displays an error message
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Browse Catalog'
+3. ตรวจสอบว่าระบบปฏิเสธการเข้าถึงหรือแสดงข้อความแสดงข้อผิดพลาด
 
 **Expected**
 
-The system denies access or displays an appropriate error message indicating insufficient permissions.
+ระบบปฏิเสธการเข้าถึงหรือแสดงข้อความแสดงข้อผิดพลาดที่เหมาะสมว่ามีสิทธิ์ไม่เพียงพอ
 
 ---
 
@@ -1486,20 +1486,20 @@ The system denies access or displays an appropriate error message indicating ins
 
 **Preconditions**
 
-Server responds with a timeout error when attempting to fetch data
+Server ตอบกลับด้วย timeout error เมื่อพยายาม fetch ข้อมูล
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request-template
-2. Click 'Browse Catalog'
-3. Wait for the server timeout
-4. Verify the system handles the timeout gracefully
+1. ไปที่ /procurement/purchase-request-template
+2. คลิก 'Browse Catalog'
+3. รอ server timeout
+4. ตรวจสอบว่าระบบจัดการ timeout ได้อย่างเหมาะสม
 
 **Expected**
 
-The system handles the server timeout gracefully and provides appropriate feedback to the user.
+ระบบจัดการ server timeout ได้อย่างเหมาะสมและให้ feedback ที่เหมาะสมแก่ผู้ใช้
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

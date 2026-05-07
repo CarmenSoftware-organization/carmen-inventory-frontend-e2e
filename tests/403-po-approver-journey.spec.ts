@@ -19,9 +19,9 @@ fcTest.describe("Step 1 — My Approval", () => {
     "TC-PO-070101 My Approval dashboard loads with Total Pending count visible",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as FC (fc@blueledgers.com)" },
-        { type: "steps", description: "1. Navigate to My Approvals (or appropriate FC dashboard)\n2. Verify the total-pending indicator is rendered" },
-        { type: "expected", description: "URL contains 'approval' or 'dashboard'; a count/badge or row count is visible." },
+        { type: "preconditions", description: "Login เป็น FC (fc@blueledgers.com)" },
+        { type: "steps", description: "1. ไปที่ My Approvals (หรือ FC dashboard ที่เหมาะสม)\n2. ตรวจสอบว่า indicator total-pending ถูก render" },
+        { type: "expected", description: "URL มี 'approval' หรือ 'dashboard'; count/badge หรือ row count visible" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -40,9 +40,9 @@ fcTest.describe("Step 1 — My Approval", () => {
     "TC-PO-070102 PO filter tab shows pending POs (DRAFT + IN PROGRESS)",
     {
       annotation: [
-        { type: "preconditions", description: "On My Approval dashboard with at least one pending PO" },
-        { type: "steps", description: "1. Click PO/Purchase Order filter tab\n2. Verify rows render or empty state" },
-        { type: "expected", description: "PO tab is selected (aria-selected=true) when present." },
+        { type: "preconditions", description: "อยู่ที่ My Approval dashboard พร้อม PO ที่รอดำเนินการอย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. กดแท็บ filter PO/Purchase Order\n2. ตรวจสอบว่าแถวแสดงหรือมี empty state" },
+        { type: "expected", description: "แท็บ PO ถูกเลือก (aria-selected=true) เมื่อมี" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Functional" },
       ],
@@ -65,9 +65,9 @@ fcTest.describe("Step 1 — My Approval", () => {
     "TC-PO-070103 Click pending PO row navigates to PO detail",
     {
       annotation: [
-        { type: "preconditions", description: "On My Approval dashboard with at least one pending PO row (seeded via submitPOAsPurchaser)" },
-        { type: "steps", description: "1. Seed PO via Purchaser context\n2. Navigate to dashboard\n3. Click the seeded PO row" },
-        { type: "expected", description: "URL navigates to /procurement/purchase-order/<ref>." },
+        { type: "preconditions", description: "อยู่ที่ My Approval dashboard พร้อมแถว PO ที่รอดำเนินการอย่างน้อยหนึ่งแถว (seeded ผ่าน submitPOAsPurchaser)" },
+        { type: "steps", description: "1. Seed PO ผ่าน Purchaser context\n2. ไปที่ dashboard\n3. คลิกแถว PO ที่ seed" },
+        { type: "expected", description: "URL navigate ไปยัง /procurement/purchase-order/<ref>" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -94,9 +94,9 @@ fcTest.describe("Step 2 — PO Detail (FC view)", () => {
     "TC-PO-070201 PO Detail loads in IN PROGRESS view (FC perspective)",
     {
       annotation: [
-        { type: "preconditions", description: "An IN PROGRESS PO exists (seeded via submitPOAsPurchaser)" },
-        { type: "steps", description: "1. Open the PO detail page as FC\n2. Verify URL and status badge" },
-        { type: "expected", description: "URL is /procurement/purchase-order/<ref>; status badge text matches /in.progress/i." },
+        { type: "preconditions", description: "มี PO ที่มี status IN PROGRESS (seeded ผ่าน submitPOAsPurchaser)" },
+        { type: "steps", description: "1. เปิดหน้า detail ของ PO ในฐานะ FC\n2. ตรวจสอบ URL และ status badge" },
+        { type: "expected", description: "URL เป็น /procurement/purchase-order/<ref>; text ของ status badge ตรงกับ /in.progress/i" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -118,9 +118,9 @@ fcTest.describe("Step 2 — PO Detail (FC view)", () => {
     "TC-PO-070202 Header fields are read-only for FC (cannot edit vendor/date/etc.)",
     {
       annotation: [
-        { type: "preconditions", description: "On an IN PROGRESS PO detail page as FC" },
-        { type: "steps", description: "1. Inspect vendor / description / delivery date inputs\n2. Verify they are disabled or non-editable" },
-        { type: "expected", description: "Vendor input or one of the header fields is disabled/readonly. Skipped if no header field is detectable." },
+        { type: "preconditions", description: "อยู่ที่หน้า detail ของ IN PROGRESS PO ในฐานะ FC" },
+        { type: "steps", description: "1. ตรวจสอบ input ของ vendor / description / delivery date\n2. ตรวจสอบว่า input เหล่านั้นถูก disable หรือแก้ไขไม่ได้" },
+        { type: "expected", description: "Vendor input หรือหนึ่งใน header field ถูก disable/readonly Skip ถ้าไม่สามารถตรวจจับ header field ได้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Authorization" },
       ],
@@ -146,9 +146,9 @@ fcTest.describe("Step 2 — PO Detail (FC view)", () => {
     "TC-PO-070203 Edit button + Comment button visible",
     {
       annotation: [
-        { type: "preconditions", description: "On an IN PROGRESS PO detail page as FC" },
-        { type: "steps", description: "1. Inspect the action toolbar" },
-        { type: "expected", description: "Edit button is visible. Comment button is visible when present." },
+        { type: "preconditions", description: "อยู่ที่หน้า detail ของ IN PROGRESS PO ในฐานะ FC" },
+        { type: "steps", description: "1. ตรวจสอบ action toolbar" },
+        { type: "expected", description: "ปุ่ม Edit visible ปุ่ม Comment visible เมื่อมี" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -173,9 +173,9 @@ fcTest.describe("Step 3 — Approval Actions", () => {
     "TC-PO-070301 Edit mode → select item → Approve toolbar appears",
     {
       annotation: [
-        { type: "preconditions", description: "An IN PROGRESS PO with ≥1 item exists (seeded via submitPOAsPurchaser)" },
-        { type: "steps", description: "1. Open PO detail\n2. Click Edit\n3. Select first item via row checkbox" },
-        { type: "expected", description: "Item action toolbar (Approve/Review/Reject) becomes visible." },
+        { type: "preconditions", description: "มี IN PROGRESS PO ที่มี ≥1 รายการ (seeded ผ่าน submitPOAsPurchaser)" },
+        { type: "steps", description: "1. เปิดหน้า detail ของ PO\n2. กด Edit\n3. เลือกรายการแรกผ่าน row checkbox" },
+        { type: "expected", description: "Item action toolbar (Approve/Review/Reject) visible" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -203,9 +203,9 @@ fcTest.describe("Step 3 — Approval Actions", () => {
     "TC-PO-070302 Mark item Approved → green badge appears on item row",
     {
       annotation: [
-        { type: "preconditions", description: "Item action toolbar visible on a row" },
-        { type: "steps", description: "1. Select item\n2. Click Approve in toolbar\n3. Verify badge" },
-        { type: "expected", description: "Item row shows an Approved badge." },
+        { type: "preconditions", description: "Item action toolbar visible บนแถว" },
+        { type: "steps", description: "1. เลือกรายการ\n2. กด Approve ใน toolbar\n3. ตรวจสอบ badge" },
+        { type: "expected", description: "แถวรายการแสดง badge Approved" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -234,9 +234,9 @@ fcTest.describe("Step 3 — Approval Actions", () => {
     "TC-PO-070303 Mark item Review → amber badge + Send Back footer button appears",
     {
       annotation: [
-        { type: "preconditions", description: "Item action toolbar visible on a row" },
-        { type: "steps", description: "1. Select item\n2. Click Review in toolbar\n3. Verify badge + footer button" },
-        { type: "expected", description: "Item row shows a Review badge; document Send Back button is visible in footer." },
+        { type: "preconditions", description: "Item action toolbar visible บนแถว" },
+        { type: "steps", description: "1. เลือกรายการ\n2. กด Review ใน toolbar\n3. ตรวจสอบ badge + ปุ่ม footer" },
+        { type: "expected", description: "แถวรายการแสดง badge Review; ปุ่ม Send Back ของเอกสาร visible ใน footer" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -266,9 +266,9 @@ fcTest.describe("Step 3 — Approval Actions", () => {
     "TC-PO-070304 Mark item Reject → reject badge + footer Reject button appears",
     {
       annotation: [
-        { type: "preconditions", description: "Item action toolbar visible on a row" },
-        { type: "steps", description: "1. Select item\n2. Click Reject in toolbar\n3. Verify badge + footer button" },
-        { type: "expected", description: "Item row shows a Reject badge; document Reject button is visible in footer." },
+        { type: "preconditions", description: "Item action toolbar visible บนแถว" },
+        { type: "steps", description: "1. เลือกรายการ\n2. กด Reject ใน toolbar\n3. ตรวจสอบ badge + ปุ่ม footer" },
+        { type: "expected", description: "แถวรายการแสดง badge Reject; ปุ่ม Reject ของเอกสาร visible ใน footer" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -299,9 +299,9 @@ fcTest.describe("Step 3 — Approval Actions", () => {
     "TC-PO-070305 All items Approved → Document Approve button enabled in footer",
     {
       annotation: [
-        { type: "preconditions", description: "An IN PROGRESS PO with ≥1 item exists" },
-        { type: "steps", description: "1. Enter edit mode\n2. Select item and mark Approve\n3. Verify Document Approve button" },
-        { type: "expected", description: "Document Approve button is visible (and enabled when present)." },
+        { type: "preconditions", description: "มี IN PROGRESS PO ที่มี ≥1 รายการ" },
+        { type: "steps", description: "1. เข้าสู่ edit mode\n2. เลือกรายการและทำเครื่องหมาย Approve\n3. ตรวจสอบปุ่ม Document Approve" },
+        { type: "expected", description: "ปุ่ม Document Approve visible (และ enabled เมื่อมี)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Functional" },
       ],
@@ -329,9 +329,9 @@ fcTest.describe("Step 3 — Approval Actions", () => {
     "TC-PO-070306 Click Approve PO → confirmation dialog ('Once approved, PO will be sent to vendor')",
     {
       annotation: [
-        { type: "preconditions", description: "All items marked Approved; Document Approve button visible" },
-        { type: "steps", description: "1. Approve all items\n2. Click Document Approve PO button" },
-        { type: "expected", description: "Confirmation dialog is visible." },
+        { type: "preconditions", description: "รายการทั้งหมดถูกทำเครื่องหมาย Approved; ปุ่ม Document Approve visible" },
+        { type: "steps", description: "1. approve รายการทั้งหมด\n2. กดปุ่ม Document Approve PO" },
+        { type: "expected", description: "Confirmation dialog visible" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -365,9 +365,9 @@ fcTest.describe("Step 3 — Approval Actions", () => {
     "TC-PO-070307 Confirm Approve → status moves to APPROVED/SENT",
     {
       annotation: [
-        { type: "preconditions", description: "Document Approve confirmation dialog open" },
-        { type: "steps", description: "1. Approve item\n2. Click Document Approve\n3. Confirm dialog" },
-        { type: "expected", description: "Status badge text matches /approved|sent/i after confirmation." },
+        { type: "preconditions", description: "Confirmation dialog ของ Document Approve เปิดอยู่" },
+        { type: "steps", description: "1. approve รายการ\n2. กด Document Approve\n3. ยืนยัน dialog" },
+        { type: "expected", description: "text ของ status badge ตรงกับ /approved|sent/i หลังการยืนยัน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -408,9 +408,9 @@ fcTest.describe("Step 3 — Approval Actions", () => {
     "TC-PO-070308 Click Send Back → dialog with stage selector + per-item reason",
     {
       annotation: [
-        { type: "preconditions", description: "Item marked Review; Document Send Back button visible" },
-        { type: "steps", description: "1. Mark item Review\n2. Click Document Send Back" },
-        { type: "expected", description: "Send Back dialog is visible." },
+        { type: "preconditions", description: "รายการถูกทำเครื่องหมาย Review; ปุ่ม Document Send Back visible" },
+        { type: "steps", description: "1. ทำเครื่องหมายรายการว่า Review\n2. กด Document Send Back" },
+        { type: "expected", description: "Send Back dialog visible" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Smoke" },
       ],
@@ -444,9 +444,9 @@ fcTest.describe("Step 3 — Approval Actions", () => {
     "TC-PO-070309 Confirm Send Back → PO returned (status updates)",
     {
       annotation: [
-        { type: "preconditions", description: "Send Back dialog open" },
-        { type: "steps", description: "1. Mark item Review\n2. Click Send Back\n3. Enter reason\n4. Confirm" },
-        { type: "expected", description: "URL stays on PO ref after confirmation." },
+        { type: "preconditions", description: "Send Back dialog เปิดอยู่" },
+        { type: "steps", description: "1. ทำเครื่องหมายรายการว่า Review\n2. กด Send Back\n3. กรอกเหตุผล\n4. ยืนยัน" },
+        { type: "expected", description: "URL ยังคงอยู่ที่ PO ref หลังการยืนยัน" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -484,9 +484,9 @@ fcTest.describe("Step 3 — Approval Actions", () => {
     "TC-PO-070310 Click Reject → dialog with optional reason field",
     {
       annotation: [
-        { type: "preconditions", description: "Item marked Reject; Document Reject button visible" },
-        { type: "steps", description: "1. Mark item Reject\n2. Click Document Reject" },
-        { type: "expected", description: "Reject dialog is visible." },
+        { type: "preconditions", description: "รายการถูกทำเครื่องหมาย Reject; ปุ่ม Document Reject visible" },
+        { type: "steps", description: "1. ทำเครื่องหมายรายการว่า Reject\n2. กด Document Reject" },
+        { type: "expected", description: "Reject dialog visible" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Smoke" },
       ],
@@ -520,9 +520,9 @@ fcTest.describe("Step 3 — Approval Actions", () => {
     "TC-PO-070311 Confirm Reject → PO marked REJECTED",
     {
       annotation: [
-        { type: "preconditions", description: "Reject dialog open" },
-        { type: "steps", description: "1. Mark item Reject\n2. Click Document Reject\n3. Enter optional reason\n4. Confirm" },
-        { type: "expected", description: "Status badge text matches /rejected/i after confirmation." },
+        { type: "preconditions", description: "Reject dialog เปิดอยู่" },
+        { type: "steps", description: "1. ทำเครื่องหมายรายการว่า Reject\n2. กด Document Reject\n3. กรอกเหตุผล (optional)\n4. ยืนยัน" },
+        { type: "expected", description: "text ของ status badge ตรงกับ /rejected/i หลังการยืนยัน" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -565,9 +565,9 @@ fcTest.describe("Step 3 — Approval Actions", () => {
     "TC-PO-070312 Cancel edit mode (no item marked) → exits without saving",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on an IN PROGRESS PO with no item marked" },
-        { type: "steps", description: "1. Enter edit mode\n2. Click Cancel without selecting/marking any item" },
-        { type: "expected", description: "Form returns to view mode (Edit button visible again)." },
+        { type: "preconditions", description: "edit mode active บน IN PROGRESS PO โดยไม่มีรายการที่ถูกทำเครื่องหมาย" },
+        { type: "steps", description: "1. เข้าสู่ edit mode\n2. กด Cancel โดยไม่เลือก/ทำเครื่องหมายรายการใดๆ" },
+        { type: "expected", description: "Form กลับสู่ view mode (ปุ่ม Edit visible อีกครั้ง)" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Functional" },
       ],
@@ -592,9 +592,9 @@ fcTest.describe.serial("Golden Journey", () => {
     "TC-PO-070901 Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → Sent",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as FC; a fresh IN PROGRESS PO is seeded via submitPOAsPurchaser" },
-        { type: "steps", description: "1. Seed IN PROGRESS PO\n2. Open PO detail\n3. Click Edit\n4. Select first item\n5. Mark Approve\n6. Click Document Approve\n7. Confirm dialog" },
-        { type: "expected", description: "Status badge transitions to APPROVED/SENT after confirmation." },
+        { type: "preconditions", description: "Login เป็น FC; มี IN PROGRESS PO ใหม่ที่ seed ผ่าน submitPOAsPurchaser" },
+        { type: "steps", description: "1. Seed IN PROGRESS PO\n2. เปิดหน้า detail ของ PO\n3. กด Edit\n4. เลือกรายการแรก\n5. ทำเครื่องหมาย Approve\n6. กด Document Approve\n7. ยืนยัน dialog" },
+        { type: "expected", description: "status badge เปลี่ยนเป็น APPROVED/SENT หลังการยืนยัน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],

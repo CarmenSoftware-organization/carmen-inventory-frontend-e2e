@@ -22,13 +22,13 @@ purchaseTest.describe("Product Category — View", () => {
     "TC-CAT-010001 View all categories",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated and has category view permission" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วและมีสิทธิ์ดู category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Verify all top-level categories are displayed\n3. Click on a category\n4. Verify subcategories are displayed in expandable tree structure",
+            "1. ไปที่ /product-management/category\n2. ตรวจสอบว่า category ระดับบนสุดทั้งหมดแสดงอยู่\n3. คลิก category\n4. ตรวจสอบว่า subcategory แสดงในโครงสร้าง tree ที่ขยายได้",
         },
-        { type: "expected", description: "All categories are correctly displayed and expandable in tree structure." },
+        { type: "expected", description: "category ทั้งหมดแสดงถูกต้องและสามารถขยายได้ในโครงสร้าง tree" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -44,13 +44,13 @@ purchaseTest.describe("Product Category — View", () => {
     "TC-CAT-010003 Expand and collapse category levels",
     {
       annotation: [
-        { type: "preconditions", description: "User has category view permission" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ดู category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on a top-level category\n3. Verify subcategories are expanded\n4. Click on a subcategory\n5. Verify sub-subcategories are expanded\n6. Click on a sub-subcategory\n7. Verify sub-sub-subcategories are expanded\n8. Click on a sub-sub-subcategory\n9. Verify the category tree reverts to previous state",
+            "1. ไปที่ /product-management/category\n2. คลิก category ระดับบนสุด\n3. ตรวจสอบว่า subcategory ขยายออก\n4. คลิก subcategory\n5. ตรวจสอบว่า sub-subcategory ขยายออก\n6. คลิก sub-subcategory\n7. ตรวจสอบว่า sub-sub-subcategory ขยายออก\n8. คลิก sub-sub-subcategory\n9. ตรวจสอบว่า tree กลับสู่สถานะก่อนหน้า",
         },
-        { type: "expected", description: "User can expand and collapse category levels as expected." },
+        { type: "expected", description: "ผู้ใช้สามารถขยายและยุบระดับ category ได้ตามที่คาดหวัง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -65,13 +65,13 @@ purchaseTest.describe("Product Category — View", () => {
     "TC-CAT-010004 Category hierarchy with very long names",
     {
       annotation: [
-        { type: "preconditions", description: "User has category view permission" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ดู category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on a category with a very long name\n3. Verify subcategories are still displayed properly",
+            "1. ไปที่ /product-management/category\n2. คลิก category ที่มีชื่อยาวมาก\n3. ตรวจสอบว่า subcategory ยังแสดงอย่างถูกต้อง",
         },
-        { type: "expected", description: "Category hierarchy is displayed correctly even with very long category names." },
+        { type: "expected", description: "โครงสร้าง category hierarchy แสดงถูกต้องแม้ชื่อ category จะยาวมาก" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -86,13 +86,13 @@ purchaseTest.describe("Product Category — View", () => {
     "TC-CAT-010005 Multiple levels of categories",
     {
       annotation: [
-        { type: "preconditions", description: "User has category view permission" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ดู category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on a top-level category\n3. Click on a subcategory\n4. Click on a sub-subcategory\n5. Verify all levels are displayed properly",
+            "1. ไปที่ /product-management/category\n2. คลิก category ระดับบนสุด\n3. คลิก subcategory\n4. คลิก sub-subcategory\n5. ตรวจสอบว่าทุกระดับแสดงถูกต้อง",
         },
-        { type: "expected", description: "All levels of category hierarchy are displayed correctly." },
+        { type: "expected", description: "ทุกระดับของ category hierarchy แสดงถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -109,12 +109,12 @@ requestorTest.describe("Product Category — View — Permission denial", () => 
     "TC-CAT-010002 No permission to view categories",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated but does not have category view permission" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วแต่ไม่มีสิทธิ์ดู category" },
         {
           type: "steps",
-          description: "1. Navigate to /product-management/category\n2. Verify no categories are displayed",
+          description: "1. ไปที่ /product-management/category\n2. ตรวจสอบว่าไม่มี category แสดง",
         },
-        { type: "expected", description: "User sees an error message or restricted access message." },
+        { type: "expected", description: "ผู้ใช้เห็นข้อความ error หรือข้อความแจ้งการจำกัดสิทธิ์" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Negative" },
       ],
@@ -137,12 +137,12 @@ purchaseTest.describe("Product Category — Create Root", () => {
     "TC-CAT-020001 Happy Path - Create Root Category",
     {
       annotation: [
-        { type: "preconditions", description: "User has category creation permission and 'Product Manager' or 'System Administrator' role" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง category และมี role 'Product Manager' หรือ 'System Administrator'" },
         {
           type: "steps",
-          description: "1. Click 'New Category'\n2. Fill 'Category Name' with valid name\n3. Click 'Save'",
+          description: "1. คลิก 'New Category'\n2. กรอก 'Category Name' ด้วยชื่อที่ถูกต้อง\n3. คลิก 'Save'",
         },
-        { type: "expected", description: "Category is created successfully, visible in the list of categories." },
+        { type: "expected", description: "category สร้างสำเร็จและแสดงอยู่ใน list ของ category" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -158,13 +158,13 @@ purchaseTest.describe("Product Category — Create Root", () => {
     "TC-CAT-020003 Edge Case - Category Name Exceeds Maximum Length",
     {
       annotation: [
-        { type: "preconditions", description: "User has category creation permission" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง category" },
         {
           type: "steps",
           description:
-            "1. Click 'New Category'\n2. Fill 'Category Name' with 101 characters (exceeds max length of 100)\n3. Click 'Save'",
+            "1. คลิก 'New Category'\n2. กรอก 'Category Name' ด้วย 101 ตัวอักษร (เกินความยาวสูงสุด 100)\n3. คลิก 'Save'",
         },
-        { type: "expected", description: "Category creation fails with an error message indicating the name exceeds the maximum length." },
+        { type: "expected", description: "การสร้าง category ล้มเหลวพร้อมข้อความ error แจ้งว่าชื่อเกินความยาวสูงสุด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -186,12 +186,12 @@ requestorTest.describe("Product Category — Create Root — Permission denial",
     "TC-CAT-020002 Negative - No Permission to Create Category",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have category creation permission" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์สร้าง category" },
         {
           type: "steps",
-          description: "1. Click 'New Category'\n2. Fill 'Category Name' with valid name\n3. Click 'Save'",
+          description: "1. คลิก 'New Category'\n2. กรอก 'Category Name' ด้วยชื่อที่ถูกต้อง\n3. คลิก 'Save'",
         },
-        { type: "expected", description: "User receives an error message indicating they do not have permission to create a category." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความ error แจ้งว่าไม่มีสิทธิ์สร้าง category" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Negative" },
       ],
@@ -216,13 +216,13 @@ purchaseTest.describe("Product Category — Create Subcategory", () => {
     "TC-CAT-030001 Happy Path - Create Subcategory",
     {
       annotation: [
-        { type: "preconditions", description: "User has category creation permission; at least one root-level category exists; parent category is active" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง category; มี root-level category อย่างน้อย 1 รายการ; parent category มีอยู่จริงและ active" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on the parent category\n3. Click 'New Subcategory'\n4. Fill in the subcategory name\n5. Click 'Save'",
+            "1. ไปที่ /product-management/category\n2. คลิก parent category\n3. คลิก 'New Subcategory'\n4. กรอกชื่อ subcategory\n5. คลิก 'Save'",
         },
-        { type: "expected", description: "Subcategory is successfully created and displayed under the parent category." },
+        { type: "expected", description: "subcategory สร้างสำเร็จและแสดงอยู่ใต้ parent category" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -237,13 +237,13 @@ purchaseTest.describe("Product Category — Create Subcategory", () => {
     "TC-CAT-030002 Negative Case - Invalid Subcategory Name",
     {
       annotation: [
-        { type: "preconditions", description: "User has category creation permission; at least one root-level category exists" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง category; มี root-level category อย่างน้อย 1 รายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on the parent category\n3. Click 'New Subcategory'\n4. Fill in an invalid subcategory name (e.g., only numbers)\n5. Click 'Save'",
+            "1. ไปที่ /product-management/category\n2. คลิก parent category\n3. คลิก 'New Subcategory'\n4. กรอกชื่อ subcategory ที่ไม่ถูกต้อง (เช่น ตัวเลขอย่างเดียว)\n5. คลิก 'Save'",
         },
-        { type: "expected", description: "Error message is displayed indicating the subcategory name is invalid." },
+        { type: "expected", description: "แสดงข้อความ error แจ้งว่าชื่อ subcategory ไม่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -258,13 +258,13 @@ purchaseTest.describe("Product Category — Create Subcategory", () => {
     "TC-CAT-030004 Edge Case - Maximum Subcategory Level",
     {
       annotation: [
-        { type: "preconditions", description: "User has category creation permission; at least one root-level category exists" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง category; มี root-level category อย่างน้อย 1 รายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on the parent category\n3. Click 'New Subcategory'\n4. Repeat the above steps up to the maximum allowed subcategory levels",
+            "1. ไปที่ /product-management/category\n2. คลิก parent category\n3. คลิก 'New Subcategory'\n4. ทำซ้ำขั้นตอนข้างต้นจนถึงระดับ subcategory สูงสุดที่อนุญาต",
         },
-        { type: "expected", description: "System limits the creation of subcategories to the maximum allowed level and does not allow further nesting." },
+        { type: "expected", description: "ระบบจำกัดการสร้าง subcategory ที่ระดับสูงสุดที่อนุญาตและไม่ยอมให้ซ้อนเพิ่มเติม" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -281,13 +281,13 @@ requestorTest.describe("Product Category — Create Subcategory — Permission d
     "TC-CAT-030003 Negative Case - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have category creation permission" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์สร้าง category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on the parent category\n3. Click 'New Subcategory'",
+            "1. ไปที่ /product-management/category\n2. คลิก parent category\n3. คลิก 'New Subcategory'",
         },
-        { type: "expected", description: "User is prompted to log in or does not have access to perform the action." },
+        { type: "expected", description: "ผู้ใช้ถูกแจ้งให้ login หรือไม่มีสิทธิ์ดำเนินการ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -307,13 +307,13 @@ purchaseTest.describe("Product Category — Create Item Group", () => {
     "TC-CAT-040001 Create Valid Item Group",
     {
       annotation: [
-        { type: "preconditions", description: "User has category creation permission; at least one subcategory exists; parent subcategory is active" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง category; มี subcategory อย่างน้อย 1 รายการ; parent subcategory มีอยู่จริงและ active" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click 'New Item Group'\n3. Fill 'Item Group Name'\n4. Select 'Parent Subcategory'\n5. Click 'Save'",
+            "1. ไปที่ /product-management/category\n2. คลิก 'New Item Group'\n3. กรอก 'Item Group Name'\n4. เลือก 'Parent Subcategory'\n5. คลิก 'Save'",
         },
-        { type: "expected", description: "New item group is created and displayed in the category list." },
+        { type: "expected", description: "item group ใหม่สร้างสำเร็จและแสดงอยู่ใน category list" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -328,13 +328,13 @@ purchaseTest.describe("Product Category — Create Item Group", () => {
     "TC-CAT-040003 Create Item Group with Invalid Subcategory Selection",
     {
       annotation: [
-        { type: "preconditions", description: "User has category creation permission; no subcategory exists" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง category; ไม่มี subcategory อยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click 'New Item Group'\n3. Fill 'Item Group Name'\n4. Select 'Non-Existent Subcategory'\n5. Click 'Save'",
+            "1. ไปที่ /product-management/category\n2. คลิก 'New Item Group'\n3. กรอก 'Item Group Name'\n4. เลือก 'Non-Existent Subcategory'\n5. คลิก 'Save'",
         },
-        { type: "expected", description: "User receives error message indicating that the selected subcategory does not exist." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความ error แจ้งว่า subcategory ที่เลือกไม่มีอยู่" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -349,13 +349,13 @@ purchaseTest.describe("Product Category — Create Item Group", () => {
     "TC-CAT-040005 Create Item Group with Long Name",
     {
       annotation: [
-        { type: "preconditions", description: "User has category creation permission; at least one subcategory exists" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง category; มี subcategory อย่างน้อย 1 รายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click 'New Item Group'\n3. Fill 'Item Group Name' with a name longer than the allowed limit\n4. Click 'Save'",
+            "1. ไปที่ /product-management/category\n2. คลิก 'New Item Group'\n3. กรอก 'Item Group Name' ด้วยชื่อที่ยาวเกินขีดจำกัด\n4. คลิก 'Save'",
         },
-        { type: "expected", description: "User receives error message indicating that the item group name exceeds the allowed character limit." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความ error แจ้งว่าชื่อ item group เกินขีดจำกัดจำนวนตัวอักษร" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -372,12 +372,12 @@ requestorTest.describe("Product Category — Create Item Group — Permission de
     "TC-CAT-040002 Create Item Group with Missing Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have category creation permission" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์สร้าง category" },
         {
           type: "steps",
-          description: "1. Navigate to /product-management/category\n2. Try to click 'New Item Group'",
+          description: "1. ไปที่ /product-management/category\n2. พยายามคลิก 'New Item Group'",
         },
-        { type: "expected", description: "User cannot access 'New Item Group' button and sees appropriate permission error message." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถเข้าถึงปุ่ม 'New Item Group' และเห็นข้อความ error เรื่องสิทธิ์ที่เหมาะสม" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Negative" },
       ],
@@ -402,13 +402,13 @@ purchaseTest.describe("Product Category — Edit", () => {
     "TC-CAT-050001 Edit Existing Category Name",
     {
       annotation: [
-        { type: "preconditions", description: "User has category edit permission; category exists; not actively referenced in critical processes" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์แก้ไข category; category มีอยู่จริง; ไม่ถูกอ้างอิงในกระบวนการสำคัญ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Select existing category\n3. Click 'Edit'\n4. Fill new category name\n5. Click 'Save'",
+            "1. ไปที่ /product-management/category\n2. เลือก category ที่มีอยู่\n3. คลิก 'Edit'\n4. กรอกชื่อ category ใหม่\n5. คลิก 'Save'",
         },
-        { type: "expected", description: "Category name is updated successfully and reflected in the system." },
+        { type: "expected", description: "ชื่อ category อัปเดตสำเร็จและสะท้อนในระบบ" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -423,13 +423,13 @@ purchaseTest.describe("Product Category — Edit", () => {
     "TC-CAT-050002 Try to Edit Non-Existent Category",
     {
       annotation: [
-        { type: "preconditions", description: "User has category edit permission; category does not exist" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์แก้ไข category; category ไม่มีอยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Attempt to select non-existent category\n3. Click 'Edit'",
+            "1. ไปที่ /product-management/category\n2. พยายามเลือก category ที่ไม่มีอยู่\n3. คลิก 'Edit'",
         },
-        { type: "expected", description: "System displays error message indicating that the category does not exist." },
+        { type: "expected", description: "ระบบแสดงข้อความ error แจ้งว่า category ไม่มีอยู่" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -444,13 +444,13 @@ purchaseTest.describe("Product Category — Edit", () => {
     "TC-CAT-050004 Edit Category with Invalid Input",
     {
       annotation: [
-        { type: "preconditions", description: "User has category edit permission; category exists" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์แก้ไข category; category มีอยู่จริง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Select existing category\n3. Click 'Edit'\n4. Fill invalid category name (e.g., less than 3 characters)\n5. Click 'Save'",
+            "1. ไปที่ /product-management/category\n2. เลือก category ที่มีอยู่\n3. คลิก 'Edit'\n4. กรอกชื่อ category ที่ไม่ถูกต้อง (เช่น น้อยกว่า 3 ตัวอักษร)\n5. คลิก 'Save'",
         },
-        { type: "expected", description: "System displays error message indicating invalid input." },
+        { type: "expected", description: "ระบบแสดงข้อความ error แจ้ง input ที่ไม่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -465,13 +465,13 @@ purchaseTest.describe("Product Category — Edit", () => {
     "TC-CAT-050005 Edit Category with Active Reference",
     {
       annotation: [
-        { type: "preconditions", description: "Category is actively referenced in critical processes" },
+        { type: "preconditions", description: "category ถูกอ้างอิงอยู่ในกระบวนการสำคัญ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Select existing category\n3. Click 'Edit'",
+            "1. ไปที่ /product-management/category\n2. เลือก category ที่มีอยู่\n3. คลิก 'Edit'",
         },
-        { type: "expected", description: "System displays error message indicating that the category cannot be edited due to active references." },
+        { type: "expected", description: "ระบบแสดงข้อความ error แจ้งว่าไม่สามารถแก้ไข category ได้เนื่องจากมีการอ้างอิงที่ active อยู่" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -488,13 +488,13 @@ requestorTest.describe("Product Category — Edit — Permission denial", () => 
     "TC-CAT-050003 Edit Category with No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have category edit permission" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์แก้ไข category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Select existing category\n3. Click 'Edit'",
+            "1. ไปที่ /product-management/category\n2. เลือก category ที่มีอยู่\n3. คลิก 'Edit'",
         },
-        { type: "expected", description: "System displays error message indicating insufficient permissions." },
+        { type: "expected", description: "ระบบแสดงข้อความ error แจ้งว่าสิทธิ์ไม่เพียงพอ" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Negative" },
       ],
@@ -514,13 +514,13 @@ purchaseTest.describe("Product Category — Delete", () => {
     "TC-CAT-060001 Delete existing category",
     {
       annotation: [
-        { type: "preconditions", description: "System Administrator logged in; category exists and is not marked as deleted" },
+        { type: "preconditions", description: "Login เป็น System Administrator; category มีอยู่จริงและไม่ได้ถูกทำเครื่องหมายว่าลบแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Select existing category to delete\n3. Click 'Delete'\n4. Verify 'Are you sure you want to delete this category?' dialog appears\n5. Click 'Yes'",
+            "1. ไปที่ /product-management/category\n2. เลือก category ที่มีอยู่เพื่อลบ\n3. คลิก 'Delete'\n4. ตรวจสอบว่า dialog 'Are you sure you want to delete this category?' ปรากฏ\n5. คลิก 'Yes'",
         },
-        { type: "expected", description: "Category is marked as deleted while retaining related data for audit tracking." },
+        { type: "expected", description: "category ถูกทำเครื่องหมายว่าลบแล้วโดยยังคงข้อมูลที่เกี่ยวข้องเพื่อการตรวจสอบ" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -535,13 +535,13 @@ purchaseTest.describe("Product Category — Delete", () => {
     "TC-CAT-060002 Attempt to delete category with assigned products",
     {
       annotation: [
-        { type: "preconditions", description: "Category exists and has at least one product assignment" },
+        { type: "preconditions", description: "category มีอยู่จริงและมี product ที่กำหนดไว้อย่างน้อย 1 รายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Select category with product assignment\n3. Click 'Delete'\n4. Verify error message 'Cannot delete category with product assignments'",
+            "1. ไปที่ /product-management/category\n2. เลือก category ที่มี product กำหนดไว้\n3. คลิก 'Delete'\n4. ตรวจสอบข้อความ error 'Cannot delete category with product assignments'",
         },
-        { type: "expected", description: "Category deletion attempt fails and error message is displayed." },
+        { type: "expected", description: "การพยายามลบ category ล้มเหลวและแสดงข้อความ error" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Negative" },
       ],
@@ -556,13 +556,13 @@ purchaseTest.describe("Product Category — Delete", () => {
     "TC-CAT-060003 Attempt to delete non-existing category",
     {
       annotation: [
-        { type: "preconditions", description: "Non-existing category name entered" },
+        { type: "preconditions", description: "กรอกชื่อ category ที่ไม่มีอยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Enter non-existing category name in search\n3. Click 'Delete'\n4. Verify 'Category not found' message",
+            "1. ไปที่ /product-management/category\n2. กรอกชื่อ category ที่ไม่มีอยู่ในช่องค้นหา\n3. คลิก 'Delete'\n4. ตรวจสอบข้อความ 'Category not found'",
         },
-        { type: "expected", description: "System returns 'Category not found' message and no changes are made." },
+        { type: "expected", description: "ระบบแสดงข้อความ 'Category not found' และไม่มีการเปลี่ยนแปลงใด" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Negative" },
       ],
@@ -577,13 +577,13 @@ purchaseTest.describe("Product Category — Delete", () => {
     "TC-CAT-060004 Delete category after logging out",
     {
       annotation: [
-        { type: "preconditions", description: "Category exists and is not marked as deleted" },
+        { type: "preconditions", description: "category มีอยู่จริงและไม่ได้ถูกทำเครื่องหมายว่าลบแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Select existing category to delete\n3. Click 'Delete'\n4. Log out\n5. Try to confirm deletion\n6. Verify 'Please log in to proceed' message",
+            "1. ไปที่ /product-management/category\n2. เลือก category ที่มีอยู่เพื่อลบ\n3. คลิก 'Delete'\n4. Logout\n5. พยายามยืนยันการลบ\n6. ตรวจสอบข้อความ 'Please log in to proceed'",
         },
-        { type: "expected", description: "Deletion cannot proceed and user is prompted to log in." },
+        { type: "expected", description: "ไม่สามารถดำเนินการลบได้และผู้ใช้ถูกแจ้งให้ login" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -603,13 +603,13 @@ purchaseTest.describe("Product Category — Reorder / Drag-Drop", () => {
     "TC-CAT-070001 Reorder Categories within Same Parent",
     {
       annotation: [
-        { type: "preconditions", description: "User has category management permission; multiple categories exist at the same level; user is viewing the tree view" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์จัดการ category; มี category หลายรายการในระดับเดียวกัน; ผู้ใช้กำลังดู tree view" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Find category A and B under the same parent\n3. Click and drag category B next to category A\n4. Release the mouse",
+            "1. ไปที่ /product-management/category\n2. หา category A และ B ภายใต้ parent เดียวกัน\n3. คลิกและลาก category B ไปวางถัดจาก category A\n4. ปล่อยเมาส์",
         },
-        { type: "expected", description: "Categories A and B are reordered next to each other under the same parent." },
+        { type: "expected", description: "category A และ B ถูกจัดเรียงใหม่ติดกันภายใต้ parent เดียวกัน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -624,13 +624,13 @@ purchaseTest.describe("Product Category — Reorder / Drag-Drop", () => {
     "TC-CAT-070002 Move Category to Different Parent",
     {
       annotation: [
-        { type: "preconditions", description: "User has category management permission; multiple categories exist at different levels" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์จัดการ category; มี category หลายรายการในระดับที่แตกต่างกัน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Find category C under parent 1\n3. Click and drag category C into parent 2\n4. Release the mouse",
+            "1. ไปที่ /product-management/category\n2. หา category C ภายใต้ parent 1\n3. คลิกและลาก category C เข้า parent 2\n4. ปล่อยเมาส์",
         },
-        { type: "expected", description: "Category C is moved under parent 2." },
+        { type: "expected", description: "category C ถูกย้ายไปอยู่ใต้ parent 2" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -645,13 +645,13 @@ purchaseTest.describe("Product Category — Reorder / Drag-Drop", () => {
     "TC-CAT-070004 Attempt to Drag Category Outside of Current Parent",
     {
       annotation: [
-        { type: "preconditions", description: "User has category management permission; multiple categories exist at the same level" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์จัดการ category; มี category หลายรายการในระดับเดียวกัน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click and drag category A out of its current parent\n3. Release the mouse",
+            "1. ไปที่ /product-management/category\n2. คลิกและลาก category A ออกนอก parent ปัจจุบัน\n3. ปล่อยเมาส์",
         },
-        { type: "expected", description: "Category A remains in its current position and an error message is displayed." },
+        { type: "expected", description: "category A ยังคงอยู่ที่ตำแหน่งเดิมและแสดงข้อความ error" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -666,12 +666,12 @@ purchaseTest.describe("Product Category — Reorder / Drag-Drop", () => {
     "TC-CAT-070005 Drag Category with No Siblings",
     {
       annotation: [
-        { type: "preconditions", description: "User has category management permission; single category exists" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์จัดการ category; มี category เพียง 1 รายการ" },
         {
           type: "steps",
-          description: "1. Navigate to /product-management/category\n2. Attempt to click and drag the single category",
+          description: "1. ไปที่ /product-management/category\n2. พยายามคลิกและลาก category เดียวที่มีอยู่",
         },
-        { type: "expected", description: "User cannot reorder a single category and an error message is displayed." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถจัดเรียง category เพียงรายการเดียวได้และแสดงข้อความ error" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -688,12 +688,12 @@ requestorTest.describe("Product Category — Reorder — Permission denial", () 
     "TC-CAT-070003 Unable to Reorder without Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have category management permission" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์จัดการ category" },
         {
           type: "steps",
-          description: "1. Navigate to /product-management/category\n2. Attempt to click and drag category A and B",
+          description: "1. ไปที่ /product-management/category\n2. พยายามคลิกและลาก category A และ B",
         },
-        { type: "expected", description: "User cannot reorder categories and an error message is displayed." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถจัดเรียง category ใหม่ได้และแสดงข้อความ error" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -713,13 +713,13 @@ purchaseTest.describe("Product Category — Tree/List view", () => {
     "TC-CAT-080001 Switch from Tree to List View",
     {
       annotation: [
-        { type: "preconditions", description: "User is viewing Categories page with existing categories" },
+        { type: "preconditions", description: "ผู้ใช้กำลังดูหน้า Categories ที่มี category อยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click 'List' view option\n3. Verify that categories are displayed in a flat list format",
+            "1. ไปที่ /product-management/category\n2. คลิกตัวเลือก view 'List'\n3. ตรวจสอบว่า category แสดงในรูปแบบ flat list",
         },
-        { type: "expected", description: "Categories are displayed in a flat list format." },
+        { type: "expected", description: "category แสดงในรูปแบบ flat list" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -736,13 +736,13 @@ purchaseTest.describe("Product Category — Tree/List view", () => {
     "TC-CAT-080002 Switch from List to Tree View",
     {
       annotation: [
-        { type: "preconditions", description: "User is viewing Categories page with existing categories in List view" },
+        { type: "preconditions", description: "ผู้ใช้กำลังดูหน้า Categories ที่มี category อยู่ใน List view" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click 'Tree' view option\n3. Verify that categories are displayed in a hierarchical tree format",
+            "1. ไปที่ /product-management/category\n2. คลิกตัวเลือก view 'Tree'\n3. ตรวจสอบว่า category แสดงในรูปแบบ tree แบบลำดับชั้น",
         },
-        { type: "expected", description: "Categories are displayed in a hierarchical tree format." },
+        { type: "expected", description: "category แสดงในรูปแบบ tree แบบลำดับชั้น" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -759,13 +759,13 @@ purchaseTest.describe("Product Category — Tree/List view", () => {
     "TC-CAT-080003 Negative: Switch View with No Categories",
     {
       annotation: [
-        { type: "preconditions", description: "User is viewing Categories page with no categories" },
+        { type: "preconditions", description: "ผู้ใช้กำลังดูหน้า Categories ที่ไม่มี category อยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click 'Tree' view option\n3. Click 'List' view option\n4. Verify that no categories are displayed",
+            "1. ไปที่ /product-management/category\n2. คลิกตัวเลือก view 'Tree'\n3. คลิกตัวเลือก view 'List'\n4. ตรวจสอบว่าไม่มี category แสดง",
         },
-        { type: "expected", description: "No categories are displayed." },
+        { type: "expected", description: "ไม่มี category แสดง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -780,13 +780,13 @@ purchaseTest.describe("Product Category — Tree/List view", () => {
     "TC-CAT-080004 Edge Case: Switch Views Multiple Times",
     {
       annotation: [
-        { type: "preconditions", description: "User is viewing Categories page with existing categories" },
+        { type: "preconditions", description: "ผู้ใช้กำลังดูหน้า Categories ที่มี category อยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click 'Tree' view option\n3. Click 'List' view option\n4. Click 'Tree' view option\n5. Verify that categories are displayed in a hierarchical tree format",
+            "1. ไปที่ /product-management/category\n2. คลิกตัวเลือก view 'Tree'\n3. คลิกตัวเลือก view 'List'\n4. คลิกตัวเลือก view 'Tree'\n5. ตรวจสอบว่า category แสดงในรูปแบบ tree แบบลำดับชั้น",
         },
-        { type: "expected", description: "Categories are displayed in a hierarchical tree format." },
+        { type: "expected", description: "category แสดงในรูปแบบ tree แบบลำดับชั้น" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -806,13 +806,13 @@ purchaseTest.describe("Product Category — Search", () => {
     "TC-CAT-090001 Happy Path - Search for Existing Category",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to view categories" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ดู category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on 'Search' icon\n3. Fill 'Category Name' with 'Electronics'\n4. Click 'Search'",
+            "1. ไปที่ /product-management/category\n2. คลิกไอคอน 'Search'\n3. กรอก 'Category Name' ด้วย 'Electronics'\n4. คลิก 'Search'",
         },
-        { type: "expected", description: "Search results highlight 'Electronics' category with matching descriptions." },
+        { type: "expected", description: "ผลการค้นหาแสดง category 'Electronics' พร้อมคำอธิบายที่ตรงกัน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -829,13 +829,13 @@ purchaseTest.describe("Product Category — Search", () => {
     "TC-CAT-090002 Negative Case - Search with Invalid Input",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to view categories" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ดู category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on 'Search' icon\n3. Fill 'Category Name' with 'InvalidCategory123'\n4. Click 'Search'",
+            "1. ไปที่ /product-management/category\n2. คลิกไอคอน 'Search'\n3. กรอก 'Category Name' ด้วย 'InvalidCategory123'\n4. คลิก 'Search'",
         },
-        { type: "expected", description: "Search results show no matches and clear message or placeholder informing user that no results were found." },
+        { type: "expected", description: "ผลการค้นหาไม่พบรายการที่ตรงกันและแสดงข้อความหรือ placeholder แจ้งว่าไม่พบผลลัพธ์" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -852,13 +852,13 @@ purchaseTest.describe("Product Category — Search", () => {
     "TC-CAT-090003 Edge Case - Search with Empty Input",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to view categories" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ดู category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on 'Search' icon\n3. Fill 'Category Name' with empty input\n4. Click 'Search'",
+            "1. ไปที่ /product-management/category\n2. คลิกไอคอน 'Search'\n3. กรอก 'Category Name' ด้วย input ว่างเปล่า\n4. คลิก 'Search'",
         },
-        { type: "expected", description: "Search results do not change from default view." },
+        { type: "expected", description: "ผลการค้นหาไม่เปลี่ยนจาก view เริ่มต้น" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -875,13 +875,13 @@ requestorTest.describe("Product Category — Search — Permission denial", () =
     "TC-CAT-090004 Negative Case - User without Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have permission to view categories" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์ดู category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on 'Search' icon\n3. Fill 'Category Name' with 'Office Supplies'\n4. Click 'Search'",
+            "1. ไปที่ /product-management/category\n2. คลิกไอคอน 'Search'\n3. กรอก 'Category Name' ด้วย 'Office Supplies'\n4. คลิก 'Search'",
         },
-        { type: "expected", description: "User is redirected to permission denied page or receives error message." },
+        { type: "expected", description: "ผู้ใช้ถูก redirect ไปยังหน้าปฏิเสธสิทธิ์หรือได้รับข้อความ error" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -901,13 +901,13 @@ purchaseTest.describe("Product Category — Filters", () => {
     "TC-CAT-100001 Apply multiple filters successfully",
     {
       annotation: [
-        { type: "preconditions", description: "User is viewing Categories page; multiple categories exist with varied attributes" },
+        { type: "preconditions", description: "ผู้ใช้กำลังดูหน้า Categories; มี category หลายรายการที่มีคุณสมบัติหลากหลาย" },
         {
           type: "steps",
           description:
-            "1. Click on the 'Filter' button\n2. Select 'Level' and choose 'Tier 1'\n3. Select 'Status' and choose 'Active'\n4. Select 'Parent' and choose 'Electronics'\n5. Click 'Apply Filters'",
+            "1. คลิกปุ่ม 'Filter'\n2. เลือก 'Level' และเลือก 'Tier 1'\n3. เลือก 'Status' และเลือก 'Active'\n4. เลือก 'Parent' และเลือก 'Electronics'\n5. คลิก 'Apply Filters'",
         },
-        { type: "expected", description: "Filtered categories are displayed according to selected criteria." },
+        { type: "expected", description: "category ที่กรองแสดงตามเกณฑ์ที่เลือก" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -924,13 +924,13 @@ purchaseTest.describe("Product Category — Filters", () => {
     "TC-CAT-100002 Apply filters with invalid input",
     {
       annotation: [
-        { type: "preconditions", description: "User is viewing Categories page; multiple categories exist" },
+        { type: "preconditions", description: "ผู้ใช้กำลังดูหน้า Categories; มี category หลายรายการ" },
         {
           type: "steps",
           description:
-            "1. Click on the 'Filter' button\n2. Select 'Level' and choose an invalid option (e.g., 'Invalid Tier')\n3. Click 'Apply Filters'",
+            "1. คลิกปุ่ม 'Filter'\n2. เลือก 'Level' และเลือก option ที่ไม่ถูกต้อง (เช่น 'Invalid Tier')\n3. คลิก 'Apply Filters'",
         },
-        { type: "expected", description: "Error message is displayed indicating invalid input." },
+        { type: "expected", description: "แสดงข้อความ error แจ้ง input ที่ไม่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -945,12 +945,12 @@ purchaseTest.describe("Product Category — Filters", () => {
     "TC-CAT-100003 Apply filters with no categories matching",
     {
       annotation: [
-        { type: "preconditions", description: "User is viewing Categories page; multiple categories exist" },
+        { type: "preconditions", description: "ผู้ใช้กำลังดูหน้า Categories; มี category หลายรายการ" },
         {
           type: "steps",
-          description: "1. Click on the 'Filter' button\n2. Select 'Level' and choose 'Tier 3'\n3. Click 'Apply Filters'",
+          description: "1. คลิกปุ่ม 'Filter'\n2. เลือก 'Level' และเลือก 'Tier 3'\n3. คลิก 'Apply Filters'",
         },
-        { type: "expected", description: "No categories are displayed, message indicates no matching results." },
+        { type: "expected", description: "ไม่มี category แสดงและข้อความแจ้งว่าไม่พบผลลัพธ์ที่ตรงกัน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -965,12 +965,12 @@ purchaseTest.describe("Product Category — Filters", () => {
     "TC-CAT-100004 Apply filters with no filters applied",
     {
       annotation: [
-        { type: "preconditions", description: "User is viewing Categories page; multiple categories exist" },
+        { type: "preconditions", description: "ผู้ใช้กำลังดูหน้า Categories; มี category หลายรายการ" },
         {
           type: "steps",
-          description: "1. Click on the 'Filter' button\n2. Do not make any selections\n3. Click 'Apply Filters'",
+          description: "1. คลิกปุ่ม 'Filter'\n2. ไม่เลือกตัวเลือกใดๆ\n3. คลิก 'Apply Filters'",
         },
-        { type: "expected", description: "All categories are displayed." },
+        { type: "expected", description: "แสดง category ทั้งหมด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -990,13 +990,13 @@ purchaseTest.describe("Product Category — Breadcrumb", () => {
     "TC-CAT-110001 Select a Category with Breadcrumbs",
     {
       annotation: [
-        { type: "preconditions", description: "User has logged in and selected a category in the tree view" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วและเลือก category ใน tree view" },
         {
           type: "steps",
           description:
-            "1. Navigate to the category tree view\n2. Click on a category with at least one parent\n3. Verify the breadcrumb trail shows the full path from the root to the selected category",
+            "1. ไปที่ category tree view\n2. คลิก category ที่มี parent อย่างน้อย 1 ระดับ\n3. ตรวจสอบว่า breadcrumb trail แสดงเส้นทางเต็มจาก root ไปยัง category ที่เลือก",
         },
-        { type: "expected", description: "The breadcrumb trail correctly displays the path from the root to the selected category." },
+        { type: "expected", description: "breadcrumb trail แสดงเส้นทางจาก root ไปยัง category ที่เลือกได้อย่างถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1011,13 +1011,13 @@ purchaseTest.describe("Product Category — Breadcrumb", () => {
     "TC-CAT-110002 Navigate Up a Level Using Breadcrumbs",
     {
       annotation: [
-        { type: "preconditions", description: "User has selected a category in the tree view with at least one parent" },
+        { type: "preconditions", description: "ผู้ใช้เลือก category ใน tree view ที่มี parent อย่างน้อย 1 ระดับ" },
         {
           type: "steps",
           description:
-            "1. Navigate to a selected category with a breadcrumb trail\n2. Click on the second-to-last breadcrumb in the trail\n3. Verify the user is navigated to the parent category",
+            "1. ไปที่ category ที่เลือกซึ่งมี breadcrumb trail\n2. คลิก breadcrumb ก่อนสุดท้ายใน trail\n3. ตรวจสอบว่าผู้ใช้ถูกนำไปยัง parent category",
         },
-        { type: "expected", description: "The user is successfully navigated to the parent category as indicated by the breadcrumb click." },
+        { type: "expected", description: "ผู้ใช้ถูกนำไปยัง parent category ตามที่ระบุโดย breadcrumb ที่คลิกได้สำเร็จ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1032,13 +1032,13 @@ purchaseTest.describe("Product Category — Breadcrumb", () => {
     "TC-CAT-110003 Breadcrumb Trail Displays Correctly with Multiple Parents",
     {
       annotation: [
-        { type: "preconditions", description: "User has selected a category with multiple levels of parents" },
+        { type: "preconditions", description: "ผู้ใช้เลือก category ที่มี parent หลายระดับ" },
         {
           type: "steps",
           description:
-            "1. Navigate to a deeply nested category\n2. Verify the breadcrumb trail correctly displays all levels of parent categories",
+            "1. ไปที่ category ที่ซ้อนลึก\n2. ตรวจสอบว่า breadcrumb trail แสดงทุกระดับของ parent category ได้ถูกต้อง",
         },
-        { type: "expected", description: "The breadcrumb trail correctly and fully displays the path from the root to the selected category, regardless of depth." },
+        { type: "expected", description: "breadcrumb trail แสดงเส้นทางจาก root ไปยัง category ที่เลือกได้อย่างถูกต้องและครบถ้วน ไม่ว่าจะลึกแค่ไหน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1053,13 +1053,13 @@ purchaseTest.describe("Product Category — Breadcrumb", () => {
     "TC-CAT-110004 Breadcrumb Trail Not Displayed for Single-Level Categories",
     {
       annotation: [
-        { type: "preconditions", description: "User has selected a top-level category with no parent" },
+        { type: "preconditions", description: "ผู้ใช้เลือก category ระดับบนสุดที่ไม่มี parent" },
         {
           type: "steps",
           description:
-            "1. Navigate to a top-level category\n2. Verify the breadcrumb trail is not displayed",
+            "1. ไปที่ category ระดับบนสุด\n2. ตรวจสอบว่า breadcrumb trail ไม่แสดง",
         },
-        { type: "expected", description: "The breadcrumb trail is not displayed when the selected category is a top-level category." },
+        { type: "expected", description: "breadcrumb trail ไม่แสดงเมื่อ category ที่เลือกเป็นระดับบนสุด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1074,9 +1074,9 @@ purchaseTest.describe("Product Category — Breadcrumb", () => {
     "TC-CAT-110005 Breadcrumb Trail Missing When No Category Selected",
     {
       annotation: [
-        { type: "preconditions", description: "User has not selected any category" },
-        { type: "steps", description: "1. Verify the breadcrumb trail is not visible" },
-        { type: "expected", description: "The breadcrumb trail is not visible when no category is selected." },
+        { type: "preconditions", description: "ผู้ใช้ยังไม่ได้เลือก category ใดๆ" },
+        { type: "steps", description: "1. ตรวจสอบว่า breadcrumb trail ไม่ visible" },
+        { type: "expected", description: "breadcrumb trail ไม่ visible เมื่อไม่ได้เลือก category" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1096,13 +1096,13 @@ purchaseTest.describe("Product Category — Item Counts", () => {
     "TC-CAT-120001 View Category Item Counts - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated and viewing category hierarchy in tree view" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วและกำลังดู category hierarchy ใน tree view" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Wait for the category tree to load\n3. Select a category node\n4. Verify that the category count is displayed\n5. Expand the selected category node to see the counts of its descendants",
+            "1. ไปที่ /product-management/category\n2. รอให้ category tree โหลด\n3. เลือก category node\n4. ตรวจสอบว่าจำนวน category แสดงอยู่\n5. ขยาย category node ที่เลือกเพื่อดูจำนวนของ descendant",
         },
-        { type: "expected", description: "Category count is accurate and displayed, and the counts of all descendants are also shown." },
+        { type: "expected", description: "จำนวน category แม่นยำและแสดงอยู่ รวมถึงจำนวนของ descendant ทั้งหมดก็แสดงด้วย" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1117,13 +1117,13 @@ purchaseTest.describe("Product Category — Item Counts", () => {
     "TC-CAT-120002 View Category Item Counts - No Product Assignments",
     {
       annotation: [
-        { type: "preconditions", description: "Selected category has no product assignments" },
+        { type: "preconditions", description: "category ที่เลือกไม่มี product กำหนดไว้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Wait for the category tree to load\n3. Select a category node with no product assignments\n4. Verify that the count for the selected category and its descendants is zero",
+            "1. ไปที่ /product-management/category\n2. รอให้ category tree โหลด\n3. เลือก category node ที่ไม่มี product กำหนดไว้\n4. ตรวจสอบว่าจำนวนของ category ที่เลือกและ descendant เป็นศูนย์",
         },
-        { type: "expected", description: "Category and descendant counts display zero." },
+        { type: "expected", description: "จำนวน category และ descendant แสดงเป็นศูนย์" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1138,13 +1138,13 @@ purchaseTest.describe("Product Category — Item Counts", () => {
     "TC-CAT-120004 View Category Item Counts - Edge Case - Category with No Descendants",
     {
       annotation: [
-        { type: "preconditions", description: "Selected category has no descendant categories" },
+        { type: "preconditions", description: "category ที่เลือกไม่มี descendant" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Wait for the category tree to load\n3. Select a category node with no descendants\n4. Verify that the count is displayed for the selected category only, and there are no counts for descendants",
+            "1. ไปที่ /product-management/category\n2. รอให้ category tree โหลด\n3. เลือก category node ที่ไม่มี descendant\n4. ตรวจสอบว่าจำนวนแสดงเฉพาะ category ที่เลือกเท่านั้น และไม่มีจำนวนสำหรับ descendant",
         },
-        { type: "expected", description: "Category count is accurate and only shown for the selected category, with no counts for descendants." },
+        { type: "expected", description: "จำนวน category แม่นยำและแสดงเฉพาะ category ที่เลือก โดยไม่มีจำนวนสำหรับ descendant" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1159,13 +1159,13 @@ purchaseTest.describe("Product Category — Item Counts", () => {
     "TC-CAT-120005 View Category Item Counts - Edge Case - All Categories Empty",
     {
       annotation: [
-        { type: "preconditions", description: "All categories have no product assignments" },
+        { type: "preconditions", description: "category ทั้งหมดไม่มี product กำหนดไว้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Wait for the category tree to load\n3. Select multiple category nodes\n4. Verify that the count for each selected category is zero",
+            "1. ไปที่ /product-management/category\n2. รอให้ category tree โหลด\n3. เลือก category node หลายรายการ\n4. ตรวจสอบว่าจำนวนของแต่ละ category ที่เลือกเป็นศูนย์",
         },
-        { type: "expected", description: "Each selected category count displays zero." },
+        { type: "expected", description: "จำนวนของแต่ละ category ที่เลือกแสดงเป็นศูนย์" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1182,13 +1182,13 @@ requestorTest.describe("Product Category — Item Counts — Permission denial",
     "TC-CAT-120003 View Category Item Counts - User with Limited Permissions",
     {
       annotation: [
-        { type: "preconditions", description: "User has limited permissions to view category counts" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์จำกัดในการดูจำนวน category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Wait for the category tree to load\n3. Select a category node\n4. Verify that the count is hidden or displayed as unauthorized",
+            "1. ไปที่ /product-management/category\n2. รอให้ category tree โหลด\n3. เลือก category node\n4. ตรวจสอบว่าจำนวนถูกซ่อนหรือแสดงว่าไม่มีสิทธิ์",
         },
-        { type: "expected", description: "Category count is hidden or displayed as unauthorized for the user with limited permissions." },
+        { type: "expected", description: "จำนวน category ถูกซ่อนหรือแสดงว่าไม่มีสิทธิ์สำหรับผู้ใช้ที่มีสิทธิ์จำกัด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1208,13 +1208,13 @@ purchaseTest.describe("Product Category — Move", () => {
     "TC-CAT-130001 Move Category to a Valid Parent with Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User has category management permission; target parent exists and accepts children" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์จัดการ category; target parent มีอยู่จริงและรับ children ได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on the category to move\n3. Click on the 'Move' button\n4. Select the valid target parent\n5. Click 'Move'",
+            "1. ไปที่ /product-management/category\n2. คลิก category ที่ต้องการย้าย\n3. คลิกปุ่ม 'Move'\n4. เลือก target parent ที่ถูกต้อง\n5. คลิก 'Move'",
         },
-        { type: "expected", description: "Category is moved to the target parent successfully, hierarchy remains consistent." },
+        { type: "expected", description: "category ถูกย้ายไปยัง target parent สำเร็จและ hierarchy ยังคงสอดคล้องกัน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1229,13 +1229,13 @@ purchaseTest.describe("Product Category — Move", () => {
     "TC-CAT-130002 Attempt to Move Category to Same Parent",
     {
       annotation: [
-        { type: "preconditions", description: "Target parent is the same as the current parent" },
+        { type: "preconditions", description: "target parent เป็น parent ปัจจุบัน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on the category to move\n3. Click on the 'Move' button\n4. Select the same target parent\n5. Click 'Move'",
+            "1. ไปที่ /product-management/category\n2. คลิก category ที่ต้องการย้าย\n3. คลิกปุ่ม 'Move'\n4. เลือก target parent เดิม\n5. คลิก 'Move'",
         },
-        { type: "expected", description: "No change in category hierarchy, user receives an error message indicating that the target parent cannot be the same as the current parent." },
+        { type: "expected", description: "ไม่มีการเปลี่ยนแปลง category hierarchy และผู้ใช้ได้รับข้อความ error แจ้งว่า target parent ต้องไม่เป็น parent ปัจจุบัน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1250,13 +1250,13 @@ purchaseTest.describe("Product Category — Move", () => {
     "TC-CAT-130003 Move Category to Invalid Parent",
     {
       annotation: [
-        { type: "preconditions", description: "Target parent does not accept children at appropriate level" },
+        { type: "preconditions", description: "target parent ไม่รับ children ในระดับที่เหมาะสม" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on the category to move\n3. Click on the 'Move' button\n4. Select the invalid target parent\n5. Click 'Move'",
+            "1. ไปที่ /product-management/category\n2. คลิก category ที่ต้องการย้าย\n3. คลิกปุ่ม 'Move'\n4. เลือก target parent ที่ไม่ถูกต้อง\n5. คลิก 'Move'",
         },
-        { type: "expected", description: "Operation is rejected, user receives an error message indicating that the target parent is invalid or does not accept children at the appropriate level." },
+        { type: "expected", description: "การดำเนินการถูกปฏิเสธ ผู้ใช้ได้รับข้อความ error แจ้งว่า target parent ไม่ถูกต้องหรือไม่รับ children ในระดับที่เหมาะสม" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1271,13 +1271,13 @@ purchaseTest.describe("Product Category — Move", () => {
     "TC-CAT-130005 Move Category When Parent Hierarchy Would Form a Loop",
     {
       annotation: [
-        { type: "preconditions", description: "Target parent would create a circular reference if the move were to happen" },
+        { type: "preconditions", description: "target parent จะสร้าง circular reference หากดำเนินการย้าย" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on the category to move\n3. Click on the 'Move' button\n4. Select the target parent that would create a loop\n5. Click 'Move'",
+            "1. ไปที่ /product-management/category\n2. คลิก category ที่ต้องการย้าย\n3. คลิกปุ่ม 'Move'\n4. เลือก target parent ที่จะสร้าง loop\n5. คลิก 'Move'",
         },
-        { type: "expected", description: "Operation is rejected, user receives an error message indicating that a circular reference would be created." },
+        { type: "expected", description: "การดำเนินการถูกปฏิเสธ ผู้ใช้ได้รับข้อความ error แจ้งว่าจะเกิด circular reference" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1294,13 +1294,13 @@ requestorTest.describe("Product Category — Move — Permission denial", () => 
     "TC-CAT-130004 Move Category without Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have category management permission" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์จัดการ category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on the category to move\n3. Click on the 'Move' button\n4. Select the target parent\n5. Click 'Move'",
+            "1. ไปที่ /product-management/category\n2. คลิก category ที่ต้องการย้าย\n3. คลิกปุ่ม 'Move'\n4. เลือก target parent\n5. คลิก 'Move'",
         },
-        { type: "expected", description: "User is redirected to permission denied page or receives an error message indicating insufficient permissions." },
+        { type: "expected", description: "ผู้ใช้ถูก redirect ไปยังหน้าปฏิเสธสิทธิ์หรือได้รับข้อความ error แจ้งว่าสิทธิ์ไม่เพียงพอ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1320,13 +1320,13 @@ purchaseTest.describe("Product Category — Activate / Deactivate", () => {
     "TC-CAT-140001 Activate Category with Valid Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User has category edit permission; category exists and is not deleted" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์แก้ไข category; category มีอยู่จริงและไม่ได้ถูกลบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click 'Activate' on the desired category\n3. Verify category status is now active\n4. Confirm category is visible in product assignment dropdowns",
+            "1. ไปที่ /product-management/category\n2. คลิก 'Activate' ที่ category ที่ต้องการ\n3. ตรวจสอบว่าสถานะ category เป็น active แล้ว\n4. ยืนยันว่า category visible ใน product assignment dropdowns",
         },
-        { type: "expected", description: "Category status is updated to active, visible in product assignments." },
+        { type: "expected", description: "สถานะ category อัปเดตเป็น active และ visible ใน product assignments" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1341,13 +1341,13 @@ purchaseTest.describe("Product Category — Activate / Deactivate", () => {
     "TC-CAT-140003 Attempt to Activate Deactivated Category with Valid Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User has category edit permission; category exists and is deactivated" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์แก้ไข category; category มีอยู่จริงและถูก deactivated แล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click 'Activate' on the desired category\n3. Verify category status is now active\n4. Confirm category is visible in product assignment dropdowns",
+            "1. ไปที่ /product-management/category\n2. คลิก 'Activate' ที่ category ที่ต้องการ\n3. ตรวจสอบว่าสถานะ category เป็น active แล้ว\n4. ยืนยันว่า category visible ใน product assignment dropdowns",
         },
-        { type: "expected", description: "Category status is updated to active, visible in product assignments." },
+        { type: "expected", description: "สถานะ category อัปเดตเป็น active และ visible ใน product assignments" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1362,13 +1362,13 @@ purchaseTest.describe("Product Category — Activate / Deactivate", () => {
     "TC-CAT-140005 Attempt to Activate Non-Existent Category",
     {
       annotation: [
-        { type: "preconditions", description: "User has category edit permission; category does not exist" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์แก้ไข category; category ไม่มีอยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Attempt to click 'Activate' on a non-existent category\n3. Verify error message or no change in category status",
+            "1. ไปที่ /product-management/category\n2. พยายามคลิก 'Activate' ที่ category ที่ไม่มีอยู่\n3. ตรวจสอบข้อความ error หรือการไม่เปลี่ยนแปลงสถานะ category",
         },
-        { type: "expected", description: "Category status remains unchanged, error message displayed." },
+        { type: "expected", description: "สถานะ category ไม่เปลี่ยนแปลงและแสดงข้อความ error" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -1388,13 +1388,13 @@ purchaseTest.describe("Product Category — View Detail", () => {
     "TC-CAT-150001 View existing category details",
     {
       annotation: [
-        { type: "preconditions", description: "User has selected a category in tree or list view; has permission to view category details" },
+        { type: "preconditions", description: "ผู้ใช้เลือก category ใน tree หรือ list view; มีสิทธิ์ดูรายละเอียด category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on an existing category in the list or tree view\n3. Verify that the category name, description, hierarchy position, product count, and audit information are displayed.",
+            "1. ไปที่ /product-management/category\n2. คลิก category ที่มีอยู่ใน list หรือ tree view\n3. ตรวจสอบว่าชื่อ category, คำอธิบาย, ตำแหน่งใน hierarchy, จำนวน product และข้อมูล audit แสดงอยู่",
         },
-        { type: "expected", description: "Category details are displayed correctly." },
+        { type: "expected", description: "รายละเอียด category แสดงถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1409,13 +1409,13 @@ purchaseTest.describe("Product Category — View Detail", () => {
     "TC-CAT-150002 Verify category not found error",
     {
       annotation: [
-        { type: "preconditions", description: "Non-existent category selected" },
+        { type: "preconditions", description: "เลือก category ที่ไม่มีอยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on a non-existent category in the list or tree view\n3. Verify that an error message indicating the category does not exist is displayed.",
+            "1. ไปที่ /product-management/category\n2. คลิก category ที่ไม่มีอยู่ใน list หรือ tree view\n3. ตรวจสอบว่าแสดงข้อความ error แจ้งว่า category ไม่มีอยู่",
         },
-        { type: "expected", description: "Error message indicating the category does not exist is displayed." },
+        { type: "expected", description: "แสดงข้อความ error แจ้งว่า category ไม่มีอยู่" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1430,13 +1430,13 @@ purchaseTest.describe("Product Category — View Detail", () => {
     "TC-CAT-150004 Edge case - category with zero products",
     {
       annotation: [
-        { type: "preconditions", description: "Category has zero products" },
+        { type: "preconditions", description: "category มี product เป็นศูนย์" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on a category with zero products in the list or tree view\n3. Verify that the category details are displayed with a zero product count.",
+            "1. ไปที่ /product-management/category\n2. คลิก category ที่มี product เป็นศูนย์ใน list หรือ tree view\n3. ตรวจสอบว่ารายละเอียด category แสดงจำนวน product เป็นศูนย์",
         },
-        { type: "expected", description: "Category details are displayed with a zero product count." },
+        { type: "expected", description: "รายละเอียด category แสดงจำนวน product เป็นศูนย์" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1453,13 +1453,13 @@ requestorTest.describe("Product Category — View Detail — Permission denial",
     "TC-CAT-150003 Access category without permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have permission to view category details" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์ดูรายละเอียด category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/category\n2. Click on a category in the list or tree view\n3. Verify that the system redirects to a permission denied page or displays an error message.",
+            "1. ไปที่ /product-management/category\n2. คลิก category ใน list หรือ tree view\n3. ตรวจสอบว่าระบบ redirect ไปยังหน้าปฏิเสธสิทธิ์หรือแสดงข้อความ error",
         },
-        { type: "expected", description: "User is redirected to a permission denied page or sees an error message." },
+        { type: "expected", description: "ผู้ใช้ถูก redirect ไปยังหน้าปฏิเสธสิทธิ์หรือเห็นข้อความ error" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -1479,13 +1479,13 @@ purchaseTest.describe("Product Category — Product creation integration", () =>
     "TC-CAT-210001 Happy Path - Valid Category Selection",
     {
       annotation: [
-        { type: "preconditions", description: "Categories are available and accessible to the Product module" },
+        { type: "preconditions", description: "category มีอยู่และ Product module เข้าถึงได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/product/new\n2. Click on the dropdown for product category\n3. Select a valid category\n4. Verify the selected category is displayed in the UI",
+            "1. ไปที่ /product-management/product/new\n2. คลิก dropdown สำหรับ product category\n3. เลือก category ที่ถูกต้อง\n4. ตรวจสอบว่า category ที่เลือกแสดงใน UI",
         },
-        { type: "expected", description: "The selected category is correctly displayed in the UI." },
+        { type: "expected", description: "category ที่เลือกแสดงใน UI ได้ถูกต้อง" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1499,13 +1499,13 @@ purchaseTest.describe("Product Category — Product creation integration", () =>
     "TC-CAT-210002 Negative Case - Unavailable Category",
     {
       annotation: [
-        { type: "preconditions", description: "Categories are available and accessible to the Product module" },
+        { type: "preconditions", description: "category มีอยู่และ Product module เข้าถึงได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/product/new\n2. Click on the dropdown for product category\n3. Try to select an unavailable category\n4. Verify the selection does not change",
+            "1. ไปที่ /product-management/product/new\n2. คลิก dropdown สำหรับ product category\n3. พยายามเลือก category ที่ไม่พร้อมใช้งาน\n4. ตรวจสอบว่าการเลือกไม่เปลี่ยนแปลง",
         },
-        { type: "expected", description: "The unavailable category is not selected and the current selection remains unchanged." },
+        { type: "expected", description: "category ที่ไม่พร้อมใช้งานไม่ถูกเลือกและการเลือกปัจจุบันยังคงเดิม" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1519,13 +1519,13 @@ purchaseTest.describe("Product Category — Product creation integration", () =>
     "TC-CAT-210003 Edge Case - Multiple Category Selection",
     {
       annotation: [
-        { type: "preconditions", description: "Categories are available and accessible to the Product module" },
+        { type: "preconditions", description: "category มีอยู่และ Product module เข้าถึงได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /product-management/product/new\n2. Click on the dropdown for product category\n3. Select multiple categories using the multi-selection feature (if available)\n4. Verify all selected categories are correctly displayed in the UI",
+            "1. ไปที่ /product-management/product/new\n2. คลิก dropdown สำหรับ product category\n3. เลือก category หลายรายการด้วย multi-selection (ถ้ามี)\n4. ตรวจสอบว่า category ที่เลือกทั้งหมดแสดงใน UI ได้ถูกต้อง",
         },
-        { type: "expected", description: "All selected categories are correctly displayed in the UI." },
+        { type: "expected", description: "category ที่เลือกทั้งหมดแสดงใน UI ได้ถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1544,13 +1544,13 @@ purchaseTest.describe("Product Category — Inventory report integration", () =>
     "TC-CAT-220001 Happy Path - Generate Inventory Report with Valid Categories",
     {
       annotation: [
-        { type: "preconditions", description: "Category data is available for reporting; product categories are valid" },
+        { type: "preconditions", description: "ข้อมูล category พร้อมสำหรับการรายงาน; product category ถูกต้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /inventory/reports\n2. Click 'Generate Report'\n3. Select 'Daily Report' from the dropdown\n4. Click 'Generate'",
+            "1. ไปที่ /inventory/reports\n2. คลิก 'Generate Report'\n3. เลือก 'Daily Report' จาก dropdown\n4. คลิก 'Generate'",
         },
-        { type: "expected", description: "The inventory report is generated successfully with the correct category data." },
+        { type: "expected", description: "รายงาน inventory สร้างสำเร็จพร้อมข้อมูล category ที่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1564,13 +1564,13 @@ purchaseTest.describe("Product Category — Inventory report integration", () =>
     "TC-CAT-220002 Negative Case - Generate Report Without Valid Categories",
     {
       annotation: [
-        { type: "preconditions", description: "Category data is partially invalid or missing" },
+        { type: "preconditions", description: "ข้อมูล category บางส่วนไม่ถูกต้องหรือขาดหายไป" },
         {
           type: "steps",
           description:
-            "1. Navigate to /inventory/reports\n2. Click 'Generate Report'\n3. Select 'Daily Report' from the dropdown\n4. Click 'Generate'",
+            "1. ไปที่ /inventory/reports\n2. คลิก 'Generate Report'\n3. เลือก 'Daily Report' จาก dropdown\n4. คลิก 'Generate'",
         },
-        { type: "expected", description: "The report generation fails with an error message indicating invalid category data." },
+        { type: "expected", description: "การสร้างรายงานล้มเหลวพร้อมข้อความ error แจ้งว่าข้อมูล category ไม่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1584,13 +1584,13 @@ purchaseTest.describe("Product Category — Inventory report integration", () =>
     "TC-CAT-220003 Edge Case - Generate Report with Maximum Number of Categories",
     {
       annotation: [
-        { type: "preconditions", description: "System allows a maximum number of categories for reporting; database contains the maximum number of categories" },
+        { type: "preconditions", description: "ระบบอนุญาต category สูงสุดสำหรับการรายงาน; ฐานข้อมูลมี category ถึงจำนวนสูงสุด" },
         {
           type: "steps",
           description:
-            "1. Navigate to /inventory/reports\n2. Click 'Generate Report'\n3. Select 'Daily Report' from the dropdown\n4. Click 'Generate'",
+            "1. ไปที่ /inventory/reports\n2. คลิก 'Generate Report'\n3. เลือก 'Daily Report' จาก dropdown\n4. คลิก 'Generate'",
         },
-        { type: "expected", description: "The report generation succeeds and includes all categories up to the maximum allowed." },
+        { type: "expected", description: "การสร้างรายงานสำเร็จและรวม category ทั้งหมดจนถึงจำนวนสูงสุดที่อนุญาต" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1609,13 +1609,13 @@ purchaseTest.describe("Product Category — Procurement integration", () => {
     "TC-CAT-230001 Happy Path - Category-based Purchase Request",
     {
       annotation: [
-        { type: "preconditions", description: "Categories are available and assigned to products; user has permission to create purchase requests" },
+        { type: "preconditions", description: "category มีอยู่และกำหนดไว้กับ product; ผู้ใช้มีสิทธิ์สร้าง purchase request" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Select a category from the dropdown\n4. Fill in product details\n5. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก 'New Purchase Request'\n3. เลือก category จาก dropdown\n4. กรอกรายละเอียด product\n5. คลิก 'Save'",
         },
-        { type: "expected", description: "Purchase request is created and associated with the selected category." },
+        { type: "expected", description: "purchase request สร้างสำเร็จและเชื่อมโยงกับ category ที่เลือก" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1629,13 +1629,13 @@ purchaseTest.describe("Product Category — Procurement integration", () => {
     "TC-CAT-230002 Negative Case - Invalid Category Selection",
     {
       annotation: [
-        { type: "preconditions", description: "Categories are available; an invalid category is selected" },
+        { type: "preconditions", description: "category มีอยู่; เลือก category ที่ไม่ถูกต้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Select an invalid or non-existent category\n4. Attempt to Save",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก 'New Purchase Request'\n3. เลือก category ที่ไม่ถูกต้องหรือไม่มีอยู่\n4. พยายาม Save",
         },
-        { type: "expected", description: "System displays an error message indicating the invalid category selection." },
+        { type: "expected", description: "ระบบแสดงข้อความ error แจ้งการเลือก category ที่ไม่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1649,13 +1649,13 @@ purchaseTest.describe("Product Category — Procurement integration", () => {
     "TC-CAT-230003 Edge Case - No Categories Available",
     {
       annotation: [
-        { type: "preconditions", description: "No categories are available; user has permission to create purchase requests" },
+        { type: "preconditions", description: "ไม่มี category; ผู้ใช้มีสิทธิ์สร้าง purchase request" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Attempt to select a category from the dropdown",
+            "1. ไปที่ /procurement/purchase-request\n2. คลิก 'New Purchase Request'\n3. พยายามเลือก category จาก dropdown",
         },
-        { type: "expected", description: "System displays a message indicating no categories are available." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งว่าไม่มี category" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1669,13 +1669,13 @@ purchaseTest.describe("Product Category — Procurement integration", () => {
     "TC-CAT-230005 Happy Path - Spend Analysis by Category",
     {
       annotation: [
-        { type: "preconditions", description: "Categories are available and associated with purchase orders; spend analysis feature is enabled" },
+        { type: "preconditions", description: "category มีอยู่และเชื่อมโยงกับ purchase order; ฟีเจอร์ spend analysis เปิดใช้งาน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /spend-analysis\n2. Click 'Analyze by Category'\n3. Select a category\n4. Click 'Generate Report'",
+            "1. ไปที่ /spend-analysis\n2. คลิก 'Analyze by Category'\n3. เลือก category\n4. คลิก 'Generate Report'",
         },
-        { type: "expected", description: "Spend analysis report is generated and displayed for the selected category." },
+        { type: "expected", description: "รายงาน spend analysis สร้างสำเร็จและแสดงสำหรับ category ที่เลือก" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1694,13 +1694,13 @@ purchaseTest.describe("Product Category — Recipe cost integration", () => {
     "TC-CAT-240001 Happy Path - Recipe Cost Calculation by Category",
     {
       annotation: [
-        { type: "preconditions", description: "Category data available for recipe queries; recipe ingredients have categories" },
+        { type: "preconditions", description: "ข้อมูล category พร้อมสำหรับ recipe query; ingredient ของ recipe มี category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /recipes\n2. Click 'New Recipe'\n3. Select ingredients from different categories\n4. Click 'Save'\n5. Navigate to 'Recipe Costs'\n6. Verify that costs are calculated correctly by category",
+            "1. ไปที่ /recipes\n2. คลิก 'New Recipe'\n3. เลือก ingredient จาก category ต่างๆ\n4. คลิก 'Save'\n5. ไปที่ 'Recipe Costs'\n6. ตรวจสอบว่าต้นทุนคำนวณถูกต้องตาม category",
         },
-        { type: "expected", description: "Recipe costs are displayed correctly by category." },
+        { type: "expected", description: "ต้นทุน recipe แสดงถูกต้องตาม category" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1714,13 +1714,13 @@ purchaseTest.describe("Product Category — Recipe cost integration", () => {
     "TC-CAT-240002 Negative - Invalid Ingredient Selection",
     {
       annotation: [
-        { type: "preconditions", description: "Recipe ingredients have categories" },
+        { type: "preconditions", description: "ingredient ของ recipe มี category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /recipes\n2. Click 'New Recipe'\n3. Select an ingredient that does not belong to any category\n4. Click 'Save'\n5. Verify error message or invalid state",
+            "1. ไปที่ /recipes\n2. คลิก 'New Recipe'\n3. เลือก ingredient ที่ไม่อยู่ใน category ใดๆ\n4. คลิก 'Save'\n5. ตรวจสอบข้อความ error หรือสถานะที่ไม่ถูกต้อง",
         },
-        { type: "expected", description: "Error message displayed or ingredient selection rejected." },
+        { type: "expected", description: "แสดงข้อความ error หรือการเลือก ingredient ถูกปฏิเสธ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -1734,13 +1734,13 @@ purchaseTest.describe("Product Category — Recipe cost integration", () => {
     "TC-CAT-240004 Happy Path - Ingredient Usage Analysis by Category",
     {
       annotation: [
-        { type: "preconditions", description: "Recipe ingredients have categories" },
+        { type: "preconditions", description: "ingredient ของ recipe มี category" },
         {
           type: "steps",
           description:
-            "1. Navigate to /recipes\n2. Click 'Usage Analysis'\n3. Verify that ingredient usage is displayed by category",
+            "1. ไปที่ /recipes\n2. คลิก 'Usage Analysis'\n3. ตรวจสอบว่าการใช้ ingredient แสดงตาม category",
         },
-        { type: "expected", description: "Ingredient usage is correctly displayed by category." },
+        { type: "expected", description: "การใช้ ingredient แสดงตาม category ได้ถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],

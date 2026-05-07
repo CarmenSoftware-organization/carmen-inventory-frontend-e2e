@@ -154,26 +154,26 @@ _Generated from `tests/301-purchase-request.spec.ts` annotations. Edit annotatio
 
 **Preconditions**
 
-Logged in as Requestor (requestor@blueledgers.com); on list page
+Login เป็น Requestor (requestor@blueledgers.com); อยู่ที่หน้า list
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Verify default values are pre-filled (date, department, location, currency, status)
-4. Select PR type as General
-5. Enter delivery date
-6. Add one line item with product details auto-filled
-7. Enter item description and specifications
-8. Enter quantity and unit of measure
-9. Click 'Add' to add item
-10. System calculates line totals and PR total
-11. Fill in any additional notes or internal notes
-12. Click 'Save as Draft'
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. ตรวจสอบว่าค่า default ถูกกรอกล่วงหน้า (date, department, location, currency, status)
+4. เลือก PR type เป็น General
+5. กรอก delivery date
+6. เพิ่ม line item พร้อมรายละเอียด product ที่ auto-fill
+7. กรอกคำอธิบายและ specifications ของรายการ
+8. กรอก quantity และ unit of measure
+9. กด 'Add' เพื่อเพิ่มรายการ
+10. ระบบคำนวณยอดรวมของ line และยอดรวม PR
+11. กรอก additional notes หรือ internal notes
+12. กด 'Save as Draft'
 
 **Expected**
 
-System generates reference number, saves PR to database, logs activity, and redirects to PR detail page with all fields populated correctly.
+ระบบสร้างเลขอ้างอิง, บันทึก PR ลงฐานข้อมูล, บันทึก activity และ redirect ไปยังหน้ารายละเอียด PR พร้อมข้อมูลครบถ้วน
 
 ---
 
@@ -186,24 +186,24 @@ System generates reference number, saves PR to database, logs activity, and redi
 
 **Preconditions**
 
-Logged in as Requestor and has FOC quantities available
+Login เป็น Requestor และมี FOC quantities
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Select PR type as General
-4. Add one line item and select FOC option
-5. Enter FOC quantity and unit
-6. System sets unit price to 0
-7. Click 'Add' to add item
-8. System calculates line totals and PR total
-9. Fill in any additional notes or internal notes
-10. Click 'Save as Draft'
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. เลือก PR type เป็น General
+4. เพิ่ม line item และเลือก FOC option
+5. กรอก FOC quantity และ unit
+6. ระบบตั้ง unit price เป็น 0
+7. กด 'Add' เพื่อเพิ่มรายการ
+8. ระบบคำนวณยอดรวมของ line และยอดรวม PR
+9. กรอก additional notes หรือ internal notes
+10. กด 'Save as Draft'
 
 **Expected**
 
-System saves PR with FOC item correctly, calculates PR total, and logs activity.
+ระบบบันทึก PR พร้อมรายการ FOC ถูกต้อง, คำนวณยอดรวม PR และบันทึก activity
 
 ---
 
@@ -216,19 +216,19 @@ System saves PR with FOC item correctly, calculates PR total, and logs activity.
 
 **Preconditions**
 
-Logged in as Requestor
+Login เป็น Requestor
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Select PR type as General
-4. Enter invalid delivery date in the past
-5. Click 'Save as Draft'
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. เลือก PR type เป็น General
+4. กรอก delivery date ที่ไม่ถูกต้อง (วันที่ในอดีต)
+5. กด 'Save as Draft'
 
 **Expected**
 
-System displays error message for invalid date and does not save PR.
+ระบบแสดงข้อความ error สำหรับวันที่ไม่ถูกต้องและไม่บันทึก PR
 
 ---
 
@@ -241,15 +241,15 @@ System displays error message for invalid date and does not save PR.
 
 **Preconditions**
 
-User is not logged in (no auth fixture)
+ผู้ใช้ยังไม่ได้ login (ไม่มี auth fixture)
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
+1. ไปที่ /procurement/purchase-request
 
 **Expected**
 
-System redirects user to login page or displays error message.
+ระบบ redirect ผู้ใช้ไปยังหน้า login หรือแสดงข้อความ error
 
 ---
 
@@ -262,18 +262,18 @@ System redirects user to login page or displays error message.
 
 **Preconditions**
 
-Logged in as Requestor
+Login เป็น Requestor
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Add one line item with zero quantity and unit price
-4. Click 'Add'
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. เพิ่ม line item ที่มี quantity และ unit price เป็นศูนย์
+4. กด 'Add'
 
 **Expected**
 
-System displays error message for zero quantity or unit price and does not add item.
+ระบบแสดงข้อความ error สำหรับ quantity หรือ unit price เป็นศูนย์ และไม่เพิ่มรายการ
 
 ---
 
@@ -286,18 +286,18 @@ System displays error message for zero quantity or unit price and does not add i
 
 **Preconditions**
 
-A draft PR exists with at least one line item and correct header information
+มี draft PR ที่มีอย่างน้อยหนึ่ง line item และข้อมูล header ถูกต้อง
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on existing draft PR
-3. Modify delivery date, add a note, and edit one line item
-4. Click 'Save Draft'
+1. ไปที่ /procurement/purchase-request
+2. คลิก draft PR ที่มีอยู่
+3. แก้ไข delivery date, เพิ่ม note และแก้ไข line item หนึ่งรายการ
+4. กด 'Save Draft'
 
 **Expected**
 
-PR header and line item details are updated, and PR remains in draft status. Version number is incremented.
+ข้อมูล header และ line item ของ PR ถูกอัปเดต และ PR ยังคงอยู่ในสถานะ draft, version number เพิ่มขึ้น
 
 ---
 
@@ -310,17 +310,17 @@ PR header and line item details are updated, and PR remains in draft status. Ver
 
 **Preconditions**
 
-A returned PR exists with a rejection reason
+มี PR ที่ถูกส่งคืนพร้อมเหตุผลการ reject
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on returned PR
-3. Attempt to modify delivery date and notes
+1. ไปที่ /procurement/purchase-request
+2. คลิก PR ที่ถูกส่งคืน
+3. พยายามแก้ไข delivery date และ notes
 
 **Expected**
 
-System prevents modification and displays error message. PR remains in returned status.
+ระบบป้องกันการแก้ไขและแสดงข้อความ error, PR ยังคงอยู่ในสถานะ returned
 
 ---
 
@@ -333,18 +333,18 @@ System prevents modification and displays error message. PR remains in returned 
 
 **Preconditions**
 
-Multiple users attempt to edit the same PR simultaneously, leading to version conflict
+ผู้ใช้หลายคนพยายามแก้ไข PR เดียวกันพร้อมกัน ทำให้เกิด version conflict
 
 **Steps**
 
-1. User A and User B both have draft PR open
-2. User A modifies PR and saves
-3. User B modifies PR and attempts to save
-4. User B receives version conflict warning
+1. User A และ User B เปิด draft PR เดียวกัน
+2. User A แก้ไข PR และบันทึก
+3. User B แก้ไข PR และพยายามบันทึก
+4. User B ได้รับการแจ้งเตือน version conflict
 
 **Expected**
 
-User B is prompted to resolve conflict or discard changes. PR status remains unchanged.
+User B ถูกกระตุ้นให้แก้ไข conflict หรือยกเลิกการเปลี่ยนแปลง, สถานะ PR ไม่เปลี่ยนแปลง
 
 > _Note: Requires concurrent multi-user session orchestration; tracked but skipped in single-worker E2E._
 
@@ -359,19 +359,19 @@ User B is prompted to resolve conflict or discard changes. PR status remains unc
 
 **Preconditions**
 
-Logged in as Requestor and has a draft PR ready
+Login เป็น Requestor และมี draft PR พร้อมแล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Submit for Approval' button
-3. Wait for validation
-4. Verify validation passes
-5. Confirm submission
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Submit for Approval'
+3. รอการ validate
+4. ตรวจสอบว่าการ validate ผ่าน
+5. ยืนยันการส่ง
 
 **Expected**
 
-PR is submitted successfully, status updated to 'In-progress', approval records created, and first approver notified.
+PR ถูกส่งสำเร็จ, สถานะอัปเดตเป็น 'In-progress', สร้าง approval records และแจ้ง approver คนแรก
 
 ---
 
@@ -384,18 +384,18 @@ PR is submitted successfully, status updated to 'In-progress', approval records 
 
 **Preconditions**
 
-Logged in as Requestor and has a draft PR with missing fields
+Login เป็น Requestor และมี draft PR ที่ขาดข้อมูลบางส่วน
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Submit for Approval' button
-3. Wait for validation
-4. Verify validation fails
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Submit for Approval'
+3. รอการ validate
+4. ตรวจสอบว่าการ validate ล้มเหลว
 
 **Expected**
 
-System displays error messages for missing fields.
+ระบบแสดงข้อความ error สำหรับฟิลด์ที่ขาดหาย
 
 ---
 
@@ -408,16 +408,16 @@ System displays error messages for missing fields.
 
 **Preconditions**
 
-Logged in as Budget Manager (FC) and has a draft PR
+Login เป็น Budget Manager (FC) และมี draft PR
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Submit for Approval' button
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Submit for Approval'
 
 **Expected**
 
-System displays an error message indicating insufficient permissions.
+ระบบแสดงข้อความ error ว่าสิทธิ์ไม่เพียงพอ
 
 ---
 
@@ -430,18 +430,18 @@ System displays an error message indicating insufficient permissions.
 
 **Preconditions**
 
-Logged in as Requestor and has a draft PR with an extremely large value
+Login เป็น Requestor และมี draft PR ที่มีมูลค่าสูงมาก
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Submit for Approval' button
-3. Wait for validation
-4. Verify validation fails
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Submit for Approval'
+3. รอการ validate
+4. ตรวจสอบว่าการ validate ล้มเหลว
 
 **Expected**
 
-System displays an error message indicating the value exceeds the limit.
+ระบบแสดงข้อความ error ว่ามูลค่าเกินขีดจำกัด
 
 ---
 
@@ -454,18 +454,18 @@ System displays an error message indicating the value exceeds the limit.
 
 **Preconditions**
 
-Logged in as Requestor and has a draft PR with invalid item codes
+Login เป็น Requestor และมี draft PR ที่มี item codes ไม่ถูกต้อง
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Submit for Approval' button
-3. Wait for validation
-4. Verify validation fails
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Submit for Approval'
+3. รอการ validate
+4. ตรวจสอบว่าการ validate ล้มเหลว
 
 **Expected**
 
-System displays error messages for invalid item codes.
+ระบบแสดงข้อความ error สำหรับ item codes ที่ไม่ถูกต้อง
 
 ---
 
@@ -478,18 +478,18 @@ System displays error messages for invalid item codes.
 
 **Preconditions**
 
-Logged in as Requestor and has a pending PR
+Login เป็น Requestor และมี PR ที่กำลัง pending
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on pending PR reference number
-3. Verify PR status badge is 'In-progress'
-4. Verify approver names and timestamps are displayed
+1. ไปที่ /procurement/purchase-request
+2. คลิกหมายเลขอ้างอิงของ PR ที่กำลัง pending
+3. ตรวจสอบว่า PR status badge เป็น 'In-progress'
+4. ตรวจสอบว่าชื่อ approver และ timestamps แสดงผล
 
 **Expected**
 
-PR detail page is displayed with correct status and approver information
+หน้ารายละเอียด PR แสดงผลพร้อมสถานะและข้อมูล approver ที่ถูกต้อง
 
 ---
 
@@ -502,17 +502,17 @@ PR detail page is displayed with correct status and approver information
 
 **Preconditions**
 
-User is logged in but does not have permission to view PRs
+Login เข้าระบบแล้วแต่ไม่มีสิทธิ์ในการดู PR
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on PR reference number
-3. Verify system redirects to error or access denied page
+1. ไปที่ /procurement/purchase-request
+2. คลิกหมายเลขอ้างอิงของ PR
+3. ตรวจสอบว่าระบบ redirect ไปยังหน้า error หรือ access denied
 
 **Expected**
 
-User is unable to view PR detail page and receives appropriate error message
+ผู้ใช้ไม่สามารถดูหน้ารายละเอียด PR ได้และได้รับข้อความ error ที่เหมาะสม
 
 ---
 
@@ -525,18 +525,18 @@ User is unable to view PR detail page and receives appropriate error message
 
 **Preconditions**
 
-Logged in as an Approver (HOD) and a PR is fully approved
+Login เป็น Approver (HOD) และมี PR ที่ถูก approve ครบทุกขั้นตอนแล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on fully approved PR reference number
-3. Verify PR status badge is 'Approved'
-4. Verify all approval stages are completed with 'Approved' status
+1. ไปที่ /procurement/purchase-request
+2. คลิกหมายเลขอ้างอิงของ PR ที่ถูก approve ครบแล้ว
+3. ตรวจสอบว่า PR status badge เป็น 'Approved'
+4. ตรวจสอบว่าทุก approval stage เสร็จสิ้นพร้อมสถานะ 'Approved'
 
 **Expected**
 
-PR detail page is displayed with all approved status and no pending approvals
+หน้ารายละเอียด PR แสดงผลพร้อมสถานะ approved ทั้งหมดและไม่มี pending approvals
 
 ---
 
@@ -549,17 +549,17 @@ PR detail page is displayed with all approved status and no pending approvals
 
 **Preconditions**
 
-Logged in as an Approver (HOD) and a PR has a missing attachment
+Login เป็น Approver (HOD) และมี PR ที่ขาด attachment
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on PR reference number with missing attachments
-3. Verify 'Attachments' list shows missing files
+1. ไปที่ /procurement/purchase-request
+2. คลิกหมายเลขอ้างอิงของ PR ที่ขาด attachments
+3. ตรวจสอบว่ารายการ 'Attachments' แสดงไฟล์ที่ขาดหาย
 
 **Expected**
 
-PR detail page displays missing attachment information
+หน้ารายละเอียด PR แสดงข้อมูล attachment ที่ขาดหาย
 
 ---
 
@@ -572,23 +572,23 @@ PR detail page displays missing attachment information
 
 **Preconditions**
 
-Department Manager has received a PR for approval and has the necessary permissions
+Department Manager ได้รับ PR สำหรับการ approve และมีสิทธิ์ที่จำเป็น
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on the 'View' link for the purchase request
-3. Verify PR details
-4. Fill in comments if any
-5. Click 'Approve'
-6. Verify system validates approver authority
-7. Wait for system to update approval record
-8. Verify PR status is updated to 'Approved'
-9. Verify notifications are sent to PR creator and purchasing staff
+1. ไปที่ /procurement/purchase-request
+2. คลิกลิงก์ 'View' ของ purchase request
+3. ตรวจสอบรายละเอียด PR
+4. กรอก comments ถ้ามี
+5. กด 'Approve'
+6. ตรวจสอบว่าระบบ validate สิทธิ์ approver
+7. รอระบบอัปเดต approval record
+8. ตรวจสอบว่าสถานะ PR อัปเดตเป็น 'Approved'
+9. ตรวจสอบว่าส่งการแจ้งเตือนถึงผู้สร้าง PR และพนักงาน purchasing
 
 **Expected**
 
-Purchase request is approved and all relevant notifications are sent.
+Purchase request ถูก approve และส่งการแจ้งเตือนที่เกี่ยวข้องทั้งหมด
 
 ---
 
@@ -601,18 +601,18 @@ Purchase request is approved and all relevant notifications are sent.
 
 **Preconditions**
 
-Finance Manager (FC) has received a PR for approval but does not have the necessary permissions for this stage
+Finance Manager (FC) ได้รับ PR สำหรับการ approve แต่ไม่มีสิทธิ์ที่จำเป็นสำหรับขั้นตอนนี้
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on the 'View' link for the purchase request
-3. Try to click 'Approve'
-4. Verify system denies permission
+1. ไปที่ /procurement/purchase-request
+2. คลิกลิงก์ 'View' ของ purchase request
+3. พยายามกด 'Approve'
+4. ตรวจสอบว่าระบบปฏิเสธสิทธิ์
 
 **Expected**
 
-System denies approval due to insufficient authority.
+ระบบปฏิเสธการ approve เนื่องจาก authority ไม่เพียงพอ
 
 ---
 
@@ -625,20 +625,20 @@ System denies approval due to insufficient authority.
 
 **Preconditions**
 
-System is configured to require only department manager approval for this PR
+ระบบตั้งค่าให้ต้องการ approval จาก department manager เท่านั้นสำหรับ PR นี้
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on the 'View' link for the purchase request
-3. Verify PR details
-4. Fill in comments if any
-5. Click 'Approve'
-6. Verify system updates PR status to 'Approved'
+1. ไปที่ /procurement/purchase-request
+2. คลิกลิงก์ 'View' ของ purchase request
+3. ตรวจสอบรายละเอียด PR
+4. กรอก comments ถ้ามี
+5. กด 'Approve'
+6. ตรวจสอบว่าระบบอัปเดตสถานะ PR เป็น 'Approved'
 
 **Expected**
 
-Purchase request is approved without additional approvals.
+Purchase request ถูก approve โดยไม่ต้องการการ approve เพิ่มเติม
 
 ---
 
@@ -651,21 +651,21 @@ Purchase request is approved without additional approvals.
 
 **Preconditions**
 
-System is configured to require both department and finance manager approvals for this PR
+ระบบตั้งค่าให้ต้องการ approval จากทั้ง department manager และ finance manager สำหรับ PR นี้
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on the 'View' link for the purchase request
-3. Verify PR details
-4. Fill in comments if any
-5. Click 'Approve'
-6. Verify system identifies next approver
-7. Verify system sends notification to next approver
+1. ไปที่ /procurement/purchase-request
+2. คลิกลิงก์ 'View' ของ purchase request
+3. ตรวจสอบรายละเอียด PR
+4. กรอก comments ถ้ามี
+5. กด 'Approve'
+6. ตรวจสอบว่าระบบระบุ approver ลำดับถัดไป
+7. ตรวจสอบว่าระบบส่งการแจ้งเตือนถึง approver ลำดับถัดไป
 
 **Expected**
 
-System correctly identifies next approver and sends notification.
+ระบบระบุ approver ลำดับถัดไปได้ถูกต้องและส่งการแจ้งเตือน
 
 ---
 
@@ -678,19 +678,19 @@ System correctly identifies next approver and sends notification.
 
 **Preconditions**
 
-A PR is created and assigned to a department manager who has approval rights
+PR ถูกสร้างและมอบหมายให้ department manager ที่มีสิทธิ์ approve
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'View' on the assigned PR
-3. Click 'Reject' button
-4. Enter rejection reason in dialog
-5. Click 'Confirm Rejection'
+1. ไปที่ /procurement/purchase-request
+2. กด 'View' บน PR ที่ถูกมอบหมาย
+3. กดปุ่ม 'Reject'
+4. กรอกเหตุผลการ reject ใน dialog
+5. กด 'Confirm Rejection'
 
 **Expected**
 
-The PR status changes to 'Void', and a rejection notification is sent to the requestor.
+สถานะ PR เปลี่ยนเป็น 'Void' และส่งการแจ้งเตือนการ reject ถึง requestor
 
 ---
 
@@ -703,19 +703,19 @@ The PR status changes to 'Void', and a rejection notification is sent to the req
 
 **Preconditions**
 
-A PR is created and assigned to a department manager who has approval rights
+PR ถูกสร้างและมอบหมายให้ department manager ที่มีสิทธิ์ approve
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'View' on the assigned PR
-3. Click 'Reject' button
-4. Enter reason less than 10 characters
-5. Click 'Confirm Rejection'
+1. ไปที่ /procurement/purchase-request
+2. กด 'View' บน PR ที่ถูกมอบหมาย
+3. กดปุ่ม 'Reject'
+4. กรอกเหตุผลที่มีความยาวน้อยกว่า 10 ตัวอักษร
+5. กด 'Confirm Rejection'
 
 **Expected**
 
-A validation error is displayed, preventing confirmation.
+แสดง validation error ป้องกันการยืนยัน
 
 ---
 
@@ -728,18 +728,18 @@ A validation error is displayed, preventing confirmation.
 
 **Preconditions**
 
-A PR is created and assigned to a department manager who has approval rights
+PR ถูกสร้างและมอบหมายให้ department manager ที่มีสิทธิ์ approve
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'View' on the assigned PR
-3. Click 'Reject' button
-4. Click 'Confirm Rejection' without entering reason
+1. ไปที่ /procurement/purchase-request
+2. กด 'View' บน PR ที่ถูกมอบหมาย
+3. กดปุ่ม 'Reject'
+4. กด 'Confirm Rejection' โดยไม่กรอกเหตุผล
 
 **Expected**
 
-A validation error is displayed, preventing confirmation.
+แสดง validation error ป้องกันการยืนยัน
 
 ---
 
@@ -752,17 +752,17 @@ A validation error is displayed, preventing confirmation.
 
 **Preconditions**
 
-A PR is created and assigned to a budget manager (FC) who does not have approval rights
+PR ถูกสร้างและมอบหมายให้ budget manager (FC) ที่ไม่มีสิทธิ์ approve
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'View' on the assigned PR
-3. Click 'Reject' button (expected to fail)
+1. ไปที่ /procurement/purchase-request
+2. กด 'View' บน PR ที่ถูกมอบหมาย
+3. กดปุ่ม 'Reject' (คาดว่าจะล้มเหลว)
 
 **Expected**
 
-The system displays an error message indicating insufficient permissions.
+ระบบแสดงข้อความ error ว่าสิทธิ์ไม่เพียงพอ
 
 ---
 
@@ -775,19 +775,19 @@ The system displays an error message indicating insufficient permissions.
 
 **Preconditions**
 
-A PR with very high value is created and assigned to a general manager who has approval rights
+PR มูลค่าสูงมากถูกสร้างและมอบหมายให้ general manager ที่มีสิทธิ์ approve
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'View' on the assigned PR
-3. Click 'Reject' button
-4. Enter rejection reason in dialog
-5. Click 'Confirm Rejection'
+1. ไปที่ /procurement/purchase-request
+2. กด 'View' บน PR ที่ถูกมอบหมาย
+3. กดปุ่ม 'Reject'
+4. กรอกเหตุผลการ reject ใน dialog
+5. กด 'Confirm Rejection'
 
 **Expected**
 
-The PR status changes to 'Void', and a rejection notification is sent to the requestor.
+สถานะ PR เปลี่ยนเป็น 'Void' และส่งการแจ้งเตือนการ reject ถึง requestor
 
 ---
 
@@ -800,20 +800,20 @@ The PR status changes to 'Void', and a rejection notification is sent to the req
 
 **Preconditions**
 
-A requestor has submitted a PR and it is in a pending approval state
+requestor ส่ง PR แล้วและอยู่ในสถานะ pending approval
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click the PR that is in pending state
-3. Click 'Recall' button
-4. Click 'Yes' on confirmation dialog
-5. Fill in recall reason if prompted
-6. Click 'Confirm Recall'
+1. ไปที่ /procurement/purchase-request
+2. คลิก PR ที่อยู่ในสถานะ pending
+3. กดปุ่ม 'Recall'
+4. กด 'Yes' บน dialog ยืนยัน
+5. กรอกเหตุผลการ recall หากมีการถาม
+6. กด 'Confirm Recall'
 
 **Expected**
 
-The PR is recalled, status changes to 'Draft', and notifications are sent to pending approvers.
+PR ถูก recall, สถานะเปลี่ยนเป็น 'Draft' และส่งการแจ้งเตือนถึง approver ที่กำลัง pending
 
 ---
 
@@ -826,18 +826,18 @@ The PR is recalled, status changes to 'Draft', and notifications are sent to pen
 
 **Preconditions**
 
-A requestor has submitted a PR and it is in a pending approval state
+requestor ส่ง PR แล้วและอยู่ในสถานะ pending approval
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click the PR that is in pending state
-3. Click 'Recall' button
-4. Click 'Yes' on confirmation dialog without filling in reason
+1. ไปที่ /procurement/purchase-request
+2. คลิก PR ที่อยู่ในสถานะ pending
+3. กดปุ่ม 'Recall'
+4. กด 'Yes' บน dialog ยืนยันโดยไม่กรอกเหตุผล
 
 **Expected**
 
-System prompts user to fill in recall reason and does not proceed with recall.
+ระบบแจ้งให้ผู้ใช้กรอกเหตุผลการ recall และไม่ดำเนินการ recall ต่อ
 
 ---
 
@@ -850,20 +850,20 @@ System prompts user to fill in recall reason and does not proceed with recall.
 
 **Preconditions**
 
-A requestor has submitted a PR and it is in a state with multiple pending approvals
+requestor ส่ง PR แล้วและอยู่ในสถานะที่มี pending approvals หลายรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click the PR that is in pending state with multiple approvals
-3. Click 'Recall' button
-4. Click 'Yes' on confirmation dialog
-5. Fill in recall reason if prompted
-6. Click 'Confirm Recall'
+1. ไปที่ /procurement/purchase-request
+2. คลิก PR ที่อยู่ในสถานะ pending พร้อม approvals หลายรายการ
+3. กดปุ่ม 'Recall'
+4. กด 'Yes' บน dialog ยืนยัน
+5. กรอกเหตุผลการ recall หากมีการถาม
+6. กด 'Confirm Recall'
 
 **Expected**
 
-The PR is recalled, status changes to 'Draft', and notifications are sent to all pending approvers.
+PR ถูก recall, สถานะเปลี่ยนเป็น 'Draft' และส่งการแจ้งเตือนถึง approver ทั้งหมดที่กำลัง pending
 
 ---
 
@@ -876,18 +876,18 @@ The PR is recalled, status changes to 'Draft', and notifications are sent to all
 
 **Preconditions**
 
-A department manager has submitted a PR and it is in a pending approval state
+department manager ส่ง PR แล้วและอยู่ในสถานะ pending approval
 
 **Steps**
 
-1. Department manager logs in
-2. Navigate to /procurement/purchase-request
-3. Click the PR that is in pending state
-4. Attempt to click 'Recall' button
+1. department manager Login เข้าระบบ
+2. ไปที่ /procurement/purchase-request
+3. คลิก PR ที่อยู่ในสถานะ pending
+4. พยายามกดปุ่ม 'Recall'
 
 **Expected**
 
-System denies the action and displays an error message indicating insufficient permissions.
+ระบบปฏิเสธการดำเนินการและแสดงข้อความ error ว่าสิทธิ์ไม่เพียงพอ
 
 ---
 
@@ -900,19 +900,19 @@ System denies the action and displays an error message indicating insufficient p
 
 **Preconditions**
 
-Logged in as Requestor; an active PR exists in the system
+Login เป็น Requestor; มี PR ที่ active อยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Open' on the PR to be cancelled
-3. Click 'Cancel PR'
-4. Fill in the cancellation reason: 'Incorrect item description'
-5. Confirm cancellation
+1. ไปที่ /procurement/purchase-request
+2. กด 'Open' บน PR ที่จะยกเลิก
+3. กด 'Cancel PR'
+4. กรอกเหตุผลการยกเลิก: 'Incorrect item description'
+5. ยืนยันการยกเลิก
 
 **Expected**
 
-PR status changes to 'Cancelled', all approvals are cancelled, budget is released if reserved, notifications are sent, and confirmation message is displayed.
+สถานะ PR เปลี่ยนเป็น 'Cancelled', ยกเลิก approvals ทั้งหมด, คืน budget ถ้ามีการ reserve, ส่งการแจ้งเตือน และแสดงข้อความยืนยัน
 
 ---
 
@@ -925,16 +925,16 @@ PR status changes to 'Cancelled', all approvals are cancelled, budget is release
 
 **Preconditions**
 
-Logged in as Budget Manager (FC); an active PR exists
+Login เป็น Budget Manager (FC); มี PR ที่ active
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Open' on the PR to be cancelled
+1. ไปที่ /procurement/purchase-request
+2. กด 'Open' บน PR ที่จะยกเลิก
 
 **Expected**
 
-System displays an error message stating 'Insufficient permissions to cancel this PR.'
+ระบบแสดงข้อความ error ว่า 'Insufficient permissions to cancel this PR.'
 
 ---
 
@@ -947,16 +947,16 @@ System displays an error message stating 'Insufficient permissions to cancel thi
 
 **Preconditions**
 
-Logged in as Requestor; a PR with status 'Completed' exists
+Login เป็น Requestor; มี PR ที่มีสถานะ 'Completed'
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Open' on the completed PR
+1. ไปที่ /procurement/purchase-request
+2. กด 'Open' บน PR ที่ completed
 
 **Expected**
 
-System displays an error message stating 'PR cannot be cancelled as it is in the Completed status.'
+ระบบแสดงข้อความ error ว่า 'PR cannot be cancelled as it is in the Completed status.'
 
 ---
 
@@ -969,19 +969,19 @@ System displays an error message stating 'PR cannot be cancelled as it is in the
 
 **Preconditions**
 
-Logged in as Department Manager (HOD); a PR with pending approvals exists
+Login เป็น Department Manager (HOD); มี PR ที่มี pending approvals
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Open' on the PR with pending approvals
-3. Click 'Cancel PR'
-4. Fill in the cancellation reason: 'Change in requirement'
-5. Confirm cancellation
+1. ไปที่ /procurement/purchase-request
+2. กด 'Open' บน PR ที่มี pending approvals
+3. กด 'Cancel PR'
+4. กรอกเหตุผลการยกเลิก: 'Change in requirement'
+5. ยืนยันการยกเลิก
 
 **Expected**
 
-System cancels all pending approvals, PR status changes to 'Cancelled', budget is released if reserved, notifications are sent, and confirmation message is displayed.
+ระบบยกเลิก approvals ที่ pending ทั้งหมด, สถานะ PR เปลี่ยนเป็น 'Cancelled', คืน budget ถ้ามีการ reserve, ส่งการแจ้งเตือน และแสดงข้อความยืนยัน
 
 ---
 
@@ -994,29 +994,29 @@ System cancels all pending approvals, PR status changes to 'Cancelled', budget i
 
 **Preconditions**
 
-Logged in as Requestor with an existing PR open
+Login เป็น Requestor และมี PR ที่เปิดอยู่
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Attachments' section
-3. Click 'Add Attachment'
-4. Click file picker
-5. Select valid file
-6. Verify file size and type are validated
-7. Fill 'Description' field
-8. Select 'Quote' as attachment type
-9. Click 'Upload'
-10. Verify upload progress
-11. Verify file is uploaded to storage
-12. Verify attachment record is created in database
-13. Verify activity is logged
-14. Verify success message is displayed
-15. Verify updated attachments list
+1. ไปที่ /procurement/purchase-request
+2. คลิกส่วน 'Attachments'
+3. กด 'Add Attachment'
+4. คลิก file picker
+5. เลือกไฟล์ที่ถูกต้อง
+6. ตรวจสอบว่าขนาดและประเภทไฟล์ถูก validate
+7. กรอกฟิลด์ 'Description'
+8. เลือก 'Quote' เป็นประเภท attachment
+9. กด 'Upload'
+10. ตรวจสอบ upload progress
+11. ตรวจสอบว่าไฟล์ถูก upload ไปที่ storage
+12. ตรวจสอบว่าสร้าง attachment record ในฐานข้อมูล
+13. ตรวจสอบว่า activity ถูกบันทึก
+14. ตรวจสอบว่าแสดงข้อความสำเร็จ
+15. ตรวจสอบรายการ attachments ที่อัปเดตแล้ว
 
 **Expected**
 
-Attachment is successfully added and displayed.
+Attachment ถูกเพิ่มและแสดงผลสำเร็จ
 
 ---
 
@@ -1029,21 +1029,21 @@ Attachment is successfully added and displayed.
 
 **Preconditions**
 
-Logged in as Requestor with an existing PR open
+Login เป็น Requestor และมี PR ที่เปิดอยู่
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Attachments' section
-3. Click 'Add Attachment'
-4. Click file picker
-5. Select invalid file type (e.g., .exe)
-6. Verify system validation error message
-7. Close file picker
+1. ไปที่ /procurement/purchase-request
+2. คลิกส่วน 'Attachments'
+3. กด 'Add Attachment'
+4. คลิก file picker
+5. เลือกประเภทไฟล์ที่ไม่ถูกต้อง (เช่น .exe)
+6. ตรวจสอบข้อความ error จาก validation ของระบบ
+7. ปิด file picker
 
 **Expected**
 
-Invalid file type is rejected with an error message.
+ประเภทไฟล์ที่ไม่ถูกต้องถูกปฏิเสธพร้อมข้อความ error
 
 ---
 
@@ -1056,21 +1056,21 @@ Invalid file type is rejected with an error message.
 
 **Preconditions**
 
-Logged in as Requestor with an existing PR open. Maximum file size limit is known.
+Login เป็น Requestor และมี PR ที่เปิดอยู่ ทราบขีดจำกัดขนาดไฟล์สูงสุด
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Attachments' section
-3. Click 'Add Attachment'
-4. Click file picker
-5. Select file that exceeds maximum size limit
-6. Verify system validation error message
-7. Close file picker
+1. ไปที่ /procurement/purchase-request
+2. คลิกส่วน 'Attachments'
+3. กด 'Add Attachment'
+4. คลิก file picker
+5. เลือกไฟล์ที่เกินขีดจำกัดขนาดสูงสุด
+6. ตรวจสอบข้อความ error จาก validation ของระบบ
+7. ปิด file picker
 
 **Expected**
 
-File size exceeds maximum limit and is rejected with an error message.
+ขนาดไฟล์เกินขีดจำกัดสูงสุดและถูกปฏิเสธพร้อมข้อความ error
 
 ---
 
@@ -1083,20 +1083,20 @@ File size exceeds maximum limit and is rejected with an error message.
 
 **Preconditions**
 
-Logged in as Department Manager with an existing PR open
+Login เป็น Department Manager และมี PR ที่เปิดอยู่
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Attachments' section
-3. Click 'Add Attachment'
-4. Click file picker
-5. Select valid file
-6. Verify system validation error message about no permission
+1. ไปที่ /procurement/purchase-request
+2. คลิกส่วน 'Attachments'
+3. กด 'Add Attachment'
+4. คลิก file picker
+5. เลือกไฟล์ที่ถูกต้อง
+6. ตรวจสอบข้อความ error จาก validation เกี่ยวกับการไม่มีสิทธิ์
 
 **Expected**
 
-Department Manager does not have permission to add attachments.
+Department Manager ไม่มีสิทธิ์ในการเพิ่ม attachments
 
 ---
 
@@ -1109,17 +1109,17 @@ Department Manager does not have permission to add attachments.
 
 **Preconditions**
 
-A PR is created and pending for approval for 49 hours with reminder_count < 3
+สร้าง PR แล้วและรอ approval มา 49 ชั่วโมงโดยมี reminder_count < 3
 
 **Steps**
 
-1. Navigate to /procurement/purchase-requests
-2. Wait for 49 hours
-3. Verify the system sends a reminder email to the approver
+1. ไปที่ /procurement/purchase-requests
+2. รอ 49 ชั่วโมง
+3. ตรวจสอบว่าระบบส่ง email แจ้งเตือนไปยัง approver
 
 **Expected**
 
-A reminder email is sent to the approver listing the pending PR.
+ส่ง email แจ้งเตือนไปยัง approver พร้อมรายการ PR ที่รอดำเนินการ
 
 ---
 
@@ -1132,17 +1132,17 @@ A reminder email is sent to the approver listing the pending PR.
 
 **Preconditions**
 
-A PR is created and pending for 49 hours; approver has no pending requests
+สร้าง PR แล้วและรอดำเนินการมา 49 ชั่วโมง; approver ไม่มีคำขอที่รอดำเนินการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-requests
-2. Wait for 49 hours
-3. Verify no reminder email is sent to the approver
+1. ไปที่ /procurement/purchase-requests
+2. รอ 49 ชั่วโมง
+3. ตรวจสอบว่าไม่มีการส่ง email แจ้งเตือนไปยัง approver
 
 **Expected**
 
-No reminder email is sent to the approver.
+ไม่มีการส่ง email แจ้งเตือนไปยัง approver
 
 ---
 
@@ -1155,17 +1155,17 @@ No reminder email is sent to the approver.
 
 **Preconditions**
 
-PR pending for 48 hours; approver has already received 2 reminder emails
+PR รอดำเนินการมา 48 ชั่วโมง; approver ได้รับ email แจ้งเตือนไปแล้ว 2 ครั้ง
 
 **Steps**
 
-1. Navigate to /procurement/purchase-requests
-2. Wait for 48 hours
-3. Verify no reminder email is sent to the approver
+1. ไปที่ /procurement/purchase-requests
+2. รอ 48 ชั่วโมง
+3. ตรวจสอบว่าไม่มีการส่ง email แจ้งเตือนไปยัง approver
 
 **Expected**
 
-No reminder email is sent to the approver.
+ไม่มีการส่ง email แจ้งเตือนไปยัง approver
 
 ---
 
@@ -1178,17 +1178,17 @@ No reminder email is sent to the approver.
 
 **Preconditions**
 
-PR pending for 48 hours; approver has no access to view the PR
+PR รอดำเนินการมา 48 ชั่วโมง; approver ไม่มีสิทธิ์ดู PR
 
 **Steps**
 
-1. Navigate to /procurement/purchase-requests
-2. Wait for 48 hours
-3. Verify no reminder email is sent to the approver
+1. ไปที่ /procurement/purchase-requests
+2. รอ 48 ชั่วโมง
+3. ตรวจสอบว่าไม่มีการส่ง email แจ้งเตือนไปยัง approver
 
 **Expected**
 
-No reminder email is sent to the approver.
+ไม่มีการส่ง email แจ้งเตือนไปยัง approver
 
 ---
 
@@ -1201,17 +1201,17 @@ No reminder email is sent to the approver.
 
 **Preconditions**
 
-System is running and there are pending PRs that are overdue by more than 5 days
+ระบบกำลังทำงานและมี PR ที่รอดำเนินการเกินกำหนดมากกว่า 5 วัน
 
 **Steps**
 
-1. Navigate to /procurement/escalation
-2. Click 'Run Escalation Job'
-3. Wait for the job to complete
+1. ไปที่ /procurement/escalation
+2. คลิก 'Run Escalation Job'
+3. รอให้ job เสร็จสิ้น
 
 **Expected**
 
-The system escalates all overdue PRs to their managers and logs the escalations, generates an escalation report.
+ระบบส่งเรื่อง PR ที่เกินกำหนดทั้งหมดไปยัง manager และ log การส่งเรื่อง พร้อมสร้างรายงาน escalation
 
 ---
 
@@ -1224,17 +1224,17 @@ The system escalates all overdue PRs to their managers and logs the escalations,
 
 **Preconditions**
 
-Database is down or corrupted, preventing the query from running successfully
+ฐานข้อมูลล่มหรือเสียหาย ทำให้ไม่สามารถรัน query ได้สำเร็จ
 
 **Steps**
 
-1. Simulate a database error by stopping the database service
-2. Navigate to /procurement/escalation
-3. Click 'Run Escalation Job'
+1. จำลองข้อผิดพลาดของฐานข้อมูลโดยหยุด database service
+2. ไปที่ /procurement/escalation
+3. คลิก 'Run Escalation Job'
 
 **Expected**
 
-An error message is displayed indicating the database issue, no PRs are escalated.
+แสดงข้อความผิดพลาดระบุปัญหาฐานข้อมูล ไม่มี PR ที่ถูกส่งเรื่องต่อ
 
 ---
 
@@ -1247,17 +1247,17 @@ An error message is displayed indicating the database issue, no PRs are escalate
 
 **Preconditions**
 
-The approver does not have a manager assigned in the system
+approver ไม่มี manager ที่กำหนดในระบบ
 
 **Steps**
 
-1. Create a pending PR that will trigger escalation
-2. Run the escalation job
-3. Wait for the job to complete
+1. สร้าง PR ที่รอดำเนินการซึ่งจะทริกเกอร์ escalation
+2. รัน escalation job
+3. รอให้ job เสร็จสิ้น
 
 **Expected**
 
-The system attempts to send the escalation notification but fails because no manager is found, PR remains unescalated.
+ระบบพยายามส่ง escalation notification แต่ล้มเหลวเนื่องจากไม่พบ manager ทำให้ PR ยังคงไม่ถูก escalate
 
 ---
 
@@ -1270,17 +1270,17 @@ The system attempts to send the escalation notification but fails because no man
 
 **Preconditions**
 
-System is running outside the scheduled time for the escalation job
+ระบบกำลังทำงานนอกเวลาที่กำหนดไว้สำหรับ escalation job
 
 **Steps**
 
-1. Manually trigger the escalation job at an unscheduled time
-2. Navigate to /procurement/escalation
-3. Click 'Run Escalation Job'
+1. ทริกเกอร์ escalation job ด้วยตนเองในเวลาที่ไม่ได้กำหนด
+2. ไปที่ /procurement/escalation
+3. คลิก 'Run Escalation Job'
 
 **Expected**
 
-The job runs but no PRs are escalated as the query condition is not met, no notifications are sent.
+Job รันแต่ไม่มี PR ที่ถูก escalate เนื่องจากเงื่อนไข query ไม่ตรง และไม่มีการส่ง notification
 
 ---
 
@@ -1293,17 +1293,17 @@ The job runs but no PRs are escalated as the query condition is not met, no noti
 
 **Preconditions**
 
-System is set to run archival at 2 AM daily; current date is 2 years or more after the PRs to be archived
+ระบบตั้งค่าให้รัน archival ทุกวันเวลา 2 AM; วันที่ปัจจุบันห่างจาก PR ที่จะ archive 2 ปีขึ้นไป
 
 **Steps**
 
-1. Navigate to /procurement/admin
-2. Wait for 2 AM
-3. Click on 'Run Archive Job'
+1. ไปที่ /procurement/admin
+2. รอเวลา 2 AM
+3. คลิก 'Run Archive Job'
 
 **Expected**
 
-All eligible PRs are archived according to the criteria, and a report is generated.
+PR ทั้งหมดที่มีคุณสมบัติถูก archive ตามเกณฑ์ และสร้างรายงาน
 
 ---
 
@@ -1316,16 +1316,16 @@ All eligible PRs are archived according to the criteria, and a report is generat
 
 **Preconditions**
 
-System is set to run archival at 2 AM daily; current date is less than 2 years from the PRs to be archived
+ระบบตั้งค่าให้รัน archival ทุกวันเวลา 2 AM; วันที่ปัจจุบันห่างจาก PR ที่จะ archive น้อยกว่า 2 ปี
 
 **Steps**
 
-1. Navigate to /procurement/admin
-2. Click on 'Run Archive Job'
+1. ไปที่ /procurement/admin
+2. คลิก 'Run Archive Job'
 
 **Expected**
 
-No PRs are archived, and a notification is sent to the admin stating that the date range is invalid.
+ไม่มี PR ที่ถูก archive และส่ง notification ไปยัง admin แจ้งว่าช่วงวันที่ไม่ถูกต้อง
 
 ---
 
@@ -1338,16 +1338,16 @@ No PRs are archived, and a notification is sent to the admin stating that the da
 
 **Preconditions**
 
-All PRs are either new, in progress, or archived within the last 2 years
+PR ทั้งหมดเป็นแบบใหม่, กำลังดำเนินการ หรือถูก archive ภายใน 2 ปีที่ผ่านมา
 
 **Steps**
 
-1. Navigate to /procurement/admin
-2. Click on 'Run Archive Job'
+1. ไปที่ /procurement/admin
+2. คลิก 'Run Archive Job'
 
 **Expected**
 
-No PRs are archived, and a notification is sent to the admin stating that no PRs are eligible for archiving.
+ไม่มี PR ที่ถูก archive และส่ง notification ไปยัง admin แจ้งว่าไม่มี PR ที่มีคุณสมบัติสำหรับการ archive
 
 ---
 
@@ -1360,24 +1360,24 @@ No PRs are archived, and a notification is sent to the admin stating that no PRs
 
 **Preconditions**
 
-PR is approved and ERP sync is enabled
+PR ได้รับ approval แล้วและเปิดใช้งาน ERP sync
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on approved PR with status 'Completed'
-3. Verify PR status is 'Approved/Completed'
-4. Wait for system to detect PR status change
-5. Verify system checks if ERP sync is enabled
-6. Verify system prepares PR data in ERP format
-7. Verify system calls ERP API endpoint
-8. Verify system receives ERP document ID
-9. Verify system saves sync record
-10. Verify system logs sync activity
+1. ไปที่ /procurement/purchase-request
+2. คลิกที่ PR ที่ approved แล้วที่มีสถานะ 'Completed'
+3. ตรวจสอบว่าสถานะ PR เป็น 'Approved/Completed'
+4. รอให้ระบบตรวจจับการเปลี่ยนแปลงสถานะ PR
+5. ตรวจสอบว่าระบบตรวจสอบว่าเปิดใช้งาน ERP sync
+6. ตรวจสอบว่าระบบเตรียมข้อมูล PR ในรูปแบบ ERP
+7. ตรวจสอบว่าระบบเรียก ERP API endpoint
+8. ตรวจสอบว่าระบบได้รับ ERP document ID
+9. ตรวจสอบว่าระบบบันทึก sync record
+10. ตรวจสอบว่าระบบ log กิจกรรม sync
 
 **Expected**
 
-PR data is successfully synced to the ERP system with all records saved and logged.
+ข้อมูล PR ถูก sync ไปยังระบบ ERP สำเร็จพร้อมบันทึกและ log ทุก record
 
 ---
 
@@ -1390,24 +1390,24 @@ PR data is successfully synced to the ERP system with all records saved and logg
 
 **Preconditions**
 
-PR is approved and ERP sync is disabled
+PR ได้รับ approval แล้วและปิดใช้งาน ERP sync
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on approved PR with status 'Completed'
-3. Verify PR status is 'Approved/Completed'
-4. Wait for system to detect PR status change
-5. Verify system checks if ERP sync is enabled
-6. Verify system does not prepare PR data in ERP format
-7. Verify system does not call ERP API endpoint
-8. Verify system does not receive ERP document ID
-9. Verify system does not save sync record
-10. Verify system does not log sync activity
+1. ไปที่ /procurement/purchase-request
+2. คลิกที่ PR ที่ approved แล้วที่มีสถานะ 'Completed'
+3. ตรวจสอบว่าสถานะ PR เป็น 'Approved/Completed'
+4. รอให้ระบบตรวจจับการเปลี่ยนแปลงสถานะ PR
+5. ตรวจสอบว่าระบบตรวจสอบว่าเปิดใช้งาน ERP sync
+6. ตรวจสอบว่าระบบไม่เตรียมข้อมูล PR ในรูปแบบ ERP
+7. ตรวจสอบว่าระบบไม่เรียก ERP API endpoint
+8. ตรวจสอบว่าระบบไม่ได้รับ ERP document ID
+9. ตรวจสอบว่าระบบไม่บันทึก sync record
+10. ตรวจสอบว่าระบบไม่ log กิจกรรม sync
 
 **Expected**
 
-PR data is not synced to the ERP system as ERP sync is disabled.
+ข้อมูล PR ไม่ถูก sync ไปยังระบบ ERP เนื่องจากปิดใช้งาน ERP sync
 
 ---
 
@@ -1420,24 +1420,24 @@ PR data is not synced to the ERP system as ERP sync is disabled.
 
 **Preconditions**
 
-Multiple PRs are approved and ERP sync is enabled
+PR หลายรายการได้รับ approval แล้วและเปิดใช้งาน ERP sync
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on multiple approved PRs with status 'Completed'
-3. Verify PR statuses are 'Approved/Completed'
-4. Wait for system to detect PR status change
-5. Verify system checks if ERP sync is enabled
-6. Verify system prepares PR data in ERP format for each PR
-7. Verify system calls ERP API endpoint for each PR
-8. Verify system receives ERP document ID for each PR
-9. Verify system saves sync record for each PR
-10. Verify system logs sync activity for each PR
+1. ไปที่ /procurement/purchase-request
+2. คลิกที่ PR ที่ approved แล้วหลายรายการที่มีสถานะ 'Completed'
+3. ตรวจสอบว่าสถานะ PR เป็น 'Approved/Completed'
+4. รอให้ระบบตรวจจับการเปลี่ยนแปลงสถานะ PR
+5. ตรวจสอบว่าระบบตรวจสอบว่าเปิดใช้งาน ERP sync
+6. ตรวจสอบว่าระบบเตรียมข้อมูล PR ในรูปแบบ ERP สำหรับแต่ละ PR
+7. ตรวจสอบว่าระบบเรียก ERP API endpoint สำหรับแต่ละ PR
+8. ตรวจสอบว่าระบบได้รับ ERP document ID สำหรับแต่ละ PR
+9. ตรวจสอบว่าระบบบันทึก sync record สำหรับแต่ละ PR
+10. ตรวจสอบว่าระบบ log กิจกรรม sync สำหรับแต่ละ PR
 
 **Expected**
 
-All PR data is successfully synced to the ERP system with records saved and logged for each PR.
+ข้อมูล PR ทั้งหมดถูก sync ไปยังระบบ ERP สำเร็จพร้อมบันทึกและ log สำหรับแต่ละ PR
 
 ---
 
@@ -1450,17 +1450,17 @@ All PR data is successfully synced to the ERP system with records saved and logg
 
 **Preconditions**
 
-User has permission to import purchase requests
+ผู้ใช้มีสิทธิ์ import purchase requests
 
 **Steps**
 
-1. Navigate to /import
-2. Click 'Select File' and upload valid CSV file
-3. Click 'Import'
+1. ไปที่ /import
+2. คลิก 'Select File' และอัปโหลดไฟล์ CSV ที่ถูกต้อง
+3. คลิก 'Import'
 
 **Expected**
 
-System processes the file, creates PRs, logs import, and sends success summary to user
+ระบบประมวลผลไฟล์, สร้าง PR, log การ import และส่งสรุปผลสำเร็จให้ผู้ใช้
 
 ---
 
@@ -1473,17 +1473,17 @@ System processes the file, creates PRs, logs import, and sends success summary t
 
 **Preconditions**
 
-User has permission to import; file has duplicate reference numbers
+ผู้ใช้มีสิทธิ์ import; ไฟล์มีหมายเลขอ้างอิงที่ซ้ำกัน
 
 **Steps**
 
-1. Navigate to /import
-2. Click 'Select File' and upload file with duplicate reference numbers
-3. Click 'Import'
+1. ไปที่ /import
+2. คลิก 'Select File' และอัปโหลดไฟล์ที่มีหมายเลขอ้างอิงซ้ำกัน
+3. คลิก 'Import'
 
 **Expected**
 
-System logs errors for duplicate records, creates valid PRs, and sends summary to user
+ระบบ log ข้อผิดพลาดสำหรับ record ที่ซ้ำกัน, สร้าง PR ที่ถูกต้อง และส่งสรุปผลให้ผู้ใช้
 
 ---
 
@@ -1496,17 +1496,17 @@ System logs errors for duplicate records, creates valid PRs, and sends summary t
 
 **Preconditions**
 
-User does not have permission to import purchase requests
+ผู้ใช้ไม่มีสิทธิ์ import purchase requests
 
 **Steps**
 
-1. Navigate to /import
-2. Click 'Select File' and upload valid CSV file
-3. Click 'Import'
+1. ไปที่ /import
+2. คลิก 'Select File' และอัปโหลดไฟล์ CSV ที่ถูกต้อง
+3. คลิก 'Import'
 
 **Expected**
 
-System displays error message indicating insufficient permissions
+ระบบแสดงข้อความผิดพลาดระบุว่าสิทธิ์ไม่เพียงพอ
 
 ---
 
@@ -1519,16 +1519,16 @@ System displays error message indicating insufficient permissions
 
 **Preconditions**
 
-User has permission to import purchase requests
+ผู้ใช้มีสิทธิ์ import purchase requests
 
 **Steps**
 
-1. Navigate to /import
-2. Click 'Import' without selecting a file
+1. ไปที่ /import
+2. คลิก 'Import' โดยไม่เลือกไฟล์
 
 **Expected**
 
-System displays error message indicating no file selected
+ระบบแสดงข้อความผิดพลาดระบุว่าไม่ได้เลือกไฟล์
 
 ---
 
@@ -1541,18 +1541,18 @@ System displays error message indicating no file selected
 
 **Preconditions**
 
-A new PR is created without a reference number
+สร้าง PR ใหม่โดยยังไม่มีหมายเลขอ้างอิง
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Fill in valid PR data
-4. Submit the PR
+1. ไปที่ /procurement/purchase-request
+2. คลิก 'New Purchase Request'
+3. กรอกข้อมูล PR ที่ถูกต้อง
+4. Submit PR
 
 **Expected**
 
-The system automatically generates and assigns a unique reference number in the format PR-2501-0001 and continues PR creation.
+ระบบสร้างและกำหนดหมายเลขอ้างอิง unique ในรูปแบบ PR-2501-0001 โดยอัตโนมัติ และดำเนินการสร้าง PR ต่อไป
 
 ---
 
@@ -1565,17 +1565,17 @@ The system automatically generates and assigns a unique reference number in the 
 
 **Preconditions**
 
-A new PR is created without any PR data
+สร้าง PR ใหม่โดยไม่มีข้อมูล PR ใดๆ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Submit the PR without filling in any data
+1. ไปที่ /procurement/purchase-request
+2. คลิก 'New Purchase Request'
+3. Submit PR โดยไม่กรอกข้อมูลใดๆ
 
 **Expected**
 
-The system rejects the PR submission and displays an error message requiring PR data.
+ระบบปฏิเสธการ submit PR และแสดงข้อความผิดพลาดที่กำหนดให้ต้องกรอกข้อมูล PR
 
 ---
 
@@ -1588,18 +1588,18 @@ The system rejects the PR submission and displays an error message requiring PR 
 
 **Preconditions**
 
-A new PR is created with an incorrect date format
+สร้าง PR ใหม่โดยใช้รูปแบบวันที่ที่ไม่ถูกต้อง
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Fill in the date with an incorrect format (e.g., 2025-02-15 instead of 2502)
-4. Submit the PR
+1. ไปที่ /procurement/purchase-request
+2. คลิก 'New Purchase Request'
+3. กรอกวันที่ในรูปแบบที่ไม่ถูกต้อง (เช่น 2025-02-15 แทนที่จะเป็น 2502)
+4. Submit PR
 
 **Expected**
 
-The system rejects the PR submission and displays an error message about the date format.
+ระบบปฏิเสธการ submit PR และแสดงข้อความผิดพลาดเกี่ยวกับรูปแบบวันที่
 
 ---
 
@@ -1612,18 +1612,18 @@ The system rejects the PR submission and displays an error message about the dat
 
 **Preconditions**
 
-A new PR is created in the first month of a new financial year
+สร้าง PR ใหม่ในเดือนแรกของปีการเงินใหม่
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Fill in the date for the first month of a new year (e.g., 2601)
-4. Submit the PR
+1. ไปที่ /procurement/purchase-request
+2. คลิก 'New Purchase Request'
+3. กรอกวันที่เป็นเดือนแรกของปีใหม่ (เช่น 2601)
+4. Submit PR
 
 **Expected**
 
-The system correctly generates the reference number starting from PR-2601-0001.
+ระบบสร้างหมายเลขอ้างอิงได้ถูกต้องโดยเริ่มต้นจาก PR-2601-0001
 
 ---
 
@@ -1636,17 +1636,17 @@ The system correctly generates the reference number starting from PR-2601-0001.
 
 **Preconditions**
 
-The database sequence for reference numbers has reached its maximum value
+ลำดับฐานข้อมูลสำหรับหมายเลขอ้างอิงถึงค่าสูงสุดแล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Submit the PR
+1. ไปที่ /procurement/purchase-request
+2. คลิก 'New Purchase Request'
+3. Submit PR
 
 **Expected**
 
-The system generates an error message indicating that the reference number sequence has been exhausted.
+ระบบสร้างข้อความผิดพลาดแสดงว่าลำดับหมายเลขอ้างอิงหมดแล้ว
 
 ---
 
@@ -1659,18 +1659,18 @@ The system generates an error message indicating that the reference number seque
 
 **Preconditions**
 
-A PR with items is created and saved
+สร้างและบันทึก PR ที่มีรายการสินค้าแล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Edit' on the PR
-3. Add a new line item with quantity, unit price, discount percentage, and tax rate
-4. Save the PR
+1. ไปที่ /procurement/purchase-request
+2. คลิก 'Edit' ที่ PR
+3. เพิ่มรายการสินค้าใหม่พร้อมจำนวน, ราคาต่อหน่วย, เปอร์เซ็นต์ส่วนลด และอัตราภาษี
+4. บันทึก PR
 
 **Expected**
 
-Line totals, discounts, taxes, and total amount are correctly calculated and displayed.
+ยอดรวมรายการ, ส่วนลด, ภาษี และยอดรวมทั้งหมดคำนวณและแสดงผลได้ถูกต้อง
 
 ---
 
@@ -1683,18 +1683,18 @@ Line totals, discounts, taxes, and total amount are correctly calculated and dis
 
 **Preconditions**
 
-A PR with items and an invalid discount percentage is created and saved
+สร้างและบันทึก PR ที่มีรายการสินค้าพร้อมเปอร์เซ็นต์ส่วนลดที่ไม่ถูกต้อง
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Edit' on the PR
-3. Add a new line item with quantity, unit price, discount percentage set to over 100%, and tax rate
-4. Save the PR
+1. ไปที่ /procurement/purchase-request
+2. คลิก 'Edit' ที่ PR
+3. เพิ่มรายการสินค้าใหม่พร้อมจำนวน, ราคาต่อหน่วย, เปอร์เซ็นต์ส่วนลดที่เกิน 100% และอัตราภาษี
+4. บันทึก PR
 
 **Expected**
 
-The system displays an error message for the invalid discount percentage and does not calculate totals.
+ระบบแสดงข้อความผิดพลาดสำหรับเปอร์เซ็นต์ส่วนลดที่ไม่ถูกต้อง และไม่คำนวณยอดรวม
 
 ---
 
@@ -1707,20 +1707,20 @@ The system displays an error message for the invalid discount percentage and doe
 
 **Preconditions**
 
-A PR with items is created and saved; the system uses multi-currency
+สร้างและบันทึก PR ที่มีรายการสินค้าแล้ว; ระบบใช้สกุลเงินหลายสกุล
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Edit' on the PR
-3. Add a new line item with quantity, unit price, discount percentage, and tax rate
-4. Set the currency to a different currency than the base currency
-5. Enter an exchange rate
-6. Save the PR
+1. ไปที่ /procurement/purchase-request
+2. คลิก 'Edit' ที่ PR
+3. เพิ่มรายการสินค้าใหม่พร้อมจำนวน, ราคาต่อหน่วย, เปอร์เซ็นต์ส่วนลด และอัตราภาษี
+4. ตั้งค่าสกุลเงินเป็นสกุลที่ต่างจากสกุลเงินหลัก
+5. กรอกอัตราแลกเปลี่ยน
+6. บันทึก PR
 
 **Expected**
 
-Line totals, discounts, taxes, and total amount are calculated in the base currency using the exchange rate.
+ยอดรวมรายการ, ส่วนลด, ภาษี และยอดรวมทั้งหมดคำนวณในสกุลเงินหลักโดยใช้อัตราแลกเปลี่ยน
 
 ---
 
@@ -1733,17 +1733,17 @@ Line totals, discounts, taxes, and total amount are calculated in the base curre
 
 **Preconditions**
 
-A general PR with a total amount under $10,000 is submitted
+Submit PR ทั่วไปที่มียอดรวมต่ำกว่า $10,000
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Fill the form with a general PR type and total amount less than $10,000
-3. Click 'Submit'
+1. ไปที่ /procurement/purchase-request
+2. กรอกแบบฟอร์มด้วยประเภท PR ทั่วไปและยอดรวมน้อยกว่า $10,000
+3. คลิก 'Submit'
 
 **Expected**
 
-The approval chain includes only the department manager.
+ขั้นตอน approval chain มีเพียง department manager เท่านั้น
 
 ---
 
@@ -1756,17 +1756,17 @@ The approval chain includes only the department manager.
 
 **Preconditions**
 
-A PR is submitted with an invalid department ID
+Submit PR ด้วย department ID ที่ไม่ถูกต้อง
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Fill the form with a general PR type, total amount, and an invalid department ID
-3. Click 'Submit'
+1. ไปที่ /procurement/purchase-request
+2. กรอกแบบฟอร์มด้วยประเภท PR ทั่วไป, ยอดรวม และ department ID ที่ไม่ถูกต้อง
+3. คลิก 'Submit'
 
 **Expected**
 
-An error message is displayed indicating the department ID is invalid.
+แสดงข้อความผิดพลาดระบุว่า department ID ไม่ถูกต้อง
 
 ---
 
@@ -1779,17 +1779,17 @@ An error message is displayed indicating the department ID is invalid.
 
 **Preconditions**
 
-A high-value asset PR is submitted with a total amount over $100,000
+Submit PR ทรัพย์สินมูลค่าสูงที่มียอดรวมเกิน $100,000
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Fill the form with an asset PR type, total amount over $100,000, and relevant department ID
-3. Click 'Submit'
+1. ไปที่ /procurement/purchase-request
+2. กรอกแบบฟอร์มด้วยประเภท PR ทรัพย์สิน, ยอดรวมเกิน $100,000 และ department ID ที่เกี่ยวข้อง
+3. คลิก 'Submit'
 
 **Expected**
 
-The approval chain includes the department manager, asset manager, finance manager, and general manager.
+ขั้นตอน approval chain ประกอบด้วย department manager, asset manager, finance manager และ general manager
 
 ---
 
@@ -1802,17 +1802,17 @@ The approval chain includes the department manager, asset manager, finance manag
 
 **Preconditions**
 
-A PR is submitted for a role with no assigned user
+Submit PR สำหรับ role ที่ไม่มีผู้ใช้ที่กำหนด
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Fill the form with a general PR type, total amount, and a role with no assigned user
-3. Click 'Submit'
+1. ไปที่ /procurement/purchase-request
+2. กรอกแบบฟอร์มด้วยประเภท PR ทั่วไป, ยอดรวม และ role ที่ไม่มีผู้ใช้ที่กำหนด
+3. คลิก 'Submit'
 
 **Expected**
 
-An error message is displayed indicating no user is assigned to the role.
+แสดงข้อความผิดพลาดระบุว่าไม่มีผู้ใช้ที่กำหนดใน role นั้น
 
 ---
 
@@ -1825,20 +1825,20 @@ An error message is displayed indicating no user is assigned to the role.
 
 **Preconditions**
 
-Login as Requestor; PR with budget codes; budget has sufficient funds
+Login เป็น Requestor; มี PR พร้อม budget codes; budget มีเงินเพียงพอ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Fill budget codes for line items
-3. Click 'Save'
-4. Verify system checks budget availability
-5. Wait for reservation confirmation
-6. Verify reservation ID recorded
+1. ไปที่ /procurement/purchase-request
+2. กรอก budget codes สำหรับรายการสินค้า
+3. คลิก 'Save'
+4. ตรวจสอบว่าระบบตรวจสอบความพร้อมของ budget
+5. รอการยืนยันการจอง
+6. ตรวจสอบว่าบันทึก reservation ID แล้ว
 
 **Expected**
 
-System confirms sufficient funds, reserves budget, and records reservation ID.
+ระบบยืนยันว่ามีเงินเพียงพอ, จอง budget และบันทึก reservation ID
 
 ---
 
@@ -1851,20 +1851,20 @@ System confirms sufficient funds, reserves budget, and records reservation ID.
 
 **Preconditions**
 
-Login as Requestor; PR with budget codes; budget has insufficient funds
+Login เป็น Requestor; มี PR พร้อม budget codes; budget มีเงินไม่เพียงพอ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Fill budget codes for line items
-3. Click 'Save'
-4. Verify system checks budget availability
-5. Wait for error message
-6. Verify no reservation
+1. ไปที่ /procurement/purchase-request
+2. กรอก budget codes สำหรับรายการสินค้า
+3. คลิก 'Save'
+4. ตรวจสอบว่าระบบตรวจสอบความพร้อมของ budget
+5. รอข้อความผิดพลาด
+6. ตรวจสอบว่าไม่มีการจอง
 
 **Expected**
 
-System denies submission with insufficient funds error message.
+ระบบปฏิเสธการ submit พร้อมข้อความผิดพลาดว่าเงินไม่เพียงพอ
 
 ---
 
@@ -1877,19 +1877,19 @@ System denies submission with insufficient funds error message.
 
 **Preconditions**
 
-Login as Requestor; PR without any budget codes
+Login เป็น Requestor; มี PR ที่ไม่มี budget codes ใดๆ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Ensure no budget codes are filled
-3. Click 'Save'
-4. Verify system skips budget check
-5. Wait for success message
+1. ไปที่ /procurement/purchase-request
+2. ตรวจสอบให้แน่ใจว่าไม่มีการกรอก budget codes
+3. คลิก 'Save'
+4. ตรวจสอบว่าระบบข้ามการตรวจสอบ budget
+5. รอข้อความสำเร็จ
 
 **Expected**
 
-System allows submission without budget check since no budget codes are present.
+ระบบอนุญาตให้ submit ได้โดยไม่ต้องตรวจสอบ budget เนื่องจากไม่มี budget codes
 
 ---
 
@@ -1902,20 +1902,20 @@ System allows submission without budget check since no budget codes are present.
 
 **Preconditions**
 
-User A has a new PR PR-1234 pending approval by User B
+User A มี PR ใหม่ PR-1234 รอ approval จาก User B
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on 'PR-1234'
-3. Verify 'Status' is 'Submitted'
-4. Wait for 5 minutes
-5. Navigate to email inbox or notification panel
-6. Verify email or in-app notification for User B
+1. ไปที่ /procurement/purchase-request
+2. คลิกที่ 'PR-1234'
+3. ตรวจสอบว่า 'Status' เป็น 'Submitted'
+4. รอ 5 นาที
+5. ไปที่กล่อง email หรือแผง notification
+6. ตรวจสอบ email หรือ in-app notification สำหรับ User B
 
 **Expected**
 
-Notification is sent to User B with PR details and an approval link.
+ส่ง notification ไปยัง User B พร้อมรายละเอียด PR และลิงก์ approval
 
 ---
 
@@ -1928,22 +1928,22 @@ Notification is sent to User B with PR details and an approval link.
 
 **Preconditions**
 
-User B has no email preference set
+User B ไม่ได้ตั้งค่า email preference
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on 'PR-1234'
-3. Verify 'Status' is 'Submitted'
-4. Wait for 5 minutes
-5. Navigate to User B's profile
-6. Verify 'Email' preference is not enabled
-7. Navigate back to PR-1234
-8. Verify no email notification is sent to User B
+1. ไปที่ /procurement/purchase-request
+2. คลิกที่ 'PR-1234'
+3. ตรวจสอบว่า 'Status' เป็น 'Submitted'
+4. รอ 5 นาที
+5. ไปที่โปรไฟล์ของ User B
+6. ตรวจสอบว่า 'Email' preference ยังไม่ได้เปิดใช้
+7. กลับไปที่ PR-1234
+8. ตรวจสอบว่าไม่มีการส่ง email notification ไปยัง User B
 
 **Expected**
 
-Only in-app notification is generated and sent to User B.
+สร้างและส่งเฉพาะ in-app notification ไปยัง User B เท่านั้น
 
 ---
 
@@ -1956,21 +1956,21 @@ Only in-app notification is generated and sent to User B.
 
 **Preconditions**
 
-User A has a PR PR-5678 in 'Rejected' status with no pending approvals
+User A มี PR PR-5678 ที่มีสถานะ 'Rejected' และไม่มีการ approval ที่รอดำเนินการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on 'PR-5678'
-3. Verify 'Status' is 'Rejected'
-4. Verify 'Rejected By' is User A
-5. Wait for 5 minutes
-6. Navigate to email inbox or notification panel
-7. Verify no notification is received by anyone
+1. ไปที่ /procurement/purchase-request
+2. คลิกที่ 'PR-5678'
+3. ตรวจสอบว่า 'Status' เป็น 'Rejected'
+4. ตรวจสอบว่า 'Rejected By' เป็น User A
+5. รอ 5 นาที
+6. ไปที่กล่อง email หรือแผง notification
+7. ตรวจสอบว่าไม่มีใครได้รับ notification
 
 **Expected**
 
-No notifications are sent as there are no pending approvals.
+ไม่มีการส่ง notification เนื่องจากไม่มีการ approval ที่รอดำเนินการ
 
 ---
 
@@ -1983,20 +1983,20 @@ No notifications are sent as there are no pending approvals.
 
 **Preconditions**
 
-User C is not authorized to approve PRs and has a PR-6789 pending
+User C ไม่มีสิทธิ์ approve PR และมี PR-6789 ที่รอดำเนินการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on 'PR-6789'
-3. Verify 'Status' is 'Submitted'
-4. Wait for 5 minutes
-5. Attempt to approve PR-6789
-6. Verify an error message is displayed
+1. ไปที่ /procurement/purchase-request
+2. คลิกที่ 'PR-6789'
+3. ตรวจสอบว่า 'Status' เป็น 'Submitted'
+4. รอ 5 นาที
+5. พยายาม approve PR-6789
+6. ตรวจสอบว่าแสดงข้อความผิดพลาด
 
 **Expected**
 
-User C cannot approve PR-6789 and no notification is generated.
+User C ไม่สามารถ approve PR-6789 และไม่มีการสร้าง notification
 
 ---
 
@@ -2009,18 +2009,18 @@ User C cannot approve PR-6789 and no notification is generated.
 
 **Preconditions**
 
-Logged in as Requestor and has a PR created
+Login เป็น Requestor และมี PR ที่สร้างแล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Add Comment'
-3. Fill comment text ''
-4. Click 'Post Comment'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Add Comment'
+3. กรอกข้อความ comment เป็น ''
+4. กด 'Post Comment'
 
 **Expected**
 
-Validation error is shown and comment is not posted. Page remains on comments section.
+แสดง validation error และไม่ส่ง comment, หน้ายังคงอยู่ที่ส่วน comments
 
 ---
 
@@ -2033,18 +2033,18 @@ Validation error is shown and comment is not posted. Page remains on comments se
 
 **Preconditions**
 
-Logged in as Requestor and has a PR created
+Login เป็น Requestor และมี PR ที่สร้างแล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Add Comment'
-3. Fill comment text 'a'. Repeat this process 2001 times
-4. Click 'Post Comment'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Add Comment'
+3. กรอกข้อความ comment เป็น 'a' ทำซ้ำ 2001 ครั้ง
+4. กด 'Post Comment'
 
 **Expected**
 
-Validation error is shown stating comment exceeds maximum length. Comment is not posted. Page remains on comments section.
+แสดง validation error ว่า comment เกินความยาวสูงสุด, ไม่ส่ง comment, หน้ายังคงอยู่ที่ส่วน comments
 
 ---
 
@@ -2057,16 +2057,16 @@ Validation error is shown stating comment exceeds maximum length. Comment is not
 
 **Preconditions**
 
-Logged in as Finance Manager (FC) and has a PR created
+Login เป็น Finance Manager (FC) และมี PR ที่สร้างแล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Add Comment'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Add Comment'
 
 **Expected**
 
-Error message is shown stating user does not have permission to add a comment. Page remains on comments section.
+แสดงข้อความ error ว่าผู้ใช้ไม่มีสิทธิ์เพิ่ม comment, หน้ายังคงอยู่ที่ส่วน comments
 
 ---
 
@@ -2079,19 +2079,19 @@ Error message is shown stating user does not have permission to add a comment. P
 
 **Preconditions**
 
-An approved PR exists in the system
+มี PR ที่ approved อยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Convert to PO'
-3. Fill 'Vendor' field
-4. Adjust 'Delivery Date'
-5. Click 'Create PO'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Convert to PO'
+3. กรอกฟิลด์ 'Vendor'
+4. ปรับ 'Delivery Date'
+5. กด 'Create PO'
 
 **Expected**
 
-PO is created with PR data, PR status changes to 'Completed', notification sent to creator, success message displayed.
+PO ถูกสร้างด้วยข้อมูลจาก PR, สถานะ PR เปลี่ยนเป็น 'Completed', ส่งการแจ้งเตือนถึงผู้สร้าง, แสดงข้อความสำเร็จ
 
 ---
 
@@ -2104,18 +2104,18 @@ PO is created with PR data, PR status changes to 'Completed', notification sent 
 
 **Preconditions**
 
-An approved PR exists in the system
+มี PR ที่ approved อยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Convert to PO'
-3. Fill 'Vendor' field with invalid input
-4. Click 'Create PO'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Convert to PO'
+3. กรอกฟิลด์ 'Vendor' ด้วยข้อมูลที่ไม่ถูกต้อง
+4. กด 'Create PO'
 
 **Expected**
 
-Error message displayed, PO not created, PR status remains unchanged, no notification sent.
+แสดงข้อความ error, ไม่สร้าง PO, สถานะ PR ไม่เปลี่ยนแปลง, ไม่ส่งการแจ้งเตือน
 
 ---
 
@@ -2128,17 +2128,17 @@ Error message displayed, PO not created, PR status remains unchanged, no notific
 
 **Preconditions**
 
-An approved PR exists in the system with no delivery date
+มี PR ที่ approved อยู่ในระบบโดยไม่มี delivery date
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Convert to PO'
-3. Click 'Create PO'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Convert to PO'
+3. กด 'Create PO'
 
 **Expected**
 
-PO is created with default delivery date from PR, PR status changes to 'Completed', notification sent to creator, success message displayed.
+PO ถูกสร้างด้วย delivery date default จาก PR, สถานะ PR เปลี่ยนเป็น 'Completed', ส่งการแจ้งเตือนถึงผู้สร้าง, แสดงข้อความสำเร็จ
 
 ---
 
@@ -2151,16 +2151,16 @@ PO is created with default delivery date from PR, PR status changes to 'Complete
 
 **Preconditions**
 
-An approved PR exists; only purchasing staff can convert PRs
+มี PR ที่ approved; เฉพาะ purchasing staff เท่านั้นที่สามารถแปลง PR ได้
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Convert to PO'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Convert to PO'
 
 **Expected**
 
-Access denied message displayed, PR status remains unchanged, no PO created, no notification sent.
+แสดงข้อความ access denied, สถานะ PR ไม่เปลี่ยนแปลง, ไม่สร้าง PO, ไม่ส่งการแจ้งเตือน
 
 ---
 
@@ -2173,21 +2173,21 @@ Access denied message displayed, PR status remains unchanged, no PO created, no 
 
 **Preconditions**
 
-Logged in as Requestor with permission to create purchase requests
+Login เป็น Requestor ที่มีสิทธิ์สร้าง purchase requests
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Click 'Add Line Item'
-4. Search for 'Chicken Breast'
-5. Verify inventory panel displays correct quantities and prices
-6. Enter requested quantity: 20 kg
-7. Click 'Save'
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. กด 'Add Line Item'
+4. ค้นหา 'Chicken Breast'
+5. ตรวจสอบว่า inventory panel แสดง quantities และ prices ที่ถูกต้อง
+6. กรอก quantity ที่ต้องการ: 20 kg
+7. กด 'Save'
 
 **Expected**
 
-Line item is added with correct inventory snapshot and suggested price.
+Line item ถูกเพิ่มพร้อม inventory snapshot ที่ถูกต้องและราคาที่แนะนำ
 
 ---
 
@@ -2200,19 +2200,19 @@ Line item is added with correct inventory snapshot and suggested price.
 
 **Preconditions**
 
-Logged in as Requestor with permission to create purchase requests
+Login เป็น Requestor ที่มีสิทธิ์สร้าง purchase requests
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Click 'Add Line Item'
-4. Search for 'Nonexistent Product'
-5. Verify no inventory panel is displayed
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. กด 'Add Line Item'
+4. ค้นหา 'Nonexistent Product'
+5. ตรวจสอบว่าไม่มี inventory panel แสดงผล
 
 **Expected**
 
-Inventory panel does not display any data or warnings for nonexistent product.
+Inventory panel ไม่แสดงข้อมูลหรือคำเตือนสำหรับ product ที่ไม่มีอยู่
 
 ---
 
@@ -2225,20 +2225,20 @@ Inventory panel does not display any data or warnings for nonexistent product.
 
 **Preconditions**
 
-Logged in as Requestor with permission to create purchase requests
+Login เป็น Requestor ที่มีสิทธิ์สร้าง purchase requests
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Click 'Add Line Item'
-4. Search for 'Beef'
-5. Verify inventory panel shows '⚠️ Below reorder point'
-6. Enter requested quantity: 50 kg
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. กด 'Add Line Item'
+4. ค้นหา 'Beef'
+5. ตรวจสอบว่า inventory panel แสดง '⚠️ Below reorder point'
+6. กรอก quantity ที่ต้องการ: 50 kg
 
 **Expected**
 
-System alerts user that the quantity requested is below the reorder point and suggests the suggested reorder quantity.
+ระบบแจ้งเตือนผู้ใช้ว่า quantity ที่ขอต่ำกว่า reorder point และแนะนำ reorder quantity
 
 ---
 
@@ -2251,21 +2251,21 @@ System alerts user that the quantity requested is below the reorder point and su
 
 **Preconditions**
 
-Logged in as Purchasing Staff and has access to PR-2501-0042
+Login เป็น Purchasing Staff และมีสิทธิ์เข้าถึง PR-2501-0042
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Open' on PR-2501-0042
-3. Click 'Save as Template' button
-4. Fill 'Template Name' with 'Weekly Market List - Vegetables'
-5. Select 'Market List' as Template Type
-6. Fill 'Description' with 'Standard weekly order for fresh vegetables'
-7. Click 'Create Template'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Open' บน PR-2501-0042
+3. กดปุ่ม 'Save as Template'
+4. กรอก 'Template Name' ด้วย 'Weekly Market List - Vegetables'
+5. เลือก 'Market List' เป็น Template Type
+6. กรอก 'Description' ด้วย 'Standard weekly order for fresh vegetables'
+7. กด 'Create Template'
 
 **Expected**
 
-Template is created successfully, with items copied from PR-2501-0042.
+Template ถูกสร้างสำเร็จพร้อม items ที่คัดลอกจาก PR-2501-0042
 
 ---
 
@@ -2278,18 +2278,18 @@ Template is created successfully, with items copied from PR-2501-0042.
 
 **Preconditions**
 
-A template named 'Weekly Market List - Vegetables' already exists in the user's department
+มี template ชื่อ 'Weekly Market List - Vegetables' อยู่ในแผนกของผู้ใช้แล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Save as Template' on PR-2501-0042
-3. Fill 'Template Name' with 'Weekly Market List - Vegetables'
-4. Click 'Create Template'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Save as Template' บน PR-2501-0042
+3. กรอก 'Template Name' ด้วย 'Weekly Market List - Vegetables'
+4. กด 'Create Template'
 
 **Expected**
 
-System displays an error message stating 'A template with this name already exists in your department'. Suggests adding a date or version number to the name.
+ระบบแสดงข้อความ error ว่า 'A template with this name already exists in your department' และแนะนำให้เพิ่มวันที่หรือหมายเลข version ในชื่อ
 
 ---
 
@@ -2302,18 +2302,18 @@ System displays an error message stating 'A template with this name already exis
 
 **Preconditions**
 
-Logged in as Purchasing Staff and has permission to create organization-wide templates
+Login เป็น Purchasing Staff และมีสิทธิ์สร้าง organization-wide templates
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Save as Template' on PR-2501-0042
-3. Select 'Organization Wide' as Visibility
-4. Click 'Create Template'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Save as Template' บน PR-2501-0042
+3. เลือก 'Organization Wide' เป็น Visibility
+4. กด 'Create Template'
 
 **Expected**
 
-Template is created with a status of 'Pending Approval', and a note is displayed indicating the template requires purchasing manager approval.
+Template ถูกสร้างพร้อมสถานะ 'Pending Approval' และแสดงหมายเหตุว่า template ต้องการการ approve จาก purchasing manager
 
 ---
 
@@ -2326,18 +2326,18 @@ Template is created with a status of 'Pending Approval', and a note is displayed
 
 **Preconditions**
 
-Logged in as Purchasing Staff
+Login เป็น Purchasing Staff
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Save as Template' on PR-2501-0042
-3. Fill 'Template Name' with a name less than 3 characters
-4. Click 'Create Template'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Save as Template' บน PR-2501-0042
+3. กรอก 'Template Name' ด้วยชื่อที่มีความยาวน้อยกว่า 3 ตัวอักษร
+4. กด 'Create Template'
 
 **Expected**
 
-System displays an error message stating 'Template name must be between 3 and 100 characters.'
+ระบบแสดงข้อความ error ว่า 'Template name must be between 3 and 100 characters.'
 
 ---
 
@@ -2350,18 +2350,18 @@ System displays an error message stating 'Template name must be between 3 and 10
 
 **Preconditions**
 
-Logged in as Purchasing Staff and has access to PR-2501-0042
+Login เป็น Purchasing Staff และมีสิทธิ์เข้าถึง PR-2501-0042
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Save as Template' on PR-2501-0042
-3. Uncheck 'Include all line items'
-4. Click 'Create Template'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Save as Template' บน PR-2501-0042
+3. ยกเลิกการเลือก 'Include all line items'
+4. กด 'Create Template'
 
 **Expected**
 
-System displays an error message stating 'At least one line item must be included in the template.'
+ระบบแสดงข้อความ error ว่า 'At least one line item must be included in the template.'
 
 ---
 
@@ -2374,28 +2374,28 @@ System displays an error message stating 'At least one line item must be include
 
 **Preconditions**
 
-Logged in as Requestor; PR System is operational; Inventory API is available
+Login เป็น Requestor; ระบบ PR พร้อมใช้งาน; Inventory API พร้อมใช้งาน
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Fill in 'Department' (auto-filled)
-4. Set 'Delivery Date' to future date
-5. Fill in 'Description'
-6. Fill in 'Justification'
-7. Click 'Add Item'
-8. Search and select 'Product'
-9. Verify 'On-Hand' and 'On-Order' quantities are displayed
-10. Fill in 'Quantity', 'Unit of Measure', 'Vendor Name'
-11. Fill in 'Unit Price', 'Discount', 'Tax Rate'
-12. Click 'Save'
-13. Repeat steps 7-12 for additional items
-14. Submit PR
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. กรอก 'Department' (auto-fill)
+4. ตั้ง 'Delivery Date' เป็นวันที่ในอนาคต
+5. กรอก 'Description'
+6. กรอก 'Justification'
+7. กด 'Add Item'
+8. ค้นหาและเลือก 'Product'
+9. ตรวจสอบว่า 'On-Hand' และ 'On-Order' quantities แสดงผล
+10. กรอก 'Quantity', 'Unit of Measure', 'Vendor Name'
+11. กรอก 'Unit Price', 'Discount', 'Tax Rate'
+12. กด 'Save'
+13. ทำซ้ำขั้นตอน 7-12 สำหรับรายการเพิ่มเติม
+14. submit PR
 
 **Expected**
 
-PR is created with all fields validated, auto-calculated amounts correct, and PR status set to 'Pending Approval'. Confirmation message with PR reference number is displayed.
+PR ถูกสร้างพร้อม validate ทุกฟิลด์, คำนวณยอดเงินอัตโนมัติถูกต้อง และสถานะ PR ตั้งเป็น 'Pending Approval', แสดงข้อความยืนยันพร้อมหมายเลขอ้างอิง PR
 
 ---
 
@@ -2408,28 +2408,28 @@ PR is created with all fields validated, auto-calculated amounts correct, and PR
 
 **Preconditions**
 
-Logged in as Requestor; PR System is operational; Inventory API is available
+Login เป็น Requestor; ระบบ PR พร้อมใช้งาน; Inventory API พร้อมใช้งาน
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Fill in 'Department' (auto-filled)
-4. Set 'Delivery Date' to past date
-5. Fill in 'Description'
-6. Fill in 'Justification'
-7. Click 'Add Item'
-8. Search and select 'Product'
-9. Verify 'On-Hand' and 'On-Order' quantities are displayed
-10. Fill in 'Quantity', 'Unit of Measure', 'Vendor Name'
-11. Fill in 'Unit Price', 'Discount', 'Tax Rate'
-12. Click 'Save'
-13. Repeat steps 7-12 for additional items
-14. Attempt to Submit PR
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. กรอก 'Department' (auto-fill)
+4. ตั้ง 'Delivery Date' เป็นวันที่ในอดีต
+5. กรอก 'Description'
+6. กรอก 'Justification'
+7. กด 'Add Item'
+8. ค้นหาและเลือก 'Product'
+9. ตรวจสอบว่า 'On-Hand' และ 'On-Order' quantities แสดงผล
+10. กรอก 'Quantity', 'Unit of Measure', 'Vendor Name'
+11. กรอก 'Unit Price', 'Discount', 'Tax Rate'
+12. กด 'Save'
+13. ทำซ้ำขั้นตอน 7-12 สำหรับรายการเพิ่มเติม
+14. พยายาม submit PR
 
 **Expected**
 
-System displays validation error for 'Delivery Date' field. PR cannot be submitted with a past date.
+ระบบแสดง validation error สำหรับฟิลด์ 'Delivery Date', PR ไม่สามารถ submit ด้วยวันที่ในอดีต
 
 ---
 
@@ -2442,27 +2442,27 @@ System displays validation error for 'Delivery Date' field. PR cannot be submitt
 
 **Preconditions**
 
-Logged in as Requestor; PR System is operational; Inventory API is available
+Login เป็น Requestor; ระบบ PR พร้อมใช้งาน; Inventory API พร้อมใช้งาน
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Fill in 'Department' (auto-filled)
-4. Set 'Delivery Date' to future date
-5. Fill in 'Description'
-6. Fill in 'Justification'
-7. Toggle 'Hide Price' to 'true'
-8. Click 'Add Item'
-9. Search and select 'Product'
-10. Verify 'On-Hand' and 'On-Order' quantities are displayed
-11. Fill in 'Quantity', 'Unit of Measure', 'Vendor Name'
-12. Attempt to fill in 'Unit Price', 'Discount', 'Tax Rate'
-13. Submit PR
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. กรอก 'Department' (auto-fill)
+4. ตั้ง 'Delivery Date' เป็นวันที่ในอนาคต
+5. กรอก 'Description'
+6. กรอก 'Justification'
+7. Toggle 'Hide Price' เป็น 'true'
+8. กด 'Add Item'
+9. ค้นหาและเลือก 'Product'
+10. ตรวจสอบว่า 'On-Hand' และ 'On-Order' quantities แสดงผล
+11. กรอก 'Quantity', 'Unit of Measure', 'Vendor Name'
+12. พยายามกรอก 'Unit Price', 'Discount', 'Tax Rate'
+13. submit PR
 
 **Expected**
 
-System displays validation error for 'Unit Price', 'Discount', 'Tax Rate' fields. PR cannot be submitted with hidden prices.
+ระบบแสดง validation error สำหรับฟิลด์ 'Unit Price', 'Discount', 'Tax Rate', PR ไม่สามารถ submit ด้วยราคาที่ซ่อน
 
 ---
 
@@ -2475,25 +2475,25 @@ System displays validation error for 'Unit Price', 'Discount', 'Tax Rate' fields
 
 **Preconditions**
 
-Logged in as Requestor with permissions to create PRs
+Login เป็น Requestor ที่มีสิทธิ์สร้าง PR
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Create New'
-3. Fill in header fields (Department, Delivery Date, Description, Justification)
-4. Click 'Add Item'
-5. Fill in item fields (Product, Quantity, UOM, Vendor, Pricing)
-6. Expand 'Item Details' section
-7. Enter comment: 'Deliver to back kitchen entrance, handle with care, keep refrigerated'
-8. Select required date: 2025-02-15
-9. Select delivery point: DOCK-A - Main Kitchen Loading Dock
-10. Review all items with delivery details summary
-11. Submit PR
+1. ไปที่ /procurement/purchase-request
+2. กด 'Create New'
+3. กรอก header fields (Department, Delivery Date, Description, Justification)
+4. กด 'Add Item'
+5. กรอก item fields (Product, Quantity, UOM, Vendor, Pricing)
+6. ขยายส่วน 'Item Details'
+7. กรอก comment: 'Deliver to back kitchen entrance, handle with care, keep refrigerated'
+8. เลือก required date: 2025-02-15
+9. เลือก delivery point: DOCK-A - Main Kitchen Loading Dock
+10. ตรวจสอบรายการทั้งหมดพร้อมสรุป delivery details
+11. submit PR
 
 **Expected**
 
-PR is created with all delivery details and saved with status = 'Pending Approval'
+PR ถูกสร้างพร้อม delivery details ทั้งหมดและบันทึกด้วยสถานะ = 'Pending Approval'
 
 ---
 
@@ -2506,24 +2506,24 @@ PR is created with all delivery details and saved with status = 'Pending Approva
 
 **Preconditions**
 
-Logged in as Requestor with permissions to create PRs
+Login เป็น Requestor ที่มีสิทธิ์สร้าง PR
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Create New'
-3. Fill in header fields
-4. Click 'Add Item'
-5. Fill in item fields
-6. Expand 'Item Details' section
-7. Enter comment
-8. Select required date: 2024-02-15 (past date)
-9. Try to select delivery point
-10. Submit PR
+1. ไปที่ /procurement/purchase-request
+2. กด 'Create New'
+3. กรอก header fields
+4. กด 'Add Item'
+5. กรอก item fields
+6. ขยายส่วน 'Item Details'
+7. กรอก comment
+8. เลือก required date: 2024-02-15 (วันที่ในอดีต)
+9. พยายามเลือก delivery point
+10. submit PR
 
 **Expected**
 
-System displays error message: 'Required date must be on or after today'
+ระบบแสดงข้อความ error: 'Required date must be on or after today'
 
 ---
 
@@ -2536,24 +2536,24 @@ System displays error message: 'Required date must be on or after today'
 
 **Preconditions**
 
-Logged in as Requestor with permissions to create PRs
+Login เป็น Requestor ที่มีสิทธิ์สร้าง PR
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Create New'
-3. Fill in header fields
-4. Click 'Add Item'
-5. Fill in item fields
-6. Expand 'Item Details' section
-7. Enter comment: 'a' repeated 500 times
-8. Verify character counter: '500/500'
-9. Select required date
-10. Submit PR
+1. ไปที่ /procurement/purchase-request
+2. กด 'Create New'
+3. กรอก header fields
+4. กด 'Add Item'
+5. กรอก item fields
+6. ขยายส่วน 'Item Details'
+7. กรอก comment: 'a' ซ้ำ 500 ครั้ง
+8. ตรวจสอบตัวนับตัวอักษร: '500/500'
+9. เลือก required date
+10. submit PR
 
 **Expected**
 
-PR is created with long comment and saved with status = 'Pending Approval'
+PR ถูกสร้างพร้อม comment ที่ยาวและบันทึกด้วยสถานะ = 'Pending Approval'
 
 ---
 
@@ -2566,25 +2566,25 @@ PR is created with long comment and saved with status = 'Pending Approval'
 
 **Preconditions**
 
-Logged in as Budget Manager with no permission to submit PRs
+Login เป็น Budget Manager ที่ไม่มีสิทธิ์ submit PR
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Create New'
-3. Fill in header fields
-4. Click 'Add Item'
-5. Fill in item fields
-6. Expand 'Item Details'
-7. Enter comment
-8. Select required date
-9. Select delivery point
-10. Review items with delivery details
-11. Attempt to submit PR
+1. ไปที่ /procurement/purchase-request
+2. กด 'Create New'
+3. กรอก header fields
+4. กด 'Add Item'
+5. กรอก item fields
+6. ขยาย 'Item Details'
+7. กรอก comment
+8. เลือก required date
+9. เลือก delivery point
+10. ตรวจสอบรายการพร้อม delivery details
+11. พยายาม submit PR
 
 **Expected**
 
-System displays error message: 'User does not have permission to submit purchase requests'
+ระบบแสดงข้อความ error: 'User does not have permission to submit purchase requests'
 
 ---
 
@@ -2597,27 +2597,27 @@ System displays error message: 'User does not have permission to submit purchase
 
 **Preconditions**
 
-A PR with FOC and detailed pricing information has been created and is pending approval
+มี PR ที่มี FOC และข้อมูล pricing ครบถ้วนถูกสร้างและรอ approval
 
 **Steps**
 
-1. Navigate to /procurement/purchase-requests/my-approvals
-2. Click on PR-2501-0001
-3. Verify all header fields are visible
-4. Verify FOC quantities are visible
-5. Verify vendor names are visible
-6. Verify net amount calculations are correct
-7. Verify tax rates and amounts are calculated
-8. Verify delivery details are visible
-9. Verify override amounts are highlighted
-10. Click on 'Approve' button
-11. Enter optional approval comment
-12. Confirm approval action
-13. Verify PR status changes to 'Approved'
+1. ไปที่ /procurement/purchase-requests/my-approvals
+2. คลิก PR-2501-0001
+3. ตรวจสอบว่า header fields ทั้งหมด visible
+4. ตรวจสอบว่า FOC quantities visible
+5. ตรวจสอบว่าชื่อ vendor visible
+6. ตรวจสอบว่าการคำนวณ net amount ถูกต้อง
+7. ตรวจสอบว่า tax rates และ amounts คำนวณถูกต้อง
+8. ตรวจสอบว่า delivery details visible
+9. ตรวจสอบว่า override amounts ถูก highlight
+10. กดปุ่ม 'Approve'
+11. กรอก approval comment (ไม่บังคับ)
+12. ยืนยันการ approve
+13. ตรวจสอบว่าสถานะ PR เปลี่ยนเป็น 'Approved'
 
 **Expected**
 
-PR is approved and status changes to 'Approved'
+PR ถูก approve และสถานะเปลี่ยนเป็น 'Approved'
 
 ---
 
@@ -2630,27 +2630,27 @@ PR is approved and status changes to 'Approved'
 
 **Preconditions**
 
-A PR with FOC and detailed pricing information has been created and is pending approval
+มี PR ที่มี FOC และข้อมูล pricing ครบถ้วนถูกสร้างและรอ approval
 
 **Steps**
 
-1. Navigate to /procurement/purchase-requests/my-approvals
-2. Click on PR-2501-0001
-3. Verify all header fields are visible
-4. Verify FOC quantities are visible
-5. Verify vendor names are visible
-6. Verify net amount calculations are correct
-7. Verify tax rates and amounts are calculated
-8. Verify delivery details are visible
-9. Enter required return comment
-10. Click on 'Return for Revision' button
-11. Enter required return comment
-12. Confirm return action
-13. Verify PR status changes to 'Returned for Revision'
+1. ไปที่ /procurement/purchase-requests/my-approvals
+2. คลิก PR-2501-0001
+3. ตรวจสอบว่า header fields ทั้งหมด visible
+4. ตรวจสอบว่า FOC quantities visible
+5. ตรวจสอบว่าชื่อ vendor visible
+6. ตรวจสอบว่าการคำนวณ net amount ถูกต้อง
+7. ตรวจสอบว่า tax rates และ amounts คำนวณถูกต้อง
+8. ตรวจสอบว่า delivery details visible
+9. กรอก return comment ที่บังคับ
+10. กดปุ่ม 'Return for Revision'
+11. กรอก return comment ที่บังคับ
+12. ยืนยันการส่งคืน
+13. ตรวจสอบว่าสถานะ PR เปลี่ยนเป็น 'Returned for Revision'
 
 **Expected**
 
-PR is returned for revision and status changes to 'Returned for Revision'
+PR ถูกส่งคืนเพื่อแก้ไขและสถานะเปลี่ยนเป็น 'Returned for Revision'
 
 ---
 
@@ -2663,25 +2663,25 @@ PR is returned for revision and status changes to 'Returned for Revision'
 
 **Preconditions**
 
-A PR with FOC and detailed pricing, with hide_price=true, has been created and is pending approval
+มี PR ที่มี FOC และ pricing ครบถ้วน พร้อม hide_price=true ถูกสร้างและรอ approval
 
 **Steps**
 
-1. Navigate to /procurement/purchase-requests/my-approvals
-2. Click on PR-2501-0001
-3. Verify 'Requestor chose to hide prices' badge is visible
-4. Verify vendor names are visible
-5. Verify net amount calculations are correct
-6. Verify tax rates and amounts are calculated
-7. Verify delivery details are visible
-8. Click on 'Approve' button
-9. Enter optional approval comment
-10. Confirm approval action
-11. Verify PR status changes to 'Approved'
+1. ไปที่ /procurement/purchase-requests/my-approvals
+2. คลิก PR-2501-0001
+3. ตรวจสอบว่า badge 'Requestor chose to hide prices' visible
+4. ตรวจสอบว่าชื่อ vendor visible
+5. ตรวจสอบว่าการคำนวณ net amount ถูกต้อง
+6. ตรวจสอบว่า tax rates และ amounts คำนวณถูกต้อง
+7. ตรวจสอบว่า delivery details visible
+8. กดปุ่ม 'Approve'
+9. กรอก approval comment (ไม่บังคับ)
+10. ยืนยันการ approve
+11. ตรวจสอบว่าสถานะ PR เปลี่ยนเป็น 'Approved'
 
 **Expected**
 
-PR is approved and status changes to 'Approved' despite hidden prices
+PR ถูก approve และสถานะเปลี่ยนเป็น 'Approved' แม้ราคาจะถูกซ่อน
 
 ---
 
@@ -2694,27 +2694,27 @@ PR is approved and status changes to 'Approved' despite hidden prices
 
 **Preconditions**
 
-A PR with FOC, detailed pricing and override amounts >20% has been created and is pending approval
+มี PR ที่มี FOC, pricing ครบถ้วนและ override amounts >20% ถูกสร้างและรอ approval
 
 **Steps**
 
-1. Navigate to /procurement/purchase-requests/my-approvals
-2. Click on PR-2501-0001
-3. Verify all header fields are visible
-4. Verify FOC quantities are visible
-5. Verify vendor names are visible
-6. Verify net amount calculations are correct
-7. Verify tax rates and amounts are calculated
-8. Verify override amounts are highlighted
-9. Verify override amounts exceed 20%
-10. Click on 'Approve' button
-11. Enter optional approval comment
-12. Confirm approval action
-13. Verify PR status changes to 'Approved'
+1. ไปที่ /procurement/purchase-requests/my-approvals
+2. คลิก PR-2501-0001
+3. ตรวจสอบว่า header fields ทั้งหมด visible
+4. ตรวจสอบว่า FOC quantities visible
+5. ตรวจสอบว่าชื่อ vendor visible
+6. ตรวจสอบว่าการคำนวณ net amount ถูกต้อง
+7. ตรวจสอบว่า tax rates และ amounts คำนวณถูกต้อง
+8. ตรวจสอบว่า override amounts ถูก highlight
+9. ตรวจสอบว่า override amounts เกิน 20%
+10. กดปุ่ม 'Approve'
+11. กรอก approval comment (ไม่บังคับ)
+12. ยืนยันการ approve
+13. ตรวจสอบว่าสถานะ PR เปลี่ยนเป็น 'Approved'
 
 **Expected**
 
-PR is approved and status changes to 'Approved' despite override amounts over 20%
+PR ถูก approve และสถานะเปลี่ยนเป็น 'Approved' แม้ override amounts จะเกิน 20%
 
 ---
 
@@ -2727,22 +2727,22 @@ PR is approved and status changes to 'Approved' despite override amounts over 20
 
 **Preconditions**
 
-Purchasing Staff has the necessary role; PR is created and item details are displayed
+Purchasing Staff มี role ที่จำเป็น; PR ถูกสร้างและแสดงรายละเอียด item แล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Edit' on PR detail page
-3. Select valid vendor from dropdown
-4. Select correct currency
-5. Enter valid unit price
-6. Select applicable tax profile
-7. Enter valid discount rate
-8. Click 'Save'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Edit' บนหน้ารายละเอียด PR
+3. เลือก vendor ที่ถูกต้องจาก dropdown
+4. เลือก currency ที่ถูกต้อง
+5. กรอก unit price ที่ถูกต้อง
+6. เลือก tax profile ที่ใช้งาน
+7. กรอก discount rate ที่ถูกต้อง
+8. กด 'Save'
 
 **Expected**
 
-PR item pricing information is updated successfully. System calculates and updates all financial totals, logs changes, and displays success message.
+ข้อมูล pricing ของ PR item อัปเดตสำเร็จ, ระบบคำนวณและอัปเดตยอดเงินทั้งหมด, บันทึกการเปลี่ยนแปลง และแสดงข้อความสำเร็จ
 
 ---
 
@@ -2755,19 +2755,19 @@ PR item pricing information is updated successfully. System calculates and updat
 
 **Preconditions**
 
-Purchasing Staff has the necessary role; PR is created and item details are displayed
+Purchasing Staff มี role ที่จำเป็น; PR ถูกสร้างและแสดงรายละเอียด item แล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Edit' on PR detail page
-3. Enter valid vendor, currency, and unit price
-4. Leave discount rate empty
-5. Click 'Save'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Edit' บนหน้ารายละเอียด PR
+3. กรอก vendor, currency และ unit price ที่ถูกต้อง
+4. ปล่อย discount rate ว่างไว้
+5. กด 'Save'
 
 **Expected**
 
-System calculates financial totals without discount, using unit price and any tax override. No error message is displayed, and PR is saved with correct pricing information.
+ระบบคำนวณยอดเงินโดยไม่มี discount โดยใช้ unit price และ tax override ถ้ามี, ไม่แสดงข้อความ error และบันทึก PR พร้อมข้อมูล pricing ที่ถูกต้อง
 
 ---
 
@@ -2780,19 +2780,19 @@ System calculates financial totals without discount, using unit price and any ta
 
 **Preconditions**
 
-Purchasing Staff has the necessary role; PR is created and item details are displayed; no tax profile is assigned
+Purchasing Staff มี role ที่จำเป็น; PR ถูกสร้างและแสดงรายละเอียด item แล้ว; ไม่มีการกำหนด tax profile
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Edit' on PR detail page
-3. Enter valid vendor, currency, and unit price
-4. Leave tax profile selection blank
-5. Click 'Save'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Edit' บนหน้ารายละเอียด PR
+3. กรอก vendor, currency และ unit price ที่ถูกต้อง
+4. ปล่อยการเลือก tax profile ว่างไว้
+5. กด 'Save'
 
 **Expected**
 
-System calculates financial totals without tax, using unit price and any discount override. No error message is displayed, and PR is saved with correct pricing information.
+ระบบคำนวณยอดเงินโดยไม่มี tax โดยใช้ unit price และ discount override ถ้ามี, ไม่แสดงข้อความ error และบันทึก PR พร้อมข้อมูล pricing ที่ถูกต้อง
 
 ---
 
@@ -2805,19 +2805,19 @@ System calculates financial totals without tax, using unit price and any discoun
 
 **Preconditions**
 
-Department Manager has pending PRs and access to return function
+Department Manager มี pending PRs และมีสิทธิ์ใช้ฟังก์ชัน return
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Select pending PR
-3. Click 'Return' button
-4. Enter 'Reason for revision' with 15 characters
-5. Click 'Confirm Return'
+1. ไปที่ /procurement/purchase-request
+2. เลือก PR ที่กำลัง pending
+3. กดปุ่ม 'Return'
+4. กรอก 'Reason for revision' ด้วยข้อความ 15 ตัวอักษร
+5. กด 'Confirm Return'
 
 **Expected**
 
-PR status updated to 'Returned', requestor notified, and PR detail updated.
+สถานะ PR อัปเดตเป็น 'Returned', แจ้ง requestor และอัปเดตรายละเอียด PR
 
 ---
 
@@ -2830,19 +2830,19 @@ PR status updated to 'Returned', requestor notified, and PR detail updated.
 
 **Preconditions**
 
-Department Manager has pending PRs and access to return function
+Department Manager มี pending PRs และมีสิทธิ์ใช้ฟังก์ชัน return
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Select pending PR
-3. Click 'Return' button
-4. Leave 'Reason for revision' field empty
-5. Click 'Confirm Return'
+1. ไปที่ /procurement/purchase-request
+2. เลือก PR ที่กำลัง pending
+3. กดปุ่ม 'Return'
+4. ปล่อยฟิลด์ 'Reason for revision' ว่างไว้
+5. กด 'Confirm Return'
 
 **Expected**
 
-System validation error, requestor not notified, and PR status remains unchanged.
+ระบบแสดง validation error, ไม่แจ้ง requestor และสถานะ PR ไม่เปลี่ยนแปลง
 
 ---
 
@@ -2855,19 +2855,19 @@ System validation error, requestor not notified, and PR status remains unchanged
 
 **Preconditions**
 
-Department Manager has pending PRs and access to return function
+Department Manager มี pending PRs และมีสิทธิ์ใช้ฟังก์ชัน return
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Select pending PR
-3. Click 'Return' button
-4. Enter 'Reason for revision' with 10 characters
-5. Click 'Confirm Return'
+1. ไปที่ /procurement/purchase-request
+2. เลือก PR ที่กำลัง pending
+3. กดปุ่ม 'Return'
+4. กรอก 'Reason for revision' ด้วยข้อความ 10 ตัวอักษร
+5. กด 'Confirm Return'
 
 **Expected**
 
-PR status updated to 'Returned', requestor notified, and PR detail updated.
+สถานะ PR อัปเดตเป็น 'Returned', แจ้ง requestor และอัปเดตรายละเอียด PR
 
 ---
 
@@ -2880,19 +2880,19 @@ PR status updated to 'Returned', requestor notified, and PR detail updated.
 
 **Preconditions**
 
-Finance Manager has pending PRs and insufficient permissions to return
+Finance Manager มี pending PRs และสิทธิ์ไม่เพียงพอในการ return
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Select pending PR
-3. Click 'Return' button
-4. Enter 'Reason for revision' with 15 characters
-5. Click 'Confirm Return'
+1. ไปที่ /procurement/purchase-request
+2. เลือก PR ที่กำลัง pending
+3. กดปุ่ม 'Return'
+4. กรอก 'Reason for revision' ด้วยข้อความ 15 ตัวอักษร
+5. กด 'Confirm Return'
 
 **Expected**
 
-System error message, requestor not notified, and PR status remains unchanged.
+ระบบแสดงข้อความ error, ไม่แจ้ง requestor และสถานะ PR ไม่เปลี่ยนแปลง
 
 ---
 
@@ -2905,18 +2905,18 @@ System error message, requestor not notified, and PR status remains unchanged.
 
 **Preconditions**
 
-Purchasing staff has completed vendor allocation and pricing for all items except unit price
+Purchasing staff ได้กำหนด vendor และ pricing ครบทุก item ยกเว้น unit price
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Submit' button
-3. Verify validation error for missing unit price
-4. Fill in unit price and click 'Submit'
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Submit'
+3. ตรวจสอบ validation error สำหรับ unit price ที่ขาดหาย
+4. กรอก unit price และกด 'Submit'
 
 **Expected**
 
-PR record is updated with unit price, no further action required, confirmation dialog appears, next stage/recipient is Finance Manager, success message is displayed, PR detail page shows updated status.
+PR record อัปเดตด้วย unit price, ไม่ต้องดำเนินการเพิ่มเติม, dialog ยืนยันปรากฏ, ขั้นตอน/ผู้รับถัดไปคือ Finance Manager, แสดงข้อความสำเร็จ, หน้า PR detail แสดงสถานะที่อัปเดต
 
 ---
 
@@ -2929,18 +2929,18 @@ PR record is updated with unit price, no further action required, confirmation d
 
 **Preconditions**
 
-Purchasing staff has completed vendor allocation and pricing for all items except vendor selection
+Purchasing staff ได้กำหนด vendor และ pricing ครบทุก item ยกเว้นการเลือก vendor
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Submit' button
-3. Verify validation error for missing vendor selection
-4. Select vendor and click 'Submit'
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Submit'
+3. ตรวจสอบ validation error สำหรับการเลือก vendor ที่ขาดหาย
+4. เลือก vendor และกด 'Submit'
 
 **Expected**
 
-PR record is updated with vendor selection, no further action required, confirmation dialog appears, next stage/recipient is Finance Manager, success message is displayed, PR detail page shows updated status.
+PR record อัปเดตด้วยการเลือก vendor, ไม่ต้องดำเนินการเพิ่มเติม, dialog ยืนยันปรากฏ, ขั้นตอน/ผู้รับถัดไปคือ Finance Manager, แสดงข้อความสำเร็จ, หน้า PR detail แสดงสถานะที่อัปเดต
 
 ---
 
@@ -2953,19 +2953,19 @@ PR record is updated with vendor selection, no further action required, confirma
 
 **Preconditions**
 
-Purchasing staff has completed vendor allocation and pricing for a very high-value item
+Purchasing staff ได้กำหนด vendor และ pricing สำหรับ item มูลค่าสูงมาก
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Submit' button
-3. Verify confirmation dialog appears
-4. Verify next stage/recipient is General Manager
-5. Click 'Confirm Submit'
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Submit'
+3. ตรวจสอบว่า dialog ยืนยันปรากฏ
+4. ตรวจสอบว่าขั้นตอน/ผู้รับถัดไปคือ General Manager
+5. กด 'Confirm Submit'
 
 **Expected**
 
-PR record is updated to next stage, recipient is notified, submit activity is logged, success message is displayed, PR detail page shows updated status.
+PR record อัปเดตเป็นขั้นตอนถัดไป, แจ้งผู้รับ, บันทึก submit activity, แสดงข้อความสำเร็จ, หน้า PR detail แสดงสถานะที่อัปเดต
 
 ---
 
@@ -2978,17 +2978,17 @@ PR record is updated to next stage, recipient is notified, submit activity is lo
 
 **Preconditions**
 
-User is not a purchasing staff
+ผู้ใช้ไม่ใช่ purchasing staff
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Submit' button
-3. Verify error message indicating insufficient permission
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Submit'
+3. ตรวจสอบข้อความ error ว่าสิทธิ์ไม่เพียงพอ
 
 **Expected**
 
-Error message is displayed, PR record is not updated, no notifications sent, no activity logged in PR detail page.
+แสดงข้อความ error, PR record ไม่ถูกอัปเดต, ไม่ส่งการแจ้งเตือน, ไม่บันทึก activity ในหน้า PR detail
 
 ---
 
@@ -3001,19 +3001,19 @@ Error message is displayed, PR record is not updated, no notifications sent, no 
 
 **Preconditions**
 
-A PR exists; purchasing staff has the necessary role
+มี PR อยู่; purchasing staff มี role ที่จำเป็น
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'View' on the relevant PR
-3. Click 'Reject' button
-4. Enter 'Items discontinued' as the rejection reason
-5. Click 'Confirm Rejection'
+1. ไปที่ /procurement/purchase-request
+2. กด 'View' บน PR ที่เกี่ยวข้อง
+3. กดปุ่ม 'Reject'
+4. กรอก 'Items discontinued' เป็นเหตุผลการ reject
+5. กด 'Confirm Rejection'
 
 **Expected**
 
-PR is updated to 'Void' status with a rejection timestamp, reason, and rejector.
+PR อัปเดตเป็นสถานะ 'Void' พร้อม rejection timestamp, เหตุผล และผู้ reject
 
 ---
 
@@ -3026,19 +3026,19 @@ PR is updated to 'Void' status with a rejection timestamp, reason, and rejector.
 
 **Preconditions**
 
-A PR exists; purchasing staff has the necessary role
+มี PR อยู่; purchasing staff มี role ที่จำเป็น
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'View' on the relevant PR
-3. Click 'Reject' button
-4. Enter 'I' as the rejection reason
-5. Click 'Confirm Rejection'
+1. ไปที่ /procurement/purchase-request
+2. กด 'View' บน PR ที่เกี่ยวข้อง
+3. กดปุ่ม 'Reject'
+4. กรอก 'I' เป็นเหตุผลการ reject
+5. กด 'Confirm Rejection'
 
 **Expected**
 
-System displays an error message indicating the rejection reason is too short.
+ระบบแสดงข้อความ error ว่าเหตุผลการ reject สั้นเกินไป
 
 ---
 
@@ -3051,18 +3051,18 @@ System displays an error message indicating the rejection reason is too short.
 
 **Preconditions**
 
-A PR exists; purchasing staff has the necessary role
+มี PR อยู่; purchasing staff มี role ที่จำเป็น
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'View' on the relevant PR
-3. Click 'Reject' button
-4. Click 'Confirm Rejection' without entering a reason
+1. ไปที่ /procurement/purchase-request
+2. กด 'View' บน PR ที่เกี่ยวข้อง
+3. กดปุ่ม 'Reject'
+4. กด 'Confirm Rejection' โดยไม่กรอกเหตุผล
 
 **Expected**
 
-System displays an error message indicating the rejection reason is required.
+ระบบแสดงข้อความ error ว่าต้องกรอกเหตุผลการ reject
 
 ---
 
@@ -3075,17 +3075,17 @@ System displays an error message indicating the rejection reason is required.
 
 **Preconditions**
 
-A PR exists; a user without purchasing staff role attempts to reject
+มี PR อยู่; ผู้ใช้ที่ไม่มี purchasing staff role พยายาม reject
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'View' on the relevant PR
-3. Click 'Reject' button
+1. ไปที่ /procurement/purchase-request
+2. กด 'View' บน PR ที่เกี่ยวข้อง
+3. กดปุ่ม 'Reject'
 
 **Expected**
 
-System displays an error message indicating the user does not have permission to reject.
+ระบบแสดงข้อความ error ว่าผู้ใช้ไม่มีสิทธิ์ reject
 
 ---
 
@@ -3098,19 +3098,19 @@ System displays an error message indicating the user does not have permission to
 
 **Preconditions**
 
-A PR exists; has a previous rejection; purchasing staff has the necessary role
+มี PR อยู่; มีการ reject ก่อนหน้า; purchasing staff มี role ที่จำเป็น
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'View' on the relevant PR
-3. Click 'Reject' button
-4. Enter 'Items discontinued' as the rejection reason
-5. Click 'Confirm Rejection'
+1. ไปที่ /procurement/purchase-request
+2. กด 'View' บน PR ที่เกี่ยวข้อง
+3. กดปุ่ม 'Reject'
+4. กรอก 'Items discontinued' เป็นเหตุผลการ reject
+5. กด 'Confirm Rejection'
 
 **Expected**
 
-System displays an error message indicating the PR is already voided.
+ระบบแสดงข้อความ error ว่า PR ถูก void แล้ว
 
 ---
 
@@ -3123,19 +3123,19 @@ System displays an error message indicating the PR is already voided.
 
 **Preconditions**
 
-Logged in as Department Manager with approval rights; multiple PR line items exist with varying statuses
+Login เป็น Department Manager ที่มีสิทธิ์ approve; มี PR line items หลายรายการที่มีสถานะต่างกัน
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Select multiple line items using the checkbox
-3. Click 'Bulk Actions' dropdown
-4. Select 'Approve'
-5. Confirm approval
+1. ไปที่ /procurement/purchase-request
+2. เลือก line items หลายรายการโดยใช้ checkbox
+3. คลิก dropdown 'Bulk Actions'
+4. เลือก 'Approve'
+5. ยืนยันการ approve
 
 **Expected**
 
-All selected line items are approved and updated in the system.
+Line items ที่เลือกทั้งหมดถูก approve และอัปเดตในระบบ
 
 ---
 
@@ -3148,20 +3148,20 @@ All selected line items are approved and updated in the system.
 
 **Preconditions**
 
-Logged in as Department Manager with rejection rights; multiple PR line items exist
+Login เป็น Department Manager ที่มีสิทธิ์ reject; มี PR line items หลายรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Select multiple line items using the checkbox
-3. Click 'Bulk Actions' dropdown
-4. Select 'Reject'
-5. Provide rejection reason
-6. Confirm rejection
+1. ไปที่ /procurement/purchase-request
+2. เลือก line items หลายรายการโดยใช้ checkbox
+3. คลิก dropdown 'Bulk Actions'
+4. เลือก 'Reject'
+5. กรอกเหตุผลการ reject
+6. ยืนยันการ reject
 
 **Expected**
 
-All selected line items are rejected and updated in the system with the reason provided.
+Line items ที่เลือกทั้งหมดถูก reject และอัปเดตในระบบพร้อมเหตุผลที่ระบุ
 
 ---
 
@@ -3174,19 +3174,19 @@ All selected line items are rejected and updated in the system with the reason p
 
 **Preconditions**
 
-Logged in as Department Manager with return rights; multiple PR line items exist
+Login เป็น Department Manager ที่มีสิทธิ์ return; มี PR line items หลายรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Select multiple line items using the checkbox
-3. Click 'Bulk Actions' dropdown
-4. Select 'Return to Requestor'
-5. Confirm return
+1. ไปที่ /procurement/purchase-request
+2. เลือก line items หลายรายการโดยใช้ checkbox
+3. คลิก dropdown 'Bulk Actions'
+4. เลือก 'Return to Requestor'
+5. ยืนยันการส่งคืน
 
 **Expected**
 
-All selected line items are returned to the requestor and updated in the system.
+Line items ที่เลือกทั้งหมดถูกส่งคืน requestor และอัปเดตในระบบ
 
 ---
 
@@ -3199,20 +3199,20 @@ All selected line items are returned to the requestor and updated in the system.
 
 **Preconditions**
 
-Logged in as Department Manager with split rights; multiple PR line items exist
+Login เป็น Department Manager ที่มีสิทธิ์ split; มี PR line items หลายรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Select multiple line items using the checkbox
-3. Click 'Bulk Actions' dropdown
-4. Select 'Split'
-5. Enter new split values
-6. Confirm split
+1. ไปที่ /procurement/purchase-request
+2. เลือก line items หลายรายการโดยใช้ checkbox
+3. คลิก dropdown 'Bulk Actions'
+4. เลือก 'Split'
+5. กรอกค่า split ใหม่
+6. ยืนยันการ split
 
 **Expected**
 
-All selected line items are split as per the new values provided and updated in the system.
+Line items ที่เลือกทั้งหมดถูก split ตามค่าที่กำหนดและอัปเดตในระบบ
 
 ---
 
@@ -3225,20 +3225,20 @@ All selected line items are split as per the new values provided and updated in 
 
 **Preconditions**
 
-Logged in as Department Manager with date required setting rights; multiple PR line items exist
+Login เป็น Department Manager ที่มีสิทธิ์ตั้งค่า date required; มี PR line items หลายรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Select multiple line items using the checkbox
-3. Click 'Bulk Actions' dropdown
-4. Select 'Set Date Required'
-5. Enter new date required
-6. Confirm update
+1. ไปที่ /procurement/purchase-request
+2. เลือก line items หลายรายการโดยใช้ checkbox
+3. คลิก dropdown 'Bulk Actions'
+4. เลือก 'Set Date Required'
+5. กรอก date required ใหม่
+6. ยืนยันการอัปเดต
 
 **Expected**
 
-All selected line items have their 'Date Required' field updated and reflected in the system.
+Line items ที่เลือกทั้งหมดมีฟิลด์ 'Date Required' อัปเดตและแสดงผลในระบบ
 
 ---
 
@@ -3251,19 +3251,19 @@ All selected line items have their 'Date Required' field updated and reflected i
 
 **Preconditions**
 
-Finance Manager is logged in and has a PR in the budget tab
+Login เป็น Finance Manager และมี PR ในแท็บ budget
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Edit Budget'
-3. Fill in the 'Amount' field with a value
-4. Fill in the 'Description' field with a brief description
-5. Click 'Add Allocation'
+1. ไปที่ /procurement/purchase-request
+2. กด 'Edit Budget'
+3. กรอกฟิลด์ 'Amount' ด้วยค่าที่ต้องการ
+4. กรอกฟิลด์ 'Description' ด้วยคำอธิบายสั้น
+5. กด 'Add Allocation'
 
 **Expected**
 
-The new budget allocation is added to the list and the total budget is updated.
+เพิ่ม budget allocation ใหม่ในรายการและอัปเดต total budget
 
 ---
 
@@ -3276,18 +3276,18 @@ The new budget allocation is added to the list and the total budget is updated.
 
 **Preconditions**
 
-Finance Manager is logged in and has at least one existing budget allocation in the PR
+Login เป็น Finance Manager และมี budget allocation ที่มีอยู่แล้วอย่างน้อยหนึ่งรายการใน PR
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click the pencil icon next to an existing budget allocation
-3. Change the 'Amount' value
-4. Click 'Save Changes'
+1. ไปที่ /procurement/purchase-request
+2. คลิกไอคอนดินสอถัดจาก budget allocation ที่มีอยู่
+3. เปลี่ยนค่า 'Amount'
+4. กด 'Save Changes'
 
 **Expected**
 
-The existing budget allocation is updated with the new amount and the total budget is recalculated.
+Budget allocation ที่มีอยู่ถูกอัปเดตด้วยจำนวนเงินใหม่และคำนวณ total budget ใหม่
 
 ---
 
@@ -3300,17 +3300,17 @@ The existing budget allocation is updated with the new amount and the total budg
 
 **Preconditions**
 
-Finance Manager is logged in and has at least one existing budget allocation in the PR
+Login เป็น Finance Manager และมี budget allocation ที่มีอยู่แล้วอย่างน้อยหนึ่งรายการใน PR
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click the trash can icon next to an existing budget allocation
-3. Confirm the deletion
+1. ไปที่ /procurement/purchase-request
+2. คลิกไอคอนถังขยะถัดจาก budget allocation ที่มีอยู่
+3. ยืนยันการลบ
 
 **Expected**
 
-The selected budget allocation is removed from the list and the total budget is recalculated.
+Budget allocation ที่เลือกถูกลบออกจากรายการและคำนวณ total budget ใหม่
 
 ---
 
@@ -3323,18 +3323,18 @@ The selected budget allocation is removed from the list and the total budget is 
 
 **Preconditions**
 
-Purchasing Staff is logged in and has a PR in the budget tab
+Login เป็น Purchasing Staff และมี PR ในแท็บ budget
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click the pencil icon next to an existing budget allocation
-3. Change the 'Amount' value
-4. Click 'Save Changes'
+1. ไปที่ /procurement/purchase-request
+2. คลิกไอคอนดินสอถัดจาก budget allocation ที่มีอยู่
+3. เปลี่ยนค่า 'Amount'
+4. กด 'Save Changes'
 
 **Expected**
 
-The system displays an error message indicating that the user does not have permission to edit this allocation.
+ระบบแสดงข้อความ error ว่าผู้ใช้ไม่มีสิทธิ์แก้ไข allocation นี้
 
 ---
 
@@ -3347,17 +3347,17 @@ The system displays an error message indicating that the user does not have perm
 
 **Preconditions**
 
-Finance Manager is logged in and has a PR with a required budget allocation
+Login เป็น Finance Manager และมี PR ที่มี budget allocation ที่จำเป็น
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click the trash can icon next to a required budget allocation
-3. Confirm the deletion
+1. ไปที่ /procurement/purchase-request
+2. คลิกไอคอนถังขยะถัดจาก budget allocation ที่จำเป็น
+3. ยืนยันการลบ
 
 **Expected**
 
-The system displays an error message indicating that the required allocation cannot be deleted.
+ระบบแสดงข้อความ error ว่า required allocation ไม่สามารถลบได้
 
 ---
 
@@ -3370,24 +3370,24 @@ The system displays an error message indicating that the required allocation can
 
 **Preconditions**
 
-A PR exists with at least two items that need approval
+มี PR ที่มีอย่างน้อยสอง items ที่ต้องการ approve
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on PR detail page
-3. Review items and identify items to approve and return
-4. Select two or more items to split
-5. Click on 'Split' button
-6. Select 'By Approval Status' split option
-7. Assign items to 'Approved' and 'Return for Revision' groups
-8. Enter return reason for returned items (at least 10 characters)
-9. Review split preview
-10. Click on 'Confirm Split'
+1. ไปที่ /procurement/purchase-request
+2. คลิกหน้ารายละเอียด PR
+3. ตรวจสอบรายการและระบุรายการที่จะ approve และส่งคืน
+4. เลือกสองรายการขึ้นไปเพื่อ split
+5. กดปุ่ม 'Split'
+6. เลือก split option 'By Approval Status'
+7. มอบหมายรายการให้กลุ่ม 'Approved' และ 'Return for Revision'
+8. กรอกเหตุผลการส่งคืนสำหรับรายการที่ถูกส่งคืน (อย่างน้อย 10 ตัวอักษร)
+9. ตรวจสอบ split preview
+10. กด 'Confirm Split'
 
 **Expected**
 
-System processes the split, creating a new PR for returned items, updating the original PR with only approved items, setting the appropriate statuses, logging activity, and sending a notification to the requestor.
+ระบบประมวลผลการ split, สร้าง PR ใหม่สำหรับรายการที่ถูกส่งคืน, อัปเดต PR เดิมด้วยเฉพาะรายการที่ approved, ตั้งสถานะที่เหมาะสม, บันทึก activity และส่งการแจ้งเตือนถึง requestor
 
 ---
 
@@ -3400,18 +3400,18 @@ System processes the split, creating a new PR for returned items, updating the o
 
 **Preconditions**
 
-A PR exists with less than two items that need approval
+มี PR ที่มีน้อยกว่าสอง items ที่ต้องการ approve
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on PR detail page
-3. Review items and identify items to approve and return
-4. Attempt to select less than two items to split
+1. ไปที่ /procurement/purchase-request
+2. คลิกหน้ารายละเอียด PR
+3. ตรวจสอบรายการและระบุรายการที่จะ approve และส่งคืน
+4. พยายามเลือกน้อยกว่าสองรายการเพื่อ split
 
 **Expected**
 
-System does not enable the Split button, displaying an error message indicating that at least two items are required for splitting.
+ระบบไม่เปิดใช้งานปุ่ม Split และแสดงข้อความ error ว่าต้องการอย่างน้อยสองรายการในการ split
 
 ---
 
@@ -3424,17 +3424,17 @@ System does not enable the Split button, displaying an error message indicating 
 
 **Preconditions**
 
-A PR exists with all items already approved
+มี PR ที่ทุก items ถูก approve แล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on PR detail page
-3. Review items and identify no items to approve or return
+1. ไปที่ /procurement/purchase-request
+2. คลิกหน้ารายละเอียด PR
+3. ตรวจสอบรายการและพบว่าไม่มีรายการที่จะ approve หรือส่งคืน
 
 **Expected**
 
-System displays a message indicating no items can be split and returns to the PR detail page without any action taken.
+ระบบแสดงข้อความว่าไม่มีรายการที่สามารถ split ได้และกลับไปยังหน้ารายละเอียด PR โดยไม่มีการดำเนินการ
 
 ---
 
@@ -3447,25 +3447,25 @@ System displays a message indicating no items can be split and returns to the PR
 
 **Preconditions**
 
-A PR exists with at least two items that need approval
+มี PR ที่มีอย่างน้อยสองรายการที่ต้องการ approval
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click on PR detail page
-3. Review items and identify items to approve and return
-4. Select two or more items to split
-5. Click on 'Split' button
-6. Select 'By Approval Status' split option
-7. Assign items to 'Approved' and 'Return for Revision' groups
-8. Enter a return reason with less than 10 characters
-9. Attempt to confirm split
+1. ไปที่ /procurement/purchase-request
+2. คลิกหน้ารายละเอียด PR
+3. ตรวจสอบรายการและระบุรายการที่จะ approve และส่งคืน
+4. เลือกสองรายการขึ้นไปเพื่อ split
+5. คลิกปุ่ม 'Split'
+6. เลือกตัวเลือก split 'By Approval Status'
+7. กำหนดรายการไปยังกลุ่ม 'Approved' และ 'Return for Revision'
+8. กรอกเหตุผลการส่งคืนที่มีความยาวน้อยกว่า 10 ตัวอักษร
+9. พยายาม confirm split
 
 **Expected**
 
-System displays an error message indicating the return reason must be at least 10 characters long and does not allow the split to proceed.
+ระบบแสดงข้อความผิดพลาดว่าเหตุผลการส่งคืนต้องมีความยาวอย่างน้อย 10 ตัวอักษร และไม่อนุญาตให้ดำเนินการ split ต่อ
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

@@ -19,9 +19,9 @@ purchaseTest.describe("Step 1 — PO List", () => {
     "TC-PO-060101 List loads with PO statuses (DRAFT / IN PROGRESS / APPROVED / etc.)",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Purchaser (purchase@blueledgers.com)" },
-        { type: "steps", description: "1. Navigate to /procurement/purchase-order\n2. Verify URL and that the list table or empty-state is visible" },
-        { type: "expected", description: "URL is on PO list; My Pending tab is selected when present." },
+        { type: "preconditions", description: "Login เป็น Purchaser (purchase@blueledgers.com)" },
+        { type: "steps", description: "1. ไปที่ /procurement/purchase-order\n2. ตรวจสอบ URL และตรวจสอบว่า list table หรือ empty-state visible" },
+        { type: "expected", description: "URL อยู่ที่หน้า list ของ PO; แท็บ My Pending ถูกเลือกเมื่อมี" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -40,9 +40,9 @@ purchaseTest.describe("Step 1 — PO List", () => {
     "TC-PO-060102 Switch to All Documents tab broadens scope",
     {
       annotation: [
-        { type: "preconditions", description: "On the PO list page" },
-        { type: "steps", description: "1. Click All Documents tab" },
-        { type: "expected", description: "All Documents tab becomes selected." },
+        { type: "preconditions", description: "อยู่ที่หน้า list ของ PO" },
+        { type: "steps", description: "1. กดแท็บ All Documents" },
+        { type: "expected", description: "แท็บ All Documents ถูกเลือก" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -64,9 +64,9 @@ purchaseTest.describe("Step 1 — PO List", () => {
     "TC-PO-060103 Filter by status (DRAFT)",
     {
       annotation: [
-        { type: "preconditions", description: "On the PO list page" },
-        { type: "steps", description: "1. Open Filter panel\n2. Select status = DRAFT\n3. Apply" },
-        { type: "expected", description: "URL stays on PO list after applying the filter." },
+        { type: "preconditions", description: "อยู่ที่หน้า list ของ PO" },
+        { type: "steps", description: "1. เปิดแผง Filter\n2. เลือก status = DRAFT\n3. Apply" },
+        { type: "expected", description: "URL ยังคงอยู่ที่หน้า list ของ PO หลัง apply filter" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -88,9 +88,9 @@ purchaseTest.describe("Step 1 — PO List", () => {
     "TC-PO-060104 Search by PO reference",
     {
       annotation: [
-        { type: "preconditions", description: "On the PO list page" },
-        { type: "steps", description: "1. Type partial reference in search box" },
-        { type: "expected", description: "URL stays on PO list after typing in the search input." },
+        { type: "preconditions", description: "อยู่ที่หน้า list ของ PO" },
+        { type: "steps", description: "1. พิมพ์ reference บางส่วนในช่องค้นหา" },
+        { type: "expected", description: "URL ยังคงอยู่ที่หน้า list ของ PO หลังพิมพ์ในช่องค้นหา" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -112,9 +112,9 @@ purchaseTest.describe("Step 1 — PO List", () => {
     "TC-PO-060105 Sort by Date",
     {
       annotation: [
-        { type: "preconditions", description: "On the PO list page" },
-        { type: "steps", description: "1. Click Date column header to sort\n2. Verify list re-orders" },
-        { type: "expected", description: "URL stays on PO list after sort click." },
+        { type: "preconditions", description: "อยู่ที่หน้า list ของ PO" },
+        { type: "steps", description: "1. คลิกหัวคอลัมน์ Date เพื่อเรียงลำดับ\n2. ตรวจสอบว่ารายการเรียงลำดับใหม่" },
+        { type: "expected", description: "URL ยังคงอยู่ที่หน้า list ของ PO หลังคลิก sort" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Functional" },
       ],
@@ -134,9 +134,9 @@ purchaseTest.describe("Step 2 — Create PO", () => {
     "TC-PO-060201 Open Create dropdown → Blank → form loads",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Purchaser; on PO list" },
-        { type: "steps", description: "1. Click New PO dropdown\n2. Choose Blank/Manual PO option\n3. Verify URL changes to /new" },
-        { type: "expected", description: "URL becomes /procurement/purchase-order/new and form is visible." },
+        { type: "preconditions", description: "Login เป็น Purchaser; อยู่ที่หน้า list ของ PO" },
+        { type: "steps", description: "1. กดปุ่ม dropdown New PO\n2. เลือก option Blank/Manual PO\n3. ตรวจสอบว่า URL เปลี่ยนเป็น /new" },
+        { type: "expected", description: "URL เปลี่ยนเป็น /procurement/purchase-order/new และ form visible" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -159,9 +159,9 @@ purchaseTest.describe("Step 2 — Create PO", () => {
     "TC-PO-060202 Fill header (vendor, delivery date, description) + add 1 line item",
     {
       annotation: [
-        { type: "preconditions", description: "On the create-PO form (blank)" },
-        { type: "steps", description: "1. Fill vendor, description, delivery date\n2. Add 1 line item" },
-        { type: "expected", description: "Description input retains the value entered (E2E-POP marker)." },
+        { type: "preconditions", description: "อยู่ที่ form สร้าง PO (blank)" },
+        { type: "steps", description: "1. กรอก vendor, description, delivery date\n2. เพิ่ม 1 line item" },
+        { type: "expected", description: "Description input คงค่าที่กรอก (marker E2E-POP)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -186,9 +186,9 @@ purchaseTest.describe("Step 2 — Create PO", () => {
     "TC-PO-060203 Save Draft → redirect to detail with PO number",
     {
       annotation: [
-        { type: "preconditions", description: "Header + ≥1 line item filled on create form" },
-        { type: "steps", description: "1. Click Save\n2. Wait for redirect to detail" },
-        { type: "expected", description: "URL changes to /procurement/purchase-order/<id> (not /new)." },
+        { type: "preconditions", description: "กรอก header + ≥1 line item บน form สร้าง" },
+        { type: "steps", description: "1. กดบันทึก\n2. รอการ redirect ไปยังหน้า detail" },
+        { type: "expected", description: "URL เปลี่ยนเป็น /procurement/purchase-order/<id> (ไม่ใช่ /new)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -210,9 +210,9 @@ purchaseTest.describe("Step 2 — Create PO", () => {
     "TC-PO-060204 Save without items → button disabled or stays on /new",
     {
       annotation: [
-        { type: "preconditions", description: "On the create-PO form with header but no items" },
-        { type: "steps", description: "1. Click Save without adding any line item" },
-        { type: "expected", description: "Either Save button is disabled, or the form does not navigate from /new." },
+        { type: "preconditions", description: "อยู่ที่ form สร้าง PO พร้อม header แต่ยังไม่มีรายการ" },
+        { type: "steps", description: "1. กดบันทึกโดยไม่เพิ่ม line item ใดๆ" },
+        { type: "expected", description: "ปุ่มบันทึกถูก disable หรือ form ไม่ navigate ออกจาก /new" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Validation" },
       ],
@@ -236,9 +236,9 @@ purchaseTest.describe("Step 2 — Create PO", () => {
     "TC-PO-060205 Open Create → From Price List → wizard step 1 (Select Vendors)",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Purchaser; on PO list" },
-        { type: "steps", description: "1. Click New PO dropdown\n2. Choose From Price List" },
-        { type: "expected", description: "Wizard step 1 renders (URL changes or dialog appears with vendor selection)." },
+        { type: "preconditions", description: "Login เป็น Purchaser; อยู่ที่หน้า list ของ PO" },
+        { type: "steps", description: "1. กดปุ่ม dropdown New PO\n2. เลือก From Price List" },
+        { type: "expected", description: "Wizard step 1 แสดง (URL เปลี่ยนหรือ dialog ปรากฏพร้อมการเลือก vendor)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Smoke" },
       ],
@@ -264,9 +264,9 @@ purchaseTest.describe("Step 2 — Create PO", () => {
     "TC-PO-060206 Select vendor → wizard step 2 (Review items)",
     {
       annotation: [
-        { type: "preconditions", description: "From Price List wizard step 1 is open" },
-        { type: "steps", description: "1. Select first vendor\n2. Click Next/Continue" },
-        { type: "expected", description: "Wizard advances to step 2 (review screen visible)." },
+        { type: "preconditions", description: "Wizard From Price List step 1 เปิดอยู่" },
+        { type: "steps", description: "1. เลือก vendor แรก\n2. กด Next/Continue" },
+        { type: "expected", description: "Wizard ไปยัง step 2 (หน้า review visible)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -302,9 +302,9 @@ purchaseTest.describe("Step 2 — Create PO", () => {
     "TC-PO-060207 Submit Price List wizard → POs created (URL changes from /new to detail)",
     {
       annotation: [
-        { type: "preconditions", description: "From Price List wizard step 2 (Review) is open" },
-        { type: "steps", description: "1. Click Create/Submit on the wizard final step" },
-        { type: "expected", description: "URL transitions away from /new to a created PO detail or list." },
+        { type: "preconditions", description: "Wizard From Price List step 2 (Review) เปิดอยู่" },
+        { type: "steps", description: "1. กด Create/Submit บน step สุดท้ายของ wizard" },
+        { type: "expected", description: "URL เปลี่ยนออกจาก /new ไปยัง PO detail หรือ list ที่ถูกสร้าง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -343,9 +343,9 @@ purchaseTest.describe("Step 2 — Create PO", () => {
     "TC-PO-060208 Skip dynamically if no price list / vendors available",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Purchaser; on PO list" },
-        { type: "steps", description: "1. Open From Price List wizard\n2. Inspect step 1 vendor list" },
-        { type: "expected", description: "If wizard shows empty vendor list, test skips with reason. Otherwise asserts wizard step 1 is visible." },
+        { type: "preconditions", description: "Login เป็น Purchaser; อยู่ที่หน้า list ของ PO" },
+        { type: "steps", description: "1. เปิด wizard From Price List\n2. ตรวจสอบรายการ vendor ใน step 1" },
+        { type: "expected", description: "หาก wizard แสดงรายการ vendor ว่างเปล่า การทดสอบ skip พร้อมเหตุผล ไม่เช่นนั้นตรวจสอบว่า wizard step 1 visible" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Functional" },
         { type: "note", description: "Dynamically skipped when DB lacks price list / vendor data." },
@@ -381,9 +381,9 @@ purchaseTest.describe("Step 2 — Create PO", () => {
     "TC-PO-060209 Open Create → From PR → wizard step 1 (Select Approved PRs)",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Purchaser; on PO list" },
-        { type: "steps", description: "1. Click New PO dropdown\n2. Choose From PR" },
-        { type: "expected", description: "Wizard step 1 renders (PR selection list visible or dialog appears)." },
+        { type: "preconditions", description: "Login เป็น Purchaser; อยู่ที่หน้า list ของ PO" },
+        { type: "steps", description: "1. กดปุ่ม dropdown New PO\n2. เลือก From PR" },
+        { type: "expected", description: "Wizard step 1 แสดง (รายการเลือก PR visible หรือ dialog ปรากฏ)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Smoke" },
       ],
@@ -408,9 +408,9 @@ purchaseTest.describe("Step 2 — Create PO", () => {
     "TC-PO-060210 Select approved PR → wizard step 2 (Review POs grouped by vendor)",
     {
       annotation: [
-        { type: "preconditions", description: "From PR wizard step 1 is open with at least one approved PR" },
-        { type: "steps", description: "1. Select first approved PR\n2. Click Next/Continue" },
-        { type: "expected", description: "Wizard advances to step 2 (review grouped POs by vendor)." },
+        { type: "preconditions", description: "Wizard From PR step 1 เปิดอยู่พร้อม PR ที่ approved อย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. เลือก PR ที่ approved แรก\n2. กด Next/Continue" },
+        { type: "expected", description: "Wizard ไปยัง step 2 (review PO ที่จัดกลุ่มตาม vendor)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -445,9 +445,9 @@ purchaseTest.describe("Step 2 — Create PO", () => {
     "TC-PO-060211 Submit From PR wizard → POs created",
     {
       annotation: [
-        { type: "preconditions", description: "From PR wizard step 2 is open" },
-        { type: "steps", description: "1. Click Create/Submit on the wizard final step" },
-        { type: "expected", description: "URL transitions away from /new (POs created)." },
+        { type: "preconditions", description: "Wizard From PR step 2 เปิดอยู่" },
+        { type: "steps", description: "1. กด Create/Submit บน step สุดท้ายของ wizard" },
+        { type: "expected", description: "URL เปลี่ยนออกจาก /new (PO ถูกสร้าง)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -484,9 +484,9 @@ purchaseTest.describe("Step 2 — Create PO", () => {
     "TC-PO-060212 Skip dynamically if no approved PR available",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Purchaser; on PO list" },
-        { type: "steps", description: "1. Open From PR wizard\n2. Inspect step 1 PR list" },
-        { type: "expected", description: "If wizard shows empty PR list, test skips with reason. Otherwise asserts wizard step 1 is visible." },
+        { type: "preconditions", description: "Login เป็น Purchaser; อยู่ที่หน้า list ของ PO" },
+        { type: "steps", description: "1. เปิด wizard From PR\n2. ตรวจสอบรายการ PR ใน step 1" },
+        { type: "expected", description: "หาก wizard แสดงรายการ PR ว่างเปล่า การทดสอบ skip พร้อมเหตุผล ไม่เช่นนั้นตรวจสอบว่า wizard step 1 visible" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Functional" },
         { type: "note", description: "Dynamically skipped when DB lacks approved PRs." },
@@ -522,9 +522,9 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
     "TC-PO-060301 Detail loads (DRAFT) with header + items table",
     {
       annotation: [
-        { type: "preconditions", description: "A Draft PO exists for this Purchaser (seeded via submitPOAsPurchaser)" },
-        { type: "steps", description: "1. Open the Draft PO detail\n2. Verify URL matches the PO ref" },
-        { type: "expected", description: "URL is /procurement/purchase-order/<ref>." },
+        { type: "preconditions", description: "มี Draft PO สำหรับ Purchaser นี้ (seeded ผ่าน submitPOAsPurchaser)" },
+        { type: "steps", description: "1. เปิดหน้า detail ของ Draft PO\n2. ตรวจสอบว่า URL ตรงกับ PO ref" },
+        { type: "expected", description: "URL เป็น /procurement/purchase-order/<ref>" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -540,9 +540,9 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
     "TC-PO-060302 Item Details panel — Details / Quantity / Pricing tabs",
     {
       annotation: [
-        { type: "preconditions", description: "On a Draft PO detail page with at least one item" },
-        { type: "steps", description: "1. Locate Item Details panel tabs\n2. Switch through Items / Quantity / Pricing tabs if present" },
-        { type: "expected", description: "Tabs render and become selected when clicked (skipped if not present)." },
+        { type: "preconditions", description: "อยู่ที่หน้า detail ของ Draft PO ที่มีอย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. ค้นหาแท็บใน Item Details panel\n2. สลับระหว่างแท็บ Items / Quantity / Pricing ถ้ามี" },
+        { type: "expected", description: "แท็บแสดงและถูกเลือกเมื่อคลิก (skip ถ้าไม่มี)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -565,9 +565,9 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
     "TC-PO-060303 Edit / Delete / Submit buttons present for DRAFT",
     {
       annotation: [
-        { type: "preconditions", description: "On a Draft PO detail page" },
-        { type: "steps", description: "1. Inspect the action toolbar" },
-        { type: "expected", description: "Edit button is visible (Submit button visibility depends on UI variant)." },
+        { type: "preconditions", description: "อยู่ที่หน้า detail ของ Draft PO" },
+        { type: "steps", description: "1. ตรวจสอบ action toolbar" },
+        { type: "expected", description: "ปุ่ม Edit visible (ความ visible ของปุ่ม Submit ขึ้นอยู่กับ UI variant)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Functional" },
       ],
@@ -584,9 +584,9 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
     "TC-PO-060304 Read-only state for SENT/COMPLETED status (best-effort)",
     {
       annotation: [
-        { type: "preconditions", description: "A SENT or COMPLETED PO exists in the DB (any non-Draft, non-In-Progress)" },
-        { type: "steps", description: "1. Navigate to PO list\n2. Find a SENT/COMPLETED row\n3. Open it and inspect the toolbar" },
-        { type: "expected", description: "Edit button is NOT visible OR is disabled. Skipped if no SENT/COMPLETED PO is found." },
+        { type: "preconditions", description: "มี PO ที่มี status SENT หรือ COMPLETED ใน DB (ที่ไม่ใช่ Draft หรือ In-Progress)" },
+        { type: "steps", description: "1. ไปที่หน้า list ของ PO\n2. ค้นหาแถว SENT/COMPLETED\n3. เปิดและตรวจสอบ toolbar" },
+        { type: "expected", description: "ปุ่ม Edit ไม่ visible หรือถูก disable Skip ถ้าไม่มี PO ที่มี status SENT/COMPLETED" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Authorization" },
         { type: "note", description: "Dynamically skipped if no SENT/COMPLETED PO available." },
@@ -620,9 +620,9 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     "TC-PO-060401 Click Edit on DRAFT → edit mode active (Save/Cancel visible)",
     {
       annotation: [
-        { type: "preconditions", description: "A Draft PO exists" },
-        { type: "steps", description: "1. Open Draft PO detail\n2. Click Edit\n3. Verify Save/Cancel form-level buttons" },
-        { type: "expected", description: "Save button is visible after entering edit mode." },
+        { type: "preconditions", description: "มี Draft PO อยู่ในระบบ" },
+        { type: "steps", description: "1. เปิดหน้า detail ของ Draft PO\n2. กด Edit\n3. ตรวจสอบปุ่ม Save/Cancel ระดับ form" },
+        { type: "expected", description: "ปุ่ม Save visible หลังเข้าสู่ edit mode" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -644,9 +644,9 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     "TC-PO-060402 Modify line item quantity → Save → URL stays on detail",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a Draft PO with at least one item" },
-        { type: "steps", description: "1. Enter edit mode\n2. Modify a quantity input\n3. Click Save" },
-        { type: "expected", description: "After save the page URL stays on /procurement/purchase-order/<ref>." },
+        { type: "preconditions", description: "edit mode active บน Draft PO ที่มีอย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. เข้าสู่ edit mode\n2. แก้ไข quantity input\n3. กดบันทึก" },
+        { type: "expected", description: "หลังบันทึก URL ยังคงอยู่ที่ /procurement/purchase-order/<ref>" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -671,9 +671,9 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     "TC-PO-060403 Add new line item in edit mode → Save",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a Draft PO" },
-        { type: "steps", description: "1. Enter edit mode\n2. Add new line item\n3. Save" },
-        { type: "expected", description: "After save the page URL stays on detail." },
+        { type: "preconditions", description: "edit mode active บน Draft PO" },
+        { type: "steps", description: "1. เข้าสู่ edit mode\n2. เพิ่ม line item ใหม่\n3. บันทึก" },
+        { type: "expected", description: "หลังบันทึก URL ยังคงอยู่ที่หน้า detail" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -697,9 +697,9 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     "TC-PO-060404 Cancel edit (no unsaved changes) → exits without dialog",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a Draft PO with no changes typed" },
-        { type: "steps", description: "1. Enter edit mode\n2. Click Cancel without making changes" },
-        { type: "expected", description: "Form returns to view mode (Edit button visible again)." },
+        { type: "preconditions", description: "edit mode active บน Draft PO โดยไม่มีการเปลี่ยนแปลงที่พิมพ์" },
+        { type: "steps", description: "1. เข้าสู่ edit mode\n2. กด Cancel โดยไม่ทำการเปลี่ยนแปลง" },
+        { type: "expected", description: "Form กลับสู่ view mode (ปุ่ม Edit visible อีกครั้ง)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -722,9 +722,9 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     "TC-PO-060405 Submit Draft PO → confirmation dialog → status moves to IN PROGRESS",
     {
       annotation: [
-        { type: "preconditions", description: "A Draft PO with ≥1 item exists" },
-        { type: "steps", description: "1. Open Draft PO\n2. Click Submit\n3. Confirm dialog" },
-        { type: "expected", description: "URL stays on PO ref; status badge text updates (best effort)." },
+        { type: "preconditions", description: "มี Draft PO ที่มี ≥1 รายการ" },
+        { type: "steps", description: "1. เปิด Draft PO\n2. กด Submit\n3. ยืนยัน dialog" },
+        { type: "expected", description: "URL ยังคงอยู่ที่ PO ref; text ของ status badge อัปเดต (best effort)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -748,9 +748,9 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     "TC-PO-060406 Delete IN PROGRESS PO via Edit Mode",
     {
       annotation: [
-        { type: "preconditions", description: "An IN PROGRESS PO exists (post-submit). DRAFT also acceptable." },
-        { type: "steps", description: "1. Open the PO\n2. Click Edit\n3. Click Delete\n4. Confirm" },
-        { type: "expected", description: "URL navigates back to list (PO removed)." },
+        { type: "preconditions", description: "มี PO ที่มี status IN PROGRESS (หลัง submit) DRAFT ก็ยอมรับได้เช่นกัน" },
+        { type: "steps", description: "1. เปิด PO\n2. กด Edit\n3. กด Delete\n4. ยืนยัน" },
+        { type: "expected", description: "URL navigate กลับไปยัง list (PO ถูกลบ)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -781,9 +781,9 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
     "TC-PO-060501 Approved PO has Send to Vendor + Close buttons (seeded via approveAsFC)",
     {
       annotation: [
-        { type: "preconditions", description: "An Approved PO exists (seeded via submitPOAsPurchaser + approveAsFC)" },
-        { type: "steps", description: "1. Seed Approved PO\n2. Open detail\n3. Inspect action toolbar" },
-        { type: "expected", description: "Send to Vendor button is visible. Close button presence is secondary (not asserted hard if absent)." },
+        { type: "preconditions", description: "มี PO ที่ approved (seeded ผ่าน submitPOAsPurchaser + approveAsFC)" },
+        { type: "steps", description: "1. Seed Approved PO\n2. เปิดหน้า detail\n3. ตรวจสอบ action toolbar" },
+        { type: "expected", description: "ปุ่ม Send to Vendor visible ความ visible ของปุ่ม Close เป็นรอง (ไม่ assert hard ถ้าไม่มี)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Functional" },
       ],
@@ -806,9 +806,9 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
     "TC-PO-060502 Click Send to Vendor → status updates / toast",
     {
       annotation: [
-        { type: "preconditions", description: "An Approved PO exists" },
-        { type: "steps", description: "1. Open Approved PO\n2. Click Send to Vendor\n3. Confirm" },
-        { type: "expected", description: "URL stays on PO ref; success toast or status update visible." },
+        { type: "preconditions", description: "มี PO ที่ approved อยู่ในระบบ" },
+        { type: "steps", description: "1. เปิด Approved PO\n2. กด Send to Vendor\n3. ยืนยัน" },
+        { type: "expected", description: "URL ยังคงอยู่ที่ PO ref; success toast หรือการอัปเดต status visible" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -833,9 +833,9 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
     "TC-PO-060503 Close PO with items received → COMPLETED",
     {
       annotation: [
-        { type: "preconditions", description: "A SENT PO exists with items received (best-effort; trusts DB)" },
-        { type: "steps", description: "1. Find a SENT PO with received items in the list\n2. Open detail\n3. Click Close\n4. Confirm" },
-        { type: "expected", description: "Status text matches /completed/i after close. Skipped if no eligible PO." },
+        { type: "preconditions", description: "มี SENT PO ที่มีรายการที่รับแล้ว (best-effort; เชื่อ DB)" },
+        { type: "steps", description: "1. ค้นหา SENT PO ที่มีรายการที่รับแล้วในรายการ\n2. เปิดหน้า detail\n3. กด Close\n4. ยืนยัน" },
+        { type: "expected", description: "text ของ status ตรงกับ /completed/i หลัง close Skip ถ้าไม่มี PO ที่เข้าเกณฑ์" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
         { type: "note", description: "Dynamically skipped when no SENT-with-items PO exists." },
@@ -871,9 +871,9 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
     "TC-PO-060504 Close PO without items received → VOIDED",
     {
       annotation: [
-        { type: "preconditions", description: "An Approved/SENT PO exists with no items received" },
-        { type: "steps", description: "1. Find an eligible PO\n2. Click Close\n3. Confirm" },
-        { type: "expected", description: "Status text matches /voided|cancelled/i after close. Skipped if no eligible PO." },
+        { type: "preconditions", description: "มี Approved/SENT PO ที่ยังไม่มีรายการที่รับ" },
+        { type: "steps", description: "1. ค้นหา PO ที่เข้าเกณฑ์\n2. กด Close\n3. ยืนยัน" },
+        { type: "expected", description: "text ของ status ตรงกับ /voided|cancelled/i หลัง close Skip ถ้าไม่มี PO ที่เข้าเกณฑ์" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
         { type: "note", description: "Dynamically skipped when no eligible PO exists." },
@@ -906,9 +906,9 @@ purchaseTest.describe.serial("Golden Journey", () => {
     "TC-PO-060901 Full Purchaser flow: Create blank → Save Draft → Submit → FC approves → Send to Vendor",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Purchaser" },
-        { type: "steps", description: "1. Create blank PO (header + 1 item)\n2. Save Draft\n3. Submit\n4. FC approves (cross-context)\n5. Reload detail\n6. Click Send to Vendor" },
-        { type: "expected", description: "URL stays on PO ref after Send to Vendor (full lifecycle completes end-to-end)." },
+        { type: "preconditions", description: "Login เป็น Purchaser" },
+        { type: "steps", description: "1. สร้าง blank PO (header + 1 รายการ)\n2. บันทึก Draft\n3. Submit\n4. FC approve (cross-context)\n5. Reload หน้า detail\n6. กด Send to Vendor" },
+        { type: "expected", description: "URL ยังคงอยู่ที่ PO ref หลัง Send to Vendor (lifecycle ครบถ้วน end-to-end)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],

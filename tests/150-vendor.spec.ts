@@ -32,7 +32,7 @@ test.describe("Vendor — List smoke", () => {
     "TC-VEN-010002 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor" },
         { type: "steps", description: "1. ไปที่ /vendor-management/vendor" },
         { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
         { type: "priority", description: "High" },
@@ -49,7 +49,7 @@ test.describe("Vendor — List smoke", () => {
     "TC-VEN-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor" },
         { type: "steps", description: "1. ไปที่ /vendor-management/vendor\n2. พิมพ์ 'test' ในช่องค้นหา" },
         { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
         { type: "priority", description: "Medium" },
@@ -67,7 +67,7 @@ test.describe("Vendor — List smoke", () => {
     "TC-VEN-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor" },
         { type: "steps", description: "1. ไปที่ /vendor-management/vendor\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
         { type: "priority", description: "Medium" },
@@ -85,7 +85,7 @@ test.describe("Vendor — List smoke", () => {
     "TC-VEN-010005 Filter status (active/inactive) ใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor" },
         { type: "steps", description: "1. ไปที่ /vendor-management/vendor\n2. คลิก trigger filter status (combobox/button)\n3. เลือก option Active (ถ้ามี) หรือกด Escape ปิดเมนู" },
         { type: "expected", description: "พบ filter trigger และ option (active/inactive/all); หลังเลือกแล้วปุ่ม Add ยังคง visible" },
         { type: "priority", description: "Medium" },
@@ -284,7 +284,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     "TC-VEN-010011 สลับ tab ทั้ง 4 tabs ได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
         { type: "steps", description: "1. เปิด new form\n2. คลิกแต่ละ tab: general, info, address, contact" },
         { type: "expected", description: "ทุก tab trigger แสดง data-state='active' หลังคลิก (Radix tab pattern)" },
         { type: "priority", description: "Medium" },
@@ -463,7 +463,7 @@ test.describe("Vendor — Validation", () => {
     "TC-VEN-010019 บันทึกโดยไม่กรอก code ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
         { type: "steps", description: "1. เปิด new form ที่ tab general\n2. กรอกเฉพาะ name (เว้น code)\n3. กด Save" },
         { type: "expected", description: "Error indicator ปรากฏและ URL ยังคงอยู่ที่ /new (form block submit)" },
         { type: "priority", description: "High" },
@@ -484,7 +484,7 @@ test.describe("Vendor — Validation", () => {
     "TC-VEN-010020 บันทึกโดยไม่กรอก name ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
         { type: "steps", description: "1. เปิด new form ที่ tab general\n2. กรอกเฉพาะ code (เว้น name)\n3. กด Save" },
         { type: "expected", description: "Error indicator ปรากฏและ URL ยังคงอยู่ที่ /new (form block submit)" },
         { type: "priority", description: "High" },
@@ -505,7 +505,7 @@ test.describe("Vendor — Validation", () => {
     "TC-VEN-010021 code เกิน 10 ตัวอักษรต้องถูก reject",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
         { type: "steps", description: "1. เปิด new form ที่ tab general\n2. พยายาม fill code 'X' ยาว 20 ตัวอักษร" },
         { type: "expected", description: "ค่าใน code input ต้องไม่เกิน 10 ตัวอักษร (input maxLength enforcement)" },
         { type: "priority", description: "Medium" },
@@ -526,7 +526,7 @@ test.describe("Vendor — Validation", () => {
     "TC-VEN-010022 name เกิน 100 ตัวอักษรต้องถูก reject",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
         { type: "steps", description: "1. เปิด new form ที่ tab general\n2. พยายาม fill name 'N' ยาว 150 ตัวอักษร" },
         { type: "expected", description: "ค่าใน name input ต้องไม่เกิน 100 ตัวอักษร (input maxLength enforcement)" },
         { type: "priority", description: "Medium" },
@@ -547,7 +547,7 @@ test.describe("Vendor — Validation", () => {
     "TC-VEN-010023 address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement)",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
         { type: "steps", description: "1. เปิด new form\n2. กรอก code + name + business type\n3. เพิ่ม address row ที่มี address_line1 อย่างเดียว (ไม่มี city/district)\n4. กด Save" },
         { type: "expected", description: "Error indicator ปรากฏและ URL ยังคงอยู่ที่ /new (zod refinement บังคับต้องมี city หรือ district)" },
         { type: "priority", description: "Medium" },
@@ -576,7 +576,7 @@ test.describe("Vendor — Validation", () => {
     "TC-VEN-010024 contact email รูปแบบผิดต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
         { type: "steps", description: "1. เปิด new form\n2. กรอก code + name + business type\n3. เพิ่ม contact row และกรอก email = 'not-an-email'\n4. กด Save" },
         { type: "expected", description: "URL ยังคงอยู่ที่ /new (HTML5 native email validation block submit)" },
         { type: "priority", description: "Medium" },

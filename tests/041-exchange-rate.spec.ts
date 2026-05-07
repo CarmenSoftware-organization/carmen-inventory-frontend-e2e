@@ -11,7 +11,7 @@ test.describe("Exchange Rate — Smoke", () => {
     "TC-ER-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "User purchase@blueledgers.com ล็อกอินผ่าน createAuthTest แล้ว" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com ผ่าน createAuthTest แล้ว" },
         { type: "steps", description: `1. นำทางไปยัง ${PATH}\n2. รอหน้า list โหลด` },
         { type: "expected", description: "หน้า list โหลดสำเร็จและ URL ตรงกับ /config/exchange-rate" },
         { type: "priority", description: "High" },

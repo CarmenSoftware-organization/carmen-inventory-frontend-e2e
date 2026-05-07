@@ -42,19 +42,19 @@ _Generated from `tests/201-my-approvals.spec.ts` annotations. Edit annotations, 
 
 **Preconditions**
 
-User is logged in with an approver role and has approval authority configured in approval matrix
+Login เป็นผู้ใช้ที่มีสิทธิ์ approver และมีการตั้งค่า approval authority ใน approval matrix แล้ว
 
 **Steps**
 
-1. Navigate to /procurement/approval
-2. Verify the document count badges display accurately
-3. Verify the total pending count is prominently displayed
-4. Verify documents are sorted by submission date (oldest first)
-5. Verify visual urgency indicators are displayed correctly
+1. ไปที่ /procurement/approval
+2. ตรวจสอบว่า document count badges แสดงผลถูกต้อง
+3. ตรวจสอบว่า total pending count แสดงเด่นชัด
+4. ตรวจสอบว่าเอกสารเรียงตามวันที่ส่ง (เก่าสุดก่อน)
+5. ตรวจสอบว่า visual urgency indicators แสดงผลถูกต้อง
 
 **Expected**
 
-User sees a unified approval queue with all pending documents, sorted and filtered correctly, and with urgency indicators.
+ผู้ใช้เห็น unified approval queue ที่มีเอกสาร pending ทั้งหมด เรียงลำดับและกรองถูกต้อง พร้อม urgency indicators
 
 ---
 
@@ -67,16 +67,16 @@ User sees a unified approval queue with all pending documents, sorted and filter
 
 **Preconditions**
 
-User has approver role but no documents are pending
+ผู้ใช้มีสิทธิ์ approver แต่ไม่มีเอกสาร pending
 
 **Steps**
 
-1. Navigate to /procurement/approval
-2. Verify the queue is empty with a message indicating no pending approvals
+1. ไปที่ /procurement/approval
+2. ตรวจสอบว่า queue ว่างเปล่าพร้อมข้อความแจ้งว่าไม่มี pending approvals
 
 **Expected**
 
-User sees an empty queue with a message stating there are no pending approvals.
+ผู้ใช้เห็น queue ว่างเปล่าพร้อมข้อความแจ้งว่าไม่มี pending approvals
 
 ---
 
@@ -89,17 +89,17 @@ User sees an empty queue with a message stating there are no pending approvals.
 
 **Preconditions**
 
-User has approver role and over 500 pending documents exist
+ผู้ใช้มีสิทธิ์ approver และมีเอกสาร pending มากกว่า 500 รายการ
 
 **Steps**
 
-1. Navigate to /procurement/approval
-2. Wait for the queue to load
-3. Verify the queue loads within 2 seconds
+1. ไปที่ /procurement/approval
+2. รอให้ queue โหลด
+3. ตรวจสอบว่า queue โหลดเสร็จภายใน 2 วินาที
 
 **Expected**
 
-Queue loads within 2 seconds with all pending documents.
+Queue โหลดเสร็จภายใน 2 วินาทีพร้อมเอกสาร pending ทั้งหมด
 
 ---
 
@@ -112,16 +112,16 @@ Queue loads within 2 seconds with all pending documents.
 
 **Preconditions**
 
-User is logged in but does not have approval authority configured in approval matrix
+Login เข้าระบบแล้วแต่ไม่มีการตั้งค่า approval authority ใน approval matrix
 
 **Steps**
 
-1. Navigate to /procurement/approval
-2. Verify the system displays an error message or redirects to a permission denied page
+1. ไปที่ /procurement/approval
+2. ตรวจสอบว่าระบบแสดงข้อความ error หรือ redirect ไปยังหน้า permission denied
 
 **Expected**
 
-User sees an error message or is redirected to a permission denied page.
+ผู้ใช้เห็นข้อความ error หรือถูก redirect ไปยังหน้า permission denied
 
 ---
 
@@ -134,22 +134,22 @@ User sees an error message or is redirected to a permission denied page.
 
 **Preconditions**
 
-User has viewed approval queue and document is in Pending Approval status
+ผู้ใช้เปิด approval queue แล้วและเอกสารมีสถานะ Pending Approval
 
 **Steps**
 
-1. Navigate to /approval-queue
-2. Click on document in queue to review
-3. Verify document details in Overview, Line Items, Attachments, Approval History, and Related Documents tabs
-4. Review budget impact and approval history
-5. Verify approval recommendation is Green
-6. Click 'Approve' button
-7. Fill approval comments: 'Approved. Necessary for Q4 menu launch. Budget available.'
-8. Click 'Confirm Approval'
+1. ไปที่ /approval-queue
+2. คลิกเอกสารใน queue เพื่อตรวจสอบ
+3. ตรวจสอบรายละเอียดเอกสารในแท็บ Overview, Line Items, Attachments, Approval History และ Related Documents
+4. ตรวจสอบผลกระทบด้านงบประมาณและประวัติการ approve
+5. ตรวจสอบว่า approval recommendation เป็นสีเขียว
+6. กดปุ่ม 'Approve'
+7. กรอก approval comments: 'Approved. Necessary for Q4 menu launch. Budget available.'
+8. กดปุ่ม 'Confirm Approval'
 
 **Expected**
 
-Document is updated to Approved status and removed from user's approval queue.
+เอกสารอัปเดตเป็นสถานะ Approved และถูกลบออกจาก approval queue ของผู้ใช้
 
 ---
 
@@ -162,19 +162,19 @@ Document is updated to Approved status and removed from user's approval queue.
 
 **Preconditions**
 
-Document is in Pending Approval status; user lacks approval authority for the document amount
+เอกสารมีสถานะ Pending Approval; ผู้ใช้ไม่มี approval authority เพียงพอสำหรับจำนวนเงินของเอกสาร
 
 **Steps**
 
-1. Navigate to /approval-queue
-2. Click on document in queue to review
-3. Verify document details in Overview, Line Items, Attachments, Approval History, and Related Documents tabs
-4. Attempt to click 'Approve' button
-5. Verify error message: 'Insufficient approval authority'
+1. ไปที่ /approval-queue
+2. คลิกเอกสารใน queue เพื่อตรวจสอบ
+3. ตรวจสอบรายละเอียดเอกสารในแท็บ Overview, Line Items, Attachments, Approval History และ Related Documents
+4. พยายามกดปุ่ม 'Approve'
+5. ตรวจสอบข้อความ error: 'Insufficient approval authority'
 
 **Expected**
 
-User is unable to approve document and sees appropriate error message.
+ผู้ใช้ไม่สามารถ approve เอกสารได้และเห็นข้อความ error ที่เหมาะสม
 
 ---
 
@@ -187,23 +187,23 @@ User is unable to approve document and sees appropriate error message.
 
 **Preconditions**
 
-Multiple documents are in Pending Approval status at various approval levels; user has sufficient authority to approve
+มีเอกสาร Pending Approval หลายรายการในระดับการ approve ที่แตกต่างกัน; ผู้ใช้มี authority เพียงพอในการ approve
 
 **Steps**
 
-1. Navigate to /approval-queue
-2. Review first document in queue
-3. Verify document details and approval level
-4. Click 'Approve' button
-5. Fill approval comments: 'Approved. Necessary for Q4 menu launch. Budget available.'
-6. Click 'Confirm Approval'
-7. Verify document is updated to Approved status
-8. Review next document in queue
-9. Repeat steps 4-7 for each document in queue
+1. ไปที่ /approval-queue
+2. ตรวจสอบเอกสารแรกใน queue
+3. ตรวจสอบรายละเอียดเอกสารและระดับการ approve
+4. กดปุ่ม 'Approve'
+5. กรอก approval comments: 'Approved. Necessary for Q4 menu launch. Budget available.'
+6. กดปุ่ม 'Confirm Approval'
+7. ตรวจสอบว่าเอกสารอัปเดตเป็นสถานะ Approved
+8. ตรวจสอบเอกสารถัดไปใน queue
+9. ทำซ้ำขั้นตอน 4-7 สำหรับแต่ละเอกสารใน queue
 
 **Expected**
 
-Documents are approved and removed from user's approval queue in order of appearance.
+เอกสารถูก approve และลบออกจาก approval queue ของผู้ใช้ตามลำดับที่ปรากฏ
 
 ---
 
@@ -216,19 +216,19 @@ Documents are approved and removed from user's approval queue in order of appear
 
 **Preconditions**
 
-Document in Pending Approval status; user has reviewed the document and identified issues preventing approval; user has active session
+เอกสารมีสถานะ Pending Approval; ผู้ใช้ตรวจสอบเอกสารแล้วและพบปัญหาที่ขัดขวางการ approve; ผู้ใช้มี session ที่ active
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Reject' button
-3. Select 'Budget not available' from quick-select options
-4. Fill in detailed explanation: 'Rejected. Budget not available for this purchase.'
-5. Click 'Confirm Rejection'
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Reject'
+3. เลือก 'Budget not available' จาก quick-select options
+4. กรอกคำอธิบายโดยละเอียด: 'Rejected. Budget not available for this purchase.'
+5. กดปุ่ม 'Confirm Rejection'
 
 **Expected**
 
-Document status updated to Rejected, rejection reason recorded, user notified of successful rejection, document removed from approval queue.
+สถานะเอกสารอัปเดตเป็น Rejected, บันทึกเหตุผลการ reject, แจ้งผู้ใช้ว่า reject สำเร็จ, ลบเอกสารออกจาก approval queue
 
 ---
 
@@ -241,19 +241,19 @@ Document status updated to Rejected, rejection reason recorded, user notified of
 
 **Preconditions**
 
-Document in Pending Approval status; user has active session
+เอกสารมีสถานะ Pending Approval; ผู้ใช้มี session ที่ active
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Reject' button
-3. Select 'Budget not available' from quick-select options
-4. Do not fill in detailed explanation
-5. Click 'Confirm Rejection'
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Reject'
+3. เลือก 'Budget not available' จาก quick-select options
+4. ไม่กรอกคำอธิบายโดยละเอียด
+5. กดปุ่ม 'Confirm Rejection'
 
 **Expected**
 
-System validation fails, rejection reason is mandatory, rejection is not processed.
+การ validate ของระบบล้มเหลว, เหตุผลการ reject เป็นข้อมูลบังคับ, ไม่ประมวลผลการ reject
 
 ---
 
@@ -266,20 +266,20 @@ System validation fails, rejection reason is mandatory, rejection is not process
 
 **Preconditions**
 
-Document in Pending Approval status; user has active session
+เอกสารมีสถานะ Pending Approval; ผู้ใช้มี session ที่ active
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Reject' button
-3. Select 'Other (custom reason)' from quick-select options
-4. Enter custom reason: 'Incorrect PO number'
-5. Fill in detailed explanation: 'Rejected. Incorrect PO number - please check PO-123456789.'
-6. Click 'Confirm Rejection'
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Reject'
+3. เลือก 'Other (custom reason)' จาก quick-select options
+4. กรอกเหตุผลแบบกำหนดเอง: 'Incorrect PO number'
+5. กรอกคำอธิบายโดยละเอียด: 'Rejected. Incorrect PO number - please check PO-123456789.'
+6. กดปุ่ม 'Confirm Rejection'
 
 **Expected**
 
-Document status updated to Rejected, custom rejection reason recorded, user notified of successful rejection, document removed from approval queue.
+สถานะเอกสารอัปเดตเป็น Rejected, บันทึกเหตุผลการ reject แบบกำหนดเอง, แจ้งผู้ใช้ว่า reject สำเร็จ, ลบเอกสารออกจาก approval queue
 
 ---
 
@@ -292,19 +292,19 @@ Document status updated to Rejected, custom rejection reason recorded, user noti
 
 **Preconditions**
 
-Document in Pending Approval status; user does not have permission to reject
+เอกสารมีสถานะ Pending Approval; ผู้ใช้ไม่มีสิทธิ์ในการ reject
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Reject' button
-3. Select 'Budget not available' from quick-select options
-4. Fill in detailed explanation: 'Rejected. Budget not available for this purchase.'
-5. Click 'Confirm Rejection'
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Reject'
+3. เลือก 'Budget not available' จาก quick-select options
+4. กรอกคำอธิบายโดยละเอียด: 'Rejected. Budget not available for this purchase.'
+5. กดปุ่ม 'Confirm Rejection'
 
 **Expected**
 
-System validation fails, user does not have permission to reject, rejection is not processed.
+การ validate ของระบบล้มเหลว, ผู้ใช้ไม่มีสิทธิ์ในการ reject, ไม่ประมวลผลการ reject
 
 ---
 
@@ -317,22 +317,22 @@ System validation fails, user does not have permission to reject, rejection is n
 
 **Preconditions**
 
-User has reviewed document; document is in Pending Approval status; user has identified missing or unclear information needed for approval decision
+ผู้ใช้ตรวจสอบเอกสารแล้ว; เอกสารมีสถานะ Pending Approval; ผู้ใช้พบข้อมูลที่ขาดหายหรือไม่ชัดเจนซึ่งจำเป็นสำหรับการตัดสินใจ approve
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Request More Info' button
-3. Select 'Please provide 2 additional quotes from alternate vendors' template
-4. Fill 'Please provide: 1) Specifications for the equipment model requested, 2) Quote from at least one alternate vendor for comparison, 3) Explanation for urgent delivery requirement.' in information request textarea
-5. Set response deadline to 48 business hours
-6. Click 'Send Request' button
-7. Verify success confirmation: 'Information request sent to requestor. SLA timer paused until response received.'
-8. Verify document status updated to 'Awaiting Information'
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Request More Info'
+3. เลือก template 'Please provide 2 additional quotes from alternate vendors'
+4. กรอก 'Please provide: 1) Specifications for the equipment model requested, 2) Quote from at least one alternate vendor for comparison, 3) Explanation for urgent delivery requirement.' ใน information request textarea
+5. ตั้ง response deadline เป็น 48 business hours
+6. กดปุ่ม 'Send Request'
+7. ตรวจสอบข้อความยืนยันความสำเร็จ: 'Information request sent to requestor. SLA timer paused until response received.'
+8. ตรวจสอบว่าสถานะเอกสารอัปเดตเป็น 'Awaiting Information'
 
 **Expected**
 
-System processes information request, document status updated, requestor notified, SLA timer paused, reminder scheduled.
+ระบบประมวลผล information request, อัปเดตสถานะเอกสาร, แจ้ง requestor, หยุด SLA timer, และตั้งเวลาแจ้งเตือน
 
 ---
 
@@ -345,20 +345,20 @@ System processes information request, document status updated, requestor notifie
 
 **Preconditions**
 
-User has reviewed document; document is in Pending Approval status
+ผู้ใช้ตรวจสอบเอกสารแล้ว; เอกสารมีสถานะ Pending Approval
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Request More Info' button
-3. Click 'Other (custom request)' template
-4. Do not fill information request textarea
-5. Click 'Send Request' button
-6. Verify error message: 'Information request cannot be empty.'
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Request More Info'
+3. เลือก template 'Other (custom request)'
+4. ไม่กรอกข้อความใน information request textarea
+5. กดปุ่ม 'Send Request'
+6. ตรวจสอบข้อความ error: 'Information request cannot be empty.'
 
 **Expected**
 
-System prevents submission of empty information request.
+ระบบป้องกันการส่ง information request ที่ว่างเปล่า
 
 ---
 
@@ -371,20 +371,20 @@ System prevents submission of empty information request.
 
 **Preconditions**
 
-User has reviewed document; document is in Pending Approval status
+ผู้ใช้ตรวจสอบเอกสารแล้ว; เอกสารมีสถานะ Pending Approval
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'Request More Info' button
-3. Select 'Please provide 2 additional quotes from alternate vendors' template
-4. Fill information request textarea with maximum allowed length: 200 characters
-5. Click 'Send Request' button
-6. Verify information request is processed successfully.
+1. ไปที่ /procurement/purchase-request
+2. กดปุ่ม 'Request More Info'
+3. เลือก template 'Please provide 2 additional quotes from alternate vendors'
+4. กรอก information request textarea ด้วยความยาวสูงสุดที่อนุญาต: 200 ตัวอักษร
+5. กดปุ่ม 'Send Request'
+6. ตรวจสอบว่า information request ถูกประมวลผลสำเร็จ
 
 **Expected**
 
-System processes information request with maximum allowed length without errors.
+ระบบประมวลผล information request ที่มีความยาวสูงสุดโดยไม่มี error
 
 ---
 
@@ -397,24 +397,24 @@ System processes information request with maximum allowed length without errors.
 
 **Preconditions**
 
-User has viewed approval queue with 20 pending routine F&B PRs
+ผู้ใช้เปิด approval queue ที่มี pending routine F&B PRs จำนวน 20 รายการ
 
 **Steps**
 
-1. Navigate to /approval-queue
-2. Click 'Select Multiple' button
-3. Click checkboxes next to 20 selected documents
-4. Verify bulk action toolbar shows '15 documents selected', 'Total: $12,450', 'All Purchase Requests'
-5. Click 'Bulk Approve' button
-6. Enter comments 'Bulk approved. Routine F&B inventory replenishment within normal spend levels.'
-7. Click 'Confirm Bulk Approval' button
-8. Wait for progress bar to complete 15 approvals
-9. Verify success confirmation: '15 documents approved successfully'
-10. Verify queue count reduced by 15
+1. ไปที่ /approval-queue
+2. กดปุ่ม 'Select Multiple'
+3. คลิก checkboxes ของเอกสารที่เลือก 20 รายการ
+4. ตรวจสอบว่า bulk action toolbar แสดง '15 documents selected', 'Total: $12,450', 'All Purchase Requests'
+5. กดปุ่ม 'Bulk Approve'
+6. กรอก comments 'Bulk approved. Routine F&B inventory replenishment within normal spend levels.'
+7. กดปุ่ม 'Confirm Bulk Approval'
+8. รอ progress bar ให้ approve ครบ 15 รายการ
+9. ตรวจสอบข้อความยืนยัน: '15 documents approved successfully'
+10. ตรวจสอบว่าจำนวน queue ลดลง 15 รายการ
 
 **Expected**
 
-20 documents are approved and removed from the queue.
+เอกสาร 20 รายการถูก approve และลบออกจาก queue
 
 ---
 
@@ -427,23 +427,23 @@ User has viewed approval queue with 20 pending routine F&B PRs
 
 **Preconditions**
 
-User has viewed approval queue with 50 pending documents of the same type
+ผู้ใช้เปิด approval queue ที่มีเอกสาร pending ประเภทเดียวกัน 50 รายการ
 
 **Steps**
 
-1. Navigate to /approval-queue
-2. Click 'Select Multiple' button
-3. Click checkboxes next to all 50 selected documents
-4. Verify bulk action toolbar shows '50 documents selected', 'Total: [total amount]', 'All [document type]'
-5. Click 'Bulk Approve' button
-6. Enter comments 'Bulk approved. Routine F&B inventory replenishment within normal spend levels.'
-7. Click 'Confirm Bulk Approval' button
-8. Wait for progress bar to complete 50 approvals
-9. Verify success confirmation: '50 documents approved successfully'
+1. ไปที่ /approval-queue
+2. กดปุ่ม 'Select Multiple'
+3. คลิก checkboxes ของเอกสารทั้ง 50 รายการ
+4. ตรวจสอบว่า bulk action toolbar แสดง '50 documents selected', 'Total: [total amount]', 'All [document type]'
+5. กดปุ่ม 'Bulk Approve'
+6. กรอก comments 'Bulk approved. Routine F&B inventory replenishment within normal spend levels.'
+7. กดปุ่ม 'Confirm Bulk Approval'
+8. รอ progress bar ให้ approve ครบ 50 รายการ
+9. ตรวจสอบข้อความยืนยัน: '50 documents approved successfully'
 
 **Expected**
 
-All 50 documents are approved and removed from the queue.
+เอกสารทั้ง 50 รายการถูก approve และลบออกจาก queue
 
 ---
 
@@ -456,25 +456,25 @@ All 50 documents are approved and removed from the queue.
 
 **Preconditions**
 
-User has approver role; anticipates absence; potential delegate exists with equal or higher approval authority
+ผู้ใช้มีสิทธิ์ approver; คาดว่าจะไม่อยู่; มีผู้แทนที่มี approval authority เท่าหรือสูงกว่า
 
 **Steps**
 
-1. Navigate to /my-approvals
-2. Click 'Manage Delegations'
-3. Click 'New Delegation'
-4. Fill Delegate User with Sarah Johnson
-5. Set Start Date: 2025-12-15, Start Time: 00:00
-6. Set End Date: 2025-12-22, End Time: 23:59
-7. Set Delegation Scope: All Documents
-8. Set Maximum Amount Limit: $50,000
-9. Enter Delegation Reason: Annual leave - will be out of office
-10. Add Notes: Contact me via email only for emergencies
-11. Click 'Create Delegation'
+1. ไปที่ /my-approvals
+2. กด 'Manage Delegations'
+3. กด 'New Delegation'
+4. กรอก Delegate User เป็น Sarah Johnson
+5. ตั้ง Start Date: 2025-12-15, Start Time: 00:00
+6. ตั้ง End Date: 2025-12-22, End Time: 23:59
+7. ตั้ง Delegation Scope: All Documents
+8. ตั้ง Maximum Amount Limit: $50,000
+9. กรอก Delegation Reason: Annual leave - will be out of office
+10. เพิ่ม Notes: Contact me via email only for emergencies
+11. กด 'Create Delegation'
 
 **Expected**
 
-Delegation created successfully, user navigated to delegation details page.
+สร้าง delegation สำเร็จ, ผู้ใช้ถูกนำทางไปยังหน้ารายละเอียด delegation
 
 ---
 
@@ -487,24 +487,24 @@ Delegation created successfully, user navigated to delegation details page.
 
 **Preconditions**
 
-User has approver role; potential delegate exists with lower approval authority
+ผู้ใช้มีสิทธิ์ approver; มีผู้แทนที่มี approval authority ต่ำกว่า
 
 **Steps**
 
-1. Navigate to /my-approvals
-2. Click 'Manage Delegations'
-3. Click 'New Delegation'
-4. Fill Delegate User with Sarah Johnson
-5. Set Start Date: 2025-12-15, Start Time: 00:00
-6. Set End Date: 2025-12-22, End Time: 23:59
-7. Set Delegation Scope: All Documents
-8. Set Maximum Amount Limit: $50,000
-9. Enter Delegation Reason: Annual leave - will be out of office
-10. Click 'Create Delegation'
+1. ไปที่ /my-approvals
+2. กด 'Manage Delegations'
+3. กด 'New Delegation'
+4. กรอก Delegate User เป็น Sarah Johnson
+5. ตั้ง Start Date: 2025-12-15, Start Time: 00:00
+6. ตั้ง End Date: 2025-12-22, End Time: 23:59
+7. ตั้ง Delegation Scope: All Documents
+8. ตั้ง Maximum Amount Limit: $50,000
+9. กรอก Delegation Reason: Annual leave - will be out of office
+10. กด 'Create Delegation'
 
 **Expected**
 
-System validation fails, delegation creation is not allowed.
+การ validate ของระบบล้มเหลว, ไม่อนุญาตให้สร้าง delegation
 
 ---
 
@@ -517,26 +517,26 @@ System validation fails, delegation creation is not allowed.
 
 **Preconditions**
 
-User has approver role; anticipates absence
+ผู้ใช้มีสิทธิ์ approver; คาดว่าจะไม่อยู่
 
 **Steps**
 
-1. Navigate to /my-approvals
-2. Click 'Manage Delegations'
-3. Click 'New Delegation'
-4. Fill Delegate User with John Smith (the user's own name)
-5. Set Start Date: 2025-12-15, Start Time: 00:00
-6. Set End Date: 2025-12-22, End Time: 23:59
-7. Set Delegation Scope: All Documents
-8. Set Maximum Amount Limit: $50,000
-9. Enter Delegation Reason: Annual leave - will be out of office
-10. Click 'Create Delegation'
+1. ไปที่ /my-approvals
+2. กด 'Manage Delegations'
+3. กด 'New Delegation'
+4. กรอก Delegate User เป็น John Smith (ชื่อผู้ใช้เอง)
+5. ตั้ง Start Date: 2025-12-15, Start Time: 00:00
+6. ตั้ง End Date: 2025-12-22, End Time: 23:59
+7. ตั้ง Delegation Scope: All Documents
+8. ตั้ง Maximum Amount Limit: $50,000
+9. กรอก Delegation Reason: Annual leave - will be out of office
+10. กด 'Create Delegation'
 
 **Expected**
 
-System validation fails, self-delegation is not allowed.
+การ validate ของระบบล้มเหลว, ไม่อนุญาตให้ delegate ให้ตัวเอง
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

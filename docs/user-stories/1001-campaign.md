@@ -66,19 +66,19 @@ _Generated from `tests/1001-campaign.spec.ts` annotations. Edit annotations, not
 
 **Preconditions**
 
-User is logged in as procurement staff and has permission to view campaign list
+Login เป็น purchase@blueledgers.com และมี permission ดู campaign list
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Verify Campaign List page is displayed
-3. Verify all campaigns are loaded and displayed in default table view
-4. Click on a campaign name
-5. Verify the campaign details page is displayed
+1. ไปที่ /vendor-management/request-price-list
+2. ตรวจสอบว่าหน้า Campaign List แสดงขึ้นมา
+3. ตรวจสอบว่า campaigns ทั้งหมดโหลดและแสดงใน default table view
+4. คลิก campaign name
+5. ตรวจสอบว่าหน้า campaign details แสดงขึ้นมา
 
 **Expected**
 
-Campaign details page is correctly displayed with all relevant information.
+หน้า campaign details แสดงอย่างถูกต้องพร้อมข้อมูลที่เกี่ยวข้องทั้งหมด
 
 ---
 
@@ -91,16 +91,16 @@ Campaign details page is correctly displayed with all relevant information.
 
 **Preconditions**
 
-User is logged in but does not have permission to view campaign list
+Login เป็น requestor@blueledgers.com แต่ไม่มี permission ดู campaign list
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Verify error message or redirect to home page
+1. ไปที่ /vendor-management/request-price-list
+2. ตรวจสอบ error message หรือ redirect ไปยัง home page
 
 **Expected**
 
-User is shown an error message or redirected to home page.
+ผู้ใช้เห็น error message หรือถูก redirect ไปยัง home page
 
 ---
 
@@ -113,16 +113,16 @@ User is shown an error message or redirected to home page.
 
 **Preconditions**
 
-User has permission to view campaign list but no campaigns are available
+ผู้ใช้มี permission ดู campaign list แต่ไม่มี campaigns
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Verify no campaigns are listed
+1. ไปที่ /vendor-management/request-price-list
+2. ตรวจสอบว่าไม่มี campaigns แสดงรายการ
 
 **Expected**
 
-User sees a message indicating no campaigns are currently available.
+ผู้ใช้เห็น message ว่าไม่มี campaigns ในขณะนี้
 
 ---
 
@@ -135,18 +135,18 @@ User sees a message indicating no campaigns are currently available.
 
 **Preconditions**
 
-User has permission to view campaign list
+ผู้ใช้มี permission ดู campaign list
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on filter options
-3. Select 'Active' status
-4. Verify only active campaigns are displayed
+1. ไปที่ /vendor-management/request-price-list
+2. กด filter options
+3. เลือกสถานะ 'Active'
+4. ตรวจสอบว่าแสดงเฉพาะ campaigns ที่ active
 
 **Expected**
 
-Only campaigns with active status are displayed.
+แสดงเฉพาะ campaigns ที่มีสถานะ active
 
 ---
 
@@ -159,28 +159,28 @@ Only campaigns with active status are displayed.
 
 **Preconditions**
 
-User is logged in as Procurement Staff and has the necessary permissions
+Login เป็น purchase@blueledgers.com พร้อม permissions ที่จำเป็น
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click 'Create New Campaign'
-3. Fill 'Campaign name' with valid text
-4. Fill 'Campaign description' with valid text
-5. Select 'Normal' from priority level
-6. Fill 'Scheduled start date' with valid date
-7. Click 'Next'
-8. Click on template named 'Template A'
-9. Click 'Next'
-10. Search for vendor 'Vendor X'
-11. Check vendor 'Vendor X' checkbox
-12. Click 'Next'
-13. Verify all details in summary
-14. Click 'Launch Campaign'
+1. ไปที่ /vendor-management/request-price-list
+2. กด 'Create New Campaign'
+3. กรอก 'Campaign name' ด้วยข้อความที่ถูกต้อง
+4. กรอก 'Campaign description' ด้วยข้อความที่ถูกต้อง
+5. เลือก 'Normal' จาก priority level
+6. กรอก 'Scheduled start date' ด้วยวันที่ที่ถูกต้อง
+7. กด 'Next'
+8. คลิก template ชื่อ 'Template A'
+9. กด 'Next'
+10. ค้นหา vendor 'Vendor X'
+11. เลือก checkbox vendor 'Vendor X'
+12. กด 'Next'
+13. ตรวจสอบรายละเอียดทั้งหมดใน summary
+14. กด 'Launch Campaign'
 
 **Expected**
 
-Campaign is created with status 'active' and vendors are invited. User navigated to campaign detail page with success message.
+Campaign ถูกสร้างด้วยสถานะ 'active' และ vendors ถูก invite ผู้ใช้ถูกนำทางไปยัง campaign detail page พร้อม success message
 
 ---
 
@@ -193,18 +193,18 @@ Campaign is created with status 'active' and vendors are invited. User navigated
 
 **Preconditions**
 
-User has the necessary permissions
+ผู้ใช้มี permissions ที่จำเป็น
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click 'Create New Campaign'
-3. Fill 'Campaign name' with valid text
-4. Click 'Next'
+1. ไปที่ /vendor-management/request-price-list
+2. กด 'Create New Campaign'
+3. กรอก 'Campaign name' ด้วยข้อความที่ถูกต้อง
+4. กด 'Next'
 
 **Expected**
 
-System displays error message for missing 'Campaign description' and 'Scheduled start date'. User remains on step 1.
+ระบบแสดง error message สำหรับ 'Campaign description' และ 'Scheduled start date' ที่ขาดหายไป ผู้ใช้ยังคงอยู่ที่ step 1
 
 ---
 
@@ -217,25 +217,25 @@ System displays error message for missing 'Campaign description' and 'Scheduled 
 
 **Preconditions**
 
-User has the necessary permissions
+ผู้ใช้มี permissions ที่จำเป็น
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click 'Create New Campaign'
-3. Fill 'Campaign name' with valid text
-4. Fill 'Campaign description' with valid text
-5. Select 'Normal' from priority level
-6. Fill 'Scheduled start date' with valid date
-7. Click 'Next'
-8. Click on template named 'Template A'
-9. Click 'Next'
-10. Verify no vendors selected
-11. Click 'Next'
+1. ไปที่ /vendor-management/request-price-list
+2. กด 'Create New Campaign'
+3. กรอก 'Campaign name' ด้วยข้อความที่ถูกต้อง
+4. กรอก 'Campaign description' ด้วยข้อความที่ถูกต้อง
+5. เลือก 'Normal' จาก priority level
+6. กรอก 'Scheduled start date' ด้วยวันที่ที่ถูกต้อง
+7. กด 'Next'
+8. คลิก template ชื่อ 'Template A'
+9. กด 'Next'
+10. ตรวจสอบว่าไม่มี vendors ถูกเลือก
+11. กด 'Next'
 
 **Expected**
 
-System displays error message for missing vendor selection. User remains on step 3.
+ระบบแสดง error message สำหรับการไม่เลือก vendor ผู้ใช้ยังคงอยู่ที่ step 3
 
 ---
 
@@ -248,16 +248,16 @@ System displays error message for missing vendor selection. User remains on step
 
 **Preconditions**
 
-User has reached the maximum number of campaigns per week
+ผู้ใช้ถึงจำนวน campaigns สูงสุดต่อสัปดาห์แล้ว
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click 'Create New Campaign'
+1. ไปที่ /vendor-management/request-price-list
+2. กด 'Create New Campaign'
 
 **Expected**
 
-System displays message indicating user has reached the maximum number of campaigns per week. User cannot proceed.
+ระบบแสดง message ว่าผู้ใช้ถึงจำนวน campaigns สูงสุดต่อสัปดาห์แล้วและไม่สามารถดำเนินต่อ
 
 ---
 
@@ -270,17 +270,17 @@ System displays message indicating user has reached the maximum number of campai
 
 **Preconditions**
 
-User is logged in as procurement staff; an active campaign exists
+Login เป็น purchase@blueledgers.com และมี active campaign อยู่
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on an active campaign name
-3. Wait for page to load
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก active campaign name
+3. รอให้หน้าโหลด
 
 **Expected**
 
-Campaign detail page is displayed with correct campaign data.
+หน้า campaign detail แสดงพร้อมข้อมูล campaign ที่ถูกต้อง
 
 ---
 
@@ -293,17 +293,17 @@ Campaign detail page is displayed with correct campaign data.
 
 **Preconditions**
 
-User is logged in with a role that does not have permission to view campaign details
+Login เป็น requestor@blueledgers.com ด้วย role ที่ไม่มี permission ดู campaign details
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Attempt to click on a campaign name
-3. Verify error message indicating insufficient permissions
+1. ไปที่ /vendor-management/request-price-list
+2. พยายามคลิก campaign name
+3. ตรวจสอบ error message ว่าไม่มีสิทธิ์เพียงพอ
 
 **Expected**
 
-User is redirected to permission denied page or error message is displayed.
+ผู้ใช้ถูก redirect ไปยังหน้า permission denied หรือ error message แสดงขึ้นมา
 
 ---
 
@@ -316,17 +316,17 @@ User is redirected to permission denied page or error message is displayed.
 
 **Preconditions**
 
-Campaign is in draft status; user is logged in as procurement staff
+Campaign อยู่ใน draft status และ Login เป็น purchase@blueledgers.com
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a draft campaign name
-3. Verify edit button is present, other buttons are not visible
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก draft campaign name
+3. ตรวจสอบว่า edit button มีอยู่ และ buttons อื่นไม่ visible
 
 **Expected**
 
-Campaign detail page is displayed with edit button visible, duplicate button is not visible.
+หน้า campaign detail แสดงพร้อม edit button ที่ visible และ duplicate button ไม่ visible
 
 ---
 
@@ -339,17 +339,17 @@ Campaign detail page is displayed with edit button visible, duplicate button is 
 
 **Preconditions**
 
-Campaign has no submissions; user is logged in as procurement staff
+Campaign ไม่มี submissions และ Login เป็น purchase@blueledgers.com
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a campaign name
-3. Verify performance summary cards show no data
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก campaign name
+3. ตรวจสอบว่า performance summary cards ไม่แสดงข้อมูล
 
 **Expected**
 
-Performance summary cards display zero values or placeholders for data.
+Performance summary cards แสดงค่าศูนย์หรือ placeholders สำหรับข้อมูล
 
 ---
 
@@ -362,17 +362,17 @@ Performance summary cards display zero values or placeholders for data.
 
 **Preconditions**
 
-Campaign has a future start date; user is logged in as procurement staff
+Campaign มี future start date และ Login เป็น purchase@blueledgers.com
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a campaign with future start date
-3. Verify that the campaign detail is still accessible
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก campaign ที่มี future start date
+3. ตรวจสอบว่า campaign detail ยังสามารถเข้าถึงได้
 
 **Expected**
 
-Campaign detail page is displayed with the campaign data, including the future start date.
+หน้า campaign detail แสดงพร้อมข้อมูล campaign รวมถึง future start date
 
 ---
 
@@ -385,20 +385,20 @@ Campaign detail page is displayed with the campaign data, including the future s
 
 **Preconditions**
 
-A campaign has been created and saved in the system
+Campaign ถูกสร้างและบันทึกในระบบแล้ว
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on 'Campaign Detail' link
-3. Click 'Edit' button
-4. Fill in the campaign name, description, priority, dates, and select a template
-5. Select a vendor and configure settings
-6. Click 'Save Changes'
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก link 'Campaign Detail'
+3. กด 'Edit' button
+4. กรอก campaign name, description, priority, dates และเลือก template
+5. เลือก vendor และ configure settings
+6. กด 'Save Changes'
 
 **Expected**
 
-The campaign is updated successfully and the system navigates to the updated campaign detail page with a success message.
+Campaign ถูกอัปเดตสำเร็จและระบบนำทางไปยัง campaign detail page ที่อัปเดตแล้วพร้อม success message
 
 ---
 
@@ -411,21 +411,21 @@ The campaign is updated successfully and the system navigates to the updated cam
 
 **Preconditions**
 
-A campaign has been created and saved in the system
+Campaign ถูกสร้างและบันทึกในระบบแล้ว
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on 'Campaign Detail' link
-3. Click 'Edit' button
-4. Fill in the campaign name, description, and dates
-5. Enter 'Invalid' in the priority field
-6. Select a template, vendor, and configure settings
-7. Click 'Save Changes'
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก link 'Campaign Detail'
+3. กด 'Edit' button
+4. กรอก campaign name, description และ dates
+5. กรอก 'Invalid' ใน priority field
+6. เลือก template, vendor และ configure settings
+7. กด 'Save Changes'
 
 **Expected**
 
-The system displays an error message indicating that the priority field is invalid.
+ระบบแสดง error message ว่า priority field ไม่ถูกต้อง
 
 ---
 
@@ -438,17 +438,17 @@ The system displays an error message indicating that the priority field is inval
 
 **Preconditions**
 
-A campaign has been created and saved; user does not have permission to edit campaigns
+Login เป็น requestor@blueledgers.com Campaign ถูกสร้างและบันทึกแล้ว และผู้ใช้ไม่มี permission แก้ไข campaigns
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on 'Campaign Detail' link
-3. Click 'Edit' button
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก link 'Campaign Detail'
+3. กด 'Edit' button
 
 **Expected**
 
-The system displays an error message indicating that the user does not have permission to edit campaigns.
+ระบบแสดง error message ว่าผู้ใช้ไม่มี permission แก้ไข campaigns
 
 ---
 
@@ -461,19 +461,19 @@ The system displays an error message indicating that the user does not have perm
 
 **Preconditions**
 
-A campaign has been created and saved in the system
+Campaign ถูกสร้างและบันทึกในระบบแล้ว
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on 'Campaign Detail' link
-3. Click 'Edit' button
-4. Verify all fields display current data
-5. Click 'Save Changes'
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก link 'Campaign Detail'
+3. กด 'Edit' button
+4. ตรวจสอบว่า fields ทั้งหมดแสดงข้อมูลปัจจุบัน
+5. กด 'Save Changes'
 
 **Expected**
 
-The system displays a confirmation that no changes were made.
+ระบบแสดง confirmation ว่าไม่มีการเปลี่ยนแปลง
 
 ---
 
@@ -486,22 +486,22 @@ The system displays a confirmation that no changes were made.
 
 **Preconditions**
 
-User is logged in as a Procurement Staff and has access to the campaign list
+Login เป็น purchase@blueledgers.com และมีสิทธิ์เข้าถึง campaign list
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a campaign from the list
-3. Click on the 'Duplicate' button
-4. Wait for the new campaign to be created
-5. Verify the new campaign name includes '(Copy)' suffix
-6. Verify the status is set to 'Draft'
-7. Verify all settings, vendor selections, and template selection are copied
-8. Navigate to the new campaign detail page
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก campaign จาก list
+3. กด 'Duplicate' button
+4. รอให้ campaign ใหม่ถูกสร้าง
+5. ตรวจสอบว่า campaign name ใหม่มี suffix '(Copy)'
+6. ตรวจสอบว่าสถานะถูกตั้งเป็น 'Draft'
+7. ตรวจสอบว่า settings, vendor selections และ template selection ทั้งหมดถูก copy
+8. ไปยังหน้า campaign detail ใหม่
 
 **Expected**
 
-The new campaign is successfully duplicated and the user is navigated to the new campaign detail page.
+campaign ใหม่ถูก duplicate สำเร็จและผู้ใช้ถูกนำทางไปยังหน้า campaign detail ใหม่
 
 ---
 
@@ -514,18 +514,18 @@ The new campaign is successfully duplicated and the user is navigated to the new
 
 **Preconditions**
 
-User does not have permission to duplicate campaigns
+Login เป็น requestor@blueledgers.com และไม่มี permission duplicate campaigns
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a campaign from the list
-3. Attempt to click on the 'Duplicate' button
-4. Verify an error message is displayed indicating insufficient permission
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก campaign จาก list
+3. พยายามกด 'Duplicate' button
+4. ตรวจสอบว่า error message แสดงว่าสิทธิ์ไม่เพียงพอ
 
 **Expected**
 
-The user is prevented from duplicating the campaign and sees an error message.
+ผู้ใช้ถูกป้องกันไม่ให้ duplicate campaign และเห็น error message
 
 ---
 
@@ -538,18 +538,18 @@ The user is prevented from duplicating the campaign and sees an error message.
 
 **Preconditions**
 
-User is logged in as a Procurement Staff and the campaign list is empty
+Login เป็น purchase@blueledgers.com และ campaign list ว่างเปล่า
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Verify the campaign list is empty
-3. Click on the 'Duplicate' button
-4. Verify the system prompts the user to create a new campaign first
+1. ไปที่ /vendor-management/request-price-list
+2. ตรวจสอบว่า campaign list ว่างเปล่า
+3. กด 'Duplicate' button
+4. ตรวจสอบว่าระบบแจ้งให้ผู้ใช้สร้าง campaign ใหม่ก่อน
 
 **Expected**
 
-The user is informed that they need to create a new campaign before they can duplicate it.
+ผู้ใช้ได้รับแจ้งว่าต้องสร้าง campaign ใหม่ก่อนจึงจะ duplicate ได้
 
 ---
 
@@ -562,18 +562,18 @@ The user is informed that they need to create a new campaign before they can dup
 
 **Preconditions**
 
-User is logged in as a Procurement Staff and a campaign with attached files exists in the system
+Login เป็น purchase@blueledgers.com และมี campaign ที่มี attached files อยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a campaign with attached files
-3. Click on the 'Duplicate' button
-4. Verify all settings, vendor selections, template selection, and files are copied to the new campaign
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก campaign ที่มี attached files
+3. กด 'Duplicate' button
+4. ตรวจสอบว่า settings, vendor selections, template selection และ files ทั้งหมดถูก copy ไปยัง campaign ใหม่
 
 **Expected**
 
-The new campaign is duplicated with all settings, vendor selections, template, and attached files copied.
+campaign ใหม่ถูก duplicate พร้อม settings, vendor selections, template และ attached files ทั้งหมดที่ถูก copy
 
 ---
 
@@ -586,20 +586,20 @@ The new campaign is duplicated with all settings, vendor selections, template, a
 
 **Preconditions**
 
-User is logged in as Procurement Staff and has access to the vendor reminder feature
+Login เป็น purchase@blueledgers.com และมีสิทธิ์เข้าถึง vendor reminder feature
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a campaign detail page
-3. Click on the 'Vendors' tab
-4. Identify a vendor with 'pending' or 'in_progress' status
-5. Click 'Send Reminder' button
-6. Verify success message: 'Reminder sent successfully'
+1. ไปที่ /vendor-management/request-price-list
+2. คลิกหน้า campaign detail
+3. กด tab 'Vendors'
+4. ระบุ vendor ที่มีสถานะ 'pending' หรือ 'in_progress'
+5. กด 'Send Reminder' button
+6. ตรวจสอบ success message: 'Reminder sent successfully'
 
 **Expected**
 
-Reminder is sent to vendor, reminder count is incremented, and last reminder date is updated.
+Reminder ถูกส่งไปยัง vendor reminder count เพิ่มขึ้น และวันที่ส่ง reminder ล่าสุดถูกอัปเดต
 
 ---
 
@@ -612,18 +612,18 @@ Reminder is sent to vendor, reminder count is incremented, and last reminder dat
 
 **Preconditions**
 
-User is logged in as a non-Procurement Staff member
+Login เป็น requestor@blueledgers.com ซึ่งไม่ใช่ Procurement Staff
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a campaign detail page
-3. Click on the 'Vendors' tab
-4. Attempt to click 'Send Reminder' button for a vendor
+1. ไปที่ /vendor-management/request-price-list
+2. คลิกหน้า campaign detail
+3. กด tab 'Vendors'
+4. พยายามกด 'Send Reminder' button สำหรับ vendor
 
 **Expected**
 
-User receives an error message indicating they do not have permission to send reminders.
+ผู้ใช้ได้รับ error message ว่าไม่มี permission ส่ง reminders
 
 ---
 
@@ -636,19 +636,19 @@ User receives an error message indicating they do not have permission to send re
 
 **Preconditions**
 
-User is logged in as Procurement Staff
+Login เป็น purchase@blueledgers.com
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a campaign detail page
-3. Click on the 'Vendors' tab
-4. Identify a vendor with 'complete' status
-5. Attempt to click 'Send Reminder' button
+1. ไปที่ /vendor-management/request-price-list
+2. คลิกหน้า campaign detail
+3. กด tab 'Vendors'
+4. ระบุ vendor ที่มีสถานะ 'complete'
+5. พยายามกด 'Send Reminder' button
 
 **Expected**
 
-System displays an error message indicating the vendor status is invalid for sending reminders.
+ระบบแสดง error message ว่าสถานะ vendor ไม่ถูกต้องสำหรับการส่ง reminders
 
 ---
 
@@ -661,19 +661,19 @@ System displays an error message indicating the vendor status is invalid for sen
 
 **Preconditions**
 
-Vendor has already received a reminder within the last 24 hours
+Vendor ได้รับ reminder ไปแล้วภายใน 24 ชั่วโมงที่ผ่านมา
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a campaign detail page
-3. Click on the 'Vendors' tab
-4. Identify a vendor with 'pending' or 'in_progress' status but has received a reminder within the last 24 hours
-5. Click 'Send Reminder' button
+1. ไปที่ /vendor-management/request-price-list
+2. คลิกหน้า campaign detail
+3. กด tab 'Vendors'
+4. ระบุ vendor ที่มีสถานะ 'pending' หรือ 'in_progress' แต่ได้รับ reminder ไปแล้วภายใน 24 ชั่วโมงที่ผ่านมา
+5. กด 'Send Reminder' button
 
 **Expected**
 
-System displays a warning message indicating the reminder has already been sent within the last 24 hours.
+ระบบแสดง warning message ว่า reminder ถูกส่งไปแล้วภายใน 24 ชั่วโมงที่ผ่านมา
 
 ---
 
@@ -686,20 +686,20 @@ System displays a warning message indicating the reminder has already been sent 
 
 **Preconditions**
 
-User is logged in as Procurement Staff
+Login เป็น purchase@blueledgers.com
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a campaign detail page
-3. Click on the 'Vendors' tab
-4. Identify a vendor with 'pending' or 'in_progress' status
-5. Click 'Send Reminder' button without entering a message
-6. Click 'Send' in the reminder dialog
+1. ไปที่ /vendor-management/request-price-list
+2. คลิกหน้า campaign detail
+3. กด tab 'Vendors'
+4. ระบุ vendor ที่มีสถานะ 'pending' หรือ 'in_progress'
+5. กด 'Send Reminder' button โดยไม่กรอก message
+6. กด 'Send' ใน reminder dialog
 
 **Expected**
 
-System displays an error message indicating the reminder message field cannot be empty.
+ระบบแสดง error message ว่า reminder message field ต้องไม่ว่างเปล่า
 
 ---
 
@@ -712,19 +712,19 @@ System displays an error message indicating the reminder message field cannot be
 
 **Preconditions**
 
-User has access to a campaign that is not already expired
+ผู้ใช้มีสิทธิ์เข้าถึง campaign ที่ยังไม่ expired
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a campaign to open its detail page
-3. Click on the actions dropdown menu
-4. Click 'Mark as Expired'
-5. Confirm the action
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก campaign เพื่อเปิดหน้า detail
+3. กด actions dropdown menu
+4. กด 'Mark as Expired'
+5. ยืนยันการดำเนินการ
 
 **Expected**
 
-Campaign status is updated to 'Expired' and a success toast 'Campaign marked as expired' is displayed.
+สถานะ campaign อัปเดตเป็น 'Expired' และ success toast 'Campaign marked as expired' แสดง
 
 ---
 
@@ -737,18 +737,18 @@ Campaign status is updated to 'Expired' and a success toast 'Campaign marked as 
 
 **Preconditions**
 
-User has a role that does not have permission to mark campaigns as expired
+Login เป็น requestor@blueledgers.com ซึ่งไม่มีสิทธิ์ mark campaign เป็น expired
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a campaign to open its detail page
-3. Click on the actions dropdown menu
-4. Click 'Mark as Expired'
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก campaign เพื่อเปิดหน้า detail
+3. กด actions dropdown menu
+4. กด 'Mark as Expired'
 
 **Expected**
 
-User receives an error message indicating they do not have permission to perform this action.
+ผู้ใช้ได้รับข้อความ error แจ้งว่าไม่มีสิทธิ์ดำเนินการนี้
 
 ---
 
@@ -761,18 +761,18 @@ User receives an error message indicating they do not have permission to perform
 
 **Preconditions**
 
-Selected campaign is already marked as expired
+campaign ที่เลือกถูก mark เป็น expired ไปแล้ว
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on a campaign to open its detail page
-3. Click on the actions dropdown menu
-4. Click 'Mark as Expired'
+1. ไปที่ /vendor-management/request-price-list
+2. คลิก campaign เพื่อเปิดหน้า detail
+3. กด actions dropdown menu
+4. กด 'Mark as Expired'
 
 **Expected**
 
-User is informed that the campaign is already expired and the action is not performed.
+ผู้ใช้ได้รับการแจ้งเตือนว่า campaign นี้ expired ไปแล้วและไม่มีการดำเนินการใด ๆ
 
 ---
 
@@ -785,18 +785,18 @@ User is informed that the campaign is already expired and the action is not perf
 
 **Preconditions**
 
-Campaign list is empty
+รายการ campaign ว่างเปล่า
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Try to click on a campaign to open its detail page
-3. Click on the actions dropdown menu
-4. Click 'Mark as Expired'
+1. ไปที่ /vendor-management/request-price-list
+2. พยายามคลิก campaign เพื่อเปิดหน้า detail
+3. กด actions dropdown menu
+4. กด 'Mark as Expired'
 
 **Expected**
 
-User is presented with a message indicating there are no campaigns available.
+ผู้ใช้ได้รับข้อความแจ้งว่าไม่มี campaign ให้ใช้งาน
 
 ---
 
@@ -809,19 +809,19 @@ User is presented with a message indicating there are no campaigns available.
 
 **Preconditions**
 
-User is logged in as Procurement Manager and has a campaign in the campaign list
+Login เป็น purchase@blueledgers.com มี role Procurement Manager และมี campaign อยู่ในรายการ
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on campaign name
-3. Click on 'Actions' dropdown
-4. Click 'Delete'
-5. Click 'Delete' in confirmation dialog
+1. ไปที่ /vendor-management/request-price-list
+2. คลิกชื่อ campaign
+3. กด 'Actions' dropdown
+4. กด 'Delete'
+5. กด 'Delete' ใน confirmation dialog
 
 **Expected**
 
-Campaign is removed from database and list, success toast 'Campaign deleted successfully' is shown.
+campaign ถูกลบออกจากฐานข้อมูลและรายการ และ success toast 'Campaign deleted successfully' แสดง
 
 ---
 
@@ -834,17 +834,17 @@ Campaign is removed from database and list, success toast 'Campaign deleted succ
 
 **Preconditions**
 
-User is logged in as Procurement Manager
+Login เป็น purchase@blueledgers.com มี role Procurement Manager
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on 'Actions' dropdown without selecting any campaign
-3. Click 'Delete'
+1. ไปที่ /vendor-management/request-price-list
+2. กด 'Actions' dropdown โดยไม่ได้เลือก campaign ใด
+3. กด 'Delete'
 
 **Expected**
 
-System displays error message 'Please select a campaign to delete'.
+ระบบแสดง error message 'Please select a campaign to delete'
 
 ---
 
@@ -857,18 +857,18 @@ System displays error message 'Please select a campaign to delete'.
 
 **Preconditions**
 
-User is logged in as Procurement Manager and has multiple campaigns selected
+Login เป็น purchase@blueledgers.com มี role Procurement Manager และมีการเลือก campaign หลายรายการ
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Select multiple campaigns
-3. Click on 'Actions' dropdown
-4. Click 'Delete'
+1. ไปที่ /vendor-management/request-price-list
+2. เลือก campaign หลายรายการ
+3. กด 'Actions' dropdown
+4. กด 'Delete'
 
 **Expected**
 
-System displays error message 'Please select one campaign to delete'.
+ระบบแสดง error message 'Please select one campaign to delete'
 
 ---
 
@@ -881,18 +881,18 @@ System displays error message 'Please select one campaign to delete'.
 
 **Preconditions**
 
-User is logged in as Regular User
+Login เป็น requestor@blueledgers.com มี role Regular User
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click on campaign name
-3. Click on 'Actions' dropdown
-4. Click 'Delete'
+1. ไปที่ /vendor-management/request-price-list
+2. คลิกชื่อ campaign
+3. กด 'Actions' dropdown
+4. กด 'Delete'
 
 **Expected**
 
-System displays error message 'You do not have permission to delete campaigns'.
+ระบบแสดง error message 'You do not have permission to delete campaigns'
 
 ---
 
@@ -905,18 +905,18 @@ System displays error message 'You do not have permission to delete campaigns'.
 
 **Preconditions**
 
-User is logged in as procurement staff and has permission to export campaign data
+Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข้อมูล campaign
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click 'Export' button
-3. Wait for file generation
-4. Verify file download starts
+1. ไปที่ /vendor-management/request-price-list
+2. กด 'Export' button
+3. รอการสร้างไฟล์
+4. ตรวจสอบว่าการ download ไฟล์เริ่มต้น
 
 **Expected**
 
-File download starts and user receives a success message.
+การ download ไฟล์เริ่มต้นและผู้ใช้ได้รับ success message
 
 ---
 
@@ -929,17 +929,17 @@ File download starts and user receives a success message.
 
 **Preconditions**
 
-User does not have permission to export campaign data
+Login เป็น requestor@blueledgers.com ซึ่งไม่มีสิทธิ์ export ข้อมูล campaign
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click 'Export' button
-3. Verify error message displayed
+1. ไปที่ /vendor-management/request-price-list
+2. กด 'Export' button
+3. ตรวจสอบว่า error message แสดง
 
 **Expected**
 
-User sees an error message indicating they do not have permission to export campaign data.
+ผู้ใช้เห็น error message แจ้งว่าไม่มีสิทธิ์ export ข้อมูล campaign
 
 ---
 
@@ -952,18 +952,18 @@ User sees an error message indicating they do not have permission to export camp
 
 **Preconditions**
 
-User has permission to export campaign data with a large dataset
+Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข้อมูล campaign และมีชุดข้อมูลขนาดใหญ่
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click 'Export' button
-3. Wait for file generation
-4. Verify file download starts
+1. ไปที่ /vendor-management/request-price-list
+2. กด 'Export' button
+3. รอการสร้างไฟล์
+4. ตรวจสอบว่าการ download ไฟล์เริ่มต้น
 
 **Expected**
 
-File download starts without any issues and user receives a success message.
+การ download ไฟล์เริ่มต้นโดยไม่มีปัญหาและผู้ใช้ได้รับ success message
 
 ---
 
@@ -976,18 +976,18 @@ File download starts without any issues and user receives a success message.
 
 **Preconditions**
 
-User has permission to export campaign data
+Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข้อมูล campaign
 
 **Steps**
 
-1. Navigate to /vendor-management/request-price-list
-2. Click 'Export' button 5 times within 5 minutes
-3. Wait for file generation after each click
-4. Verify file download starts each time
+1. ไปที่ /vendor-management/request-price-list
+2. กด 'Export' button 5 ครั้งภายใน 5 นาที
+3. รอการสร้างไฟล์หลังกดแต่ละครั้ง
+4. ตรวจสอบว่าการ download ไฟล์เริ่มต้นทุกครั้ง
 
 **Expected**
 
-File download starts after each export request and user receives success messages for each.
+การ download ไฟล์เริ่มต้นหลังแต่ละคำขอ export และผู้ใช้ได้รับ success message สำหรับแต่ละครั้ง
 
 ---
 
@@ -1000,18 +1000,18 @@ File download starts after each export request and user receives success message
 
 **Preconditions**
 
-User is logged in as Procurement Staff and is on the Campaigns page
+Login เป็น purchase@blueledgers.com มี role Procurement Staff และอยู่ที่หน้า Campaigns
 
 **Steps**
 
-1. Click status filter dropdown
-2. Select 'Active'
-3. Verify that only active campaigns are displayed
-4. Verify the result count matches the number of active campaigns
+1. กด status filter dropdown
+2. เลือก 'Active'
+3. ตรวจสอบว่าแสดงเฉพาะ campaign ที่ Active
+4. ตรวจสอบว่าจำนวนผลลัพธ์ตรงกับจำนวน campaign ที่ Active
 
 **Expected**
 
-Only active campaigns are displayed with correct result count.
+แสดงเฉพาะ campaign ที่ Active พร้อมจำนวนผลลัพธ์ที่ถูกต้อง
 
 ---
 
@@ -1024,17 +1024,17 @@ Only active campaigns are displayed with correct result count.
 
 **Preconditions**
 
-User is logged in as Procurement Staff and is on the Campaigns page
+Login เป็น purchase@blueledgers.com มี role Procurement Staff และอยู่ที่หน้า Campaigns
 
 **Steps**
 
-1. Type 'Inventory' in search input
-2. Verify that relevant campaigns are filtered and displayed
-3. Verify the result count matches the number of campaigns containing 'Inventory'
+1. พิมพ์ 'Inventory' ใน search input
+2. ตรวจสอบว่า campaign ที่เกี่ยวข้องถูก filter และแสดง
+3. ตรวจสอบว่าจำนวนผลลัพธ์ตรงกับจำนวน campaign ที่มีคำว่า 'Inventory'
 
 **Expected**
 
-Campaigns containing 'Inventory' are filtered and displayed with correct result count.
+campaign ที่มีคำว่า 'Inventory' ถูก filter และแสดงพร้อมจำนวนผลลัพธ์ที่ถูกต้อง
 
 ---
 
@@ -1047,18 +1047,18 @@ Campaigns containing 'Inventory' are filtered and displayed with correct result 
 
 **Preconditions**
 
-User is on the Campaigns page with no active campaigns
+Login เป็น purchase@blueledgers.com และอยู่ที่หน้า Campaigns ที่ไม่มี campaign ที่ Active
 
 **Steps**
 
-1. Click status filter dropdown
-2. Select 'Active'
-3. Verify that no campaigns are displayed
-4. Verify the result count is 0
+1. กด status filter dropdown
+2. เลือก 'Active'
+3. ตรวจสอบว่าไม่มี campaign แสดง
+4. ตรวจสอบว่าจำนวนผลลัพธ์เป็น 0
 
 **Expected**
 
-No campaigns are displayed and result count is 0.
+ไม่มี campaign แสดงและจำนวนผลลัพธ์เป็น 0
 
 ---
 
@@ -1071,17 +1071,17 @@ No campaigns are displayed and result count is 0.
 
 **Preconditions**
 
-User is on the Campaigns page
+Login เป็น purchase@blueledgers.com และอยู่ที่หน้า Campaigns
 
 **Steps**
 
-1. Type 'NonexistentTerm' in search input
-2. Verify that no campaigns are displayed
-3. Verify the result count is 0
+1. พิมพ์ 'NonexistentTerm' ใน search input
+2. ตรวจสอบว่าไม่มี campaign แสดง
+3. ตรวจสอบว่าจำนวนผลลัพธ์เป็น 0
 
 **Expected**
 
-No campaigns are displayed and result count is 0.
+ไม่มี campaign แสดงและจำนวนผลลัพธ์เป็น 0
 
 ---
 
@@ -1094,20 +1094,20 @@ No campaigns are displayed and result count is 0.
 
 **Preconditions**
 
-User is on the Campaigns page
+Login เป็น purchase@blueledgers.com และอยู่ที่หน้า Campaigns
 
 **Steps**
 
-1. Click status filter dropdown
-2. Select 'All'
-3. Verify that all campaigns are displayed
-4. Verify the result count matches the total number of campaigns
+1. กด status filter dropdown
+2. เลือก 'All'
+3. ตรวจสอบว่า campaign ทั้งหมดแสดง
+4. ตรวจสอบว่าจำนวนผลลัพธ์ตรงกับจำนวน campaign ทั้งหมด
 
 **Expected**
 
-All campaigns are displayed with correct result count.
+campaign ทั้งหมดแสดงพร้อมจำนวนผลลัพธ์ที่ถูกต้อง
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

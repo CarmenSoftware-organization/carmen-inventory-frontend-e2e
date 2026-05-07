@@ -32,13 +32,13 @@ hodTest.describe("My Approvals — Queue", () => {
     "TC-MA-010001 Happy Path - View Unified Approval Queue",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in with an approver role and has approval authority configured in approval matrix" },
+        { type: "preconditions", description: "Login เป็นผู้ใช้ที่มีสิทธิ์ approver และมีการตั้งค่า approval authority ใน approval matrix แล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/approval\n2. Verify the document count badges display accurately\n3. Verify the total pending count is prominently displayed\n4. Verify documents are sorted by submission date (oldest first)\n5. Verify visual urgency indicators are displayed correctly",
+            "1. ไปที่ /procurement/approval\n2. ตรวจสอบว่า document count badges แสดงผลถูกต้อง\n3. ตรวจสอบว่า total pending count แสดงเด่นชัด\n4. ตรวจสอบว่าเอกสารเรียงตามวันที่ส่ง (เก่าสุดก่อน)\n5. ตรวจสอบว่า visual urgency indicators แสดงผลถูกต้อง",
         },
-        { type: "expected", description: "User sees a unified approval queue with all pending documents, sorted and filtered correctly, and with urgency indicators." },
+        { type: "expected", description: "ผู้ใช้เห็น unified approval queue ที่มีเอกสาร pending ทั้งหมด เรียงลำดับและกรองถูกต้อง พร้อม urgency indicators" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -54,13 +54,13 @@ hodTest.describe("My Approvals — Queue", () => {
     "TC-MA-010002 Negative - No Pending Approvals",
     {
       annotation: [
-        { type: "preconditions", description: "User has approver role but no documents are pending" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ approver แต่ไม่มีเอกสาร pending" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/approval\n2. Verify the queue is empty with a message indicating no pending approvals",
+            "1. ไปที่ /procurement/approval\n2. ตรวจสอบว่า queue ว่างเปล่าพร้อมข้อความแจ้งว่าไม่มี pending approvals",
         },
-        { type: "expected", description: "User sees an empty queue with a message stating there are no pending approvals." },
+        { type: "expected", description: "ผู้ใช้เห็น queue ว่างเปล่าพร้อมข้อความแจ้งว่าไม่มี pending approvals" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -76,13 +76,13 @@ hodTest.describe("My Approvals — Queue", () => {
     "TC-MA-010003 Edge Case - Large Number of Documents",
     {
       annotation: [
-        { type: "preconditions", description: "User has approver role and over 500 pending documents exist" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ approver และมีเอกสาร pending มากกว่า 500 รายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/approval\n2. Wait for the queue to load\n3. Verify the queue loads within 2 seconds",
+            "1. ไปที่ /procurement/approval\n2. รอให้ queue โหลด\n3. ตรวจสอบว่า queue โหลดเสร็จภายใน 2 วินาที",
         },
-        { type: "expected", description: "Queue loads within 2 seconds with all pending documents." },
+        { type: "expected", description: "Queue โหลดเสร็จภายใน 2 วินาทีพร้อมเอกสาร pending ทั้งหมด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_PERFORMANCE },
@@ -97,13 +97,13 @@ requestorTest.describe("My Approvals — Queue — Permission denial", () => {
     "TC-MA-010004 Negative - Insufficient Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in but does not have approval authority configured in approval matrix" },
+        { type: "preconditions", description: "Login เข้าระบบแล้วแต่ไม่มีการตั้งค่า approval authority ใน approval matrix" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/approval\n2. Verify the system displays an error message or redirects to a permission denied page",
+            "1. ไปที่ /procurement/approval\n2. ตรวจสอบว่าระบบแสดงข้อความ error หรือ redirect ไปยังหน้า permission denied",
         },
-        { type: "expected", description: "User sees an error message or is redirected to a permission denied page." },
+        { type: "expected", description: "ผู้ใช้เห็นข้อความ error หรือถูก redirect ไปยังหน้า permission denied" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Negative" },
       ],
@@ -127,13 +127,13 @@ hodTest.describe("My Approvals — Approve from queue — Feature pending", () =
     "TC-MA-020001 Happy Path: Approve Document with Valid Credentials",
     {
       annotation: [
-        { type: "preconditions", description: "User has viewed approval queue and document is in Pending Approval status" },
+        { type: "preconditions", description: "ผู้ใช้เปิด approval queue แล้วและเอกสารมีสถานะ Pending Approval" },
         {
           type: "steps",
           description:
-            "1. Navigate to /approval-queue\n2. Click on document in queue to review\n3. Verify document details in Overview, Line Items, Attachments, Approval History, and Related Documents tabs\n4. Review budget impact and approval history\n5. Verify approval recommendation is Green\n6. Click 'Approve' button\n7. Fill approval comments: 'Approved. Necessary for Q4 menu launch. Budget available.'\n8. Click 'Confirm Approval'",
+            "1. ไปที่ /approval-queue\n2. คลิกเอกสารใน queue เพื่อตรวจสอบ\n3. ตรวจสอบรายละเอียดเอกสารในแท็บ Overview, Line Items, Attachments, Approval History และ Related Documents\n4. ตรวจสอบผลกระทบด้านงบประมาณและประวัติการ approve\n5. ตรวจสอบว่า approval recommendation เป็นสีเขียว\n6. กดปุ่ม 'Approve'\n7. กรอก approval comments: 'Approved. Necessary for Q4 menu launch. Budget available.'\n8. กดปุ่ม 'Confirm Approval'",
         },
-        { type: "expected", description: "Document is updated to Approved status and removed from user's approval queue." },
+        { type: "expected", description: "เอกสารอัปเดตเป็นสถานะ Approved และถูกลบออกจาก approval queue ของผู้ใช้" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -146,13 +146,13 @@ hodTest.describe("My Approvals — Approve from queue — Feature pending", () =
     "TC-MA-020002 Negative: Insufficient Approval Authority",
     {
       annotation: [
-        { type: "preconditions", description: "Document is in Pending Approval status; user lacks approval authority for the document amount" },
+        { type: "preconditions", description: "เอกสารมีสถานะ Pending Approval; ผู้ใช้ไม่มี approval authority เพียงพอสำหรับจำนวนเงินของเอกสาร" },
         {
           type: "steps",
           description:
-            "1. Navigate to /approval-queue\n2. Click on document in queue to review\n3. Verify document details in Overview, Line Items, Attachments, Approval History, and Related Documents tabs\n4. Attempt to click 'Approve' button\n5. Verify error message: 'Insufficient approval authority'",
+            "1. ไปที่ /approval-queue\n2. คลิกเอกสารใน queue เพื่อตรวจสอบ\n3. ตรวจสอบรายละเอียดเอกสารในแท็บ Overview, Line Items, Attachments, Approval History และ Related Documents\n4. พยายามกดปุ่ม 'Approve'\n5. ตรวจสอบข้อความ error: 'Insufficient approval authority'",
         },
-        { type: "expected", description: "User is unable to approve document and sees appropriate error message." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถ approve เอกสารได้และเห็นข้อความ error ที่เหมาะสม" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -165,13 +165,13 @@ hodTest.describe("My Approvals — Approve from queue — Feature pending", () =
     "TC-MA-020003 Edge Case: Multiple Approvals in Queue",
     {
       annotation: [
-        { type: "preconditions", description: "Multiple documents are in Pending Approval status at various approval levels; user has sufficient authority to approve" },
+        { type: "preconditions", description: "มีเอกสาร Pending Approval หลายรายการในระดับการ approve ที่แตกต่างกัน; ผู้ใช้มี authority เพียงพอในการ approve" },
         {
           type: "steps",
           description:
-            "1. Navigate to /approval-queue\n2. Review first document in queue\n3. Verify document details and approval level\n4. Click 'Approve' button\n5. Fill approval comments: 'Approved. Necessary for Q4 menu launch. Budget available.'\n6. Click 'Confirm Approval'\n7. Verify document is updated to Approved status\n8. Review next document in queue\n9. Repeat steps 4-7 for each document in queue",
+            "1. ไปที่ /approval-queue\n2. ตรวจสอบเอกสารแรกใน queue\n3. ตรวจสอบรายละเอียดเอกสารและระดับการ approve\n4. กดปุ่ม 'Approve'\n5. กรอก approval comments: 'Approved. Necessary for Q4 menu launch. Budget available.'\n6. กดปุ่ม 'Confirm Approval'\n7. ตรวจสอบว่าเอกสารอัปเดตเป็นสถานะ Approved\n8. ตรวจสอบเอกสารถัดไปใน queue\n9. ทำซ้ำขั้นตอน 4-7 สำหรับแต่ละเอกสารใน queue",
         },
-        { type: "expected", description: "Documents are approved and removed from user's approval queue in order of appearance." },
+        { type: "expected", description: "เอกสารถูก approve และลบออกจาก approval queue ของผู้ใช้ตามลำดับที่ปรากฏ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -189,13 +189,13 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
     "TC-MA-030001 Happy Path - Valid Reason",
     {
       annotation: [
-        { type: "preconditions", description: "Document in Pending Approval status; user has reviewed the document and identified issues preventing approval; user has active session" },
+        { type: "preconditions", description: "เอกสารมีสถานะ Pending Approval; ผู้ใช้ตรวจสอบเอกสารแล้วและพบปัญหาที่ขัดขวางการ approve; ผู้ใช้มี session ที่ active" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Reject' button\n3. Select 'Budget not available' from quick-select options\n4. Fill in detailed explanation: 'Rejected. Budget not available for this purchase.'\n5. Click 'Confirm Rejection'",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Reject'\n3. เลือก 'Budget not available' จาก quick-select options\n4. กรอกคำอธิบายโดยละเอียด: 'Rejected. Budget not available for this purchase.'\n5. กดปุ่ม 'Confirm Rejection'",
         },
-        { type: "expected", description: "Document status updated to Rejected, rejection reason recorded, user notified of successful rejection, document removed from approval queue." },
+        { type: "expected", description: "สถานะเอกสารอัปเดตเป็น Rejected, บันทึกเหตุผลการ reject, แจ้งผู้ใช้ว่า reject สำเร็จ, ลบเอกสารออกจาก approval queue" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -219,13 +219,13 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
     "TC-MA-030002 Negative - Empty Reason",
     {
       annotation: [
-        { type: "preconditions", description: "Document in Pending Approval status; user has active session" },
+        { type: "preconditions", description: "เอกสารมีสถานะ Pending Approval; ผู้ใช้มี session ที่ active" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Reject' button\n3. Select 'Budget not available' from quick-select options\n4. Do not fill in detailed explanation\n5. Click 'Confirm Rejection'",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Reject'\n3. เลือก 'Budget not available' จาก quick-select options\n4. ไม่กรอกคำอธิบายโดยละเอียด\n5. กดปุ่ม 'Confirm Rejection'",
         },
-        { type: "expected", description: "System validation fails, rejection reason is mandatory, rejection is not processed." },
+        { type: "expected", description: "การ validate ของระบบล้มเหลว, เหตุผลการ reject เป็นข้อมูลบังคับ, ไม่ประมวลผลการ reject" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Negative" },
       ],
@@ -246,13 +246,13 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
     "TC-MA-030003 Edge Case - Custom Reason",
     {
       annotation: [
-        { type: "preconditions", description: "Document in Pending Approval status; user has active session" },
+        { type: "preconditions", description: "เอกสารมีสถานะ Pending Approval; ผู้ใช้มี session ที่ active" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Reject' button\n3. Select 'Other (custom reason)' from quick-select options\n4. Enter custom reason: 'Incorrect PO number'\n5. Fill in detailed explanation: 'Rejected. Incorrect PO number - please check PO-123456789.'\n6. Click 'Confirm Rejection'",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Reject'\n3. เลือก 'Other (custom reason)' จาก quick-select options\n4. กรอกเหตุผลแบบกำหนดเอง: 'Incorrect PO number'\n5. กรอกคำอธิบายโดยละเอียด: 'Rejected. Incorrect PO number - please check PO-123456789.'\n6. กดปุ่ม 'Confirm Rejection'",
         },
-        { type: "expected", description: "Document status updated to Rejected, custom rejection reason recorded, user notified of successful rejection, document removed from approval queue." },
+        { type: "expected", description: "สถานะเอกสารอัปเดตเป็น Rejected, บันทึกเหตุผลการ reject แบบกำหนดเอง, แจ้งผู้ใช้ว่า reject สำเร็จ, ลบเอกสารออกจาก approval queue" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -275,13 +275,13 @@ requestorTest.describe("My Approvals — Reject — Permission denial", () => {
     "TC-MA-030004 Negative - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Document in Pending Approval status; user does not have permission to reject" },
+        { type: "preconditions", description: "เอกสารมีสถานะ Pending Approval; ผู้ใช้ไม่มีสิทธิ์ในการ reject" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Reject' button\n3. Select 'Budget not available' from quick-select options\n4. Fill in detailed explanation: 'Rejected. Budget not available for this purchase.'\n5. Click 'Confirm Rejection'",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Reject'\n3. เลือก 'Budget not available' จาก quick-select options\n4. กรอกคำอธิบายโดยละเอียด: 'Rejected. Budget not available for this purchase.'\n5. กดปุ่ม 'Confirm Rejection'",
         },
-        { type: "expected", description: "System validation fails, user does not have permission to reject, rejection is not processed." },
+        { type: "expected", description: "การ validate ของระบบล้มเหลว, ผู้ใช้ไม่มีสิทธิ์ในการ reject, ไม่ประมวลผลการ reject" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -311,13 +311,13 @@ hodTest.describe("My Approvals — Request More Info — Feature pending", () =>
     "TC-MA-040001 Happy Path - Request More Information",
     {
       annotation: [
-        { type: "preconditions", description: "User has reviewed document; document is in Pending Approval status; user has identified missing or unclear information needed for approval decision" },
+        { type: "preconditions", description: "ผู้ใช้ตรวจสอบเอกสารแล้ว; เอกสารมีสถานะ Pending Approval; ผู้ใช้พบข้อมูลที่ขาดหายหรือไม่ชัดเจนซึ่งจำเป็นสำหรับการตัดสินใจ approve" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Request More Info' button\n3. Select 'Please provide 2 additional quotes from alternate vendors' template\n4. Fill 'Please provide: 1) Specifications for the equipment model requested, 2) Quote from at least one alternate vendor for comparison, 3) Explanation for urgent delivery requirement.' in information request textarea\n5. Set response deadline to 48 business hours\n6. Click 'Send Request' button\n7. Verify success confirmation: 'Information request sent to requestor. SLA timer paused until response received.'\n8. Verify document status updated to 'Awaiting Information'",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Request More Info'\n3. เลือก template 'Please provide 2 additional quotes from alternate vendors'\n4. กรอก 'Please provide: 1) Specifications for the equipment model requested, 2) Quote from at least one alternate vendor for comparison, 3) Explanation for urgent delivery requirement.' ใน information request textarea\n5. ตั้ง response deadline เป็น 48 business hours\n6. กดปุ่ม 'Send Request'\n7. ตรวจสอบข้อความยืนยันความสำเร็จ: 'Information request sent to requestor. SLA timer paused until response received.'\n8. ตรวจสอบว่าสถานะเอกสารอัปเดตเป็น 'Awaiting Information'",
         },
-        { type: "expected", description: "System processes information request, document status updated, requestor notified, SLA timer paused, reminder scheduled." },
+        { type: "expected", description: "ระบบประมวลผล information request, อัปเดตสถานะเอกสาร, แจ้ง requestor, หยุด SLA timer, และตั้งเวลาแจ้งเตือน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -330,13 +330,13 @@ hodTest.describe("My Approvals — Request More Info — Feature pending", () =>
     "TC-MA-040002 Negative - Empty Information Request",
     {
       annotation: [
-        { type: "preconditions", description: "User has reviewed document; document is in Pending Approval status" },
+        { type: "preconditions", description: "ผู้ใช้ตรวจสอบเอกสารแล้ว; เอกสารมีสถานะ Pending Approval" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Request More Info' button\n3. Click 'Other (custom request)' template\n4. Do not fill information request textarea\n5. Click 'Send Request' button\n6. Verify error message: 'Information request cannot be empty.'",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Request More Info'\n3. เลือก template 'Other (custom request)'\n4. ไม่กรอกข้อความใน information request textarea\n5. กดปุ่ม 'Send Request'\n6. ตรวจสอบข้อความ error: 'Information request cannot be empty.'",
         },
-        { type: "expected", description: "System prevents submission of empty information request." },
+        { type: "expected", description: "ระบบป้องกันการส่ง information request ที่ว่างเปล่า" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -349,13 +349,13 @@ hodTest.describe("My Approvals — Request More Info — Feature pending", () =>
     "TC-MA-040004 Edge Case - Maximum Length Input",
     {
       annotation: [
-        { type: "preconditions", description: "User has reviewed document; document is in Pending Approval status" },
+        { type: "preconditions", description: "ผู้ใช้ตรวจสอบเอกสารแล้ว; เอกสารมีสถานะ Pending Approval" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'Request More Info' button\n3. Select 'Please provide 2 additional quotes from alternate vendors' template\n4. Fill information request textarea with maximum allowed length: 200 characters\n5. Click 'Send Request' button\n6. Verify information request is processed successfully.",
+            "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Request More Info'\n3. เลือก template 'Please provide 2 additional quotes from alternate vendors'\n4. กรอก information request textarea ด้วยความยาวสูงสุดที่อนุญาต: 200 ตัวอักษร\n5. กดปุ่ม 'Send Request'\n6. ตรวจสอบว่า information request ถูกประมวลผลสำเร็จ",
         },
-        { type: "expected", description: "System processes information request with maximum allowed length without errors." },
+        { type: "expected", description: "ระบบประมวลผล information request ที่มีความยาวสูงสุดโดยไม่มี error" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -373,13 +373,13 @@ hodTest.describe("My Approvals — Bulk approve — Feature pending", () => {
     "TC-MA-050001 Happy Path - Approve 20 Routine F&B PRs",
     {
       annotation: [
-        { type: "preconditions", description: "User has viewed approval queue with 20 pending routine F&B PRs" },
+        { type: "preconditions", description: "ผู้ใช้เปิด approval queue ที่มี pending routine F&B PRs จำนวน 20 รายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /approval-queue\n2. Click 'Select Multiple' button\n3. Click checkboxes next to 20 selected documents\n4. Verify bulk action toolbar shows '15 documents selected', 'Total: $12,450', 'All Purchase Requests'\n5. Click 'Bulk Approve' button\n6. Enter comments 'Bulk approved. Routine F&B inventory replenishment within normal spend levels.'\n7. Click 'Confirm Bulk Approval' button\n8. Wait for progress bar to complete 15 approvals\n9. Verify success confirmation: '15 documents approved successfully'\n10. Verify queue count reduced by 15",
+            "1. ไปที่ /approval-queue\n2. กดปุ่ม 'Select Multiple'\n3. คลิก checkboxes ของเอกสารที่เลือก 20 รายการ\n4. ตรวจสอบว่า bulk action toolbar แสดง '15 documents selected', 'Total: $12,450', 'All Purchase Requests'\n5. กดปุ่ม 'Bulk Approve'\n6. กรอก comments 'Bulk approved. Routine F&B inventory replenishment within normal spend levels.'\n7. กดปุ่ม 'Confirm Bulk Approval'\n8. รอ progress bar ให้ approve ครบ 15 รายการ\n9. ตรวจสอบข้อความยืนยัน: '15 documents approved successfully'\n10. ตรวจสอบว่าจำนวน queue ลดลง 15 รายการ",
         },
-        { type: "expected", description: "20 documents are approved and removed from the queue." },
+        { type: "expected", description: "เอกสาร 20 รายการถูก approve และลบออกจาก queue" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -392,13 +392,13 @@ hodTest.describe("My Approvals — Bulk approve — Feature pending", () => {
     "TC-MA-050003 Edge Case - Approve Maximum 50 Documents",
     {
       annotation: [
-        { type: "preconditions", description: "User has viewed approval queue with 50 pending documents of the same type" },
+        { type: "preconditions", description: "ผู้ใช้เปิด approval queue ที่มีเอกสาร pending ประเภทเดียวกัน 50 รายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /approval-queue\n2. Click 'Select Multiple' button\n3. Click checkboxes next to all 50 selected documents\n4. Verify bulk action toolbar shows '50 documents selected', 'Total: [total amount]', 'All [document type]'\n5. Click 'Bulk Approve' button\n6. Enter comments 'Bulk approved. Routine F&B inventory replenishment within normal spend levels.'\n7. Click 'Confirm Bulk Approval' button\n8. Wait for progress bar to complete 50 approvals\n9. Verify success confirmation: '50 documents approved successfully'",
+            "1. ไปที่ /approval-queue\n2. กดปุ่ม 'Select Multiple'\n3. คลิก checkboxes ของเอกสารทั้ง 50 รายการ\n4. ตรวจสอบว่า bulk action toolbar แสดง '50 documents selected', 'Total: [total amount]', 'All [document type]'\n5. กดปุ่ม 'Bulk Approve'\n6. กรอก comments 'Bulk approved. Routine F&B inventory replenishment within normal spend levels.'\n7. กดปุ่ม 'Confirm Bulk Approval'\n8. รอ progress bar ให้ approve ครบ 50 รายการ\n9. ตรวจสอบข้อความยืนยัน: '50 documents approved successfully'",
         },
-        { type: "expected", description: "All 50 documents are approved and removed from the queue." },
+        { type: "expected", description: "เอกสารทั้ง 50 รายการถูก approve และลบออกจาก queue" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -416,13 +416,13 @@ hodTest.describe("My Approvals — Delegation — Feature pending", () => {
     "TC-MA-060001 Happy Path - Delegate Approval Authority",
     {
       annotation: [
-        { type: "preconditions", description: "User has approver role; anticipates absence; potential delegate exists with equal or higher approval authority" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ approver; คาดว่าจะไม่อยู่; มีผู้แทนที่มี approval authority เท่าหรือสูงกว่า" },
         {
           type: "steps",
           description:
-            "1. Navigate to /my-approvals\n2. Click 'Manage Delegations'\n3. Click 'New Delegation'\n4. Fill Delegate User with Sarah Johnson\n5. Set Start Date: 2025-12-15, Start Time: 00:00\n6. Set End Date: 2025-12-22, End Time: 23:59\n7. Set Delegation Scope: All Documents\n8. Set Maximum Amount Limit: $50,000\n9. Enter Delegation Reason: Annual leave - will be out of office\n10. Add Notes: Contact me via email only for emergencies\n11. Click 'Create Delegation'",
+            "1. ไปที่ /my-approvals\n2. กด 'Manage Delegations'\n3. กด 'New Delegation'\n4. กรอก Delegate User เป็น Sarah Johnson\n5. ตั้ง Start Date: 2025-12-15, Start Time: 00:00\n6. ตั้ง End Date: 2025-12-22, End Time: 23:59\n7. ตั้ง Delegation Scope: All Documents\n8. ตั้ง Maximum Amount Limit: $50,000\n9. กรอก Delegation Reason: Annual leave - will be out of office\n10. เพิ่ม Notes: Contact me via email only for emergencies\n11. กด 'Create Delegation'",
         },
-        { type: "expected", description: "Delegation created successfully, user navigated to delegation details page." },
+        { type: "expected", description: "สร้าง delegation สำเร็จ, ผู้ใช้ถูกนำทางไปยังหน้ารายละเอียด delegation" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -435,13 +435,13 @@ hodTest.describe("My Approvals — Delegation — Feature pending", () => {
     "TC-MA-060002 Negative - Delegate User with Lower Approval Authority",
     {
       annotation: [
-        { type: "preconditions", description: "User has approver role; potential delegate exists with lower approval authority" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ approver; มีผู้แทนที่มี approval authority ต่ำกว่า" },
         {
           type: "steps",
           description:
-            "1. Navigate to /my-approvals\n2. Click 'Manage Delegations'\n3. Click 'New Delegation'\n4. Fill Delegate User with Sarah Johnson\n5. Set Start Date: 2025-12-15, Start Time: 00:00\n6. Set End Date: 2025-12-22, End Time: 23:59\n7. Set Delegation Scope: All Documents\n8. Set Maximum Amount Limit: $50,000\n9. Enter Delegation Reason: Annual leave - will be out of office\n10. Click 'Create Delegation'",
+            "1. ไปที่ /my-approvals\n2. กด 'Manage Delegations'\n3. กด 'New Delegation'\n4. กรอก Delegate User เป็น Sarah Johnson\n5. ตั้ง Start Date: 2025-12-15, Start Time: 00:00\n6. ตั้ง End Date: 2025-12-22, End Time: 23:59\n7. ตั้ง Delegation Scope: All Documents\n8. ตั้ง Maximum Amount Limit: $50,000\n9. กรอก Delegation Reason: Annual leave - will be out of office\n10. กด 'Create Delegation'",
         },
-        { type: "expected", description: "System validation fails, delegation creation is not allowed." },
+        { type: "expected", description: "การ validate ของระบบล้มเหลว, ไม่อนุญาตให้สร้าง delegation" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },
@@ -454,13 +454,13 @@ hodTest.describe("My Approvals — Delegation — Feature pending", () => {
     "TC-MA-060003 Edge Case - Self Delegation",
     {
       annotation: [
-        { type: "preconditions", description: "User has approver role; anticipates absence" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ approver; คาดว่าจะไม่อยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /my-approvals\n2. Click 'Manage Delegations'\n3. Click 'New Delegation'\n4. Fill Delegate User with John Smith (the user's own name)\n5. Set Start Date: 2025-12-15, Start Time: 00:00\n6. Set End Date: 2025-12-22, End Time: 23:59\n7. Set Delegation Scope: All Documents\n8. Set Maximum Amount Limit: $50,000\n9. Enter Delegation Reason: Annual leave - will be out of office\n10. Click 'Create Delegation'",
+            "1. ไปที่ /my-approvals\n2. กด 'Manage Delegations'\n3. กด 'New Delegation'\n4. กรอก Delegate User เป็น John Smith (ชื่อผู้ใช้เอง)\n5. ตั้ง Start Date: 2025-12-15, Start Time: 00:00\n6. ตั้ง End Date: 2025-12-22, End Time: 23:59\n7. ตั้ง Delegation Scope: All Documents\n8. ตั้ง Maximum Amount Limit: $50,000\n9. กรอก Delegation Reason: Annual leave - will be out of office\n10. กด 'Create Delegation'",
         },
-        { type: "expected", description: "System validation fails, self-delegation is not allowed." },
+        { type: "expected", description: "การ validate ของระบบล้มเหลว, ไม่อนุญาตให้ delegate ให้ตัวเอง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_NOT_IMPLEMENTED },

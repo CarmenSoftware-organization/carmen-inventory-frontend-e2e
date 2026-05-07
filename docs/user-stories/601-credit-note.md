@@ -147,16 +147,16 @@ _Generated from `tests/601-credit-note.spec.ts` annotations. Edit annotations, n
 
 **Preconditions**
 
-User is authenticated and has permission to view credit notes
+ผู้ใช้ได้รับการยืนยันตัวตนและมีสิทธิ์ดู credit notes
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Verify the list of credit notes is displayed.
+1. ไปที่ /procurement/credit-note
+2. ตรวจสอบว่า list ของ credit notes แสดงผล
 
 **Expected**
 
-User sees the complete list of credit notes.
+ผู้ใช้เห็น list ของ credit notes ทั้งหมด
 
 ---
 
@@ -169,19 +169,19 @@ User sees the complete list of credit notes.
 
 **Preconditions**
 
-User has permission to view credit notes
+ผู้ใช้มีสิทธิ์ดู credit notes
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Filter' button
-3. Select 'Open' status from the dropdown
-4. Click 'Apply Filter' button
-5. Verify the filtered list only shows open credit notes
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Filter'
+3. เลือกสถานะ 'Open' จาก dropdown
+4. กดปุ่ม 'Apply Filter'
+5. ตรวจสอบว่า list ที่กรองแสดงเฉพาะ credit notes สถานะ open
 
 **Expected**
 
-User sees a filtered list of credit notes with only open status.
+ผู้ใช้เห็น list ของ credit notes ที่กรองแล้ว เฉพาะสถานะ open
 
 ---
 
@@ -194,19 +194,19 @@ User sees a filtered list of credit notes with only open status.
 
 **Preconditions**
 
-User has permission to view credit notes; vendor with credit notes exists
+ผู้ใช้มีสิทธิ์ดู credit notes; vendor ที่มี credit notes อยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Filter' button
-3. Enter vendor name in the 'Vendor' field
-4. Click 'Apply Filter' button
-5. Verify the filtered list only shows credit notes for the selected vendor
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Filter'
+3. กรอกชื่อ vendor ในช่อง 'Vendor'
+4. กดปุ่ม 'Apply Filter'
+5. ตรวจสอบว่า list ที่กรองแสดงเฉพาะ credit notes ของ vendor ที่เลือก
 
 **Expected**
 
-User sees a filtered list of credit notes for the selected vendor.
+ผู้ใช้เห็น list ของ credit notes ที่กรองแล้วสำหรับ vendor ที่เลือก
 
 ---
 
@@ -219,19 +219,19 @@ User sees a filtered list of credit notes for the selected vendor.
 
 **Preconditions**
 
-User has permission to view credit notes
+ผู้ใช้มีสิทธิ์ดู credit notes
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Filter' button
-3. Enter invalid input in the 'Status' field
-4. Click 'Apply Filter' button
-5. Verify the list remains unfiltered
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Filter'
+3. กรอก input ที่ไม่ถูกต้องในช่อง 'Status'
+4. กดปุ่ม 'Apply Filter'
+5. ตรวจสอบว่า list ยังคงไม่ถูกกรอง
 
 **Expected**
 
-User sees an error message or the list remains unfiltered.
+ผู้ใช้เห็น error message หรือ list ยังคงไม่ถูกกรอง
 
 ---
 
@@ -244,16 +244,16 @@ User sees an error message or the list remains unfiltered.
 
 **Preconditions**
 
-User has permission to view credit notes; credit note data does not exist in the system
+ผู้ใช้มีสิทธิ์ดู credit notes; ไม่มีข้อมูล credit note อยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Verify the list is empty
+1. ไปที่ /procurement/credit-note
+2. ตรวจสอบว่า list ว่างเปล่า
 
 **Expected**
 
-User sees an empty list.
+ผู้ใช้เห็น list ว่างเปล่า
 
 ---
 
@@ -266,21 +266,21 @@ User sees an empty list.
 
 **Preconditions**
 
-User has purchasing/receiving role; at least one posted GRN exists for the vendor; vendor and product master data are correct
+ผู้ใช้มี role purchasing/receiving; มี GRN ที่ posted แล้วอย่างน้อยหนึ่งรายการสำหรับ vendor; ข้อมูล master ของ vendor และ product ถูกต้อง
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Select the vendor
-4. Choose a GRN from the list
-5. Select items with specific lot numbers
-6. Record return quantities with correct inventory cost calculations
-7. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. เลือก vendor
+4. เลือก GRN จาก list
+5. เลือก items พร้อม lot numbers ที่ระบุ
+6. บันทึกจำนวนที่คืนพร้อมการคำนวณต้นทุนสินค้าคงคลังที่ถูกต้อง
+7. กด 'Save'
 
 **Expected**
 
-Quantity-based credit note is created successfully with correct details and inventory cost calculations.
+สร้าง credit note แบบ quantity-based สำเร็จ พร้อมรายละเอียดและการคำนวณต้นทุนสินค้าคงคลังที่ถูกต้อง
 
 ---
 
@@ -293,21 +293,21 @@ Quantity-based credit note is created successfully with correct details and inve
 
 **Preconditions**
 
-User has purchasing/receiving role; no posted GRN exists for the vendor
+ผู้ใช้มี role purchasing/receiving; ไม่มี GRN ที่ posted แล้วสำหรับ vendor
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Select an invalid vendor
-4. Choose a GRN from the list
-5. Select items with specific lot numbers
-6. Record return quantities
-7. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. เลือก vendor ที่ไม่ถูกต้อง
+4. เลือก GRN จาก list
+5. เลือก items พร้อม lot numbers ที่ระบุ
+6. บันทึกจำนวนที่คืน
+7. กด 'Save'
 
 **Expected**
 
-The system displays an error message indicating that no posted GRN exists for the selected vendor.
+ระบบแสดง error message ว่าไม่มี GRN ที่ posted แล้วสำหรับ vendor ที่เลือก
 
 ---
 
@@ -320,21 +320,21 @@ The system displays an error message indicating that no posted GRN exists for th
 
 **Preconditions**
 
-User has purchasing/receiving role; at least one posted GRN exists for the vendor
+ผู้ใช้มี role purchasing/receiving; มี GRN ที่ posted แล้วอย่างน้อยหนึ่งรายการสำหรับ vendor
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Select the vendor
-4. Do not choose any GRN
-5. Select items with specific lot numbers
-6. Record return quantities
-7. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. เลือก vendor
+4. ไม่เลือก GRN ใดๆ
+5. เลือก items พร้อม lot numbers ที่ระบุ
+6. บันทึกจำนวนที่คืน
+7. กด 'Save'
 
 **Expected**
 
-The system displays an error message indicating that a GRN must be selected.
+ระบบแสดง error message ว่าต้องเลือก GRN
 
 ---
 
@@ -347,21 +347,21 @@ The system displays an error message indicating that a GRN must be selected.
 
 **Preconditions**
 
-User has purchasing/receiving role; at least one posted GRN exists for the vendor
+ผู้ใช้มี role purchasing/receiving; มี GRN ที่ posted แล้วอย่างน้อยหนึ่งรายการสำหรับ vendor
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Select the vendor
-4. Choose a GRN from the list
-5. Select items with specific lot numbers
-6. Record a return quantity greater than the available quantity in the GRN
-7. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. เลือก vendor
+4. เลือก GRN จาก list
+5. เลือก items พร้อม lot numbers ที่ระบุ
+6. บันทึกจำนวนคืนที่มากกว่าจำนวนที่มีอยู่ใน GRN
+7. กด 'Save'
 
 **Expected**
 
-The system displays an error message indicating that the return quantity exceeds the available quantity in the GRN.
+ระบบแสดง error message ว่าจำนวนคืนเกินกว่าจำนวนที่มีอยู่ใน GRN
 
 ---
 
@@ -374,21 +374,21 @@ The system displays an error message indicating that the return quantity exceeds
 
 **Preconditions**
 
-User has purchasing/receiving role; at least one posted GRN exists for the vendor
+ผู้ใช้มี role purchasing/receiving; มี GRN ที่ posted แล้วอย่างน้อยหนึ่งรายการสำหรับ vendor
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Select the vendor
-4. Choose a GRN from the list
-5. Select items with empty lot numbers
-6. Record return quantities
-7. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. เลือก vendor
+4. เลือก GRN จาก list
+5. เลือก items ที่มี lot numbers ว่างเปล่า
+6. บันทึกจำนวนคืน
+7. กด 'Save'
 
 **Expected**
 
-The system displays an error message indicating that lot numbers cannot be empty.
+ระบบแสดง error message ว่า lot numbers ต้องไม่ว่างเปล่า
 
 ---
 
@@ -401,21 +401,21 @@ The system displays an error message indicating that lot numbers cannot be empty
 
 **Preconditions**
 
-User has purchasing role; no vendor exists in system; GRN reference exists
+ผู้ใช้มี role purchasing; ไม่มี vendor อยู่ในระบบ; มี GRN reference อยู่
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Skip 'Vendor' field
-4. Fill 'GRN Reference' field (optional)
-5. Fill 'Credit Note Amount' field
-6. Fill 'Reason' field
-7. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. ข้ามช่อง 'Vendor'
+4. กรอกช่อง 'GRN Reference' (optional)
+5. กรอกช่อง 'Credit Note Amount'
+6. กรอกช่อง 'Reason'
+7. กด 'Save'
 
 **Expected**
 
-System displays error message prompting user to select a vendor.
+ระบบแสดง error message แจ้งให้ผู้ใช้เลือก vendor
 
 ---
 
@@ -428,21 +428,21 @@ System displays error message prompting user to select a vendor.
 
 **Preconditions**
 
-User has purchasing role; vendor exists; no GRN reference exists
+ผู้ใช้มี role purchasing; vendor มีอยู่; ไม่มี GRN reference
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Fill 'Vendor' field
-4. Skip 'GRN Reference' field (optional)
-5. Fill 'Credit Note Amount' field
-6. Fill 'Reason' field
-7. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. กรอกช่อง 'Vendor'
+4. ข้ามช่อง 'GRN Reference' (optional)
+5. กรอกช่อง 'Credit Note Amount'
+6. กรอกช่อง 'Reason'
+7. กด 'Save'
 
 **Expected**
 
-Credit note created in draft status without a GRN reference.
+สร้าง credit note สถานะ draft สำเร็จโดยไม่มี GRN reference
 
 ---
 
@@ -455,16 +455,16 @@ Credit note created in draft status without a GRN reference.
 
 **Preconditions**
 
-User has permission to view credit notes; a credit note exists in the system
+ผู้ใช้มีสิทธิ์ดู credit notes; มี credit note อยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on an existing credit note
+1. ไปที่ /procurement/credit-note
+2. คลิก credit note ที่มีอยู่
 
 **Expected**
 
-User sees complete credit note details including header information, items, lot applications, journal entries, stock movements, and tax calculations.
+ผู้ใช้เห็นรายละเอียด credit note ครบถ้วน ได้แก่ ข้อมูล header, items, lot applications, journal entries, stock movements, และการคำนวณภาษี
 
 ---
 
@@ -477,16 +477,16 @@ User sees complete credit note details including header information, items, lot 
 
 **Preconditions**
 
-User has permission to view credit notes
+ผู้ใช้มีสิทธิ์ดู credit notes
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on a non-existent credit note
+1. ไปที่ /procurement/credit-note
+2. คลิก credit note ที่ไม่มีอยู่
 
 **Expected**
 
-System displays an error message indicating that the credit note does not exist.
+ระบบแสดง error message ว่า credit note ไม่มีอยู่
 
 ---
 
@@ -499,16 +499,16 @@ System displays an error message indicating that the credit note does not exist.
 
 **Preconditions**
 
-User is authenticated but does not have permission to view credit notes
+ผู้ใช้ได้รับการยืนยันตัวตนแต่ไม่มีสิทธิ์ดู credit notes
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on a credit note
+1. ไปที่ /procurement/credit-note
+2. คลิก credit note
 
 **Expected**
 
-System displays an error message indicating that the user does not have permission to view credit notes.
+ระบบแสดง error message ว่าผู้ใช้ไม่มีสิทธิ์ดู credit notes
 
 ---
 
@@ -521,16 +521,16 @@ System displays an error message indicating that the user does not have permissi
 
 **Preconditions**
 
-User has permission to view credit notes; a credit note with a large number of items exists
+ผู้ใช้มีสิทธิ์ดู credit notes; มี credit note ที่มีจำนวน items มากอยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on a credit note with a large number of items
+1. ไปที่ /procurement/credit-note
+2. คลิก credit note ที่มีจำนวน items มาก
 
 **Expected**
 
-User sees complete credit note details without any performance issues.
+ผู้ใช้เห็นรายละเอียด credit note ครบถ้วนโดยไม่มีปัญหาด้าน performance
 
 ---
 
@@ -543,19 +543,19 @@ User sees complete credit note details without any performance issues.
 
 **Preconditions**
 
-User has purchasing role; credit note exists with status DRAFT; user has permission to edit
+ผู้ใช้มี role purchasing; มี credit note สถานะ DRAFT; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Edit' on the draft credit note
-3. Fill 'Reason' field with 'Return of goods'
-4. Fill 'Total Amount' field with '1200.00'
-5. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'Edit' บน draft credit note
+3. กรอกช่อง 'Reason' ด้วย 'Return of goods'
+4. กรอกช่อง 'Total Amount' ด้วย '1200.00'
+5. กด 'Save'
 
 **Expected**
 
-Credit note is updated with new values and remains in DRAFT status.
+Credit note ถูกอัปเดตด้วยค่าใหม่และยังคงสถานะ DRAFT
 
 ---
 
@@ -568,18 +568,18 @@ Credit note is updated with new values and remains in DRAFT status.
 
 **Preconditions**
 
-User has purchasing role; credit note exists with status DRAFT; user has permission to edit
+ผู้ใช้มี role purchasing; มี credit note สถานะ DRAFT; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Edit' on the draft credit note
-3. Fill 'Total Amount' field with 'invalid amount'
-4. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'Edit' บน draft credit note
+3. กรอกช่อง 'Total Amount' ด้วย 'invalid amount'
+4. กด 'Save'
 
 **Expected**
 
-Error message displayed, credit note remains unchanged and in DRAFT status.
+แสดง error message, credit note ไม่เปลี่ยนแปลงและยังคงสถานะ DRAFT
 
 ---
 
@@ -592,17 +592,17 @@ Error message displayed, credit note remains unchanged and in DRAFT status.
 
 **Preconditions**
 
-User has receiving role; credit note exists with status DRAFT; user does not have permission to edit
+ผู้ใช้มี role receiving; มี credit note สถานะ DRAFT; ผู้ใช้ไม่มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Attempt to click 'Edit' on the draft credit note
-3. Verify error message is displayed
+1. ไปที่ /procurement/credit-note
+2. พยายามกด 'Edit' บน draft credit note
+3. ตรวจสอบว่า error message แสดงขึ้น
 
 **Expected**
 
-User is unable to edit the credit note and receives an error message.
+ผู้ใช้ไม่สามารถแก้ไข credit note และได้รับ error message
 
 ---
 
@@ -615,18 +615,18 @@ User is unable to edit the credit note and receives an error message.
 
 **Preconditions**
 
-User has purchasing role; credit note exists with status DRAFT; user has permission to edit; credit note has no items added
+ผู้ใช้มี role purchasing; มี credit note สถานะ DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; ยังไม่มี items เพิ่มใน credit note
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Edit' on the draft credit note
-3. Verify there are no items to edit
-4. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'Edit' บน draft credit note
+3. ตรวจสอบว่าไม่มี items ให้แก้ไข
+4. กด 'Save'
 
 **Expected**
 
-Credit note remains unchanged and in DRAFT status.
+Credit note ไม่เปลี่ยนแปลงและยังคงสถานะ DRAFT
 
 ---
 
@@ -639,20 +639,20 @@ Credit note remains unchanged and in DRAFT status.
 
 **Preconditions**
 
-Credit note exists in DRAFT status; inventory lots exist for items being returned; user has edit permission
+มี credit note สถานะ DRAFT; มี inventory lots สำหรับ items ที่คืน; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Add Item'
-3. Select item from dropdown
-4. Choose valid lot from dropdown
-5. Enter return quantity
-6. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'Add Item'
+3. เลือก item จาก dropdown
+4. เลือก lot ที่ถูกต้องจาก dropdown
+5. กรอกจำนวนคืน
+6. กด 'Save'
 
 **Expected**
 
-Credit note item is added with correct lot selection and return quantity.
+เพิ่ม item ใน credit note สำเร็จพร้อม lot selection และจำนวนคืนที่ถูกต้อง
 
 ---
 
@@ -665,17 +665,17 @@ Credit note item is added with correct lot selection and return quantity.
 
 **Preconditions**
 
-Credit note exists in DRAFT status; inventory lots exist; user has edit permission
+มี credit note สถานะ DRAFT; มี inventory lots; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Select item from list
-3. Click 'Remove Item'
+1. ไปที่ /procurement/credit-note
+2. เลือก item จาก list
+3. กด 'Remove Item'
 
 **Expected**
 
-Selected credit note item is removed, lot selection and return quantity are cleared.
+ลบ item ที่เลือกออกจาก credit note สำเร็จ, lot selection และจำนวนคืนถูกล้าง
 
 ---
 
@@ -688,17 +688,17 @@ Selected credit note item is removed, lot selection and return quantity are clea
 
 **Preconditions**
 
-Credit note exists in DRAFT status; user has edit permission
+มี credit note สถานะ DRAFT; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Add item without selecting lot
-3. Attempt to save
+1. ไปที่ /procurement/credit-note
+2. เพิ่ม item โดยไม่เลือก lot
+3. พยายาม save
 
 **Expected**
 
-Error message displayed indicating lot selection is required.
+แสดง error message ว่าต้องเลือก lot
 
 ---
 
@@ -711,16 +711,16 @@ Error message displayed indicating lot selection is required.
 
 **Preconditions**
 
-Credit note exists in DRAFT status; inventory lots exist for items being returned
+มี credit note สถานะ DRAFT; มี inventory lots สำหรับ items ที่คืน
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Try to add, modify, or remove credit note item
+1. ไปที่ /procurement/credit-note
+2. พยายามเพิ่ม, แก้ไข, หรือลบ item ใน credit note
 
 **Expected**
 
-Access denied message is displayed.
+แสดง access denied message
 
 ---
 
@@ -733,18 +733,18 @@ Access denied message is displayed.
 
 **Preconditions**
 
-A credit note exists with quantity-based items; inventory lots have been selected; cost calculations have been completed
+มี credit note ที่มี items แบบ quantity-based; เลือก inventory lots แล้ว; การคำนวณต้นทุนเสร็จสิ้นแล้ว
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Credit Notes' tab
-3. Select a credit note with quantity-based items
-4. Click 'View Details'
+1. ไปที่ /procurement/credit-note
+2. คลิก tab 'Credit Notes'
+3. เลือก credit note ที่มี items แบบ quantity-based
+4. กด 'View Details'
 
 **Expected**
 
-Detailed inventory costing calculations, including weighted average costs, cost variances, and realized gains/losses for the selected credit note are displayed.
+แสดงรายละเอียดการคำนวณต้นทุนสินค้าคงคลัง รวมถึง weighted average costs, cost variances, และ realized gains/losses สำหรับ credit note ที่เลือก
 
 ---
 
@@ -757,18 +757,18 @@ Detailed inventory costing calculations, including weighted average costs, cost 
 
 **Preconditions**
 
-A credit note exists with quantity-based items; user does not have permission to view cost data
+มี credit note ที่มี items แบบ quantity-based; ผู้ใช้ไม่มีสิทธิ์ดูข้อมูลต้นทุน
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Credit Notes' tab
-3. Attempt to select a credit note with quantity-based items
-4. Click 'View Details'
+1. ไปที่ /procurement/credit-note
+2. คลิก tab 'Credit Notes'
+3. พยายามเลือก credit note ที่มี items แบบ quantity-based
+4. กด 'View Details'
 
 **Expected**
 
-A permission error message is displayed, preventing the user from accessing the cost analysis details.
+แสดง permission error message ป้องกันผู้ใช้ไม่ให้เข้าถึงรายละเอียดการวิเคราะห์ต้นทุน
 
 ---
 
@@ -781,18 +781,18 @@ A permission error message is displayed, preventing the user from accessing the 
 
 **Preconditions**
 
-No credit note exists with quantity-based items
+ไม่มี credit note ที่มี items แบบ quantity-based
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Credit Notes' tab
-3. Attempt to select a credit note with quantity-based items
-4. Click 'View Details'
+1. ไปที่ /procurement/credit-note
+2. คลิก tab 'Credit Notes'
+3. พยายามเลือก credit note ที่มี items แบบ quantity-based
+4. กด 'View Details'
 
 **Expected**
 
-A message indicating that no credit notes with quantity-based items are available is displayed.
+แสดง message ว่าไม่มี credit notes ที่มี items แบบ quantity-based
 
 ---
 
@@ -805,19 +805,19 @@ A message indicating that no credit notes with quantity-based items are availabl
 
 **Preconditions**
 
-User has a credit note creation or editing session and is logged in as a purchasing staff
+ผู้ใช้กำลังสร้างหรือแก้ไข credit note และ Login เป็น purchasing staff
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'New Credit Note' button
-3. Select a credit reason from the dropdown
-4. Fill in the description field
-5. Click 'Save' button
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'New Credit Note'
+3. เลือก credit reason จาก dropdown
+4. กรอกช่อง description
+5. กดปุ่ม 'Save'
 
 **Expected**
 
-Credit reason and description are saved successfully with the credit note.
+บันทึก credit reason และ description พร้อม credit note สำเร็จ
 
 ---
 
@@ -830,19 +830,19 @@ Credit reason and description are saved successfully with the credit note.
 
 **Preconditions**
 
-User has a credit note creation session and is logged in as a purchasing staff
+ผู้ใช้กำลังสร้าง credit note และ Login เป็น purchasing staff
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'New Credit Note' button
-3. Skip selecting a credit reason
-4. Fill in the description field
-5. Click 'Save' button
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'New Credit Note'
+3. ข้ามการเลือก credit reason
+4. กรอกช่อง description
+5. กดปุ่ม 'Save'
 
 **Expected**
 
-Validation error is displayed prompting the selection of a credit reason.
+แสดง validation error แจ้งให้เลือก credit reason
 
 ---
 
@@ -855,19 +855,19 @@ Validation error is displayed prompting the selection of a credit reason.
 
 **Preconditions**
 
-User has a credit note creation session and is logged in as a purchasing staff
+ผู้ใช้กำลังสร้าง credit note และ Login เป็น purchasing staff
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'New Credit Note' button
-3. Select a credit reason from the dropdown
-4. Fill in the description field with the maximum allowed character limit
-5. Click 'Save' button
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'New Credit Note'
+3. เลือก credit reason จาก dropdown
+4. กรอกช่อง description ด้วยตัวอักษรจนถึงขีดจำกัดสูงสุด
+5. กดปุ่ม 'Save'
 
 **Expected**
 
-Credit reason and description are saved successfully with the credit note.
+บันทึก credit reason และ description พร้อม credit note สำเร็จ
 
 ---
 
@@ -880,20 +880,20 @@ Credit reason and description are saved successfully with the credit note.
 
 **Preconditions**
 
-A credit note exists in the system and the user has permission to add comments/attachments
+มี credit note อยู่ในระบบและผู้ใช้มีสิทธิ์เพิ่ม comments/attachments
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Add Comment' button
-3. Fill 'Comment' field with 'Initial review complete'
-4. Click 'Upload Document' button
-5. Select a valid document file
-6. Click 'Save' button
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Add Comment'
+3. กรอกช่อง 'Comment' ด้วย 'Initial review complete'
+4. กดปุ่ม 'Upload Document'
+5. เลือกไฟล์เอกสารที่ถูกต้อง
+6. กดปุ่ม 'Save'
 
 **Expected**
 
-Comments and attachments are saved with the credit note. The comment and document are visible to authorized users.
+บันทึก comments และ attachments พร้อม credit note สำเร็จ comment และเอกสาร visible สำหรับผู้ใช้ที่มีสิทธิ์
 
 ---
 
@@ -906,16 +906,16 @@ Comments and attachments are saved with the credit note. The comment and documen
 
 **Preconditions**
 
-A credit note exists in the system but the user does not have permission to add comments/attachments
+มี credit note อยู่ในระบบแต่ผู้ใช้ไม่มีสิทธิ์เพิ่ม comments/attachments
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Add Comment' button
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Add Comment'
 
 **Expected**
 
-User is unable to add comments or attachments. Error message displayed indicating insufficient permissions.
+ผู้ใช้ไม่สามารถเพิ่ม comments หรือ attachments แสดง error message ว่าไม่มีสิทธิ์เพียงพอ
 
 ---
 
@@ -928,18 +928,18 @@ User is unable to add comments or attachments. Error message displayed indicatin
 
 **Preconditions**
 
-A credit note exists; user has permission to add comments/attachments
+มี credit note; ผู้ใช้มีสิทธิ์เพิ่ม comments/attachments
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Upload Document' button
-3. Select an invalid file type (e.g., .exe, .jpg)
-4. Click 'Save' button
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Upload Document'
+3. เลือกไฟล์ประเภทที่ไม่ถูกต้อง (เช่น .exe, .jpg)
+4. กดปุ่ม 'Save'
 
 **Expected**
 
-System rejects the invalid file type. Error message displayed indicating that only specific file types are allowed.
+ระบบปฏิเสธประเภทไฟล์ที่ไม่ถูกต้อง แสดง error message ว่าอนุญาตเฉพาะประเภทไฟล์ที่กำหนดเท่านั้น
 
 ---
 
@@ -952,20 +952,20 @@ System rejects the invalid file type. Error message displayed indicating that on
 
 **Preconditions**
 
-A credit note exists; user has permission to add comments/attachments
+มี credit note; ผู้ใช้มีสิทธิ์เพิ่ม comments/attachments
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Upload Document' button
-3. Select a valid document file 1
-4. Click 'Upload Document' button again
-5. Select a valid document file 2
-6. Click 'Save' button
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Upload Document'
+3. เลือกไฟล์เอกสารที่ถูกต้อง 1
+4. กดปุ่ม 'Upload Document' อีกครั้ง
+5. เลือกไฟล์เอกสารที่ถูกต้อง 2
+6. กดปุ่ม 'Save'
 
 **Expected**
 
-Both documents are saved with the credit note. Both documents are visible to authorized users.
+บันทึกเอกสารทั้งสองพร้อม credit note สำเร็จ เอกสารทั้งสอง visible สำหรับผู้ใช้ที่มีสิทธิ์
 
 ---
 
@@ -978,16 +978,16 @@ Both documents are saved with the credit note. Both documents are visible to aut
 
 **Preconditions**
 
-No credit note exists in the system
+ไม่มี credit note อยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Add Comment' button
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Add Comment'
 
 **Expected**
 
-User is redirected to the credit note creation page or an error message is displayed indicating that no credit note exists.
+ผู้ใช้ถูก redirect ไปหน้าสร้าง credit note หรือแสดง error message ว่าไม่มี credit note
 
 ---
 
@@ -1000,19 +1000,19 @@ User is redirected to the credit note creation page or an error message is displ
 
 **Preconditions**
 
-User has commit permission; credit note exists in DRAFT status; accounting period is open for transaction date
+ผู้ใช้มีสิทธิ์ commit; มี credit note สถานะ DRAFT; accounting period เปิดอยู่สำหรับวันที่ทำรายการ
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Commit' button next to draft credit note
-3. Verify confirmation dialog
-4. Click 'Commit' in dialog
-5. Wait for system to process
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Commit' ข้าง draft credit note
+3. ตรวจสอบ confirmation dialog
+4. กด 'Commit' ใน dialog
+5. รอให้ระบบประมวลผล
 
 **Expected**
 
-Credit note status changed to COMMITTED, journal entries generated, inventory updated, vendor payables adjusted.
+สถานะ credit note เปลี่ยนเป็น COMMITTED, สร้าง journal entries, อัปเดต inventory, ปรับ vendor payables
 
 ---
 
@@ -1025,17 +1025,17 @@ Credit note status changed to COMMITTED, journal entries generated, inventory up
 
 **Preconditions**
 
-User does not have commit permission; credit note exists in DRAFT status
+ผู้ใช้ไม่มีสิทธิ์ commit; มี credit note สถานะ DRAFT
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Commit' button next to draft credit note
-3. Verify error message
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Commit' ข้าง draft credit note
+3. ตรวจสอบ error message
 
 **Expected**
 
-User receives 'Insufficient permission' error message.
+ผู้ใช้ได้รับ error message 'Insufficient permission'
 
 ---
 
@@ -1048,17 +1048,17 @@ User receives 'Insufficient permission' error message.
 
 **Preconditions**
 
-Credit note does not exist in DRAFT status; user has commit permission; accounting period is open for transaction date
+ไม่มี credit note สถานะ DRAFT; ผู้ใช้มีสิทธิ์ commit; accounting period เปิดอยู่สำหรับวันที่ทำรายการ
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Commit' button next to credit note in non-DRAFT status
-3. Verify error message
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Commit' ข้าง credit note ที่ไม่ใช่สถานะ DRAFT
+3. ตรวจสอบ error message
 
 **Expected**
 
-User receives 'Invalid credit note status' error message.
+ผู้ใช้ได้รับ error message 'Invalid credit note status'
 
 ---
 
@@ -1071,17 +1071,17 @@ User receives 'Invalid credit note status' error message.
 
 **Preconditions**
 
-Credit note exists in DRAFT status; user has commit permission; accounting period is closed for transaction date
+มี credit note สถานะ DRAFT; ผู้ใช้มีสิทธิ์ commit; accounting period ปิดแล้วสำหรับวันที่ทำรายการ
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Commit' button next to draft credit note
-3. Verify error message
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Commit' ข้าง draft credit note
+3. ตรวจสอบ error message
 
 **Expected**
 
-User receives 'Accounting period is closed' error message.
+ผู้ใช้ได้รับ error message 'Accounting period is closed'
 
 ---
 
@@ -1094,17 +1094,17 @@ User receives 'Accounting period is closed' error message.
 
 **Preconditions**
 
-Credit note exists in DRAFT status; user has commit permission; transaction date is outside allowed range
+มี credit note สถานะ DRAFT; ผู้ใช้มีสิทธิ์ commit; วันที่ทำรายการอยู่นอกช่วงที่อนุญาต
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Commit' button next to draft credit note
-3. Verify error message
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Commit' ข้าง draft credit note
+3. ตรวจสอบ error message
 
 **Expected**
 
-User receives 'Transaction date out of range' error message.
+ผู้ใช้ได้รับ error message 'Transaction date out of range'
 
 ---
 
@@ -1117,19 +1117,19 @@ User receives 'Transaction date out of range' error message.
 
 **Preconditions**
 
-A committed credit note exists and the user has the necessary permission
+มี committed credit note และผู้ใช้มีสิทธิ์ที่จำเป็น
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Committed' status filter
-3. Select a committed credit note
-4. Click 'Void' button
-5. Confirm void action
+1. ไปที่ /procurement/credit-note
+2. คลิก filter สถานะ 'Committed'
+3. เลือก committed credit note
+4. กดปุ่ม 'Void'
+5. ยืนยันการ void
 
 **Expected**
 
-The credit note status changes to 'VOID' and reversing journal entries are created.
+สถานะ credit note เปลี่ยนเป็น 'VOID' และสร้าง reversing journal entries
 
 ---
 
@@ -1142,18 +1142,18 @@ The credit note status changes to 'VOID' and reversing journal entries are creat
 
 **Preconditions**
 
-A committed credit note exists but the user does not have the necessary permission
+มี committed credit note แต่ผู้ใช้ไม่มีสิทธิ์ที่จำเป็น
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Committed' status filter
-3. Select a committed credit note
-4. Attempt to click 'Void' button
+1. ไปที่ /procurement/credit-note
+2. คลิก filter สถานะ 'Committed'
+3. เลือก committed credit note
+4. พยายามกดปุ่ม 'Void'
 
 **Expected**
 
-User receives an error message indicating they do not have permission to void the credit note.
+ผู้ใช้ได้รับ error message ว่าไม่มีสิทธิ์ void credit note
 
 ---
 
@@ -1166,17 +1166,17 @@ User receives an error message indicating they do not have permission to void th
 
 **Preconditions**
 
-An invalid credit note exists in committed status (e.g., non-existent ID)
+มี credit note ที่ไม่ถูกต้องในสถานะ committed (เช่น ID ที่ไม่มีอยู่)
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Enter an invalid credit note ID
-3. Click on 'Void' button
+1. ไปที่ /procurement/credit-note
+2. กรอก credit note ID ที่ไม่ถูกต้อง
+3. กดปุ่ม 'Void'
 
 **Expected**
 
-An error message is displayed indicating that the credit note could not be found.
+แสดง error message ว่าไม่พบ credit note
 
 ---
 
@@ -1189,18 +1189,18 @@ An error message is displayed indicating that the credit note could not be found
 
 **Preconditions**
 
-Accounting period is closed and a committed credit note exists
+Accounting period ปิดแล้วและมี committed credit note
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Committed' status filter
-3. Select a committed credit note
-4. Attempt to click 'Void' button
+1. ไปที่ /procurement/credit-note
+2. คลิก filter สถานะ 'Committed'
+3. เลือก committed credit note
+4. พยายามกดปุ่ม 'Void'
 
 **Expected**
 
-User receives an error message indicating that the accounting period is closed and voiding is not allowed.
+ผู้ใช้ได้รับ error message ว่า accounting period ปิดแล้วและไม่อนุญาตให้ void
 
 ---
 
@@ -1213,18 +1213,18 @@ User receives an error message indicating that the accounting period is closed a
 
 **Preconditions**
 
-Multiple committed credit notes exist and one of them is selected
+มี committed credit notes หลายรายการและเลือกรายการหนึ่งไว้
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Committed' status filter
-3. Select multiple committed credit notes
-4. Click 'Void' button
+1. ไปที่ /procurement/credit-note
+2. คลิก filter สถานะ 'Committed'
+3. เลือก committed credit notes หลายรายการ
+4. กดปุ่ม 'Void'
 
 **Expected**
 
-The system prompts the user to select a single credit note for voiding.
+ระบบแจ้งให้ผู้ใช้เลือก credit note เพียงรายการเดียวสำหรับการ void
 
 ---
 
@@ -1237,20 +1237,20 @@ The system prompts the user to select a single credit note for voiding.
 
 **Preconditions**
 
-Server action context established, database connection available, user authenticated and authorized
+กำหนด server action context แล้ว, database connection พร้อมใช้, ผู้ใช้ได้รับการยืนยันตัวตนและมีสิทธิ์
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Fill 'Credit Note Date'
-4. Fill 'Supplier Name'
-5. Fill 'Amount'
-6. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. กรอก 'Credit Note Date'
+4. กรอก 'Supplier Name'
+5. กรอก 'Amount'
+6. กด 'Save'
 
 **Expected**
 
-Credit note is created successfully with atomic transaction and proper validation
+สร้าง credit note สำเร็จด้วย atomic transaction และ validation ที่ถูกต้อง
 
 ---
 
@@ -1263,16 +1263,16 @@ Credit note is created successfully with atomic transaction and proper validatio
 
 **Preconditions**
 
-Server action context established, database connection available, user not authenticated
+กำหนด server action context แล้ว, database connection พร้อมใช้, ผู้ใช้ยังไม่ได้รับการยืนยันตัวตน
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Attempt to click 'New Credit Note'
+1. ไปที่ /procurement/credit-note
+2. พยายามกด 'New Credit Note'
 
 **Expected**
 
-User is redirected to login page or access is denied
+ผู้ใช้ถูก redirect ไปหน้า login หรือถูกปฏิเสธการเข้าถึง
 
 ---
 
@@ -1285,19 +1285,19 @@ User is redirected to login page or access is denied
 
 **Preconditions**
 
-Server action context established, database connection available, multiple users authenticated and authorized
+กำหนด server action context แล้ว, database connection พร้อมใช้, ผู้ใช้หลายคนได้รับการยืนยันตัวตนและมีสิทธิ์
 
 **Steps**
 
-1. User A navigates to /procurement/credit-note
-2. User A clicks 'New Credit Note'
-3. User B navigates to /procurement/credit-note
-4. User B clicks 'Delete' on the same credit note
-5. User A clicks 'Save'
+1. User A ไปที่ /procurement/credit-note
+2. User A กด 'New Credit Note'
+3. User B ไปที่ /procurement/credit-note
+4. User B กด 'Delete' บน credit note เดียวกัน
+5. User A กด 'Save'
 
 **Expected**
 
-Credit note creation fails due to concurrent deletion, with appropriate error message
+การสร้าง credit note ล้มเหลวเนื่องจากการลบพร้อมกัน พร้อม error message ที่เหมาะสม
 
 ---
 
@@ -1310,18 +1310,18 @@ Credit note creation fails due to concurrent deletion, with appropriate error me
 
 **Preconditions**
 
-User authenticated with purchasing permissions, vendor and GRN data exists in database
+ผู้ใช้ได้รับการยืนยันตัวตนพร้อมสิทธิ์ purchasing, ข้อมูล vendor และ GRN มีอยู่ใน database
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Fetch Vendor and GRN Data'
-3. Select a vendor from the dropdown
-4. Click 'Fetch'
+1. ไปที่ /procurement/credit-note
+2. กด 'Fetch Vendor and GRN Data'
+3. เลือก vendor จาก dropdown
+4. กด 'Fetch'
 
 **Expected**
 
-Vendor and GRN data are successfully fetched and displayed
+ดึงและแสดงข้อมูล vendor และ GRN สำเร็จ
 
 ---
 
@@ -1334,18 +1334,18 @@ Vendor and GRN data are successfully fetched and displayed
 
 **Preconditions**
 
-User authenticated with purchasing permissions, vendor and GRN data exists in database, invalid vendor selected
+ผู้ใช้ได้รับการยืนยันตัวตนพร้อมสิทธิ์ purchasing, ข้อมูล vendor และ GRN มีอยู่ใน database, เลือก vendor ที่ไม่ถูกต้อง
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Fetch Vendor and GRN Data'
-3. Select an invalid vendor from the dropdown
-4. Click 'Fetch'
+1. ไปที่ /procurement/credit-note
+2. กด 'Fetch Vendor and GRN Data'
+3. เลือก vendor ที่ไม่ถูกต้องจาก dropdown
+4. กด 'Fetch'
 
 **Expected**
 
-Error message displayed indicating invalid vendor selection
+แสดง error message ว่าเลือก vendor ไม่ถูกต้อง
 
 ---
 
@@ -1358,18 +1358,18 @@ Error message displayed indicating invalid vendor selection
 
 **Preconditions**
 
-User authenticated with purchasing permissions, no vendor and GRN data exists in database
+ผู้ใช้ได้รับการยืนยันตัวตนพร้อมสิทธิ์ purchasing, ไม่มีข้อมูล vendor และ GRN ใน database
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Fetch Vendor and GRN Data'
-3. Select a vendor from the dropdown
-4. Click 'Fetch'
+1. ไปที่ /procurement/credit-note
+2. กด 'Fetch Vendor and GRN Data'
+3. เลือก vendor จาก dropdown
+4. กด 'Fetch'
 
 **Expected**
 
-No vendor and GRN data are fetched and an appropriate message is displayed
+ไม่พบข้อมูล vendor และ GRN และแสดง message ที่เหมาะสม
 
 ---
 
@@ -1382,18 +1382,18 @@ No vendor and GRN data are fetched and an appropriate message is displayed
 
 **Preconditions**
 
-User authenticated but does not have purchasing permissions, vendor and GRN data exists in database
+ผู้ใช้ได้รับการยืนยันตัวตนแต่ไม่มีสิทธิ์ purchasing, ข้อมูล vendor และ GRN มีอยู่ใน database
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Fetch Vendor and GRN Data'
-3. Select a vendor from the dropdown
-4. Click 'Fetch'
+1. ไปที่ /procurement/credit-note
+2. กด 'Fetch Vendor and GRN Data'
+3. เลือก vendor จาก dropdown
+4. กด 'Fetch'
 
 **Expected**
 
-Access denied message displayed
+แสดง access denied message
 
 ---
 
@@ -1406,18 +1406,18 @@ Access denied message displayed
 
 **Preconditions**
 
-User authenticated with purchasing permissions, multiple vendors and GRN data exists in database
+ผู้ใช้ได้รับการยืนยันตัวตนพร้อมสิทธิ์ purchasing, มีข้อมูล vendors หลายรายการและ GRN ใน database
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Fetch Vendor and GRN Data'
-3. Select multiple vendors from the dropdown
-4. Click 'Fetch'
+1. ไปที่ /procurement/credit-note
+2. กด 'Fetch Vendor and GRN Data'
+3. เลือก vendors หลายรายการจาก dropdown
+4. กด 'Fetch'
 
 **Expected**
 
-Error message displayed indicating multiple vendors cannot be selected
+แสดง error message ว่าไม่สามารถเลือก vendors หลายรายการได้
 
 ---
 
@@ -1430,18 +1430,18 @@ Error message displayed indicating multiple vendors cannot be selected
 
 **Preconditions**
 
-A credit note exists with DRAFT status and accounting period open for document date.
+มี credit note สถานะ DRAFT และ accounting period เปิดอยู่สำหรับวันที่ในเอกสาร
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Execute Commitment' button
-3. Wait for the transaction to complete
-4. Verify that journal entries, stock movements, and vendor balance are updated
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Execute Commitment'
+3. รอให้ transaction เสร็จสิ้น
+4. ตรวจสอบว่า journal entries, stock movements, และ vendor balance ถูกอัปเดต
 
 **Expected**
 
-Transaction executed successfully, journal entries, stock movements, and vendor balance updated as expected
+transaction ดำเนินการสำเร็จ journal entries, stock movements, และ vendor balance อัปเดตตามที่คาดหวัง
 
 ---
 
@@ -1454,17 +1454,17 @@ Transaction executed successfully, journal entries, stock movements, and vendor 
 
 **Preconditions**
 
-No credit note exists with DRAFT status.
+ไม่มี credit note สถานะ DRAFT
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Execute Commitment' button
-3. Observe error message
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Execute Commitment'
+3. ดู error message
 
 **Expected**
 
-Error message displayed indicating no draft credit note exists
+แสดง error message ว่าไม่มี draft credit note
 
 ---
 
@@ -1477,17 +1477,17 @@ Error message displayed indicating no draft credit note exists
 
 **Preconditions**
 
-A credit note exists with DRAFT status, but the accounting period is closed for the document date.
+มี credit note สถานะ DRAFT แต่ accounting period ปิดแล้วสำหรับวันที่ในเอกสาร
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Execute Commitment' button
-3. Observe error message
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Execute Commitment'
+3. ดู error message
 
 **Expected**
 
-Error message displayed indicating the accounting period is closed for the document date
+แสดง error message ว่า accounting period ปิดแล้วสำหรับวันที่ในเอกสาร
 
 ---
 
@@ -1500,17 +1500,17 @@ Error message displayed indicating the accounting period is closed for the docum
 
 **Preconditions**
 
-A credit note exists with DRAFT status, and the document date is outside the open accounting period.
+มี credit note สถานะ DRAFT และวันที่ในเอกสารอยู่นอกช่วง accounting period ที่เปิดอยู่
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Execute Commitment' button
-3. Observe error message
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Execute Commitment'
+3. ดู error message
 
 **Expected**
 
-Error message displayed indicating the document date is outside the open accounting period
+แสดง error message ว่าวันที่ในเอกสารอยู่นอกช่วง accounting period ที่เปิดอยู่
 
 ---
 
@@ -1523,17 +1523,17 @@ Error message displayed indicating the document date is outside the open account
 
 **Preconditions**
 
-A credit note exists with DRAFT status, and the user does not have permission to execute commitment transactions.
+มี credit note สถานะ DRAFT และผู้ใช้ไม่มีสิทธิ์ดำเนินการ commitment transactions
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on 'Execute Commitment' button
-3. Observe error message
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'Execute Commitment'
+3. ดู error message
 
 **Expected**
 
-Error message displayed indicating insufficient permissions to execute commitment transactions
+แสดง error message ว่าไม่มีสิทธิ์เพียงพอในการดำเนินการ commitment transactions
 
 ---
 
@@ -1546,19 +1546,19 @@ Error message displayed indicating insufficient permissions to execute commitmen
 
 **Preconditions**
 
-A credit note exists with COMMITTED status. The accounting period is open for the void date. The user has the manager role and void permission.
+มี credit note สถานะ COMMITTED, accounting period เปิดอยู่สำหรับวันที่ void, ผู้ใช้มี manager role และสิทธิ์ void
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on the credit note to be voided
-3. Click the 'Void' button
-4. Verify the journal entries are reversed
-5. Verify the inventory balance is restored
+1. ไปที่ /procurement/credit-note
+2. คลิก credit note ที่ต้องการ void
+3. กดปุ่ม 'Void'
+4. ตรวจสอบว่า journal entries ถูก reverse
+5. ตรวจสอบว่า inventory balance ถูกคืน
 
 **Expected**
 
-The credit note is voided, journal entries are reversed, and inventory balance is restored.
+Credit note ถูก void, journal entries ถูก reverse, และ inventory balance ถูกคืน
 
 ---
 
@@ -1571,18 +1571,18 @@ The credit note is voided, journal entries are reversed, and inventory balance i
 
 **Preconditions**
 
-A credit note exists with COMMITTED status. The accounting period is open for the void date. The user does not have the void permission.
+มี credit note สถานะ COMMITTED, accounting period เปิดอยู่สำหรับวันที่ void, ผู้ใช้ไม่มีสิทธิ์ void
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on the credit note to be voided
-3. Click the 'Void' button
-4. Verify the system denies the action
+1. ไปที่ /procurement/credit-note
+2. คลิก credit note ที่ต้องการ void
+3. กดปุ่ม 'Void'
+4. ตรวจสอบว่าระบบปฏิเสธการดำเนินการ
 
 **Expected**
 
-The system denies the user's attempt to void the credit note.
+ระบบปฏิเสธการพยายาม void credit note ของผู้ใช้
 
 ---
 
@@ -1595,18 +1595,18 @@ The system denies the user's attempt to void the credit note.
 
 **Preconditions**
 
-A credit note exists with COMMITTED status. Dependent transactions exist. The accounting period is open for the void date. The user has the manager role and void permission.
+มี credit note สถานะ COMMITTED, มี dependent transactions, accounting period เปิดอยู่สำหรับวันที่ void, ผู้ใช้มี manager role และสิทธิ์ void
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on the credit note to be voided
-3. Click the 'Void' button
-4. Verify the system denies the action due to dependent transactions
+1. ไปที่ /procurement/credit-note
+2. คลิก credit note ที่ต้องการ void
+3. กดปุ่ม 'Void'
+4. ตรวจสอบว่าระบบปฏิเสธการดำเนินการเนื่องจาก dependent transactions
 
 **Expected**
 
-The system denies the user's attempt to void the credit note due to existing dependent transactions.
+ระบบปฏิเสธการพยายาม void credit note ของผู้ใช้เนื่องจากมี dependent transactions ที่มีอยู่
 
 ---
 
@@ -1619,18 +1619,18 @@ The system denies the user's attempt to void the credit note due to existing dep
 
 **Preconditions**
 
-A credit note exists with COMMITTED status. The accounting period is closed. The user has the manager role and void permission.
+มี credit note สถานะ COMMITTED, accounting period ปิดแล้ว, ผู้ใช้มี manager role และสิทธิ์ void
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on the credit note to be voided
-3. Click the 'Void' button
-4. Verify the system denies the action due to the closed accounting period
+1. ไปที่ /procurement/credit-note
+2. คลิก credit note ที่ต้องการ void
+3. กดปุ่ม 'Void'
+4. ตรวจสอบว่าระบบปฏิเสธการดำเนินการเนื่องจาก accounting period ปิดแล้ว
 
 **Expected**
 
-The system denies the user's attempt to void the credit note due to the closed accounting period.
+ระบบปฏิเสธการพยายาม void credit note ของผู้ใช้เนื่องจาก accounting period ปิดแล้ว
 
 ---
 
@@ -1643,19 +1643,19 @@ The system denies the user's attempt to void the credit note due to the closed a
 
 **Preconditions**
 
-Credit note items with lot selections and inventory lot cost data available.
+มี items ใน credit note พร้อม lot selections และข้อมูลต้นทุน lot ใน inventory
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Select credit note with lot selections
-3. Click 'Calculate Costs' button
-4. Verify FIFO method is applied
-5. Verify cost calculation is correct based on FIFO method
+1. ไปที่ /procurement/credit-note
+2. เลือก credit note ที่มี lot selections
+3. กดปุ่ม 'Calculate Costs'
+4. ตรวจสอบว่าใช้วิธี FIFO
+5. ตรวจสอบว่าการคำนวณต้นทุนถูกต้องตามวิธี FIFO
 
 **Expected**
 
-FIFO method is correctly applied, and cost calculation is accurate based on selected lots.
+ใช้วิธี FIFO อย่างถูกต้อง และการคำนวณต้นทุนแม่นยำตาม lots ที่เลือก
 
 ---
 
@@ -1668,19 +1668,19 @@ FIFO method is correctly applied, and cost calculation is accurate based on sele
 
 **Preconditions**
 
-Credit note items with lot selections and inventory lot cost data available.
+มี items ใน credit note พร้อม lot selections และข้อมูลต้นทุน lot ใน inventory
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Select credit note with lot selections
-3. Click 'Calculate Costs' button
-4. Manually input invalid costing method
-5. Verify system does not allow invalid method
+1. ไปที่ /procurement/credit-note
+2. เลือก credit note ที่มี lot selections
+3. กดปุ่ม 'Calculate Costs'
+4. กรอก costing method ที่ไม่ถูกต้องด้วยตนเอง
+5. ตรวจสอบว่าระบบไม่อนุญาตวิธีที่ไม่ถูกต้อง
 
 **Expected**
 
-System prevents invalid costing method from being selected and provides appropriate error message.
+ระบบป้องกันการเลือก costing method ที่ไม่ถูกต้องและแสดง error message ที่เหมาะสม
 
 ---
 
@@ -1693,18 +1693,18 @@ System prevents invalid costing method from being selected and provides appropri
 
 **Preconditions**
 
-Credit note items without lot selections and inventory lot cost data available.
+มี items ใน credit note โดยไม่มี lot selections และมีข้อมูลต้นทุน lot ใน inventory
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Select credit note without lot selections
-3. Click 'Calculate Costs' button
-4. Verify system does not allow cost calculation without lot selections
+1. ไปที่ /procurement/credit-note
+2. เลือก credit note ที่ไม่มี lot selections
+3. กดปุ่ม 'Calculate Costs'
+4. ตรวจสอบว่าระบบไม่อนุญาตการคำนวณต้นทุนโดยไม่มี lot selections
 
 **Expected**
 
-System prevents cost calculation without lot selections and provides appropriate error message.
+ระบบป้องกันการคำนวณต้นทุนโดยไม่มี lot selections และแสดง error message ที่เหมาะสม
 
 ---
 
@@ -1717,18 +1717,18 @@ System prevents cost calculation without lot selections and provides appropriate
 
 **Preconditions**
 
-Credit note items with lot selections and no inventory lot cost data available.
+มี items ใน credit note พร้อม lot selections แต่ไม่มีข้อมูลต้นทุน lot ใน inventory
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Select credit note with lot selections
-3. Click 'Calculate Costs' button
-4. Verify system does not allow cost calculation due to missing lot cost data
+1. ไปที่ /procurement/credit-note
+2. เลือก credit note ที่มี lot selections
+3. กดปุ่ม 'Calculate Costs'
+4. ตรวจสอบว่าระบบไม่อนุญาตการคำนวณต้นทุนเนื่องจากข้อมูลต้นทุน lot ขาดหายไป
 
 **Expected**
 
-System prevents cost calculation due to missing lot cost data and provides appropriate error message.
+ระบบป้องกันการคำนวณต้นทุนเนื่องจากข้อมูลต้นทุน lot ขาดหายไป และแสดง error message ที่เหมาะสม
 
 ---
 
@@ -1741,19 +1741,19 @@ System prevents cost calculation due to missing lot cost data and provides appro
 
 **Preconditions**
 
-A credit note with items and amounts, with an invalid or non-configured tax rate for the document date, and vendor tax registration available.
+มี credit note พร้อม items และจำนวนเงิน, มี tax rate ที่ไม่ถูกต้องหรือยังไม่ได้กำหนดสำหรับวันที่ในเอกสาร, และมีข้อมูลการลงทะเบียนภาษีของ vendor
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Enter credit note details including items and amounts
-4. Select an invalid or non-configured tax rate
-5. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. กรอกรายละเอียด credit note รวมถึง items และจำนวนเงิน
+4. เลือก tax rate ที่ไม่ถูกต้องหรือยังไม่ได้กำหนด
+5. กด 'Save'
 
 **Expected**
 
-The system returns an error message indicating the invalid tax rate cannot be applied.
+ระบบส่งคืน error message ว่าไม่สามารถใช้ tax rate ที่ไม่ถูกต้องได้
 
 ---
 
@@ -1766,18 +1766,18 @@ The system returns an error message indicating the invalid tax rate cannot be ap
 
 **Preconditions**
 
-A credit note with items and amounts, with tax rates configured for the document date but no vendor tax registration available.
+มี credit note พร้อม items และจำนวนเงิน, กำหนด tax rates สำหรับวันที่ในเอกสารแล้ว แต่ไม่มีข้อมูลการลงทะเบียนภาษีของ vendor
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Enter credit note details including items and amounts
-4. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. กรอกรายละเอียด credit note รวมถึง items และจำนวนเงิน
+4. กด 'Save'
 
 **Expected**
 
-The system returns an error message indicating vendor tax registration is required.
+ระบบส่งคืน error message ว่าต้องมีข้อมูลการลงทะเบียนภาษีของ vendor
 
 ---
 
@@ -1790,18 +1790,18 @@ The system returns an error message indicating vendor tax registration is requir
 
 **Preconditions**
 
-A credit note with a very large amount, with tax rates configured for the document date and vendor tax registration available.
+มี credit note ที่มีจำนวนเงินมาก, กำหนด tax rates สำหรับวันที่ในเอกสารแล้ว และมีข้อมูลการลงทะเบียนภาษีของ vendor
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Enter credit note details including items and large amounts
-4. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. กรอกรายละเอียด credit note รวมถึง items และจำนวนเงินมาก
+4. กด 'Save'
 
 **Expected**
 
-The tax amounts are calculated accurately for the large credit note amount.
+คำนวณจำนวนภาษีได้อย่างแม่นยำสำหรับ credit note ที่มีจำนวนเงินมาก
 
 ---
 
@@ -1814,18 +1814,18 @@ The tax amounts are calculated accurately for the large credit note amount.
 
 **Preconditions**
 
-A credit note with an item amount of zero, with tax rates configured for the document date and vendor tax registration available.
+มี credit note ที่มีจำนวนเงิน item เท่ากับศูนย์, กำหนด tax rates สำหรับวันที่ในเอกสารแล้ว และมีข้อมูลการลงทะเบียนภาษีของ vendor
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Enter credit note details including items with zero amount
-4. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. กรอกรายละเอียด credit note รวมถึง items ที่มีจำนวนเงินเป็นศูนย์
+4. กด 'Save'
 
 **Expected**
 
-The tax amounts for items with zero amount are set to zero.
+จำนวนภาษีสำหรับ items ที่มีจำนวนเงินเป็นศูนย์ถูกตั้งเป็นศูนย์
 
 ---
 
@@ -1838,18 +1838,18 @@ The tax amounts for items with zero amount are set to zero.
 
 **Preconditions**
 
-A non-existent credit note commitment ID is entered.
+กรอก credit note commitment ID ที่ไม่มีอยู่
 
 **Steps**
 
-1. Navigate to /journal-entries
-2. Click 'Generate Entries'
-3. Enter invalid credit note commitment ID
-4. Verify an error message is displayed.
+1. ไปที่ /journal-entries
+2. กด 'Generate Entries'
+3. กรอก credit note commitment ID ที่ไม่ถูกต้อง
+4. ตรวจสอบว่าแสดง error message
 
 **Expected**
 
-An error message is shown indicating the invalid credit note ID.
+แสดง error message ว่า credit note ID ไม่ถูกต้อง
 
 ---
 
@@ -1862,18 +1862,18 @@ An error message is shown indicating the invalid credit note ID.
 
 **Preconditions**
 
-A user with limited permissions attempts to generate journal entries.
+ผู้ใช้ที่มีสิทธิ์จำกัดพยายามสร้าง journal entries
 
 **Steps**
 
-1. Log in as a user with limited permissions
-2. Navigate to /journal-entries
-3. Click 'Generate Entries'
-4. Verify an error message is displayed.
+1. Login เป็นผู้ใช้ที่มีสิทธิ์จำกัด
+2. ไปที่ /journal-entries
+3. กด 'Generate Entries'
+4. ตรวจสอบว่าแสดง error message
 
 **Expected**
 
-An error message is shown indicating insufficient permissions.
+แสดง error message ว่าไม่มีสิทธิ์เพียงพอ
 
 ---
 
@@ -1886,18 +1886,18 @@ An error message is shown indicating insufficient permissions.
 
 **Preconditions**
 
-Multiple credit note commitments are generated simultaneously.
+สร้าง credit note commitments หลายรายการพร้อมกัน
 
 **Steps**
 
-1. Navigate to /journal-entries
-2. Click 'Generate Entries'
-3. Simultaneously initiate journal entry generation for multiple commitments
-4. Verify that journal entries are generated for all commitments.
+1. ไปที่ /journal-entries
+2. กด 'Generate Entries'
+3. เริ่มสร้าง journal entries สำหรับหลาย commitments พร้อมกัน
+4. ตรวจสอบว่าสร้าง journal entries ครบสำหรับทุก commitments
 
 **Expected**
 
-Journal entries are successfully generated for all commitments without any errors.
+สร้าง journal entries สำเร็จสำหรับทุก commitments โดยไม่มี errors
 
 ---
 
@@ -1910,18 +1910,18 @@ Journal entries are successfully generated for all commitments without any error
 
 **Preconditions**
 
-The server is experiencing high load or slow response times.
+เซิร์ฟเวอร์กำลังมีโหลดสูงหรือ response times ช้า
 
 **Steps**
 
-1. Navigate to /journal-entries
-2. Click 'Generate Entries'
-3. Wait for a long period
-4. Verify that the system handles the timeout and does not generate incomplete journal entries.
+1. ไปที่ /journal-entries
+2. กด 'Generate Entries'
+3. รอเป็นระยะเวลานาน
+4. ตรวจสอบว่าระบบจัดการ timeout และไม่สร้าง journal entries ที่ไม่สมบูรณ์
 
 **Expected**
 
-The system handles the timeout gracefully, possibly prompting a retry or showing a warning message.
+ระบบจัดการ timeout อย่างมีประสิทธิภาพ อาจแจ้งให้ retry หรือแสดง warning message
 
 ---
 
@@ -1934,19 +1934,19 @@ The system handles the timeout gracefully, possibly prompting a retry or showing
 
 **Preconditions**
 
-The system is initialized and the inventory balance is set to a positive value.
+ระบบถูก initialize แล้ว และ inventory balance ถูกตั้งเป็นค่าบวก
 
 **Steps**
 
-1. Navigate to /stock/movements
-2. Click 'Generate Stock Movement'
-3. Select 'Credit Note' as movement type
-4. Enter valid quantity and lot number
-5. Click 'Submit'
+1. ไปที่ /stock/movements
+2. กด 'Generate Stock Movement'
+3. เลือก 'Credit Note' เป็นประเภทการเคลื่อนไหว
+4. กรอกจำนวนและ lot number ที่ถูกต้อง
+5. กด 'Submit'
 
 **Expected**
 
-The system generates a negative stock movement, reducing the inventory balance by the specified quantity.
+ระบบสร้าง stock movement เชิงลบ ลด inventory balance ตามจำนวนที่ระบุ
 
 ---
 
@@ -1959,19 +1959,19 @@ The system generates a negative stock movement, reducing the inventory balance b
 
 **Preconditions**
 
-The system is initialized and the inventory balance is set to a positive value.
+ระบบถูก initialize แล้ว และ inventory balance ถูกตั้งเป็นค่าบวก
 
 **Steps**
 
-1. Navigate to /stock/movements
-2. Click 'Generate Stock Movement'
-3. Select 'Credit Note' as movement type
-4. Enter invalid quantity (negative or zero)
-5. Click 'Submit'
+1. ไปที่ /stock/movements
+2. กด 'Generate Stock Movement'
+3. เลือก 'Credit Note' เป็นประเภทการเคลื่อนไหว
+4. กรอกจำนวนที่ไม่ถูกต้อง (ติดลบหรือศูนย์)
+5. กด 'Submit'
 
 **Expected**
 
-The system displays an error message indicating invalid quantity and does not generate the stock movement.
+ระบบแสดง error message ว่าจำนวนไม่ถูกต้องและไม่สร้าง stock movement
 
 ---
 
@@ -1984,19 +1984,19 @@ The system displays an error message indicating invalid quantity and does not ge
 
 **Preconditions**
 
-The system is initialized and the inventory balance is set to a value less than the requested quantity.
+ระบบถูก initialize แล้ว และ inventory balance ถูกตั้งเป็นค่าที่น้อยกว่าจำนวนที่ร้องขอ
 
 **Steps**
 
-1. Navigate to /stock/movements
-2. Click 'Generate Stock Movement'
-3. Select 'Credit Note' as movement type
-4. Enter quantity greater than current inventory
-5. Click 'Submit'
+1. ไปที่ /stock/movements
+2. กด 'Generate Stock Movement'
+3. เลือก 'Credit Note' เป็นประเภทการเคลื่อนไหว
+4. กรอกจำนวนที่มากกว่า inventory ปัจจุบัน
+5. กด 'Submit'
 
 **Expected**
 
-The system displays an error message indicating insufficient inventory and does not generate the stock movement.
+ระบบแสดง error message ว่า inventory ไม่เพียงพอและไม่สร้าง stock movement
 
 ---
 
@@ -2009,17 +2009,17 @@ The system displays an error message indicating insufficient inventory and does 
 
 **Preconditions**
 
-The system is initialized and the user has no permission to generate stock movements.
+ระบบถูก initialize แล้ว และผู้ใช้ไม่มีสิทธิ์สร้าง stock movements
 
 **Steps**
 
-1. Log in as a user without permission to generate stock movements
-2. Navigate to /stock/movements
-3. Click 'Generate Stock Movement'
+1. Login เป็นผู้ใช้ที่ไม่มีสิทธิ์สร้าง stock movements
+2. ไปที่ /stock/movements
+3. กด 'Generate Stock Movement'
 
 **Expected**
 
-The system displays an error message indicating insufficient permissions and does not allow the stock movement generation.
+ระบบแสดง error message ว่าไม่มีสิทธิ์เพียงพอและไม่อนุญาตให้สร้าง stock movement
 
 ---
 
@@ -2032,19 +2032,19 @@ The system displays an error message indicating insufficient permissions and doe
 
 **Preconditions**
 
-The system is initialized with a lot quantity that is the maximum allowed.
+ระบบถูก initialize แล้วด้วย lot quantity ที่เป็นจำนวนสูงสุดที่อนุญาต
 
 **Steps**
 
-1. Navigate to /stock/movements
-2. Click 'Generate Stock Movement'
-3. Select 'Credit Note' as movement type
-4. Enter the maximum allowed lot quantity
-5. Click 'Submit'
+1. ไปที่ /stock/movements
+2. กด 'Generate Stock Movement'
+3. เลือก 'Credit Note' เป็นประเภทการเคลื่อนไหว
+4. กรอก lot quantity สูงสุดที่อนุญาต
+5. กด 'Submit'
 
 **Expected**
 
-The system generates a negative stock movement reducing the inventory balance by the maximum allowed lot quantity.
+ระบบสร้าง stock movement เชิงลบ ลด inventory balance ตาม lot quantity สูงสุดที่อนุญาต
 
 ---
 
@@ -2057,18 +2057,18 @@ The system generates a negative stock movement reducing the inventory balance by
 
 **Preconditions**
 
-A credit note exists and the user has upload permission.
+credit note มีอยู่แล้วและผู้ใช้มีสิทธิ์ upload
 
 **Steps**
 
-1. Navigate to credit note detail page
-2. Click 'Add Attachment'
-3. Fill file input with valid file
-4. Click 'Upload'
+1. ไปที่หน้า credit note detail
+2. กด 'Add Attachment'
+3. กรอก file input ด้วย file ที่ถูกต้อง
+4. กด 'Upload'
 
 **Expected**
 
-Attachment is uploaded and displayed on the credit note detail page.
+Attachment ถูก upload และแสดงบนหน้า credit note detail
 
 ---
 
@@ -2081,18 +2081,18 @@ Attachment is uploaded and displayed on the credit note detail page.
 
 **Preconditions**
 
-A credit note exists and the user has upload permission.
+credit note มีอยู่แล้วและผู้ใช้มีสิทธิ์ upload
 
 **Steps**
 
-1. Navigate to credit note detail page
-2. Click 'Add Attachment'
-3. Fill file input with invalid file (e.g., image instead of pdf)
-4. Click 'Upload'
+1. ไปที่หน้า credit note detail
+2. กด 'Add Attachment'
+3. กรอก file input ด้วย file ที่ไม่ถูกต้อง (เช่น image แทน pdf)
+4. กด 'Upload'
 
 **Expected**
 
-Error message is displayed and the invalid file is not uploaded.
+Error message แสดงขึ้นมาและ file ที่ไม่ถูกต้องไม่ถูก upload
 
 ---
 
@@ -2105,18 +2105,18 @@ Error message is displayed and the invalid file is not uploaded.
 
 **Preconditions**
 
-A credit note exists, has an attachment, and the user has delete permission.
+credit note มีอยู่แล้ว มี attachment และผู้ใช้มีสิทธิ์ delete
 
 **Steps**
 
-1. Navigate to credit note detail page
-2. Find the attachment to delete
-3. Click 'Delete' on the attachment
-4. Confirm the delete action
+1. ไปที่หน้า credit note detail
+2. ค้นหา attachment ที่ต้องการ delete
+3. กด 'Delete' บน attachment
+4. ยืนยันการ delete
 
 **Expected**
 
-Attachment is removed from the credit note detail page.
+Attachment ถูกลบออกจากหน้า credit note detail
 
 ---
 
@@ -2129,17 +2129,17 @@ Attachment is removed from the credit note detail page.
 
 **Preconditions**
 
-A credit note exists, has an attachment, and the user does not have delete permission.
+credit note มีอยู่แล้ว มี attachment และผู้ใช้ไม่มีสิทธิ์ delete
 
 **Steps**
 
-1. Navigate to credit note detail page
-2. Find the attachment to delete
-3. Attempt to click 'Delete' on the attachment
+1. ไปที่หน้า credit note detail
+2. ค้นหา attachment ที่ต้องการ delete
+3. พยายามกด 'Delete' บน attachment
 
 **Expected**
 
-User is denied access or an error message is displayed.
+ผู้ใช้ถูกปฏิเสธสิทธิ์หรือ error message แสดงขึ้นมา
 
 ---
 
@@ -2152,18 +2152,18 @@ User is denied access or an error message is displayed.
 
 **Preconditions**
 
-A credit note exists and the user has upload permission. Storage service can handle large files.
+credit note มีอยู่แล้ว ผู้ใช้มีสิทธิ์ upload และ storage service รองรับ file ขนาดใหญ่
 
 **Steps**
 
-1. Navigate to credit note detail page
-2. Click 'Add Attachment'
-3. Fill file input with a large file
-4. Click 'Upload'
+1. ไปที่หน้า credit note detail
+2. กด 'Add Attachment'
+3. กรอก file input ด้วย file ขนาดใหญ่
+4. กด 'Upload'
 
 **Expected**
 
-Attachment is uploaded and stored without issues.
+Attachment ถูก upload และจัดเก็บโดยไม่มีปัญหา
 
 ---
 
@@ -2176,17 +2176,17 @@ Attachment is uploaded and stored without issues.
 
 **Preconditions**
 
-A credit note of type QUANTITY_RETURN with all items having selected lots and inventory locations is present and in the COMMITTED status.
+มี credit note ประเภท QUANTITY_RETURN ที่ทุก items เลือก lots และ inventory locations แล้ว และอยู่ในสถานะ COMMITTED
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on the 'View' button of the committed credit note
-3. Click on 'Generate Stock Movements'
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'View' ของ committed credit note
+3. กด 'Generate Stock Movements'
 
 **Expected**
 
-Stock movements are generated, reducing the inventory balance for returned items.
+สร้าง stock movements สำเร็จ ลด inventory balance สำหรับ items ที่คืน
 
 ---
 
@@ -2199,17 +2199,17 @@ Stock movements are generated, reducing the inventory balance for returned items
 
 **Preconditions**
 
-A credit note of a type other than QUANTITY_RETURN with all items having selected lots and inventory locations is present and in the COMMITTED status.
+มี credit note ประเภทอื่นที่ไม่ใช่ QUANTITY_RETURN ที่ทุก items เลือก lots และ inventory locations แล้ว และอยู่ในสถานะ COMMITTED
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on the 'View' button of the committed credit note
-3. Click on 'Generate Stock Movements'
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'View' ของ committed credit note
+3. กด 'Generate Stock Movements'
 
 **Expected**
 
-Error message displayed indicating the credit note type is not supported for stock movement generation.
+แสดง error message ว่าประเภท credit note ไม่รองรับการสร้าง stock movement
 
 ---
 
@@ -2222,17 +2222,17 @@ Error message displayed indicating the credit note type is not supported for sto
 
 **Preconditions**
 
-A credit note of type QUANTITY_RETURN with some items missing selected lots and inventory locations is present and in the COMMITTED status.
+มี credit note ประเภท QUANTITY_RETURN ที่บาง items ไม่มี lots และ inventory locations และอยู่ในสถานะ COMMITTED
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on the 'View' button of the committed credit note
-3. Attempt to click on 'Generate Stock Movements'
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'View' ของ committed credit note
+3. พยายามกด 'Generate Stock Movements'
 
 **Expected**
 
-Error message displayed indicating that all items must have selected lots.
+แสดง error message ว่าทุก items ต้องเลือก lots
 
 ---
 
@@ -2245,18 +2245,18 @@ Error message displayed indicating that all items must have selected lots.
 
 **Preconditions**
 
-A credit note of type QUANTITY_RETURN with all items having selected lots and inventory locations is present and in the PENDING status.
+มี credit note ประเภท QUANTITY_RETURN ที่ทุก items เลือก lots และ inventory locations แล้ว และอยู่ในสถานะ PENDING
 
 **Steps**
 
-1. Change the credit note status to COMMITTED
-2. Navigate to /procurement/credit-note
-3. Click on the 'View' button of the now committed credit note
-4. Click on 'Generate Stock Movements'
+1. เปลี่ยนสถานะ credit note เป็น COMMITTED
+2. ไปที่ /procurement/credit-note
+3. กดปุ่ม 'View' ของ credit note ที่เป็น COMMITTED แล้ว
+4. กด 'Generate Stock Movements'
 
 **Expected**
 
-Stock movements are generated, reducing the inventory balance for returned items.
+สร้าง stock movements สำเร็จ ลด inventory balance สำหรับ items ที่คืน
 
 ---
 
@@ -2269,17 +2269,17 @@ Stock movements are generated, reducing the inventory balance for returned items
 
 **Preconditions**
 
-A credit note of type QUANTITY_RETURN with all items having selected lots is present and in the COMMITTED status, but no inventory locations are configured.
+มี credit note ประเภท QUANTITY_RETURN ที่ทุก items เลือก lots แล้ว และอยู่ในสถานะ COMMITTED แต่ไม่ได้กำหนด inventory locations
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on the 'View' button of the committed credit note
-3. Click on 'Generate Stock Movements'
+1. ไปที่ /procurement/credit-note
+2. กดปุ่ม 'View' ของ committed credit note
+3. กด 'Generate Stock Movements'
 
 **Expected**
 
-Error message displayed indicating that inventory locations must be configured.
+แสดง error message ว่าต้องกำหนด inventory locations
 
 ---
 
@@ -2292,17 +2292,17 @@ Error message displayed indicating that inventory locations must be configured.
 
 **Preconditions**
 
-Credit note status is COMMITTED, GL account mapping is configured, accounting period is open, and vendor account exists.
+สถานะ credit note เป็น COMMITTED, กำหนด GL account mapping แล้ว, accounting period เปิดอยู่, และมี vendor account
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on COMMITTED credit note
-3. Click 'Generate Journal Entries'
+1. ไปที่ /procurement/credit-note
+2. คลิก COMMITTED credit note
+3. กด 'Generate Journal Entries'
 
 **Expected**
 
-Journal entries are generated automatically, debiting accounts payable and crediting inventory and tax accounts.
+สร้าง journal entries อัตโนมัติ ตัดบัญชี accounts payable และเครดิต inventory และ tax accounts
 
 ---
 
@@ -2315,17 +2315,17 @@ Journal entries are generated automatically, debiting accounts payable and credi
 
 **Preconditions**
 
-Credit note status is COMMITTED, GL account mapping is invalid, accounting period is open, and vendor account exists.
+สถานะ credit note เป็น COMMITTED, GL account mapping ไม่ถูกต้อง, accounting period เปิดอยู่, และมี vendor account
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on COMMITTED credit note
-3. Click 'Generate Journal Entries'
+1. ไปที่ /procurement/credit-note
+2. คลิก COMMITTED credit note
+3. กด 'Generate Journal Entries'
 
 **Expected**
 
-Error message displayed indicating invalid GL account mapping.
+แสดง error message ว่า GL account mapping ไม่ถูกต้อง
 
 ---
 
@@ -2338,17 +2338,17 @@ Error message displayed indicating invalid GL account mapping.
 
 **Preconditions**
 
-Credit note status is COMMITTED, GL account mapping is configured, accounting period is closed, and vendor account exists.
+สถานะ credit note เป็น COMMITTED, กำหนด GL account mapping แล้ว, accounting period ปิดแล้ว, และมี vendor account
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on COMMITTED credit note
-3. Click 'Generate Journal Entries'
+1. ไปที่ /procurement/credit-note
+2. คลิก COMMITTED credit note
+3. กด 'Generate Journal Entries'
 
 **Expected**
 
-Error message displayed indicating accounting period is closed.
+แสดง error message ว่า accounting period ปิดแล้ว
 
 ---
 
@@ -2361,17 +2361,17 @@ Error message displayed indicating accounting period is closed.
 
 **Preconditions**
 
-Credit note status is COMMITTED, GL account mapping is configured, accounting period is open, and vendor account does not exist.
+สถานะ credit note เป็น COMMITTED, กำหนด GL account mapping แล้ว, accounting period เปิดอยู่, แต่ไม่มี vendor account
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click on COMMITTED credit note
-3. Click 'Generate Journal Entries'
+1. ไปที่ /procurement/credit-note
+2. คลิก COMMITTED credit note
+3. กด 'Generate Journal Entries'
 
 **Expected**
 
-Error message displayed indicating no vendor account exists.
+แสดง error message ว่าไม่มี vendor account
 
 ---
 
@@ -2384,17 +2384,17 @@ Error message displayed indicating no vendor account exists.
 
 **Preconditions**
 
-Multiple credit notes are COMMITTED, GL account mapping is configured, accounting period is open, and vendor account exists.
+มี credit notes หลายรายการสถานะ COMMITTED, กำหนด GL account mapping แล้ว, accounting period เปิดอยู่, และมี vendor account
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Select multiple COMMITTED credit notes
-3. Click 'Generate Journal Entries'
+1. ไปที่ /procurement/credit-note
+2. เลือก COMMITTED credit notes หลายรายการ
+3. กด 'Generate Journal Entries'
 
 **Expected**
 
-Journal entries are generated for all selected credit notes.
+สร้าง journal entries สำหรับ credit notes ที่เลือกทั้งหมด
 
 ---
 
@@ -2407,25 +2407,25 @@ Journal entries are generated for all selected credit notes.
 
 **Preconditions**
 
-Credit note has items with amounts, tax rates are configured, vendor tax information is available, and tax invoice reference is provided.
+Credit note มี items พร้อมจำนวนเงิน, กำหนด tax rates แล้ว, ข้อมูลภาษีของ vendor พร้อมใช้, และระบุ tax invoice reference แล้ว
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Fill 'Vendor Name'
-4. Fill 'Tax Invoice Reference'
-5. Click 'Add Line Item'
-6. Fill 'Item Description', 'Quantity', and 'Price'
-7. Select applicable 'Tax Rate'
-8. Click 'Save'
-9. Click 'Update' to modify existing credit note
-10. Update 'Quantity' and 'Price'
-11. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. กรอก 'Vendor Name'
+4. กรอก 'Tax Invoice Reference'
+5. กด 'Add Line Item'
+6. กรอก 'Item Description', 'Quantity', และ 'Price'
+7. เลือก 'Tax Rate' ที่ใช้งาน
+8. กด 'Save'
+9. กด 'Update' เพื่อแก้ไข credit note ที่มีอยู่
+10. อัปเดต 'Quantity' และ 'Price'
+11. กด 'Save'
 
 **Expected**
 
-System automatically calculates input VAT adjustments based on modified credit note, reducing tax liability by the credit amount.
+ระบบคำนวณการปรับ input VAT อัตโนมัติตาม credit note ที่แก้ไข ลดภาระภาษีตามจำนวน credit
 
 ---
 
@@ -2438,21 +2438,21 @@ System automatically calculates input VAT adjustments based on modified credit n
 
 **Preconditions**
 
-Credit note has items with amounts, but no tax rate is configured for any of the items.
+Credit note มี items พร้อมจำนวนเงิน แต่ไม่มีการกำหนด tax rate สำหรับ items ใดๆ
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Fill 'Vendor Name'
-4. Fill 'Tax Invoice Reference'
-5. Click 'Add Line Item'
-6. Fill 'Item Description', 'Quantity', and 'Price'
-7. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. กรอก 'Vendor Name'
+4. กรอก 'Tax Invoice Reference'
+5. กด 'Add Line Item'
+6. กรอก 'Item Description', 'Quantity', และ 'Price'
+7. กด 'Save'
 
 **Expected**
 
-System does not calculate any tax adjustments, and an error message is displayed, indicating that tax rates are required.
+ระบบไม่คำนวณการปรับภาษีใดๆ และแสดง error message ว่าต้องกำหนด tax rates
 
 ---
 
@@ -2465,18 +2465,18 @@ System does not calculate any tax adjustments, and an error message is displayed
 
 **Preconditions**
 
-A credit note of type QUANTITY_RETURN is created for an item that has been fully consumed.
+สร้าง credit note ประเภท QUANTITY_RETURN สำหรับ item ที่ถูกใช้หมดแล้ว
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Process Credit Note'
-3. Select the QUANTITY_RETURN credit note
-4. Click 'Process'
+1. ไปที่ /procurement/credit-note
+2. กด 'Process Credit Note'
+3. เลือก QUANTITY_RETURN credit note
+4. กด 'Process'
 
 **Expected**
 
-The cost of goods sold is adjusted, but the inventory balance remains unchanged.
+ปรับ cost of goods sold แต่ inventory balance ไม่เปลี่ยนแปลง
 
 ---
 
@@ -2489,18 +2489,18 @@ The cost of goods sold is adjusted, but the inventory balance remains unchanged.
 
 **Preconditions**
 
-A credit note of a different type than QUANTITY_RETURN is selected.
+เลือก credit note ประเภทอื่นที่ไม่ใช่ QUANTITY_RETURN
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Process Credit Note'
-3. Select a credit note of a different type
-4. Click 'Process'
+1. ไปที่ /procurement/credit-note
+2. กด 'Process Credit Note'
+3. เลือก credit note ประเภทอื่น
+4. กด 'Process'
 
 **Expected**
 
-The system displays an error message indicating the credit note type is not supported.
+ระบบแสดง error message ว่าประเภท credit note ไม่รองรับ
 
 ---
 
@@ -2513,16 +2513,16 @@ The system displays an error message indicating the credit note type is not supp
 
 **Preconditions**
 
-User does not have permission to process credit notes.
+ผู้ใช้ไม่มีสิทธิ์ประมวลผล credit notes
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Process Credit Note'
+1. ไปที่ /procurement/credit-note
+2. กด 'Process Credit Note'
 
 **Expected**
 
-The system displays a permission error message.
+ระบบแสดง permission error message
 
 ---
 
@@ -2535,18 +2535,18 @@ The system displays a permission error message.
 
 **Preconditions**
 
-A credit note is created for an item that has been partially consumed.
+สร้าง credit note สำหรับ item ที่ถูกใช้ไปบางส่วน
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Process Credit Note'
-3. Select the credit note
-4. Click 'Process'
+1. ไปที่ /procurement/credit-note
+2. กด 'Process Credit Note'
+3. เลือก credit note
+4. กด 'Process'
 
 **Expected**
 
-The system displays an error message stating the credit note can only be processed for fully consumed items.
+ระบบแสดง error message ว่า credit note ประมวลผลได้เฉพาะกับ items ที่ถูกใช้หมดแล้วเท่านั้น
 
 ---
 
@@ -2559,18 +2559,18 @@ The system displays an error message stating the credit note can only be process
 
 **Preconditions**
 
-Inventory has 50 units of Item A, Credit note issued for 60 units of Item A (QUANTITY_RETURN type)
+Inventory มี Item A 50 หน่วย, issue credit note สำหรับ Item A 60 หน่วย (ประเภท QUANTITY_RETURN)
 
 **Steps**
 
-1. Navigate to /procurement/credit-note/new
-2. Fill 'Item A' in 'Item' field
-3. Fill '60' in 'Return Quantity' field
-4. Click 'Submit'
+1. ไปที่ /procurement/credit-note/new
+2. กรอก 'Item A' ในช่อง 'Item'
+3. กรอก '60' ในช่อง 'Return Quantity'
+4. กด 'Submit'
 
 **Expected**
 
-System splits processing: 50 units moved to COGS, 10 units remain unprocessed
+ระบบแบ่งการประมวลผล: 50 หน่วยย้ายไป COGS, 10 หน่วยยังไม่ได้ประมวลผล
 
 ---
 
@@ -2583,18 +2583,18 @@ System splits processing: 50 units moved to COGS, 10 units remain unprocessed
 
 **Preconditions**
 
-Inventory has 20 units of Item A, Credit note issued for 50 units of Item A (QUANTITY_RETURN type)
+Inventory มี Item A 20 หน่วย, issue credit note สำหรับ Item A 50 หน่วย (ประเภท QUANTITY_RETURN)
 
 **Steps**
 
-1. Navigate to /procurement/credit-note/new
-2. Fill 'Item A' in 'Item' field
-3. Fill '50' in 'Return Quantity' field
-4. Click 'Submit'
+1. ไปที่ /procurement/credit-note/new
+2. กรอก 'Item A' ในช่อง 'Item'
+3. กรอก '50' ในช่อง 'Return Quantity'
+4. กด 'Submit'
 
 **Expected**
 
-System displays error message: 'Insufficient inventory available for Item A'
+ระบบแสดง error message: 'Insufficient inventory available for Item A'
 
 ---
 
@@ -2607,19 +2607,19 @@ System displays error message: 'Insufficient inventory available for Item A'
 
 **Preconditions**
 
-Inventory has 40 units of Item A, Credit note issued for 30 units of Item A but type is NOT QUANTITY_RETURN
+Inventory มี Item A 40 หน่วย, issue credit note สำหรับ Item A 30 หน่วย แต่ประเภทไม่ใช่ QUANTITY_RETURN
 
 **Steps**
 
-1. Navigate to /procurement/credit-note/new
-2. Fill 'Item A' in 'Item' field
-3. Fill '30' in 'Return Quantity' field
-4. Select 'Non-Return' in 'Type' field
-5. Click 'Submit'
+1. ไปที่ /procurement/credit-note/new
+2. กรอก 'Item A' ในช่อง 'Item'
+3. กรอก '30' ในช่อง 'Return Quantity'
+4. เลือก 'Non-Return' ในช่อง 'Type'
+5. กด 'Submit'
 
 **Expected**
 
-System displays error message: 'Invalid credit note type. Only QUANTITY_RETURN allowed for this action'
+ระบบแสดง error message: 'Invalid credit note type. Only QUANTITY_RETURN allowed for this action'
 
 ---
 
@@ -2632,18 +2632,18 @@ System displays error message: 'Invalid credit note type. Only QUANTITY_RETURN a
 
 **Preconditions**
 
-Inventory has 35 units of Item A, Credit note issued for 35 units of Item A (QUANTITY_RETURN type)
+Inventory มี Item A 35 หน่วย, issue credit note สำหรับ Item A 35 หน่วย (ประเภท QUANTITY_RETURN)
 
 **Steps**
 
-1. Navigate to /procurement/credit-note/new
-2. Fill 'Item A' in 'Item' field
-3. Fill '35' in 'Return Quantity' field
-4. Click 'Submit'
+1. ไปที่ /procurement/credit-note/new
+2. กรอก 'Item A' ในช่อง 'Item'
+3. กรอก '35' ในช่อง 'Return Quantity'
+4. กด 'Submit'
 
 **Expected**
 
-System processes all 35 units to COGS
+ระบบประมวลผล 35 หน่วยทั้งหมดไปยัง COGS
 
 ---
 
@@ -2656,19 +2656,19 @@ System processes all 35 units to COGS
 
 **Preconditions**
 
-A valid retrospective discount credit note is created with multiple historical GRNs.
+สร้าง credit note ส่วนลดย้อนหลังที่ถูกต้องพร้อม GRNs ในอดีตหลายรายการ
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Process Credit Note'
-3. Select credit note with AMOUNT_DISCOUNT type
-4. Verify the credit note references multiple historical GRNs
-5. Click 'Process Discount'
+1. ไปที่ /procurement/credit-note
+2. กด 'Process Credit Note'
+3. เลือก credit note ประเภท AMOUNT_DISCOUNT
+4. ตรวจสอบว่า credit note อ้างอิง GRNs ในอดีตหลายรายการ
+5. กด 'Process Discount'
 
 **Expected**
 
-The system processes the credit note, allocating the discount proportionally to historical receipts across the GRNs.
+ระบบประมวลผล credit note โดยจัดสรรส่วนลดตามสัดส่วนให้กับ receipts ในอดีตทั่ว GRNs
 
 ---
 
@@ -2681,17 +2681,17 @@ The system processes the credit note, allocating the discount proportionally to 
 
 **Preconditions**
 
-A credit note referencing only one GRN is created.
+สร้าง credit note ที่อ้างอิง GRN เพียงรายการเดียว
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Process Credit Note'
-3. Select a credit note referencing only one GRN
+1. ไปที่ /procurement/credit-note
+2. กด 'Process Credit Note'
+3. เลือก credit note ที่อ้างอิง GRN เพียงรายการเดียว
 
 **Expected**
 
-The system processes the credit note without allocating the discount to other GRNs as it only references one GRN.
+ระบบประมวลผล credit note โดยไม่จัดสรรส่วนลดให้ GRNs อื่น เนื่องจากอ้างอิง GRN เพียงรายการเดียว
 
 ---
 
@@ -2704,17 +2704,17 @@ The system processes the credit note without allocating the discount to other GR
 
 **Preconditions**
 
-A credit note referencing no historical GRNs is created.
+สร้าง credit note ที่ไม่อ้างอิง GRNs ในอดีตใดๆ
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Process Credit Note'
-3. Select a credit note with no historical GRNs
+1. ไปที่ /procurement/credit-note
+2. กด 'Process Credit Note'
+3. เลือก credit note ที่ไม่มี GRNs ในอดีต
 
 **Expected**
 
-The system displays an error message indicating no historical GRNs are referenced.
+ระบบแสดง error message ว่าไม่มี GRNs ในอดีตที่อ้างอิง
 
 ---
 
@@ -2727,17 +2727,17 @@ The system displays an error message indicating no historical GRNs are reference
 
 **Preconditions**
 
-System has a high volume of credit notes created within a short period.
+ระบบมี credit notes จำนวนมากที่สร้างขึ้นภายในช่วงเวลาสั้น
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Wait for system to process all credit notes
-3. Verify that all credit notes are correctly logged in the audit trail
+1. ไปที่ /procurement/credit-note
+2. รอให้ระบบประมวลผล credit notes ทั้งหมด
+3. ตรวจสอบว่า credit notes ทั้งหมดถูกบันทึกใน audit trail อย่างถูกต้อง
 
 **Expected**
 
-All credit notes are processed and logged in the audit trail without errors.
+credit notes ทั้งหมดได้รับการประมวลผลและบันทึกใน audit trail โดยไม่มี error
 
 ---
 
@@ -2750,16 +2750,16 @@ All credit notes are processed and logged in the audit trail without errors.
 
 **Preconditions**
 
-Database sequence table exists, transaction context active
+Database sequence table มีอยู่ และ transaction context active
 
 **Steps**
 
-1. Navigate to /procurement/credit-note/new
-2. Click 'Generate CN Number'
+1. ไปที่ /procurement/credit-note/new
+2. กด 'Generate CN Number'
 
 **Expected**
 
-Unique CN number in the format CN-YYMM-NNNN generated and displayed
+CN number ที่ unique ในรูปแบบ CN-YYMM-NNNN ถูกสร้างและแสดงผล
 
 ---
 
@@ -2772,16 +2772,16 @@ Unique CN number in the format CN-YYMM-NNNN generated and displayed
 
 **Preconditions**
 
-Database sequence table does not exist, transaction context active
+Database sequence table ไม่มีอยู่ และ transaction context active
 
 **Steps**
 
-1. Navigate to /procurement/credit-note/new
-2. Click 'Generate CN Number'
+1. ไปที่ /procurement/credit-note/new
+2. กด 'Generate CN Number'
 
 **Expected**
 
-Error returned indicating that the database sequence table does not exist
+Error แสดงว่า database sequence table ไม่มีอยู่
 
 ---
 
@@ -2794,16 +2794,16 @@ Error returned indicating that the database sequence table does not exist
 
 **Preconditions**
 
-Database sequence table exists, no active transaction context
+Database sequence table มีอยู่ และไม่มี transaction context active
 
 **Steps**
 
-1. Navigate to /procurement/credit-note/new
-2. Click 'Generate CN Number'
+1. ไปที่ /procurement/credit-note/new
+2. กด 'Generate CN Number'
 
 **Expected**
 
-Error returned indicating that a transaction context is required
+Error แสดงว่าต้องมี transaction context
 
 ---
 
@@ -2816,16 +2816,16 @@ Error returned indicating that a transaction context is required
 
 **Preconditions**
 
-Database sequence table exists, transaction context active, current month's sequence has reached its limit
+Database sequence table มีอยู่ transaction context active และ sequence ของเดือนปัจจุบันถึงขีดจำกัดแล้ว
 
 **Steps**
 
-1. Navigate to /procurement/credit-note/new
-2. Click 'Generate CN Number'
+1. ไปที่ /procurement/credit-note/new
+2. กด 'Generate CN Number'
 
 **Expected**
 
-New month's sequence starts with 0001 and continues from where the previous month left off
+Sequence ของเดือนใหม่เริ่มต้นที่ 0001 และต่อจากเดือนที่แล้ว
 
 ---
 
@@ -2838,16 +2838,16 @@ New month's sequence starts with 0001 and continues from where the previous mont
 
 **Preconditions**
 
-Database sequence table exists, transaction context active, system under maintenance
+Database sequence table มีอยู่ transaction context active และระบบอยู่ในช่วง maintenance
 
 **Steps**
 
-1. Navigate to /procurement/credit-note/new
-2. Click 'Generate CN Number'
+1. ไปที่ /procurement/credit-note/new
+2. กด 'Generate CN Number'
 
 **Expected**
 
-Error returned indicating that the system is under maintenance and the operation cannot be performed
+Error แสดงว่าระบบอยู่ในช่วง maintenance และไม่สามารถดำเนินการได้
 
 ---
 
@@ -2860,17 +2860,17 @@ Error returned indicating that the system is under maintenance and the operation
 
 **Preconditions**
 
-Vendor account exists and active, credit note amount calculated, transaction context active
+Vendor account มีอยู่และ active คำนวณจำนวน credit note แล้ว และ transaction context active
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Select a credit note
-3. Click 'Commit Credit Note'
+1. ไปที่ /procurement/credit-note
+2. เลือก credit note
+3. กด 'Commit Credit Note'
 
 **Expected**
 
-Vendor balance is updated accordingly
+Vendor balance ถูกอัปเดตตามที่กำหนด
 
 ---
 
@@ -2883,17 +2883,17 @@ Vendor balance is updated accordingly
 
 **Preconditions**
 
-Vendor account inactive, credit note amount calculated, transaction context active
+Vendor account ไม่ active คำนวณจำนวน credit note แล้ว และ transaction context active
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Select a credit note
-3. Click 'Commit Credit Note'
+1. ไปที่ /procurement/credit-note
+2. เลือก credit note
+3. กด 'Commit Credit Note'
 
 **Expected**
 
-System rejects the action and displays an error message
+ระบบปฏิเสธการดำเนินการและแสดง error message
 
 ---
 
@@ -2906,17 +2906,17 @@ System rejects the action and displays an error message
 
 **Preconditions**
 
-Vendor account exists and active, invalid credit note amount, transaction context active
+Vendor account มีอยู่และ active จำนวน credit note ไม่ถูกต้อง และ transaction context active
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Create a new credit note with invalid amount
-3. Click 'Commit Credit Note'
+1. ไปที่ /procurement/credit-note
+2. สร้าง credit note ใหม่ด้วยจำนวนที่ไม่ถูกต้อง
+3. กด 'Commit Credit Note'
 
 **Expected**
 
-System rejects the action and displays an error message
+ระบบปฏิเสธการดำเนินการและแสดง error message
 
 ---
 
@@ -2929,17 +2929,17 @@ System rejects the action and displays an error message
 
 **Preconditions**
 
-Vendor account exists and active, credit note amount calculated, transaction context active, committed credit note
+Vendor account มีอยู่และ active คำนวณจำนวน credit note แล้ว transaction context active และ credit note ที่ committed แล้ว
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Select a committed credit note
-3. Click 'Void Credit Note'
+1. ไปที่ /procurement/credit-note
+2. เลือก credit note ที่ committed แล้ว
+3. กด 'Void Credit Note'
 
 **Expected**
 
-Vendor balance is updated and the credit note status is changed to voided
+Vendor balance ถูกอัปเดตและสถานะ credit note เปลี่ยนเป็น voided
 
 ---
 
@@ -2952,20 +2952,20 @@ Vendor balance is updated and the credit note status is changed to voided
 
 **Preconditions**
 
-A valid credit note is submitted with all required fields.
+credit note ที่ถูกต้องถูก submit พร้อม field ที่จำเป็นทั้งหมด
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Fill 'Invoice Number'
-4. Fill 'Credit Amount'
-5. Select 'Supplier'
-6. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. กรอก 'Invoice Number'
+4. กรอก 'Credit Amount'
+5. เลือก 'Supplier'
+6. กด 'Save'
 
 **Expected**
 
-Credit note data is successfully validated and saved without any errors.
+ข้อมูล credit note ผ่านการตรวจสอบและบันทึกสำเร็จโดยไม่มี error
 
 ---
 
@@ -2978,17 +2978,17 @@ Credit note data is successfully validated and saved without any errors.
 
 **Preconditions**
 
-A credit note is submitted with missing required fields.
+credit note ถูก submit โดยขาด required fields
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. กด 'Save'
 
 **Expected**
 
-System displays error messages for missing required fields.
+ระบบแสดง error messages สำหรับ required fields ที่ขาดหายไป
 
 ---
 
@@ -3001,19 +3001,19 @@ System displays error messages for missing required fields.
 
 **Preconditions**
 
-A credit note with an invalid credit amount (negative or zero) is submitted.
+credit note ถูก submit ด้วยจำนวน credit ที่ไม่ถูกต้อง (ติดลบหรือเป็นศูนย์)
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Fill 'Invoice Number'
-4. Fill 'Credit Amount' with a negative value or zero
-5. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. กรอก 'Invoice Number'
+4. กรอก 'Credit Amount' ด้วยค่าติดลบหรือศูนย์
+5. กด 'Save'
 
 **Expected**
 
-System displays an error message for the invalid credit amount.
+ระบบแสดง error message สำหรับจำนวน credit ที่ไม่ถูกต้อง
 
 ---
 
@@ -3026,18 +3026,18 @@ System displays an error message for the invalid credit amount.
 
 **Preconditions**
 
-A credit note is submitted with an expired supplier.
+credit note ถูก submit ด้วย supplier ที่หมดอายุแล้ว
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'New Credit Note'
-3. Select an expired supplier
-4. Click 'Save'
+1. ไปที่ /procurement/credit-note
+2. กด 'New Credit Note'
+3. เลือก supplier ที่หมดอายุ
+4. กด 'Save'
 
 **Expected**
 
-System displays an error message for the expired supplier.
+ระบบแสดง error message สำหรับ supplier ที่หมดอายุ
 
 ---
 
@@ -3050,17 +3050,17 @@ System displays an error message for the expired supplier.
 
 **Preconditions**
 
-WebSocket or SSE connection available, Cache layer configured, User session active
+WebSocket หรือ SSE connection พร้อมใช้งาน Cache layer ถูก configure แล้ว และ User session active
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Click 'Refresh' button
-3. Wait for 5 seconds
+1. ไปที่ /procurement/credit-note
+2. กด 'Refresh' button
+3. รอ 5 วินาที
 
 **Expected**
 
-Credit note list and details are updated in real-time
+รายการและรายละเอียด credit note ถูกอัปเดต real-time
 
 ---
 
@@ -3073,17 +3073,17 @@ Credit note list and details are updated in real-time
 
 **Preconditions**
 
-Cache layer configured, User session active
+Cache layer ถูก configure แล้ว และ User session active
 
 **Steps**
 
-1. Disable WebSocket or SSE connection in network settings
-2. Navigate to /procurement/credit-note
-3. Click 'Refresh' button
+1. ปิดการใช้งาน WebSocket หรือ SSE connection ใน network settings
+2. ไปที่ /procurement/credit-note
+3. กด 'Refresh' button
 
 **Expected**
 
-Real-time updates do not occur; cache remains unchanged
+Real-time updates ไม่เกิดขึ้น และ cache ยังคงไม่เปลี่ยนแปลง
 
 ---
 
@@ -3096,19 +3096,19 @@ Real-time updates do not occur; cache remains unchanged
 
 **Preconditions**
 
-WebSocket or SSE connection available, Cache layer configured
+WebSocket หรือ SSE connection พร้อมใช้งาน และ Cache layer ถูก configure แล้ว
 
 **Steps**
 
-1. Navigate to /procurement/credit-note
-2. Wait for user session to expire
-3. Click 'Refresh' button
+1. ไปที่ /procurement/credit-note
+2. รอให้ user session หมดอายุ
+3. กด 'Refresh' button
 
 **Expected**
 
-System prompts for user authentication; real-time updates fail
+ระบบแจ้งให้ยืนยันตัวตนใหม่ และ real-time updates ล้มเหลว
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

@@ -20,9 +20,9 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
     "TC-EC-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com ผ่าน auth fixture" },
         { type: "steps", description: "1. ไปที่ /config/extra-cost" },
-        { type: "expected", description: "URL matches /config/extra-cost; หน้า list render สำเร็จ" },
+        { type: "expected", description: "URL ตรงกับ /config/extra-cost; หน้า list render สำเร็จ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -37,7 +37,7 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
     "TC-EC-010002 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/extra-cost" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/extra-cost" },
         { type: "steps", description: "1. ไปที่ /config/extra-cost" },
         { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
         { type: "priority", description: "High" },
@@ -54,7 +54,7 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
     "TC-EC-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/extra-cost" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/extra-cost" },
         { type: "steps", description: "1. ไปที่ /config/extra-cost\n2. พิมพ์ 'test' ในช่องค้นหา" },
         { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
         { type: "priority", description: "Medium" },
@@ -72,7 +72,7 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
     "TC-EC-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/extra-cost" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/extra-cost" },
         { type: "steps", description: "1. ไปที่ /config/extra-cost\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
         { type: "priority", description: "Medium" },
@@ -90,7 +90,7 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
     "TC-EC-010005 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/extra-cost" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/extra-cost" },
         { type: "steps", description: "1. เปิด Add dialog\n2. กด Save โดยไม่กรอกชื่อ" },
         { type: "expected", description: "Error message แสดงใน dialog (required validation); dialog ยังเปิดอยู่" },
         { type: "priority", description: "High" },
@@ -110,7 +110,7 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
     "TC-EC-010006 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
         { type: "steps", description: "1. เปิด Add dialog\n2. กรอก name = NAME\n3. กด Save\n4. ค้นหาด้วย NAME" },
         { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มีชื่อ NAME ปรากฏใน list" },
         { type: "priority", description: "High" },

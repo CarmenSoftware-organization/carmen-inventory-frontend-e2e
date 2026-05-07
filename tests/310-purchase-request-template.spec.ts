@@ -21,13 +21,13 @@ purchaseTest.describe("PR Template — Create", () => {
     "TC-PRT-010001 Happy Path - Create Template with Valid Data",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'Create Purchase Request Template' permission; assigned to at least one department; at least one budget code and account exist" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'Create Purchase Request Template'; ถูกกำหนดให้อย่างน้อยหนึ่งแผนก; มี budget code และ account อย่างน้อยหนึ่งรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'New Purchase Request'\n3. Fill Item Specifications\n4. Fill Quantity\n5. Fill Pricing\n6. Select Budget Code\n7. Select Account\n8. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'New Purchase Request'\n3. กรอก Item Specifications\n4. กรอก Quantity\n5. กรอก Pricing\n6. เลือก Budget Code\n7. เลือก Account\n8. คลิก 'Save'",
         },
-        { type: "expected", description: "Purchase request template is successfully created and saved." },
+        { type: "expected", description: "Purchase request template ถูกสร้างและบันทึกสำเร็จ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -43,12 +43,12 @@ purchaseTest.describe("PR Template — Create", () => {
     "TC-PRT-010003 Edge Case - Create Template without Assigned Department",
     {
       annotation: [
-        { type: "preconditions", description: "User has create permission but is not assigned to any department" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้างแต่ไม่ได้ถูกกำหนดให้กับแผนกใดๆ" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/purchase-request-template\n2. Click 'New Purchase Request'",
+          description: "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'New Purchase Request'",
         },
-        { type: "expected", description: "System displays error message indicating user needs to be assigned to a department." },
+        { type: "expected", description: "ระบบแสดงข้อความแสดงข้อผิดพลาดว่าผู้ใช้ต้องถูกกำหนดให้กับแผนก" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -63,13 +63,13 @@ purchaseTest.describe("PR Template — Create", () => {
     "TC-PRT-010004 Negative - Empty Fields for Template",
     {
       annotation: [
-        { type: "preconditions", description: "User has create permission; assigned to at least one department" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง; ถูกกำหนดให้อย่างน้อยหนึ่งแผนก" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'New Purchase Request'\n3. Fill only part of the required fields\n4. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'New Purchase Request'\n3. กรอกเฉพาะบางส่วนของ required fields\n4. คลิก 'Save'",
         },
-        { type: "expected", description: "System displays error message for required fields not filled." },
+        { type: "expected", description: "ระบบแสดงข้อความแสดงข้อผิดพลาดสำหรับ required fields ที่ยังไม่ได้กรอก" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -88,12 +88,12 @@ requestorTest.describe("PR Template — Create — Permission denial", () => {
     "TC-PRT-010002 Negative - No Permission to Create Template",
     {
       annotation: [
-        { type: "preconditions", description: "User lacks 'Create Purchase Request Template' permission" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์ 'Create Purchase Request Template'" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/purchase-request-template\n2. Click 'New Purchase Request'",
+          description: "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'New Purchase Request'",
         },
-        { type: "expected", description: "System displays permission denied message." },
+        { type: "expected", description: "ระบบแสดงข้อความ permission denied" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -118,13 +118,13 @@ purchaseTest.describe("PR Template — View Detail", () => {
     "TC-PRT-020001 View template with valid permissions",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'View Purchase Request Templates' permission; template exists in the system" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'View Purchase Request Templates'; template มีอยู่ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on a template card\n3. Verify all metadata, configured items, budget allocations, and usage history are displayed",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกที่ template card\n3. ตรวจสอบว่า metadata, configured items, budget allocations และ usage history ทั้งหมดแสดงผล",
         },
-        { type: "expected", description: "All template details are correctly displayed." },
+        { type: "expected", description: "รายละเอียด template ทั้งหมดแสดงผลถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -142,13 +142,13 @@ purchaseTest.describe("PR Template — View Detail", () => {
     "TC-PRT-020003 View non-existent template",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'View Purchase Request Templates' permission" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'View Purchase Request Templates'" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on a non-existent template link\n3. Verify error message or access is denied",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกที่ link template ที่ไม่มีอยู่\n3. ตรวจสอบข้อความแสดงข้อผิดพลาดหรือการปฏิเสธการเข้าถึง",
         },
-        { type: "expected", description: "User receives an error message or is informed that the template does not exist." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดหรือได้รับแจ้งว่า template ไม่มีอยู่" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -163,13 +163,13 @@ purchaseTest.describe("PR Template — View Detail", () => {
     "TC-PRT-020004 View template with no budget allocations",
     {
       annotation: [
-        { type: "preconditions", description: "User has view permission; template exists with no budget allocations" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ view; template มีอยู่โดยไม่มี budget allocations" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on a template card\n3. Verify that there are no budget allocation entries displayed",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกที่ template card\n3. ตรวจสอบว่าไม่มี budget allocation entries แสดงผล",
         },
-        { type: "expected", description: "The budget allocations section shows no entries." },
+        { type: "expected", description: "ส่วน budget allocations ไม่แสดง entries ใดๆ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -184,13 +184,13 @@ purchaseTest.describe("PR Template — View Detail", () => {
     "TC-PRT-020005 View template with very long usage history",
     {
       annotation: [
-        { type: "preconditions", description: "User has view permission; template exists with a very long usage history" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ view; template มีอยู่พร้อม usage history ที่ยาวมาก" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on a template card\n3. Verify that the usage history is truncated or paginated",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกที่ template card\n3. ตรวจสอบว่า usage history ถูก truncated หรือแบ่งหน้า",
         },
-        { type: "expected", description: "The usage history is truncated or paginated, allowing users to view a reasonable amount of data." },
+        { type: "expected", description: "usage history ถูก truncated หรือแบ่งหน้า ทำให้ผู้ใช้สามารถดูข้อมูลได้ในปริมาณที่เหมาะสม" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -210,13 +210,13 @@ purchaseTest.describe("PR Template — Edit", () => {
     "TC-PRT-030001 Edit Template - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "User has edit permission; template exists and is in editable status (Draft or Active); user is template creator or has elevated privilege" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์แก้ไข; template มีอยู่และอยู่ในสถานะที่แก้ไขได้ (Draft หรือ Active); ผู้ใช้เป็นผู้สร้าง template หรือมีสิทธิ์สูงกว่า" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on 'Edit' for an existing template\n3. Fill in updated description\n4. Adjust quantity or price\n5. Verify changes are saved\n6. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Edit' สำหรับ template ที่มีอยู่\n3. กรอก description ที่อัปเดต\n4. ปรับ quantity หรือ price\n5. ตรวจสอบว่าการเปลี่ยนแปลงถูกบันทึก\n6. คลิก 'Save'",
         },
-        { type: "expected", description: "Template is updated with new description, quantity, and price. Changes are reflected in the template." },
+        { type: "expected", description: "Template ถูกอัปเดตด้วย description, quantity และ price ใหม่ การเปลี่ยนแปลงสะท้อนใน template" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -235,13 +235,13 @@ purchaseTest.describe("PR Template — Edit", () => {
     "TC-PRT-030002 Edit Template - Invalid Input",
     {
       annotation: [
-        { type: "preconditions", description: "User has edit permission; template exists and is in editable status" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์แก้ไข; template มีอยู่และอยู่ในสถานะที่แก้ไขได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on 'Edit' for an existing template\n3. Fill in a negative quantity value\n4. Attempt to save\n5. Verify error message",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Edit' สำหรับ template ที่มีอยู่\n3. กรอกค่า quantity ที่เป็นลบ\n4. พยายาม save\n5. ตรวจสอบข้อความแสดงข้อผิดพลาด",
         },
-        { type: "expected", description: "Error message displayed stating that quantity cannot be negative." },
+        { type: "expected", description: "แสดงข้อความแสดงข้อผิดพลาดว่า quantity ต้องไม่เป็นค่าลบ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -256,13 +256,13 @@ purchaseTest.describe("PR Template — Edit", () => {
     "TC-PRT-030004 Edit Template - Template In ReadOnly Status",
     {
       annotation: [
-        { type: "preconditions", description: "Template is in non-editable status (Locked or Inactive)" },
+        { type: "preconditions", description: "Template อยู่ในสถานะที่แก้ไขไม่ได้ (Locked หรือ Inactive)" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on 'Edit' for a template in non-editable status\n3. Attempt to make any changes\n4. Verify inability to save changes",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Edit' สำหรับ template ที่อยู่ในสถานะที่แก้ไขไม่ได้\n3. พยายามทำการเปลี่ยนแปลงใดๆ\n4. ตรวจสอบว่าไม่สามารถ save การเปลี่ยนแปลงได้",
         },
-        { type: "expected", description: "User is unable to make any changes and receives a message stating the template is read-only." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถทำการเปลี่ยนแปลงได้และได้รับข้อความว่า template เป็น read-only" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -277,13 +277,13 @@ purchaseTest.describe("PR Template — Edit", () => {
     "TC-PRT-030005 Edit Template - No Existing Template",
     {
       annotation: [
-        { type: "preconditions", description: "User has edit permission; template does not exist" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์แก้ไข; template ไม่มีอยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Attempt to click on 'Edit' for a non-existent template\n3. Verify no actions can be performed",
+            "1. ไปที่ /procurement/purchase-request-template\n2. พยายามคลิก 'Edit' สำหรับ template ที่ไม่มีอยู่\n3. ตรวจสอบว่าไม่สามารถดำเนินการใดๆ ได้",
         },
-        { type: "expected", description: "User is unable to perform any actions on a non-existent template." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถดำเนินการใดๆ กับ template ที่ไม่มีอยู่ได้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -300,13 +300,13 @@ requestorTest.describe("PR Template — Edit — Permission denial", () => {
     "TC-PRT-030003 Edit Template - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is not template creator and does not have elevated privilege" },
+        { type: "preconditions", description: "ผู้ใช้ไม่ใช่ผู้สร้าง template และไม่มีสิทธิ์สูงกว่า" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on 'Edit' for an existing template\n3. Attempt to make any changes\n4. Verify inability to save changes",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Edit' สำหรับ template ที่มีอยู่\n3. พยายามทำการเปลี่ยนแปลงใดๆ\n4. ตรวจสอบว่าไม่สามารถ save การเปลี่ยนแปลงได้",
         },
-        { type: "expected", description: "User is unable to make any changes and receives a permission denied message." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถทำการเปลี่ยนแปลงได้และได้รับข้อความ permission denied" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -336,13 +336,13 @@ purchaseTest.describe("PR Template — Delete", () => {
     "TC-PRT-040001 Delete valid template - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "User has delete permission; template exists and is not marked as default for its department" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ลบ; template มีอยู่และไม่ได้ถูกกำหนดเป็น default ของแผนก" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Select the template to delete\n3. Click 'Delete'\n4. Confirm the deletion",
+            "1. ไปที่ /procurement/purchase-request-template\n2. เลือก template ที่ต้องการลบ\n3. คลิก 'Delete'\n4. Confirm การลบ",
         },
-        { type: "expected", description: "Template is successfully deleted from the system." },
+        { type: "expected", description: "Template ถูกลบออกจากระบบสำเร็จ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -357,12 +357,12 @@ purchaseTest.describe("PR Template — Delete", () => {
     "TC-PRT-040002 Attempt to delete default template - Negative Case",
     {
       annotation: [
-        { type: "preconditions", description: "User has delete permission; default template exists in the system for the department" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ลบ; default template มีอยู่ในระบบสำหรับแผนก" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/purchase-request-template\n2. Attempt to delete the default template",
+          description: "1. ไปที่ /procurement/purchase-request-template\n2. พยายามลบ default template",
         },
-        { type: "expected", description: "System prevents deletion of the default template and displays an error message." },
+        { type: "expected", description: "ระบบป้องกันการลบ default template และแสดงข้อความแสดงข้อผิดพลาด" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -377,12 +377,12 @@ purchaseTest.describe("PR Template — Delete", () => {
     "TC-PRT-040004 Attempt to delete template that does not exist - Negative Case",
     {
       annotation: [
-        { type: "preconditions", description: "User has delete permission; template does not exist in the system" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ลบ; template ไม่มีอยู่ในระบบ" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/purchase-request-template\n2. Attempt to delete a non-existent template",
+          description: "1. ไปที่ /procurement/purchase-request-template\n2. พยายามลบ template ที่ไม่มีอยู่",
         },
-        { type: "expected", description: "System displays an error message indicating that the template does not exist." },
+        { type: "expected", description: "ระบบแสดงข้อความแสดงข้อผิดพลาดว่า template ไม่มีอยู่" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Negative" },
       ],
@@ -397,13 +397,13 @@ purchaseTest.describe("PR Template — Delete", () => {
     "TC-PRT-040005 Delete template with multiple selections - Edge Case",
     {
       annotation: [
-        { type: "preconditions", description: "User has delete permission; multiple templates exist and are not marked as default" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ลบ; มี template หลายรายการและไม่มีรายการใดถูกกำหนดเป็น default" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Select multiple templates\n3. Click 'Delete'\n4. Confirm the deletion",
+            "1. ไปที่ /procurement/purchase-request-template\n2. เลือก template หลายรายการ\n3. คลิก 'Delete'\n4. Confirm การลบ",
         },
-        { type: "expected", description: "Selected templates are successfully deleted from the system." },
+        { type: "expected", description: "template ที่เลือกถูกลบออกจากระบบสำเร็จ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -420,12 +420,12 @@ requestorTest.describe("PR Template — Delete — Permission denial", () => {
     "TC-PRT-040003 Delete template with no permissions - Negative Case",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have 'Delete Purchase Request Template' permission" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์ 'Delete Purchase Request Template'" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/purchase-request-template\n2. Attempt to delete any template",
+          description: "1. ไปที่ /procurement/purchase-request-template\n2. พยายามลบ template ใดๆ",
         },
-        { type: "expected", description: "System displays an error message indicating that the user does not have the required permission." },
+        { type: "expected", description: "ระบบแสดงข้อความแสดงข้อผิดพลาดว่าผู้ใช้ไม่มีสิทธิ์ที่ต้องการ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -450,13 +450,13 @@ purchaseTest.describe("PR Template — Clone", () => {
     "TC-PRT-050001 Clone existing template successfully",
     {
       annotation: [
-        { type: "preconditions", description: "User has create permission; source template exists and is accessible" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง; source template มีอยู่และเข้าถึงได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Clone' on the source template\n3. Confirm the clone operation",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Clone' ที่ source template\n3. Confirm การ clone",
         },
-        { type: "expected", description: "The new template is created as a copy of the source template with all details intact." },
+        { type: "expected", description: "template ใหม่ถูกสร้างเป็นสำเนาของ source template พร้อมรายละเอียดครบถ้วน" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -473,12 +473,12 @@ purchaseTest.describe("PR Template — Clone", () => {
     "TC-PRT-050003 Clone template with non-existent source",
     {
       annotation: [
-        { type: "preconditions", description: "User has create permission; source template does not exist" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง; source template ไม่มีอยู่" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/purchase-request-template\n2. Attempt to click 'Clone' on a non-existent template",
+          description: "1. ไปที่ /procurement/purchase-request-template\n2. พยายามคลิก 'Clone' ที่ template ที่ไม่มีอยู่",
         },
-        { type: "expected", description: "User is informed that the source template does not exist." },
+        { type: "expected", description: "ผู้ใช้ได้รับแจ้งว่า source template ไม่มีอยู่" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -493,13 +493,13 @@ purchaseTest.describe("PR Template — Clone", () => {
     "TC-PRT-050004 Clone template with different departments",
     {
       annotation: [
-        { type: "preconditions", description: "User has create permission; source template exists and is from a different department" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง; source template มีอยู่และมาจากแผนกอื่น" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Clone' on the source template\n3. Verify that the new template's department is the same as the user's department",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Clone' ที่ source template\n3. ตรวจสอบว่าแผนกของ template ใหม่ตรงกับแผนกของผู้ใช้",
         },
-        { type: "expected", description: "The new template's department matches the user's department, indicating the cloning operation is restricted to the user's department." },
+        { type: "expected", description: "แผนกของ template ใหม่ตรงกับแผนกของผู้ใช้ แสดงให้เห็นว่าการ clone ถูกจำกัดไว้ที่แผนกของผู้ใช้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -516,13 +516,13 @@ requestorTest.describe("PR Template — Clone — Permission denial", () => {
     "TC-PRT-050002 User without permission cannot clone template",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have create permission; source template exists and is accessible" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์สร้าง; source template มีอยู่และเข้าถึงได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Attempt to click 'Clone' on the source template",
+            "1. ไปที่ /procurement/purchase-request-template\n2. พยายามคลิก 'Clone' ที่ source template",
         },
-        { type: "expected", description: "User receives an access denied message or the 'Clone' option is grayed out." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความ access denied หรือตัวเลือก 'Clone' ถูก grayed out" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -549,13 +549,13 @@ purchaseTest.describe("PR Template — Set as Default", () => {
     "TC-PRT-060001 Set Default Template Successfully",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'Manage Default Templates' permission; template exists and is in Active status; user has access to template's department" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'Manage Default Templates'; template มีอยู่และอยู่ในสถานะ Active; ผู้ใช้เข้าถึงแผนกของ template ได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Manage Templates'\n3. Select template\n4. Click 'Set as Default'\n5. Confirm",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Manage Templates'\n3. เลือก template\n4. คลิก 'Set as Default'\n5. Confirm",
         },
-        { type: "expected", description: "Template is marked as default and a success message is displayed." },
+        { type: "expected", description: "Template ถูกกำหนดเป็น default และแสดงข้อความสำเร็จ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -570,13 +570,13 @@ purchaseTest.describe("PR Template — Set as Default", () => {
     "TC-PRT-060003 Set Default Template with Invalid Template",
     {
       annotation: [
-        { type: "preconditions", description: "User has manage permission; template does not exist or is in Inactive status" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ manage; template ไม่มีอยู่หรืออยู่ในสถานะ Inactive" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Manage Templates'\n3. Attempt to select non-existent or inactive template and set as default",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Manage Templates'\n3. พยายามเลือก template ที่ไม่มีอยู่หรือ inactive แล้วกำหนดเป็น default",
         },
-        { type: "expected", description: "User receives an error message indicating the selected template is invalid." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่า template ที่เลือกไม่ถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -591,13 +591,13 @@ purchaseTest.describe("PR Template — Set as Default", () => {
     "TC-PRT-060004 Set Default Template for Unrelated Department",
     {
       annotation: [
-        { type: "preconditions", description: "User has manage permission; template exists; user does not have access to template's department" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ manage; template มีอยู่; ผู้ใช้ไม่มีสิทธิ์เข้าถึงแผนกของ template" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Manage Templates'\n3. Select template\n4. Attempt to set as default",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Manage Templates'\n3. เลือก template\n4. พยายามกำหนดเป็น default",
         },
-        { type: "expected", description: "User receives an error message indicating they do not have access to the template's department." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่าไม่มีสิทธิ์เข้าถึงแผนกของ template" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -612,13 +612,13 @@ purchaseTest.describe("PR Template — Set as Default", () => {
     "TC-PRT-060005 Set Default Template with Multiple Selections",
     {
       annotation: [
-        { type: "preconditions", description: "Multiple templates exist and are in Active status" },
+        { type: "preconditions", description: "มี template หลายรายการและอยู่ในสถานะ Active" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Manage Templates'\n3. Select multiple templates\n4. Attempt to set as default",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Manage Templates'\n3. เลือก template หลายรายการ\n4. พยายามกำหนดเป็น default",
         },
-        { type: "expected", description: "User receives an error message indicating only one template can be set as default at a time." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่าสามารถกำหนด default ได้เพียงหนึ่ง template ในแต่ละครั้ง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -635,13 +635,13 @@ requestorTest.describe("PR Template — Set as Default — Permission denial", (
     "TC-PRT-060002 Set Default Template with No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have 'Manage Default Templates' permission" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์ 'Manage Default Templates'" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Manage Templates'\n3. Attempt to select template and set as default",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Manage Templates'\n3. พยายามเลือก template และกำหนดเป็น default",
         },
-        { type: "expected", description: "User receives an error message indicating they do not have permission to manage default templates." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่าไม่มีสิทธิ์ manage default templates" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -661,13 +661,13 @@ purchaseTest.describe("PR Template — Add Item", () => {
     "TC-PRT-070001 Add valid item to template",
     {
       annotation: [
-        { type: "preconditions", description: "User is in edit mode of a template; has permission to edit; has at least one budget and account code" },
+        { type: "preconditions", description: "ผู้ใช้อยู่ใน edit mode ของ template; มีสิทธิ์แก้ไข; มี budget และ account code อย่างน้อยหนึ่งรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Add Item'\n3. Fill 'Item Name' with 'Desk'\n4. Fill 'Quantity' with '50'\n5. Fill 'Price' with '100.50'\n6. Select 'Budget Code' from dropdown\n7. Select 'Account Code' from dropdown\n8. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Add Item'\n3. กรอก 'Item Name' ด้วย 'Desk'\n4. กรอก 'Quantity' ด้วย '50'\n5. กรอก 'Price' ด้วย '100.50'\n6. เลือก 'Budget Code' จาก dropdown\n7. เลือก 'Account Code' จาก dropdown\n8. คลิก 'Save'",
         },
-        { type: "expected", description: "Item 'Desk' is added to the template with correct details and saved successfully." },
+        { type: "expected", description: "Item 'Desk' ถูกเพิ่มเข้า template พร้อมรายละเอียดที่ถูกต้องและบันทึกสำเร็จ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -682,13 +682,13 @@ purchaseTest.describe("PR Template — Add Item", () => {
     "TC-PRT-070002 Add item with missing budget code",
     {
       annotation: [
-        { type: "preconditions", description: "User is in edit mode of a template; has permission to edit; no budget code exists" },
+        { type: "preconditions", description: "ผู้ใช้อยู่ใน edit mode ของ template; มีสิทธิ์แก้ไข; ไม่มี budget code" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Add Item'\n3. Fill 'Item Name' with 'Chair'\n4. Fill 'Quantity' with '25'\n5. Fill 'Price' with '75.00'\n6. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Add Item'\n3. กรอก 'Item Name' ด้วย 'Chair'\n4. กรอก 'Quantity' ด้วย '25'\n5. กรอก 'Price' ด้วย '75.00'\n6. คลิก 'Save'",
         },
-        { type: "expected", description: "Error message is displayed stating that a budget code is required." },
+        { type: "expected", description: "แสดงข้อความแสดงข้อผิดพลาดว่าต้องระบุ budget code" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -703,13 +703,13 @@ purchaseTest.describe("PR Template — Add Item", () => {
     "TC-PRT-070004 Add item with zero quantity",
     {
       annotation: [
-        { type: "preconditions", description: "User is in edit mode of a template; has permission to edit" },
+        { type: "preconditions", description: "ผู้ใช้อยู่ใน edit mode ของ template; มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Add Item'\n3. Fill 'Item Name' with 'Table'\n4. Fill 'Quantity' with '0'\n5. Fill 'Price' with '200.00'\n6. Select 'Budget Code' from dropdown\n7. Select 'Account Code' from dropdown\n8. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Add Item'\n3. กรอก 'Item Name' ด้วย 'Table'\n4. กรอก 'Quantity' ด้วย '0'\n5. กรอก 'Price' ด้วย '200.00'\n6. เลือก 'Budget Code' จาก dropdown\n7. เลือก 'Account Code' จาก dropdown\n8. คลิก 'Save'",
         },
-        { type: "expected", description: "Error message is displayed stating that quantity cannot be zero." },
+        { type: "expected", description: "แสดงข้อความแสดงข้อผิดพลาดว่า quantity ต้องไม่เป็นศูนย์" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -724,13 +724,13 @@ purchaseTest.describe("PR Template — Add Item", () => {
     "TC-PRT-070005 Add item with very large quantity",
     {
       annotation: [
-        { type: "preconditions", description: "User is in edit mode of a template; has permission to edit" },
+        { type: "preconditions", description: "ผู้ใช้อยู่ใน edit mode ของ template; มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Add Item'\n3. Fill 'Item Name' with 'File Cabinet'\n4. Fill 'Quantity' with '999999999999999'\n5. Fill 'Price' with '150.00'\n6. Select 'Budget Code' from dropdown\n7. Select 'Account Code' from dropdown\n8. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Add Item'\n3. กรอก 'Item Name' ด้วย 'File Cabinet'\n4. กรอก 'Quantity' ด้วย '999999999999999'\n5. กรอก 'Price' ด้วย '150.00'\n6. เลือก 'Budget Code' จาก dropdown\n7. เลือก 'Account Code' จาก dropdown\n8. คลิก 'Save'",
         },
-        { type: "expected", description: "Error message is displayed stating that quantity is too large." },
+        { type: "expected", description: "แสดงข้อความแสดงข้อผิดพลาดว่า quantity มีค่ามากเกินไป" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -747,12 +747,12 @@ requestorTest.describe("PR Template — Add Item — Permission denial", () => {
     "TC-PRT-070003 Add item with no permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is in edit mode of a template; does not have permission to edit" },
+        { type: "preconditions", description: "ผู้ใช้อยู่ใน edit mode ของ template; ไม่มีสิทธิ์แก้ไข" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/purchase-request-template\n2. Click 'Add Item'",
+          description: "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Add Item'",
         },
-        { type: "expected", description: "User is redirected to an access denied page or similar." },
+        { type: "expected", description: "ผู้ใช้ถูก redirect ไปที่หน้า access denied หรือที่คล้ายกัน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -772,13 +772,13 @@ purchaseTest.describe("PR Template — Edit Item", () => {
     "TC-PRT-080001 Edit existing template item successfully",
     {
       annotation: [
-        { type: "preconditions", description: "User is viewing a template in edit mode; template contains at least one item; user has edit permission" },
+        { type: "preconditions", description: "ผู้ใช้กำลังดู template ใน edit mode; template มีอย่างน้อยหนึ่งรายการ; ผู้ใช้มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on an existing item in the template list\n3. Modify the item's quantity\n4. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกที่รายการที่มีอยู่ใน template list\n3. แก้ไข quantity ของรายการ\n4. คลิก 'Save'",
         },
-        { type: "expected", description: "The item is updated with the new quantity; template total is recalculated." },
+        { type: "expected", description: "รายการถูกอัปเดตด้วย quantity ใหม่; ยอดรวม template ถูกคำนวณใหม่" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -793,13 +793,13 @@ purchaseTest.describe("PR Template — Edit Item", () => {
     "TC-PRT-080003 Edit template item with invalid quantity",
     {
       annotation: [
-        { type: "preconditions", description: "User is viewing a template in edit mode; template contains at least one item" },
+        { type: "preconditions", description: "ผู้ใช้กำลังดู template ใน edit mode; template มีอย่างน้อยหนึ่งรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on an existing item in the template list\n3. Enter an invalid quantity value (e.g., negative number)\n4. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกที่รายการที่มีอยู่ใน template list\n3. กรอกค่า quantity ที่ไม่ถูกต้อง (เช่น ค่าลบ)\n4. คลิก 'Save'",
         },
-        { type: "expected", description: "User receives an error message indicating the invalid input and item is not updated." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่า input ไม่ถูกต้องและรายการไม่ได้รับการอัปเดต" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -814,13 +814,13 @@ purchaseTest.describe("PR Template — Edit Item", () => {
     "TC-PRT-080004 Edit template item with no selected item",
     {
       annotation: [
-        { type: "preconditions", description: "User is viewing a template in edit mode; template contains at least one item" },
+        { type: "preconditions", description: "ผู้ใช้กำลังดู template ใน edit mode; template มีอย่างน้อยหนึ่งรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Attempt to click 'Save' without selecting an item",
+            "1. ไปที่ /procurement/purchase-request-template\n2. พยายามคลิก 'Save' โดยไม่เลือกรายการ",
         },
-        { type: "expected", description: "User receives an error message indicating that no item is selected." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่าไม่ได้เลือกรายการ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -835,13 +835,13 @@ purchaseTest.describe("PR Template — Edit Item", () => {
     "TC-PRT-080005 Edit template item with minimal changes",
     {
       annotation: [
-        { type: "preconditions", description: "User is viewing a template in edit mode; template contains at least one item" },
+        { type: "preconditions", description: "ผู้ใช้กำลังดู template ใน edit mode; template มีอย่างน้อยหนึ่งรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on an existing item in the template list\n3. Modify the item's price by the smallest possible amount\n4. Click 'Save'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกที่รายการที่มีอยู่ใน template list\n3. แก้ไข price ของรายการด้วยจำนวนที่น้อยที่สุดที่เป็นไปได้\n4. คลิก 'Save'",
         },
-        { type: "expected", description: "The item is updated with the new minimal price; template total is recalculated." },
+        { type: "expected", description: "รายการถูกอัปเดตด้วย price ขั้นต่ำใหม่; ยอดรวม template ถูกคำนวณใหม่" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -858,13 +858,13 @@ requestorTest.describe("PR Template — Edit Item — Permission denial", () => 
     "TC-PRT-080002 Attempt to edit template without permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is viewing a template in edit mode; template contains at least one item; user does not have edit permission" },
+        { type: "preconditions", description: "ผู้ใช้กำลังดู template ใน edit mode; template มีอย่างน้อยหนึ่งรายการ; ผู้ใช้ไม่มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on an existing item in the template list\n3. Attempt to modify the item's quantity",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกที่รายการที่มีอยู่ใน template list\n3. พยายามแก้ไข quantity ของรายการ",
         },
-        { type: "expected", description: "User receives an error message indicating insufficient permission to edit the template." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความแสดงข้อผิดพลาดว่ามีสิทธิ์ไม่เพียงพอในการแก้ไข template" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -884,13 +884,13 @@ purchaseTest.describe("PR Template — Delete Item", () => {
     "TC-PRT-090001 Delete template item - happy path",
     {
       annotation: [
-        { type: "preconditions", description: "User has edit permission; viewing a template in edit mode; template contains at least one item" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์แก้ไข; กำลังดู template ใน edit mode; template มีอย่างน้อยหนึ่งรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on 'Edit' for the specific template\n3. Click on the 'Items' tab\n4. Select an item in the list\n5. Click 'Delete' button\n6. Confirm deletion if prompted",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Edit' สำหรับ template ที่ต้องการ\n3. คลิกที่แท็บ 'Items'\n4. เลือกรายการใน list\n5. คลิกปุ่ม 'Delete'\n6. Confirm การลบหากมีการแจ้งเตือน",
         },
-        { type: "expected", description: "Selected item is removed from the template, template total recalculated, and deletion logged." },
+        { type: "expected", description: "รายการที่เลือกถูกลบออกจาก template, ยอดรวม template ถูกคำนวณใหม่, และการลบถูกบันทึกไว้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -905,13 +905,13 @@ purchaseTest.describe("PR Template — Delete Item", () => {
     "TC-PRT-090003 Delete template item - no items present",
     {
       annotation: [
-        { type: "preconditions", description: "User has edit permission; template contains no items" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์แก้ไข; template ไม่มีรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on 'Edit' for the specific template\n3. Click on the 'Items' tab\n4. Attempt to delete an item\n5. Verify that the item list is empty and no delete option is available",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Edit' สำหรับ template ที่ต้องการ\n3. คลิกที่แท็บ 'Items'\n4. พยายามลบรายการ\n5. ตรวจสอบว่า item list ว่างเปล่าและไม่มีตัวเลือกลบ",
         },
-        { type: "expected", description: "User is informed that no items are present to delete." },
+        { type: "expected", description: "ผู้ใช้ได้รับแจ้งว่าไม่มีรายการที่จะลบ" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -928,13 +928,13 @@ requestorTest.describe("PR Template — Delete Item — Permission denial", () =
     "TC-PRT-090002 Delete template item - no permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have edit permission; viewing a template in view mode; template contains at least one item" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์แก้ไข; กำลังดู template ใน view mode; template มีอย่างน้อยหนึ่งรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click on 'View' for the specific template\n3. Attempt to click 'Edit' button\n4. Verify that 'Edit' button is disabled or not visible",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'View' สำหรับ template ที่ต้องการ\n3. พยายามคลิกปุ่ม 'Edit'\n4. ตรวจสอบว่าปุ่ม 'Edit' ถูก disabled หรือไม่ visible",
         },
-        { type: "expected", description: "User is unable to navigate to edit mode and cannot delete items." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถนำทางไปยัง edit mode และไม่สามารถลบรายการได้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -954,13 +954,13 @@ purchaseTest.describe("PR Template — Search & Filter", () => {
     "TC-PRT-100001 Search for template by name",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to templates list; at least one template exists" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง templates list; มี template อย่างน้อยหนึ่งรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Fill 'Search' with 'example template'\n3. Click 'Search'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. กรอก 'Search' ด้วย 'example template'\n3. คลิก 'Search'",
         },
-        { type: "expected", description: "A filtered list of templates containing 'example template' is displayed." },
+        { type: "expected", description: "แสดง list ของ template ที่ค้นหาเจอที่มีคำว่า 'example template'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -977,13 +977,13 @@ purchaseTest.describe("PR Template — Search & Filter", () => {
     "TC-PRT-100002 Filter templates by category",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to templates list; at least one template exists" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง templates list; มี template อย่างน้อยหนึ่งรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Filter' button\n3. Select 'Category' from dropdown\n4. Select a category\n5. Click 'Apply' button",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกปุ่ม 'Filter'\n3. เลือก 'Category' จาก dropdown\n4. เลือก category\n5. คลิกปุ่ม 'Apply'",
         },
-        { type: "expected", description: "Templates are filtered by the selected category." },
+        { type: "expected", description: "Template ถูก filter ตาม category ที่เลือก" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1000,12 +1000,12 @@ purchaseTest.describe("PR Template — Search & Filter", () => {
     "TC-PRT-100003 Search with invalid input",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to templates list; at least one template exists" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง templates list; มี template อย่างน้อยหนึ่งรายการ" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/purchase-request-template\n2. Fill 'Search' with '!@#'\n3. Click 'Search'",
+          description: "1. ไปที่ /procurement/purchase-request-template\n2. กรอก 'Search' ด้วย '!@#'\n3. คลิก 'Search'",
         },
-        { type: "expected", description: "No templates are displayed and an error message is shown." },
+        { type: "expected", description: "ไม่แสดง template และแสดงข้อความแสดงข้อผิดพลาด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1022,12 +1022,12 @@ purchaseTest.describe("PR Template — Search & Filter", () => {
     "TC-PRT-100005 Edge case - search with empty input",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to templates list; at least one template exists" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง templates list; มี template อย่างน้อยหนึ่งรายการ" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/purchase-request-template\n2. Clear 'Search' input field\n3. Click 'Search'",
+          description: "1. ไปที่ /procurement/purchase-request-template\n2. ล้าง input field 'Search'\n3. คลิก 'Search'",
         },
-        { type: "expected", description: "All templates are displayed." },
+        { type: "expected", description: "แสดง template ทั้งหมด" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1046,9 +1046,9 @@ requestorTest.describe("PR Template — Search & Filter — Permission denial", 
     "TC-PRT-100004 Filter with no permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have permission to view templates" },
-        { type: "steps", description: "1. Navigate to /procurement/purchase-request-template" },
-        { type: "expected", description: "User is redirected to unauthorized access page or an error message is displayed." },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์ดู templates" },
+        { type: "steps", description: "1. ไปที่ /procurement/purchase-request-template" },
+        { type: "expected", description: "ผู้ใช้ถูก redirect ไปที่หน้า unauthorized access หรือแสดงข้อความแสดงข้อผิดพลาด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1071,13 +1071,13 @@ purchaseTest.describe("PR Template — Bulk Operations", () => {
     "TC-PRT-110001 Bulk Template Creation",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'Bulk Operations' permission; templates list contains multiple templates" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'Bulk Operations'; templates list มี template หลายรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Bulk Operations' tab\n3. Select 'Create Templates' option\n4. Fill in template details for multiple templates\n5. Click 'Submit'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกแท็บ 'Bulk Operations'\n3. เลือกตัวเลือก 'Create Templates'\n4. กรอกรายละเอียด template สำหรับหลาย template\n5. คลิก 'Submit'",
         },
-        { type: "expected", description: "Bulk templates are created successfully." },
+        { type: "expected", description: "Bulk templates ถูกสร้างสำเร็จ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1092,13 +1092,13 @@ purchaseTest.describe("PR Template — Bulk Operations", () => {
     "TC-PRT-110003 Bulk Template Update with Invalid Data",
     {
       annotation: [
-        { type: "preconditions", description: "User has bulk operations permission" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ bulk operations" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Bulk Operations' tab\n3. Select 'Update Templates' option\n4. Fill in invalid data for multiple templates\n5. Click 'Submit'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกแท็บ 'Bulk Operations'\n3. เลือกตัวเลือก 'Update Templates'\n4. กรอกข้อมูลที่ไม่ถูกต้องสำหรับหลาย template\n5. คลิก 'Submit'",
         },
-        { type: "expected", description: "System prevents submission and displays error messages for invalid data." },
+        { type: "expected", description: "ระบบป้องกันการ submit และแสดงข้อความแสดงข้อผิดพลาดสำหรับข้อมูลที่ไม่ถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -1113,13 +1113,13 @@ purchaseTest.describe("PR Template — Bulk Operations", () => {
     "TC-PRT-110004 Bulk Template Operation with Empty Selection",
     {
       annotation: [
-        { type: "preconditions", description: "User has bulk operations permission" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ bulk operations" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Bulk Operations' tab\n3. Attempt to perform any bulk operation without selecting any templates",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกแท็บ 'Bulk Operations'\n3. พยายามดำเนิน bulk operation ใดๆ โดยไม่เลือก template",
         },
-        { type: "expected", description: "System displays error message indicating no templates selected." },
+        { type: "expected", description: "ระบบแสดงข้อความแสดงข้อผิดพลาดว่าไม่ได้เลือก template" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1134,13 +1134,13 @@ purchaseTest.describe("PR Template — Bulk Operations", () => {
     "TC-PRT-110005 Bulk Template Operation on Single Template",
     {
       annotation: [
-        { type: "preconditions", description: "User has bulk operations permission; multiple templates exist" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ bulk operations; มี template หลายรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Bulk Operations' tab\n3. Select a single template\n4. Perform a bulk operation (e.g., update, delete)\n5. Confirm operation",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกแท็บ 'Bulk Operations'\n3. เลือก template เดียว\n4. ดำเนิน bulk operation (เช่น update, delete)\n5. Confirm การดำเนินการ",
         },
-        { type: "expected", description: "System performs the operation on the single selected template." },
+        { type: "expected", description: "ระบบดำเนินการกับ template ที่เลือกเพียงรายการเดียว" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1157,13 +1157,13 @@ requestorTest.describe("PR Template — Bulk Operations — Permission denial", 
     "TC-PRT-110002 Bulk Template Deletion Without Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have 'Bulk Operations' permission" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์ 'Bulk Operations'" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Bulk Operations' tab\n3. Select 'Delete Templates' option\n4. Select multiple templates\n5. Click 'Confirm'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกแท็บ 'Bulk Operations'\n3. เลือกตัวเลือก 'Delete Templates'\n4. เลือก template หลายรายการ\n5. คลิก 'Confirm'",
         },
-        { type: "expected", description: "System denies deletion and displays error message." },
+        { type: "expected", description: "ระบบปฏิเสธการลบและแสดงข้อความแสดงข้อผิดพลาด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1183,13 +1183,13 @@ purchaseTest.describe("PR Template — Convert to PR", () => {
     "TC-PRT-210001 Happy Path - Convert Template to Purchase Request",
     {
       annotation: [
-        { type: "preconditions", description: "User has a valid template saved in the system" },
+        { type: "preconditions", description: "ผู้ใช้มี template ที่ถูกต้องบันทึกอยู่ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Use Template' button\n3. Verify template details are populated in the purchase request form\n4. Click 'Save' button",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกปุ่ม 'Use Template'\n3. ตรวจสอบว่ารายละเอียด template ถูกกรอกใน purchase request form\n4. คลิกปุ่ม 'Save'",
         },
-        { type: "expected", description: "Purchase request is created with template details and saved successfully." },
+        { type: "expected", description: "Purchase request ถูกสร้างพร้อมรายละเอียด template และบันทึกสำเร็จ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1206,13 +1206,13 @@ purchaseTest.describe("PR Template — Convert to PR", () => {
     "TC-PRT-210003 Edge Case - Template with Empty Fields",
     {
       annotation: [
-        { type: "preconditions", description: "User has a template with some empty fields" },
+        { type: "preconditions", description: "ผู้ใช้มี template ที่มี field ว่างบางส่วน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Use Template' button\n3. Verify fields with no data are left empty in the purchase request form",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิกปุ่ม 'Use Template'\n3. ตรวจสอบว่า field ที่ไม่มีข้อมูลถูกปล่อยว่างใน purchase request form",
         },
-        { type: "expected", description: "Fields with no data in the template are not populated in the purchase request form." },
+        { type: "expected", description: "Field ที่ไม่มีข้อมูลใน template ไม่ถูกกรอกใน purchase request form" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1229,13 +1229,13 @@ requestorTest.describe("PR Template — Convert to PR — Permission denial", ()
     "TC-PRT-210002 Negative Case - Insufficient Permissions",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have permission to use templates" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์ใช้ templates" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Attempt to click 'Use Template' button\n3. Verify error message stating permission denied",
+            "1. ไปที่ /procurement/purchase-request-template\n2. พยายามคลิกปุ่ม 'Use Template'\n3. ตรวจสอบข้อความแสดงข้อผิดพลาดว่า permission denied",
         },
-        { type: "expected", description: "User is unable to use template and receives an appropriate error message." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถใช้ template และได้รับข้อความแสดงข้อผิดพลาดที่เหมาะสม" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1260,13 +1260,13 @@ purchaseTest.describe("PR Template — Budget Code", () => {
     "TC-PRT-220001 Valid Budget Code Input",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to the Templates Module and is on the item form with a valid budget code" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง Templates Module และอยู่ที่ item form พร้อม budget code ที่ถูกต้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Fill 'Budget Code' field with valid code\n3. Click 'Save Template'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. กรอก field 'Budget Code' ด้วย code ที่ถูกต้อง\n3. คลิก 'Save Template'",
         },
-        { type: "expected", description: "Template is saved successfully with the valid budget code." },
+        { type: "expected", description: "Template ถูกบันทึกสำเร็จพร้อม budget code ที่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1281,13 +1281,13 @@ purchaseTest.describe("PR Template — Budget Code", () => {
     "TC-PRT-220003 No Budget Code Selection",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to the Templates Module and is on the item form without selecting a budget code" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง Templates Module และอยู่ที่ item form โดยไม่ได้เลือก budget code" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Leave 'Budget Code' field blank\n3. Click 'Save Template'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. ปล่อย field 'Budget Code' ว่าง\n3. คลิก 'Save Template'",
         },
-        { type: "expected", description: "Error message displayed prompting the selection of a valid budget code." },
+        { type: "expected", description: "แสดงข้อความแสดงข้อผิดพลาดให้เลือก budget code ที่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1304,13 +1304,13 @@ purchaseTest.describe("PR Template — Budget Code", () => {
     "TC-PRT-220004 Budget Code Exceeds Character Limit",
     {
       annotation: [
-        { type: "preconditions", description: "User is on the item form with a budget code exceeding the allowed character limit" },
+        { type: "preconditions", description: "ผู้ใช้อยู่ที่ item form พร้อม budget code ที่เกิน character limit ที่อนุญาต" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Fill 'Budget Code' field with code exceeding the allowed limit\n3. Click 'Save Template'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. กรอก field 'Budget Code' ด้วย code ที่เกิน limit ที่อนุญาต\n3. คลิก 'Save Template'",
         },
-        { type: "expected", description: "Error message displayed indicating the budget code exceeds the character limit." },
+        { type: "expected", description: "แสดงข้อความแสดงข้อผิดพลาดว่า budget code เกิน character limit" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1327,13 +1327,13 @@ requestorTest.describe("PR Template — Budget Code — Permission denial", () =
     "TC-PRT-220005 User Without Save Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to the Templates Module but does not have permission to save templates" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง Templates Module แต่ไม่มีสิทธิ์บันทึก templates" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Fill 'Budget Code' field with valid code\n3. Click 'Save Template'",
+            "1. ไปที่ /procurement/purchase-request-template\n2. กรอก field 'Budget Code' ด้วย code ที่ถูกต้อง\n3. คลิก 'Save Template'",
         },
-        { type: "expected", description: "System denies the save operation and prompts the user about insufficient permissions." },
+        { type: "expected", description: "ระบบปฏิเสธการบันทึกและแจ้งผู้ใช้เกี่ยวกับสิทธิ์ที่ไม่เพียงพอ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1358,13 +1358,13 @@ purchaseTest.describe("PR Template — Browse Catalog", () => {
     "TC-PRT-230001 Browse Catalog and Retrieve Valid Data",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged into the system with appropriate permissions" },
+        { type: "preconditions", description: "ผู้ใช้ Login เข้าสู่ระบบพร้อมสิทธิ์ที่เหมาะสม" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Browse Catalog'\n3. Verify the catalog data is retrieved and displayed correctly",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Browse Catalog'\n3. ตรวจสอบว่าข้อมูล catalog ถูกดึงและแสดงผลอย่างถูกต้อง",
         },
-        { type: "expected", description: "The catalog data is successfully retrieved and displayed for the user." },
+        { type: "expected", description: "ข้อมูล catalog ถูกดึงและแสดงผลให้ผู้ใช้สำเร็จ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1381,13 +1381,13 @@ purchaseTest.describe("PR Template — Browse Catalog", () => {
     "TC-PRT-230003 Retrieve Catalog Data After Server Timeout",
     {
       annotation: [
-        { type: "preconditions", description: "Server responds with a timeout error when attempting to fetch data" },
+        { type: "preconditions", description: "Server ตอบกลับด้วย timeout error เมื่อพยายาม fetch ข้อมูล" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Browse Catalog'\n3. Wait for the server timeout\n4. Verify the system handles the timeout gracefully",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Browse Catalog'\n3. รอ server timeout\n4. ตรวจสอบว่าระบบจัดการ timeout ได้อย่างเหมาะสม",
         },
-        { type: "expected", description: "The system handles the server timeout gracefully and provides appropriate feedback to the user." },
+        { type: "expected", description: "ระบบจัดการ server timeout ได้อย่างเหมาะสมและให้ feedback ที่เหมาะสมแก่ผู้ใช้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1404,13 +1404,13 @@ requestorTest.describe("PR Template — Browse Catalog — Permission denial", (
     "TC-PRT-230002 Browse Catalog with Invalid Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged into the system but does not have appropriate permissions" },
+        { type: "preconditions", description: "ผู้ใช้ Login เข้าสู่ระบบแต่ไม่มีสิทธิ์ที่เหมาะสม" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request-template\n2. Click 'Browse Catalog'\n3. Verify the system denies access or displays an error message",
+            "1. ไปที่ /procurement/purchase-request-template\n2. คลิก 'Browse Catalog'\n3. ตรวจสอบว่าระบบปฏิเสธการเข้าถึงหรือแสดงข้อความแสดงข้อผิดพลาด",
         },
-        { type: "expected", description: "The system denies access or displays an appropriate error message indicating insufficient permissions." },
+        { type: "expected", description: "ระบบปฏิเสธการเข้าถึงหรือแสดงข้อความแสดงข้อผิดพลาดที่เหมาะสมว่ามีสิทธิ์ไม่เพียงพอ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],

@@ -70,23 +70,23 @@ _Generated from `tests/701-store-requisition.spec.ts` annotations. Edit annotati
 
 **Preconditions**
 
-User is authenticated, has Requestor role, is assigned to a department, and has access to at least one source location
+Login เป็น purchase@blueledgers.com มี role Requestor ถูก assign ให้ department และมีสิทธิ์เข้าถึง source location อย่างน้อยหนึ่งแห่ง
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'New Requisition'
-3. Fill Expected delivery date
-4. Fill Description/purpose
-5. Select source location from 'Request From' dropdown
-6. Verify requisition number is auto-generated
-7. Verify requisition date is current
-8. Verify 'Requested By' field is auto-populated
-9. Click 'Save as Draft'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'New Requisition'
+3. กรอก Expected delivery date
+4. กรอก Description/purpose
+5. เลือก source location จาก dropdown 'Request From'
+6. ตรวจสอบว่า requisition number ถูกสร้างอัตโนมัติ
+7. ตรวจสอบว่า requisition date เป็นวันปัจจุบัน
+8. ตรวจสอบว่า field 'Requested By' ถูกกรอกอัตโนมัติ
+9. กด 'Save as Draft'
 
 **Expected**
 
-Requisition is saved as draft successfully, inline item addition section is enabled, and success message is displayed.
+Requisition ถูกบันทึกเป็น draft สำเร็จ ส่วน inline item addition ถูก enable และ success message แสดงขึ้นมา
 
 ---
 
@@ -99,16 +99,16 @@ Requisition is saved as draft successfully, inline item addition section is enab
 
 **Preconditions**
 
-User is authenticated but not assigned to any department
+Login เป็น requestor@blueledgers.com แต่ไม่ถูก assign ให้ department ใด
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Attempt to click 'New Requisition'
+1. ไปที่ /store-operation/store-requisition
+2. พยายามกด 'New Requisition'
 
 **Expected**
 
-System displays error message 'You must be assigned to a department to create requisitions', 'New Requisition' button is disabled.
+ระบบแสดง error message 'You must be assigned to a department to create requisitions' และปุ่ม 'New Requisition' ถูก disable
 
 ---
 
@@ -121,17 +121,17 @@ System displays error message 'You must be assigned to a department to create re
 
 **Preconditions**
 
-User has Requestor role, assigned to department, but no authorized source locations exist
+ผู้ใช้มี role Requestor ถูก assign ให้ department แต่ไม่มี source location ที่ได้รับอนุญาต
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'New Requisition'
-3. Attempt to select source location from 'Request From' dropdown
+1. ไปที่ /store-operation/store-requisition
+2. กด 'New Requisition'
+3. พยายามเลือก source location จาก dropdown 'Request From'
 
 **Expected**
 
-System displays warning message 'No storage locations available for your department', suggests contacting administrator.
+ระบบแสดง warning message 'No storage locations available for your department' และแนะนำให้ติดต่อ administrator
 
 ---
 
@@ -144,20 +144,20 @@ System displays warning message 'No storage locations available for your departm
 
 **Preconditions**
 
-User has Requestor role, assigned to department, has access to source location
+ผู้ใช้มี role Requestor ถูก assign ให้ department และมีสิทธิ์เข้าถึง source location
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'New Requisition'
-3. Fill Description/purpose
-4. Select source location from 'Request From' dropdown
-5. Leave Expected delivery date field empty
-6. Attempt to click 'Save as Draft'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'New Requisition'
+3. กรอก Description/purpose
+4. เลือก source location จาก dropdown 'Request From'
+5. ปล่อย field Expected delivery date ว่างไว้
+6. พยายามกด 'Save as Draft'
 
 **Expected**
 
-System displays error message for missing expected delivery date, does not save requisition.
+ระบบแสดง error message สำหรับ Expected delivery date ที่ขาดหายไป และไม่บันทึก requisition
 
 ---
 
@@ -170,22 +170,22 @@ System displays error message for missing expected delivery date, does not save 
 
 **Preconditions**
 
-User has Requestor role, assigned to department, has access to source location, template exists
+ผู้ใช้มี role Requestor ถูก assign ให้ department มีสิทธิ์เข้าถึง source location และมี template อยู่
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'New Requisition'
-3. Select 'Create from Template'
-4. Select a saved template
-5. Fill Description/purpose
-6. Select source location from 'Request From' dropdown
-7. Fill Expected delivery date
-8. Click 'Save as Draft'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'New Requisition'
+3. เลือก 'Create from Template'
+4. เลือก template ที่บันทึกไว้
+5. กรอก Description/purpose
+6. เลือก source location จาก dropdown 'Request From'
+7. กรอก Expected delivery date
+8. กด 'Save as Draft'
 
 **Expected**
 
-Requisition is saved as draft from template successfully, inline item addition section is enabled, and success message is displayed.
+Requisition ถูกบันทึกเป็น draft จาก template สำเร็จ ส่วน inline item addition ถูก enable และ success message แสดงขึ้นมา
 
 ---
 
@@ -198,21 +198,21 @@ Requisition is saved as draft from template successfully, inline item addition s
 
 **Preconditions**
 
-Requisition exists in Draft status; user is the requisition creator; product master data is available
+Requisition อยู่ใน Draft status ผู้ใช้เป็นผู้สร้าง requisition และ product master data พร้อมใช้งาน
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Add Item' button
-3. Type 'Office Chair' in search input
-4. Select 'Office Chair' from CommandList
-5. Fill requested quantity '2'
-6. Verify destination location is correct
-7. Click 'Add'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Add Item' button
+3. พิมพ์ 'Office Chair' ใน search input
+4. เลือก 'Office Chair' จาก CommandList
+5. กรอก requested quantity '2'
+6. ตรวจสอบว่า destination location ถูกต้อง
+7. กด 'Add'
 
 **Expected**
 
-Item 'Office Chair' added to requisition with correct details.
+Item 'Office Chair' ถูกเพิ่มใน requisition พร้อมรายละเอียดที่ถูกต้อง
 
 ---
 
@@ -225,20 +225,20 @@ Item 'Office Chair' added to requisition with correct details.
 
 **Preconditions**
 
-Requisition exists in Draft status; user is the requisition creator; product master data is available
+Requisition อยู่ใน Draft status ผู้ใช้เป็นผู้สร้าง requisition และ product master data พร้อมใช้งาน
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Add Item' button
-3. Type 'Office Chair' in search input
-4. Select 'Office Chair' from CommandList
-5. Fill requested quantity '-1'
-6. Click 'Add'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Add Item' button
+3. พิมพ์ 'Office Chair' ใน search input
+4. เลือก 'Office Chair' จาก CommandList
+5. กรอก requested quantity '-1'
+6. กด 'Add'
 
 **Expected**
 
-System displays error: 'Quantity must be greater than zero'.
+ระบบแสดง error: 'Quantity must be greater than zero'
 
 ---
 
@@ -251,20 +251,20 @@ System displays error: 'Quantity must be greater than zero'.
 
 **Preconditions**
 
-Requisition exists in Draft status; product 'Office Chair' has insufficient stock
+Requisition อยู่ใน Draft status และ product 'Office Chair' มี stock ไม่เพียงพอ
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Add Item' button
-3. Type 'Office Chair' in search input
-4. Select 'Office Chair' from CommandList
-5. Fill requested quantity '5'
-6. Click 'Add'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Add Item' button
+3. พิมพ์ 'Office Chair' ใน search input
+4. เลือก 'Office Chair' จาก CommandList
+5. กรอก requested quantity '5'
+6. กด 'Add'
 
 **Expected**
 
-System displays warning: 'Requested quantity exceeds available stock' and suggests alternative actions.
+ระบบแสดง warning: 'Requested quantity exceeds available stock' และแนะนำทางเลือกอื่น
 
 ---
 
@@ -277,22 +277,22 @@ System displays warning: 'Requested quantity exceeds available stock' and sugges
 
 **Preconditions**
 
-User is editing a requisition with a selected product; Inventory Management system is accessible
+ผู้ใช้กำลังแก้ไข requisition ที่มี product ถูกเลือกอยู่ และ Inventory Management system เข้าถึงได้
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Edit' on an existing requisition
-3. Update requested quantity
-4. Verify system triggers real-time inventory check
-5. Verify 'On Hand' and 'On Order' values
-6. Verify 'Last Price' and 'Last Vendor' values
-7. Verify 'Sufficient' stock status with green indicator
-8. Verify no stock shortfall warning
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Edit' บน requisition ที่มีอยู่
+3. อัปเดต requested quantity
+4. ตรวจสอบว่าระบบ trigger การตรวจสอบ inventory แบบ real-time
+5. ตรวจสอบค่า 'On Hand' และ 'On Order'
+6. ตรวจสอบค่า 'Last Price' และ 'Last Vendor'
+7. ตรวจสอบสถานะ stock 'Sufficient' ด้วย indicator สีเขียว
+8. ตรวจสอบว่าไม่มี stock shortfall warning
 
 **Expected**
 
-System correctly displays sufficient inventory status and available quantity.
+ระบบแสดงสถานะ inventory ที่เพียงพอและจำนวนที่มีอยู่อย่างถูกต้อง
 
 ---
 
@@ -305,21 +305,21 @@ System correctly displays sufficient inventory status and available quantity.
 
 **Preconditions**
 
-User is editing a requisition with a selected product; Inventory Management system is accessible
+ผู้ใช้กำลังแก้ไข requisition ที่มี product ถูกเลือกอยู่ และ Inventory Management system เข้าถึงได้
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Edit' on an existing requisition
-3. Update requested quantity to exceed available stock
-4. Verify system triggers real-time inventory check
-5. Verify 'Low' stock status with yellow indicator
-6. Verify stock shortfall quantity and expected restock date displayed
-7. Verify suggested actions to reduce quantity or switch location
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Edit' บน requisition ที่มีอยู่
+3. อัปเดต requested quantity ให้เกิน stock ที่มีอยู่
+4. ตรวจสอบว่าระบบ trigger การตรวจสอบ inventory แบบ real-time
+5. ตรวจสอบสถานะ stock 'Low' ด้วย indicator สีเหลือง
+6. ตรวจสอบว่าแสดงจำนวน stock shortfall และวันที่คาดว่าจะเติม stock
+7. ตรวจสอบทางเลือกที่แนะนำ เช่น ลด quantity หรือเปลี่ยน location
 
 **Expected**
 
-System correctly indicates insufficient inventory and provides suggested actions.
+ระบบแสดงสถานะ inventory ที่ไม่เพียงพอและทางเลือกที่แนะนำอย่างถูกต้อง
 
 ---
 
@@ -332,20 +332,20 @@ System correctly indicates insufficient inventory and provides suggested actions
 
 **Preconditions**
 
-User is editing a requisition with a selected product; Inventory Management system is accessible
+ผู้ใช้กำลังแก้ไข requisition ที่มี product ถูกเลือกอยู่ และ Inventory Management system เข้าถึงได้
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Edit' on an existing requisition
-3. Select a product with no inventory records
-4. Verify system triggers real-time inventory check
-5. Verify system displays 'This product has no inventory records'
-6. Verify suggested actions to contact storekeeper or consider purchase request
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Edit' บน requisition ที่มีอยู่
+3. เลือก product ที่ไม่มีบันทึก inventory
+4. ตรวจสอบว่าระบบ trigger การตรวจสอบ inventory แบบ real-time
+5. ตรวจสอบว่าระบบแสดง 'This product has no inventory records'
+6. ตรวจสอบทางเลือกที่แนะนำ เช่น ติดต่อ storekeeper หรือพิจารณา purchase request
 
 **Expected**
 
-System correctly indicates no inventory records and suggests alternative actions.
+ระบบแสดงว่าไม่มีบันทึก inventory และแนะนำทางเลือกอื่นอย่างถูกต้อง
 
 ---
 
@@ -358,20 +358,20 @@ System correctly indicates no inventory records and suggests alternative actions
 
 **Preconditions**
 
-User is editing a requisition with a selected product; Inventory Management system is inaccessible
+ผู้ใช้กำลังแก้ไข requisition ที่มี product ถูกเลือกอยู่ และ Inventory Management system เข้าถึงไม่ได้
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Edit' on an existing requisition
-3. Update requested quantity
-4. Verify system triggers real-time inventory check
-5. Verify warning message 'Unable to retrieve current stock levels'
-6. Verify system shows last cached inventory data with timestamp
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Edit' บน requisition ที่มีอยู่
+3. อัปเดต requested quantity
+4. ตรวจสอบว่าระบบ trigger การตรวจสอบ inventory แบบ real-time
+5. ตรวจสอบ warning message 'Unable to retrieve current stock levels'
+6. ตรวจสอบว่าระบบแสดงข้อมูล inventory ที่ cache ไว้ล่าสุดพร้อม timestamp
 
 **Expected**
 
-System correctly handles unavailable inventory data by displaying cached information.
+ระบบจัดการกับข้อมูล inventory ที่ไม่พร้อมใช้งานโดยแสดงข้อมูลที่ cache ไว้อย่างถูกต้อง
 
 ---
 
@@ -384,16 +384,16 @@ System correctly handles unavailable inventory data by displaying cached informa
 
 **Preconditions**
 
-User is working on requisition with filled header and selected source location
+ผู้ใช้กำลังทำงานบน requisition ที่กรอก header แล้วและเลือก source location แล้ว
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Save as Draft'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Save as Draft'
 
 **Expected**
 
-System saves requisition with draft status and displays success toast.
+ระบบบันทึก requisition ด้วยสถานะ draft และแสดง success toast
 
 ---
 
@@ -406,16 +406,16 @@ System saves requisition with draft status and displays success toast.
 
 **Preconditions**
 
-User is working on requisition with empty requisition number and filled source location
+ผู้ใช้กำลังทำงานบน requisition ที่ requisition number ว่างเปล่าและเลือก source location แล้ว
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Save as Draft'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Save as Draft'
 
 **Expected**
 
-System displays validation error for missing requisition number.
+ระบบแสดง validation error สำหรับ requisition number ที่ขาดหายไป
 
 ---
 
@@ -428,17 +428,17 @@ System displays validation error for missing requisition number.
 
 **Preconditions**
 
-User is working on requisition and editing for more than 60 seconds
+ผู้ใช้กำลังทำงานบน requisition และแก้ไขเป็นเวลามากกว่า 60 วินาที
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Wait 60 seconds
-3. Verify subtle auto-save indicator
+1. ไปที่ /store-operation/store-requisition
+2. รอ 60 วินาที
+3. ตรวจสอบ auto-save indicator ที่ปรากฏเบาๆ
 
 **Expected**
 
-System displays auto-save indicator at [time] showing draft was auto-saved.
+ระบบแสดง auto-save indicator ที่ [time] ว่า draft ถูก auto-save แล้ว
 
 ---
 
@@ -451,16 +451,16 @@ System displays auto-save indicator at [time] showing draft was auto-saved.
 
 **Preconditions**
 
-User is working on requisition with filled header and selected source location
+ผู้ใช้กำลังทำงานบน requisition ที่กรอก header แล้วและเลือก source location แล้ว
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Save and Close'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Save and Close'
 
 **Expected**
 
-System saves requisition with draft status, navigates to requisitions list, and displays saved draft with Draft status badge.
+ระบบบันทึก requisition ด้วยสถานะ draft นำทางไปยัง requisitions list และแสดง draft ที่บันทึกพร้อม Draft status badge
 
 ---
 
@@ -473,16 +473,16 @@ System saves requisition with draft status, navigates to requisitions list, and 
 
 **Preconditions**
 
-User is working on requisition with filled header and selected source location
+ผู้ใช้กำลังทำงานบน requisition ที่กรอก header แล้วและเลือก source location แล้ว
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Save as Draft'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Save as Draft'
 
 **Expected**
 
-System displays error message 'Failed to save requisition. Please try again.' and retains all entered data.
+ระบบแสดง error message 'Failed to save requisition. Please try again.' และเก็บรักษาข้อมูลที่กรอกไว้ทั้งหมด
 
 ---
 
@@ -495,22 +495,22 @@ System displays error message 'Failed to save requisition. Please try again.' an
 
 **Preconditions**
 
-Requisition is in Draft status with valid items and quantities
+Requisition อยู่ใน Draft status พร้อม items และ quantities ที่ถูกต้อง
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Verify all line items are correct
-3. Click 'Submit for Approval'
-4. Verify system prompts confirmation dialog
-5. Confirm submission
-6. Verify status changes to In Process
-7. Verify edit buttons are disabled
-8. Verify workflow timeline is displayed
+1. ไปที่ /store-operation/store-requisition
+2. ตรวจสอบว่า line items ทั้งหมดถูกต้อง
+3. กด 'Submit for Approval'
+4. ตรวจสอบว่าระบบแสดง confirmation dialog
+5. ยืนยันการ submit
+6. ตรวจสอบว่าสถานะเปลี่ยนเป็น In Process
+7. ตรวจสอบว่า edit buttons ถูก disable
+8. ตรวจสอบว่า workflow timeline แสดงขึ้นมา
 
 **Expected**
 
-Requisition status updated to In Progress, no errors.
+สถานะ requisition อัปเดตเป็น In Progress โดยไม่มี error
 
 ---
 
@@ -523,22 +523,22 @@ Requisition status updated to In Progress, no errors.
 
 **Preconditions**
 
-Requisition is in Draft status with valid items but missing destination locations
+Requisition อยู่ใน Draft status พร้อม items ที่ถูกต้องแต่ขาด destination locations
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Verify missing destination locations
-3. Click 'Submit for Approval'
-4. Verify system prompts validation errors
-5. Correct destination locations
-6. Click 'Submit for Approval'
-7. Verify system prompts confirmation dialog
-8. Confirm submission
+1. ไปที่ /store-operation/store-requisition
+2. ตรวจสอบว่า destination locations ขาดหายไป
+3. กด 'Submit for Approval'
+4. ตรวจสอบว่าระบบแสดง validation errors
+5. แก้ไข destination locations
+6. กด 'Submit for Approval'
+7. ตรวจสอบว่าระบบแสดง confirmation dialog
+8. ยืนยันการ submit
 
 **Expected**
 
-Requisition submitted successfully after correcting validation errors.
+Requisition ถูก submit สำเร็จหลังแก้ไข validation errors
 
 ---
 
@@ -551,17 +551,17 @@ Requisition submitted successfully after correcting validation errors.
 
 **Preconditions**
 
-Requisition is in Draft status with no items
+Requisition อยู่ใน Draft status โดยไม่มี items
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Submit for Approval'
-3. Verify system prompts error message
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Submit for Approval'
+3. ตรวจสอบว่าระบบแสดง error message
 
 **Expected**
 
-System displays error message: 'Cannot submit requisition without items'.
+ระบบแสดง error message: 'Cannot submit requisition without items'
 
 ---
 
@@ -574,16 +574,16 @@ System displays error message: 'Cannot submit requisition without items'.
 
 **Preconditions**
 
-Requisition is in Draft status, but the user is not the creator
+Requisition อยู่ใน Draft status แต่ผู้ใช้ไม่ใช่ผู้สร้าง
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Attempt to click 'Submit for Approval'
+1. ไปที่ /store-operation/store-requisition
+2. พยายามกด 'Submit for Approval'
 
 **Expected**
 
-System displays error message: 'Unauthorized to perform this action'.
+ระบบแสดง error message: 'Unauthorized to perform this action'
 
 ---
 
@@ -596,18 +596,18 @@ System displays error message: 'Unauthorized to perform this action'.
 
 **Preconditions**
 
-Requisition is in Draft status, contains valid items, and marked as emergency
+Requisition อยู่ใน Draft status มี items ที่ถูกต้อง และถูกทำเครื่องหมายเป็น emergency
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Check 'Mark as Emergency' checkbox
-3. Enter emergency justification (50+ characters)
-4. Click 'Submit for Approval'
+1. ไปที่ /store-operation/store-requisition
+2. เลือก checkbox 'Mark as Emergency'
+3. กรอก emergency justification (มากกว่า 50 ตัวอักษร)
+4. กด 'Submit for Approval'
 
 **Expected**
 
-Requisition submitted with emergency flag and routed to emergency approval workflow.
+Requisition ถูก submit พร้อม emergency flag และถูกส่งไปยัง emergency approval workflow
 
 ---
 
@@ -620,18 +620,18 @@ Requisition submitted with emergency flag and routed to emergency approval workf
 
 **Preconditions**
 
-User has Approver role; assigned to approval workflow stage; at least one requisition is pending approval
+ผู้ใช้มี role Approver ถูก assign ให้ขั้นตอน approval workflow และมี requisition ที่รอ approval อย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Verify the pending approvals count badge displays
-3. Click on a requisition
-4. Verify requisition detail page is displayed
+1. ไปที่ /store-operation/store-requisition
+2. ตรวจสอบว่า badge จำนวน pending approvals แสดงอยู่
+3. คลิก requisition
+4. ตรวจสอบว่าหน้า requisition detail แสดงขึ้นมา
 
 **Expected**
 
-User is navigated to the requisition detail page with all relevant information.
+ผู้ใช้ถูกนำทางไปยังหน้า requisition detail พร้อมข้อมูลที่เกี่ยวข้องทั้งหมด
 
 ---
 
@@ -644,18 +644,18 @@ User is navigated to the requisition detail page with all relevant information.
 
 **Preconditions**
 
-User has Approver role; assigned to approval workflow stage; at least one requisition is pending approval
+ผู้ใช้มี role Approver ถูก assign ให้ขั้นตอน approval workflow และมี requisition ที่รอ approval อย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Sort By' and select 'Total Estimated Value'
-3. Click 'Filter' and select 'Department'
-4. Select a department and verify the list updates accordingly
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Sort By' และเลือก 'Total Estimated Value'
+3. กด 'Filter' และเลือก 'Department'
+4. เลือก department และตรวจสอบว่า list อัปเดตตามนั้น
 
 **Expected**
 
-Requisition list is sorted by total estimated value and filtered by the selected department.
+Requisition list ถูก sort ตาม total estimated value และ filter ตาม department ที่เลือก
 
 ---
 
@@ -668,18 +668,18 @@ Requisition list is sorted by total estimated value and filtered by the selected
 
 **Preconditions**
 
-User has Approver role; multiple requisitions selected
+ผู้ใช้มี role Approver และเลือก requisitions หลายรายการ
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Select multiple requisitions
-3. Click 'Bulk Actions' > 'Export Selected'
-4. Verify the export process starts and relevant file is downloaded
+1. ไปที่ /store-operation/store-requisition
+2. เลือก requisitions หลายรายการ
+3. กด 'Bulk Actions' > 'Export Selected'
+4. ตรวจสอบว่ากระบวนการ export เริ่มต้นและ file ถูก download
 
 **Expected**
 
-Selected requisitions are exported and a file is downloaded.
+Requisitions ที่เลือกถูก export และ file ถูก download
 
 ---
 
@@ -692,16 +692,16 @@ Selected requisitions are exported and a file is downloaded.
 
 **Preconditions**
 
-User has Approver role, but no requisitions are pending approval
+ผู้ใช้มี role Approver แต่ไม่มี requisitions ที่รอ approval
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Verify 'No pending approvals' message is displayed
+1. ไปที่ /store-operation/store-requisition
+2. ตรวจสอบว่า message 'No pending approvals' แสดงขึ้นมา
 
 **Expected**
 
-System displays 'No pending approvals' message and shows empty state with icon.
+ระบบแสดง message 'No pending approvals' และแสดง empty state พร้อม icon
 
 ---
 
@@ -714,19 +714,19 @@ System displays 'No pending approvals' message and shows empty state with icon.
 
 **Preconditions**
 
-User is on leave and has pending approvals
+ผู้ใช้อยู่ในช่วงลาและมี pending approvals
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Delegate Approvals'
-3. Select a delegate user and date range
-4. Confirm delegation
-5. Verify notification is sent to delegate
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Delegate Approvals'
+3. เลือก delegate user และช่วงวันที่
+4. ยืนยันการ delegate
+5. ตรวจสอบว่า notification ถูกส่งไปยัง delegate
 
 **Expected**
 
-Pending approvals are transferred to the delegate user and a notification is sent.
+Pending approvals ถูกโอนไปยัง delegate user และ notification ถูกส่ง
 
 ---
 
@@ -739,22 +739,22 @@ Pending approvals are transferred to the delegate user and a notification is sen
 
 **Preconditions**
 
-User has Approver role; requisition is in In Progress status; requisition is at user's approval stage; user has authority to approve for this department
+ผู้ใช้มี role Approver requisition อยู่ใน In Progress status อยู่ในขั้นตอน approval ของผู้ใช้ และผู้ใช้มีสิทธิ์ approve ให้ department นี้
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click on Requisition ID
-3. Verify Requisition number, date, requestor, department
-4. Review line items in table
-5. Verify legitimacy and necessity
-6. Click 'Approve' button
-7. Click 'Approve' in confirmation dialog
-8. Verify success message 'Requisition approved successfully'
+1. ไปที่ /store-operation/store-requisition
+2. คลิก Requisition ID
+3. ตรวจสอบ Requisition number, date, requestor, department
+4. ตรวจสอบ line items ในตาราง
+5. ตรวจสอบความถูกต้องและความจำเป็น
+6. กด 'Approve' button
+7. กด 'Approve' ใน confirmation dialog
+8. ตรวจสอบ success message 'Requisition approved successfully'
 
 **Expected**
 
-Requisition is approved, workflow history updated, next stage assigned, notifications sent to relevant parties.
+Requisition ถูก approve workflow history ถูกอัปเดต next stage ถูก assign และ notifications ถูกส่งไปยังผู้ที่เกี่ยวข้อง
 
 ---
 
@@ -767,18 +767,18 @@ Requisition is approved, workflow history updated, next stage assigned, notifica
 
 **Preconditions**
 
-User has Approver role; requisition is in In Progress status; user does not have authority to approve for this department
+ผู้ใช้มี role Approver requisition อยู่ใน In Progress status และผู้ใช้ไม่มีสิทธิ์ approve ให้ department นี้
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click on Requisition ID
-3. Click 'Approve' button
-4. Verify error message 'You are not authorized to approve at this stage'
+1. ไปที่ /store-operation/store-requisition
+2. คลิก Requisition ID
+3. กด 'Approve' button
+4. ตรวจสอบ error message 'You are not authorized to approve at this stage'
 
 **Expected**
 
-User is denied permission to approve requisition; Approve button remains disabled.
+ผู้ใช้ถูกปฏิเสธสิทธิ์ approve requisition และ Approve button ยังคง disable อยู่
 
 ---
 
@@ -791,19 +791,19 @@ User is denied permission to approve requisition; Approve button remains disable
 
 **Preconditions**
 
-User has Approver role; requisition value exceeds department budget; user has authority to override budget
+ผู้ใช้มี role Approver มูลค่า requisition เกิน budget ของ department และผู้ใช้มีสิทธิ์ override budget
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click on Requisition ID
-3. Verify budget exceeded warning
-4. Click 'Proceed with Approval' in warning dialog
-5. Verify success message 'Requisition approved successfully'
+1. ไปที่ /store-operation/store-requisition
+2. คลิก Requisition ID
+3. ตรวจสอบ warning ว่า budget เกินกำหนด
+4. กด 'Proceed with Approval' ใน warning dialog
+5. ตรวจสอบ success message 'Requisition approved successfully'
 
 **Expected**
 
-Requisition is approved, workflow history updated, next stage assigned, notifications sent, budget warning displayed and overridden.
+Requisition ถูก approve workflow history ถูกอัปเดต next stage ถูก assign notifications ถูกส่ง budget warning แสดงและถูก override
 
 ---
 
@@ -816,18 +816,18 @@ Requisition is approved, workflow history updated, next stage assigned, notifica
 
 **Preconditions**
 
-User has Approver role; requisition in In Progress status; item pending approval; user has access
+ผู้ใช้มี role Approver requisition อยู่ใน In Progress status item รอ approval และผู้ใช้มีสิทธิ์เข้าถึง
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click action menu (three dots) for line item
-3. Select 'Approve'
-4. Confirm approval
+1. ไปที่ /store-operation/store-requisition
+2. กด action menu (three dots) สำหรับ line item
+3. เลือก 'Approve'
+4. ยืนยันการ approve
 
 **Expected**
 
-Item approved with green checkmark, approved quantity, approver name and timestamp displayed, success toast: 'Item approved'. Requisition state remains In Progress if other items pending.
+Item ถูก approve พร้อม green checkmark แสดง approved quantity ชื่อ approver และ timestamp success toast: 'Item approved' สถานะ requisition ยังคงเป็น In Progress หาก items อื่นยังรอ approval อยู่
 
 ---
 
@@ -840,20 +840,20 @@ Item approved with green checkmark, approved quantity, approver name and timesta
 
 **Preconditions**
 
-Storekeeper has access to source location; requisition is in Ready for Issuance status; stock is insufficient for one of the items
+Storekeeper มีสิทธิ์เข้าถึง source location requisition อยู่ใน Ready for Issuance status และ stock ของ item หนึ่งไม่เพียงพอ
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Filter' and select 'Ready for Issuance'
-3. Select a requisition for issuance
-4. Click 'Record Issuance'
-5. Enter issued quantities for all items
-6. Click 'Issue'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Filter' และเลือก 'Ready for Issuance'
+3. เลือก requisition สำหรับการ issuance
+4. กด 'Record Issuance'
+5. กรอก issued quantities สำหรับ items ทั้งหมด
+6. กด 'Issue'
 
 **Expected**
 
-System displays error message for item with insufficient stock and prevents issuance.
+ระบบแสดง error message สำหรับ item ที่มี stock ไม่เพียงพอและป้องกันการ issuance
 
 ---
 
@@ -866,17 +866,17 @@ System displays error message for item with insufficient stock and prevents issu
 
 **Preconditions**
 
-User has Storekeeper role; requisition in In Progress status; item pending approval; user has access
+Login เป็น requestor@blueledgers.com มี role Storekeeper requisition อยู่ใน In Progress status item รอ approval และผู้ใช้มีสิทธิ์เข้าถึง
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click action menu (three dots) for line item
-3. Attempt to select 'Approve'
+1. ไปที่ /store-operation/store-requisition
+2. กด action menu (three dots) สำหรับ line item
+3. พยายามเลือก 'Approve'
 
 **Expected**
 
-System displays message: 'Insufficient permission to approve this item'. Action menu does not include 'Approve' option.
+ระบบแสดง message: 'Insufficient permission to approve this item' และ action menu ไม่มีตัวเลือก 'Approve'
 
 ---
 
@@ -889,19 +889,19 @@ System displays message: 'Insufficient permission to approve this item'. Action 
 
 **Preconditions**
 
-User has Approver or Storekeeper role; line item is in approved status; requisition not fully issued; user has authority to modify approvals
+ผู้ใช้มี role Approver หรือ Storekeeper line item อยู่ใน approved status requisition ยังไม่ถูก issue ทั้งหมด และผู้ใช้มีสิทธิ์แก้ไข approvals
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Edit Approval' from item action menu
-3. Enter new approved quantity
-4. Enter adjustment reason
-5. Confirm adjustment
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Edit Approval' จาก item action menu
+3. กรอก approved quantity ใหม่
+4. กรอก adjustment reason
+5. ยืนยันการ adjustment
 
 **Expected**
 
-Line item approved quantity updated, history recorded, notification sent to requestor, success message displayed.
+Approved quantity ของ line item ถูกอัปเดต history ถูกบันทึก notification ถูกส่งไปยัง requestor และ success message แสดงขึ้นมา
 
 ---
 
@@ -914,18 +914,18 @@ Line item approved quantity updated, history recorded, notification sent to requ
 
 **Preconditions**
 
-Item has issued quantity; user attempts to reduce approved quantity below issued
+Item มี issued quantity และผู้ใช้พยายามลด approved quantity ให้ต่ำกว่า issued
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Edit Approval' from item action menu
-3. Enter new approved quantity less than issued quantity
-4. Verify error message displayed
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Edit Approval' จาก item action menu
+3. กรอก approved quantity ใหม่ที่น้อยกว่า issued quantity
+4. ตรวจสอบว่า error message แสดงขึ้นมา
 
 **Expected**
 
-Error message displayed: 'Cannot reduce below already issued quantity'.
+Error message แสดง: 'Cannot reduce below already issued quantity'
 
 ---
 
@@ -938,16 +938,16 @@ Error message displayed: 'Cannot reduce below already issued quantity'.
 
 **Preconditions**
 
-Item fully issued
+Item ถูก issue ทั้งหมดแล้ว
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Attempt to click 'Edit Approval' from item action menu
+1. ไปที่ /store-operation/store-requisition
+2. พยายามกด 'Edit Approval' จาก item action menu
 
 **Expected**
 
-Action menu disabled, message displayed: 'Item fully issued. Cannot adjust approved quantity.'
+Action menu ถูก disable และ message แสดง: 'Item fully issued. Cannot adjust approved quantity.'
 
 ---
 
@@ -960,18 +960,18 @@ Action menu disabled, message displayed: 'Item fully issued. Cannot adjust appro
 
 **Preconditions**
 
-Item has insufficient stock; user attempts to increase approved quantity
+Item มี stock ไม่เพียงพอและผู้ใช้พยายามเพิ่ม approved quantity
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Edit Approval' from item action menu
-3. Enter new approved quantity greater than current approved quantity
-4. Verify warning message displayed
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Edit Approval' จาก item action menu
+3. กรอก approved quantity ใหม่ที่มากกว่า approved quantity ปัจจุบัน
+4. ตรวจสอบว่า warning message แสดงขึ้นมา
 
 **Expected**
 
-Warning message displayed, increase not allowed.
+Warning message แสดงขึ้นมาและไม่อนุญาตให้เพิ่ม
 
 ---
 
@@ -984,17 +984,17 @@ Warning message displayed, increase not allowed.
 
 **Preconditions**
 
-Another user modifies same item
+ผู้ใช้รายอื่นแก้ไข item เดียวกันอยู่
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Attempt to click 'Edit Approval' from item action menu
-3. Verify message displayed: 'This item was modified by [User]. Refresh and try again.'
+1. ไปที่ /store-operation/store-requisition
+2. พยายามกด 'Edit Approval' จาก item action menu
+3. ตรวจสอบว่า message แสดง: 'This item was modified by [User]. Refresh and try again.'
 
 **Expected**
 
-Message displayed, item reloaded with latest data, user can retry adjustment.
+Message แสดงขึ้นมา item ถูก reload ด้วยข้อมูลล่าสุด และผู้ใช้สามารถลอง adjustment อีกครั้ง
 
 ---
 
@@ -1007,19 +1007,19 @@ Message displayed, item reloaded with latest data, user can retry adjustment.
 
 **Preconditions**
 
-User has Approver role; requisition is in In Progress status; user has concerns requiring clarification
+ผู้ใช้มี role Approver requisition อยู่ใน In Progress status และผู้ใช้มีข้อสงสัยที่ต้องการคำชี้แจง
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Request Review' button
-3. Enter detailed review comments in text area
-4. Select specific line items for review
-5. Confirm review request
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Request Review' button
+3. กรอก review comments อย่างละเอียดใน text area
+4. เลือก line items ที่ต้องการ review
+5. ยืนยัน review request
 
 **Expected**
 
-Review request sent to requestor; system displays success message; sends notification to requestor; updates requisition display with review comments.
+Review request ถูกส่งไปยัง requestor ระบบแสดง success message ส่ง notification ไปยัง requestor และอัปเดตการแสดงผล requisition พร้อม review comments
 
 ---
 
@@ -1032,18 +1032,18 @@ Review request sent to requestor; system displays success message; sends notific
 
 **Preconditions**
 
-User has Approver role; requisition is in In Progress status
+ผู้ใช้มี role Approver และ requisition อยู่ใน In Progress status
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Request Review' button
-3. Enter less than 20 characters in review comments text area
-4. Confirm review request
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Request Review' button
+3. กรอก review comments น้อยกว่า 20 ตัวอักษรใน text area
+4. ยืนยัน review request
 
 **Expected**
 
-System displays error message: 'Review comments are required (min 20 characters)'.
+ระบบแสดง error message: 'Review comments are required (min 20 characters)'
 
 ---
 
@@ -1056,19 +1056,19 @@ System displays error message: 'Review comments are required (min 20 characters)
 
 **Preconditions**
 
-User has Approver role; requisition is in In Progress status
+ผู้ใช้มี role Approver และ requisition อยู่ใน In Progress status
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Request Review' button
-3. Enter detailed review comments in text area
-4. Do not select any specific line items for review
-5. Confirm review request
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Request Review' button
+3. กรอก review comments อย่างละเอียดใน text area
+4. ไม่เลือก line items ใดสำหรับ review
+5. ยืนยัน review request
 
 **Expected**
 
-System asks: 'Apply review to all items or select specific items?'. User must select at least one item before confirming.
+ระบบถามว่า: 'Apply review to all items or select specific items?' ผู้ใช้ต้องเลือกอย่างน้อยหนึ่ง item ก่อนยืนยัน
 
 ---
 
@@ -1081,18 +1081,18 @@ System asks: 'Apply review to all items or select specific items?'. User must se
 
 **Preconditions**
 
-User has Approver role; requisition is in In Progress status; user determines requisition should be rejected
+ผู้ใช้มี role Approver requisition อยู่ใน In Progress status และผู้ใช้พิจารณาแล้วว่าควร reject
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Reject' button in workflow component
-3. Enter detailed rejection reason: 'Specific policy violation'
-4. Confirm rejection
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Reject' button ใน workflow component
+3. กรอก rejection reason อย่างละเอียด: 'Specific policy violation'
+4. ยืนยันการ reject
 
 **Expected**
 
-Requisition status updates to 'Rejected', rejection reason is recorded, notifications are sent, and requisition is removed from pending approvals list.
+สถานะ requisition อัปเดตเป็น 'Rejected' rejection reason ถูกบันทึก notifications ถูกส่ง และ requisition ถูกลบออกจาก pending approvals list
 
 ---
 
@@ -1105,18 +1105,18 @@ Requisition status updates to 'Rejected', rejection reason is recorded, notifica
 
 **Preconditions**
 
-User has Approver role; requisition is in In Progress status
+ผู้ใช้มี role Approver และ requisition อยู่ใน In Progress status
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Reject' button in workflow component
-3. Enter rejection reason: 'Insuff'
-4. Confirm rejection
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Reject' button ใน workflow component
+3. กรอก rejection reason: 'Insuff'
+4. ยืนยันการ reject
 
 **Expected**
 
-System displays error: 'Rejection reason must be at least 50 characters', user must provide a detailed reason.
+ระบบแสดง error: 'Rejection reason must be at least 50 characters' ผู้ใช้ต้องกรอก reason อย่างละเอียด
 
 ---
 
@@ -1129,18 +1129,18 @@ System displays error: 'Rejection reason must be at least 50 characters', user m
 
 **Preconditions**
 
-User has Approver role; requisition is in In Progress status; user mistakenly rejects requisition
+ผู้ใช้มี role Approver requisition อยู่ใน In Progress status และผู้ใช้ reject requisition โดยไม่ตั้งใจ
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Reject' button in workflow component
-3. Enter rejection reason: 'Accidental rejection'
-4. Confirm rejection
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Reject' button ใน workflow component
+3. กรอก rejection reason: 'Accidental rejection'
+4. ยืนยันการ reject
 
 **Expected**
 
-System displays success message: 'Requisition rejected', user can void rejection and resubmit corrected requisition.
+ระบบแสดง success message: 'Requisition rejected' ผู้ใช้สามารถ void rejection และ resubmit requisition ที่แก้ไขแล้วได้
 
 ---
 
@@ -1153,18 +1153,18 @@ System displays success message: 'Requisition rejected', user can void rejection
 
 **Preconditions**
 
-User has Approver role; requisition is in In Progress status; user determines specific items should be rejected
+ผู้ใช้มี role Approver requisition อยู่ใน In Progress status และผู้ใช้พิจารณาแล้วว่าควร reject เฉพาะบาง items
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Select 'Reject' from item-level action menu
-3. Enter rejection reason: 'Invalid request'
-4. Confirm rejection
+1. ไปที่ /store-operation/store-requisition
+2. เลือก 'Reject' จาก item-level action menu
+3. กรอก rejection reason: 'Invalid request'
+4. ยืนยันการ reject
 
 **Expected**
 
-Selected items are marked as rejected, other items continue approval process, requisition status updates to 'Partially Rejected'.
+Items ที่เลือกถูกทำเครื่องหมายเป็น rejected items อื่นดำเนินกระบวนการ approval ต่อ และสถานะ requisition อัปเดตเป็น 'Partially Rejected'
 
 ---
 
@@ -1177,22 +1177,22 @@ Selected items are marked as rejected, other items continue approval process, re
 
 **Preconditions**
 
-Storekeeper has access to source location; requisition is in Ready for Issuance status
+Storekeeper มีสิทธิ์เข้าถึง source location และ requisition อยู่ใน Ready for Issuance status
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Filter' and select 'Ready for Issuance'
-3. Select a requisition for issuance
-4. Click 'Record Issuance'
-5. Enter issued quantities for all items
-6. Click 'Issue'
-7. Sign the receipt in the signature pad
-8. Click 'Confirm Receipt'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Filter' และเลือก 'Ready for Issuance'
+3. เลือก requisition สำหรับการ issuance
+4. กด 'Record Issuance'
+5. กรอก issued quantities สำหรับ items ทั้งหมด
+6. กด 'Issue'
+7. เซ็นชื่อใน signature pad
+8. กด 'Confirm Receipt'
 
 **Expected**
 
-Requisition is marked as completed, issuance document is generated, and stock balances are updated accordingly.
+Requisition ถูกทำเครื่องหมายเป็น completed เอกสาร issuance ถูกสร้าง และ stock balances ถูกอัปเดตตามนั้น
 
 ---
 
@@ -1205,24 +1205,24 @@ Requisition is marked as completed, issuance document is generated, and stock ba
 
 **Preconditions**
 
-Storekeeper has access to source location; requisition is in Ready for Issuance status
+Storekeeper มีสิทธิ์เข้าถึง source location และ requisition อยู่ใน Ready for Issuance status
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Filter' and select 'Ready for Issuance'
-3. Select a requisition for issuance
-4. Click 'Record Issuance'
-5. Enter partial issued quantities for some items
-6. Click 'Issue'
-7. Sign the receipt in the signature pad
-8. Click 'Confirm Receipt'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Filter' และเลือก 'Ready for Issuance'
+3. เลือก requisition สำหรับการ issuance
+4. กด 'Record Issuance'
+5. กรอก issued quantities บางส่วนสำหรับบาง items
+6. กด 'Issue'
+7. เซ็นชื่อใน signature pad
+8. กด 'Confirm Receipt'
 
 **Expected**
 
-Requisition remains in progress status, and remaining quantities are tracked.
+Requisition ยังคงอยู่ใน in progress status และ remaining quantities ถูกติดตาม
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

@@ -16,9 +16,9 @@ requestorTest.describe("Step 1 — PR List", () => {
     "TC-PR-050101 List loads with My Pending tab and Creator's PRs visible",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor (requestor@blueledgers.com)" },
-        { type: "steps", description: "1. Navigate to /procurement/purchase-request\n2. Verify My Pending tab is selected by default\n3. Verify list table is visible" },
-        { type: "expected", description: "URL is /procurement/purchase-request, My Pending tab has aria-selected=true, table or empty-state is visible." },
+        { type: "preconditions", description: "Login เป็น Requestor (requestor@blueledgers.com)" },
+        { type: "steps", description: "1. ไปที่ /procurement/purchase-request\n2. ตรวจสอบว่า My Pending tab ถูกเลือกเป็นค่าเริ่มต้น\n3. ตรวจสอบว่าตาราง list แสดงผล" },
+        { type: "expected", description: "URL เป็น /procurement/purchase-request, My Pending tab มี aria-selected=true, ตารางหรือ empty-state แสดงผล" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -40,9 +40,9 @@ requestorTest.describe("Step 1 — PR List", () => {
     "TC-PR-050102 Switch to All Documents tab broadens scope",
     {
       annotation: [
-        { type: "preconditions", description: "On the PR list page" },
-        { type: "steps", description: "1. Click All Documents tab\n2. Verify list refreshes" },
-        { type: "expected", description: "All Documents tab becomes selected; the list re-renders." },
+        { type: "preconditions", description: "อยู่ที่หน้า PR list" },
+        { type: "steps", description: "1. คลิก tab All Documents\n2. ตรวจสอบว่า list รีเฟรช" },
+        { type: "expected", description: "tab All Documents ถูกเลือก; list แสดงผลใหม่" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -64,9 +64,9 @@ requestorTest.describe("Step 1 — PR List", () => {
     "TC-PR-050103 Search by reference number filters list",
     {
       annotation: [
-        { type: "preconditions", description: "On the PR list page; at least one PR exists with a known reference" },
-        { type: "steps", description: "1. Click search box\n2. Type partial reference\n3. Wait for the list to filter" },
-        { type: "expected", description: "List updates to rows whose reference contains the typed text." },
+        { type: "preconditions", description: "อยู่ที่หน้า PR list; มี PR อย่างน้อยหนึ่งรายการที่มีเลขอ้างอิงที่รู้จัก" },
+        { type: "steps", description: "1. คลิกช่องค้นหา\n2. พิมพ์เลขอ้างอิงบางส่วน\n3. รอให้ list กรองข้อมูล" },
+        { type: "expected", description: "List อัปเดตแสดงเฉพาะแถวที่เลขอ้างอิงมีข้อความที่พิมพ์" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -88,9 +88,9 @@ requestorTest.describe("Step 1 — PR List", () => {
     "TC-PR-050104 Filter by status (Draft)",
     {
       annotation: [
-        { type: "preconditions", description: "On the PR list page" },
-        { type: "steps", description: "1. Open Filter panel\n2. Select status = Draft\n3. Apply" },
-        { type: "expected", description: "List shows only PRs with Draft status (or empty state)." },
+        { type: "preconditions", description: "อยู่ที่หน้า PR list" },
+        { type: "steps", description: "1. เปิดแผง Filter\n2. เลือก status = Draft\n3. Apply" },
+        { type: "expected", description: "List แสดงเฉพาะ PR ที่มีสถานะ Draft (หรือ empty state)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -112,9 +112,9 @@ requestorTest.describe("Step 1 — PR List", () => {
     "TC-PR-050105 Sort list by Date",
     {
       annotation: [
-        { type: "preconditions", description: "On the PR list page" },
-        { type: "steps", description: "1. Click Date column header to sort\n2. Verify list re-orders" },
-        { type: "expected", description: "Column header shows a sort indicator and the list re-orders." },
+        { type: "preconditions", description: "อยู่ที่หน้า PR list" },
+        { type: "steps", description: "1. คลิก header คอลัมน์ Date เพื่อ sort\n2. ตรวจสอบว่า list เรียงลำดับใหม่" },
+        { type: "expected", description: "header คอลัมน์แสดง sort indicator และ list เรียงลำดับใหม่" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Functional" },
       ],
@@ -131,9 +131,9 @@ requestorTest.describe("Step 1 — PR List", () => {
     "TC-PR-050106 Click row navigates to PR detail",
     {
       annotation: [
-        { type: "preconditions", description: "On the PR list page; at least one PR row exists" },
-        { type: "steps", description: "1. Click the first PR row" },
-        { type: "expected", description: "Navigates to /procurement/purchase-request/<id>." },
+        { type: "preconditions", description: "อยู่ที่หน้า PR list; มีแถว PR อย่างน้อยหนึ่งแถว" },
+        { type: "steps", description: "1. คลิกแถว PR แรก" },
+        { type: "expected", description: "นำทางไปยัง /procurement/purchase-request/<id>" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -160,9 +160,9 @@ requestorTest.describe("Step 1 — PR List", () => {
     "TC-PR-050107 New PR button opens create dialog",
     {
       annotation: [
-        { type: "preconditions", description: "On the PR list page" },
-        { type: "steps", description: "1. Click New Purchase Request" },
-        { type: "expected", description: "Either a creation dialog opens or the URL changes to /new." },
+        { type: "preconditions", description: "อยู่ที่หน้า PR list" },
+        { type: "steps", description: "1. คลิก New Purchase Request" },
+        { type: "expected", description: "dialog สร้างใหม่เปิดขึ้น หรือ URL เปลี่ยนเป็น /new" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -181,9 +181,9 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
     "TC-PR-050201 Open Create dialog → Blank → form loads",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor; on PR list" },
-        { type: "steps", description: "1. Click New Purchase Request\n2. Choose Blank PR option (if dialog appears)\n3. Wait for the create form" },
-        { type: "expected", description: "URL becomes /procurement/purchase-request/new and the create form is visible." },
+        { type: "preconditions", description: "Login เป็น Requestor; อยู่ที่หน้า PR list" },
+        { type: "steps", description: "1. คลิก New Purchase Request\n2. เลือกตัวเลือก Blank PR (ถ้า dialog ปรากฏ)\n3. รอให้ฟอร์มสร้างโหลด" },
+        { type: "expected", description: "URL เปลี่ยนเป็น /procurement/purchase-request/new และฟอร์มสร้างแสดงผล" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -200,9 +200,9 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
     "TC-PR-050202 Default values populated on the new form",
     {
       annotation: [
-        { type: "preconditions", description: "On the create-PR form" },
-        { type: "steps", description: "1. Navigate to /new\n2. Inspect default values for date, department, location, currency, status" },
-        { type: "expected", description: "Form is at /new and a Draft indicator is shown when the badge is rendered." },
+        { type: "preconditions", description: "อยู่ที่ฟอร์มสร้าง PR" },
+        { type: "steps", description: "1. ไปที่ /new\n2. ตรวจสอบค่า default ของ date, department, location, currency, status" },
+        { type: "expected", description: "ฟอร์มอยู่ที่ /new และแสดง Draft indicator เมื่อ badge แสดงผล" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Functional" },
       ],
@@ -222,9 +222,9 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
     "TC-PR-050203 Fill header fields",
     {
       annotation: [
-        { type: "preconditions", description: "On the create-PR form" },
-        { type: "steps", description: "1. Set PR type = General\n2. Set delivery date in the future\n3. Enter description and notes" },
-        { type: "expected", description: "Description input contains the value entered (E2E-PRC marker)." },
+        { type: "preconditions", description: "อยู่ที่ฟอร์มสร้าง PR" },
+        { type: "steps", description: "1. ตั้ง PR type = General\n2. ตั้ง delivery date เป็นวันในอนาคต\n3. กรอก description และ notes" },
+        { type: "expected", description: "ช่อง description มีค่าที่กรอก (มี E2E-PRC marker)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -246,9 +246,9 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
     "TC-PR-050204 Add 1 basic line item",
     {
       annotation: [
-        { type: "preconditions", description: "On the create-PR form with header filled" },
-        { type: "steps", description: "1. Click Add Item\n2. Fill product, qty, uom, unit price\n3. Save the item" },
-        { type: "expected", description: "Form remains on /new — item add does not navigate away from the create form." },
+        { type: "preconditions", description: "อยู่ที่ฟอร์มสร้าง PR โดยกรอก header แล้ว" },
+        { type: "steps", description: "1. คลิก Add Item\n2. กรอก product, qty, uom, unit price\n3. บันทึกรายการ" },
+        { type: "expected", description: "ฟอร์มยังคงอยู่ที่ /new — การเพิ่มรายการไม่นำทางออกจากฟอร์มสร้าง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -266,9 +266,9 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
     "TC-PR-050205 Add line item with FOC flag",
     {
       annotation: [
-        { type: "preconditions", description: "On the create-PR form with header filled" },
-        { type: "steps", description: "1. Add Item\n2. Toggle FOC checkbox\n3. Save" },
-        { type: "expected", description: "Form remains on /new after the FOC item is saved." },
+        { type: "preconditions", description: "อยู่ที่ฟอร์มสร้าง PR โดยกรอก header แล้ว" },
+        { type: "steps", description: "1. เพิ่มรายการ\n2. Toggle checkbox FOC\n3. บันทึก" },
+        { type: "expected", description: "ฟอร์มยังคงอยู่ที่ /new หลังจากบันทึกรายการ FOC" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -286,9 +286,9 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
     "TC-PR-050206 Add multiple line items — form stays on /new",
     {
       annotation: [
-        { type: "preconditions", description: "On the create-PR form" },
-        { type: "steps", description: "1. Add 3 line items at different prices\n2. Verify form still shown" },
-        { type: "expected", description: "Form remains on /new after 3 items are added." },
+        { type: "preconditions", description: "อยู่ที่ฟอร์มสร้าง PR" },
+        { type: "steps", description: "1. เพิ่มรายการสินค้า 3 รายการที่ราคาต่างกัน\n2. ตรวจสอบว่าฟอร์มยังแสดงอยู่" },
+        { type: "expected", description: "ฟอร์มยังคงอยู่ที่ /new หลังจากเพิ่ม 3 รายการ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -308,9 +308,9 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
     "TC-PR-050207 Edit line item before save",
     {
       annotation: [
-        { type: "preconditions", description: "Header filled and at least one line item added" },
-        { type: "steps", description: "1. Add 1 item\n2. Edit its quantity\n3. Save the line" },
-        { type: "expected", description: "Form remains on /new after the edit." },
+        { type: "preconditions", description: "กรอก header แล้วและเพิ่มรายการสินค้าอย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. เพิ่ม 1 รายการ\n2. แก้ไขจำนวน\n3. บันทึกรายการ" },
+        { type: "expected", description: "ฟอร์มยังคงอยู่ที่ /new หลังจากแก้ไข" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -329,9 +329,9 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
     "TC-PR-050208 Remove line item",
     {
       annotation: [
-        { type: "preconditions", description: "Header filled and at least one line item added" },
-        { type: "steps", description: "1. Add an item\n2. Click its remove button" },
-        { type: "expected", description: "Form remains on /new after the remove." },
+        { type: "preconditions", description: "กรอก header แล้วและเพิ่มรายการสินค้าอย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. เพิ่มรายการ\n2. คลิกปุ่มลบรายการนั้น" },
+        { type: "expected", description: "ฟอร์มยังคงอยู่ที่ /new หลังจากลบ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -350,9 +350,9 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
     "TC-PR-050209 Save as Draft → redirect to detail with PR number",
     {
       annotation: [
-        { type: "preconditions", description: "Header + ≥1 line item filled" },
-        { type: "steps", description: "1. Click Save as Draft\n2. Wait for redirect to detail" },
-        { type: "expected", description: "URL changes to /purchase-request/<id> (not /new) and detail page renders." },
+        { type: "preconditions", description: "กรอก header และมีรายการสินค้า ≥1 รายการ" },
+        { type: "steps", description: "1. คลิก Save as Draft\n2. รอ redirect ไปยังหน้ารายละเอียด" },
+        { type: "expected", description: "URL เปลี่ยนเป็น /purchase-request/<id> (ไม่ใช่ /new) และหน้ารายละเอียดแสดงผล" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -375,9 +375,9 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
     "TC-PR-050210 Save without line items → button disabled or stays on form",
     {
       annotation: [
-        { type: "preconditions", description: "On the create-PR form with header filled but no items" },
-        { type: "steps", description: "1. Fill header\n2. Click Save as Draft without adding any line item" },
-        { type: "expected", description: "Either the Save button is disabled, or the form does not navigate away from /new." },
+        { type: "preconditions", description: "อยู่ที่ฟอร์มสร้าง PR โดยกรอก header แล้วแต่ไม่มีรายการสินค้า" },
+        { type: "steps", description: "1. กรอก header\n2. คลิก Save as Draft โดยไม่เพิ่มรายการสินค้าใดๆ" },
+        { type: "expected", description: "ปุ่ม Save ถูก disabled หรือฟอร์มไม่นำทางออกจาก /new" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Validation" },
       ],
@@ -401,9 +401,9 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
     "TC-PR-050211 Delivery date in the past → validation prevents save",
     {
       annotation: [
-        { type: "preconditions", description: "On the create-PR form" },
-        { type: "steps", description: "1. Set delivery date to a past date\n2. Add an item\n3. Try to save" },
-        { type: "expected", description: "Form does not navigate away from /new (validation rejects past date)." },
+        { type: "preconditions", description: "อยู่ที่ฟอร์มสร้าง PR" },
+        { type: "steps", description: "1. ตั้ง delivery date เป็นวันที่ในอดีต\n2. เพิ่มรายการ\n3. พยายามบันทึก" },
+        { type: "expected", description: "ฟอร์มไม่นำทางออกจาก /new (validation ปฏิเสธวันที่ในอดีต)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Validation" },
       ],
@@ -424,9 +424,9 @@ requestorTest.describe("Step 3 — Create from Template", () => {
     "TC-PR-050301 Open Create dialog → Template option → picker opens",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor; on PR list" },
-        { type: "steps", description: "1. Click New Purchase Request\n2. Pick the From-Template option in the dialog" },
-        { type: "expected", description: "Template picker (dialog or listbox) is visible after selecting the From-Template option." },
+        { type: "preconditions", description: "Login เป็น Requestor; อยู่ที่หน้า PR list" },
+        { type: "steps", description: "1. คลิก New Purchase Request\n2. เลือกตัวเลือก From-Template ใน dialog" },
+        { type: "expected", description: "Template picker (dialog หรือ listbox) แสดงผลหลังเลือกตัวเลือก From-Template" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Smoke" },
       ],
@@ -449,9 +449,9 @@ requestorTest.describe("Step 3 — Create from Template", () => {
     "TC-PR-050302 Select first template → form pre-fills",
     {
       annotation: [
-        { type: "preconditions", description: "Template picker is open and at least one template exists" },
-        { type: "steps", description: "1. Open template picker\n2. Select the first template" },
-        { type: "expected", description: "URL contains template_id query param (form is loading from a template)." },
+        { type: "preconditions", description: "Template picker เปิดอยู่และมี template อย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. เปิด template picker\n2. เลือก template แรก" },
+        { type: "expected", description: "URL มี query param template_id (ฟอร์มกำลังโหลดจาก template)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -479,9 +479,9 @@ requestorTest.describe("Step 3 — Create from Template", () => {
     "TC-PR-050303 Modify template-loaded items before save",
     {
       annotation: [
-        { type: "preconditions", description: "On the create-from-template form with prefilled items" },
-        { type: "steps", description: "1. Open template form\n2. Edit the first prefilled line item quantity" },
-        { type: "expected", description: "Form remains on the template-load URL after the edit (no premature navigation)." },
+        { type: "preconditions", description: "อยู่ที่ฟอร์มสร้างจาก template ที่มีรายการสินค้ากรอกล่วงหน้า" },
+        { type: "steps", description: "1. เปิดฟอร์ม template\n2. แก้ไขจำนวนรายการสินค้าแรกที่กรอกล่วงหน้า" },
+        { type: "expected", description: "ฟอร์มยังคงอยู่ที่ URL โหลด template หลังจากแก้ไข (ไม่นำทางออกก่อนเวลา)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -510,9 +510,9 @@ requestorTest.describe("Step 3 — Create from Template", () => {
     "TC-PR-050304 Save template-based PR → Draft created",
     {
       annotation: [
-        { type: "preconditions", description: "Template-based form has prefilled items" },
-        { type: "steps", description: "1. Open template form\n2. Click Save as Draft" },
-        { type: "expected", description: "URL changes to /purchase-request/<id> (not /new) after save." },
+        { type: "preconditions", description: "ฟอร์มจาก template มีรายการสินค้ากรอกล่วงหน้า" },
+        { type: "steps", description: "1. เปิดฟอร์ม template\n2. คลิก Save as Draft" },
+        { type: "expected", description: "URL เปลี่ยนเป็น /purchase-request/<id> (ไม่ใช่ /new) หลังบันทึก" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -542,9 +542,9 @@ requestorTest.describe("Step 3 — Create from Template", () => {
     "TC-PR-050305 Empty-state message when no templates exist",
     {
       annotation: [
-        { type: "preconditions", description: "Template picker open and no templates exist in the system" },
-        { type: "steps", description: "1. Open template picker\n2. Inspect content" },
-        { type: "expected", description: "An empty-state message ('No templates') is visible. Skipped if templates exist." },
+        { type: "preconditions", description: "Template picker เปิดอยู่และไม่มี template ในระบบ" },
+        { type: "steps", description: "1. เปิด template picker\n2. ตรวจสอบเนื้อหา" },
+        { type: "expected", description: "ข้อความ empty-state ('No templates') แสดงผล ข้ามหากมี template อยู่" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Functional" },
         { type: "note", description: "Dynamically skipped when at least one template is present." },
@@ -575,9 +575,9 @@ requestorTest.describe("Step 4 — PR Detail", () => {
     "TC-PR-050401 Draft PR detail loads with Items tab default",
     {
       annotation: [
-        { type: "preconditions", description: "A Draft PR exists for this Requestor (created in beforeEach)" },
-        { type: "steps", description: "1. Open the Draft PR detail page\n2. Verify the Items tab is selected" },
-        { type: "expected", description: "Detail URL is /procurement/purchase-request/<ref>; if Items tab is rendered, it is the selected one." },
+        { type: "preconditions", description: "มี Draft PR ของ Requestor นี้ (สร้างใน beforeEach)" },
+        { type: "steps", description: "1. เปิดหน้ารายละเอียด Draft PR\n2. ตรวจสอบว่า Items tab ถูกเลือก" },
+        { type: "expected", description: "Detail URL เป็น /procurement/purchase-request/<ref>; ถ้า Items tab แสดงผล ต้องเป็น tab ที่เลือกอยู่" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -601,9 +601,9 @@ requestorTest.describe("Step 4 — PR Detail", () => {
     "TC-PR-050402 Switch to Workflow History tab",
     {
       annotation: [
-        { type: "preconditions", description: "On a Draft PR detail page" },
-        { type: "steps", description: "1. Click the Workflow History tab" },
-        { type: "expected", description: "Workflow History tab becomes selected after click." },
+        { type: "preconditions", description: "อยู่ที่หน้ารายละเอียด Draft PR" },
+        { type: "steps", description: "1. คลิก tab Workflow History" },
+        { type: "expected", description: "tab Workflow History ถูกเลือกหลังคลิก" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -627,9 +627,9 @@ requestorTest.describe("Step 4 — PR Detail", () => {
     "TC-PR-050403 Edit / Delete / Submit buttons present for Draft",
     {
       annotation: [
-        { type: "preconditions", description: "On a Draft PR detail page" },
-        { type: "steps", description: "1. Inspect the action toolbar" },
-        { type: "expected", description: "Edit, Delete, and Submit buttons are all visible for Draft status." },
+        { type: "preconditions", description: "อยู่ที่หน้ารายละเอียด Draft PR" },
+        { type: "steps", description: "1. ตรวจสอบ action toolbar" },
+        { type: "expected", description: "ปุ่ม Edit, Delete และ Submit แสดงผลทั้งหมดสำหรับสถานะ Draft" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Functional" },
       ],
@@ -649,9 +649,9 @@ requestorTest.describe("Step 4 — PR Detail", () => {
     "TC-PR-050404 Edit / Delete absent when status is In Progress",
     {
       annotation: [
-        { type: "preconditions", description: "A PR exists in In Progress status (created via Submit flow)" },
-        { type: "steps", description: "1. Submit a Draft PR\n2. Reload detail\n3. Inspect toolbar" },
-        { type: "expected", description: "Edit and Delete buttons are not visible (read-only mode)." },
+        { type: "preconditions", description: "มี PR ที่มีสถานะ In Progress (สร้างผ่านขั้นตอน Submit)" },
+        { type: "steps", description: "1. Submit Draft PR\n2. โหลดหน้ารายละเอียดใหม่\n3. ตรวจสอบ toolbar" },
+        { type: "expected", description: "ปุ่ม Edit และ Delete ไม่แสดงผล (โหมด read-only)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Authorization" },
       ],
@@ -673,9 +673,9 @@ requestorTest.describe("Step 5 — Edit Draft", () => {
     "TC-PR-050501 Click Edit → enter edit mode",
     {
       annotation: [
-        { type: "preconditions", description: "A Draft PR exists for this Requestor" },
-        { type: "steps", description: "1. Open Draft PR\n2. Click Edit" },
-        { type: "expected", description: "Form becomes editable; Save (or Cancel) form-level button is visible." },
+        { type: "preconditions", description: "มี Draft PR ของ Requestor นี้" },
+        { type: "steps", description: "1. เปิด Draft PR\n2. คลิก Edit" },
+        { type: "expected", description: "ฟอร์มสามารถแก้ไขได้; ปุ่ม Save (หรือ Cancel) ระดับฟอร์มแสดงผล" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -699,9 +699,9 @@ requestorTest.describe("Step 5 — Edit Draft", () => {
     "TC-PR-050502 Modify header description in edit mode",
     {
       annotation: [
-        { type: "preconditions", description: "A Draft PR is open in edit mode" },
-        { type: "steps", description: "1. Enter edit mode\n2. Update description\n3. Save" },
-        { type: "expected", description: "After save the page returns to detail URL (no redirect to /new or list)." },
+        { type: "preconditions", description: "Draft PR เปิดอยู่ในโหมดแก้ไข" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. อัปเดต description\n3. บันทึก" },
+        { type: "expected", description: "หลังบันทึก หน้ากลับสู่ detail URL (ไม่ redirect ไปที่ /new หรือ list)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -728,9 +728,9 @@ requestorTest.describe("Step 5 — Edit Draft", () => {
     "TC-PR-050503 Modify line item quantity in edit mode",
     {
       annotation: [
-        { type: "preconditions", description: "A Draft PR with at least one line item is open in edit mode" },
-        { type: "steps", description: "1. Enter edit mode\n2. Edit first line item quantity\n3. Save" },
-        { type: "expected", description: "After save the page returns to the detail URL." },
+        { type: "preconditions", description: "Draft PR ที่มีรายการสินค้าอย่างน้อยหนึ่งรายการเปิดอยู่ในโหมดแก้ไข" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. แก้ไขจำนวนรายการสินค้าแรก\n3. บันทึก" },
+        { type: "expected", description: "หลังบันทึก หน้ากลับสู่ detail URL" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -756,9 +756,9 @@ requestorTest.describe("Step 5 — Edit Draft", () => {
     "TC-PR-050504 Add line item in edit mode",
     {
       annotation: [
-        { type: "preconditions", description: "A Draft PR is open in edit mode" },
-        { type: "steps", description: "1. Enter edit mode\n2. Click Add Item\n3. Fill product/qty/uom\n4. Save" },
-        { type: "expected", description: "After save the page returns to the detail URL." },
+        { type: "preconditions", description: "Draft PR เปิดอยู่ในโหมดแก้ไข" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. คลิก Add Item\n3. กรอก product/qty/uom\n4. บันทึก" },
+        { type: "expected", description: "หลังบันทึก หน้ากลับสู่ detail URL" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -784,9 +784,9 @@ requestorTest.describe("Step 5 — Edit Draft", () => {
     "TC-PR-050505 Save → exit edit mode + persist changes",
     {
       annotation: [
-        { type: "preconditions", description: "A Draft PR is open in edit mode with at least one change" },
-        { type: "steps", description: "1. Enter edit mode\n2. Make a change\n3. Click Save" },
-        { type: "expected", description: "Form returns to view mode (Edit button visible again on detail page)." },
+        { type: "preconditions", description: "Draft PR เปิดอยู่ในโหมดแก้ไขและมีการเปลี่ยนแปลงอย่างน้อยหนึ่งอย่าง" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. ทำการเปลี่ยนแปลง\n3. คลิก Save" },
+        { type: "expected", description: "ฟอร์มกลับสู่โหมดดู (ปุ่ม Edit แสดงผลอีกครั้งในหน้ารายละเอียด)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -812,9 +812,9 @@ requestorTest.describe("Step 5 — Edit Draft", () => {
     "TC-PR-050506 Cancel → discard changes, restore original",
     {
       annotation: [
-        { type: "preconditions", description: "A Draft PR is open in edit mode" },
-        { type: "steps", description: "1. Enter edit mode\n2. Type into description\n3. Click Cancel" },
-        { type: "expected", description: "Form returns to view mode (Edit button visible again on detail page)." },
+        { type: "preconditions", description: "Draft PR เปิดอยู่ในโหมดแก้ไข" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. พิมพ์ใน description\n3. คลิก Cancel" },
+        { type: "expected", description: "ฟอร์มกลับสู่โหมดดู (ปุ่ม Edit แสดงผลอีกครั้งในหน้ารายละเอียด)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -842,9 +842,9 @@ requestorTest.describe("Step 6 — Submit", () => {
     "TC-PR-050601 Submit → confirmation dialog appears",
     {
       annotation: [
-        { type: "preconditions", description: "A Draft PR with ≥1 line item exists" },
-        { type: "steps", description: "1. Open Draft PR\n2. Click Submit" },
-        { type: "expected", description: "Confirmation dialog is visible." },
+        { type: "preconditions", description: "มี Draft PR ที่มีรายการสินค้า ≥1 รายการ" },
+        { type: "steps", description: "1. เปิด Draft PR\n2. คลิก Submit" },
+        { type: "expected", description: "dialog ยืนยันแสดงผล" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -868,9 +868,9 @@ requestorTest.describe("Step 6 — Submit", () => {
     "TC-PR-050602 Cancel submit → stays on Draft",
     {
       annotation: [
-        { type: "preconditions", description: "Submit confirmation dialog is open" },
-        { type: "steps", description: "1. Open Submit dialog\n2. Click Cancel" },
-        { type: "expected", description: "Dialog closes; URL remains on the detail page (no submit transition)." },
+        { type: "preconditions", description: "dialog ยืนยัน submit เปิดอยู่" },
+        { type: "steps", description: "1. เปิด dialog Submit\n2. คลิก Cancel" },
+        { type: "expected", description: "dialog ปิด; URL ยังคงอยู่ที่หน้ารายละเอียด (ไม่มีการเปลี่ยนสถานะ submit)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -900,9 +900,9 @@ requestorTest.describe("Step 6 — Submit", () => {
     "TC-PR-050603 Confirm submit → status moves to In Progress",
     {
       annotation: [
-        { type: "preconditions", description: "Submit confirmation dialog is open" },
-        { type: "steps", description: "1. Open Submit dialog\n2. Click Confirm" },
-        { type: "expected", description: "Status badge updates to In Progress (asserted by submitDraftPR helper)." },
+        { type: "preconditions", description: "dialog ยืนยัน submit เปิดอยู่" },
+        { type: "steps", description: "1. เปิด dialog Submit\n2. คลิก Confirm" },
+        { type: "expected", description: "badge สถานะอัปเดตเป็น In Progress (ยืนยันโดย submitDraftPR helper)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -918,9 +918,9 @@ requestorTest.describe("Step 6 — Submit", () => {
     "TC-PR-050604 Submit empty PR — button disabled or no transition",
     {
       annotation: [
-        { type: "preconditions", description: "A Draft PR with zero line items exists" },
-        { type: "steps", description: "1. Open Draft PR with no items\n2. Inspect Submit button" },
-        { type: "expected", description: "Either Submit button is disabled, or clicking it does not move status to In Progress (URL stays on detail)." },
+        { type: "preconditions", description: "มี Draft PR ที่ไม่มีรายการสินค้า" },
+        { type: "steps", description: "1. เปิด Draft PR ที่ไม่มีรายการสินค้า\n2. ตรวจสอบปุ่ม Submit" },
+        { type: "expected", description: "ปุ่ม Submit ถูก disabled หรือการคลิกไม่เปลี่ยนสถานะเป็น In Progress (URL ยังคงอยู่ที่หน้ารายละเอียด)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Validation" },
       ],
@@ -955,9 +955,9 @@ requestorTest.describe("Step 8 — Delete", () => {
     "TC-PR-050801 Click Delete → confirmation dialog",
     {
       annotation: [
-        { type: "preconditions", description: "A Draft PR exists for this Requestor" },
-        { type: "steps", description: "1. Open Draft PR\n2. Click Delete" },
-        { type: "expected", description: "Delete confirmation dialog is visible." },
+        { type: "preconditions", description: "มี Draft PR ของ Requestor นี้" },
+        { type: "steps", description: "1. เปิด Draft PR\n2. คลิก Delete" },
+        { type: "expected", description: "dialog ยืนยันการลบแสดงผล" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -981,9 +981,9 @@ requestorTest.describe("Step 8 — Delete", () => {
     "TC-PR-050802 Cancel delete → PR remains",
     {
       annotation: [
-        { type: "preconditions", description: "Delete confirmation dialog is open" },
-        { type: "steps", description: "1. Open Delete dialog\n2. Click Cancel" },
-        { type: "expected", description: "Dialog closes; URL remains on the detail page (PR is not deleted)." },
+        { type: "preconditions", description: "dialog ยืนยันการลบเปิดอยู่" },
+        { type: "steps", description: "1. เปิด dialog Delete\n2. คลิก Cancel" },
+        { type: "expected", description: "dialog ปิด; URL ยังคงอยู่ที่หน้ารายละเอียด (PR ไม่ถูกลบ)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -1013,9 +1013,9 @@ requestorTest.describe("Step 8 — Delete", () => {
     "TC-PR-050803 Confirm delete → list refreshed, PR gone",
     {
       annotation: [
-        { type: "preconditions", description: "Delete confirmation dialog is open" },
-        { type: "steps", description: "1. Open Delete dialog\n2. Click Confirm" },
-        { type: "expected", description: "Page navigates back to the PR list (URL ends at /procurement/purchase-request)." },
+        { type: "preconditions", description: "dialog ยืนยันการลบเปิดอยู่" },
+        { type: "steps", description: "1. เปิด dialog Delete\n2. คลิก Confirm" },
+        { type: "expected", description: "หน้านำทางกลับไปที่ PR list (URL ลงท้ายด้วย /procurement/purchase-request)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -1034,9 +1034,9 @@ requestorTest.describe.serial("Golden Journey", () => {
     "TC-PR-050901 Full Creator flow: List → Create → Save Draft → Edit → Submit → In Progress",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor; on PR list" },
-        { type: "steps", description: "1. Open list\n2. Click New PR (Blank)\n3. Fill header + 1 line item\n4. Save as Draft\n5. Open detail and click Edit\n6. Edit description\n7. Save\n8. Click Submit and confirm" },
-        { type: "expected", description: "PR is created (detail URL with ref), edited (Edit button reappears post-save), submitted (status badge reads In Progress)." },
+        { type: "preconditions", description: "Login เป็น Requestor; อยู่ที่หน้า PR list" },
+        { type: "steps", description: "1. เปิด list\n2. คลิก New PR (Blank)\n3. กรอก header + รายการสินค้า 1 รายการ\n4. บันทึกเป็น Draft\n5. เปิดหน้ารายละเอียดและคลิก Edit\n6. แก้ไข description\n7. บันทึก\n8. คลิก Submit และ confirm" },
+        { type: "expected", description: "PR ถูกสร้าง (detail URL พร้อม ref), แก้ไขแล้ว (ปุ่ม Edit แสดงผลอีกครั้งหลังบันทึก), submit แล้ว (badge สถานะแสดง In Progress)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],

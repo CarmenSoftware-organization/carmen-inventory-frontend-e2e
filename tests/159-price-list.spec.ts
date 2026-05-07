@@ -18,13 +18,13 @@ purchaseTest.describe("Price List — List & Filter", () => {
     "TC-PL-010001 Valid Login and Access to Price Lists Page",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated and has access to Vendor Management module" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วและมีสิทธิ์เข้าถึงโมดูล Vendor Management" },
         {
           type: "steps",
           description:
-            "1. Navigate to /login\n2. Fill 'Username' with valid credentials\n3. Fill 'Password' with valid credentials\n4. Click 'Login'\n5. Click 'Vendor Management' in sidebar navigation\n6. Click 'Price Lists' submenu item",
+            "1. ไปที่ /login\n2. กรอก 'Username' ด้วย credentials ที่ถูกต้อง\n3. กรอก 'Password' ด้วย credentials ที่ถูกต้อง\n4. คลิก 'Login'\n5. คลิก 'Vendor Management' ใน sidebar navigation\n6. คลิก submenu 'Price Lists'",
         },
-        { type: "expected", description: "System navigates to /vendor-management/price-list and displays the Price Lists page." },
+        { type: "expected", description: "ระบบ navigate ไปยัง /vendor-management/price-list และแสดงหน้า Price Lists" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -41,13 +41,13 @@ purchaseTest.describe("Price List — List & Filter", () => {
     "TC-PL-010002 Search Filter with Invalid Keyword",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated and has access to Vendor Management module" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วและมีสิทธิ์เข้าถึงโมดูล Vendor Management" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Fill 'Search' input field with invalid keyword 'abcd'\n3. Click 'Search' button",
+            "1. ไปที่ /vendor-management/price-list\n2. กรอก 'Search' input ด้วยคีย์เวิร์ดที่ไม่ถูกต้อง 'abcd'\n3. คลิกปุ่ม 'Search'",
         },
-        { type: "expected", description: "System displays an empty table and no price lists are filtered." },
+        { type: "expected", description: "ระบบแสดงตารางว่างและไม่มี price list ที่กรอง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -65,13 +65,13 @@ purchaseTest.describe("Price List — List & Filter", () => {
     "TC-PL-010003 View Price List Details with No Data",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated and has access to Vendor Management module" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วและมีสิทธิ์เข้าถึงโมดูล Vendor Management" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click on a price list name in the table",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิกชื่อ price list ในตาราง",
         },
-        { type: "expected", description: "System displays an empty detail page for the selected price list." },
+        { type: "expected", description: "ระบบแสดงหน้า detail ว่างสำหรับ price list ที่เลือก" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -93,13 +93,13 @@ purchaseTest.describe("Price List — List & Filter", () => {
     "TC-PL-010005 Filter by Expired Status",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated; has access to Vendor Management module; system has expired price lists" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว; มีสิทธิ์เข้าถึงโมดูล Vendor Management; ระบบมี price list ที่หมดอายุ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Select 'Expired' from Status filter dropdown\n3. Verify that only expired price lists are displayed in the table",
+            "1. ไปที่ /vendor-management/price-list\n2. เลือก 'Expired' จาก Status filter dropdown\n3. ตรวจสอบว่าแสดงเฉพาะ price list ที่หมดอายุในตาราง",
         },
-        { type: "expected", description: "System displays only expired price lists in the table." },
+        { type: "expected", description: "ระบบแสดงเฉพาะ price list ที่หมดอายุในตาราง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -123,9 +123,9 @@ requestorTest.describe("Price List — List access — Permission denial", () =>
     "TC-PL-010004 User Without Access to Price Lists Page",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated but does not have access to Vendor Management module" },
-        { type: "steps", description: "1. Navigate to /vendor-management/price-list" },
-        { type: "expected", description: "System displays an error message indicating insufficient access rights." },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วแต่ไม่มีสิทธิ์เข้าถึงโมดูล Vendor Management" },
+        { type: "steps", description: "1. ไปที่ /vendor-management/price-list" },
+        { type: "expected", description: "ระบบแสดงข้อความ error แจ้งสิทธิ์การเข้าถึงไม่เพียงพอ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -149,13 +149,13 @@ purchaseTest.describe("Price List — Create", () => {
     "TC-PL-020001 Happy Path - Create Valid Price List",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated; has permission to create price lists; vendor directory contains at least one vendor; product catalog contains at least one product" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว; มีสิทธิ์สร้าง price list; vendor directory มี vendor อย่างน้อย 1 รายการ; product catalog มี product อย่างน้อย 1 รายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click 'Add New'\n3. Fill 'Price List Number'\n4. Select 'Vendor'\n5. Select 'USD' as Currency\n6. Fill 'Valid From' date\n7. Click 'Add Item'\n8. Select 'Product'\n9. Enter 'MOQ' (optional)\n10. Select 'Unit'\n11. Fill 'Unit Price'\n12. Enter 'Lead Time' (optional)\n13. Fill 'Notes' (optional)\n14. Click 'Save'\n15. Verify 'Success Toast' message",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิก 'Add New'\n3. กรอก 'Price List Number'\n4. เลือก 'Vendor'\n5. เลือก 'USD' เป็น Currency\n6. กรอกวันที่ 'Valid From'\n7. คลิก 'Add Item'\n8. เลือก 'Product'\n9. กรอก 'MOQ' (optional)\n10. เลือก 'Unit'\n11. กรอก 'Unit Price'\n12. กรอก 'Lead Time' (optional)\n13. กรอก 'Notes' (optional)\n14. คลิก 'Save'\n15. ตรวจสอบข้อความ 'Success Toast'",
         },
-        { type: "expected", description: "Price list is created successfully and displayed in the list." },
+        { type: "expected", description: "price list สร้างสำเร็จและแสดงใน list" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -175,13 +175,13 @@ purchaseTest.describe("Price List — Create", () => {
     "TC-PL-020002 Negative - Missing Vendor",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to create price lists; product catalog contains at least one product" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง price list; product catalog มี product อย่างน้อย 1 รายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click 'Add New'\n3. Fill 'Price List Number'\n4. Select 'USD' as Currency\n5. Fill 'Valid From' date\n6. Click 'Add Item'\n7. Select 'Product'\n8. Enter 'MOQ' (optional)\n9. Select 'Unit'\n10. Fill 'Unit Price'\n11. Enter 'Lead Time' (optional)\n12. Fill 'Notes' (optional)\n13. Click 'Save'\n14. Verify error message for missing 'Vendor'",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิก 'Add New'\n3. กรอก 'Price List Number'\n4. เลือก 'USD' เป็น Currency\n5. กรอกวันที่ 'Valid From'\n6. คลิก 'Add Item'\n7. เลือก 'Product'\n8. กรอก 'MOQ' (optional)\n9. เลือก 'Unit'\n10. กรอก 'Unit Price'\n11. กรอก 'Lead Time' (optional)\n12. กรอก 'Notes' (optional)\n13. คลิก 'Save'\n14. ตรวจสอบข้อความ error สำหรับ 'Vendor' ที่ขาดหายไป",
         },
-        { type: "expected", description: "Error message displayed indicating 'Vendor' is required." },
+        { type: "expected", description: "แสดงข้อความ error แจ้งว่า 'Vendor' เป็นข้อมูลที่จำเป็น" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -201,13 +201,13 @@ purchaseTest.describe("Price List — Create", () => {
     "TC-PL-020003 Edge Case - Empty Unit Price",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to create price lists; vendor directory has at least one vendor; product catalog has at least one product" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง price list; vendor directory มี vendor อย่างน้อย 1 รายการ; product catalog มี product อย่างน้อย 1 รายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click 'Add New'\n3. Fill 'Price List Number'\n4. Select 'Vendor'\n5. Select 'USD' as Currency\n6. Fill 'Valid From' date\n7. Click 'Add Item'\n8. Select 'Product'\n9. Enter 'MOQ' (optional)\n10. Select 'Unit'\n11. Leave 'Unit Price' empty\n12. Enter 'Lead Time' (optional)\n13. Fill 'Notes' (optional)\n14. Click 'Save'\n15. Verify error message for missing 'Unit Price'",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิก 'Add New'\n3. กรอก 'Price List Number'\n4. เลือก 'Vendor'\n5. เลือก 'USD' เป็น Currency\n6. กรอกวันที่ 'Valid From'\n7. คลิก 'Add Item'\n8. เลือก 'Product'\n9. กรอก 'MOQ' (optional)\n10. เลือก 'Unit'\n11. ปล่อย 'Unit Price' ว่างเปล่า\n12. กรอก 'Lead Time' (optional)\n13. กรอก 'Notes' (optional)\n14. คลิก 'Save'\n15. ตรวจสอบข้อความ error สำหรับ 'Unit Price' ที่ขาดหายไป",
         },
-        { type: "expected", description: "Error message displayed indicating 'Unit Price' is required." },
+        { type: "expected", description: "แสดงข้อความ error แจ้งว่า 'Unit Price' เป็นข้อมูลที่จำเป็น" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -232,13 +232,13 @@ purchaseTest.describe("Price List — View detail", () => {
     "TC-PL-030001 Happy Path - Valid Price List Click",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated with valid session; a price list exists" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วพร้อม session ที่ถูกต้อง; มี price list อยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click on price list name\n3. Verify navigation to /vendor-management/price-list/[id]",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิกชื่อ price list\n3. ตรวจสอบการ navigate ไปยัง /vendor-management/price-list/[id]",
         },
-        { type: "expected", description: "System navigates to price list detail page and displays correct price list data." },
+        { type: "expected", description: "ระบบ navigate ไปยังหน้า detail ของ price list และแสดงข้อมูล price list ที่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -260,13 +260,13 @@ purchaseTest.describe("Price List — View detail", () => {
     "TC-PL-030002 Negative - No Price List Selected",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated with valid session" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วพร้อม session ที่ถูกต้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Attempt to click on non-existent price list name",
+            "1. ไปที่ /vendor-management/price-list\n2. พยายามคลิกชื่อ price list ที่ไม่มีอยู่",
         },
-        { type: "expected", description: "System displays error message or navigates to error page." },
+        { type: "expected", description: "ระบบแสดงข้อความ error หรือ navigate ไปยังหน้า error" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -284,13 +284,13 @@ purchaseTest.describe("Price List — View detail", () => {
     "TC-PL-030005 Edge Case - Empty Line Items",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated; a price list with no line items exists" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว; มี price list ที่ไม่มี line item อยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list/[id]\n2. Verify absence of line items in table.",
+            "1. ไปที่ /vendor-management/price-list/[id]\n2. ตรวจสอบการไม่มี line item ในตาราง",
         },
-        { type: "expected", description: "System displays appropriate message or placeholder for line items." },
+        { type: "expected", description: "ระบบแสดงข้อความหรือ placeholder ที่เหมาะสมสำหรับ line item" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -313,13 +313,13 @@ requestorTest.describe("Price List — View / Edit — Permission denial", () =>
     "TC-PL-030003 Edge Case - User Without Edit Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated with valid session and lacks edit permissions" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วพร้อม session ที่ถูกต้องและไม่มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list/[id]\n2. Click on 'Edit' button",
+            "1. ไปที่ /vendor-management/price-list/[id]\n2. คลิกปุ่ม 'Edit'",
         },
-        { type: "expected", description: "System prevents user from accessing edit functionality." },
+        { type: "expected", description: "ระบบป้องกันผู้ใช้ไม่ให้เข้าถึงฟังก์ชันแก้ไข" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -344,13 +344,13 @@ requestorTest.describe("Price List — View / Edit — Permission denial", () =>
     "TC-PL-030004 Negative - User Without View Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated with valid session but lacks view permissions" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วพร้อม session ที่ถูกต้องแต่ไม่มีสิทธิ์ดู" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list/[id]\n2. Verify system prevents access to view page",
+            "1. ไปที่ /vendor-management/price-list/[id]\n2. ตรวจสอบว่าระบบป้องกันการเข้าถึงหน้าดู",
         },
-        { type: "expected", description: "System denies user access or displays error message." },
+        { type: "expected", description: "ระบบปฏิเสธการเข้าถึงของผู้ใช้หรือแสดงข้อความ error" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -374,13 +374,13 @@ purchaseTest.describe("Price List — Edit", () => {
     "TC-PL-040001 Happy Path: Edit Price List Successfully",
     {
       annotation: [
-        { type: "preconditions", description: "User authenticated with valid session; price list exists and is editable; user has edit permissions" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วพร้อม session ที่ถูกต้อง; price list มีอยู่และแก้ไขได้; ผู้ใช้มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click 'Edit' button on price list detail page\n3. Fill in new valid from date\n4. Fill in new valid to date\n5. Fill in new notes\n6. Update price for a line item\n7. Click 'Save'",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิกปุ่ม 'Edit' ที่หน้า detail ของ price list\n3. กรอกวันที่ valid from ใหม่\n4. กรอกวันที่ valid to ใหม่\n5. กรอก notes ใหม่\n6. อัปเดตราคาสำหรับ line item\n7. คลิก 'Save'",
         },
-        { type: "expected", description: "Price list is updated successfully, success message is displayed, and user returns to view mode." },
+        { type: "expected", description: "price list อัปเดตสำเร็จ แสดงข้อความสำเร็จ และผู้ใช้กลับไปยัง view mode" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -405,13 +405,13 @@ purchaseTest.describe("Price List — Edit", () => {
     "TC-PL-040002 Negative: Invalid Date Input",
     {
       annotation: [
-        { type: "preconditions", description: "Price list exists and is editable; user has edit permissions; user inputs invalid date format" },
+        { type: "preconditions", description: "price list มีอยู่และแก้ไขได้; ผู้ใช้มีสิทธิ์แก้ไข; ผู้ใช้กรอกรูปแบบวันที่ที่ไม่ถูกต้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click 'Edit' button on price list detail page\n3. Fill in new valid from date with invalid format\n4. Fill in new valid to date with invalid format\n5. Click 'Save'",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิกปุ่ม 'Edit' ที่หน้า detail ของ price list\n3. กรอกวันที่ valid from ด้วยรูปแบบที่ไม่ถูกต้อง\n4. กรอกวันที่ valid to ด้วยรูปแบบที่ไม่ถูกต้อง\n5. คลิก 'Save'",
         },
-        { type: "expected", description: "System displays error message for invalid date format, price list is not updated." },
+        { type: "expected", description: "ระบบแสดงข้อความ error สำหรับรูปแบบวันที่ที่ไม่ถูกต้อง และ price list ไม่ถูกอัปเดต" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -438,13 +438,13 @@ purchaseTest.describe("Price List — Duplicate", () => {
     "TC-PL-050001 Happy Path - Duplicate Price List",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated with valid session; a source price list exists" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วพร้อม session ที่ถูกต้อง; มี source price list อยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click 'Duplicate' from actions menu\n3. Verify form pre-fills with copied values\n4. Modify as needed (dates, prices, items)\n5. Click 'Save'\n6. Verify success message and new price list detail page",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิก 'Duplicate' จาก actions menu\n3. ตรวจสอบว่าฟอร์มกรอกข้อมูลจากการคัดลอกล่วงหน้า\n4. แก้ไขตามต้องการ (วันที่, ราคา, รายการ)\n5. คลิก 'Save'\n6. ตรวจสอบข้อความสำเร็จและหน้า detail ของ price list ใหม่",
         },
-        { type: "expected", description: "New price list is created with pre-filled data; user can see the new price list detail page." },
+        { type: "expected", description: "price list ใหม่สร้างสำเร็จพร้อมข้อมูลที่กรอกล่วงหน้า; ผู้ใช้สามารถดูหน้า detail ของ price list ใหม่" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -473,13 +473,13 @@ purchaseTest.describe("Price List — Duplicate", () => {
     "TC-PL-050003 Edge Case - Duplicate with No Source Price List",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated with valid session but no source price list exists" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วพร้อม session ที่ถูกต้องแต่ไม่มี source price list อยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Attempt to click 'Duplicate' from actions menu\n3. Verify error message or no 'Duplicate' option available",
+            "1. ไปที่ /vendor-management/price-list\n2. พยายามคลิก 'Duplicate' จาก actions menu\n3. ตรวจสอบข้อความ error หรือไม่มี option 'Duplicate'",
         },
-        { type: "expected", description: "User sees appropriate error message or no 'Duplicate' option is available." },
+        { type: "expected", description: "ผู้ใช้เห็นข้อความ error ที่เหมาะสมหรือไม่มี option 'Duplicate'" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -501,13 +501,13 @@ requestorTest.describe("Price List — Duplicate — Permission denial", () => {
     "TC-PL-050002 Negative - No Permission to Duplicate",
     {
       annotation: [
-        { type: "preconditions", description: "User authenticated but lacks permission to duplicate price list" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วแต่ไม่มีสิทธิ์ duplicate price list" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Attempt to click 'Duplicate' from actions menu\n3. Verify error message or no 'Duplicate' option available",
+            "1. ไปที่ /vendor-management/price-list\n2. พยายามคลิก 'Duplicate' จาก actions menu\n3. ตรวจสอบข้อความ error หรือไม่มี option 'Duplicate'",
         },
-        { type: "expected", description: "User sees appropriate error message or no 'Duplicate' option is available." },
+        { type: "expected", description: "ผู้ใช้เห็นข้อความ error ที่เหมาะสมหรือไม่มี option 'Duplicate'" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -540,13 +540,13 @@ purchaseTest.describe("Price List — Export", () => {
     "TC-PL-060001 Happy Path - Export Price List",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated; price list exists" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว; price list มีอยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click 'Export' button\n3. Wait for export file generation\n4. Click download link",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิกปุ่ม 'Export'\n3. รอการสร้างไฟล์ export\n4. คลิก download link",
         },
-        { type: "expected", description: "Price list file is downloaded to user's device." },
+        { type: "expected", description: "ไฟล์ price list ถูก download มายังอุปกรณ์ของผู้ใช้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -567,13 +567,13 @@ purchaseTest.describe("Price List — Export", () => {
     "TC-PL-060003 Edge Case - Large Price List",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated; price list contains a large number of entries" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว; price list มีรายการจำนวนมาก" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click 'Export' button\n3. Monitor browser performance and memory usage",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิกปุ่ม 'Export'\n3. ตรวจสอบ performance และการใช้หน่วยความจำของ browser",
         },
-        { type: "expected", description: "System handles large export requests without crashing or significant performance degradation." },
+        { type: "expected", description: "ระบบจัดการ export request ขนาดใหญ่ได้โดยไม่ crash หรือประสิทธิภาพลดลงอย่างมีนัยสำคัญ" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -596,13 +596,13 @@ requestorTest.describe("Price List — Export — Permission denial", () => {
     "TC-PL-060002 Negative - Invalid Export Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User authenticated but does not have permission to export" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้วแต่ไม่มีสิทธิ์ export" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click 'Export' button\n3. Verify 'Export' button is disabled or permission error message is displayed",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิกปุ่ม 'Export'\n3. ตรวจสอบว่าปุ่ม 'Export' ถูก disabled หรือแสดงข้อความ error เรื่องสิทธิ์",
         },
-        { type: "expected", description: "User cannot export price list and receives appropriate permission error." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถ export price list และได้รับข้อความ error เรื่องสิทธิ์ที่เหมาะสม" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -629,13 +629,13 @@ purchaseTest.describe("Price List — Delete", () => {
     "TC-PL-070003 Negative - Click Cancel in Confirmation Dialog",
     {
       annotation: [
-        { type: "preconditions", description: "User authenticated; price list exists; user has delete permission" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว; price list มีอยู่; ผู้ใช้มีสิทธิ์ลบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click 'Delete' action on target price list\n3. Click 'Cancel' in confirmation dialog",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิก action 'Delete' ที่ price list เป้าหมาย\n3. คลิก 'Cancel' ใน confirmation dialog",
         },
-        { type: "expected", description: "Price list is not deleted and remains in the list." },
+        { type: "expected", description: "price list ไม่ถูกลบและยังคงอยู่ใน list" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -663,13 +663,13 @@ purchaseTest.describe("Price List — Delete", () => {
     "TC-PL-070004 Edge Case - Delete Price List from Detail Page",
     {
       annotation: [
-        { type: "preconditions", description: "User authenticated; price list exists; user has delete permission" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว; price list มีอยู่; ผู้ใช้มีสิทธิ์ลบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click on target price list to open detail page\n3. Click 'Delete' action on detail page",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิก price list เป้าหมายเพื่อเปิดหน้า detail\n3. คลิก action 'Delete' ที่หน้า detail",
         },
-        { type: "expected", description: "Price list is deleted successfully and system navigates back to list page." },
+        { type: "expected", description: "price list ถูกลบสำเร็จและระบบ navigate กลับไปยังหน้า list" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -699,13 +699,13 @@ requestorTest.describe("Price List — Delete — Permission denial", () => {
     "TC-PL-070002 Negative - No Delete Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User authenticated; price list exists; user does not have delete permission" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว; price list มีอยู่; ผู้ใช้ไม่มีสิทธิ์ลบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click 'Delete' action on target price list",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิก action 'Delete' ที่ price list เป้าหมาย",
         },
-        { type: "expected", description: "User receives permission denied message and cannot delete price list." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความปฏิเสธสิทธิ์และไม่สามารถลบ price list ได้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -738,13 +738,13 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
     "TC-PL-080001 Happy Path - Mark Price List as Expired",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated; a price list with non-expired status exists" },
+        { type: "preconditions", description: "ผู้ใช้ login แล้ว; มี price list ที่มีสถานะยังไม่หมดอายุ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click the 'Mark as Expired' action on the desired price list\n3. Wait for the status to update\n4. Verify the success toast: 'Price list marked as expired'",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิก action 'Mark as Expired' ที่ price list ที่ต้องการ\n3. รอให้สถานะอัปเดต\n4. ตรวจสอบ success toast: 'Price list marked as expired'",
         },
-        { type: "expected", description: "Price list status is updated to expired and success toast is displayed." },
+        { type: "expected", description: "สถานะ price list อัปเดตเป็น expired และแสดง success toast" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -772,13 +772,13 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
     "TC-PL-080003 Edge Case - Multiple Price Lists",
     {
       annotation: [
-        { type: "preconditions", description: "Multiple price lists exist with at least one having a non-expired status" },
+        { type: "preconditions", description: "มี price list หลายรายการโดยอย่างน้อย 1 รายการมีสถานะยังไม่หมดอายุ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Select and click the 'Mark as Expired' action on each price list one by one\n3. Wait for each status to update and verify success toasts for each action",
+            "1. ไปที่ /vendor-management/price-list\n2. เลือกและคลิก action 'Mark as Expired' ที่แต่ละ price list ทีละรายการ\n3. รอให้แต่ละสถานะอัปเดตและตรวจสอบ success toast สำหรับแต่ละ action",
         },
-        { type: "expected", description: "Each selected price list's status is updated to expired and corresponding success toasts are displayed." },
+        { type: "expected", description: "สถานะของแต่ละ price list ที่เลือกอัปเดตเป็น expired และแสดง success toast ที่สอดคล้องกัน" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -806,13 +806,13 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
     "TC-PL-080004 Negative - Price List Already Expired",
     {
       annotation: [
-        { type: "preconditions", description: "A price list with expired status exists" },
+        { type: "preconditions", description: "มี price list ที่มีสถานะ expired อยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/price-list\n2. Click the 'Mark as Expired' action on the expired price list\n3. Verify no changes are made and no errors are shown",
+            "1. ไปที่ /vendor-management/price-list\n2. คลิก action 'Mark as Expired' ที่ price list ที่หมดอายุแล้ว\n3. ตรวจสอบว่าไม่มีการเปลี่ยนแปลงและไม่แสดง error",
         },
-        { type: "expected", description: "User cannot mark an already expired price list as expired and no changes are made." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถทำเครื่องหมาย price list ที่หมดอายุแล้วว่าหมดอายุอีกครั้งได้และไม่มีการเปลี่ยนแปลงใด" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Negative" },
       ],

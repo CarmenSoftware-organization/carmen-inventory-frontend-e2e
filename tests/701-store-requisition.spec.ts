@@ -18,13 +18,13 @@ purchaseTest.describe("Store Requisition — Create", () => {
     "TC-SR-010001 Happy Path - Create Store Requisition",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated, has Requestor role, is assigned to a department, and has access to at least one source location" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี role Requestor ถูก assign ให้ department และมีสิทธิ์เข้าถึง source location อย่างน้อยหนึ่งแห่ง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'New Requisition'\n3. Fill Expected delivery date\n4. Fill Description/purpose\n5. Select source location from 'Request From' dropdown\n6. Verify requisition number is auto-generated\n7. Verify requisition date is current\n8. Verify 'Requested By' field is auto-populated\n9. Click 'Save as Draft'",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'New Requisition'\n3. กรอก Expected delivery date\n4. กรอก Description/purpose\n5. เลือก source location จาก dropdown 'Request From'\n6. ตรวจสอบว่า requisition number ถูกสร้างอัตโนมัติ\n7. ตรวจสอบว่า requisition date เป็นวันปัจจุบัน\n8. ตรวจสอบว่า field 'Requested By' ถูกกรอกอัตโนมัติ\n9. กด 'Save as Draft'",
         },
-        { type: "expected", description: "Requisition is saved as draft successfully, inline item addition section is enabled, and success message is displayed." },
+        { type: "expected", description: "Requisition ถูกบันทึกเป็น draft สำเร็จ ส่วน inline item addition ถูก enable และ success message แสดงขึ้นมา" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -40,13 +40,13 @@ purchaseTest.describe("Store Requisition — Create", () => {
     "TC-SR-010003 Edge Case - No Source Locations Available",
     {
       annotation: [
-        { type: "preconditions", description: "User has Requestor role, assigned to department, but no authorized source locations exist" },
+        { type: "preconditions", description: "ผู้ใช้มี role Requestor ถูก assign ให้ department แต่ไม่มี source location ที่ได้รับอนุญาต" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'New Requisition'\n3. Attempt to select source location from 'Request From' dropdown",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'New Requisition'\n3. พยายามเลือก source location จาก dropdown 'Request From'",
         },
-        { type: "expected", description: "System displays warning message 'No storage locations available for your department', suggests contacting administrator." },
+        { type: "expected", description: "ระบบแสดง warning message 'No storage locations available for your department' และแนะนำให้ติดต่อ administrator" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -61,13 +61,13 @@ purchaseTest.describe("Store Requisition — Create", () => {
     "TC-SR-010004 Negative - Invalid Input - Missing Expected Delivery Date",
     {
       annotation: [
-        { type: "preconditions", description: "User has Requestor role, assigned to department, has access to source location" },
+        { type: "preconditions", description: "ผู้ใช้มี role Requestor ถูก assign ให้ department และมีสิทธิ์เข้าถึง source location" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'New Requisition'\n3. Fill Description/purpose\n4. Select source location from 'Request From' dropdown\n5. Leave Expected delivery date field empty\n6. Attempt to click 'Save as Draft'",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'New Requisition'\n3. กรอก Description/purpose\n4. เลือก source location จาก dropdown 'Request From'\n5. ปล่อย field Expected delivery date ว่างไว้\n6. พยายามกด 'Save as Draft'",
         },
-        { type: "expected", description: "System displays error message for missing expected delivery date, does not save requisition." },
+        { type: "expected", description: "ระบบแสดง error message สำหรับ Expected delivery date ที่ขาดหายไป และไม่บันทึก requisition" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -85,13 +85,13 @@ purchaseTest.describe("Store Requisition — Create", () => {
     "TC-SR-010005 Alternate Flow - Quick Create from Template",
     {
       annotation: [
-        { type: "preconditions", description: "User has Requestor role, assigned to department, has access to source location, template exists" },
+        { type: "preconditions", description: "ผู้ใช้มี role Requestor ถูก assign ให้ department มีสิทธิ์เข้าถึง source location และมี template อยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'New Requisition'\n3. Select 'Create from Template'\n4. Select a saved template\n5. Fill Description/purpose\n6. Select source location from 'Request From' dropdown\n7. Fill Expected delivery date\n8. Click 'Save as Draft'",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'New Requisition'\n3. เลือก 'Create from Template'\n4. เลือก template ที่บันทึกไว้\n5. กรอก Description/purpose\n6. เลือก source location จาก dropdown 'Request From'\n7. กรอก Expected delivery date\n8. กด 'Save as Draft'",
         },
-        { type: "expected", description: "Requisition is saved as draft from template successfully, inline item addition section is enabled, and success message is displayed." },
+        { type: "expected", description: "Requisition ถูกบันทึกเป็น draft จาก template สำเร็จ ส่วน inline item addition ถูก enable และ success message แสดงขึ้นมา" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Alternate Flow" },
       ],
@@ -108,13 +108,13 @@ requestorTest.describe("Store Requisition — Create — Permission denial", () 
     "TC-SR-010002 Negative - User Not Assigned to Department",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated but not assigned to any department" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com แต่ไม่ถูก assign ให้ department ใด" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Attempt to click 'New Requisition'",
+            "1. ไปที่ /store-operation/store-requisition\n2. พยายามกด 'New Requisition'",
         },
-        { type: "expected", description: "System displays error message 'You must be assigned to a department to create requisitions', 'New Requisition' button is disabled." },
+        { type: "expected", description: "ระบบแสดง error message 'You must be assigned to a department to create requisitions' และปุ่ม 'New Requisition' ถูก disable" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -141,13 +141,13 @@ purchaseTest.describe("Store Requisition — Add Items", () => {
     "TC-SR-020001 Happy Path - Add Single Item",
     {
       annotation: [
-        { type: "preconditions", description: "Requisition exists in Draft status; user is the requisition creator; product master data is available" },
+        { type: "preconditions", description: "Requisition อยู่ใน Draft status ผู้ใช้เป็นผู้สร้าง requisition และ product master data พร้อมใช้งาน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Add Item' button\n3. Type 'Office Chair' in search input\n4. Select 'Office Chair' from CommandList\n5. Fill requested quantity '2'\n6. Verify destination location is correct\n7. Click 'Add'",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Add Item' button\n3. พิมพ์ 'Office Chair' ใน search input\n4. เลือก 'Office Chair' จาก CommandList\n5. กรอก requested quantity '2'\n6. ตรวจสอบว่า destination location ถูกต้อง\n7. กด 'Add'",
         },
-        { type: "expected", description: "Item 'Office Chair' added to requisition with correct details." },
+        { type: "expected", description: "Item 'Office Chair' ถูกเพิ่มใน requisition พร้อมรายละเอียดที่ถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -166,13 +166,13 @@ purchaseTest.describe("Store Requisition — Add Items", () => {
     "TC-SR-020002 Negative - Invalid Quantity",
     {
       annotation: [
-        { type: "preconditions", description: "Requisition exists in Draft status; user is the requisition creator; product master data is available" },
+        { type: "preconditions", description: "Requisition อยู่ใน Draft status ผู้ใช้เป็นผู้สร้าง requisition และ product master data พร้อมใช้งาน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Add Item' button\n3. Type 'Office Chair' in search input\n4. Select 'Office Chair' from CommandList\n5. Fill requested quantity '-1'\n6. Click 'Add'",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Add Item' button\n3. พิมพ์ 'Office Chair' ใน search input\n4. เลือก 'Office Chair' จาก CommandList\n5. กรอก requested quantity '-1'\n6. กด 'Add'",
         },
-        { type: "expected", description: "System displays error: 'Quantity must be greater than zero'." },
+        { type: "expected", description: "ระบบแสดง error: 'Quantity must be greater than zero'" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -187,13 +187,13 @@ purchaseTest.describe("Store Requisition — Add Items", () => {
     "TC-SR-020003 Edge Case - Insufficient Stock",
     {
       annotation: [
-        { type: "preconditions", description: "Requisition exists in Draft status; product 'Office Chair' has insufficient stock" },
+        { type: "preconditions", description: "Requisition อยู่ใน Draft status และ product 'Office Chair' มี stock ไม่เพียงพอ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Add Item' button\n3. Type 'Office Chair' in search input\n4. Select 'Office Chair' from CommandList\n5. Fill requested quantity '5'\n6. Click 'Add'",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Add Item' button\n3. พิมพ์ 'Office Chair' ใน search input\n4. เลือก 'Office Chair' จาก CommandList\n5. กรอก requested quantity '5'\n6. กด 'Add'",
         },
-        { type: "expected", description: "System displays warning: 'Requested quantity exceeds available stock' and suggests alternative actions." },
+        { type: "expected", description: "ระบบแสดง warning: 'Requested quantity exceeds available stock' และแนะนำทางเลือกอื่น" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -213,13 +213,13 @@ purchaseTest.describe("Store Requisition — Real-time Inventory", () => {
     "TC-SR-030001 Happy Path - Sufficient Inventory",
     {
       annotation: [
-        { type: "preconditions", description: "User is editing a requisition with a selected product; Inventory Management system is accessible" },
+        { type: "preconditions", description: "ผู้ใช้กำลังแก้ไข requisition ที่มี product ถูกเลือกอยู่ และ Inventory Management system เข้าถึงได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Edit' on an existing requisition\n3. Update requested quantity\n4. Verify system triggers real-time inventory check\n5. Verify 'On Hand' and 'On Order' values\n6. Verify 'Last Price' and 'Last Vendor' values\n7. Verify 'Sufficient' stock status with green indicator\n8. Verify no stock shortfall warning",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Edit' บน requisition ที่มีอยู่\n3. อัปเดต requested quantity\n4. ตรวจสอบว่าระบบ trigger การตรวจสอบ inventory แบบ real-time\n5. ตรวจสอบค่า 'On Hand' และ 'On Order'\n6. ตรวจสอบค่า 'Last Price' และ 'Last Vendor'\n7. ตรวจสอบสถานะ stock 'Sufficient' ด้วย indicator สีเขียว\n8. ตรวจสอบว่าไม่มี stock shortfall warning",
         },
-        { type: "expected", description: "System correctly displays sufficient inventory status and available quantity." },
+        { type: "expected", description: "ระบบแสดงสถานะ inventory ที่เพียงพอและจำนวนที่มีอยู่อย่างถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -234,13 +234,13 @@ purchaseTest.describe("Store Requisition — Real-time Inventory", () => {
     "TC-SR-030002 Negative Case - Insufficient Inventory",
     {
       annotation: [
-        { type: "preconditions", description: "User is editing a requisition with a selected product; Inventory Management system is accessible" },
+        { type: "preconditions", description: "ผู้ใช้กำลังแก้ไข requisition ที่มี product ถูกเลือกอยู่ และ Inventory Management system เข้าถึงได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Edit' on an existing requisition\n3. Update requested quantity to exceed available stock\n4. Verify system triggers real-time inventory check\n5. Verify 'Low' stock status with yellow indicator\n6. Verify stock shortfall quantity and expected restock date displayed\n7. Verify suggested actions to reduce quantity or switch location",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Edit' บน requisition ที่มีอยู่\n3. อัปเดต requested quantity ให้เกิน stock ที่มีอยู่\n4. ตรวจสอบว่าระบบ trigger การตรวจสอบ inventory แบบ real-time\n5. ตรวจสอบสถานะ stock 'Low' ด้วย indicator สีเหลือง\n6. ตรวจสอบว่าแสดงจำนวน stock shortfall และวันที่คาดว่าจะเติม stock\n7. ตรวจสอบทางเลือกที่แนะนำ เช่น ลด quantity หรือเปลี่ยน location",
         },
-        { type: "expected", description: "System correctly indicates insufficient inventory and provides suggested actions." },
+        { type: "expected", description: "ระบบแสดงสถานะ inventory ที่ไม่เพียงพอและทางเลือกที่แนะนำอย่างถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -255,13 +255,13 @@ purchaseTest.describe("Store Requisition — Real-time Inventory", () => {
     "TC-SR-030003 Edge Case - No Inventory Records",
     {
       annotation: [
-        { type: "preconditions", description: "User is editing a requisition with a selected product; Inventory Management system is accessible" },
+        { type: "preconditions", description: "ผู้ใช้กำลังแก้ไข requisition ที่มี product ถูกเลือกอยู่ และ Inventory Management system เข้าถึงได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Edit' on an existing requisition\n3. Select a product with no inventory records\n4. Verify system triggers real-time inventory check\n5. Verify system displays 'This product has no inventory records'\n6. Verify suggested actions to contact storekeeper or consider purchase request",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Edit' บน requisition ที่มีอยู่\n3. เลือก product ที่ไม่มีบันทึก inventory\n4. ตรวจสอบว่าระบบ trigger การตรวจสอบ inventory แบบ real-time\n5. ตรวจสอบว่าระบบแสดง 'This product has no inventory records'\n6. ตรวจสอบทางเลือกที่แนะนำ เช่น ติดต่อ storekeeper หรือพิจารณา purchase request",
         },
-        { type: "expected", description: "System correctly indicates no inventory records and suggests alternative actions." },
+        { type: "expected", description: "ระบบแสดงว่าไม่มีบันทึก inventory และแนะนำทางเลือกอื่นอย่างถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -276,13 +276,13 @@ purchaseTest.describe("Store Requisition — Real-time Inventory", () => {
     "TC-SR-030004 Edge Case - Inventory System Unavailable",
     {
       annotation: [
-        { type: "preconditions", description: "User is editing a requisition with a selected product; Inventory Management system is inaccessible" },
+        { type: "preconditions", description: "ผู้ใช้กำลังแก้ไข requisition ที่มี product ถูกเลือกอยู่ และ Inventory Management system เข้าถึงไม่ได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Edit' on an existing requisition\n3. Update requested quantity\n4. Verify system triggers real-time inventory check\n5. Verify warning message 'Unable to retrieve current stock levels'\n6. Verify system shows last cached inventory data with timestamp",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Edit' บน requisition ที่มีอยู่\n3. อัปเดต requested quantity\n4. ตรวจสอบว่าระบบ trigger การตรวจสอบ inventory แบบ real-time\n5. ตรวจสอบ warning message 'Unable to retrieve current stock levels'\n6. ตรวจสอบว่าระบบแสดงข้อมูล inventory ที่ cache ไว้ล่าสุดพร้อม timestamp",
         },
-        { type: "expected", description: "System correctly handles unavailable inventory data by displaying cached information." },
+        { type: "expected", description: "ระบบจัดการกับข้อมูล inventory ที่ไม่พร้อมใช้งานโดยแสดงข้อมูลที่ cache ไว้อย่างถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -302,9 +302,9 @@ purchaseTest.describe("Store Requisition — Save & Auto-save", () => {
     "TC-SR-040001 Save as Draft with Valid Input",
     {
       annotation: [
-        { type: "preconditions", description: "User is working on requisition with filled header and selected source location" },
-        { type: "steps", description: "1. Navigate to /store-operation/store-requisition\n2. Click 'Save as Draft'" },
-        { type: "expected", description: "System saves requisition with draft status and displays success toast." },
+        { type: "preconditions", description: "ผู้ใช้กำลังทำงานบน requisition ที่กรอก header แล้วและเลือก source location แล้ว" },
+        { type: "steps", description: "1. ไปที่ /store-operation/store-requisition\n2. กด 'Save as Draft'" },
+        { type: "expected", description: "ระบบบันทึก requisition ด้วยสถานะ draft และแสดง success toast" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -320,9 +320,9 @@ purchaseTest.describe("Store Requisition — Save & Auto-save", () => {
     "TC-SR-040002 Save as Draft with Missing Requisition Number",
     {
       annotation: [
-        { type: "preconditions", description: "User is working on requisition with empty requisition number and filled source location" },
-        { type: "steps", description: "1. Navigate to /store-operation/store-requisition\n2. Click 'Save as Draft'" },
-        { type: "expected", description: "System displays validation error for missing requisition number." },
+        { type: "preconditions", description: "ผู้ใช้กำลังทำงานบน requisition ที่ requisition number ว่างเปล่าและเลือก source location แล้ว" },
+        { type: "steps", description: "1. ไปที่ /store-operation/store-requisition\n2. กด 'Save as Draft'" },
+        { type: "expected", description: "ระบบแสดง validation error สำหรับ requisition number ที่ขาดหายไป" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -338,12 +338,12 @@ purchaseTest.describe("Store Requisition — Save & Auto-save", () => {
     "TC-SR-040003 Auto-Save Draft Every 60 Seconds",
     {
       annotation: [
-        { type: "preconditions", description: "User is working on requisition and editing for more than 60 seconds" },
+        { type: "preconditions", description: "ผู้ใช้กำลังทำงานบน requisition และแก้ไขเป็นเวลามากกว่า 60 วินาที" },
         {
           type: "steps",
-          description: "1. Navigate to /store-operation/store-requisition\n2. Wait 60 seconds\n3. Verify subtle auto-save indicator",
+          description: "1. ไปที่ /store-operation/store-requisition\n2. รอ 60 วินาที\n3. ตรวจสอบ auto-save indicator ที่ปรากฏเบาๆ",
         },
-        { type: "expected", description: "System displays auto-save indicator at [time] showing draft was auto-saved." },
+        { type: "expected", description: "ระบบแสดง auto-save indicator ที่ [time] ว่า draft ถูก auto-save แล้ว" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -358,9 +358,9 @@ purchaseTest.describe("Store Requisition — Save & Auto-save", () => {
     "TC-SR-040004 Save and Close with Valid Input",
     {
       annotation: [
-        { type: "preconditions", description: "User is working on requisition with filled header and selected source location" },
-        { type: "steps", description: "1. Navigate to /store-operation/store-requisition\n2. Click 'Save and Close'" },
-        { type: "expected", description: "System saves requisition with draft status, navigates to requisitions list, and displays saved draft with Draft status badge." },
+        { type: "preconditions", description: "ผู้ใช้กำลังทำงานบน requisition ที่กรอก header แล้วและเลือก source location แล้ว" },
+        { type: "steps", description: "1. ไปที่ /store-operation/store-requisition\n2. กด 'Save and Close'" },
+        { type: "expected", description: "ระบบบันทึก requisition ด้วยสถานะ draft นำทางไปยัง requisitions list และแสดง draft ที่บันทึกพร้อม Draft status badge" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -377,9 +377,9 @@ purchaseTest.describe("Store Requisition — Save & Auto-save", () => {
     "TC-SR-040005 Save Failure due to Network/Database Issue",
     {
       annotation: [
-        { type: "preconditions", description: "User is working on requisition with filled header and selected source location" },
-        { type: "steps", description: "1. Navigate to /store-operation/store-requisition\n2. Click 'Save as Draft'" },
-        { type: "expected", description: "System displays error message 'Failed to save requisition. Please try again.' and retains all entered data." },
+        { type: "preconditions", description: "ผู้ใช้กำลังทำงานบน requisition ที่กรอก header แล้วและเลือก source location แล้ว" },
+        { type: "steps", description: "1. ไปที่ /store-operation/store-requisition\n2. กด 'Save as Draft'" },
+        { type: "expected", description: "ระบบแสดง error message 'Failed to save requisition. Please try again.' และเก็บรักษาข้อมูลที่กรอกไว้ทั้งหมด" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -399,13 +399,13 @@ purchaseTest.describe("Store Requisition — Submit", () => {
     "TC-SR-050001 Submit approved requisition with valid items",
     {
       annotation: [
-        { type: "preconditions", description: "Requisition is in Draft status with valid items and quantities" },
+        { type: "preconditions", description: "Requisition อยู่ใน Draft status พร้อม items และ quantities ที่ถูกต้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Verify all line items are correct\n3. Click 'Submit for Approval'\n4. Verify system prompts confirmation dialog\n5. Confirm submission\n6. Verify status changes to In Process\n7. Verify edit buttons are disabled\n8. Verify workflow timeline is displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. ตรวจสอบว่า line items ทั้งหมดถูกต้อง\n3. กด 'Submit for Approval'\n4. ตรวจสอบว่าระบบแสดง confirmation dialog\n5. ยืนยันการ submit\n6. ตรวจสอบว่าสถานะเปลี่ยนเป็น In Process\n7. ตรวจสอบว่า edit buttons ถูก disable\n8. ตรวจสอบว่า workflow timeline แสดงขึ้นมา",
         },
-        { type: "expected", description: "Requisition status updated to In Progress, no errors." },
+        { type: "expected", description: "สถานะ requisition อัปเดตเป็น In Progress โดยไม่มี error" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -425,13 +425,13 @@ purchaseTest.describe("Store Requisition — Submit", () => {
     "TC-SR-050002 Submit requisition with missing destination locations",
     {
       annotation: [
-        { type: "preconditions", description: "Requisition is in Draft status with valid items but missing destination locations" },
+        { type: "preconditions", description: "Requisition อยู่ใน Draft status พร้อม items ที่ถูกต้องแต่ขาด destination locations" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Verify missing destination locations\n3. Click 'Submit for Approval'\n4. Verify system prompts validation errors\n5. Correct destination locations\n6. Click 'Submit for Approval'\n7. Verify system prompts confirmation dialog\n8. Confirm submission",
+            "1. ไปที่ /store-operation/store-requisition\n2. ตรวจสอบว่า destination locations ขาดหายไป\n3. กด 'Submit for Approval'\n4. ตรวจสอบว่าระบบแสดง validation errors\n5. แก้ไข destination locations\n6. กด 'Submit for Approval'\n7. ตรวจสอบว่าระบบแสดง confirmation dialog\n8. ยืนยันการ submit",
         },
-        { type: "expected", description: "Requisition submitted successfully after correcting validation errors." },
+        { type: "expected", description: "Requisition ถูก submit สำเร็จหลังแก้ไข validation errors" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -446,13 +446,13 @@ purchaseTest.describe("Store Requisition — Submit", () => {
     "TC-SR-050003 Submit requisition with empty line items",
     {
       annotation: [
-        { type: "preconditions", description: "Requisition is in Draft status with no items" },
+        { type: "preconditions", description: "Requisition อยู่ใน Draft status โดยไม่มี items" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Submit for Approval'\n3. Verify system prompts error message",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Submit for Approval'\n3. ตรวจสอบว่าระบบแสดง error message",
         },
-        { type: "expected", description: "System displays error message: 'Cannot submit requisition without items'." },
+        { type: "expected", description: "ระบบแสดง error message: 'Cannot submit requisition without items'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -469,13 +469,13 @@ purchaseTest.describe("Store Requisition — Submit", () => {
     "TC-SR-050004 Submit requisition as an unauthorized user",
     {
       annotation: [
-        { type: "preconditions", description: "Requisition is in Draft status, but the user is not the creator" },
+        { type: "preconditions", description: "Requisition อยู่ใน Draft status แต่ผู้ใช้ไม่ใช่ผู้สร้าง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Attempt to click 'Submit for Approval'",
+            "1. ไปที่ /store-operation/store-requisition\n2. พยายามกด 'Submit for Approval'",
         },
-        { type: "expected", description: "System displays error message: 'Unauthorized to perform this action'." },
+        { type: "expected", description: "ระบบแสดง error message: 'Unauthorized to perform this action'" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Negative" },
       ],
@@ -490,13 +490,13 @@ purchaseTest.describe("Store Requisition — Submit", () => {
     "TC-SR-050005 Submit requisition with emergency flag",
     {
       annotation: [
-        { type: "preconditions", description: "Requisition is in Draft status, contains valid items, and marked as emergency" },
+        { type: "preconditions", description: "Requisition อยู่ใน Draft status มี items ที่ถูกต้อง และถูกทำเครื่องหมายเป็น emergency" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Check 'Mark as Emergency' checkbox\n3. Enter emergency justification (50+ characters)\n4. Click 'Submit for Approval'",
+            "1. ไปที่ /store-operation/store-requisition\n2. เลือก checkbox 'Mark as Emergency'\n3. กรอก emergency justification (มากกว่า 50 ตัวอักษร)\n4. กด 'Submit for Approval'",
         },
-        { type: "expected", description: "Requisition submitted with emergency flag and routed to emergency approval workflow." },
+        { type: "expected", description: "Requisition ถูก submit พร้อม emergency flag และถูกส่งไปยัง emergency approval workflow" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -516,13 +516,13 @@ purchaseTest.describe("Store Requisition — Approver list actions", () => {
     "TC-SR-060001 Navigate to Store Requisitions with Pending Approvals",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; assigned to approval workflow stage; at least one requisition is pending approval" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver ถูก assign ให้ขั้นตอน approval workflow และมี requisition ที่รอ approval อย่างน้อยหนึ่งรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Verify the pending approvals count badge displays\n3. Click on a requisition\n4. Verify requisition detail page is displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. ตรวจสอบว่า badge จำนวน pending approvals แสดงอยู่\n3. คลิก requisition\n4. ตรวจสอบว่าหน้า requisition detail แสดงขึ้นมา",
         },
-        { type: "expected", description: "User is navigated to the requisition detail page with all relevant information." },
+        { type: "expected", description: "ผู้ใช้ถูกนำทางไปยังหน้า requisition detail พร้อมข้อมูลที่เกี่ยวข้องทั้งหมด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -537,13 +537,13 @@ purchaseTest.describe("Store Requisition — Approver list actions", () => {
     "TC-SR-060002 View Requisition Details with Filtered Columns",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; assigned to approval workflow stage; at least one requisition is pending approval" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver ถูก assign ให้ขั้นตอน approval workflow และมี requisition ที่รอ approval อย่างน้อยหนึ่งรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Sort By' and select 'Total Estimated Value'\n3. Click 'Filter' and select 'Department'\n4. Select a department and verify the list updates accordingly",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Sort By' และเลือก 'Total Estimated Value'\n3. กด 'Filter' และเลือก 'Department'\n4. เลือก department และตรวจสอบว่า list อัปเดตตามนั้น",
         },
-        { type: "expected", description: "Requisition list is sorted by total estimated value and filtered by the selected department." },
+        { type: "expected", description: "Requisition list ถูก sort ตาม total estimated value และ filter ตาม department ที่เลือก" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -560,13 +560,13 @@ purchaseTest.describe("Store Requisition — Approver list actions", () => {
     "TC-SR-060003 Bulk Action - Export Selected Requisitions",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; multiple requisitions selected" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver และเลือก requisitions หลายรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Select multiple requisitions\n3. Click 'Bulk Actions' > 'Export Selected'\n4. Verify the export process starts and relevant file is downloaded",
+            "1. ไปที่ /store-operation/store-requisition\n2. เลือก requisitions หลายรายการ\n3. กด 'Bulk Actions' > 'Export Selected'\n4. ตรวจสอบว่ากระบวนการ export เริ่มต้นและ file ถูก download",
         },
-        { type: "expected", description: "Selected requisitions are exported and a file is downloaded." },
+        { type: "expected", description: "Requisitions ที่เลือกถูก export และ file ถูก download" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -583,13 +583,13 @@ purchaseTest.describe("Store Requisition — Approver list actions", () => {
     "TC-SR-060004 No Pending Approvals - Empty State",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role, but no requisitions are pending approval" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver แต่ไม่มี requisitions ที่รอ approval" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Verify 'No pending approvals' message is displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. ตรวจสอบว่า message 'No pending approvals' แสดงขึ้นมา",
         },
-        { type: "expected", description: "System displays 'No pending approvals' message and shows empty state with icon." },
+        { type: "expected", description: "ระบบแสดง message 'No pending approvals' และแสดง empty state พร้อม icon" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -604,13 +604,13 @@ purchaseTest.describe("Store Requisition — Approver list actions", () => {
     "TC-SR-060005 Delegate Approvals for Unavailable User",
     {
       annotation: [
-        { type: "preconditions", description: "User is on leave and has pending approvals" },
+        { type: "preconditions", description: "ผู้ใช้อยู่ในช่วงลาและมี pending approvals" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Delegate Approvals'\n3. Select a delegate user and date range\n4. Confirm delegation\n5. Verify notification is sent to delegate",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Delegate Approvals'\n3. เลือก delegate user และช่วงวันที่\n4. ยืนยันการ delegate\n5. ตรวจสอบว่า notification ถูกส่งไปยัง delegate",
         },
-        { type: "expected", description: "Pending approvals are transferred to the delegate user and a notification is sent." },
+        { type: "expected", description: "Pending approvals ถูกโอนไปยัง delegate user และ notification ถูกส่ง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -632,13 +632,13 @@ purchaseTest.describe("Store Requisition — Approve", () => {
     "TC-SR-070001 Approve Requisition with No Quantity Adjustments",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; requisition is in In Progress status; requisition is at user's approval stage; user has authority to approve for this department" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver requisition อยู่ใน In Progress status อยู่ในขั้นตอน approval ของผู้ใช้ และผู้ใช้มีสิทธิ์ approve ให้ department นี้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click on Requisition ID\n3. Verify Requisition number, date, requestor, department\n4. Review line items in table\n5. Verify legitimacy and necessity\n6. Click 'Approve' button\n7. Click 'Approve' in confirmation dialog\n8. Verify success message 'Requisition approved successfully'",
+            "1. ไปที่ /store-operation/store-requisition\n2. คลิก Requisition ID\n3. ตรวจสอบ Requisition number, date, requestor, department\n4. ตรวจสอบ line items ในตาราง\n5. ตรวจสอบความถูกต้องและความจำเป็น\n6. กด 'Approve' button\n7. กด 'Approve' ใน confirmation dialog\n8. ตรวจสอบ success message 'Requisition approved successfully'",
         },
-        { type: "expected", description: "Requisition is approved, workflow history updated, next stage assigned, notifications sent to relevant parties." },
+        { type: "expected", description: "Requisition ถูก approve workflow history ถูกอัปเดต next stage ถูก assign และ notifications ถูกส่งไปยังผู้ที่เกี่ยวข้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -658,13 +658,13 @@ purchaseTest.describe("Store Requisition — Approve", () => {
     "TC-SR-070002 Unauthorized User Attempts to Approve Requisition",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; requisition is in In Progress status; user does not have authority to approve for this department" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver requisition อยู่ใน In Progress status และผู้ใช้ไม่มีสิทธิ์ approve ให้ department นี้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click on Requisition ID\n3. Click 'Approve' button\n4. Verify error message 'You are not authorized to approve at this stage'",
+            "1. ไปที่ /store-operation/store-requisition\n2. คลิก Requisition ID\n3. กด 'Approve' button\n4. ตรวจสอบ error message 'You are not authorized to approve at this stage'",
         },
-        { type: "expected", description: "User is denied permission to approve requisition; Approve button remains disabled." },
+        { type: "expected", description: "ผู้ใช้ถูกปฏิเสธสิทธิ์ approve requisition และ Approve button ยังคง disable อยู่" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -679,13 +679,13 @@ purchaseTest.describe("Store Requisition — Approve", () => {
     "TC-SR-070003 Budget Exceeded During Approval",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; requisition value exceeds department budget; user has authority to override budget" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver มูลค่า requisition เกิน budget ของ department และผู้ใช้มีสิทธิ์ override budget" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click on Requisition ID\n3. Verify budget exceeded warning\n4. Click 'Proceed with Approval' in warning dialog\n5. Verify success message 'Requisition approved successfully'",
+            "1. ไปที่ /store-operation/store-requisition\n2. คลิก Requisition ID\n3. ตรวจสอบ warning ว่า budget เกินกำหนด\n4. กด 'Proceed with Approval' ใน warning dialog\n5. ตรวจสอบ success message 'Requisition approved successfully'",
         },
-        { type: "expected", description: "Requisition is approved, workflow history updated, next stage assigned, notifications sent, budget warning displayed and overridden." },
+        { type: "expected", description: "Requisition ถูก approve workflow history ถูกอัปเดต next stage ถูก assign notifications ถูกส่ง budget warning แสดงและถูก override" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -705,13 +705,13 @@ purchaseTest.describe("Store Requisition — Approve Item-level", () => {
     "TC-SR-080001 Happy Path - Approve Item",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; requisition in In Progress status; item pending approval; user has access" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver requisition อยู่ใน In Progress status item รอ approval และผู้ใช้มีสิทธิ์เข้าถึง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click action menu (three dots) for line item\n3. Select 'Approve'\n4. Confirm approval",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด action menu (three dots) สำหรับ line item\n3. เลือก 'Approve'\n4. ยืนยันการ approve",
         },
-        { type: "expected", description: "Item approved with green checkmark, approved quantity, approver name and timestamp displayed, success toast: 'Item approved'. Requisition state remains In Progress if other items pending." },
+        { type: "expected", description: "Item ถูก approve พร้อม green checkmark แสดง approved quantity ชื่อ approver และ timestamp success toast: 'Item approved' สถานะ requisition ยังคงเป็น In Progress หาก items อื่นยังรอ approval อยู่" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -726,13 +726,13 @@ purchaseTest.describe("Store Requisition — Approve Item-level", () => {
     "TC-SR-080002 Negative - Insufficient Stock for Issuance",
     {
       annotation: [
-        { type: "preconditions", description: "Storekeeper has access to source location; requisition is in Ready for Issuance status; stock is insufficient for one of the items" },
+        { type: "preconditions", description: "Storekeeper มีสิทธิ์เข้าถึง source location requisition อยู่ใน Ready for Issuance status และ stock ของ item หนึ่งไม่เพียงพอ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Filter' and select 'Ready for Issuance'\n3. Select a requisition for issuance\n4. Click 'Record Issuance'\n5. Enter issued quantities for all items\n6. Click 'Issue'",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Filter' และเลือก 'Ready for Issuance'\n3. เลือก requisition สำหรับการ issuance\n4. กด 'Record Issuance'\n5. กรอก issued quantities สำหรับ items ทั้งหมด\n6. กด 'Issue'",
         },
-        { type: "expected", description: "System displays error message for item with insufficient stock and prevents issuance." },
+        { type: "expected", description: "ระบบแสดง error message สำหรับ item ที่มี stock ไม่เพียงพอและป้องกันการ issuance" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -749,13 +749,13 @@ requestorTest.describe("Store Requisition — Approve Item-level — Permission 
     "TC-SR-080003 Negative - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User has Storekeeper role; requisition in In Progress status; item pending approval; user has access" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com มี role Storekeeper requisition อยู่ใน In Progress status item รอ approval และผู้ใช้มีสิทธิ์เข้าถึง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click action menu (three dots) for line item\n3. Attempt to select 'Approve'",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด action menu (three dots) สำหรับ line item\n3. พยายามเลือก 'Approve'",
         },
-        { type: "expected", description: "System displays message: 'Insufficient permission to approve this item'. Action menu does not include 'Approve' option." },
+        { type: "expected", description: "ระบบแสดง message: 'Insufficient permission to approve this item' และ action menu ไม่มีตัวเลือก 'Approve'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -775,13 +775,13 @@ purchaseTest.describe("Store Requisition — Adjust approved quantity", () => {
     "TC-SR-090001 Adjust approved quantity: Happy path",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver or Storekeeper role; line item is in approved status; requisition not fully issued; user has authority to modify approvals" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver หรือ Storekeeper line item อยู่ใน approved status requisition ยังไม่ถูก issue ทั้งหมด และผู้ใช้มีสิทธิ์แก้ไข approvals" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Edit Approval' from item action menu\n3. Enter new approved quantity\n4. Enter adjustment reason\n5. Confirm adjustment",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Edit Approval' จาก item action menu\n3. กรอก approved quantity ใหม่\n4. กรอก adjustment reason\n5. ยืนยันการ adjustment",
         },
-        { type: "expected", description: "Line item approved quantity updated, history recorded, notification sent to requestor, success message displayed." },
+        { type: "expected", description: "Approved quantity ของ line item ถูกอัปเดต history ถูกบันทึก notification ถูกส่งไปยัง requestor และ success message แสดงขึ้นมา" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -796,13 +796,13 @@ purchaseTest.describe("Store Requisition — Adjust approved quantity", () => {
     "TC-SR-090002 Decrease approved quantity: Insufficient issued quantity",
     {
       annotation: [
-        { type: "preconditions", description: "Item has issued quantity; user attempts to reduce approved quantity below issued" },
+        { type: "preconditions", description: "Item มี issued quantity และผู้ใช้พยายามลด approved quantity ให้ต่ำกว่า issued" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Edit Approval' from item action menu\n3. Enter new approved quantity less than issued quantity\n4. Verify error message displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Edit Approval' จาก item action menu\n3. กรอก approved quantity ใหม่ที่น้อยกว่า issued quantity\n4. ตรวจสอบว่า error message แสดงขึ้นมา",
         },
-        { type: "expected", description: "Error message displayed: 'Cannot reduce below already issued quantity'." },
+        { type: "expected", description: "Error message แสดง: 'Cannot reduce below already issued quantity'" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -817,13 +817,13 @@ purchaseTest.describe("Store Requisition — Adjust approved quantity", () => {
     "TC-SR-090003 Decrease approved quantity: Fully issued item",
     {
       annotation: [
-        { type: "preconditions", description: "Item fully issued" },
+        { type: "preconditions", description: "Item ถูก issue ทั้งหมดแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Attempt to click 'Edit Approval' from item action menu",
+            "1. ไปที่ /store-operation/store-requisition\n2. พยายามกด 'Edit Approval' จาก item action menu",
         },
-        { type: "expected", description: "Action menu disabled, message displayed: 'Item fully issued. Cannot adjust approved quantity.'" },
+        { type: "expected", description: "Action menu ถูก disable และ message แสดง: 'Item fully issued. Cannot adjust approved quantity.'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -838,13 +838,13 @@ purchaseTest.describe("Store Requisition — Adjust approved quantity", () => {
     "TC-SR-090004 Increase approved quantity: Stock insufficient",
     {
       annotation: [
-        { type: "preconditions", description: "Item has insufficient stock; user attempts to increase approved quantity" },
+        { type: "preconditions", description: "Item มี stock ไม่เพียงพอและผู้ใช้พยายามเพิ่ม approved quantity" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Edit Approval' from item action menu\n3. Enter new approved quantity greater than current approved quantity\n4. Verify warning message displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Edit Approval' จาก item action menu\n3. กรอก approved quantity ใหม่ที่มากกว่า approved quantity ปัจจุบัน\n4. ตรวจสอบว่า warning message แสดงขึ้นมา",
         },
-        { type: "expected", description: "Warning message displayed, increase not allowed." },
+        { type: "expected", description: "Warning message แสดงขึ้นมาและไม่อนุญาตให้เพิ่ม" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -859,13 +859,13 @@ purchaseTest.describe("Store Requisition — Adjust approved quantity", () => {
     "TC-SR-090005 Concurrent modification detected",
     {
       annotation: [
-        { type: "preconditions", description: "Another user modifies same item" },
+        { type: "preconditions", description: "ผู้ใช้รายอื่นแก้ไข item เดียวกันอยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Attempt to click 'Edit Approval' from item action menu\n3. Verify message displayed: 'This item was modified by [User]. Refresh and try again.'",
+            "1. ไปที่ /store-operation/store-requisition\n2. พยายามกด 'Edit Approval' จาก item action menu\n3. ตรวจสอบว่า message แสดง: 'This item was modified by [User]. Refresh and try again.'",
         },
-        { type: "expected", description: "Message displayed, item reloaded with latest data, user can retry adjustment." },
+        { type: "expected", description: "Message แสดงขึ้นมา item ถูก reload ด้วยข้อมูลล่าสุด และผู้ใช้สามารถลอง adjustment อีกครั้ง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -885,13 +885,13 @@ purchaseTest.describe("Store Requisition — Request Review", () => {
     "TC-SR-100001 Request Review with Valid Comments and Specific Items",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; requisition is in In Progress status; user has concerns requiring clarification" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver requisition อยู่ใน In Progress status และผู้ใช้มีข้อสงสัยที่ต้องการคำชี้แจง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Request Review' button\n3. Enter detailed review comments in text area\n4. Select specific line items for review\n5. Confirm review request",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Request Review' button\n3. กรอก review comments อย่างละเอียดใน text area\n4. เลือก line items ที่ต้องการ review\n5. ยืนยัน review request",
         },
-        { type: "expected", description: "Review request sent to requestor; system displays success message; sends notification to requestor; updates requisition display with review comments." },
+        { type: "expected", description: "Review request ถูกส่งไปยัง requestor ระบบแสดง success message ส่ง notification ไปยัง requestor และอัปเดตการแสดงผล requisition พร้อม review comments" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -908,13 +908,13 @@ purchaseTest.describe("Store Requisition — Request Review", () => {
     "TC-SR-100002 Request Review with Invalid Comments",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; requisition is in In Progress status" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver และ requisition อยู่ใน In Progress status" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Request Review' button\n3. Enter less than 20 characters in review comments text area\n4. Confirm review request",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Request Review' button\n3. กรอก review comments น้อยกว่า 20 ตัวอักษรใน text area\n4. ยืนยัน review request",
         },
-        { type: "expected", description: "System displays error message: 'Review comments are required (min 20 characters)'." },
+        { type: "expected", description: "ระบบแสดง error message: 'Review comments are required (min 20 characters)'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -929,13 +929,13 @@ purchaseTest.describe("Store Requisition — Request Review", () => {
     "TC-SR-100003 Request Review with No Specific Items Selected",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; requisition is in In Progress status" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver และ requisition อยู่ใน In Progress status" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Request Review' button\n3. Enter detailed review comments in text area\n4. Do not select any specific line items for review\n5. Confirm review request",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Request Review' button\n3. กรอก review comments อย่างละเอียดใน text area\n4. ไม่เลือก line items ใดสำหรับ review\n5. ยืนยัน review request",
         },
-        { type: "expected", description: "System asks: 'Apply review to all items or select specific items?'. User must select at least one item before confirming." },
+        { type: "expected", description: "ระบบถามว่า: 'Apply review to all items or select specific items?' ผู้ใช้ต้องเลือกอย่างน้อยหนึ่ง item ก่อนยืนยัน" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -955,13 +955,13 @@ purchaseTest.describe("Store Requisition — Reject", () => {
     "TC-SR-110001 Primary Actor Rejects Requisition Successfully",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; requisition is in In Progress status; user determines requisition should be rejected" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver requisition อยู่ใน In Progress status และผู้ใช้พิจารณาแล้วว่าควร reject" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Reject' button in workflow component\n3. Enter detailed rejection reason: 'Specific policy violation'\n4. Confirm rejection",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Reject' button ใน workflow component\n3. กรอก rejection reason อย่างละเอียด: 'Specific policy violation'\n4. ยืนยันการ reject",
         },
-        { type: "expected", description: "Requisition status updates to 'Rejected', rejection reason is recorded, notifications are sent, and requisition is removed from pending approvals list." },
+        { type: "expected", description: "สถานะ requisition อัปเดตเป็น 'Rejected' rejection reason ถูกบันทึก notifications ถูกส่ง และ requisition ถูกลบออกจาก pending approvals list" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -982,13 +982,13 @@ purchaseTest.describe("Store Requisition — Reject", () => {
     "TC-SR-110002 User Enters Insufficient Rejection Reason",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; requisition is in In Progress status" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver และ requisition อยู่ใน In Progress status" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Reject' button in workflow component\n3. Enter rejection reason: 'Insuff'\n4. Confirm rejection",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Reject' button ใน workflow component\n3. กรอก rejection reason: 'Insuff'\n4. ยืนยันการ reject",
         },
-        { type: "expected", description: "System displays error: 'Rejection reason must be at least 50 characters', user must provide a detailed reason." },
+        { type: "expected", description: "ระบบแสดง error: 'Rejection reason must be at least 50 characters' ผู้ใช้ต้องกรอก reason อย่างละเอียด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -1003,13 +1003,13 @@ purchaseTest.describe("Store Requisition — Reject", () => {
     "TC-SR-110003 User Accidentally Rejects Requisition",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; requisition is in In Progress status; user mistakenly rejects requisition" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver requisition อยู่ใน In Progress status และผู้ใช้ reject requisition โดยไม่ตั้งใจ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Reject' button in workflow component\n3. Enter rejection reason: 'Accidental rejection'\n4. Confirm rejection",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Reject' button ใน workflow component\n3. กรอก rejection reason: 'Accidental rejection'\n4. ยืนยันการ reject",
         },
-        { type: "expected", description: "System displays success message: 'Requisition rejected', user can void rejection and resubmit corrected requisition." },
+        { type: "expected", description: "ระบบแสดง success message: 'Requisition rejected' ผู้ใช้สามารถ void rejection และ resubmit requisition ที่แก้ไขแล้วได้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -1024,13 +1024,13 @@ purchaseTest.describe("Store Requisition — Reject", () => {
     "TC-SR-110004 User Rejects Specific Items Only",
     {
       annotation: [
-        { type: "preconditions", description: "User has Approver role; requisition is in In Progress status; user determines specific items should be rejected" },
+        { type: "preconditions", description: "ผู้ใช้มี role Approver requisition อยู่ใน In Progress status และผู้ใช้พิจารณาแล้วว่าควร reject เฉพาะบาง items" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Select 'Reject' from item-level action menu\n3. Enter rejection reason: 'Invalid request'\n4. Confirm rejection",
+            "1. ไปที่ /store-operation/store-requisition\n2. เลือก 'Reject' จาก item-level action menu\n3. กรอก rejection reason: 'Invalid request'\n4. ยืนยันการ reject",
         },
-        { type: "expected", description: "Selected items are marked as rejected, other items continue approval process, requisition status updates to 'Partially Rejected'." },
+        { type: "expected", description: "Items ที่เลือกถูกทำเครื่องหมายเป็น rejected items อื่นดำเนินกระบวนการ approval ต่อ และสถานะ requisition อัปเดตเป็น 'Partially Rejected'" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Alternate Flow" },
       ],
@@ -1050,13 +1050,13 @@ purchaseTest.describe("Store Requisition — Issuance", () => {
     "TC-SR-120001 Happy Path - Full Issuance",
     {
       annotation: [
-        { type: "preconditions", description: "Storekeeper has access to source location; requisition is in Ready for Issuance status" },
+        { type: "preconditions", description: "Storekeeper มีสิทธิ์เข้าถึง source location และ requisition อยู่ใน Ready for Issuance status" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Filter' and select 'Ready for Issuance'\n3. Select a requisition for issuance\n4. Click 'Record Issuance'\n5. Enter issued quantities for all items\n6. Click 'Issue'\n7. Sign the receipt in the signature pad\n8. Click 'Confirm Receipt'",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Filter' และเลือก 'Ready for Issuance'\n3. เลือก requisition สำหรับการ issuance\n4. กด 'Record Issuance'\n5. กรอก issued quantities สำหรับ items ทั้งหมด\n6. กด 'Issue'\n7. เซ็นชื่อใน signature pad\n8. กด 'Confirm Receipt'",
         },
-        { type: "expected", description: "Requisition is marked as completed, issuance document is generated, and stock balances are updated accordingly." },
+        { type: "expected", description: "Requisition ถูกทำเครื่องหมายเป็น completed เอกสาร issuance ถูกสร้าง และ stock balances ถูกอัปเดตตามนั้น" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1075,13 +1075,13 @@ purchaseTest.describe("Store Requisition — Issuance", () => {
     "TC-SR-120003 Edge Case - Partial Issuance",
     {
       annotation: [
-        { type: "preconditions", description: "Storekeeper has access to source location; requisition is in Ready for Issuance status" },
+        { type: "preconditions", description: "Storekeeper มีสิทธิ์เข้าถึง source location และ requisition อยู่ใน Ready for Issuance status" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Filter' and select 'Ready for Issuance'\n3. Select a requisition for issuance\n4. Click 'Record Issuance'\n5. Enter partial issued quantities for some items\n6. Click 'Issue'\n7. Sign the receipt in the signature pad\n8. Click 'Confirm Receipt'",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Filter' และเลือก 'Ready for Issuance'\n3. เลือก requisition สำหรับการ issuance\n4. กด 'Record Issuance'\n5. กรอก issued quantities บางส่วนสำหรับบาง items\n6. กด 'Issue'\n7. เซ็นชื่อใน signature pad\n8. กด 'Confirm Receipt'",
         },
-        { type: "expected", description: "Requisition remains in progress status, and remaining quantities are tracked." },
+        { type: "expected", description: "Requisition ยังคงอยู่ใน in progress status และ remaining quantities ถูกติดตาม" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],

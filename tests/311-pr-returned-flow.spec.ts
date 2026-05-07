@@ -17,9 +17,9 @@ requestorTest.describe("7a — View Returned PR", () => {
     "TC-PR-080701 Returned PR appears in Creator's list with RETURNED status badge",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor; a Returned PR exists (seeded via submitPRAsRequestor + sendForReviewAsHOD)" },
-        { type: "steps", description: "1. Open PR list\n2. Locate the seeded PR row\n3. Verify status badge reads Returned (or equivalent)" },
-        { type: "expected", description: "PR row is visible in the list and the status badge filter matches /returned|sent back/i for the row." },
+        { type: "preconditions", description: "Login เป็น Requestor; มี PR ที่ถูกส่งคืนอยู่ (seeded ผ่าน submitPRAsRequestor + sendForReviewAsHOD)" },
+        { type: "steps", description: "1. เปิด PR list\n2. หาแถว PR ที่ seeded\n3. ตรวจสอบว่า status badge แสดง Returned (หรือเทียบเท่า)" },
+        { type: "expected", description: "แถว PR visible ใน list และ status badge ตรงกับ /returned|sent back/i สำหรับแถวนั้น" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -43,9 +43,9 @@ requestorTest.describe("7a — View Returned PR", () => {
     "TC-PR-080702 Open Returned PR detail loads with status=Returned",
     {
       annotation: [
-        { type: "preconditions", description: "A Returned PR exists" },
-        { type: "steps", description: "1. Navigate to the Returned PR detail page\n2. Verify URL\n3. Verify status badge" },
-        { type: "expected", description: "URL is /procurement/purchase-request/<ref>; status badge text matches /returned|sent back/i." },
+        { type: "preconditions", description: "มี PR ที่ถูกส่งคืนอยู่" },
+        { type: "steps", description: "1. ไปที่หน้า Returned PR detail\n2. ตรวจสอบ URL\n3. ตรวจสอบ status badge" },
+        { type: "expected", description: "URL คือ /procurement/purchase-request/<ref>; text ของ status badge ตรงกับ /returned|sent back/i" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -69,9 +69,9 @@ requestorTest.describe("7a — View Returned PR", () => {
     "TC-PR-080703 Workflow History tab shows the return reason from HOD",
     {
       annotation: [
-        { type: "preconditions", description: "On a Returned PR detail page" },
-        { type: "steps", description: "1. Click Workflow History tab\n2. Look for the HOD return reason text" },
-        { type: "expected", description: "Workflow History panel contains the seeded return reason 'Please revise — returned for review' (or partial match)." },
+        { type: "preconditions", description: "อยู่ที่หน้า Returned PR detail" },
+        { type: "steps", description: "1. คลิกแท็บ Workflow History\n2. หาข้อความเหตุผลการส่งคืนจาก HOD" },
+        { type: "expected", description: "แผง Workflow History มีเหตุผลการส่งคืนที่ seeded ไว้ว่า 'Please revise — returned for review' (หรือ partial match)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Functional" },
       ],
@@ -99,9 +99,9 @@ requestorTest.describe("7b — Edit Returned PR", () => {
     "TC-PR-080704 Edit button visible on Returned PR (Creator can re-edit)",
     {
       annotation: [
-        { type: "preconditions", description: "On a Returned PR detail page" },
-        { type: "steps", description: "1. Inspect the action toolbar" },
-        { type: "expected", description: "Edit button is visible (Creator can enter Edit Mode to revise)." },
+        { type: "preconditions", description: "อยู่ที่หน้า Returned PR detail" },
+        { type: "steps", description: "1. ตรวจสอบ action toolbar" },
+        { type: "expected", description: "ปุ่ม Edit visible (Creator สามารถเข้า Edit Mode เพื่อแก้ไขได้)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Functional" },
       ],
@@ -119,9 +119,9 @@ requestorTest.describe("7b — Edit Returned PR", () => {
     "TC-PR-080705 Modify line item quantity → Save → URL stays on detail",
     {
       annotation: [
-        { type: "preconditions", description: "Returned PR detail page is open with at least one line item" },
-        { type: "steps", description: "1. Click Edit\n2. Modify first row quantity to 7\n3. Click Save Draft" },
-        { type: "expected", description: "After save the page URL stays on /procurement/purchase-request/<ref>." },
+        { type: "preconditions", description: "หน้า Returned PR detail เปิดอยู่พร้อมอย่างน้อยหนึ่ง line item" },
+        { type: "steps", description: "1. คลิก Edit\n2. แก้ไข quantity แถวแรกเป็น 7\n3. คลิก Save Draft" },
+        { type: "expected", description: "หลังจากบันทึก URL ของหน้ายังคงอยู่ที่ /procurement/purchase-request/<ref>" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -146,9 +146,9 @@ requestorTest.describe("7b — Edit Returned PR", () => {
     "TC-PR-080706 Add new line item to Returned PR → Save",
     {
       annotation: [
-        { type: "preconditions", description: "Returned PR detail page is open" },
-        { type: "steps", description: "1. Click Edit\n2. Add a new line item (product, qty, uom, price)\n3. Click Save Draft" },
-        { type: "expected", description: "After save the page URL stays on /procurement/purchase-request/<ref>." },
+        { type: "preconditions", description: "หน้า Returned PR detail เปิดอยู่" },
+        { type: "steps", description: "1. คลิก Edit\n2. เพิ่ม line item ใหม่ (product, qty, uom, price)\n3. คลิก Save Draft" },
+        { type: "expected", description: "หลังจากบันทึก URL ของหน้ายังคงอยู่ที่ /procurement/purchase-request/<ref>" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -175,9 +175,9 @@ requestorTest.describe("7c — Resubmit", () => {
     "TC-PR-080707 Submit confirmation dialog appears for Returned PR",
     {
       annotation: [
-        { type: "preconditions", description: "Returned PR detail page is open" },
-        { type: "steps", description: "1. Click Submit on the Returned PR" },
-        { type: "expected", description: "A confirmation dialog (resubmit) becomes visible." },
+        { type: "preconditions", description: "หน้า Returned PR detail เปิดอยู่" },
+        { type: "steps", description: "1. คลิก Submit บน Returned PR" },
+        { type: "expected", description: "dialog ยืนยัน (resubmit) ปรากฏขึ้น visible" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -201,9 +201,9 @@ requestorTest.describe("7c — Resubmit", () => {
     "TC-PR-080708 Confirm submit → status moves Returned → In Progress",
     {
       annotation: [
-        { type: "preconditions", description: "Submit confirmation dialog open on a Returned PR" },
-        { type: "steps", description: "1. Click Submit\n2. Confirm dialog\n3. Wait for status badge to update" },
-        { type: "expected", description: "Status badge text matches /in.progress/i after confirm." },
+        { type: "preconditions", description: "dialog ยืนยัน Submit เปิดอยู่บน Returned PR" },
+        { type: "steps", description: "1. คลิก Submit\n2. Confirm dialog\n3. รอ status badge อัปเดต" },
+        { type: "expected", description: "text ของ status badge ตรงกับ /in.progress/i หลังจาก confirm" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -235,9 +235,9 @@ requestorTest.describe("7d — Edge cases", () => {
     "TC-PR-080709 Cancel submit on Returned PR → URL stays on detail (still Returned)",
     {
       annotation: [
-        { type: "preconditions", description: "Submit confirmation dialog open on a Returned PR" },
-        { type: "steps", description: "1. Click Submit\n2. Click Cancel in the dialog" },
-        { type: "expected", description: "Dialog closes; URL remains on the PR detail page." },
+        { type: "preconditions", description: "dialog ยืนยัน Submit เปิดอยู่บน Returned PR" },
+        { type: "steps", description: "1. คลิก Submit\n2. คลิก Cancel ใน dialog" },
+        { type: "expected", description: "dialog ปิด; URL ยังคงอยู่ที่หน้า PR detail" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -267,9 +267,9 @@ requestorTest.describe("7d — Edge cases", () => {
     "TC-PR-080710 Delete Returned PR is allowed for Creator",
     {
       annotation: [
-        { type: "preconditions", description: "Returned PR detail page is open" },
-        { type: "steps", description: "1. Inspect Delete button presence\n2. If present, click and confirm\n3. Verify list URL" },
-        { type: "expected", description: "Delete button visible; confirming delete navigates back to the PR list URL. Skipped when Delete is not allowed in this configuration." },
+        { type: "preconditions", description: "หน้า Returned PR detail เปิดอยู่" },
+        { type: "steps", description: "1. ตรวจสอบการมีอยู่ของปุ่ม Delete\n2. ถ้ามีอยู่ ให้คลิกและ confirm\n3. ตรวจสอบ URL ของ list" },
+        { type: "expected", description: "ปุ่ม Delete visible; การ confirm ลบนำทางกลับไปที่ PR list URL ข้ามเมื่อ Delete ไม่ได้รับอนุญาตใน configuration นี้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Authorization" },
       ],
@@ -296,9 +296,9 @@ requestorTest.describe.serial("Golden Journey", () => {
     "TC-PR-080902 Full returned-flow: HOD returns → Creator views reason → edits qty → resubmits → status In Progress",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as Requestor; a fresh PR is seeded into the Returned state via submitPRAsRequestor + sendForReviewAsHOD" },
-        { type: "steps", description: "1. Open the Returned PR detail\n2. Click Workflow History tab and verify reason is shown\n3. Click Edit\n4. Modify first line item quantity\n5. Save Draft\n6. Click Submit and Confirm\n7. Wait for status to read In Progress" },
-        { type: "expected", description: "Status badge transitions to In Progress after the resubmit confirmation." },
+        { type: "preconditions", description: "Login เป็น Requestor; PR ใหม่ถูก seed ไว้ในสถานะ Returned ผ่าน submitPRAsRequestor + sendForReviewAsHOD" },
+        { type: "steps", description: "1. เปิดหน้า Returned PR detail\n2. คลิกแท็บ Workflow History และตรวจสอบว่าเหตุผลถูกแสดง\n3. คลิก Edit\n4. แก้ไข quantity ของ line item แรก\n5. Save Draft\n6. คลิก Submit และ Confirm\n7. รอ status แสดงเป็น In Progress" },
+        { type: "expected", description: "Status badge เปลี่ยนเป็น In Progress หลังจากการ confirm resubmit" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],

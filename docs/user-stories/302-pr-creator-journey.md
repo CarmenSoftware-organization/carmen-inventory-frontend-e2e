@@ -63,17 +63,17 @@ _Generated from `tests/302-pr-creator-journey.spec.ts` annotations. Edit annotat
 
 **Preconditions**
 
-Logged in as Requestor (requestor@blueledgers.com)
+Login เป็น Requestor (requestor@blueledgers.com)
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Verify My Pending tab is selected by default
-3. Verify list table is visible
+1. ไปที่ /procurement/purchase-request
+2. ตรวจสอบว่า My Pending tab ถูกเลือกเป็นค่าเริ่มต้น
+3. ตรวจสอบว่าตาราง list แสดงผล
 
 **Expected**
 
-URL is /procurement/purchase-request, My Pending tab has aria-selected=true, table or empty-state is visible.
+URL เป็น /procurement/purchase-request, My Pending tab มี aria-selected=true, ตารางหรือ empty-state แสดงผล
 
 ---
 
@@ -85,16 +85,16 @@ URL is /procurement/purchase-request, My Pending tab has aria-selected=true, tab
 
 **Preconditions**
 
-On the PR list page
+อยู่ที่หน้า PR list
 
 **Steps**
 
-1. Click All Documents tab
-2. Verify list refreshes
+1. คลิก tab All Documents
+2. ตรวจสอบว่า list รีเฟรช
 
 **Expected**
 
-All Documents tab becomes selected; the list re-renders.
+tab All Documents ถูกเลือก; list แสดงผลใหม่
 
 ---
 
@@ -106,17 +106,17 @@ All Documents tab becomes selected; the list re-renders.
 
 **Preconditions**
 
-On the PR list page; at least one PR exists with a known reference
+อยู่ที่หน้า PR list; มี PR อย่างน้อยหนึ่งรายการที่มีเลขอ้างอิงที่รู้จัก
 
 **Steps**
 
-1. Click search box
-2. Type partial reference
-3. Wait for the list to filter
+1. คลิกช่องค้นหา
+2. พิมพ์เลขอ้างอิงบางส่วน
+3. รอให้ list กรองข้อมูล
 
 **Expected**
 
-List updates to rows whose reference contains the typed text.
+List อัปเดตแสดงเฉพาะแถวที่เลขอ้างอิงมีข้อความที่พิมพ์
 
 ---
 
@@ -128,17 +128,17 @@ List updates to rows whose reference contains the typed text.
 
 **Preconditions**
 
-On the PR list page
+อยู่ที่หน้า PR list
 
 **Steps**
 
-1. Open Filter panel
-2. Select status = Draft
+1. เปิดแผง Filter
+2. เลือก status = Draft
 3. Apply
 
 **Expected**
 
-List shows only PRs with Draft status (or empty state).
+List แสดงเฉพาะ PR ที่มีสถานะ Draft (หรือ empty state)
 
 ---
 
@@ -150,16 +150,16 @@ List shows only PRs with Draft status (or empty state).
 
 **Preconditions**
 
-On the PR list page
+อยู่ที่หน้า PR list
 
 **Steps**
 
-1. Click Date column header to sort
-2. Verify list re-orders
+1. คลิก header คอลัมน์ Date เพื่อ sort
+2. ตรวจสอบว่า list เรียงลำดับใหม่
 
 **Expected**
 
-Column header shows a sort indicator and the list re-orders.
+header คอลัมน์แสดง sort indicator และ list เรียงลำดับใหม่
 
 ---
 
@@ -171,15 +171,15 @@ Column header shows a sort indicator and the list re-orders.
 
 **Preconditions**
 
-On the PR list page; at least one PR row exists
+อยู่ที่หน้า PR list; มีแถว PR อย่างน้อยหนึ่งแถว
 
 **Steps**
 
-1. Click the first PR row
+1. คลิกแถว PR แรก
 
 **Expected**
 
-Navigates to /procurement/purchase-request/<id>.
+นำทางไปยัง /procurement/purchase-request/<id>
 
 ---
 
@@ -191,15 +191,15 @@ Navigates to /procurement/purchase-request/<id>.
 
 **Preconditions**
 
-On the PR list page
+อยู่ที่หน้า PR list
 
 **Steps**
 
-1. Click New Purchase Request
+1. คลิก New Purchase Request
 
 **Expected**
 
-Either a creation dialog opens or the URL changes to /new.
+dialog สร้างใหม่เปิดขึ้น หรือ URL เปลี่ยนเป็น /new
 
 ---
 
@@ -211,17 +211,17 @@ Either a creation dialog opens or the URL changes to /new.
 
 **Preconditions**
 
-Logged in as Requestor; on PR list
+Login เป็น Requestor; อยู่ที่หน้า PR list
 
 **Steps**
 
-1. Click New Purchase Request
-2. Choose Blank PR option (if dialog appears)
-3. Wait for the create form
+1. คลิก New Purchase Request
+2. เลือกตัวเลือก Blank PR (ถ้า dialog ปรากฏ)
+3. รอให้ฟอร์มสร้างโหลด
 
 **Expected**
 
-URL becomes /procurement/purchase-request/new and the create form is visible.
+URL เปลี่ยนเป็น /procurement/purchase-request/new และฟอร์มสร้างแสดงผล
 
 ---
 
@@ -233,16 +233,16 @@ URL becomes /procurement/purchase-request/new and the create form is visible.
 
 **Preconditions**
 
-On the create-PR form
+อยู่ที่ฟอร์มสร้าง PR
 
 **Steps**
 
-1. Navigate to /new
-2. Inspect default values for date, department, location, currency, status
+1. ไปที่ /new
+2. ตรวจสอบค่า default ของ date, department, location, currency, status
 
 **Expected**
 
-Form is at /new and a Draft indicator is shown when the badge is rendered.
+ฟอร์มอยู่ที่ /new และแสดง Draft indicator เมื่อ badge แสดงผล
 
 ---
 
@@ -254,17 +254,17 @@ Form is at /new and a Draft indicator is shown when the badge is rendered.
 
 **Preconditions**
 
-On the create-PR form
+อยู่ที่ฟอร์มสร้าง PR
 
 **Steps**
 
-1. Set PR type = General
-2. Set delivery date in the future
-3. Enter description and notes
+1. ตั้ง PR type = General
+2. ตั้ง delivery date เป็นวันในอนาคต
+3. กรอก description และ notes
 
 **Expected**
 
-Description input contains the value entered (E2E-PRC marker).
+ช่อง description มีค่าที่กรอก (มี E2E-PRC marker)
 
 ---
 
@@ -276,17 +276,17 @@ Description input contains the value entered (E2E-PRC marker).
 
 **Preconditions**
 
-On the create-PR form with header filled
+อยู่ที่ฟอร์มสร้าง PR โดยกรอก header แล้ว
 
 **Steps**
 
-1. Click Add Item
-2. Fill product, qty, uom, unit price
-3. Save the item
+1. คลิก Add Item
+2. กรอก product, qty, uom, unit price
+3. บันทึกรายการ
 
 **Expected**
 
-Form remains on /new — item add does not navigate away from the create form.
+ฟอร์มยังคงอยู่ที่ /new — การเพิ่มรายการไม่นำทางออกจากฟอร์มสร้าง
 
 ---
 
@@ -298,17 +298,17 @@ Form remains on /new — item add does not navigate away from the create form.
 
 **Preconditions**
 
-On the create-PR form with header filled
+อยู่ที่ฟอร์มสร้าง PR โดยกรอก header แล้ว
 
 **Steps**
 
-1. Add Item
-2. Toggle FOC checkbox
-3. Save
+1. เพิ่มรายการ
+2. Toggle checkbox FOC
+3. บันทึก
 
 **Expected**
 
-Form remains on /new after the FOC item is saved.
+ฟอร์มยังคงอยู่ที่ /new หลังจากบันทึกรายการ FOC
 
 ---
 
@@ -320,16 +320,16 @@ Form remains on /new after the FOC item is saved.
 
 **Preconditions**
 
-On the create-PR form
+อยู่ที่ฟอร์มสร้าง PR
 
 **Steps**
 
-1. Add 3 line items at different prices
-2. Verify form still shown
+1. เพิ่มรายการสินค้า 3 รายการที่ราคาต่างกัน
+2. ตรวจสอบว่าฟอร์มยังแสดงอยู่
 
 **Expected**
 
-Form remains on /new after 3 items are added.
+ฟอร์มยังคงอยู่ที่ /new หลังจากเพิ่ม 3 รายการ
 
 ---
 
@@ -341,17 +341,17 @@ Form remains on /new after 3 items are added.
 
 **Preconditions**
 
-Header filled and at least one line item added
+กรอก header แล้วและเพิ่มรายการสินค้าอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Add 1 item
-2. Edit its quantity
-3. Save the line
+1. เพิ่ม 1 รายการ
+2. แก้ไขจำนวน
+3. บันทึกรายการ
 
 **Expected**
 
-Form remains on /new after the edit.
+ฟอร์มยังคงอยู่ที่ /new หลังจากแก้ไข
 
 ---
 
@@ -363,16 +363,16 @@ Form remains on /new after the edit.
 
 **Preconditions**
 
-Header filled and at least one line item added
+กรอก header แล้วและเพิ่มรายการสินค้าอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Add an item
-2. Click its remove button
+1. เพิ่มรายการ
+2. คลิกปุ่มลบรายการนั้น
 
 **Expected**
 
-Form remains on /new after the remove.
+ฟอร์มยังคงอยู่ที่ /new หลังจากลบ
 
 ---
 
@@ -384,16 +384,16 @@ Form remains on /new after the remove.
 
 **Preconditions**
 
-Header + ≥1 line item filled
+กรอก header และมีรายการสินค้า ≥1 รายการ
 
 **Steps**
 
-1. Click Save as Draft
-2. Wait for redirect to detail
+1. คลิก Save as Draft
+2. รอ redirect ไปยังหน้ารายละเอียด
 
 **Expected**
 
-URL changes to /purchase-request/<id> (not /new) and detail page renders.
+URL เปลี่ยนเป็น /purchase-request/<id> (ไม่ใช่ /new) และหน้ารายละเอียดแสดงผล
 
 ---
 
@@ -405,16 +405,16 @@ URL changes to /purchase-request/<id> (not /new) and detail page renders.
 
 **Preconditions**
 
-On the create-PR form with header filled but no items
+อยู่ที่ฟอร์มสร้าง PR โดยกรอก header แล้วแต่ไม่มีรายการสินค้า
 
 **Steps**
 
-1. Fill header
-2. Click Save as Draft without adding any line item
+1. กรอก header
+2. คลิก Save as Draft โดยไม่เพิ่มรายการสินค้าใดๆ
 
 **Expected**
 
-Either the Save button is disabled, or the form does not navigate away from /new.
+ปุ่ม Save ถูก disabled หรือฟอร์มไม่นำทางออกจาก /new
 
 ---
 
@@ -426,17 +426,17 @@ Either the Save button is disabled, or the form does not navigate away from /new
 
 **Preconditions**
 
-On the create-PR form
+อยู่ที่ฟอร์มสร้าง PR
 
 **Steps**
 
-1. Set delivery date to a past date
-2. Add an item
-3. Try to save
+1. ตั้ง delivery date เป็นวันที่ในอดีต
+2. เพิ่มรายการ
+3. พยายามบันทึก
 
 **Expected**
 
-Form does not navigate away from /new (validation rejects past date).
+ฟอร์มไม่นำทางออกจาก /new (validation ปฏิเสธวันที่ในอดีต)
 
 ---
 
@@ -448,16 +448,16 @@ Form does not navigate away from /new (validation rejects past date).
 
 **Preconditions**
 
-Logged in as Requestor; on PR list
+Login เป็น Requestor; อยู่ที่หน้า PR list
 
 **Steps**
 
-1. Click New Purchase Request
-2. Pick the From-Template option in the dialog
+1. คลิก New Purchase Request
+2. เลือกตัวเลือก From-Template ใน dialog
 
 **Expected**
 
-Template picker (dialog or listbox) is visible after selecting the From-Template option.
+Template picker (dialog หรือ listbox) แสดงผลหลังเลือกตัวเลือก From-Template
 
 ---
 
@@ -469,16 +469,16 @@ Template picker (dialog or listbox) is visible after selecting the From-Template
 
 **Preconditions**
 
-Template picker is open and at least one template exists
+Template picker เปิดอยู่และมี template อย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Open template picker
-2. Select the first template
+1. เปิด template picker
+2. เลือก template แรก
 
 **Expected**
 
-URL contains template_id query param (form is loading from a template).
+URL มี query param template_id (ฟอร์มกำลังโหลดจาก template)
 
 ---
 
@@ -490,16 +490,16 @@ URL contains template_id query param (form is loading from a template).
 
 **Preconditions**
 
-On the create-from-template form with prefilled items
+อยู่ที่ฟอร์มสร้างจาก template ที่มีรายการสินค้ากรอกล่วงหน้า
 
 **Steps**
 
-1. Open template form
-2. Edit the first prefilled line item quantity
+1. เปิดฟอร์ม template
+2. แก้ไขจำนวนรายการสินค้าแรกที่กรอกล่วงหน้า
 
 **Expected**
 
-Form remains on the template-load URL after the edit (no premature navigation).
+ฟอร์มยังคงอยู่ที่ URL โหลด template หลังจากแก้ไข (ไม่นำทางออกก่อนเวลา)
 
 ---
 
@@ -511,16 +511,16 @@ Form remains on the template-load URL after the edit (no premature navigation).
 
 **Preconditions**
 
-Template-based form has prefilled items
+ฟอร์มจาก template มีรายการสินค้ากรอกล่วงหน้า
 
 **Steps**
 
-1. Open template form
-2. Click Save as Draft
+1. เปิดฟอร์ม template
+2. คลิก Save as Draft
 
 **Expected**
 
-URL changes to /purchase-request/<id> (not /new) after save.
+URL เปลี่ยนเป็น /purchase-request/<id> (ไม่ใช่ /new) หลังบันทึก
 
 ---
 
@@ -532,16 +532,16 @@ URL changes to /purchase-request/<id> (not /new) after save.
 
 **Preconditions**
 
-Template picker open and no templates exist in the system
+Template picker เปิดอยู่และไม่มี template ในระบบ
 
 **Steps**
 
-1. Open template picker
-2. Inspect content
+1. เปิด template picker
+2. ตรวจสอบเนื้อหา
 
 **Expected**
 
-An empty-state message ('No templates') is visible. Skipped if templates exist.
+ข้อความ empty-state ('No templates') แสดงผล ข้ามหากมี template อยู่
 
 > _Note: Dynamically skipped when at least one template is present._
 
@@ -555,16 +555,16 @@ An empty-state message ('No templates') is visible. Skipped if templates exist.
 
 **Preconditions**
 
-A Draft PR exists for this Requestor (created in beforeEach)
+มี Draft PR ของ Requestor นี้ (สร้างใน beforeEach)
 
 **Steps**
 
-1. Open the Draft PR detail page
-2. Verify the Items tab is selected
+1. เปิดหน้ารายละเอียด Draft PR
+2. ตรวจสอบว่า Items tab ถูกเลือก
 
 **Expected**
 
-Detail URL is /procurement/purchase-request/<ref>; if Items tab is rendered, it is the selected one.
+Detail URL เป็น /procurement/purchase-request/<ref>; ถ้า Items tab แสดงผล ต้องเป็น tab ที่เลือกอยู่
 
 ---
 
@@ -576,15 +576,15 @@ Detail URL is /procurement/purchase-request/<ref>; if Items tab is rendered, it 
 
 **Preconditions**
 
-On a Draft PR detail page
+อยู่ที่หน้ารายละเอียด Draft PR
 
 **Steps**
 
-1. Click the Workflow History tab
+1. คลิก tab Workflow History
 
 **Expected**
 
-Workflow History tab becomes selected after click.
+tab Workflow History ถูกเลือกหลังคลิก
 
 ---
 
@@ -596,15 +596,15 @@ Workflow History tab becomes selected after click.
 
 **Preconditions**
 
-On a Draft PR detail page
+อยู่ที่หน้ารายละเอียด Draft PR
 
 **Steps**
 
-1. Inspect the action toolbar
+1. ตรวจสอบ action toolbar
 
 **Expected**
 
-Edit, Delete, and Submit buttons are all visible for Draft status.
+ปุ่ม Edit, Delete และ Submit แสดงผลทั้งหมดสำหรับสถานะ Draft
 
 ---
 
@@ -616,17 +616,17 @@ Edit, Delete, and Submit buttons are all visible for Draft status.
 
 **Preconditions**
 
-A PR exists in In Progress status (created via Submit flow)
+มี PR ที่มีสถานะ In Progress (สร้างผ่านขั้นตอน Submit)
 
 **Steps**
 
-1. Submit a Draft PR
-2. Reload detail
-3. Inspect toolbar
+1. Submit Draft PR
+2. โหลดหน้ารายละเอียดใหม่
+3. ตรวจสอบ toolbar
 
 **Expected**
 
-Edit and Delete buttons are not visible (read-only mode).
+ปุ่ม Edit และ Delete ไม่แสดงผล (โหมด read-only)
 
 ---
 
@@ -638,16 +638,16 @@ Edit and Delete buttons are not visible (read-only mode).
 
 **Preconditions**
 
-A Draft PR exists for this Requestor
+มี Draft PR ของ Requestor นี้
 
 **Steps**
 
-1. Open Draft PR
-2. Click Edit
+1. เปิด Draft PR
+2. คลิก Edit
 
 **Expected**
 
-Form becomes editable; Save (or Cancel) form-level button is visible.
+ฟอร์มสามารถแก้ไขได้; ปุ่ม Save (หรือ Cancel) ระดับฟอร์มแสดงผล
 
 ---
 
@@ -659,17 +659,17 @@ Form becomes editable; Save (or Cancel) form-level button is visible.
 
 **Preconditions**
 
-A Draft PR is open in edit mode
+Draft PR เปิดอยู่ในโหมดแก้ไข
 
 **Steps**
 
-1. Enter edit mode
-2. Update description
-3. Save
+1. เข้าโหมดแก้ไข
+2. อัปเดต description
+3. บันทึก
 
 **Expected**
 
-After save the page returns to detail URL (no redirect to /new or list).
+หลังบันทึก หน้ากลับสู่ detail URL (ไม่ redirect ไปที่ /new หรือ list)
 
 ---
 
@@ -681,17 +681,17 @@ After save the page returns to detail URL (no redirect to /new or list).
 
 **Preconditions**
 
-A Draft PR with at least one line item is open in edit mode
+Draft PR ที่มีรายการสินค้าอย่างน้อยหนึ่งรายการเปิดอยู่ในโหมดแก้ไข
 
 **Steps**
 
-1. Enter edit mode
-2. Edit first line item quantity
-3. Save
+1. เข้าโหมดแก้ไข
+2. แก้ไขจำนวนรายการสินค้าแรก
+3. บันทึก
 
 **Expected**
 
-After save the page returns to the detail URL.
+หลังบันทึก หน้ากลับสู่ detail URL
 
 ---
 
@@ -703,18 +703,18 @@ After save the page returns to the detail URL.
 
 **Preconditions**
 
-A Draft PR is open in edit mode
+Draft PR เปิดอยู่ในโหมดแก้ไข
 
 **Steps**
 
-1. Enter edit mode
-2. Click Add Item
-3. Fill product/qty/uom
-4. Save
+1. เข้าโหมดแก้ไข
+2. คลิก Add Item
+3. กรอก product/qty/uom
+4. บันทึก
 
 **Expected**
 
-After save the page returns to the detail URL.
+หลังบันทึก หน้ากลับสู่ detail URL
 
 ---
 
@@ -726,17 +726,17 @@ After save the page returns to the detail URL.
 
 **Preconditions**
 
-A Draft PR is open in edit mode with at least one change
+Draft PR เปิดอยู่ในโหมดแก้ไขและมีการเปลี่ยนแปลงอย่างน้อยหนึ่งอย่าง
 
 **Steps**
 
-1. Enter edit mode
-2. Make a change
-3. Click Save
+1. เข้าโหมดแก้ไข
+2. ทำการเปลี่ยนแปลง
+3. คลิก Save
 
 **Expected**
 
-Form returns to view mode (Edit button visible again on detail page).
+ฟอร์มกลับสู่โหมดดู (ปุ่ม Edit แสดงผลอีกครั้งในหน้ารายละเอียด)
 
 ---
 
@@ -748,17 +748,17 @@ Form returns to view mode (Edit button visible again on detail page).
 
 **Preconditions**
 
-A Draft PR is open in edit mode
+Draft PR เปิดอยู่ในโหมดแก้ไข
 
 **Steps**
 
-1. Enter edit mode
-2. Type into description
-3. Click Cancel
+1. เข้าโหมดแก้ไข
+2. พิมพ์ใน description
+3. คลิก Cancel
 
 **Expected**
 
-Form returns to view mode (Edit button visible again on detail page).
+ฟอร์มกลับสู่โหมดดู (ปุ่ม Edit แสดงผลอีกครั้งในหน้ารายละเอียด)
 
 ---
 
@@ -770,16 +770,16 @@ Form returns to view mode (Edit button visible again on detail page).
 
 **Preconditions**
 
-A Draft PR with ≥1 line item exists
+มี Draft PR ที่มีรายการสินค้า ≥1 รายการ
 
 **Steps**
 
-1. Open Draft PR
-2. Click Submit
+1. เปิด Draft PR
+2. คลิก Submit
 
 **Expected**
 
-Confirmation dialog is visible.
+dialog ยืนยันแสดงผล
 
 ---
 
@@ -791,16 +791,16 @@ Confirmation dialog is visible.
 
 **Preconditions**
 
-Submit confirmation dialog is open
+dialog ยืนยัน submit เปิดอยู่
 
 **Steps**
 
-1. Open Submit dialog
-2. Click Cancel
+1. เปิด dialog Submit
+2. คลิก Cancel
 
 **Expected**
 
-Dialog closes; URL remains on the detail page (no submit transition).
+dialog ปิด; URL ยังคงอยู่ที่หน้ารายละเอียด (ไม่มีการเปลี่ยนสถานะ submit)
 
 ---
 
@@ -812,16 +812,16 @@ Dialog closes; URL remains on the detail page (no submit transition).
 
 **Preconditions**
 
-Submit confirmation dialog is open
+dialog ยืนยัน submit เปิดอยู่
 
 **Steps**
 
-1. Open Submit dialog
-2. Click Confirm
+1. เปิด dialog Submit
+2. คลิก Confirm
 
 **Expected**
 
-Status badge updates to In Progress (asserted by submitDraftPR helper).
+badge สถานะอัปเดตเป็น In Progress (ยืนยันโดย submitDraftPR helper)
 
 ---
 
@@ -833,16 +833,16 @@ Status badge updates to In Progress (asserted by submitDraftPR helper).
 
 **Preconditions**
 
-A Draft PR with zero line items exists
+มี Draft PR ที่ไม่มีรายการสินค้า
 
 **Steps**
 
-1. Open Draft PR with no items
-2. Inspect Submit button
+1. เปิด Draft PR ที่ไม่มีรายการสินค้า
+2. ตรวจสอบปุ่ม Submit
 
 **Expected**
 
-Either Submit button is disabled, or clicking it does not move status to In Progress (URL stays on detail).
+ปุ่ม Submit ถูก disabled หรือการคลิกไม่เปลี่ยนสถานะเป็น In Progress (URL ยังคงอยู่ที่หน้ารายละเอียด)
 
 ---
 
@@ -854,16 +854,16 @@ Either Submit button is disabled, or clicking it does not move status to In Prog
 
 **Preconditions**
 
-A Draft PR exists for this Requestor
+มี Draft PR ของ Requestor นี้
 
 **Steps**
 
-1. Open Draft PR
-2. Click Delete
+1. เปิด Draft PR
+2. คลิก Delete
 
 **Expected**
 
-Delete confirmation dialog is visible.
+dialog ยืนยันการลบแสดงผล
 
 ---
 
@@ -875,16 +875,16 @@ Delete confirmation dialog is visible.
 
 **Preconditions**
 
-Delete confirmation dialog is open
+dialog ยืนยันการลบเปิดอยู่
 
 **Steps**
 
-1. Open Delete dialog
-2. Click Cancel
+1. เปิด dialog Delete
+2. คลิก Cancel
 
 **Expected**
 
-Dialog closes; URL remains on the detail page (PR is not deleted).
+dialog ปิด; URL ยังคงอยู่ที่หน้ารายละเอียด (PR ไม่ถูกลบ)
 
 ---
 
@@ -896,16 +896,16 @@ Dialog closes; URL remains on the detail page (PR is not deleted).
 
 **Preconditions**
 
-Delete confirmation dialog is open
+dialog ยืนยันการลบเปิดอยู่
 
 **Steps**
 
-1. Open Delete dialog
-2. Click Confirm
+1. เปิด dialog Delete
+2. คลิก Confirm
 
 **Expected**
 
-Page navigates back to the PR list (URL ends at /procurement/purchase-request).
+หน้านำทางกลับไปที่ PR list (URL ลงท้ายด้วย /procurement/purchase-request)
 
 ---
 
@@ -917,24 +917,24 @@ Page navigates back to the PR list (URL ends at /procurement/purchase-request).
 
 **Preconditions**
 
-Logged in as Requestor; on PR list
+Login เป็น Requestor; อยู่ที่หน้า PR list
 
 **Steps**
 
-1. Open list
-2. Click New PR (Blank)
-3. Fill header + 1 line item
-4. Save as Draft
-5. Open detail and click Edit
-6. Edit description
-7. Save
-8. Click Submit and confirm
+1. เปิด list
+2. คลิก New PR (Blank)
+3. กรอก header + รายการสินค้า 1 รายการ
+4. บันทึกเป็น Draft
+5. เปิดหน้ารายละเอียดและคลิก Edit
+6. แก้ไข description
+7. บันทึก
+8. คลิก Submit และ confirm
 
 **Expected**
 
-PR is created (detail URL with ref), edited (Edit button reappears post-save), submitted (status badge reads In Progress).
+PR ถูกสร้าง (detail URL พร้อม ref), แก้ไขแล้ว (ปุ่ม Edit แสดงผลอีกครั้งหลังบันทึก), submit แล้ว (badge สถานะแสดง In Progress)
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

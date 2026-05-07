@@ -48,19 +48,19 @@ _Generated from `tests/720-stock-issue.spec.ts` annotations. Edit annotations, n
 
 **Preconditions**
 
-User has access to Stock Issues view and has store_operations.view permission
+ผู้ใช้มีสิทธิ์เข้าถึง Stock Issues view และมี permission store_operations.view
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Verify the summary cards display correct counts and total value
-3. Verify the issue list is filtered for Issue stage with DIRECT destinations
-4. Click on a row
-5. Verify the selected issue details match the row
+1. ไปที่ /store-operation/store-requisition
+2. ตรวจสอบว่า summary cards แสดงจำนวนและมูลค่ารวมที่ถูกต้อง
+3. ตรวจสอบว่า issue list ถูก filter สำหรับ Issue stage ที่มี DIRECT destinations
+4. คลิก row
+5. ตรวจสอบว่ารายละเอียด issue ที่เลือกตรงกับ row
 
 **Expected**
 
-Summary cards and issue list display correct information. User can view details of selected issues.
+Summary cards และ issue list แสดงข้อมูลที่ถูกต้อง ผู้ใช้สามารถดูรายละเอียดของ issues ที่เลือก
 
 ---
 
@@ -73,17 +73,17 @@ Summary cards and issue list display correct information. User can view details 
 
 **Preconditions**
 
-User has access; no issues exist in Issue stage with DIRECT destinations
+ผู้ใช้มีสิทธิ์เข้าถึง และไม่มี issues ใน Issue stage ที่มี DIRECT destinations
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Verify the summary cards display 0 for all counts and total value
-3. Verify the issue list is empty
+1. ไปที่ /store-operation/store-requisition
+2. ตรวจสอบว่า summary cards แสดง 0 สำหรับทุก counts และ total value
+3. ตรวจสอบว่า issue list ว่างเปล่า
 
 **Expected**
 
-Summary cards and issue list display 0 counts and empty list.
+Summary cards และ issue list แสดง 0 counts และ empty list
 
 ---
 
@@ -96,18 +96,18 @@ Summary cards and issue list display 0 counts and empty list.
 
 **Preconditions**
 
-User has access to Stock Issues view and has store_operations.view permission
+ผู้ใช้มีสิทธิ์เข้าถึง Stock Issues view และมี permission store_operations.view
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Verify pagination controls are present
-3. Click Next or Previous page button
-4. Verify the next or previous page of issues is displayed
+1. ไปที่ /store-operation/store-requisition
+2. ตรวจสอบว่า pagination controls มีอยู่
+3. กด Next หรือ Previous page button
+4. ตรวจสอบว่าหน้า issues ถัดไปหรือก่อนหน้าแสดงขึ้นมา
 
 **Expected**
 
-Pagination controls work and next or previous page of issues is correctly displayed.
+Pagination controls ทำงานได้และหน้า issues ถัดไปหรือก่อนหน้าแสดงอย่างถูกต้อง
 
 ---
 
@@ -120,20 +120,20 @@ Pagination controls work and next or previous page of issues is correctly displa
 
 **Preconditions**
 
-A StoreRequisition exists at Issue stage; destinationLocationType is DIRECT; user has view permission
+StoreRequisition อยู่ใน Issue stage destinationLocationType เป็น DIRECT และผู้ใช้มี view permission
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click on issue row or reference number
-3. Verify header with SR reference, date, and status badge
-4. Verify From Location, Issue Summary, To Location, Department, and Expense Account cards
-5. Verify items table with correct details
-6. Verify tracking info if available
+1. ไปที่ /store-operation/store-requisition
+2. คลิก issue row หรือ reference number
+3. ตรวจสอบ header พร้อม SR reference, date และ status badge
+4. ตรวจสอบ cards ของ From Location, Issue Summary, To Location, Department และ Expense Account
+5. ตรวจสอบ items table พร้อมรายละเอียดที่ถูกต้อง
+6. ตรวจสอบ tracking info หากมี
 
 **Expected**
 
-System displays all details in the issue layout as expected.
+ระบบแสดงรายละเอียดทั้งหมดใน issue layout ตามที่คาดหวัง
 
 ---
 
@@ -146,20 +146,20 @@ System displays all details in the issue layout as expected.
 
 **Preconditions**
 
-A StoreRequisition exists at Issue stage; destinationLocationType is DIRECT; user has view permission; department is not assigned
+StoreRequisition อยู่ใน Issue stage destinationLocationType เป็น DIRECT ผู้ใช้มี view permission และ department ไม่ถูก assign
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click on issue row or reference number
-3. Verify header with SR reference, date, and status badge
-4. Verify From Location, Issue Summary, To Location, and Expense Account cards
-5. Verify items table with correct details
-6. Verify tracking info if available
+1. ไปที่ /store-operation/store-requisition
+2. คลิก issue row หรือ reference number
+3. ตรวจสอบ header พร้อม SR reference, date และ status badge
+4. ตรวจสอบ cards ของ From Location, Issue Summary, To Location และ Expense Account
+5. ตรวจสอบ items table พร้อมรายละเอียดที่ถูกต้อง
+6. ตรวจสอบ tracking info หากมี
 
 **Expected**
 
-System displays all details except department card as expected.
+ระบบแสดงรายละเอียดทั้งหมดยกเว้น department card ตามที่คาดหวัง
 
 ---
 
@@ -172,17 +172,17 @@ System displays all details except department card as expected.
 
 **Preconditions**
 
-A StoreRequisition exists at Issue stage; destinationLocationType is DIRECT; user does not have view permission
+Login เป็น requestor@blueledgers.com StoreRequisition อยู่ใน Issue stage destinationLocationType เป็น DIRECT และผู้ใช้ไม่มี view permission
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click on issue row or reference number
-3. Verify error message or restricted access indication
+1. ไปที่ /store-operation/store-requisition
+2. คลิก issue row หรือ reference number
+3. ตรวจสอบ error message หรือสัญญาณบอกว่าถูกจำกัดสิทธิ์
 
 **Expected**
 
-System restricts access or shows error message as expected.
+ระบบจำกัดการเข้าถึงหรือแสดง error message ตามที่คาดหวัง
 
 ---
 
@@ -195,19 +195,19 @@ System restricts access or shows error message as expected.
 
 **Preconditions**
 
-User has access to Stock Issues view
+ผู้ใช้มีสิทธิ์เข้าถึง Stock Issues view
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Fill search term 'SR-12345' in search box
-3. Select 'All' status filter
-4. Wait for list update
-5. Verify SR 'SR-12345' is displayed in list
+1. ไปที่ /store-operation/store-requisition
+2. กรอก search term 'SR-12345' ใน search box
+3. เลือก status filter 'All'
+4. รอให้ list อัปเดต
+5. ตรวจสอบว่า SR 'SR-12345' แสดงใน list
 
 **Expected**
 
-SR 'SR-12345' is correctly displayed in the list with all relevant details.
+SR 'SR-12345' แสดงใน list พร้อมรายละเอียดที่เกี่ยวข้องอย่างถูกต้อง
 
 ---
 
@@ -220,19 +220,19 @@ SR 'SR-12345' is correctly displayed in the list with all relevant details.
 
 **Preconditions**
 
-User has access to Stock Issues view
+ผู้ใช้มีสิทธิ์เข้าถึง Stock Issues view
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Fill search term 'InvalidSR' in search box
-3. Select 'All' status filter
-4. Wait for list update
-5. Verify no SRs are displayed
+1. ไปที่ /store-operation/store-requisition
+2. กรอก search term 'InvalidSR' ใน search box
+3. เลือก status filter 'All'
+4. รอให้ list อัปเดต
+5. ตรวจสอบว่าไม่มี SRs แสดง
 
 **Expected**
 
-No SRs are displayed in the list.
+ไม่มี SRs แสดงใน list
 
 ---
 
@@ -245,19 +245,19 @@ No SRs are displayed in the list.
 
 **Preconditions**
 
-User has access to Stock Issues view
+ผู้ใช้มีสิทธิ์เข้าถึง Stock Issues view
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Clear search term in search box
-3. Select 'All' status filter
-4. Wait for list update
-5. Verify all SRs are displayed
+1. ไปที่ /store-operation/store-requisition
+2. clear search term ใน search box
+3. เลือก status filter 'All'
+4. รอให้ list อัปเดต
+5. ตรวจสอบว่า SRs ทั้งหมดแสดงขึ้นมา
 
 **Expected**
 
-All SRs are displayed in the list.
+SRs ทั้งหมดแสดงใน list
 
 ---
 
@@ -270,16 +270,16 @@ All SRs are displayed in the list.
 
 **Preconditions**
 
-User does not have access to Stock Issues view
+Login เป็น requestor@blueledgers.com และไม่มีสิทธิ์เข้าถึง Stock Issues view
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Attempt to fill search term in search box
+1. ไปที่ /store-operation/store-requisition
+2. พยายามกรอก search term ใน search box
 
 **Expected**
 
-User is redirected to a permission denied page or an error message is displayed.
+ผู้ใช้ถูก redirect ไปยังหน้า permission denied หรือ error message แสดงขึ้นมา
 
 ---
 
@@ -292,25 +292,25 @@ User is redirected to a permission denied page or an error message is displayed.
 
 **Preconditions**
 
-User has access to Stock Issues view
+ผู้ใช้มีสิทธิ์เข้าถึง Stock Issues view
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Fill search term 'SR-12345' in search box
-3. Select 'Active' status filter
-4. Click 'From Location' dropdown
-5. Select 'Warehouse A' from dropdown
-6. Click 'To Location' dropdown
-7. Select 'Warehouse B' from dropdown
-8. Click 'Department' dropdown
-9. Select 'Sales' from dropdown
-10. Wait for list update
-11. Verify SR 'SR-12345' with 'Active' status, from 'Warehouse A', to 'Warehouse B', and in 'Sales' department is displayed
+1. ไปที่ /store-operation/store-requisition
+2. กรอก search term 'SR-12345' ใน search box
+3. เลือก status filter 'Active'
+4. กด dropdown 'From Location'
+5. เลือก 'Warehouse A' จาก dropdown
+6. กด dropdown 'To Location'
+7. เลือก 'Warehouse B' จาก dropdown
+8. กด dropdown 'Department'
+9. เลือก 'Sales' จาก dropdown
+10. รอให้ list อัปเดต
+11. ตรวจสอบว่า SR 'SR-12345' ที่มีสถานะ 'Active' จาก 'Warehouse A' ไปยัง 'Warehouse B' และอยู่ใน department 'Sales' แสดงขึ้นมา
 
 **Expected**
 
-SR 'SR-12345' with specified filters is displayed in the list.
+SR 'SR-12345' ที่ตรงกับ filters ที่กำหนดแสดงใน list
 
 ---
 
@@ -323,17 +323,17 @@ SR 'SR-12345' with specified filters is displayed in the list.
 
 **Preconditions**
 
-User is logged in and has SR view permission. Issue view is displayed.
+Login เป็น purchase@blueledgers.com มี SR view permission และ Issue view แสดงอยู่
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'View Full SR'
-3. Verify Store Requisition detail page is displayed
+1. ไปที่ /store-operation/store-requisition
+2. กด 'View Full SR'
+3. ตรวจสอบว่าหน้า Store Requisition detail แสดงขึ้นมา
 
 **Expected**
 
-User is navigated to Store Requisition detail page where they can see all relevant information and perform actions if permitted.
+ผู้ใช้ถูกนำทางไปยังหน้า Store Requisition detail ซึ่งสามารถดูข้อมูลที่เกี่ยวข้องทั้งหมดและดำเนินการได้หากมีสิทธิ์
 
 ---
 
@@ -346,17 +346,17 @@ User is navigated to Store Requisition detail page where they can see all releva
 
 **Preconditions**
 
-User is logged in but does not have SR view permission. Issue view is displayed.
+Login เป็น requestor@blueledgers.com แต่ไม่มี SR view permission และ Issue view แสดงอยู่
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'View Full SR'
-3. Verify error message is displayed
+1. ไปที่ /store-operation/store-requisition
+2. กด 'View Full SR'
+3. ตรวจสอบว่า error message แสดงขึ้นมา
 
 **Expected**
 
-Error message indicating user does not have permission to view full SR is displayed.
+Error message แสดงว่าผู้ใช้ไม่มีสิทธิ์ดู full SR
 
 ---
 
@@ -369,17 +369,17 @@ Error message indicating user does not have permission to view full SR is displa
 
 **Preconditions**
 
-User has SR view permission. Issue view is displayed with an empty SR reference link.
+ผู้ใช้มี SR view permission และ Issue view แสดงพร้อม SR reference link ที่ว่างเปล่า
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'View Full SR' (link is empty)
-3. Verify error message is displayed
+1. ไปที่ /store-operation/store-requisition
+2. กด 'View Full SR' (link ว่างเปล่า)
+3. ตรวจสอบว่า error message แสดงขึ้นมา
 
 **Expected**
 
-Error message indicating SR reference link is invalid or empty is displayed.
+Error message แสดงว่า SR reference link ไม่ถูกต้องหรือว่างเปล่า
 
 ---
 
@@ -392,18 +392,18 @@ Error message indicating SR reference link is invalid or empty is displayed.
 
 **Preconditions**
 
-User is logged in and has SR view permission. Issue view is displayed with SR at Issue stage.
+Login เป็น purchase@blueledgers.com มี SR view permission และ Issue view แสดงพร้อม SR ใน Issue stage
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'View Full SR'
-3. Click 'Complete'
-4. Verify error message is displayed
+1. ไปที่ /store-operation/store-requisition
+2. กด 'View Full SR'
+3. กด 'Complete'
+4. ตรวจสอบว่า error message แสดงขึ้นมา
 
 **Expected**
 
-Error message indicating user does not have permission to complete SR is displayed.
+Error message แสดงว่าผู้ใช้ไม่มีสิทธิ์ complete SR
 
 ---
 
@@ -416,18 +416,18 @@ Error message indicating user does not have permission to complete SR is display
 
 **Preconditions**
 
-User is logged in and has SR view and print permission. Issue view is displayed with SR at Issue stage.
+Login เป็น purchase@blueledgers.com มี SR view และ print permission และ Issue view แสดงพร้อม SR ใน Issue stage
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'View Full SR'
-3. Click 'Print'
-4. Verify print dialog or confirmation message is displayed
+1. ไปที่ /store-operation/store-requisition
+2. กด 'View Full SR'
+3. กด 'Print'
+4. ตรวจสอบว่า print dialog หรือ confirmation message แสดงขึ้นมา
 
 **Expected**
 
-Print dialog or confirmation message is displayed allowing user to print SR.
+Print dialog หรือ confirmation message แสดงขึ้นมาเพื่อให้ผู้ใช้ print SR ได้
 
 ---
 
@@ -440,18 +440,18 @@ Print dialog or confirmation message is displayed allowing user to print SR.
 
 **Preconditions**
 
-Issue exists at Issue/Complete stage and user has view permission
+Issue อยู่ใน Issue/Complete stage และผู้ใช้มี view permission
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Print' button
-3. Verify document is generated with header, location information, items list, and signature fields
-4. Browser print dialog opens
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Print' button
+3. ตรวจสอบว่าเอกสารถูกสร้างพร้อม header, location information, items list และ signature fields
+4. Browser print dialog เปิดขึ้นมา
 
 **Expected**
 
-Document is successfully printed with all required information.
+เอกสารถูก print สำเร็จพร้อมข้อมูลที่จำเป็นทั้งหมด
 
 ---
 
@@ -464,17 +464,17 @@ Document is successfully printed with all required information.
 
 **Preconditions**
 
-Issue exists at Issue/Complete stage but user does not have view permission
+Login เป็น requestor@blueledgers.com Issue อยู่ใน Issue/Complete stage แต่ผู้ใช้ไม่มี view permission
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Print' button
-3. Verify system denies permission and does not allow printing
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Print' button
+3. ตรวจสอบว่าระบบปฏิเสธสิทธิ์และไม่อนุญาตให้ print
 
 **Expected**
 
-System denies printing due to insufficient permissions.
+ระบบปฏิเสธการ print เนื่องจาก permissions ไม่เพียงพอ
 
 ---
 
@@ -487,17 +487,17 @@ System denies printing due to insufficient permissions.
 
 **Preconditions**
 
-Issue exists with multiple items, some having zero quantity
+Issue มี items หลายรายการ บางรายการมี quantity เป็นศูนย์
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Print' button
-3. Verify document includes items with non-zero quantities only
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Print' button
+3. ตรวจสอบว่าเอกสารแสดงเฉพาะ items ที่มี quantity ไม่ใช่ศูนย์
 
 **Expected**
 
-Document does not include items with zero quantity.
+เอกสารไม่แสดง items ที่มี quantity เป็นศูนย์
 
 ---
 
@@ -510,17 +510,17 @@ Document does not include items with zero quantity.
 
 **Preconditions**
 
-Issue does not exist in the system
+Issue ไม่มีอยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Print' button
-3. Verify system displays an error message
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Print' button
+3. ตรวจสอบว่าระบบแสดง error message
 
 **Expected**
 
-System displays an error message indicating the issue does not exist.
+ระบบแสดง error message ว่า issue ไม่มีอยู่
 
 ---
 
@@ -533,17 +533,17 @@ System displays an error message indicating the issue does not exist.
 
 **Preconditions**
 
-Issue exists but is at Cancel stage
+Issue มีอยู่แต่อยู่ใน Cancel stage
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'Print' button
-3. Verify system displays an error message
+1. ไปที่ /store-operation/store-requisition
+2. กด 'Print' button
+3. ตรวจสอบว่าระบบแสดง error message
 
 **Expected**
 
-System displays an error message indicating the issue is at Cancel stage and cannot be printed.
+ระบบแสดง error message ว่า issue อยู่ใน Cancel stage และไม่สามารถ print ได้
 
 ---
 
@@ -556,16 +556,16 @@ System displays an error message indicating the issue is at Cancel stage and can
 
 **Preconditions**
 
-SR status is Completed; user has permission to view costs
+สถานะ SR เป็น Completed และผู้ใช้มี permission ดู costs
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'View Expense Allocation'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'View Expense Allocation'
 
 **Expected**
 
-Expense allocation details are displayed: Department, Expense Account, Total Value expensed, and items with individual costs.
+รายละเอียด expense allocation แสดงขึ้นมา: Department, Expense Account, Total Value expensed และ items พร้อม individual costs
 
 ---
 
@@ -578,16 +578,16 @@ Expense allocation details are displayed: Department, Expense Account, Total Val
 
 **Preconditions**
 
-SR status is Completed; user does not have permission to view costs
+Login เป็น requestor@blueledgers.com สถานะ SR เป็น Completed และผู้ใช้ไม่มี permission ดู costs
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'View Expense Allocation'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'View Expense Allocation'
 
 **Expected**
 
-System displays a permission denied message.
+ระบบแสดง message ว่าถูกปฏิเสธสิทธิ์
 
 ---
 
@@ -600,16 +600,16 @@ System displays a permission denied message.
 
 **Preconditions**
 
-SR status is Completed; user has permission to view costs; SR has no expense allocation
+สถานะ SR เป็น Completed ผู้ใช้มี permission ดู costs และ SR ไม่มี expense allocation
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'View Expense Allocation'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'View Expense Allocation'
 
 **Expected**
 
-System displays a message indicating no expense allocation.
+ระบบแสดง message ว่าไม่มี expense allocation
 
 ---
 
@@ -622,18 +622,18 @@ System displays a message indicating no expense allocation.
 
 **Preconditions**
 
-User has permission to view costs
+ผู้ใช้มี permission ดู costs
 
 **Steps**
 
-1. Navigate to /store-operation/store-requisition
-2. Click 'View Expense Allocation'
+1. ไปที่ /store-operation/store-requisition
+2. กด 'View Expense Allocation'
 
 **Expected**
 
-System displays a message indicating the SR ID is invalid.
+ระบบแสดง message ว่า SR ID ไม่ถูกต้อง
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

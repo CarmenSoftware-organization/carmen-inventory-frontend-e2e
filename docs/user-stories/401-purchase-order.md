@@ -83,20 +83,20 @@ _Generated from `tests/401-purchase-order.spec.ts` annotations. Edit annotations
 
 **Preconditions**
 
-User is authenticated as Purchasing Staff/Manager; has permission to create POs; one or more approved PRs exist; budget is available
+Login เป็น Purchasing Staff/Manager; ผู้ใช้มีสิทธิ์สร้าง PO; มี PR ที่ approved อย่างน้อยหนึ่งรายการ; งบประมาณมีเพียงพอ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'New PO' dropdown button
-3. Select 'Create from Purchase Requests'
-4. Choose an approved PR
-5. Fill in PO details
-6. Click 'Save PO'
+1. ไปที่ /procurement/purchase-order
+2. กดปุ่ม dropdown 'New PO'
+3. เลือก 'Create from Purchase Requests'
+4. เลือก PR ที่ approved
+5. กรอกรายละเอียด PO
+6. กด 'Save PO'
 
 **Expected**
 
-Purchase Order is created successfully and linked to the selected Purchase Request.
+Purchase Order ถูกสร้างสำเร็จและเชื่อมโยงกับ Purchase Request ที่เลือก
 
 ---
 
@@ -109,17 +109,17 @@ Purchase Order is created successfully and linked to the selected Purchase Reque
 
 **Preconditions**
 
-User is authenticated but does not have permission to create POs
+Login เป็นผู้ใช้ที่ไม่มีสิทธิ์สร้าง PO
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'New PO' dropdown button
-3. Select 'Create from Purchase Requests'
+1. ไปที่ /procurement/purchase-order
+2. กดปุ่ม dropdown 'New PO'
+3. เลือก 'Create from Purchase Requests'
 
 **Expected**
 
-System displays an error message indicating insufficient permissions.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ
 
 ---
 
@@ -132,17 +132,17 @@ System displays an error message indicating insufficient permissions.
 
 **Preconditions**
 
-User is authenticated and has permission to create POs, but no approved PRs exist
+Login เป็นผู้ใช้ที่มีสิทธิ์สร้าง PO แต่ไม่มี PR ที่ approved อยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'New PO' dropdown button
-3. Select 'Create from Purchase Requests'
+1. ไปที่ /procurement/purchase-order
+2. กดปุ่ม dropdown 'New PO'
+3. เลือก 'Create from Purchase Requests'
 
 **Expected**
 
-System displays a message indicating no available PRs to create a PO from.
+ระบบแสดงข้อความแจ้งว่าไม่มี PR ที่พร้อมใช้งานสำหรับการสร้าง PO
 
 ---
 
@@ -155,18 +155,18 @@ System displays a message indicating no available PRs to create a PO from.
 
 **Preconditions**
 
-User has permission to create POs; PRs exist but vendors are not assigned
+ผู้ใช้มีสิทธิ์สร้าง PO; มี PR อยู่ในระบบแต่ยังไม่ได้กำหนด vendor
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'New PO' dropdown button
-3. Select 'Create from Purchase Requests'
-4. Attempt to choose an unassigned PR
+1. ไปที่ /procurement/purchase-order
+2. กดปุ่ม dropdown 'New PO'
+3. เลือก 'Create from Purchase Requests'
+4. พยายามเลือก PR ที่ยังไม่ได้กำหนด vendor
 
 **Expected**
 
-System displays an error message indicating that the selected PR does not have a vendor assigned.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดว่า PR ที่เลือกยังไม่ได้กำหนด vendor
 
 ---
 
@@ -179,19 +179,19 @@ System displays an error message indicating that the selected PR does not have a
 
 **Preconditions**
 
-User has permission to create POs and POs without PR; vendor exists in system
+ผู้ใช้มีสิทธิ์สร้าง PO และ PO แบบไม่มี PR; vendor มีอยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Create Purchase Order' then 'Manual PO' button
-3. Select vendor from dropdown
-4. Fill in purchase order details
-5. Click 'Submit'
+1. ไปที่ /procurement/purchase-order
+2. กด 'Create Purchase Order' แล้วกดปุ่ม 'Manual PO'
+3. เลือก vendor จาก dropdown
+4. กรอกรายละเอียด purchase order
+5. กด 'Submit'
 
 **Expected**
 
-Purchase order is created successfully and displayed in the list.
+Purchase order ถูกสร้างสำเร็จและแสดงในรายการ
 
 ---
 
@@ -204,16 +204,16 @@ Purchase order is created successfully and displayed in the list.
 
 **Preconditions**
 
-User is authenticated but does not have permission to create POs
+Login เป็นผู้ใช้ที่ไม่มีสิทธิ์สร้าง PO
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Create Purchase Order' then 'Manual PO' button
+1. ไปที่ /procurement/purchase-order
+2. กด 'Create Purchase Order' แล้วกดปุ่ม 'Manual PO'
 
 **Expected**
 
-System displays an error message indicating insufficient permissions.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ
 
 ---
 
@@ -226,17 +226,17 @@ System displays an error message indicating insufficient permissions.
 
 **Preconditions**
 
-User has permission to create POs; vendor does not exist in the system
+ผู้ใช้มีสิทธิ์สร้าง PO; vendor ไม่มีอยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Create Purchase Order' then 'Manual PO' button
-3. Select a non-existent vendor from the dropdown
+1. ไปที่ /procurement/purchase-order
+2. กด 'Create Purchase Order' แล้วกดปุ่ม 'Manual PO'
+3. เลือก vendor ที่ไม่มีอยู่จาก dropdown
 
 **Expected**
 
-System displays an error message indicating the selected vendor does not exist.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดว่า vendor ที่เลือกไม่มีอยู่ในระบบ
 
 ---
 
@@ -249,19 +249,19 @@ System displays an error message indicating the selected vendor does not exist.
 
 **Preconditions**
 
-User has permission to create POs
+ผู้ใช้มีสิทธิ์สร้าง PO
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Create Purchase Order' then 'Manual PO' button
-3. Select a vendor from the dropdown
-4. Leave required fields blank
-5. Click 'Submit'
+1. ไปที่ /procurement/purchase-order
+2. กด 'Create Purchase Order' แล้วกดปุ่ม 'Manual PO'
+3. เลือก vendor จาก dropdown
+4. ปล่อย field ที่จำเป็นว่างเปล่า
+5. กด 'Submit'
 
 **Expected**
 
-System displays an error message indicating required fields are not filled.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดว่า field ที่จำเป็นยังไม่ได้กรอก
 
 ---
 
@@ -274,19 +274,19 @@ System displays an error message indicating required fields are not filled.
 
 **Preconditions**
 
-User has permission to create POs; system has a maximum limit for PO items
+ผู้ใช้มีสิทธิ์สร้าง PO; ระบบมีจำนวนสูงสุดของรายการใน PO
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Create Purchase Order' then 'Manual PO' button
-3. Select a vendor from the dropdown
-4. Fill in the maximum number of items allowed
-5. Click 'Submit'
+1. ไปที่ /procurement/purchase-order
+2. กด 'Create Purchase Order' แล้วกดปุ่ม 'Manual PO'
+3. เลือก vendor จาก dropdown
+4. กรอกจำนวนรายการสูงสุดที่อนุญาต
+5. กด 'Submit'
 
 **Expected**
 
-Purchase order is created successfully with the maximum number of items.
+Purchase order ถูกสร้างสำเร็จพร้อมจำนวนรายการสูงสุด
 
 ---
 
@@ -299,18 +299,18 @@ Purchase order is created successfully with the maximum number of items.
 
 **Preconditions**
 
-User authorized; PO is in draft status; pre-send validations pass; vendor email is on file; budget is available
+ผู้ใช้มีสิทธิ์; PO อยู่ใน status draft; การตรวจสอบก่อนส่งผ่าน; มี email ของ vendor ในระบบ; งบประมาณมีเพียงพอ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click on the 'Send to Vendor' button
-3. Verify the system performs pre-send validation
-4. Click 'Send'
+1. ไปที่ /procurement/purchase-order
+2. กดปุ่ม 'Send to Vendor'
+3. ตรวจสอบว่าระบบดำเนินการตรวจสอบก่อนส่ง
+4. กด 'Send'
 
 **Expected**
 
-Purchase order is sent to the vendor and status is updated to 'Sent'.
+Purchase order ถูกส่งให้ vendor และ status ถูกอัปเดตเป็น 'Sent'
 
 ---
 
@@ -323,17 +323,17 @@ Purchase order is sent to the vendor and status is updated to 'Sent'.
 
 **Preconditions**
 
-PO is in draft status; pre-send validations pass; no vendor email on file
+PO อยู่ใน status draft; การตรวจสอบก่อนส่งผ่าน; ไม่มี email ของ vendor ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click on the 'Send to Vendor' button
-3. Verify the system prompts the user to add a vendor email
+1. ไปที่ /procurement/purchase-order
+2. กดปุ่ม 'Send to Vendor'
+3. ตรวจสอบว่าระบบแจ้งให้ผู้ใช้เพิ่ม email ของ vendor
 
 **Expected**
 
-System prevents sending the purchase order and displays an error message.
+ระบบป้องกันการส่ง purchase order และแสดงข้อความแจ้งข้อผิดพลาด
 
 ---
 
@@ -346,17 +346,17 @@ System prevents sending the purchase order and displays an error message.
 
 **Preconditions**
 
-PO is in draft status; pre-send validations pass; vendor email is on file; budget is insufficient
+PO อยู่ใน status draft; การตรวจสอบก่อนส่งผ่าน; มี email ของ vendor ในระบบ; งบประมาณไม่เพียงพอ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click on the 'Send to Vendor' button
-3. Verify the system prompts the user about insufficient budget
+1. ไปที่ /procurement/purchase-order
+2. กดปุ่ม 'Send to Vendor'
+3. ตรวจสอบว่าระบบแจ้งผู้ใช้เรื่องงบประมาณไม่เพียงพอ
 
 **Expected**
 
-System prevents sending the purchase order and displays a warning message.
+ระบบป้องกันการส่ง purchase order และแสดงข้อความเตือน
 
 ---
 
@@ -369,18 +369,18 @@ System prevents sending the purchase order and displays a warning message.
 
 **Preconditions**
 
-PO is in rejected status; pre-send validations pass; vendor email is on file; budget is available
+PO อยู่ใน status rejected; การตรวจสอบก่อนส่งผ่าน; มี email ของ vendor ในระบบ; งบประมาณมีเพียงพอ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click on a purchase order with status 'Rejected'
-3. Click on the 'Send to Vendor' button
-4. Verify the system prevents sending the purchase order and displays an error message
+1. ไปที่ /procurement/purchase-order
+2. คลิก purchase order ที่มี status 'Rejected'
+3. กดปุ่ม 'Send to Vendor'
+4. ตรวจสอบว่าระบบป้องกันการส่งและแสดงข้อความแจ้งข้อผิดพลาด
 
 **Expected**
 
-System prevents sending the purchase order and displays an error message.
+ระบบป้องกันการส่ง purchase order และแสดงข้อความแจ้งข้อผิดพลาด
 
 ---
 
@@ -393,19 +393,19 @@ System prevents sending the purchase order and displays an error message.
 
 **Preconditions**
 
-User has permission to modify POs; a PO exists in Approved status
+ผู้ใช้มีสิทธิ์แก้ไข PO; มี PO ใน status Approved อยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Request Change Order' button
-3. Fill in the reason for the change
-4. Edit fields as necessary
-5. Click 'Submit Change Order'
+1. ไปที่ /procurement/purchase-order
+2. กดปุ่ม 'Request Change Order'
+3. กรอกเหตุผลในการเปลี่ยนแปลง
+4. แก้ไข field ที่จำเป็น
+5. กด 'Submit Change Order'
 
 **Expected**
 
-Change order request is submitted successfully, and a notification is displayed confirming the submission.
+คำขอ change order ถูก submit สำเร็จ และแสดงการแจ้งเตือนยืนยันการ submit
 
 ---
 
@@ -418,17 +418,17 @@ Change order request is submitted successfully, and a notification is displayed 
 
 **Preconditions**
 
-User is authenticated but does not have permission to modify POs
+Login เป็นผู้ใช้ที่ไม่มีสิทธิ์แก้ไข PO
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Request Change Order' button
-3. Verify an error message is displayed
+1. ไปที่ /procurement/purchase-order
+2. กดปุ่ม 'Request Change Order'
+3. ตรวจสอบว่าแสดงข้อความแจ้งข้อผิดพลาด
 
 **Expected**
 
-User is shown an error message indicating they do not have permission to make changes.
+ผู้ใช้เห็นข้อความแจ้งข้อผิดพลาดว่าไม่มีสิทธิ์ในการแก้ไข
 
 ---
 
@@ -441,18 +441,18 @@ User is shown an error message indicating they do not have permission to make ch
 
 **Preconditions**
 
-User has permission; PO in Approved status
+ผู้ใช้มีสิทธิ์; PO อยู่ใน status Approved
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Request Change Order' button
-3. Fill in fields with invalid data (e.g., negative quantity, future delivery date)
-4. Click 'Submit Change Order'
+1. ไปที่ /procurement/purchase-order
+2. กดปุ่ม 'Request Change Order'
+3. กรอก field ด้วยข้อมูลที่ไม่ถูกต้อง (เช่น quantity ติดลบ, วันที่จัดส่งในอนาคต)
+4. กด 'Submit Change Order'
 
 **Expected**
 
-System displays validation errors for the invalid fields, preventing submission of the change order request.
+ระบบแสดง validation error สำหรับ field ที่ไม่ถูกต้อง และป้องกันการ submit คำขอ change order
 
 ---
 
@@ -465,17 +465,17 @@ System displays validation errors for the invalid fields, preventing submission 
 
 **Preconditions**
 
-User has permission; PO in Sent status
+ผู้ใช้มีสิทธิ์; PO อยู่ใน status Sent
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Request Change Order' button
-3. Verify that the change order request cannot be submitted for a Sent status order
+1. ไปที่ /procurement/purchase-order
+2. กดปุ่ม 'Request Change Order'
+3. ตรวจสอบว่าไม่สามารถ submit คำขอ change order สำหรับคำสั่งที่มี status Sent ได้
 
 **Expected**
 
-System displays a message indicating that change orders cannot be submitted for Sent status purchase orders.
+ระบบแสดงข้อความแจ้งว่าไม่สามารถ submit change order สำหรับ purchase order ที่มี status Sent ได้
 
 ---
 
@@ -488,19 +488,19 @@ System displays a message indicating that change orders cannot be submitted for 
 
 **Preconditions**
 
-User has permission to cancel POs; role is Purchasing Staff or Manager
+ผู้ใช้มีสิทธิ์ยกเลิก PO; role เป็น Purchasing Staff หรือ Manager
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click on the active purchase order
-3. Click 'Cancel Purchase Order' button
-4. Select valid cancellation reason
-5. Confirm cancellation
+1. ไปที่ /procurement/purchase-order
+2. คลิก purchase order ที่ active
+3. กดปุ่ม 'Cancel Purchase Order'
+4. เลือกเหตุผลการยกเลิกที่ถูกต้อง
+5. ยืนยันการยกเลิก
 
 **Expected**
 
-Purchase order is marked as cancelled and system updates the status accordingly.
+Purchase order ถูกทำเครื่องหมายว่ายกเลิกแล้ว และระบบอัปเดต status ตามนั้น
 
 ---
 
@@ -513,17 +513,17 @@ Purchase order is marked as cancelled and system updates the status accordingly.
 
 **Preconditions**
 
-User has permission; PO is in completed status
+ผู้ใช้มีสิทธิ์; PO อยู่ใน status completed
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click on the completed purchase order
-3. Click 'Cancel Purchase Order' button
+1. ไปที่ /procurement/purchase-order
+2. คลิก purchase order ที่ completed
+3. กดปุ่ม 'Cancel Purchase Order'
 
 **Expected**
 
-System displays an error message stating that the PO cannot be cancelled since it is already completed.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าไม่สามารถยกเลิก PO ได้เนื่องจาก completed แล้ว
 
 ---
 
@@ -536,18 +536,18 @@ System displays an error message stating that the PO cannot be cancelled since i
 
 **Preconditions**
 
-User has permission; PO has shipped goods
+ผู้ใช้มีสิทธิ์; PO มีสินค้าที่จัดส่งแล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click on the purchase order with shipped goods
-3. Click 'Cancel Purchase Order' button
-4. Select valid cancellation reason
+1. ไปที่ /procurement/purchase-order
+2. คลิก purchase order ที่มีสินค้าจัดส่งแล้ว
+3. กดปุ่ม 'Cancel Purchase Order'
+4. เลือกเหตุผลการยกเลิกที่ถูกต้อง
 
 **Expected**
 
-System prompts user to arrange return or exchange before allowing cancellation.
+ระบบแจ้งให้ผู้ใช้จัดการการคืนหรือเปลี่ยนสินค้าก่อนอนุญาตการยกเลิก
 
 ---
 
@@ -560,16 +560,16 @@ System prompts user to arrange return or exchange before allowing cancellation.
 
 **Preconditions**
 
-User is not authenticated
+ผู้ใช้ยังไม่ได้ login
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Attempt to click 'Cancel Purchase Order' button
+1. ไปที่ /procurement/purchase-order
+2. พยายามกดปุ่ม 'Cancel Purchase Order'
 
 **Expected**
 
-System redirects to login page or displays an error message requiring user to log in first.
+ระบบ redirect ไปยังหน้า login หรือแสดงข้อความแจ้งข้อผิดพลาดให้ผู้ใช้ login ก่อน
 
 ---
 
@@ -582,19 +582,19 @@ System redirects to login page or displays an error message requiring user to lo
 
 **Preconditions**
 
-User has permission to view POs; POs exist in the system
+ผู้ใช้มีสิทธิ์ดู PO; มี PO อยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Verify summary cards are displayed with counts by status
-3. Verify recent purchase orders list is populated
-4. Verify orders requiring attention are highlighted
-5. Verify budget utilization chart is visible
+1. ไปที่ /procurement/purchase-order
+2. ตรวจสอบว่า summary card แสดงจำนวนตาม status
+3. ตรวจสอบว่ารายการ purchase order ล่าสุดมีข้อมูล
+4. ตรวจสอบว่าคำสั่งที่ต้องการความสนใจถูก highlight
+5. ตรวจสอบว่า chart การใช้งบประมาณ visible
 
 **Expected**
 
-Purchase Order dashboard is fully displayed with all elements verified.
+หน้า Purchase Order dashboard แสดงครบถ้วนและตรวจสอบองค์ประกอบทั้งหมดผ่าน
 
 ---
 
@@ -607,16 +607,16 @@ Purchase Order dashboard is fully displayed with all elements verified.
 
 **Preconditions**
 
-User does not have permission to view POs
+ผู้ใช้ไม่มีสิทธิ์ดู PO
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Verify no Purchase Order dashboard elements are displayed
+1. ไปที่ /procurement/purchase-order
+2. ตรวจสอบว่าไม่มีองค์ประกอบ Purchase Order dashboard แสดง
 
 **Expected**
 
-User is denied access to Purchase Order dashboard.
+ผู้ใช้ถูกปฏิเสธการเข้าถึง Purchase Order dashboard
 
 ---
 
@@ -629,19 +629,19 @@ User is denied access to Purchase Order dashboard.
 
 **Preconditions**
 
-User has permission to view POs; no POs exist in the system
+ผู้ใช้มีสิทธิ์ดู PO; ไม่มี PO ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Verify summary cards show zero counts
-3. Verify recent purchase orders list is empty
-4. Verify no orders requiring attention are displayed
-5. Verify budget utilization chart is blank
+1. ไปที่ /procurement/purchase-order
+2. ตรวจสอบว่า summary card แสดงค่าเป็นศูนย์
+3. ตรวจสอบว่ารายการ purchase order ล่าสุดว่างเปล่า
+4. ตรวจสอบว่าไม่มีคำสั่งที่ต้องการความสนใจแสดง
+5. ตรวจสอบว่า chart การใช้งบประมาณว่างเปล่า
 
 **Expected**
 
-Dashboard elements reflect the absence of purchase orders.
+องค์ประกอบของ dashboard สะท้อนถึงการไม่มี purchase order
 
 ---
 
@@ -654,19 +654,19 @@ Dashboard elements reflect the absence of purchase orders.
 
 **Preconditions**
 
-User has permission to view POs; many POs exist in the system
+ผู้ใช้มีสิทธิ์ดู PO; มี PO จำนวนมากในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Verify summary cards display accurate counts
-3. Verify recent purchase orders list is populated
-4. Verify orders requiring attention are highlighted
-5. Verify budget utilization chart reflects utilization
+1. ไปที่ /procurement/purchase-order
+2. ตรวจสอบว่า summary card แสดงจำนวนที่ถูกต้อง
+3. ตรวจสอบว่ารายการ purchase order ล่าสุดมีข้อมูล
+4. ตรวจสอบว่าคำสั่งที่ต้องการความสนใจถูก highlight
+5. ตรวจสอบว่า chart การใช้งบประมาณสะท้อนการใช้งาน
 
 **Expected**
 
-Dashboard elements handle a large number of purchase orders without issues.
+องค์ประกอบของ dashboard รองรับ purchase order จำนวนมากได้โดยไม่มีปัญหา
 
 ---
 
@@ -679,20 +679,20 @@ Dashboard elements handle a large number of purchase orders without issues.
 
 **Preconditions**
 
-Database is accessible; system is operational; no maintenance windows active
+Database เข้าถึงได้; ระบบทำงานปกติ; ไม่มีช่วง maintenance window active
 
 **Steps**
 
-1. Navigate to /admin/scheduled-jobs
-2. Wait for 2:00 AM
-3. System initiates scheduled job
-4. System queries for POs with status = 'Fully Received' and last activity date >= 30 days ago
-5. Verify no open quality issues, no open disputes or returns, all related invoices processed
-6. Verify all matching POs are marked as completed
+1. ไปที่ /admin/scheduled-jobs
+2. รอถึงเวลา 2:00 AM
+3. ระบบเริ่ม scheduled job
+4. ระบบ query PO ที่มี status = 'Fully Received' และวันที่กิจกรรมล่าสุด >= 30 วันก่อน
+5. ตรวจสอบว่าไม่มีปัญหาคุณภาพที่ค้างอยู่ ไม่มีข้อพิพาทหรือการคืนสินค้า ใบแจ้งหนี้ที่เกี่ยวข้องทั้งหมดประมวลผลแล้ว
+6. ตรวจสอบว่า PO ที่ตรงตามเงื่อนไขทั้งหมดถูกทำเครื่องหมายว่า completed
 
 **Expected**
 
-All matching POs are marked as completed and no errors are reported.
+PO ที่ตรงตามเงื่อนไขทั้งหมดถูกทำเครื่องหมายว่า completed และไม่มีการรายงานข้อผิดพลาด
 
 ---
 
@@ -705,17 +705,17 @@ All matching POs are marked as completed and no errors are reported.
 
 **Preconditions**
 
-Database is not accessible; system is operational; no maintenance windows active
+Database เข้าถึงไม่ได้; ระบบทำงานปกติ; ไม่มีช่วง maintenance window active
 
 **Steps**
 
-1. Navigate to /admin/scheduled-jobs
-2. Wait for 2:00 AM
-3. System attempts to initiate scheduled job but fails due to database unavailability
+1. ไปที่ /admin/scheduled-jobs
+2. รอถึงเวลา 2:00 AM
+3. ระบบพยายามเริ่ม scheduled job แต่ล้มเหลวเนื่องจาก database ไม่พร้อมใช้งาน
 
 **Expected**
 
-Error message indicating database unavailability is displayed.
+แสดงข้อความแจ้งข้อผิดพลาดว่า database ไม่พร้อมใช้งาน
 
 ---
 
@@ -728,18 +728,18 @@ Error message indicating database unavailability is displayed.
 
 **Preconditions**
 
-Database is accessible; system is operational; no maintenance windows active
+Database เข้าถึงได้; ระบบทำงานปกติ; ไม่มีช่วง maintenance window active
 
 **Steps**
 
-1. Navigate to /admin/scheduled-jobs
-2. Wait for 2:00 AM
-3. System queries for POs with status = 'Fully Received' and last activity date >= 30 days ago
-4. Verify no purchase orders meet the criteria
+1. ไปที่ /admin/scheduled-jobs
+2. รอถึงเวลา 2:00 AM
+3. ระบบ query PO ที่มี status = 'Fully Received' และวันที่กิจกรรมล่าสุด >= 30 วันก่อน
+4. ตรวจสอบว่าไม่มี purchase order ที่ตรงตามเกณฑ์
 
 **Expected**
 
-No purchase orders are marked as completed and no errors are reported.
+ไม่มี purchase order ถูกทำเครื่องหมายว่า completed และไม่มีการรายงานข้อผิดพลาด
 
 ---
 
@@ -752,17 +752,17 @@ No purchase orders are marked as completed and no errors are reported.
 
 **Preconditions**
 
-Database is accessible; system is not operational; maintenance windows active
+Database เข้าถึงได้; ระบบไม่ทำงาน; มีช่วง maintenance window active
 
 **Steps**
 
-1. Navigate to /admin/scheduled-jobs
-2. Wait for 2:00 AM
-3. System attempts to initiate scheduled job but fails due to system not being operational during maintenance window
+1. ไปที่ /admin/scheduled-jobs
+2. รอถึงเวลา 2:00 AM
+3. ระบบพยายามเริ่ม scheduled job แต่ล้มเหลวเนื่องจากระบบไม่ทำงานระหว่าง maintenance window
 
 **Expected**
 
-Error message indicating maintenance window active is displayed.
+แสดงข้อความแจ้งข้อผิดพลาดว่า maintenance window active
 
 ---
 
@@ -775,19 +775,19 @@ Error message indicating maintenance window active is displayed.
 
 **Preconditions**
 
-User has permission to view POs; PO exists with PO number; QR code auto-generated
+ผู้ใช้มีสิทธิ์ดู PO; มี PO พร้อม PO number; QR code ถูกสร้างอัตโนมัติ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order/<orderNumber>
-2. Click on QRCodeSection component
-3. Verify QR code image is displayed
-4. Click on QR code image
-5. Verify QR code is downloaded to user device
+1. ไปที่ /procurement/purchase-order/<orderNumber>
+2. คลิก component QRCodeSection
+3. ตรวจสอบว่า QR code image visible
+4. คลิก QR code image
+5. ตรวจสอบว่า QR code ถูก download ไปยังอุปกรณ์ผู้ใช้
 
 **Expected**
 
-QR code is successfully downloaded to user device.
+QR code ถูก download ไปยังอุปกรณ์ผู้ใช้สำเร็จ
 
 ---
 
@@ -800,16 +800,16 @@ QR code is successfully downloaded to user device.
 
 **Preconditions**
 
-User has permission; PO does not exist or has no PO number; QR code not auto-generated
+ผู้ใช้มีสิทธิ์; PO ไม่มีอยู่หรือไม่มี PO number; QR code ยังไม่ได้สร้างอัตโนมัติ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order/<orderNumber>
-2. Verify QR code section is not displayed
+1. ไปที่ /procurement/purchase-order/<orderNumber>
+2. ตรวจสอบว่าส่วน QR code ไม่แสดง
 
 **Expected**
 
-QR code section is not displayed.
+ส่วน QR code ไม่แสดง
 
 ---
 
@@ -822,17 +822,17 @@ QR code section is not displayed.
 
 **Preconditions**
 
-User has permission; PO exists with PO number; QR code auto-generated
+ผู้ใช้มีสิทธิ์; มี PO พร้อม PO number; QR code ถูกสร้างอัตโนมัติ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order/<orderNumber>
-2. Reload the page
-3. Verify QR code section is still displayed and QR code is still available for download
+1. ไปที่ /procurement/purchase-order/<orderNumber>
+2. Reload หน้า
+3. ตรวจสอบว่าส่วน QR code ยังคง visible และ QR code ยังพร้อม download
 
 **Expected**
 
-QR code section is still displayed and QR code is still available for download.
+ส่วน QR code ยังคง visible และ QR code ยังพร้อม download
 
 ---
 
@@ -845,18 +845,18 @@ QR code section is still displayed and QR code is still available for download.
 
 **Preconditions**
 
-A PO with budget allocation exists and the budget management system is operational
+มี PO ที่มีการจัดสรรงบประมาณและระบบจัดการงบประมาณทำงานปกติ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click on 'Approved' action for a PO
-3. Wait for system to process and create encumbrance
-4. Verify encumbrance amount in budget management system
+1. ไปที่ /procurement/purchase-order
+2. คลิก action 'Approved' สำหรับ PO
+3. รอให้ระบบประมวลผลและสร้าง encumbrance
+4. ตรวจสอบจำนวน encumbrance ในระบบจัดการงบประมาณ
 
 **Expected**
 
-Encumbrance amount is correctly created in the budget management system.
+จำนวน encumbrance ถูกสร้างอย่างถูกต้องในระบบจัดการงบประมาณ
 
 ---
 
@@ -869,18 +869,18 @@ Encumbrance amount is correctly created in the budget management system.
 
 **Preconditions**
 
-A PO with budget allocation exists; the budget management system is operational
+มี PO ที่มีการจัดสรรงบประมาณ; ระบบจัดการงบประมาณทำงานปกติ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Modify PO amount
-3. Wait for system to process and adjust encumbrance
-4. Verify adjusted encumbrance amount in budget management system
+1. ไปที่ /procurement/purchase-order
+2. แก้ไขจำนวนเงิน PO
+3. รอให้ระบบประมวลผลและปรับ encumbrance
+4. ตรวจสอบจำนวน encumbrance ที่ปรับแล้วในระบบจัดการงบประมาณ
 
 **Expected**
 
-Encumbrance amount is correctly adjusted in the budget management system.
+จำนวน encumbrance ถูกปรับอย่างถูกต้องในระบบจัดการงบประมาณ
 
 ---
 
@@ -893,18 +893,18 @@ Encumbrance amount is correctly adjusted in the budget management system.
 
 **Preconditions**
 
-A PO with budget allocation exists; the budget management system is operational
+มี PO ที่มีการจัดสรรงบประมาณ; ระบบจัดการงบประมาณทำงานปกติ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Cancel the purchase order
-3. Wait for system to process and release encumbrance
-4. Verify encumbrance amount is released in budget management system
+1. ไปที่ /procurement/purchase-order
+2. ยกเลิก purchase order
+3. รอให้ระบบประมวลผลและปล่อย encumbrance
+4. ตรวจสอบว่าจำนวน encumbrance ถูกปล่อยในระบบจัดการงบประมาณ
 
 **Expected**
 
-Encumbrance amount is correctly released in the budget management system.
+จำนวน encumbrance ถูกปล่อยอย่างถูกต้องในระบบจัดการงบประมาณ
 
 ---
 
@@ -917,18 +917,18 @@ Encumbrance amount is correctly released in the budget management system.
 
 **Preconditions**
 
-A PO with budget allocation exists; the budget management system is operational
+มี PO ที่มีการจัดสรรงบประมาณ; ระบบจัดการงบประมาณทำงานปกติ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Try to perform an invalid action (e.g., approve without changes)
-3. Wait for system response
-4. Verify no changes in budget management system
+1. ไปที่ /procurement/purchase-order
+2. พยายามดำเนินการที่ไม่ถูกต้อง (เช่น approve โดยไม่มีการเปลี่ยนแปลง)
+3. รอการตอบสนองจากระบบ
+4. ตรวจสอบว่าไม่มีการเปลี่ยนแปลงในระบบจัดการงบประมาณ
 
 **Expected**
 
-No changes occur in the budget management system.
+ไม่มีการเปลี่ยนแปลงในระบบจัดการงบประมาณ
 
 ---
 
@@ -941,18 +941,18 @@ No changes occur in the budget management system.
 
 **Preconditions**
 
-A PO with budget allocation exists; the budget management system is operational
+มี PO ที่มีการจัดสรรงบประมาณ; ระบบจัดการงบประมาณทำงานปกติ
 
 **Steps**
 
-1. Navigate to /procurement/receipt-note
-2. Create a GRN without corresponding PO
-3. Wait for system response
-4. Verify no encumbrance is converted to expense in budget management system
+1. ไปที่ /procurement/receipt-note
+2. สร้าง GRN โดยไม่มี PO ที่สอดคล้องกัน
+3. รอการตอบสนองจากระบบ
+4. ตรวจสอบว่าไม่มีการแปลง encumbrance เป็น expense ในระบบจัดการงบประมาณ
 
 **Expected**
 
-No encumbrance is converted to expense in the budget management system.
+ไม่มีการแปลง encumbrance เป็น expense ในระบบจัดการงบประมาณ
 
 ---
 
@@ -965,20 +965,20 @@ No encumbrance is converted to expense in the budget management system.
 
 **Preconditions**
 
-Vendor Management System is operational; vendor master data is current; integration API or database access available
+Vendor Management System ทำงานปกติ; ข้อมูล vendor master เป็นปัจจุบัน; มี integration API หรือ database access
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Fill 'Vendor Name'
-4. Select 'Vendor' from the dropdown
-5. Verify 'Vendor Status' is 'Active'
-6. Verify 'Vendor Contact' is retrieved
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. กรอก 'Vendor Name'
+4. เลือก 'Vendor' จาก dropdown
+5. ตรวจสอบว่า 'Vendor Status' เป็น 'Active'
+6. ตรวจสอบว่า 'Vendor Contact' ถูกดึงมา
 
 **Expected**
 
-Vendor information is successfully retrieved and displayed.
+ข้อมูล vendor ถูกดึงและแสดงสำเร็จ
 
 ---
 
@@ -991,20 +991,20 @@ Vendor information is successfully retrieved and displayed.
 
 **Preconditions**
 
-Vendor Management System is operational; vendor master data is current; integration API or database access available
+Vendor Management System ทำงานปกติ; ข้อมูล vendor master เป็นปัจจุบัน; มี integration API หรือ database access
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Fill 'Vendor Name'
-4. Select 'Vendor' from the dropdown
-5. Verify 'Vendor Status' is 'Inactive'
-6. Verify error message 'Vendor not found'
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. กรอก 'Vendor Name'
+4. เลือก 'Vendor' จาก dropdown
+5. ตรวจสอบว่า 'Vendor Status' เป็น 'Inactive'
+6. ตรวจสอบข้อความแจ้งข้อผิดพลาด 'Vendor not found'
 
 **Expected**
 
-System displays an error message indicating vendor not found.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าไม่พบ vendor
 
 ---
 
@@ -1017,19 +1017,19 @@ System displays an error message indicating vendor not found.
 
 **Preconditions**
 
-Vendor Management System is operational; vendor master data is current; integration API or database access available
+Vendor Management System ทำงานปกติ; ข้อมูล vendor master เป็นปัจจุบัน; มี integration API หรือ database access
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Fill 'Vendor Name' with special characters (e.g., @#)$&)
-4. Select 'Vendor' from the dropdown
-5. Verify 'Vendor Status' is 'Inactive'
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. กรอก 'Vendor Name' ด้วยอักขระพิเศษ (เช่น @#)$&)
+4. เลือก 'Vendor' จาก dropdown
+5. ตรวจสอบว่า 'Vendor Status' เป็น 'Inactive'
 
 **Expected**
 
-System does not allow special characters in vendor name and vendor status remains 'Inactive'.
+ระบบไม่อนุญาตให้ใช้อักขระพิเศษใน vendor name และ vendor status ยังคงเป็น 'Inactive'
 
 ---
 
@@ -1042,19 +1042,19 @@ System does not allow special characters in vendor name and vendor status remain
 
 **Preconditions**
 
-Sequence table is available and initialized
+Sequence table มีอยู่จริงและ initialized แล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Verify current date is displayed
-4. Click 'Generate PO Number'
-5. Verify PO number format is PO-2401-000123
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. ตรวจสอบว่าวันที่ปัจจุบันแสดง
+4. กด 'Generate PO Number'
+5. ตรวจสอบว่า PO number มีรูปแบบ PO-2401-000123
 
 **Expected**
 
-Correct PO number is generated and displayed.
+PO number ที่ถูกต้องถูกสร้างและแสดง
 
 ---
 
@@ -1067,18 +1067,18 @@ Correct PO number is generated and displayed.
 
 **Preconditions**
 
-Sequence table is not available
+Sequence table ไม่พร้อมใช้งาน
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Click 'Generate PO Number'
-4. Verify error message 'Sequence table not initialized'
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. กด 'Generate PO Number'
+4. ตรวจสอบข้อความแจ้งข้อผิดพลาด 'Sequence table not initialized'
 
 **Expected**
 
-Error message is displayed indicating sequence table is not initialized.
+แสดงข้อความแจ้งข้อผิดพลาดว่า sequence table ยังไม่ได้ initialized
 
 ---
 
@@ -1091,20 +1091,20 @@ Error message is displayed indicating sequence table is not initialized.
 
 **Preconditions**
 
-Sequence table is available and initialized
+Sequence table มีอยู่จริงและ initialized แล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Verify PO number format is PO-2401-000123 (January)
-4. Wait for the transition to February
-5. Click 'Generate PO Number'
-6. Verify PO number format is PO-2402-000001 (February)
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. ตรวจสอบว่า PO number มีรูปแบบ PO-2401-000123 (มกราคม)
+4. รอให้เปลี่ยนเป็นเดือนกุมภาพันธ์
+5. กด 'Generate PO Number'
+6. ตรวจสอบว่า PO number มีรูปแบบ PO-2402-000001 (กุมภาพันธ์)
 
 **Expected**
 
-Correct PO number is generated with the new month format.
+PO number ที่ถูกต้องถูกสร้างพร้อมรูปแบบเดือนใหม่
 
 ---
 
@@ -1117,18 +1117,18 @@ Correct PO number is generated with the new month format.
 
 **Preconditions**
 
-User does not have permission to create POs
+ผู้ใช้ไม่มีสิทธิ์สร้าง PO
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Click 'Generate PO Number'
-4. Verify error message 'Insufficient permissions to create purchase order'
+1. ไปที่ /procurement/purchase-request
+2. กด 'New Purchase Request'
+3. กด 'Generate PO Number'
+4. ตรวจสอบข้อความแจ้งข้อผิดพลาด 'Insufficient permissions to create purchase order'
 
 **Expected**
 
-Error message is displayed indicating insufficient permissions.
+แสดงข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ
 
 ---
 
@@ -1141,17 +1141,17 @@ Error message is displayed indicating insufficient permissions.
 
 **Preconditions**
 
-A PO exists with line items having quantity and unit price
+มี PO ที่มีรายการสินค้าพร้อม quantity และ unit price
 
 **Steps**
 
-1. Navigate to /purchase-order
-2. Fill line item quantities and unit prices
-3. Click 'Calculate Totals'
+1. ไปที่ /purchase-order
+2. กรอก quantity และ unit price ของรายการสินค้า
+3. กด 'Calculate Totals'
 
 **Expected**
 
-Subtotal is calculated correctly as sum of (line_item.quantity × line_item.unit_price).
+Subtotal ถูกคำนวณถูกต้องเป็นผลรวมของ (line_item.quantity × line_item.unit_price)
 
 ---
 
@@ -1164,19 +1164,19 @@ Subtotal is calculated correctly as sum of (line_item.quantity × line_item.unit
 
 **Preconditions**
 
-A PO exists with line items; percentage discount is defined
+มี PO ที่มีรายการสินค้า; กำหนด discount แบบเปอร์เซ็นต์แล้ว
 
 **Steps**
 
-1. Navigate to /purchase-order
-2. Click 'Apply Discount'
-3. Select 'Percentage'
-4. Enter discount percentage
-5. Click 'Apply'
+1. ไปที่ /purchase-order
+2. กด 'Apply Discount'
+3. เลือก 'Percentage'
+4. กรอกเปอร์เซ็นต์ discount
+5. กด 'Apply'
 
 **Expected**
 
-Subtotal is recalculated with applied discount percentage.
+Subtotal ถูกคำนวณใหม่พร้อม discount เปอร์เซ็นต์ที่ใช้
 
 ---
 
@@ -1189,19 +1189,19 @@ Subtotal is recalculated with applied discount percentage.
 
 **Preconditions**
 
-A PO exists with line items; fixed amount discount is defined
+มี PO ที่มีรายการสินค้า; กำหนด discount แบบจำนวนเงินคงที่แล้ว
 
 **Steps**
 
-1. Navigate to /purchase-order
-2. Click 'Apply Discount'
-3. Select 'Fixed Amount'
-4. Enter discount amount
-5. Click 'Apply'
+1. ไปที่ /purchase-order
+2. กด 'Apply Discount'
+3. เลือก 'Fixed Amount'
+4. กรอกจำนวน discount
+5. กด 'Apply'
 
 **Expected**
 
-Subtotal is recalculated with applied discount amount.
+Subtotal ถูกคำนวณใหม่พร้อม discount จำนวนเงินที่ใช้
 
 ---
 
@@ -1214,18 +1214,18 @@ Subtotal is recalculated with applied discount amount.
 
 **Preconditions**
 
-A PO exists with line items; no discount is applied
+มี PO ที่มีรายการสินค้า; ยังไม่ได้ใช้ discount
 
 **Steps**
 
-1. Navigate to /purchase-order
-2. Click 'Apply Discount'
-3. No discount type selected
-4. Click 'Apply'
+1. ไปที่ /purchase-order
+2. กด 'Apply Discount'
+3. ไม่เลือกประเภท discount
+4. กด 'Apply'
 
 **Expected**
 
-Subtotal is calculated without any discount applied.
+Subtotal ถูกคำนวณโดยไม่มี discount
 
 ---
 
@@ -1238,17 +1238,17 @@ Subtotal is calculated without any discount applied.
 
 **Preconditions**
 
-A PO exists with at least one line item; negative quantity is entered
+มี PO ที่มีรายการสินค้าอย่างน้อยหนึ่งรายการ; กรอก quantity ติดลบ
 
 **Steps**
 
-1. Navigate to /purchase-order
-2. Enter negative quantity in a line item
-3. Click 'Calculate Totals'
+1. ไปที่ /purchase-order
+2. กรอก quantity ติดลบในรายการสินค้า
+3. กด 'Calculate Totals'
 
 **Expected**
 
-Error message displayed indicating invalid input for quantity.
+แสดงข้อความแจ้งข้อผิดพลาดว่า quantity ที่กรอกไม่ถูกต้อง
 
 ---
 
@@ -1261,19 +1261,19 @@ Error message displayed indicating invalid input for quantity.
 
 **Preconditions**
 
-A PO exists with a grand total and associated budget accounts
+มี PO ที่มียอดรวมและ budget account ที่เกี่ยวข้อง
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Approve' button
-3. System retrieves budget allocation for PO
-4. System queries budget system for each budget account
-5. Verify PO status change to 'Budget Approved'
+1. ไปที่ /procurement/purchase-order
+2. กดปุ่ม 'Approve'
+3. ระบบดึงข้อมูลการจัดสรรงบประมาณสำหรับ PO
+4. ระบบ query ระบบงบประมาณสำหรับแต่ละ budget account
+5. ตรวจสอบว่า PO status เปลี่ยนเป็น 'Budget Approved'
 
 **Expected**
 
-PO status changes to 'Budget Approved' with no error messages.
+PO status เปลี่ยนเป็น 'Budget Approved' โดยไม่มีข้อความแจ้งข้อผิดพลาด
 
 ---
 
@@ -1286,18 +1286,18 @@ PO status changes to 'Budget Approved' with no error messages.
 
 **Preconditions**
 
-A PO exists with a grand total that exceeds the budget allocation
+มี PO ที่มียอดรวมเกินกว่าการจัดสรรงบประมาณ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Modify PO total to exceed budget allocation
-3. Click 'Approve' button
-4. Verify system error message indicating insufficient budget
+1. ไปที่ /procurement/purchase-order
+2. แก้ไขยอดรวม PO ให้เกินการจัดสรรงบประมาณ
+3. กดปุ่ม 'Approve'
+4. ตรวจสอบข้อความแจ้งข้อผิดพลาดของระบบว่างบประมาณไม่เพียงพอ
 
 **Expected**
 
-System displays an error message stating the PO cannot be approved due to insufficient budget.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าไม่สามารถ approve PO ได้เนื่องจากงบประมาณไม่เพียงพอ
 
 ---
 
@@ -1310,17 +1310,17 @@ System displays an error message stating the PO cannot be approved due to insuff
 
 **Preconditions**
 
-A PO exists without any budget accounts specified
+มี PO ที่ไม่ได้ระบุ budget account ใดๆ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Approve the purchase order
-3. Verify system prompts for budget account specification
+1. ไปที่ /procurement/purchase-order
+2. approve purchase order
+3. ตรวจสอบว่าระบบแจ้งให้ระบุ budget account
 
 **Expected**
 
-System prompts the user to specify budget accounts before the PO can be approved.
+ระบบแจ้งให้ผู้ใช้ระบุ budget account ก่อนที่จะ approve PO ได้
 
 ---
 
@@ -1333,18 +1333,18 @@ System prompts the user to specify budget accounts before the PO can be approved
 
 **Preconditions**
 
-A PO exists in Sent or Acknowledged status; a GRN is created referencing PO line items with approved status
+มี PO ใน status Sent หรือ Acknowledged; มี GRN ที่อ้างอิง PO line item ที่มี status approved
 
 **Steps**
 
-1. Navigate to /inventory/grn
-2. Click 'Create New GRN'
-3. Fill in the GRN details and select referenced PO line items
-4. Click 'Save and Approve'
+1. ไปที่ /inventory/grn
+2. กด 'Create New GRN'
+3. กรอกรายละเอียด GRN และเลือก PO line item ที่อ้างอิง
+4. กด 'Save and Approve'
 
 **Expected**
 
-The PO status is updated to Received in the purchase order details.
+PO status ถูกอัปเดตเป็น Received ในรายละเอียด purchase order
 
 ---
 
@@ -1357,18 +1357,18 @@ The PO status is updated to Received in the purchase order details.
 
 **Preconditions**
 
-A PO exists in Sent or Acknowledged status but the GRN does not reference any PO line items
+มี PO ใน status Sent หรือ Acknowledged แต่ GRN ไม่ได้อ้างอิง PO line item ใดๆ
 
 **Steps**
 
-1. Navigate to /inventory/grn
-2. Click 'Create New GRN'
-3. Fill in the GRN details without selecting any PO line items
-4. Attempt to Save and Approve
+1. ไปที่ /inventory/grn
+2. กด 'Create New GRN'
+3. กรอกรายละเอียด GRN โดยไม่เลือก PO line item ใดๆ
+4. พยายาม Save and Approve
 
 **Expected**
 
-The system prevents saving and approving the GRN and displays an error message.
+ระบบป้องกันการบันทึกและ approve GRN และแสดงข้อความแจ้งข้อผิดพลาด
 
 ---
 
@@ -1381,17 +1381,17 @@ The system prevents saving and approving the GRN and displays an error message.
 
 **Preconditions**
 
-Multiple GRNs are created for the same PO line item with varying quantities
+มี GRN หลายรายการที่สร้างสำหรับ PO line item เดียวกันพร้อม quantity ที่แตกต่างกัน
 
 **Steps**
 
-1. Navigate to /inventory/grn
-2. Click 'View GRN Details'
-3. Verify the total received quantity matches the PO line item quantity
+1. ไปที่ /inventory/grn
+2. กด 'View GRN Details'
+3. ตรวจสอบว่า quantity ที่รับรวมตรงกับ quantity ของ PO line item
 
 **Expected**
 
-The total received quantity is accurately calculated and displayed.
+quantity ที่รับรวมถูกคำนวณและแสดงอย่างถูกต้อง
 
 ---
 
@@ -1404,17 +1404,17 @@ The total received quantity is accurately calculated and displayed.
 
 **Preconditions**
 
-Today is 2023-10-01; POs with statuses 'Sent' or 'Acknowledged' and expected delivery dates within 3 days from today exist
+วันนี้คือ 2023-10-01; มี PO ที่มี status 'Sent' หรือ 'Acknowledged' และวันที่จัดส่งที่คาดไว้ภายใน 3 วันจากวันนี้
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Run Scheduled Job'
-3. Verify email notifications are sent for valid purchase orders
+1. ไปที่ /procurement/purchase-order
+2. กด 'Run Scheduled Job'
+3. ตรวจสอบว่าส่ง email notification สำหรับ purchase order ที่ถูกต้อง
 
 **Expected**
 
-Email reminders are sent for POs with statuses 'Sent' or 'Acknowledged' and expected delivery dates within 3 days from today, but no reminders are sent for POs with GR already.
+ส่ง email reminder สำหรับ PO ที่มี status 'Sent' หรือ 'Acknowledged' และวันที่จัดส่งที่คาดไว้ภายใน 3 วันจากวันนี้ แต่ไม่ส่ง reminder สำหรับ PO ที่มี GR แล้ว
 
 ---
 
@@ -1427,18 +1427,18 @@ Email reminders are sent for POs with statuses 'Sent' or 'Acknowledged' and expe
 
 **Preconditions**
 
-Today is 2023-10-01; scheduled job is set to run daily at 6:00 AM but server time is 2023-10-02 06:00 AM
+วันนี้คือ 2023-10-01; scheduled job ตั้งค่าให้ทำงานทุกวันเวลา 6:00 AM แต่เวลาเซิร์ฟเวอร์คือ 2023-10-02 06:00 AM
 
 **Steps**
 
-1. Navigate to /admin/system-settings
-2. Verify scheduled job status
-3. Click 'Run Now'
-4. Verify error message
+1. ไปที่ /admin/system-settings
+2. ตรวจสอบ status ของ scheduled job
+3. กด 'Run Now'
+4. ตรวจสอบข้อความแจ้งข้อผิดพลาด
 
 **Expected**
 
-Error message is displayed indicating the scheduled job failed to run due to invalid input date.
+แสดงข้อความแจ้งข้อผิดพลาดว่า scheduled job ทำงานล้มเหลวเนื่องจากวันที่ input ไม่ถูกต้อง
 
 ---
 
@@ -1451,17 +1451,17 @@ Error message is displayed indicating the scheduled job failed to run due to inv
 
 **Preconditions**
 
-Today is 2023-10-01; no POs exist with statuses 'Sent' or 'Acknowledged' and expected delivery dates within 3 days from today
+วันนี้คือ 2023-10-01; ไม่มี PO ที่มี status 'Sent' หรือ 'Acknowledged' และวันที่จัดส่งที่คาดไว้ภายใน 3 วันจากวันนี้
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Run Scheduled Job'
-3. Verify no email notifications are sent
+1. ไปที่ /procurement/purchase-order
+2. กด 'Run Scheduled Job'
+3. ตรวจสอบว่าไม่มีการส่ง email notification
 
 **Expected**
 
-No email reminders are sent for purchase orders as none meet the criteria.
+ไม่มีการส่ง email reminder สำหรับ purchase order เนื่องจากไม่มีรายการที่ตรงตามเกณฑ์
 
 ---
 
@@ -1474,17 +1474,17 @@ No email reminders are sent for purchase orders as none meet the criteria.
 
 **Preconditions**
 
-Today is 2023-10-01; POs exist matching reminder criteria but email system is down
+วันนี้คือ 2023-10-01; มี PO ที่ตรงตามเกณฑ์การเตือน แต่ระบบ email ล่ม
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Run Scheduled Job'
-3. Verify email notifications are not sent
+1. ไปที่ /procurement/purchase-order
+2. กด 'Run Scheduled Job'
+3. ตรวจสอบว่าไม่มีการส่ง email notification
 
 **Expected**
 
-Email reminders are not sent for purchase orders due to the non-operational email system.
+ไม่มีการส่ง email reminder สำหรับ purchase order เนื่องจากระบบ email ไม่ทำงาน
 
 ---
 
@@ -1497,19 +1497,19 @@ Email reminders are not sent for purchase orders due to the non-operational emai
 
 **Preconditions**
 
-Today is 2023-10-01; POs match reminder criteria but some have GR already
+วันนี้คือ 2023-10-01; มี PO ที่ตรงตามเกณฑ์การเตือน แต่บางรายการมี GR แล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Run Scheduled Job'
-3. Verify email notifications are sent for only valid POs
+1. ไปที่ /procurement/purchase-order
+2. กด 'Run Scheduled Job'
+3. ตรวจสอบว่าส่ง email notification เฉพาะ PO ที่ถูกต้องเท่านั้น
 
 **Expected**
 
-Email reminders are sent only for POs without existing GR.
+ส่ง email reminder เฉพาะ PO ที่ยังไม่มี GR เท่านั้น
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

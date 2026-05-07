@@ -25,9 +25,9 @@ hodTest.describe("Step 1 — My Approval Dashboard", () => {
     "TC-PR-060101 Dashboard loads with Total Pending count visible",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as HOD (hod@blueledgers.com)" },
-        { type: "steps", description: "1. Navigate to My Approvals\n2. Verify pending count badge is visible" },
-        { type: "expected", description: "My Approvals dashboard loads; pending count badge is visible." },
+        { type: "preconditions", description: "Login เป็น HOD (hod@blueledgers.com)" },
+        { type: "steps", description: "1. ไปที่ My Approvals\n2. ตรวจสอบว่า badge จำนวน pending แสดงผล" },
+        { type: "expected", description: "My Approvals dashboard โหลด; badge จำนวน pending แสดงผล" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -43,9 +43,9 @@ hodTest.describe("Step 1 — My Approval Dashboard", () => {
     "TC-PR-060102 Click pending PR row navigates to PR detail",
     {
       annotation: [
-        { type: "preconditions", description: "On My Approvals dashboard with at least one pending PR row" },
-        { type: "steps", description: "1. Click first pending PR row" },
-        { type: "expected", description: "URL navigates to /procurement/purchase-request/<ref>." },
+        { type: "preconditions", description: "อยู่ใน My Approvals dashboard และมีแถว PR ที่ pending อย่างน้อยหนึ่งแถว" },
+        { type: "steps", description: "1. คลิกแถว PR ที่ pending แรก" },
+        { type: "expected", description: "URL นำทางไปยัง /procurement/purchase-request/<ref>" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -68,9 +68,9 @@ hodTest.describe("Step 1 — My Approval Dashboard", () => {
     "TC-PR-060103 Pending count matches actual list row count",
     {
       annotation: [
-        { type: "preconditions", description: "On My Approvals dashboard" },
-        { type: "steps", description: "1. Read pending badge value\n2. Count visible PR rows" },
-        { type: "expected", description: "Badge value equals the visible row count (or both are zero)." },
+        { type: "preconditions", description: "อยู่ใน My Approvals dashboard" },
+        { type: "steps", description: "1. อ่านค่า badge pending\n2. นับแถว PR ที่แสดงผล" },
+        { type: "expected", description: "ค่า badge เท่ากับจำนวนแถวที่แสดงผล (หรือทั้งคู่เป็นศูนย์)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -91,9 +91,9 @@ hodTest.describe("Step 1 — My Approval Dashboard", () => {
     "TC-PR-060104 Filter tabs render and filter when present",
     {
       annotation: [
-        { type: "preconditions", description: "On My Approvals dashboard" },
-        { type: "steps", description: "1. Look for category filter tabs (PO/PR/SR)\n2. Click PR tab if present" },
-        { type: "expected", description: "PR tab becomes selected (skipped if dashboard has no tabs)." },
+        { type: "preconditions", description: "อยู่ใน My Approvals dashboard" },
+        { type: "steps", description: "1. หา category filter tabs (PO/PR/SR)\n2. คลิก tab PR ถ้ามี" },
+        { type: "expected", description: "tab PR ถูกเลือก (ข้ามหาก dashboard ไม่มี tabs)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -117,9 +117,9 @@ hodTest.describe("Step 2 — PR List (Approver View)", () => {
     "TC-PR-060201 My Pending tab shows PRs at HOD stage",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as HOD; navigated to PR list" },
-        { type: "steps", description: "1. Navigate to /procurement/purchase-request\n2. Verify My Pending tab is selected" },
-        { type: "expected", description: "URL is on PR list and the My Pending tab is selected when present." },
+        { type: "preconditions", description: "Login เป็น HOD; นำทางไปที่ PR list แล้ว" },
+        { type: "steps", description: "1. ไปที่ /procurement/purchase-request\n2. ตรวจสอบว่า My Pending tab ถูกเลือก" },
+        { type: "expected", description: "URL อยู่ที่ PR list และ My Pending tab ถูกเลือกเมื่อมี" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -138,9 +138,9 @@ hodTest.describe("Step 2 — PR List (Approver View)", () => {
     "TC-PR-060202 All Documents tab broadens scope",
     {
       annotation: [
-        { type: "preconditions", description: "On the PR list page" },
-        { type: "steps", description: "1. Click All Documents tab" },
-        { type: "expected", description: "All Documents tab becomes selected." },
+        { type: "preconditions", description: "อยู่ที่หน้า PR list" },
+        { type: "steps", description: "1. คลิก tab All Documents" },
+        { type: "expected", description: "tab All Documents ถูกเลือก" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -162,9 +162,9 @@ hodTest.describe("Step 2 — PR List (Approver View)", () => {
     "TC-PR-060203 All Stage dropdown filters by status",
     {
       annotation: [
-        { type: "preconditions", description: "On the PR list page" },
-        { type: "steps", description: "1. Open All Stage dropdown\n2. Select In Progress" },
-        { type: "expected", description: "URL stays on PR list (filter applied or no-op when dropdown absent)." },
+        { type: "preconditions", description: "อยู่ที่หน้า PR list" },
+        { type: "steps", description: "1. เปิด dropdown All Stage\n2. เลือก In Progress" },
+        { type: "expected", description: "URL ยังคงอยู่ที่ PR list (filter ถูก apply หรือไม่ทำงานเมื่อไม่มี dropdown)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -188,9 +188,9 @@ hodTest.describe("Step 2 — PR List (Approver View)", () => {
     "TC-PR-060204 Filter panel opens and applies",
     {
       annotation: [
-        { type: "preconditions", description: "On the PR list page" },
-        { type: "steps", description: "1. Open Filter panel\n2. Select status\n3. Apply" },
-        { type: "expected", description: "URL stays on PR list after applying the filter." },
+        { type: "preconditions", description: "อยู่ที่หน้า PR list" },
+        { type: "steps", description: "1. เปิดแผง Filter\n2. เลือก status\n3. Apply" },
+        { type: "expected", description: "URL ยังคงอยู่ที่ PR list หลัง apply filter" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -212,9 +212,9 @@ hodTest.describe("Step 2 — PR List (Approver View)", () => {
     "TC-PR-060205 Search by PR reference filters list",
     {
       annotation: [
-        { type: "preconditions", description: "On the PR list page; at least one PR exists with a known reference" },
-        { type: "steps", description: "1. Type partial reference in search\n2. Wait for results" },
-        { type: "expected", description: "URL stays on PR list after typing in the search input." },
+        { type: "preconditions", description: "อยู่ที่หน้า PR list; มี PR อย่างน้อยหนึ่งรายการที่มีเลขอ้างอิงที่รู้จัก" },
+        { type: "steps", description: "1. พิมพ์เลขอ้างอิงบางส่วนในช่องค้นหา\n2. รอผลลัพธ์" },
+        { type: "expected", description: "URL ยังคงอยู่ที่ PR list หลังพิมพ์ในช่องค้นหา" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Functional" },
       ],
@@ -238,9 +238,9 @@ hodTest.describe("Step 3 — PR Detail (Read-only)", () => {
     "TC-PR-060301 Detail loads with Items tab default",
     {
       annotation: [
-        { type: "preconditions", description: "A pending PR (In Progress, HOD stage) exists; created via submitPRAsRequestor" },
-        { type: "steps", description: "1. Open the PR detail page\n2. Verify Items tab is the default" },
-        { type: "expected", description: "URL is the detail URL; Items tab is selected when present." },
+        { type: "preconditions", description: "มี PR ที่ pending (In Progress, HOD stage) อยู่; สร้างผ่าน submitPRAsRequestor" },
+        { type: "steps", description: "1. เปิดหน้ารายละเอียด PR\n2. ตรวจสอบว่า Items tab เป็นค่าเริ่มต้น" },
+        { type: "expected", description: "URL เป็น detail URL; Items tab ถูกเลือกเมื่อมี" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -260,9 +260,9 @@ hodTest.describe("Step 3 — PR Detail (Read-only)", () => {
     "TC-PR-060302 Switch to Workflow History tab",
     {
       annotation: [
-        { type: "preconditions", description: "On a pending PR detail page" },
-        { type: "steps", description: "1. Click Workflow History tab" },
-        { type: "expected", description: "Workflow History tab becomes selected." },
+        { type: "preconditions", description: "อยู่ที่หน้ารายละเอียด PR ที่ pending" },
+        { type: "steps", description: "1. คลิก tab Workflow History" },
+        { type: "expected", description: "tab Workflow History ถูกเลือก" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -285,9 +285,9 @@ hodTest.describe("Step 3 — PR Detail (Read-only)", () => {
     "TC-PR-060303 No standalone Approve/Reject/Return buttons (BRD discrepancy)",
     {
       annotation: [
-        { type: "preconditions", description: "On a pending PR detail page (read-only view)" },
-        { type: "steps", description: "1. Inspect detail page header / action toolbar" },
-        { type: "expected", description: "Standalone Approve, Reject, and Send for Review buttons are NOT visible at the page header (per BRD discrepancy — actions live in Edit Mode bulk toolbar)." },
+        { type: "preconditions", description: "อยู่ที่หน้ารายละเอียด PR ที่ pending (โหมด read-only)" },
+        { type: "steps", description: "1. ตรวจสอบ header หน้ารายละเอียด / action toolbar" },
+        { type: "expected", description: "ปุ่ม Approve, Reject และ Send for Review แบบ standalone ไม่แสดงที่ header หน้า (ตาม BRD discrepancy — actions อยู่ใน Edit Mode bulk toolbar)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Authorization" },
       ],
@@ -311,9 +311,9 @@ hodTest.describe("Step 3 — PR Detail (Read-only)", () => {
     "TC-PR-060304 Edit button visible (entry to bulk actions)",
     {
       annotation: [
-        { type: "preconditions", description: "On a pending PR detail page" },
-        { type: "steps", description: "1. Inspect the action toolbar" },
-        { type: "expected", description: "Edit button is visible (HOD can enter Edit Mode for bulk actions)." },
+        { type: "preconditions", description: "อยู่ที่หน้ารายละเอียด PR ที่ pending" },
+        { type: "steps", description: "1. ตรวจสอบ action toolbar" },
+        { type: "expected", description: "ปุ่ม Edit แสดงผล (HOD สามารถเข้าโหมด Edit Mode สำหรับ bulk actions)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Functional" },
       ],
@@ -332,9 +332,9 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
     "TC-PR-060401 Click Edit → edit mode active",
     {
       annotation: [
-        { type: "preconditions", description: "A pending PR detail page is open" },
-        { type: "steps", description: "1. Click Edit\n2. Verify Save/Cancel form-level buttons appear" },
-        { type: "expected", description: "Save Draft (or Cancel) form-level button is visible." },
+        { type: "preconditions", description: "หน้ารายละเอียด PR ที่ pending เปิดอยู่" },
+        { type: "steps", description: "1. คลิก Edit\n2. ตรวจสอบว่าปุ่ม Save/Cancel ระดับฟอร์มปรากฏ" },
+        { type: "expected", description: "ปุ่ม Save Draft (หรือ Cancel) ระดับฟอร์มแสดงผล" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -357,9 +357,9 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
     "TC-PR-060402 Approved Quantity field is editable",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
-        { type: "steps", description: "1. Enter edit mode\n2. Locate Approved Qty input on first row\n3. Verify it is editable" },
-        { type: "expected", description: "Approved Qty input is visible and accepts a value." },
+        { type: "preconditions", description: "โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. หาช่อง Approved Qty ในแถวแรก\n3. ตรวจสอบว่าแก้ไขได้" },
+        { type: "expected", description: "ช่อง Approved Qty แสดงผลและรับค่าได้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -388,9 +388,9 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
     "TC-PR-060403 Item Note field is editable",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
-        { type: "steps", description: "1. Enter edit mode\n2. Locate Item Note input\n3. Type a note" },
-        { type: "expected", description: "Item Note input accepts the typed value." },
+        { type: "preconditions", description: "โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. หาช่อง Item Note\n3. พิมพ์ note" },
+        { type: "expected", description: "ช่อง Item Note รับค่าที่พิมพ์" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -418,9 +418,9 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
     "TC-PR-060404 Delivery Point field is editable",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
-        { type: "steps", description: "1. Enter edit mode\n2. Locate Delivery Point input\n3. Verify editable" },
-        { type: "expected", description: "Delivery Point input is editable." },
+        { type: "preconditions", description: "โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. หาช่อง Delivery Point\n3. ตรวจสอบว่าแก้ไขได้" },
+        { type: "expected", description: "ช่อง Delivery Point แก้ไขได้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -447,9 +447,9 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
     "TC-PR-060405 Vendor field is read-only",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
-        { type: "steps", description: "1. Enter edit mode\n2. Locate Vendor cell on first row" },
-        { type: "expected", description: "Vendor cell is disabled or non-editable per FR-PR-011A." },
+        { type: "preconditions", description: "โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. หาเซลล์ Vendor ในแถวแรก" },
+        { type: "expected", description: "เซลล์ Vendor ถูก disabled หรือแก้ไขไม่ได้ตาม FR-PR-011A" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Authorization" },
       ],
@@ -480,9 +480,9 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
     "TC-PR-060406 Unit Price field is read-only",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
-        { type: "steps", description: "1. Enter edit mode\n2. Locate Unit Price cell on first row" },
-        { type: "expected", description: "Unit Price cell is disabled or non-editable per FR-PR-011A." },
+        { type: "preconditions", description: "โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. หาเซลล์ Unit Price ในแถวแรก" },
+        { type: "expected", description: "เซลล์ Unit Price ถูก disabled หรือแก้ไขไม่ได้ตาม FR-PR-011A" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Authorization" },
       ],
@@ -513,9 +513,9 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
     "TC-PR-060407 Discount / Tax / FOC Qty are read-only",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
-        { type: "steps", description: "1. Enter edit mode\n2. Locate Discount, Tax, FOC Qty cells" },
-        { type: "expected", description: "All three cells are disabled or non-editable per FR-PR-011A / FR-PR-024." },
+        { type: "preconditions", description: "โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. หาเซลล์ Discount, Tax, FOC Qty" },
+        { type: "expected", description: "เซลล์ทั้งสามถูก disabled หรือแก้ไขไม่ได้ตาม FR-PR-011A / FR-PR-024" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Authorization" },
       ],
@@ -550,9 +550,9 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
     "TC-PR-060408 Bulk Approve via Select All → toolbar",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a pending PR" },
-        { type: "steps", description: "1. Enter edit mode\n2. Select all rows\n3. Click Approve in bulk toolbar\n4. Confirm" },
-        { type: "expected", description: "Status transitions away from In Progress (toast / next-stage / reload state)." },
+        { type: "preconditions", description: "โหมดแก้ไขเปิดใช้งานบน PR ที่ pending" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. เลือกทุกแถว\n3. คลิก Approve ใน bulk toolbar\n4. Confirm" },
+        { type: "expected", description: "สถานะเปลี่ยนออกจาก In Progress (toast / ขั้นตอนถัดไป / reload state)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -582,9 +582,9 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
     "TC-PR-060409 Bulk Reject via toolbar (with reason)",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a pending PR" },
-        { type: "steps", description: "1. Enter edit mode\n2. Select all rows\n3. Click Reject\n4. Enter reason\n5. Confirm" },
-        { type: "expected", description: "URL stays on the PR ref after rejection (status badge updates)." },
+        { type: "preconditions", description: "โหมดแก้ไขเปิดใช้งานบน PR ที่ pending" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. เลือกทุกแถว\n3. คลิก Reject\n4. กรอกเหตุผล\n5. Confirm" },
+        { type: "expected", description: "URL ยังคงอยู่ที่ ref ของ PR หลัง reject (badge สถานะอัปเดต)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -612,9 +612,9 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
     "TC-PR-060410 Bulk Send for Review via toolbar",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a pending PR" },
-        { type: "steps", description: "1. Enter edit mode\n2. Select all rows\n3. Click Send for Review\n4. Enter reason + stage\n5. Confirm" },
-        { type: "expected", description: "URL stays on the PR ref after send for review." },
+        { type: "preconditions", description: "โหมดแก้ไขเปิดใช้งานบน PR ที่ pending" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. เลือกทุกแถว\n3. คลิก Send for Review\n4. กรอกเหตุผล + stage\n5. Confirm" },
+        { type: "expected", description: "URL ยังคงอยู่ที่ ref ของ PR หลัง send for review" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -642,9 +642,9 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
     "TC-PR-060411 Bulk Split via toolbar",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a pending PR" },
-        { type: "steps", description: "1. Enter edit mode\n2. Select all rows\n3. Click Split" },
-        { type: "expected", description: "Split UI appears (dialog or inline) — verified by URL stays on detail." },
+        { type: "preconditions", description: "โหมดแก้ไขเปิดใช้งานบน PR ที่ pending" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. เลือกทุกแถว\n3. คลิก Split" },
+        { type: "expected", description: "UI ของ Split ปรากฏ (dialog หรือ inline) — ยืนยันโดย URL ยังคงอยู่ที่หน้ารายละเอียด" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Functional" },
       ],
@@ -673,9 +673,9 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
     "TC-PR-060412 Cancel edit → discard changes",
     {
       annotation: [
-        { type: "preconditions", description: "Edit mode active on a pending PR with at least one item" },
-        { type: "steps", description: "1. Enter edit mode\n2. Type into Approved Qty\n3. Click Cancel" },
-        { type: "expected", description: "Form returns to view mode (Edit button visible again)." },
+        { type: "preconditions", description: "โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ" },
+        { type: "steps", description: "1. เข้าโหมดแก้ไข\n2. พิมพ์ใน Approved Qty\n3. คลิก Cancel" },
+        { type: "expected", description: "ฟอร์มกลับสู่โหมดดู (ปุ่ม Edit แสดงผลอีกครั้ง)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -702,9 +702,9 @@ fcTest.describe("Scope Contrast (FC)", () => {
     "TC-PR-060501 FC sees PRs from multiple departments",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as FC (fc@blueledgers.com); pending PRs exist in DB across multiple departments" },
-        { type: "steps", description: "1. Navigate to PR list as FC\n2. Open All Documents tab\n3. Read department column values from rows" },
-        { type: "expected", description: "At least 2 distinct department values appear in the list (skipped if DB lacks cross-dept PRs)." },
+        { type: "preconditions", description: "Login เป็น FC (fc@blueledgers.com); มี PR ที่ pending ในฐานข้อมูลจากหลายแผนก" },
+        { type: "steps", description: "1. ไปที่ PR list ในฐานะ FC\n2. เปิด tab All Documents\n3. อ่านค่าคอลัมน์ department จากแถว" },
+        { type: "expected", description: "มีค่า department อย่างน้อย 2 ค่าที่แตกต่างกันปรากฏใน list (ข้ามหากฐานข้อมูลไม่มี PR ข้ามแผนก)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Authorization" },
       ],
@@ -745,9 +745,9 @@ hodTest.describe.serial("Golden Journey", () => {
     "TC-PR-060901 HOD full flow: My Approval → List → Detail → Edit → Adjust Qty → Bulk Approve",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as HOD; a fresh pending PR is seeded via submitPRAsRequestor" },
-        { type: "steps", description: "1. Open My Approvals\n2. Open PR detail\n3. Click Edit\n4. Adjust Approved Qty on first row\n5. Select all + Bulk Approve + Confirm" },
-        { type: "expected", description: "URL stays on the PR ref after bulk approve; the journey completes end-to-end." },
+        { type: "preconditions", description: "Login เป็น HOD; มี PR ที่ pending ใหม่ seeded ผ่าน submitPRAsRequestor" },
+        { type: "steps", description: "1. เปิด My Approvals\n2. เปิดหน้ารายละเอียด PR\n3. คลิก Edit\n4. ปรับ Approved Qty ในแถวแรก\n5. เลือกทั้งหมด + Bulk Approve + Confirm" },
+        { type: "expected", description: "URL ยังคงอยู่ที่ ref ของ PR หลัง bulk approve; journey เสร็จสมบูรณ์แบบ end-to-end" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],

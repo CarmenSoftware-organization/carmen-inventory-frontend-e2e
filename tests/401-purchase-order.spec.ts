@@ -29,13 +29,13 @@ purchaseTest.describe("PO — Create from PR", () => {
     "TC-PO-010001 Happy Path - Create PO from Approved PR",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated as Purchasing Staff/Manager; has permission to create POs; one or more approved PRs exist; budget is available" },
+        { type: "preconditions", description: "Login เป็น Purchasing Staff/Manager; ผู้ใช้มีสิทธิ์สร้าง PO; มี PR ที่ approved อย่างน้อยหนึ่งรายการ; งบประมาณมีเพียงพอ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'New PO' dropdown button\n3. Select 'Create from Purchase Requests'\n4. Choose an approved PR\n5. Fill in PO details\n6. Click 'Save PO'",
+            "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม dropdown 'New PO'\n3. เลือก 'Create from Purchase Requests'\n4. เลือก PR ที่ approved\n5. กรอกรายละเอียด PO\n6. กด 'Save PO'",
         },
-        { type: "expected", description: "Purchase Order is created successfully and linked to the selected Purchase Request." },
+        { type: "expected", description: "Purchase Order ถูกสร้างสำเร็จและเชื่อมโยงกับ Purchase Request ที่เลือก" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -65,13 +65,13 @@ purchaseTest.describe("PO — Create from PR", () => {
     "TC-PO-010003 Edge Case - No Approved PRs Exist",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated and has permission to create POs, but no approved PRs exist" },
+        { type: "preconditions", description: "Login เป็นผู้ใช้ที่มีสิทธิ์สร้าง PO แต่ไม่มี PR ที่ approved อยู่ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'New PO' dropdown button\n3. Select 'Create from Purchase Requests'",
+            "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม dropdown 'New PO'\n3. เลือก 'Create from Purchase Requests'",
         },
-        { type: "expected", description: "System displays a message indicating no available PRs to create a PO from." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งว่าไม่มี PR ที่พร้อมใช้งานสำหรับการสร้าง PO" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -94,13 +94,13 @@ purchaseTest.describe("PO — Create from PR", () => {
     "TC-PO-010004 Negative - Invalid Vendor Assignment",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to create POs; PRs exist but vendors are not assigned" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง PO; มี PR อยู่ในระบบแต่ยังไม่ได้กำหนด vendor" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'New PO' dropdown button\n3. Select 'Create from Purchase Requests'\n4. Attempt to choose an unassigned PR",
+            "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม dropdown 'New PO'\n3. เลือก 'Create from Purchase Requests'\n4. พยายามเลือก PR ที่ยังไม่ได้กำหนด vendor",
         },
-        { type: "expected", description: "System displays an error message indicating that the selected PR does not have a vendor assigned." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดว่า PR ที่เลือกยังไม่ได้กำหนด vendor" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -126,12 +126,12 @@ requestorTest.describe("PO — Create from PR — Permission denial", () => {
     "TC-PO-010002 Negative - No Permission to Create PO",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated but does not have permission to create POs" },
+        { type: "preconditions", description: "Login เป็นผู้ใช้ที่ไม่มีสิทธิ์สร้าง PO" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/purchase-order\n2. Click 'New PO' dropdown button\n3. Select 'Create from Purchase Requests'",
+          description: "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม dropdown 'New PO'\n3. เลือก 'Create from Purchase Requests'",
         },
-        { type: "expected", description: "System displays an error message indicating insufficient permissions." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -158,13 +158,13 @@ purchaseTest.describe("PO — Create manual", () => {
     "TC-PO-020001 Create a Purchase Order with Valid Data",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to create POs and POs without PR; vendor exists in system" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง PO และ PO แบบไม่มี PR; vendor มีอยู่ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Create Purchase Order' then 'Manual PO' button\n3. Select vendor from dropdown\n4. Fill in purchase order details\n5. Click 'Submit'",
+            "1. ไปที่ /procurement/purchase-order\n2. กด 'Create Purchase Order' แล้วกดปุ่ม 'Manual PO'\n3. เลือก vendor จาก dropdown\n4. กรอกรายละเอียด purchase order\n5. กด 'Submit'",
         },
-        { type: "expected", description: "Purchase order is created successfully and displayed in the list." },
+        { type: "expected", description: "Purchase order ถูกสร้างสำเร็จและแสดงในรายการ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -184,13 +184,13 @@ purchaseTest.describe("PO — Create manual", () => {
     "TC-PO-020003 Select a Non-Existent Vendor",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to create POs; vendor does not exist in the system" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง PO; vendor ไม่มีอยู่ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Create Purchase Order' then 'Manual PO' button\n3. Select a non-existent vendor from the dropdown",
+            "1. ไปที่ /procurement/purchase-order\n2. กด 'Create Purchase Order' แล้วกดปุ่ม 'Manual PO'\n3. เลือก vendor ที่ไม่มีอยู่จาก dropdown",
         },
-        { type: "expected", description: "System displays an error message indicating the selected vendor does not exist." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดว่า vendor ที่เลือกไม่มีอยู่ในระบบ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -212,13 +212,13 @@ purchaseTest.describe("PO — Create manual", () => {
     "TC-PO-020004 Leave Required Fields Blank",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to create POs" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง PO" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Create Purchase Order' then 'Manual PO' button\n3. Select a vendor from the dropdown\n4. Leave required fields blank\n5. Click 'Submit'",
+            "1. ไปที่ /procurement/purchase-order\n2. กด 'Create Purchase Order' แล้วกดปุ่ม 'Manual PO'\n3. เลือก vendor จาก dropdown\n4. ปล่อย field ที่จำเป็นว่างเปล่า\n5. กด 'Submit'",
         },
-        { type: "expected", description: "System displays an error message indicating required fields are not filled." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดว่า field ที่จำเป็นยังไม่ได้กรอก" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -238,13 +238,13 @@ purchaseTest.describe("PO — Create manual", () => {
     "TC-PO-020005 Create PO with Maximum Number of Items",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to create POs; system has a maximum limit for PO items" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์สร้าง PO; ระบบมีจำนวนสูงสุดของรายการใน PO" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Create Purchase Order' then 'Manual PO' button\n3. Select a vendor from the dropdown\n4. Fill in the maximum number of items allowed\n5. Click 'Submit'",
+            "1. ไปที่ /procurement/purchase-order\n2. กด 'Create Purchase Order' แล้วกดปุ่ม 'Manual PO'\n3. เลือก vendor จาก dropdown\n4. กรอกจำนวนรายการสูงสุดที่อนุญาต\n5. กด 'Submit'",
         },
-        { type: "expected", description: "Purchase order is created successfully with the maximum number of items." },
+        { type: "expected", description: "Purchase order ถูกสร้างสำเร็จพร้อมจำนวนรายการสูงสุด" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -265,13 +265,13 @@ requestorTest.describe("PO — Create manual — Permission denial", () => {
     "TC-PO-020002 Attempt to Create PO without Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated but does not have permission to create POs" },
+        { type: "preconditions", description: "Login เป็นผู้ใช้ที่ไม่มีสิทธิ์สร้าง PO" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Create Purchase Order' then 'Manual PO' button",
+            "1. ไปที่ /procurement/purchase-order\n2. กด 'Create Purchase Order' แล้วกดปุ่ม 'Manual PO'",
         },
-        { type: "expected", description: "System displays an error message indicating insufficient permissions." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -298,13 +298,13 @@ purchaseTest.describe("PO — Send to Vendor", () => {
     "TC-PO-030001 Happy Path - Send Purchase Order to Vendor",
     {
       annotation: [
-        { type: "preconditions", description: "User authorized; PO is in draft status; pre-send validations pass; vendor email is on file; budget is available" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์; PO อยู่ใน status draft; การตรวจสอบก่อนส่งผ่าน; มี email ของ vendor ในระบบ; งบประมาณมีเพียงพอ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click on the 'Send to Vendor' button\n3. Verify the system performs pre-send validation\n4. Click 'Send'",
+            "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม 'Send to Vendor'\n3. ตรวจสอบว่าระบบดำเนินการตรวจสอบก่อนส่ง\n4. กด 'Send'",
         },
-        { type: "expected", description: "Purchase order is sent to the vendor and status is updated to 'Sent'." },
+        { type: "expected", description: "Purchase order ถูกส่งให้ vendor และ status ถูกอัปเดตเป็น 'Sent'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -328,13 +328,13 @@ purchaseTest.describe("PO — Send to Vendor", () => {
     "TC-PO-030002 Negative - Missing Vendor Email",
     {
       annotation: [
-        { type: "preconditions", description: "PO is in draft status; pre-send validations pass; no vendor email on file" },
+        { type: "preconditions", description: "PO อยู่ใน status draft; การตรวจสอบก่อนส่งผ่าน; ไม่มี email ของ vendor ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click on the 'Send to Vendor' button\n3. Verify the system prompts the user to add a vendor email",
+            "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม 'Send to Vendor'\n3. ตรวจสอบว่าระบบแจ้งให้ผู้ใช้เพิ่ม email ของ vendor",
         },
-        { type: "expected", description: "System prevents sending the purchase order and displays an error message." },
+        { type: "expected", description: "ระบบป้องกันการส่ง purchase order และแสดงข้อความแจ้งข้อผิดพลาด" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -354,13 +354,13 @@ purchaseTest.describe("PO — Send to Vendor", () => {
     "TC-PO-030003 Negative - Insufficient Budget",
     {
       annotation: [
-        { type: "preconditions", description: "PO is in draft status; pre-send validations pass; vendor email is on file; budget is insufficient" },
+        { type: "preconditions", description: "PO อยู่ใน status draft; การตรวจสอบก่อนส่งผ่าน; มี email ของ vendor ในระบบ; งบประมาณไม่เพียงพอ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click on the 'Send to Vendor' button\n3. Verify the system prompts the user about insufficient budget",
+            "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม 'Send to Vendor'\n3. ตรวจสอบว่าระบบแจ้งผู้ใช้เรื่องงบประมาณไม่เพียงพอ",
         },
-        { type: "expected", description: "System prevents sending the purchase order and displays a warning message." },
+        { type: "expected", description: "ระบบป้องกันการส่ง purchase order และแสดงข้อความเตือน" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -379,13 +379,13 @@ purchaseTest.describe("PO — Send to Vendor", () => {
     "TC-PO-030004 Edge Case - Purchase Order in 'Rejected' Status",
     {
       annotation: [
-        { type: "preconditions", description: "PO is in rejected status; pre-send validations pass; vendor email is on file; budget is available" },
+        { type: "preconditions", description: "PO อยู่ใน status rejected; การตรวจสอบก่อนส่งผ่าน; มี email ของ vendor ในระบบ; งบประมาณมีเพียงพอ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click on a purchase order with status 'Rejected'\n3. Click on the 'Send to Vendor' button\n4. Verify the system prevents sending the purchase order and displays an error message",
+            "1. ไปที่ /procurement/purchase-order\n2. คลิก purchase order ที่มี status 'Rejected'\n3. กดปุ่ม 'Send to Vendor'\n4. ตรวจสอบว่าระบบป้องกันการส่งและแสดงข้อความแจ้งข้อผิดพลาด",
         },
-        { type: "expected", description: "System prevents sending the purchase order and displays an error message." },
+        { type: "expected", description: "ระบบป้องกันการส่ง purchase order และแสดงข้อความแจ้งข้อผิดพลาด" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -418,13 +418,13 @@ purchaseTest.describe("PO — Change Order", () => {
     "TC-PO-040001 Happy Path - Change Order",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to modify POs; a PO exists in Approved status" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์แก้ไข PO; มี PO ใน status Approved อยู่ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Request Change Order' button\n3. Fill in the reason for the change\n4. Edit fields as necessary\n5. Click 'Submit Change Order'",
+            "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม 'Request Change Order'\n3. กรอกเหตุผลในการเปลี่ยนแปลง\n4. แก้ไข field ที่จำเป็น\n5. กด 'Submit Change Order'",
         },
-        { type: "expected", description: "Change order request is submitted successfully, and a notification is displayed confirming the submission." },
+        { type: "expected", description: "คำขอ change order ถูก submit สำเร็จ และแสดงการแจ้งเตือนยืนยันการ submit" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -454,13 +454,13 @@ purchaseTest.describe("PO — Change Order", () => {
     "TC-PO-040003 Negative - Invalid Input",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission; PO in Approved status" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์; PO อยู่ใน status Approved" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Request Change Order' button\n3. Fill in fields with invalid data (e.g., negative quantity, future delivery date)\n4. Click 'Submit Change Order'",
+            "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม 'Request Change Order'\n3. กรอก field ด้วยข้อมูลที่ไม่ถูกต้อง (เช่น quantity ติดลบ, วันที่จัดส่งในอนาคต)\n4. กด 'Submit Change Order'",
         },
-        { type: "expected", description: "System displays validation errors for the invalid fields, preventing submission of the change order request." },
+        { type: "expected", description: "ระบบแสดง validation error สำหรับ field ที่ไม่ถูกต้อง และป้องกันการ submit คำขอ change order" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -483,13 +483,13 @@ purchaseTest.describe("PO — Change Order", () => {
     "TC-PO-040004 Edge Case - Change Order for Sent Status",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission; PO in Sent status" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์; PO อยู่ใน status Sent" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Request Change Order' button\n3. Verify that the change order request cannot be submitted for a Sent status order",
+            "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม 'Request Change Order'\n3. ตรวจสอบว่าไม่สามารถ submit คำขอ change order สำหรับคำสั่งที่มี status Sent ได้",
         },
-        { type: "expected", description: "System displays a message indicating that change orders cannot be submitted for Sent status purchase orders." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งว่าไม่สามารถ submit change order สำหรับ purchase order ที่มี status Sent ได้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -519,13 +519,13 @@ requestorTest.describe("PO — Change Order — Permission denial", () => {
     "TC-PO-040002 Negative - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated but does not have permission to modify POs" },
+        { type: "preconditions", description: "Login เป็นผู้ใช้ที่ไม่มีสิทธิ์แก้ไข PO" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Request Change Order' button\n3. Verify an error message is displayed",
+            "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม 'Request Change Order'\n3. ตรวจสอบว่าแสดงข้อความแจ้งข้อผิดพลาด",
         },
-        { type: "expected", description: "User is shown an error message indicating they do not have permission to make changes." },
+        { type: "expected", description: "ผู้ใช้เห็นข้อความแจ้งข้อผิดพลาดว่าไม่มีสิทธิ์ในการแก้ไข" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -555,13 +555,13 @@ purchaseTest.describe("PO — Cancel", () => {
     "TC-PO-050001 Happy Path - Cancel Active Purchase Order",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to cancel POs; role is Purchasing Staff or Manager" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ยกเลิก PO; role เป็น Purchasing Staff หรือ Manager" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click on the active purchase order\n3. Click 'Cancel Purchase Order' button\n4. Select valid cancellation reason\n5. Confirm cancellation",
+            "1. ไปที่ /procurement/purchase-order\n2. คลิก purchase order ที่ active\n3. กดปุ่ม 'Cancel Purchase Order'\n4. เลือกเหตุผลการยกเลิกที่ถูกต้อง\n5. ยืนยันการยกเลิก",
         },
-        { type: "expected", description: "Purchase order is marked as cancelled and system updates the status accordingly." },
+        { type: "expected", description: "Purchase order ถูกทำเครื่องหมายว่ายกเลิกแล้ว และระบบอัปเดต status ตามนั้น" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -586,13 +586,13 @@ purchaseTest.describe("PO — Cancel", () => {
     "TC-PO-050002 Negative - Attempt to Cancel Completed Purchase Order",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission; PO is in completed status" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์; PO อยู่ใน status completed" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click on the completed purchase order\n3. Click 'Cancel Purchase Order' button",
+            "1. ไปที่ /procurement/purchase-order\n2. คลิก purchase order ที่ completed\n3. กดปุ่ม 'Cancel Purchase Order'",
         },
-        { type: "expected", description: "System displays an error message stating that the PO cannot be cancelled since it is already completed." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าไม่สามารถยกเลิก PO ได้เนื่องจาก completed แล้ว" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -620,13 +620,13 @@ purchaseTest.describe("PO — Cancel", () => {
     "TC-PO-050003 Edge Case - Cancel Purchase Order with Shipped Goods",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission; PO has shipped goods" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์; PO มีสินค้าที่จัดส่งแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click on the purchase order with shipped goods\n3. Click 'Cancel Purchase Order' button\n4. Select valid cancellation reason",
+            "1. ไปที่ /procurement/purchase-order\n2. คลิก purchase order ที่มีสินค้าจัดส่งแล้ว\n3. กดปุ่ม 'Cancel Purchase Order'\n4. เลือกเหตุผลการยกเลิกที่ถูกต้อง",
         },
-        { type: "expected", description: "System prompts user to arrange return or exchange before allowing cancellation." },
+        { type: "expected", description: "ระบบแจ้งให้ผู้ใช้จัดการการคืนหรือเปลี่ยนสินค้าก่อนอนุญาตการยกเลิก" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -646,13 +646,13 @@ noAuthTest(
   "TC-PO-050004 Negative - Cancel Purchase Order without Authentication",
   {
     annotation: [
-      { type: "preconditions", description: "User is not authenticated" },
+      { type: "preconditions", description: "ผู้ใช้ยังไม่ได้ login" },
       {
         type: "steps",
         description:
-          "1. Navigate to /procurement/purchase-order\n2. Attempt to click 'Cancel Purchase Order' button",
+          "1. ไปที่ /procurement/purchase-order\n2. พยายามกดปุ่ม 'Cancel Purchase Order'",
       },
-      { type: "expected", description: "System redirects to login page or displays an error message requiring user to log in first." },
+      { type: "expected", description: "ระบบ redirect ไปยังหน้า login หรือแสดงข้อความแจ้งข้อผิดพลาดให้ผู้ใช้ login ก่อน" },
       { type: "priority", description: "Medium" },
       { type: "testType", description: "Negative" },
     ],
@@ -671,13 +671,13 @@ purchaseTest.describe("PO — Dashboard", () => {
     "TC-PO-060001 View Purchase Order Dashboard as Purchasing Staff",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to view POs; POs exist in the system" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ดู PO; มี PO อยู่ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Verify summary cards are displayed with counts by status\n3. Verify recent purchase orders list is populated\n4. Verify orders requiring attention are highlighted\n5. Verify budget utilization chart is visible",
+            "1. ไปที่ /procurement/purchase-order\n2. ตรวจสอบว่า summary card แสดงจำนวนตาม status\n3. ตรวจสอบว่ารายการ purchase order ล่าสุดมีข้อมูล\n4. ตรวจสอบว่าคำสั่งที่ต้องการความสนใจถูก highlight\n5. ตรวจสอบว่า chart การใช้งบประมาณ visible",
         },
-        { type: "expected", description: "Purchase Order dashboard is fully displayed with all elements verified." },
+        { type: "expected", description: "หน้า Purchase Order dashboard แสดงครบถ้วนและตรวจสอบองค์ประกอบทั้งหมดผ่าน" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -693,13 +693,13 @@ purchaseTest.describe("PO — Dashboard", () => {
     "TC-PO-060003 Check Dashboard with No Purchase Orders",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to view POs; no POs exist in the system" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ดู PO; ไม่มี PO ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Verify summary cards show zero counts\n3. Verify recent purchase orders list is empty\n4. Verify no orders requiring attention are displayed\n5. Verify budget utilization chart is blank",
+            "1. ไปที่ /procurement/purchase-order\n2. ตรวจสอบว่า summary card แสดงค่าเป็นศูนย์\n3. ตรวจสอบว่ารายการ purchase order ล่าสุดว่างเปล่า\n4. ตรวจสอบว่าไม่มีคำสั่งที่ต้องการความสนใจแสดง\n5. ตรวจสอบว่า chart การใช้งบประมาณว่างเปล่า",
         },
-        { type: "expected", description: "Dashboard elements reflect the absence of purchase orders." },
+        { type: "expected", description: "องค์ประกอบของ dashboard สะท้อนถึงการไม่มี purchase order" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -716,13 +716,13 @@ purchaseTest.describe("PO — Dashboard", () => {
     "TC-PO-060004 Verify Dashboard with Large Number of Orders",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to view POs; many POs exist in the system" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ดู PO; มี PO จำนวนมากในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Verify summary cards display accurate counts\n3. Verify recent purchase orders list is populated\n4. Verify orders requiring attention are highlighted\n5. Verify budget utilization chart reflects utilization",
+            "1. ไปที่ /procurement/purchase-order\n2. ตรวจสอบว่า summary card แสดงจำนวนที่ถูกต้อง\n3. ตรวจสอบว่ารายการ purchase order ล่าสุดมีข้อมูล\n4. ตรวจสอบว่าคำสั่งที่ต้องการความสนใจถูก highlight\n5. ตรวจสอบว่า chart การใช้งบประมาณสะท้อนการใช้งาน",
         },
-        { type: "expected", description: "Dashboard elements handle a large number of purchase orders without issues." },
+        { type: "expected", description: "องค์ประกอบของ dashboard รองรับ purchase order จำนวนมากได้โดยไม่มีปัญหา" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -740,12 +740,12 @@ requestorTest.describe("PO — Dashboard — Permission denial", () => {
     "TC-PO-060002 Verify Access Denial for Purchase Order Dashboard",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have permission to view POs" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์ดู PO" },
         {
           type: "steps",
-          description: "1. Navigate to /procurement/purchase-order\n2. Verify no Purchase Order dashboard elements are displayed",
+          description: "1. ไปที่ /procurement/purchase-order\n2. ตรวจสอบว่าไม่มีองค์ประกอบ Purchase Order dashboard แสดง",
         },
-        { type: "expected", description: "User is denied access to Purchase Order dashboard." },
+        { type: "expected", description: "ผู้ใช้ถูกปฏิเสธการเข้าถึง Purchase Order dashboard" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -769,13 +769,13 @@ purchaseTest.describe("PO — QR Code", () => {
     "TC-PO-200001 Happy Path - Download QR Code for Mobile Receiving",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to view POs; PO exists with PO number; QR code auto-generated" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ดู PO; มี PO พร้อม PO number; QR code ถูกสร้างอัตโนมัติ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order/<orderNumber>\n2. Click on QRCodeSection component\n3. Verify QR code image is displayed\n4. Click on QR code image\n5. Verify QR code is downloaded to user device",
+            "1. ไปที่ /procurement/purchase-order/<orderNumber>\n2. คลิก component QRCodeSection\n3. ตรวจสอบว่า QR code image visible\n4. คลิก QR code image\n5. ตรวจสอบว่า QR code ถูก download ไปยังอุปกรณ์ผู้ใช้",
         },
-        { type: "expected", description: "QR code is successfully downloaded to user device." },
+        { type: "expected", description: "QR code ถูก download ไปยังอุปกรณ์ผู้ใช้สำเร็จ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -802,13 +802,13 @@ purchaseTest.describe("PO — QR Code", () => {
     "TC-PO-200003 Negative - QR Code Not Generated",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission; PO does not exist or has no PO number; QR code not auto-generated" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์; PO ไม่มีอยู่หรือไม่มี PO number; QR code ยังไม่ได้สร้างอัตโนมัติ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order/<orderNumber>\n2. Verify QR code section is not displayed",
+            "1. ไปที่ /procurement/purchase-order/<orderNumber>\n2. ตรวจสอบว่าส่วน QR code ไม่แสดง",
         },
-        { type: "expected", description: "QR code section is not displayed." },
+        { type: "expected", description: "ส่วน QR code ไม่แสดง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -825,13 +825,13 @@ purchaseTest.describe("PO — QR Code", () => {
     "TC-PO-200004 Edge Case - PO Detail Page Reload",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission; PO exists with PO number; QR code auto-generated" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์; มี PO พร้อม PO number; QR code ถูกสร้างอัตโนมัติ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order/<orderNumber>\n2. Reload the page\n3. Verify QR code section is still displayed and QR code is still available for download",
+            "1. ไปที่ /procurement/purchase-order/<orderNumber>\n2. Reload หน้า\n3. ตรวจสอบว่าส่วน QR code ยังคง visible และ QR code ยังพร้อม download",
         },
-        { type: "expected", description: "QR code section is still displayed and QR code is still available for download." },
+        { type: "expected", description: "ส่วน QR code ยังคง visible และ QR code ยังพร้อม download" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -859,13 +859,13 @@ purchaseTest.describe("PO — Sequence generation — Backend only", () => {
     "TC-PO-310001 Happy Path - Valid PO Creation",
     {
       annotation: [
-        { type: "preconditions", description: "Sequence table is available and initialized" },
+        { type: "preconditions", description: "Sequence table มีอยู่จริงและ initialized แล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Verify current date is displayed\n4. Click 'Generate PO Number'\n5. Verify PO number format is PO-2401-000123",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. ตรวจสอบว่าวันที่ปัจจุบันแสดง\n4. กด 'Generate PO Number'\n5. ตรวจสอบว่า PO number มีรูปแบบ PO-2401-000123",
         },
-        { type: "expected", description: "Correct PO number is generated and displayed." },
+        { type: "expected", description: "PO number ที่ถูกต้องถูกสร้างและแสดง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -878,13 +878,13 @@ purchaseTest.describe("PO — Sequence generation — Backend only", () => {
     "TC-PO-310002 Negative Case - No Sequence Table",
     {
       annotation: [
-        { type: "preconditions", description: "Sequence table is not available" },
+        { type: "preconditions", description: "Sequence table ไม่พร้อมใช้งาน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Click 'Generate PO Number'\n4. Verify error message 'Sequence table not initialized'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. กด 'Generate PO Number'\n4. ตรวจสอบข้อความแจ้งข้อผิดพลาด 'Sequence table not initialized'",
         },
-        { type: "expected", description: "Error message is displayed indicating sequence table is not initialized." },
+        { type: "expected", description: "แสดงข้อความแจ้งข้อผิดพลาดว่า sequence table ยังไม่ได้ initialized" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -897,13 +897,13 @@ purchaseTest.describe("PO — Sequence generation — Backend only", () => {
     "TC-PO-310003 Edge Case - Month Transition",
     {
       annotation: [
-        { type: "preconditions", description: "Sequence table is available and initialized" },
+        { type: "preconditions", description: "Sequence table มีอยู่จริงและ initialized แล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Verify PO number format is PO-2401-000123 (January)\n4. Wait for the transition to February\n5. Click 'Generate PO Number'\n6. Verify PO number format is PO-2402-000001 (February)",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. ตรวจสอบว่า PO number มีรูปแบบ PO-2401-000123 (มกราคม)\n4. รอให้เปลี่ยนเป็นเดือนกุมภาพันธ์\n5. กด 'Generate PO Number'\n6. ตรวจสอบว่า PO number มีรูปแบบ PO-2402-000001 (กุมภาพันธ์)",
         },
-        { type: "expected", description: "Correct PO number is generated with the new month format." },
+        { type: "expected", description: "PO number ที่ถูกต้องถูกสร้างพร้อมรูปแบบเดือนใหม่" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -916,13 +916,13 @@ purchaseTest.describe("PO — Sequence generation — Backend only", () => {
     "TC-PO-310004 Negative Case - Insufficient Permissions",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have permission to create POs" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์สร้าง PO" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Click 'Generate PO Number'\n4. Verify error message 'Insufficient permissions to create purchase order'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. กด 'Generate PO Number'\n4. ตรวจสอบข้อความแจ้งข้อผิดพลาด 'Insufficient permissions to create purchase order'",
         },
-        { type: "expected", description: "Error message is displayed indicating insufficient permissions." },
+        { type: "expected", description: "แสดงข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -937,13 +937,13 @@ purchaseTest.describe("PO — Calculations — Backend only", () => {
     "TC-PO-320001 Calculate Subtotal with Valid Input",
     {
       annotation: [
-        { type: "preconditions", description: "A PO exists with line items having quantity and unit price" },
+        { type: "preconditions", description: "มี PO ที่มีรายการสินค้าพร้อม quantity และ unit price" },
         {
           type: "steps",
           description:
-            "1. Navigate to /purchase-order\n2. Fill line item quantities and unit prices\n3. Click 'Calculate Totals'",
+            "1. ไปที่ /purchase-order\n2. กรอก quantity และ unit price ของรายการสินค้า\n3. กด 'Calculate Totals'",
         },
-        { type: "expected", description: "Subtotal is calculated correctly as sum of (line_item.quantity × line_item.unit_price)." },
+        { type: "expected", description: "Subtotal ถูกคำนวณถูกต้องเป็นผลรวมของ (line_item.quantity × line_item.unit_price)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -956,13 +956,13 @@ purchaseTest.describe("PO — Calculations — Backend only", () => {
     "TC-PO-320002 Apply Percentage Discount",
     {
       annotation: [
-        { type: "preconditions", description: "A PO exists with line items; percentage discount is defined" },
+        { type: "preconditions", description: "มี PO ที่มีรายการสินค้า; กำหนด discount แบบเปอร์เซ็นต์แล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /purchase-order\n2. Click 'Apply Discount'\n3. Select 'Percentage'\n4. Enter discount percentage\n5. Click 'Apply'",
+            "1. ไปที่ /purchase-order\n2. กด 'Apply Discount'\n3. เลือก 'Percentage'\n4. กรอกเปอร์เซ็นต์ discount\n5. กด 'Apply'",
         },
-        { type: "expected", description: "Subtotal is recalculated with applied discount percentage." },
+        { type: "expected", description: "Subtotal ถูกคำนวณใหม่พร้อม discount เปอร์เซ็นต์ที่ใช้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -975,13 +975,13 @@ purchaseTest.describe("PO — Calculations — Backend only", () => {
     "TC-PO-320003 Apply Fixed Amount Discount",
     {
       annotation: [
-        { type: "preconditions", description: "A PO exists with line items; fixed amount discount is defined" },
+        { type: "preconditions", description: "มี PO ที่มีรายการสินค้า; กำหนด discount แบบจำนวนเงินคงที่แล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /purchase-order\n2. Click 'Apply Discount'\n3. Select 'Fixed Amount'\n4. Enter discount amount\n5. Click 'Apply'",
+            "1. ไปที่ /purchase-order\n2. กด 'Apply Discount'\n3. เลือก 'Fixed Amount'\n4. กรอกจำนวน discount\n5. กด 'Apply'",
         },
-        { type: "expected", description: "Subtotal is recalculated with applied discount amount." },
+        { type: "expected", description: "Subtotal ถูกคำนวณใหม่พร้อม discount จำนวนเงินที่ใช้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -994,13 +994,13 @@ purchaseTest.describe("PO — Calculations — Backend only", () => {
     "TC-PO-320004 No Discount Applied",
     {
       annotation: [
-        { type: "preconditions", description: "A PO exists with line items; no discount is applied" },
+        { type: "preconditions", description: "มี PO ที่มีรายการสินค้า; ยังไม่ได้ใช้ discount" },
         {
           type: "steps",
           description:
-            "1. Navigate to /purchase-order\n2. Click 'Apply Discount'\n3. No discount type selected\n4. Click 'Apply'",
+            "1. ไปที่ /purchase-order\n2. กด 'Apply Discount'\n3. ไม่เลือกประเภท discount\n4. กด 'Apply'",
         },
-        { type: "expected", description: "Subtotal is calculated without any discount applied." },
+        { type: "expected", description: "Subtotal ถูกคำนวณโดยไม่มี discount" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1013,13 +1013,13 @@ purchaseTest.describe("PO — Calculations — Backend only", () => {
     "TC-PO-320005 Negative Quantity Entered",
     {
       annotation: [
-        { type: "preconditions", description: "A PO exists with at least one line item; negative quantity is entered" },
+        { type: "preconditions", description: "มี PO ที่มีรายการสินค้าอย่างน้อยหนึ่งรายการ; กรอก quantity ติดลบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /purchase-order\n2. Enter negative quantity in a line item\n3. Click 'Calculate Totals'",
+            "1. ไปที่ /purchase-order\n2. กรอก quantity ติดลบในรายการสินค้า\n3. กด 'Calculate Totals'",
         },
-        { type: "expected", description: "Error message displayed indicating invalid input for quantity." },
+        { type: "expected", description: "แสดงข้อความแจ้งข้อผิดพลาดว่า quantity ที่กรอกไม่ถูกต้อง" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1034,13 +1034,13 @@ purchaseTest.describe("PO — Budget approval — Backend only", () => {
     "TC-PO-330001 Happy Path - Valid PO with Existing Budget",
     {
       annotation: [
-        { type: "preconditions", description: "A PO exists with a grand total and associated budget accounts" },
+        { type: "preconditions", description: "มี PO ที่มียอดรวมและ budget account ที่เกี่ยวข้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Approve' button\n3. System retrieves budget allocation for PO\n4. System queries budget system for each budget account\n5. Verify PO status change to 'Budget Approved'",
+            "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม 'Approve'\n3. ระบบดึงข้อมูลการจัดสรรงบประมาณสำหรับ PO\n4. ระบบ query ระบบงบประมาณสำหรับแต่ละ budget account\n5. ตรวจสอบว่า PO status เปลี่ยนเป็น 'Budget Approved'",
         },
-        { type: "expected", description: "PO status changes to 'Budget Approved' with no error messages." },
+        { type: "expected", description: "PO status เปลี่ยนเป็น 'Budget Approved' โดยไม่มีข้อความแจ้งข้อผิดพลาด" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1053,13 +1053,13 @@ purchaseTest.describe("PO — Budget approval — Backend only", () => {
     "TC-PO-330002 Negative - Invalid PO Total",
     {
       annotation: [
-        { type: "preconditions", description: "A PO exists with a grand total that exceeds the budget allocation" },
+        { type: "preconditions", description: "มี PO ที่มียอดรวมเกินกว่าการจัดสรรงบประมาณ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Modify PO total to exceed budget allocation\n3. Click 'Approve' button\n4. Verify system error message indicating insufficient budget",
+            "1. ไปที่ /procurement/purchase-order\n2. แก้ไขยอดรวม PO ให้เกินการจัดสรรงบประมาณ\n3. กดปุ่ม 'Approve'\n4. ตรวจสอบข้อความแจ้งข้อผิดพลาดของระบบว่างบประมาณไม่เพียงพอ",
         },
-        { type: "expected", description: "System displays an error message stating the PO cannot be approved due to insufficient budget." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าไม่สามารถ approve PO ได้เนื่องจากงบประมาณไม่เพียงพอ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1072,13 +1072,13 @@ purchaseTest.describe("PO — Budget approval — Backend only", () => {
     "TC-PO-330003 Edge Case - No Budget Accounts Specified",
     {
       annotation: [
-        { type: "preconditions", description: "A PO exists without any budget accounts specified" },
+        { type: "preconditions", description: "มี PO ที่ไม่ได้ระบุ budget account ใดๆ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Approve the purchase order\n3. Verify system prompts for budget account specification",
+            "1. ไปที่ /procurement/purchase-order\n2. approve purchase order\n3. ตรวจสอบว่าระบบแจ้งให้ระบุ budget account",
         },
-        { type: "expected", description: "System prompts the user to specify budget accounts before the PO can be approved." },
+        { type: "expected", description: "ระบบแจ้งให้ผู้ใช้ระบุ budget account ก่อนที่จะ approve PO ได้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1093,13 +1093,13 @@ purchaseTest.describe("PO — GRN sync — Backend only", () => {
     "TC-PO-340001 Happy Path - PO Status Updated Successfully",
     {
       annotation: [
-        { type: "preconditions", description: "A PO exists in Sent or Acknowledged status; a GRN is created referencing PO line items with approved status" },
+        { type: "preconditions", description: "มี PO ใน status Sent หรือ Acknowledged; มี GRN ที่อ้างอิง PO line item ที่มี status approved" },
         {
           type: "steps",
           description:
-            "1. Navigate to /inventory/grn\n2. Click 'Create New GRN'\n3. Fill in the GRN details and select referenced PO line items\n4. Click 'Save and Approve'",
+            "1. ไปที่ /inventory/grn\n2. กด 'Create New GRN'\n3. กรอกรายละเอียด GRN และเลือก PO line item ที่อ้างอิง\n4. กด 'Save and Approve'",
         },
-        { type: "expected", description: "The PO status is updated to Received in the purchase order details." },
+        { type: "expected", description: "PO status ถูกอัปเดตเป็น Received ในรายละเอียด purchase order" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1112,13 +1112,13 @@ purchaseTest.describe("PO — GRN sync — Backend only", () => {
     "TC-PO-340002 Negative - No PO Line Items in GRN",
     {
       annotation: [
-        { type: "preconditions", description: "A PO exists in Sent or Acknowledged status but the GRN does not reference any PO line items" },
+        { type: "preconditions", description: "มี PO ใน status Sent หรือ Acknowledged แต่ GRN ไม่ได้อ้างอิง PO line item ใดๆ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /inventory/grn\n2. Click 'Create New GRN'\n3. Fill in the GRN details without selecting any PO line items\n4. Attempt to Save and Approve",
+            "1. ไปที่ /inventory/grn\n2. กด 'Create New GRN'\n3. กรอกรายละเอียด GRN โดยไม่เลือก PO line item ใดๆ\n4. พยายาม Save and Approve",
         },
-        { type: "expected", description: "The system prevents saving and approving the GRN and displays an error message." },
+        { type: "expected", description: "ระบบป้องกันการบันทึกและ approve GRN และแสดงข้อความแจ้งข้อผิดพลาด" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1131,13 +1131,13 @@ purchaseTest.describe("PO — GRN sync — Backend only", () => {
     "TC-PO-340003 Edge Case - Multiple GRNs for Same PO Line Item",
     {
       annotation: [
-        { type: "preconditions", description: "Multiple GRNs are created for the same PO line item with varying quantities" },
+        { type: "preconditions", description: "มี GRN หลายรายการที่สร้างสำหรับ PO line item เดียวกันพร้อม quantity ที่แตกต่างกัน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /inventory/grn\n2. Click 'View GRN Details'\n3. Verify the total received quantity matches the PO line item quantity",
+            "1. ไปที่ /inventory/grn\n2. กด 'View GRN Details'\n3. ตรวจสอบว่า quantity ที่รับรวมตรงกับ quantity ของ PO line item",
         },
-        { type: "expected", description: "The total received quantity is accurately calculated and displayed." },
+        { type: "expected", description: "quantity ที่รับรวมถูกคำนวณและแสดงอย่างถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1152,13 +1152,13 @@ purchaseTest.describe("PO — Delivery reminder — Time-based, backend only", (
     "TC-PO-350001 Send automatic delivery reminder for valid purchase orders",
     {
       annotation: [
-        { type: "preconditions", description: "Today is 2023-10-01; POs with statuses 'Sent' or 'Acknowledged' and expected delivery dates within 3 days from today exist" },
+        { type: "preconditions", description: "วันนี้คือ 2023-10-01; มี PO ที่มี status 'Sent' หรือ 'Acknowledged' และวันที่จัดส่งที่คาดไว้ภายใน 3 วันจากวันนี้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Run Scheduled Job'\n3. Verify email notifications are sent for valid purchase orders",
+            "1. ไปที่ /procurement/purchase-order\n2. กด 'Run Scheduled Job'\n3. ตรวจสอบว่าส่ง email notification สำหรับ purchase order ที่ถูกต้อง",
         },
-        { type: "expected", description: "Email reminders are sent for POs with statuses 'Sent' or 'Acknowledged' and expected delivery dates within 3 days from today, but no reminders are sent for POs with GR already." },
+        { type: "expected", description: "ส่ง email reminder สำหรับ PO ที่มี status 'Sent' หรือ 'Acknowledged' และวันที่จัดส่งที่คาดไว้ภายใน 3 วันจากวันนี้ แต่ไม่ส่ง reminder สำหรับ PO ที่มี GR แล้ว" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -1171,13 +1171,13 @@ purchaseTest.describe("PO — Delivery reminder — Time-based, backend only", (
     "TC-PO-350002 Scheduled job fails to run due to invalid input",
     {
       annotation: [
-        { type: "preconditions", description: "Today is 2023-10-01; scheduled job is set to run daily at 6:00 AM but server time is 2023-10-02 06:00 AM" },
+        { type: "preconditions", description: "วันนี้คือ 2023-10-01; scheduled job ตั้งค่าให้ทำงานทุกวันเวลา 6:00 AM แต่เวลาเซิร์ฟเวอร์คือ 2023-10-02 06:00 AM" },
         {
           type: "steps",
           description:
-            "1. Navigate to /admin/system-settings\n2. Verify scheduled job status\n3. Click 'Run Now'\n4. Verify error message",
+            "1. ไปที่ /admin/system-settings\n2. ตรวจสอบ status ของ scheduled job\n3. กด 'Run Now'\n4. ตรวจสอบข้อความแจ้งข้อผิดพลาด",
         },
-        { type: "expected", description: "Error message is displayed indicating the scheduled job failed to run due to invalid input date." },
+        { type: "expected", description: "แสดงข้อความแจ้งข้อผิดพลาดว่า scheduled job ทำงานล้มเหลวเนื่องจากวันที่ input ไม่ถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -1190,13 +1190,13 @@ purchaseTest.describe("PO — Delivery reminder — Time-based, backend only", (
     "TC-PO-350003 No purchase orders to remind due to no valid POs",
     {
       annotation: [
-        { type: "preconditions", description: "Today is 2023-10-01; no POs exist with statuses 'Sent' or 'Acknowledged' and expected delivery dates within 3 days from today" },
+        { type: "preconditions", description: "วันนี้คือ 2023-10-01; ไม่มี PO ที่มี status 'Sent' หรือ 'Acknowledged' และวันที่จัดส่งที่คาดไว้ภายใน 3 วันจากวันนี้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Run Scheduled Job'\n3. Verify no email notifications are sent",
+            "1. ไปที่ /procurement/purchase-order\n2. กด 'Run Scheduled Job'\n3. ตรวจสอบว่าไม่มีการส่ง email notification",
         },
-        { type: "expected", description: "No email reminders are sent for purchase orders as none meet the criteria." },
+        { type: "expected", description: "ไม่มีการส่ง email reminder สำหรับ purchase order เนื่องจากไม่มีรายการที่ตรงตามเกณฑ์" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -1209,13 +1209,13 @@ purchaseTest.describe("PO — Delivery reminder — Time-based, backend only", (
     "TC-PO-350004 Scheduled job fails due to non-operational email system",
     {
       annotation: [
-        { type: "preconditions", description: "Today is 2023-10-01; POs exist matching reminder criteria but email system is down" },
+        { type: "preconditions", description: "วันนี้คือ 2023-10-01; มี PO ที่ตรงตามเกณฑ์การเตือน แต่ระบบ email ล่ม" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Run Scheduled Job'\n3. Verify email notifications are not sent",
+            "1. ไปที่ /procurement/purchase-order\n2. กด 'Run Scheduled Job'\n3. ตรวจสอบว่าไม่มีการส่ง email notification",
         },
-        { type: "expected", description: "Email reminders are not sent for purchase orders due to the non-operational email system." },
+        { type: "expected", description: "ไม่มีการส่ง email reminder สำหรับ purchase order เนื่องจากระบบ email ไม่ทำงาน" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -1228,13 +1228,13 @@ purchaseTest.describe("PO — Delivery reminder — Time-based, backend only", (
     "TC-PO-350005 No reminders sent for POs with GR",
     {
       annotation: [
-        { type: "preconditions", description: "Today is 2023-10-01; POs match reminder criteria but some have GR already" },
+        { type: "preconditions", description: "วันนี้คือ 2023-10-01; มี PO ที่ตรงตามเกณฑ์การเตือน แต่บางรายการมี GR แล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Run Scheduled Job'\n3. Verify email notifications are sent for only valid POs",
+            "1. ไปที่ /procurement/purchase-order\n2. กด 'Run Scheduled Job'\n3. ตรวจสอบว่าส่ง email notification เฉพาะ PO ที่ถูกต้องเท่านั้น",
         },
-        { type: "expected", description: "Email reminders are sent only for POs without existing GR." },
+        { type: "expected", description: "ส่ง email reminder เฉพาะ PO ที่ยังไม่มี GR เท่านั้น" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -1249,13 +1249,13 @@ purchaseTest.describe("PO — Encumbrance — Backend only", () => {
     "TC-PO-210001 PO Approved - Encumbrance Created",
     {
       annotation: [
-        { type: "preconditions", description: "A PO with budget allocation exists and the budget management system is operational" },
+        { type: "preconditions", description: "มี PO ที่มีการจัดสรรงบประมาณและระบบจัดการงบประมาณทำงานปกติ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click on 'Approved' action for a PO\n3. Wait for system to process and create encumbrance\n4. Verify encumbrance amount in budget management system",
+            "1. ไปที่ /procurement/purchase-order\n2. คลิก action 'Approved' สำหรับ PO\n3. รอให้ระบบประมวลผลและสร้าง encumbrance\n4. ตรวจสอบจำนวน encumbrance ในระบบจัดการงบประมาณ",
         },
-        { type: "expected", description: "Encumbrance amount is correctly created in the budget management system." },
+        { type: "expected", description: "จำนวน encumbrance ถูกสร้างอย่างถูกต้องในระบบจัดการงบประมาณ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1268,13 +1268,13 @@ purchaseTest.describe("PO — Encumbrance — Backend only", () => {
     "TC-PO-210002 PO Amount Modified - Encumbrance Adjusted",
     {
       annotation: [
-        { type: "preconditions", description: "A PO with budget allocation exists; the budget management system is operational" },
+        { type: "preconditions", description: "มี PO ที่มีการจัดสรรงบประมาณ; ระบบจัดการงบประมาณทำงานปกติ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Modify PO amount\n3. Wait for system to process and adjust encumbrance\n4. Verify adjusted encumbrance amount in budget management system",
+            "1. ไปที่ /procurement/purchase-order\n2. แก้ไขจำนวนเงิน PO\n3. รอให้ระบบประมวลผลและปรับ encumbrance\n4. ตรวจสอบจำนวน encumbrance ที่ปรับแล้วในระบบจัดการงบประมาณ",
         },
-        { type: "expected", description: "Encumbrance amount is correctly adjusted in the budget management system." },
+        { type: "expected", description: "จำนวน encumbrance ถูกปรับอย่างถูกต้องในระบบจัดการงบประมาณ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1287,13 +1287,13 @@ purchaseTest.describe("PO — Encumbrance — Backend only", () => {
     "TC-PO-210003 PO Cancelled - Encumbrance Released",
     {
       annotation: [
-        { type: "preconditions", description: "A PO with budget allocation exists; the budget management system is operational" },
+        { type: "preconditions", description: "มี PO ที่มีการจัดสรรงบประมาณ; ระบบจัดการงบประมาณทำงานปกติ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Cancel the purchase order\n3. Wait for system to process and release encumbrance\n4. Verify encumbrance amount is released in budget management system",
+            "1. ไปที่ /procurement/purchase-order\n2. ยกเลิก purchase order\n3. รอให้ระบบประมวลผลและปล่อย encumbrance\n4. ตรวจสอบว่าจำนวน encumbrance ถูกปล่อยในระบบจัดการงบประมาณ",
         },
-        { type: "expected", description: "Encumbrance amount is correctly released in the budget management system." },
+        { type: "expected", description: "จำนวน encumbrance ถูกปล่อยอย่างถูกต้องในระบบจัดการงบประมาณ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1306,13 +1306,13 @@ purchaseTest.describe("PO — Encumbrance — Backend only", () => {
     "TC-PO-210004 Invalid PO Event - No Action Taken",
     {
       annotation: [
-        { type: "preconditions", description: "A PO with budget allocation exists; the budget management system is operational" },
+        { type: "preconditions", description: "มี PO ที่มีการจัดสรรงบประมาณ; ระบบจัดการงบประมาณทำงานปกติ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Try to perform an invalid action (e.g., approve without changes)\n3. Wait for system response\n4. Verify no changes in budget management system",
+            "1. ไปที่ /procurement/purchase-order\n2. พยายามดำเนินการที่ไม่ถูกต้อง (เช่น approve โดยไม่มีการเปลี่ยนแปลง)\n3. รอการตอบสนองจากระบบ\n4. ตรวจสอบว่าไม่มีการเปลี่ยนแปลงในระบบจัดการงบประมาณ",
         },
-        { type: "expected", description: "No changes occur in the budget management system." },
+        { type: "expected", description: "ไม่มีการเปลี่ยนแปลงในระบบจัดการงบประมาณ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1325,13 +1325,13 @@ purchaseTest.describe("PO — Encumbrance — Backend only", () => {
     "TC-PO-210005 GRN Created Without PO - No Encumbrance Conversion",
     {
       annotation: [
-        { type: "preconditions", description: "A PO with budget allocation exists; the budget management system is operational" },
+        { type: "preconditions", description: "มี PO ที่มีการจัดสรรงบประมาณ; ระบบจัดการงบประมาณทำงานปกติ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/receipt-note\n2. Create a GRN without corresponding PO\n3. Wait for system response\n4. Verify no encumbrance is converted to expense in budget management system",
+            "1. ไปที่ /procurement/receipt-note\n2. สร้าง GRN โดยไม่มี PO ที่สอดคล้องกัน\n3. รอการตอบสนองจากระบบ\n4. ตรวจสอบว่าไม่มีการแปลง encumbrance เป็น expense ในระบบจัดการงบประมาณ",
         },
-        { type: "expected", description: "No encumbrance is converted to expense in the budget management system." },
+        { type: "expected", description: "ไม่มีการแปลง encumbrance เป็น expense ในระบบจัดการงบประมาณ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1346,13 +1346,13 @@ purchaseTest.describe("PO — Vendor master integration — Backend only", () =>
     "TC-PO-220001 Happy Path - Valid Vendor Selection and Information Retrieval",
     {
       annotation: [
-        { type: "preconditions", description: "Vendor Management System is operational; vendor master data is current; integration API or database access available" },
+        { type: "preconditions", description: "Vendor Management System ทำงานปกติ; ข้อมูล vendor master เป็นปัจจุบัน; มี integration API หรือ database access" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Fill 'Vendor Name'\n4. Select 'Vendor' from the dropdown\n5. Verify 'Vendor Status' is 'Active'\n6. Verify 'Vendor Contact' is retrieved",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. กรอก 'Vendor Name'\n4. เลือก 'Vendor' จาก dropdown\n5. ตรวจสอบว่า 'Vendor Status' เป็น 'Active'\n6. ตรวจสอบว่า 'Vendor Contact' ถูกดึงมา",
         },
-        { type: "expected", description: "Vendor information is successfully retrieved and displayed." },
+        { type: "expected", description: "ข้อมูล vendor ถูกดึงและแสดงสำเร็จ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1365,13 +1365,13 @@ purchaseTest.describe("PO — Vendor master integration — Backend only", () =>
     "TC-PO-220002 Negative Case - Vendor Not Found",
     {
       annotation: [
-        { type: "preconditions", description: "Vendor Management System is operational; vendor master data is current; integration API or database access available" },
+        { type: "preconditions", description: "Vendor Management System ทำงานปกติ; ข้อมูล vendor master เป็นปัจจุบัน; มี integration API หรือ database access" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Fill 'Vendor Name'\n4. Select 'Vendor' from the dropdown\n5. Verify 'Vendor Status' is 'Inactive'\n6. Verify error message 'Vendor not found'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. กรอก 'Vendor Name'\n4. เลือก 'Vendor' จาก dropdown\n5. ตรวจสอบว่า 'Vendor Status' เป็น 'Inactive'\n6. ตรวจสอบข้อความแจ้งข้อผิดพลาด 'Vendor not found'",
         },
-        { type: "expected", description: "System displays an error message indicating vendor not found." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าไม่พบ vendor" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1384,13 +1384,13 @@ purchaseTest.describe("PO — Vendor master integration — Backend only", () =>
     "TC-PO-220003 Edge Case - Vendor Name Format",
     {
       annotation: [
-        { type: "preconditions", description: "Vendor Management System is operational; vendor master data is current; integration API or database access available" },
+        { type: "preconditions", description: "Vendor Management System ทำงานปกติ; ข้อมูล vendor master เป็นปัจจุบัน; มี integration API หรือ database access" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-request\n2. Click 'New Purchase Request'\n3. Fill 'Vendor Name' with special characters (e.g., @#)$&)\n4. Select 'Vendor' from the dropdown\n5. Verify 'Vendor Status' is 'Inactive'",
+            "1. ไปที่ /procurement/purchase-request\n2. กด 'New Purchase Request'\n3. กรอก 'Vendor Name' ด้วยอักขระพิเศษ (เช่น @#)$&)\n4. เลือก 'Vendor' จาก dropdown\n5. ตรวจสอบว่า 'Vendor Status' เป็น 'Inactive'",
         },
-        { type: "expected", description: "System does not allow special characters in vendor name and vendor status remains 'Inactive'." },
+        { type: "expected", description: "ระบบไม่อนุญาตให้ใช้อักขระพิเศษใน vendor name และ vendor status ยังคงเป็น 'Inactive'" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_BACKEND },
@@ -1405,13 +1405,13 @@ purchaseTest.describe("PO — Daily cleanup — Time-based, backend only", () =>
     "TC-PO-110001 Happy Path - Daily Purchase Order Status Cleanup",
     {
       annotation: [
-        { type: "preconditions", description: "Database is accessible; system is operational; no maintenance windows active" },
+        { type: "preconditions", description: "Database เข้าถึงได้; ระบบทำงานปกติ; ไม่มีช่วง maintenance window active" },
         {
           type: "steps",
           description:
-            "1. Navigate to /admin/scheduled-jobs\n2. Wait for 2:00 AM\n3. System initiates scheduled job\n4. System queries for POs with status = 'Fully Received' and last activity date >= 30 days ago\n5. Verify no open quality issues, no open disputes or returns, all related invoices processed\n6. Verify all matching POs are marked as completed",
+            "1. ไปที่ /admin/scheduled-jobs\n2. รอถึงเวลา 2:00 AM\n3. ระบบเริ่ม scheduled job\n4. ระบบ query PO ที่มี status = 'Fully Received' และวันที่กิจกรรมล่าสุด >= 30 วันก่อน\n5. ตรวจสอบว่าไม่มีปัญหาคุณภาพที่ค้างอยู่ ไม่มีข้อพิพาทหรือการคืนสินค้า ใบแจ้งหนี้ที่เกี่ยวข้องทั้งหมดประมวลผลแล้ว\n6. ตรวจสอบว่า PO ที่ตรงตามเงื่อนไขทั้งหมดถูกทำเครื่องหมายว่า completed",
         },
-        { type: "expected", description: "All matching POs are marked as completed and no errors are reported." },
+        { type: "expected", description: "PO ที่ตรงตามเงื่อนไขทั้งหมดถูกทำเครื่องหมายว่า completed และไม่มีการรายงานข้อผิดพลาด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -1424,13 +1424,13 @@ purchaseTest.describe("PO — Daily cleanup — Time-based, backend only", () =>
     "TC-PO-110002 Negative Case - Database Unavailable",
     {
       annotation: [
-        { type: "preconditions", description: "Database is not accessible; system is operational; no maintenance windows active" },
+        { type: "preconditions", description: "Database เข้าถึงไม่ได้; ระบบทำงานปกติ; ไม่มีช่วง maintenance window active" },
         {
           type: "steps",
           description:
-            "1. Navigate to /admin/scheduled-jobs\n2. Wait for 2:00 AM\n3. System attempts to initiate scheduled job but fails due to database unavailability",
+            "1. ไปที่ /admin/scheduled-jobs\n2. รอถึงเวลา 2:00 AM\n3. ระบบพยายามเริ่ม scheduled job แต่ล้มเหลวเนื่องจาก database ไม่พร้อมใช้งาน",
         },
-        { type: "expected", description: "Error message indicating database unavailability is displayed." },
+        { type: "expected", description: "แสดงข้อความแจ้งข้อผิดพลาดว่า database ไม่พร้อมใช้งาน" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -1443,13 +1443,13 @@ purchaseTest.describe("PO — Daily cleanup — Time-based, backend only", () =>
     "TC-PO-110003 Negative Case - No Purchase Orders Meet Criteria",
     {
       annotation: [
-        { type: "preconditions", description: "Database is accessible; system is operational; no maintenance windows active" },
+        { type: "preconditions", description: "Database เข้าถึงได้; ระบบทำงานปกติ; ไม่มีช่วง maintenance window active" },
         {
           type: "steps",
           description:
-            "1. Navigate to /admin/scheduled-jobs\n2. Wait for 2:00 AM\n3. System queries for POs with status = 'Fully Received' and last activity date >= 30 days ago\n4. Verify no purchase orders meet the criteria",
+            "1. ไปที่ /admin/scheduled-jobs\n2. รอถึงเวลา 2:00 AM\n3. ระบบ query PO ที่มี status = 'Fully Received' และวันที่กิจกรรมล่าสุด >= 30 วันก่อน\n4. ตรวจสอบว่าไม่มี purchase order ที่ตรงตามเกณฑ์",
         },
-        { type: "expected", description: "No purchase orders are marked as completed and no errors are reported." },
+        { type: "expected", description: "ไม่มี purchase order ถูกทำเครื่องหมายว่า completed และไม่มีการรายงานข้อผิดพลาด" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
         { type: "note", description: SKIP_NOTE_TIME },
@@ -1462,13 +1462,13 @@ purchaseTest.describe("PO — Daily cleanup — Time-based, backend only", () =>
     "TC-PO-110004 Edge Case - Maintenance Window Active",
     {
       annotation: [
-        { type: "preconditions", description: "Database is accessible; system is not operational; maintenance windows active" },
+        { type: "preconditions", description: "Database เข้าถึงได้; ระบบไม่ทำงาน; มีช่วง maintenance window active" },
         {
           type: "steps",
           description:
-            "1. Navigate to /admin/scheduled-jobs\n2. Wait for 2:00 AM\n3. System attempts to initiate scheduled job but fails due to system not being operational during maintenance window",
+            "1. ไปที่ /admin/scheduled-jobs\n2. รอถึงเวลา 2:00 AM\n3. ระบบพยายามเริ่ม scheduled job แต่ล้มเหลวเนื่องจากระบบไม่ทำงานระหว่าง maintenance window",
         },
-        { type: "expected", description: "Error message indicating maintenance window active is displayed." },
+        { type: "expected", description: "แสดงข้อความแจ้งข้อผิดพลาดว่า maintenance window active" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
         { type: "note", description: SKIP_NOTE_TIME },

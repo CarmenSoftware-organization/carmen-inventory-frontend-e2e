@@ -18,13 +18,13 @@ purchaseTest.describe("Stock Issue — List", () => {
     "TC-SI-010001 Happy Path - View Issue List",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to Stock Issues view and has store_operations.view permission" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง Stock Issues view และมี permission store_operations.view" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Verify the summary cards display correct counts and total value\n3. Verify the issue list is filtered for Issue stage with DIRECT destinations\n4. Click on a row\n5. Verify the selected issue details match the row",
+            "1. ไปที่ /store-operation/store-requisition\n2. ตรวจสอบว่า summary cards แสดงจำนวนและมูลค่ารวมที่ถูกต้อง\n3. ตรวจสอบว่า issue list ถูก filter สำหรับ Issue stage ที่มี DIRECT destinations\n4. คลิก row\n5. ตรวจสอบว่ารายละเอียด issue ที่เลือกตรงกับ row",
         },
-        { type: "expected", description: "Summary cards and issue list display correct information. User can view details of selected issues." },
+        { type: "expected", description: "Summary cards และ issue list แสดงข้อมูลที่ถูกต้อง ผู้ใช้สามารถดูรายละเอียดของ issues ที่เลือก" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -40,13 +40,13 @@ purchaseTest.describe("Stock Issue — List", () => {
     "TC-SI-010003 Edge Case - No Issues",
     {
       annotation: [
-        { type: "preconditions", description: "User has access; no issues exist in Issue stage with DIRECT destinations" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง และไม่มี issues ใน Issue stage ที่มี DIRECT destinations" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Verify the summary cards display 0 for all counts and total value\n3. Verify the issue list is empty",
+            "1. ไปที่ /store-operation/store-requisition\n2. ตรวจสอบว่า summary cards แสดง 0 สำหรับทุก counts และ total value\n3. ตรวจสอบว่า issue list ว่างเปล่า",
         },
-        { type: "expected", description: "Summary cards and issue list display 0 counts and empty list." },
+        { type: "expected", description: "Summary cards และ issue list แสดง 0 counts และ empty list" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -61,13 +61,13 @@ purchaseTest.describe("Stock Issue — List", () => {
     "TC-SI-010004 Edge Case - Pagination",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to Stock Issues view and has store_operations.view permission" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง Stock Issues view และมี permission store_operations.view" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Verify pagination controls are present\n3. Click Next or Previous page button\n4. Verify the next or previous page of issues is displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. ตรวจสอบว่า pagination controls มีอยู่\n3. กด Next หรือ Previous page button\n4. ตรวจสอบว่าหน้า issues ถัดไปหรือก่อนหน้าแสดงขึ้นมา",
         },
-        { type: "expected", description: "Pagination controls work and next or previous page of issues is correctly displayed." },
+        { type: "expected", description: "Pagination controls ทำงานได้และหน้า issues ถัดไปหรือก่อนหน้าแสดงอย่างถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -89,13 +89,13 @@ purchaseTest.describe("Stock Issue — View Detail", () => {
     "TC-SI-020001 View existing issue with all details",
     {
       annotation: [
-        { type: "preconditions", description: "A StoreRequisition exists at Issue stage; destinationLocationType is DIRECT; user has view permission" },
+        { type: "preconditions", description: "StoreRequisition อยู่ใน Issue stage destinationLocationType เป็น DIRECT และผู้ใช้มี view permission" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click on issue row or reference number\n3. Verify header with SR reference, date, and status badge\n4. Verify From Location, Issue Summary, To Location, Department, and Expense Account cards\n5. Verify items table with correct details\n6. Verify tracking info if available",
+            "1. ไปที่ /store-operation/store-requisition\n2. คลิก issue row หรือ reference number\n3. ตรวจสอบ header พร้อม SR reference, date และ status badge\n4. ตรวจสอบ cards ของ From Location, Issue Summary, To Location, Department และ Expense Account\n5. ตรวจสอบ items table พร้อมรายละเอียดที่ถูกต้อง\n6. ตรวจสอบ tracking info หากมี",
         },
-        { type: "expected", description: "System displays all details in the issue layout as expected." },
+        { type: "expected", description: "ระบบแสดงรายละเอียดทั้งหมดใน issue layout ตามที่คาดหวัง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -116,13 +116,13 @@ purchaseTest.describe("Stock Issue — View Detail", () => {
     "TC-SI-020002 View issue with missing department assignment",
     {
       annotation: [
-        { type: "preconditions", description: "A StoreRequisition exists at Issue stage; destinationLocationType is DIRECT; user has view permission; department is not assigned" },
+        { type: "preconditions", description: "StoreRequisition อยู่ใน Issue stage destinationLocationType เป็น DIRECT ผู้ใช้มี view permission และ department ไม่ถูก assign" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click on issue row or reference number\n3. Verify header with SR reference, date, and status badge\n4. Verify From Location, Issue Summary, To Location, and Expense Account cards\n5. Verify items table with correct details\n6. Verify tracking info if available",
+            "1. ไปที่ /store-operation/store-requisition\n2. คลิก issue row หรือ reference number\n3. ตรวจสอบ header พร้อม SR reference, date และ status badge\n4. ตรวจสอบ cards ของ From Location, Issue Summary, To Location และ Expense Account\n5. ตรวจสอบ items table พร้อมรายละเอียดที่ถูกต้อง\n6. ตรวจสอบ tracking info หากมี",
         },
-        { type: "expected", description: "System displays all details except department card as expected." },
+        { type: "expected", description: "ระบบแสดงรายละเอียดทั้งหมดยกเว้น department card ตามที่คาดหวัง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -139,13 +139,13 @@ requestorTest.describe("Stock Issue — View Detail — Permission denial", () =
     "TC-SI-020003 View issue without view permission",
     {
       annotation: [
-        { type: "preconditions", description: "A StoreRequisition exists at Issue stage; destinationLocationType is DIRECT; user does not have view permission" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com StoreRequisition อยู่ใน Issue stage destinationLocationType เป็น DIRECT และผู้ใช้ไม่มี view permission" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click on issue row or reference number\n3. Verify error message or restricted access indication",
+            "1. ไปที่ /store-operation/store-requisition\n2. คลิก issue row หรือ reference number\n3. ตรวจสอบ error message หรือสัญญาณบอกว่าถูกจำกัดสิทธิ์",
         },
-        { type: "expected", description: "System restricts access or shows error message as expected." },
+        { type: "expected", description: "ระบบจำกัดการเข้าถึงหรือแสดง error message ตามที่คาดหวัง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -168,13 +168,13 @@ purchaseTest.describe("Stock Issue — Search & Filter", () => {
     "TC-SI-030001 Happy Path - Search by SR Reference Number",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to Stock Issues view" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง Stock Issues view" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Fill search term 'SR-12345' in search box\n3. Select 'All' status filter\n4. Wait for list update\n5. Verify SR 'SR-12345' is displayed in list",
+            "1. ไปที่ /store-operation/store-requisition\n2. กรอก search term 'SR-12345' ใน search box\n3. เลือก status filter 'All'\n4. รอให้ list อัปเดต\n5. ตรวจสอบว่า SR 'SR-12345' แสดงใน list",
         },
-        { type: "expected", description: "SR 'SR-12345' is correctly displayed in the list with all relevant details." },
+        { type: "expected", description: "SR 'SR-12345' แสดงใน list พร้อมรายละเอียดที่เกี่ยวข้องอย่างถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -191,13 +191,13 @@ purchaseTest.describe("Stock Issue — Search & Filter", () => {
     "TC-SI-030002 Negative Case - Invalid Search Term",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to Stock Issues view" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง Stock Issues view" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Fill search term 'InvalidSR' in search box\n3. Select 'All' status filter\n4. Wait for list update\n5. Verify no SRs are displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. กรอก search term 'InvalidSR' ใน search box\n3. เลือก status filter 'All'\n4. รอให้ list อัปเดต\n5. ตรวจสอบว่าไม่มี SRs แสดง",
         },
-        { type: "expected", description: "No SRs are displayed in the list." },
+        { type: "expected", description: "ไม่มี SRs แสดงใน list" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -215,13 +215,13 @@ purchaseTest.describe("Stock Issue — Search & Filter", () => {
     "TC-SI-030003 Edge Case - Empty Search Term",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to Stock Issues view" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง Stock Issues view" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Clear search term in search box\n3. Select 'All' status filter\n4. Wait for list update\n5. Verify all SRs are displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. clear search term ใน search box\n3. เลือก status filter 'All'\n4. รอให้ list อัปเดต\n5. ตรวจสอบว่า SRs ทั้งหมดแสดงขึ้นมา",
         },
-        { type: "expected", description: "All SRs are displayed in the list." },
+        { type: "expected", description: "SRs ทั้งหมดแสดงใน list" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -238,13 +238,13 @@ purchaseTest.describe("Stock Issue — Search & Filter", () => {
     "TC-SI-030005 Edge Case - Multiple Filters",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to Stock Issues view" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง Stock Issues view" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Fill search term 'SR-12345' in search box\n3. Select 'Active' status filter\n4. Click 'From Location' dropdown\n5. Select 'Warehouse A' from dropdown\n6. Click 'To Location' dropdown\n7. Select 'Warehouse B' from dropdown\n8. Click 'Department' dropdown\n9. Select 'Sales' from dropdown\n10. Wait for list update\n11. Verify SR 'SR-12345' with 'Active' status, from 'Warehouse A', to 'Warehouse B', and in 'Sales' department is displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. กรอก search term 'SR-12345' ใน search box\n3. เลือก status filter 'Active'\n4. กด dropdown 'From Location'\n5. เลือก 'Warehouse A' จาก dropdown\n6. กด dropdown 'To Location'\n7. เลือก 'Warehouse B' จาก dropdown\n8. กด dropdown 'Department'\n9. เลือก 'Sales' จาก dropdown\n10. รอให้ list อัปเดต\n11. ตรวจสอบว่า SR 'SR-12345' ที่มีสถานะ 'Active' จาก 'Warehouse A' ไปยัง 'Warehouse B' และอยู่ใน department 'Sales' แสดงขึ้นมา",
         },
-        { type: "expected", description: "SR 'SR-12345' with specified filters is displayed in the list." },
+        { type: "expected", description: "SR 'SR-12345' ที่ตรงกับ filters ที่กำหนดแสดงใน list" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -263,13 +263,13 @@ requestorTest.describe("Stock Issue — Search & Filter — Permission denial", 
     "TC-SI-030004 Negative Case - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have access to Stock Issues view" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com และไม่มีสิทธิ์เข้าถึง Stock Issues view" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Attempt to fill search term in search box",
+            "1. ไปที่ /store-operation/store-requisition\n2. พยายามกรอก search term ใน search box",
         },
-        { type: "expected", description: "User is redirected to a permission denied page or an error message is displayed." },
+        { type: "expected", description: "ผู้ใช้ถูก redirect ไปยังหน้า permission denied หรือ error message แสดงขึ้นมา" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -292,13 +292,13 @@ purchaseTest.describe("Stock Issue — View Full SR", () => {
     "TC-SI-040001 Happy Path - View Full SR from Issue Detail",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in and has SR view permission. Issue view is displayed." },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี SR view permission และ Issue view แสดงอยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'View Full SR'\n3. Verify Store Requisition detail page is displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'View Full SR'\n3. ตรวจสอบว่าหน้า Store Requisition detail แสดงขึ้นมา",
         },
-        { type: "expected", description: "User is navigated to Store Requisition detail page where they can see all relevant information and perform actions if permitted." },
+        { type: "expected", description: "ผู้ใช้ถูกนำทางไปยังหน้า Store Requisition detail ซึ่งสามารถดูข้อมูลที่เกี่ยวข้องทั้งหมดและดำเนินการได้หากมีสิทธิ์" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -317,13 +317,13 @@ purchaseTest.describe("Stock Issue — View Full SR", () => {
     "TC-SI-040003 Edge Case - Empty SR Reference Link",
     {
       annotation: [
-        { type: "preconditions", description: "User has SR view permission. Issue view is displayed with an empty SR reference link." },
+        { type: "preconditions", description: "ผู้ใช้มี SR view permission และ Issue view แสดงพร้อม SR reference link ที่ว่างเปล่า" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'View Full SR' (link is empty)\n3. Verify error message is displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'View Full SR' (link ว่างเปล่า)\n3. ตรวจสอบว่า error message แสดงขึ้นมา",
         },
-        { type: "expected", description: "Error message indicating SR reference link is invalid or empty is displayed." },
+        { type: "expected", description: "Error message แสดงว่า SR reference link ไม่ถูกต้องหรือว่างเปล่า" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -338,13 +338,13 @@ purchaseTest.describe("Stock Issue — View Full SR", () => {
     "TC-SI-040004 Negative - User at Issue Stage No Permissions",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in and has SR view permission. Issue view is displayed with SR at Issue stage." },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี SR view permission และ Issue view แสดงพร้อม SR ใน Issue stage" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'View Full SR'\n3. Click 'Complete'\n4. Verify error message is displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'View Full SR'\n3. กด 'Complete'\n4. ตรวจสอบว่า error message แสดงขึ้นมา",
         },
-        { type: "expected", description: "Error message indicating user does not have permission to complete SR is displayed." },
+        { type: "expected", description: "Error message แสดงว่าผู้ใช้ไม่มีสิทธิ์ complete SR" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -359,13 +359,13 @@ purchaseTest.describe("Stock Issue — View Full SR", () => {
     "TC-SI-040005 Happy Path - Print SR",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in and has SR view and print permission. Issue view is displayed with SR at Issue stage." },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี SR view และ print permission และ Issue view แสดงพร้อม SR ใน Issue stage" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'View Full SR'\n3. Click 'Print'\n4. Verify print dialog or confirmation message is displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'View Full SR'\n3. กด 'Print'\n4. ตรวจสอบว่า print dialog หรือ confirmation message แสดงขึ้นมา",
         },
-        { type: "expected", description: "Print dialog or confirmation message is displayed allowing user to print SR." },
+        { type: "expected", description: "Print dialog หรือ confirmation message แสดงขึ้นมาเพื่อให้ผู้ใช้ print SR ได้" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -386,13 +386,13 @@ requestorTest.describe("Stock Issue — View Full SR — Permission denial", () 
     "TC-SI-040002 Negative - No SR View Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in but does not have SR view permission. Issue view is displayed." },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com แต่ไม่มี SR view permission และ Issue view แสดงอยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'View Full SR'\n3. Verify error message is displayed",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'View Full SR'\n3. ตรวจสอบว่า error message แสดงขึ้นมา",
         },
-        { type: "expected", description: "Error message indicating user does not have permission to view full SR is displayed." },
+        { type: "expected", description: "Error message แสดงว่าผู้ใช้ไม่มีสิทธิ์ดู full SR" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -420,13 +420,13 @@ purchaseTest.describe("Stock Issue — Print", () => {
     "TC-SI-050001 Happy Path: Warehouse Staff prints a stock issue document",
     {
       annotation: [
-        { type: "preconditions", description: "Issue exists at Issue/Complete stage and user has view permission" },
+        { type: "preconditions", description: "Issue อยู่ใน Issue/Complete stage และผู้ใช้มี view permission" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Print' button\n3. Verify document is generated with header, location information, items list, and signature fields\n4. Browser print dialog opens",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Print' button\n3. ตรวจสอบว่าเอกสารถูกสร้างพร้อม header, location information, items list และ signature fields\n4. Browser print dialog เปิดขึ้นมา",
         },
-        { type: "expected", description: "Document is successfully printed with all required information." },
+        { type: "expected", description: "เอกสารถูก print สำเร็จพร้อมข้อมูลที่จำเป็นทั้งหมด" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -445,13 +445,13 @@ purchaseTest.describe("Stock Issue — Print", () => {
     "TC-SI-050003 Edge Case: Multiple items with zero quantity",
     {
       annotation: [
-        { type: "preconditions", description: "Issue exists with multiple items, some having zero quantity" },
+        { type: "preconditions", description: "Issue มี items หลายรายการ บางรายการมี quantity เป็นศูนย์" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Print' button\n3. Verify document includes items with non-zero quantities only",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Print' button\n3. ตรวจสอบว่าเอกสารแสดงเฉพาะ items ที่มี quantity ไม่ใช่ศูนย์",
         },
-        { type: "expected", description: "Document does not include items with zero quantity." },
+        { type: "expected", description: "เอกสารไม่แสดง items ที่มี quantity เป็นศูนย์" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -466,13 +466,13 @@ purchaseTest.describe("Stock Issue — Print", () => {
     "TC-SI-050004 Negative: Issue does not exist",
     {
       annotation: [
-        { type: "preconditions", description: "Issue does not exist in the system" },
+        { type: "preconditions", description: "Issue ไม่มีอยู่ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Print' button\n3. Verify system displays an error message",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Print' button\n3. ตรวจสอบว่าระบบแสดง error message",
         },
-        { type: "expected", description: "System displays an error message indicating the issue does not exist." },
+        { type: "expected", description: "ระบบแสดง error message ว่า issue ไม่มีอยู่" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -487,13 +487,13 @@ purchaseTest.describe("Stock Issue — Print", () => {
     "TC-SI-050005 Edge Case: Issue at Cancel stage",
     {
       annotation: [
-        { type: "preconditions", description: "Issue exists but is at Cancel stage" },
+        { type: "preconditions", description: "Issue มีอยู่แต่อยู่ใน Cancel stage" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Print' button\n3. Verify system displays an error message",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Print' button\n3. ตรวจสอบว่าระบบแสดง error message",
         },
-        { type: "expected", description: "System displays an error message indicating the issue is at Cancel stage and cannot be printed." },
+        { type: "expected", description: "ระบบแสดง error message ว่า issue อยู่ใน Cancel stage และไม่สามารถ print ได้" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -513,13 +513,13 @@ requestorTest.describe("Stock Issue — Print — Permission denial", () => {
     "TC-SI-050002 Negative: User without permission attempts to print",
     {
       annotation: [
-        { type: "preconditions", description: "Issue exists at Issue/Complete stage but user does not have view permission" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com Issue อยู่ใน Issue/Complete stage แต่ผู้ใช้ไม่มี view permission" },
         {
           type: "steps",
           description:
-            "1. Navigate to /store-operation/store-requisition\n2. Click 'Print' button\n3. Verify system denies permission and does not allow printing",
+            "1. ไปที่ /store-operation/store-requisition\n2. กด 'Print' button\n3. ตรวจสอบว่าระบบปฏิเสธสิทธิ์และไม่อนุญาตให้ print",
         },
-        { type: "expected", description: "System denies printing due to insufficient permissions." },
+        { type: "expected", description: "ระบบปฏิเสธการ print เนื่องจาก permissions ไม่เพียงพอ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -549,12 +549,12 @@ purchaseTest.describe("Stock Issue — Expense Allocation", () => {
     "TC-SI-060001 Happy Path - View Expense Allocation",
     {
       annotation: [
-        { type: "preconditions", description: "SR status is Completed; user has permission to view costs" },
+        { type: "preconditions", description: "สถานะ SR เป็น Completed และผู้ใช้มี permission ดู costs" },
         {
           type: "steps",
-          description: "1. Navigate to /store-operation/store-requisition\n2. Click 'View Expense Allocation'",
+          description: "1. ไปที่ /store-operation/store-requisition\n2. กด 'View Expense Allocation'",
         },
-        { type: "expected", description: "Expense allocation details are displayed: Department, Expense Account, Total Value expensed, and items with individual costs." },
+        { type: "expected", description: "รายละเอียด expense allocation แสดงขึ้นมา: Department, Expense Account, Total Value expensed และ items พร้อม individual costs" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -573,12 +573,12 @@ purchaseTest.describe("Stock Issue — Expense Allocation", () => {
     "TC-SI-060003 Edge Case - SR with No Expense Allocation",
     {
       annotation: [
-        { type: "preconditions", description: "SR status is Completed; user has permission to view costs; SR has no expense allocation" },
+        { type: "preconditions", description: "สถานะ SR เป็น Completed ผู้ใช้มี permission ดู costs และ SR ไม่มี expense allocation" },
         {
           type: "steps",
-          description: "1. Navigate to /store-operation/store-requisition\n2. Click 'View Expense Allocation'",
+          description: "1. ไปที่ /store-operation/store-requisition\n2. กด 'View Expense Allocation'",
         },
-        { type: "expected", description: "System displays a message indicating no expense allocation." },
+        { type: "expected", description: "ระบบแสดง message ว่าไม่มี expense allocation" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -593,12 +593,12 @@ purchaseTest.describe("Stock Issue — Expense Allocation", () => {
     "TC-SI-060004 Negative - Invalid SR ID",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to view costs" },
+        { type: "preconditions", description: "ผู้ใช้มี permission ดู costs" },
         {
           type: "steps",
-          description: "1. Navigate to /store-operation/store-requisition\n2. Click 'View Expense Allocation'",
+          description: "1. ไปที่ /store-operation/store-requisition\n2. กด 'View Expense Allocation'",
         },
-        { type: "expected", description: "System displays a message indicating the SR ID is invalid." },
+        { type: "expected", description: "ระบบแสดง message ว่า SR ID ไม่ถูกต้อง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -615,12 +615,12 @@ requestorTest.describe("Stock Issue — Expense Allocation — Permission denial
     "TC-SI-060002 Negative - No Permission to View Costs",
     {
       annotation: [
-        { type: "preconditions", description: "SR status is Completed; user does not have permission to view costs" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com สถานะ SR เป็น Completed และผู้ใช้ไม่มี permission ดู costs" },
         {
           type: "steps",
-          description: "1. Navigate to /store-operation/store-requisition\n2. Click 'View Expense Allocation'",
+          description: "1. ไปที่ /store-operation/store-requisition\n2. กด 'View Expense Allocation'",
         },
-        { type: "expected", description: "System displays a permission denied message." },
+        { type: "expected", description: "ระบบแสดง message ว่าถูกปฏิเสธสิทธิ์" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],

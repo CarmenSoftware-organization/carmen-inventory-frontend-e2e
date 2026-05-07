@@ -24,9 +24,9 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com ผ่าน auth fixture" },
         { type: "steps", description: "1. ไปที่ /config/adjustment-type" },
-        { type: "expected", description: "URL matches /config/adjustment-type; ปุ่ม Add และช่องค้นหา visible ภายใน 10s" },
+        { type: "expected", description: "URL ตรงกับ /config/adjustment-type; ปุ่ม Add และช่องค้นหา visible ภายใน 10s" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -43,7 +43,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT-010002 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/adjustment-type" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/adjustment-type" },
         { type: "steps", description: "1. ไปที่ /config/adjustment-type" },
         { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
         { type: "priority", description: "High" },
@@ -60,7 +60,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/adjustment-type" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/adjustment-type" },
         { type: "steps", description: "1. ไปที่ /config/adjustment-type\n2. พิมพ์ 'test' ในช่องค้นหา" },
         { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
         { type: "priority", description: "Medium" },
@@ -78,7 +78,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/adjustment-type" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/adjustment-type" },
         { type: "steps", description: "1. ไปที่ /config/adjustment-type\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
         { type: "priority", description: "Medium" },
@@ -98,7 +98,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT-010005 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/adjustment-type/new" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/adjustment-type/new" },
         { type: "steps", description: "1. เปิดฟอร์ม new\n2. กด Save โดยไม่กรอก code/name" },
         { type: "expected", description: "URL ยังคงอยู่ที่ /new (ฟอร์ม block submit ด้วย client-side validation)" },
         { type: "priority", description: "High" },
@@ -116,7 +116,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT-010006 สร้างรายการใหม่ (Stock In) และปรากฏในตาราง",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record CODE ยังไม่มีอยู่ใน DB" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; record CODE ยังไม่มีอยู่ใน DB" },
         { type: "steps", description: "1. เปิด new form\n2. กรอก code + name\n3. เลือก type = Stock In ใน combobox\n4. กด Save\n5. กลับ list และค้นหาด้วย CODE" },
         { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี CODE ปรากฏใน list" },
         { type: "priority", description: "High" },
@@ -223,7 +223,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     "TC-AT-010009 สร้างรายการใหม่ (Stock Out) และปรากฏในตาราง",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record CODE_OUT ยังไม่มีอยู่ใน DB" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; record CODE_OUT ยังไม่มีอยู่ใน DB" },
         { type: "steps", description: "1. เปิด new form\n2. กรอก code_out + name_out\n3. เลือก type = Stock Out ใน combobox\n4. กด Save\n5. กลับ list และค้นหาด้วย CODE_OUT" },
         { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี CODE_OUT ปรากฏใน list" },
         { type: "priority", description: "High" },

@@ -99,17 +99,17 @@ _Generated from `tests/501-good-received-note.spec.ts` annotations. Edit annotat
 
 **Preconditions**
 
-User is authenticated and has permission to view GRNs; at least one GRN exists in the system
+Login เป็นผู้ใช้ที่มีสิทธิ์ดู GRN; มี GRN อย่างน้อยหนึ่งรายการในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Verify GRN list is displayed
-3. Select a GRN to view details
+1. ไปที่ /procurement/goods-receive-note
+2. ตรวจสอบว่ารายการ GRN แสดง
+3. เลือก GRN เพื่อดูรายละเอียด
 
 **Expected**
 
-GRN list is displayed with current data. User can select a GRN to view details.
+รายการ GRN แสดงพร้อมข้อมูลปัจจุบัน ผู้ใช้สามารถเลือก GRN เพื่อดูรายละเอียดได้
 
 ---
 
@@ -122,16 +122,16 @@ GRN list is displayed with current data. User can select a GRN to view details.
 
 **Preconditions**
 
-User has permission to view GRNs; no GRNs exist in the system
+ผู้ใช้มีสิทธิ์ดู GRN; ไม่มี GRN ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Verify empty state message is displayed
+1. ไปที่ /procurement/goods-receive-note
+2. ตรวจสอบว่าข้อความ empty state แสดง
 
 **Expected**
 
-Empty state message is displayed indicating no GRNs are available.
+ข้อความ empty state แสดงว่าไม่มี GRN ให้แสดง
 
 ---
 
@@ -144,16 +144,16 @@ Empty state message is displayed indicating no GRNs are available.
 
 **Preconditions**
 
-User is authenticated but does not have permission to view GRNs; at least one GRN exists in the system
+Login เป็นผู้ใช้ที่ไม่มีสิทธิ์ดู GRN; มี GRN อย่างน้อยหนึ่งรายการในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Verify access is denied or appropriate error message is displayed
+1. ไปที่ /procurement/goods-receive-note
+2. ตรวจสอบว่าการเข้าถึงถูกปฏิเสธหรือแสดงข้อความแจ้งข้อผิดพลาดที่เหมาะสม
 
 **Expected**
 
-Access is denied or appropriate error message is displayed.
+การเข้าถึงถูกปฏิเสธหรือแสดงข้อความแจ้งข้อผิดพลาดที่เหมาะสม
 
 ---
 
@@ -166,17 +166,17 @@ Access is denied or appropriate error message is displayed.
 
 **Preconditions**
 
-User has permission to view GRNs; a large number of GRNs exist in the system
+ผู้ใช้มีสิทธิ์ดู GRN; มี GRN จำนวนมากในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Verify pagination works as expected
-3. Scroll through multiple pages of GRNs
+1. ไปที่ /procurement/goods-receive-note
+2. ตรวจสอบว่า pagination ทำงานตามที่คาดหวัง
+3. เลื่อนผ่านหลายหน้าของ GRN
 
 **Expected**
 
-Pagination works as expected. User can scroll through multiple pages of GRNs.
+Pagination ทำงานตามที่คาดหวัง ผู้ใช้สามารถเลื่อนผ่านหลายหน้าของ GRN ได้
 
 ---
 
@@ -189,17 +189,17 @@ Pagination works as expected. User can scroll through multiple pages of GRNs.
 
 **Preconditions**
 
-User is on GRN List page and GRNs exist in system
+ผู้ใช้อยู่ที่หน้า GRN List และมี GRN ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Fill 'GRN number' with a valid GRN number
-3. Verify filtered GRN list includes the entered GRN number
+1. ไปที่ /procurement/goods-receive-note
+2. กรอก 'GRN number' ด้วย GRN number ที่ถูกต้อง
+3. ตรวจสอบว่ารายการ GRN ที่กรองแล้วรวม GRN number ที่กรอก
 
 **Expected**
 
-GRN list is filtered to show only the GRN with the entered number.
+รายการ GRN กรองแสดงเฉพาะ GRN ที่มีหมายเลขที่กรอก
 
 ---
 
@@ -212,17 +212,17 @@ GRN list is filtered to show only the GRN with the entered number.
 
 **Preconditions**
 
-User has applied filters to GRN list
+ผู้ใช้ได้ apply filter ให้กับรายการ GRN แล้ว
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Clear Filters' button
-3. Verify the GRN list returns to full view
+1. ไปที่ /procurement/goods-receive-note
+2. กดปุ่ม 'Clear Filters'
+3. ตรวจสอบว่ารายการ GRN กลับสู่มุมมองเต็ม
 
 **Expected**
 
-GRN list returns to its initial state with all records visible.
+รายการ GRN กลับสู่สถานะเริ่มต้นพร้อมบันทึกทั้งหมด visible
 
 ---
 
@@ -235,18 +235,18 @@ GRN list returns to its initial state with all records visible.
 
 **Preconditions**
 
-User is on GRN List page and GRNs exist in system
+ผู้ใช้อยู่ที่หน้า GRN List และมี GRN ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Fill 'Search' box with an invalid term
-3. Wait 5 seconds
-4. Verify no records are displayed
+1. ไปที่ /procurement/goods-receive-note
+2. กรอกช่อง 'Search' ด้วยคำค้นหาที่ไม่ถูกต้อง
+3. รอ 5 วินาที
+4. ตรวจสอบว่าไม่มีบันทึกแสดง
 
 **Expected**
 
-No GRNs are displayed and the list remains unfiltered.
+ไม่มี GRN แสดงและรายการยังคงไม่มีการกรอง
 
 ---
 
@@ -259,17 +259,17 @@ No GRNs are displayed and the list remains unfiltered.
 
 **Preconditions**
 
-User is on GRN List page and GRNs exist in system
+ผู้ใช้อยู่ที่หน้า GRN List และมี GRN ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Clear the 'Search' box
-3. Verify the GRN list returns to full view
+1. ไปที่ /procurement/goods-receive-note
+2. ล้างช่อง 'Search'
+3. ตรวจสอบว่ารายการ GRN กลับสู่มุมมองเต็ม
 
 **Expected**
 
-GRN list returns to its initial state with all records visible.
+รายการ GRN กลับสู่สถานะเริ่มต้นพร้อมบันทึกทั้งหมด visible
 
 ---
 
@@ -282,18 +282,18 @@ GRN list returns to its initial state with all records visible.
 
 **Preconditions**
 
-User is on GRN List page and GRNs exist in system
+ผู้ใช้อยู่ที่หน้า GRN List และมี GRN ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Fill 'Vendor name' with a valid vendor name
-3. Fill 'Invoice number' with a valid invoice number
-4. Verify filtered GRN list includes the entered vendor and invoice
+1. ไปที่ /procurement/goods-receive-note
+2. กรอก 'Vendor name' ด้วยชื่อ vendor ที่ถูกต้อง
+3. กรอก 'Invoice number' ด้วยหมายเลข invoice ที่ถูกต้อง
+4. ตรวจสอบว่ารายการ GRN ที่กรองแล้วรวม vendor และ invoice ที่กรอก
 
 **Expected**
 
-GRN list is filtered to show only GRNs matching the entered vendor name and invoice number.
+รายการ GRN กรองแสดงเฉพาะ GRN ที่ตรงกับ vendor name และ invoice number ที่กรอก
 
 ---
 
@@ -306,20 +306,20 @@ GRN list is filtered to show only GRNs matching the entered vendor name and invo
 
 **Preconditions**
 
-User has 'Create GRN' permission; at least one vendor with open/partial POs exists; products in PO are in product catalog
+ผู้ใช้มีสิทธิ์ 'Create GRN'; มี vendor ที่มี PO เปิด/บางส่วนอย่างน้อยหนึ่งราย; สินค้าใน PO มีอยู่ใน product catalog
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'New GRN'
-3. Select a vendor
-4. Select a PO
-5. Fill received quantities
-6. Click 'Submit'
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'New GRN'
+3. เลือก vendor
+4. เลือก PO
+5. กรอก quantity ที่รับ
+6. กด 'Submit'
 
 **Expected**
 
-GRN created with status RECEIVED, GRN number auto-generated, line items populated from PO, PO status updated (if fully received).
+GRN ถูกสร้างพร้อม status RECEIVED, GRN number ถูกสร้างอัตโนมัติ, line item มาจาก PO, PO status อัปเดต (ถ้ารับครบ)
 
 ---
 
@@ -332,16 +332,16 @@ GRN created with status RECEIVED, GRN number auto-generated, line items populate
 
 **Preconditions**
 
-User does not have 'Create GRN' permission
+ผู้ใช้ไม่มีสิทธิ์ 'Create GRN'
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'New GRN'
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'New GRN'
 
 **Expected**
 
-User is unable to create GRN and receives an error message stating 'Insufficient permission to create GRN'.
+ผู้ใช้ไม่สามารถสร้าง GRN ได้และได้รับข้อความแจ้งข้อผิดพลาด 'Insufficient permission to create GRN'
 
 ---
 
@@ -354,16 +354,16 @@ User is unable to create GRN and receives an error message stating 'Insufficient
 
 **Preconditions**
 
-User has 'Create GRN' permission; no vendors with open/partial POs exist
+ผู้ใช้มีสิทธิ์ 'Create GRN'; ไม่มี vendor ที่มี PO เปิด/บางส่วน
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'New GRN'
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'New GRN'
 
 **Expected**
 
-User is unable to create GRN and receives an error message stating 'No vendor with open/partial POs found'.
+ผู้ใช้ไม่สามารถสร้าง GRN ได้และได้รับข้อความแจ้งข้อผิดพลาด 'No vendor with open/partial POs found'
 
 ---
 
@@ -376,19 +376,19 @@ User is unable to create GRN and receives an error message stating 'No vendor wi
 
 **Preconditions**
 
-User has 'Create GRN' permission; at least one vendor with an invalid PO exists
+ผู้ใช้มีสิทธิ์ 'Create GRN'; มี vendor ที่มี PO ที่ไม่ถูกต้องอย่างน้อยหนึ่งราย
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'New GRN'
-3. Select a vendor
-4. Select an invalid PO
-5. Fill received quantities
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'New GRN'
+3. เลือก vendor
+4. เลือก PO ที่ไม่ถูกต้อง
+5. กรอก quantity ที่รับ
 
 **Expected**
 
-User is unable to create GRN and receives an error message stating 'Invalid purchase order selected'.
+ผู้ใช้ไม่สามารถสร้าง GRN ได้และได้รับข้อความแจ้งข้อผิดพลาด 'Invalid purchase order selected'
 
 ---
 
@@ -401,18 +401,18 @@ User is unable to create GRN and receives an error message stating 'Invalid purc
 
 **Preconditions**
 
-User has 'Create GRN' permission; vendor has open/partial POs; products in PO are not in product catalog
+ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor มี PO เปิด/บางส่วน; สินค้าใน PO ไม่มีใน product catalog
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'New GRN'
-3. Select a vendor
-4. Select a PO
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'New GRN'
+3. เลือก vendor
+4. เลือก PO
 
 **Expected**
 
-User is unable to create GRN and receives an error message stating 'Products in PO not found in product catalog'.
+ผู้ใช้ไม่สามารถสร้าง GRN ได้และได้รับข้อความแจ้งข้อผิดพลาด 'Products in PO not found in product catalog'
 
 ---
 
@@ -425,18 +425,18 @@ User is unable to create GRN and receives an error message stating 'Products in 
 
 **Preconditions**
 
-User has 'Create GRN' permission; vendor has multiple open/partial POs; POs are in different currencies
+ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor มี PO เปิด/บางส่วนหลายรายการ; PO อยู่ในสกุลเงินที่แตกต่างกัน
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Create GRN'
-3. Try to select POs from different vendors or in different currencies
-4. Click 'Submit'
+1. ไปที่ /procurement/purchase-order
+2. กด 'Create GRN'
+3. พยายามเลือก PO จาก vendor ต่างรายหรือสกุลเงินต่างกัน
+4. กด 'Submit'
 
 **Expected**
 
-System displays error message prohibiting creation of GRN with POs from different vendors or currencies.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดห้ามการสร้าง GRN จาก PO ของ vendor ต่างรายหรือสกุลเงินต่างกัน
 
 ---
 
@@ -449,17 +449,17 @@ System displays error message prohibiting creation of GRN with POs from differen
 
 **Preconditions**
 
-User does not have 'Create GRN' permission; vendor has multiple open/partial POs
+ผู้ใช้ไม่มีสิทธิ์ 'Create GRN'; vendor มี PO เปิด/บางส่วนหลายรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Create GRN'
-3. Attempt to select POs and create GRN
+1. ไปที่ /procurement/purchase-order
+2. กด 'Create GRN'
+3. พยายามเลือก PO และสร้าง GRN
 
 **Expected**
 
-System displays permission denied error message preventing GRN creation.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดปฏิเสธสิทธิ์ป้องกันการสร้าง GRN
 
 ---
 
@@ -472,18 +472,18 @@ System displays permission denied error message preventing GRN creation.
 
 **Preconditions**
 
-User has 'Create GRN' permission; vendor has multiple open/partial POs
+ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor มี PO เปิด/บางส่วนหลายรายการ
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Click 'Create GRN'
-3. Select partially fulfilled POs
-4. Click 'Submit'
+1. ไปที่ /procurement/purchase-order
+2. กด 'Create GRN'
+3. เลือก PO ที่รับบางส่วน
+4. กด 'Submit'
 
 **Expected**
 
-GRN created with line items from partially fulfilled POs, each line item references its source PO, all source POs updated with GRN reference.
+GRN ถูกสร้างพร้อม line item จาก PO ที่รับบางส่วน, แต่ละ line item อ้างอิง PO ต้นทาง, PO ต้นทางทั้งหมดถูกอัปเดตพร้อม GRN reference
 
 ---
 
@@ -496,20 +496,20 @@ GRN created with line items from partially fulfilled POs, each line item referen
 
 **Preconditions**
 
-User has 'Create GRN' permission; vendor exists; products exist in catalog
+ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor มีอยู่ในระบบ; สินค้ามีใน catalog
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Create New GRN'
-3. Fill vendor field
-4. Fill product details
-5. Verify GRN information
-6. Click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'Create New GRN'
+3. กรอก vendor field
+4. กรอกรายละเอียดสินค้า
+5. ตรวจสอบข้อมูล GRN
+6. กด 'Save'
 
 **Expected**
 
-GRN is created without PO reference, status set to RECEIVED, no PO status updates triggered, activity log records manual creation.
+GRN ถูกสร้างโดยไม่มี PO reference, status ตั้งเป็น RECEIVED, ไม่มีการอัปเดต PO status, activity log บันทึกการสร้างแบบ manual
 
 ---
 
@@ -522,16 +522,16 @@ GRN is created without PO reference, status set to RECEIVED, no PO status update
 
 **Preconditions**
 
-User does not have 'Create GRN' permission
+ผู้ใช้ไม่มีสิทธิ์ 'Create GRN'
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Attempt to click 'Create New GRN'
+1. ไปที่ /procurement/goods-receive-note
+2. พยายามกด 'Create New GRN'
 
 **Expected**
 
-User is unable to click 'Create New GRN' or an appropriate error message is displayed.
+ผู้ใช้ไม่สามารถกด 'Create New GRN' ได้หรือแสดงข้อความแจ้งข้อผิดพลาดที่เหมาะสม
 
 ---
 
@@ -544,18 +544,18 @@ User is unable to click 'Create New GRN' or an appropriate error message is disp
 
 **Preconditions**
 
-User has 'Create GRN' permission; vendor does not exist in system
+ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor ไม่มีอยู่ในระบบ
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Create New GRN'
-3. Attempt to fill vendor field
-4. Verify error message
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'Create New GRN'
+3. พยายามกรอก vendor field
+4. ตรวจสอบข้อความแจ้งข้อผิดพลาด
 
 **Expected**
 
-Error message indicates that the vendor does not exist in the system.
+ข้อความแจ้งข้อผิดพลาดระบุว่า vendor ไม่มีอยู่ในระบบ
 
 ---
 
@@ -568,19 +568,19 @@ Error message indicates that the vendor does not exist in the system.
 
 **Preconditions**
 
-User has 'Create GRN' permission; vendor exists; products exist in catalog
+ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor มีอยู่ในระบบ; สินค้ามีใน catalog
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Create New GRN'
-3. Fill vendor field
-4. Fill product details with empty fields
-5. Attempt to click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'Create New GRN'
+3. กรอก vendor field
+4. กรอกรายละเอียดสินค้าด้วย field ว่างเปล่า
+5. พยายามกด 'Save'
 
 **Expected**
 
-Error message indicates that product details cannot be empty.
+ข้อความแจ้งข้อผิดพลาดระบุว่ารายละเอียดสินค้าไม่สามารถว่างเปล่าได้
 
 ---
 
@@ -593,19 +593,19 @@ Error message indicates that product details cannot be empty.
 
 **Preconditions**
 
-User has 'Create GRN' permission; vendor exists; products exist in catalog
+ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor มีอยู่ในระบบ; สินค้ามีใน catalog
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Create New GRN'
-3. Fill vendor field
-4. Fill product details with a large number of entries
-5. Verify that system handles the large number of products without crashing
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'Create New GRN'
+3. กรอก vendor field
+4. กรอกรายละเอียดสินค้าจำนวนมาก
+5. ตรวจสอบว่าระบบรองรับสินค้าจำนวนมากได้โดยไม่ crash
 
 **Expected**
 
-GRN is created without PO reference, status set to RECEIVED, no PO status updates triggered, activity log records manual creation, and system handles large number of products without issues.
+GRN ถูกสร้างโดยไม่มี PO reference, status ตั้งเป็น RECEIVED, ไม่มีการอัปเดต PO status, activity log บันทึกการสร้างแบบ manual, และระบบรองรับสินค้าจำนวนมากได้โดยไม่มีปัญหา
 
 ---
 
@@ -618,20 +618,20 @@ GRN is created without PO reference, status set to RECEIVED, no PO status update
 
 **Preconditions**
 
-GRN exists in DRAFT status; user has edit permission; GRN not yet committed
+GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; GRN ยังไม่ได้ commit
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Edit' next to the GRN
-3. Fill 'Received Date' with new date
-4. Fill 'Invoice Number' with new number
-5. Fill 'Currency' with new currency
-6. Click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'Edit' ที่ GRN
+3. กรอก 'Received Date' ด้วยวันที่ใหม่
+4. กรอก 'Invoice Number' ด้วยหมายเลขใหม่
+5. กรอก 'Currency' ด้วยสกุลเงินใหม่
+6. กด 'Save'
 
 **Expected**
 
-GRN header updated with new information, activity log records changes, financial calculations updated if currency changed.
+GRN header ถูกอัปเดตด้วยข้อมูลใหม่, activity log บันทึกการเปลี่ยนแปลง, การคำนวณทางการเงินอัปเดตหาก currency เปลี่ยน
 
 ---
 
@@ -644,18 +644,18 @@ GRN header updated with new information, activity log records changes, financial
 
 **Preconditions**
 
-GRN exists in DRAFT status; user has edit permission; GRN not yet committed; incorrect currency selected
+GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; GRN ยังไม่ได้ commit; เลือก currency ที่ไม่ถูกต้อง
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Edit' next to the GRN
-3. Select invalid currency from dropdown
-4. Click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'Edit' ที่ GRN
+3. เลือก currency ที่ไม่ถูกต้องจาก dropdown
+4. กด 'Save'
 
 **Expected**
 
-System displays error message regarding invalid currency, GRN header remains unchanged.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดเกี่ยวกับ currency ที่ไม่ถูกต้อง, GRN header ยังคงไม่เปลี่ยนแปลง
 
 ---
 
@@ -668,17 +668,17 @@ System displays error message regarding invalid currency, GRN header remains unc
 
 **Preconditions**
 
-GRN exists in DRAFT status; user does not have edit permission; GRN not yet committed
+GRN อยู่ใน status DRAFT; ผู้ใช้ไม่มีสิทธิ์แก้ไข; GRN ยังไม่ได้ commit
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Edit' next to the GRN
-3. Attempt to modify 'Received Date'
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'Edit' ที่ GRN
+3. พยายามแก้ไข 'Received Date'
 
 **Expected**
 
-System displays error message indicating insufficient permission, GRN header remains unchanged.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ, GRN header ยังคงไม่เปลี่ยนแปลง
 
 ---
 
@@ -691,18 +691,18 @@ System displays error message indicating insufficient permission, GRN header rem
 
 **Preconditions**
 
-GRN exists in DRAFT status; user has edit permission; GRN not yet committed
+GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; GRN ยังไม่ได้ commit
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Edit' next to the GRN
-3. Leave all fields blank
-4. Click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'Edit' ที่ GRN
+3. ปล่อย field ทั้งหมดว่างเปล่า
+4. กด 'Save'
 
 **Expected**
 
-System displays error messages for all required fields, GRN header remains unchanged.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดสำหรับ field ที่จำเป็นทั้งหมด, GRN header ยังคงไม่เปลี่ยนแปลง
 
 ---
 
@@ -715,18 +715,18 @@ System displays error messages for all required fields, GRN header remains uncha
 
 **Preconditions**
 
-GRN exists in DRAFT status; user has edit permission; GRN not yet committed
+GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; GRN ยังไม่ได้ commit
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Edit' next to the GRN
-3. Fill 'Received Date' with a future date
-4. Click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'Edit' ที่ GRN
+3. กรอก 'Received Date' ด้วยวันที่ในอนาคต
+4. กด 'Save'
 
 **Expected**
 
-System displays error message regarding invalid date, GRN header remains unchanged.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดเกี่ยวกับวันที่ไม่ถูกต้อง, GRN header ยังคงไม่เปลี่ยนแปลง
 
 ---
 
@@ -739,19 +739,19 @@ System displays error message regarding invalid date, GRN header remains unchang
 
 **Preconditions**
 
-GRN exists in DRAFT status; user has edit permission; product catalog accessible
+GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; สามารถเข้าถึง product catalog ได้
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Items' tab
-3. Click 'Add Item' button
-4. Fill in product name, quantity, and price
-5. Click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. กดแท็บ 'Items'
+3. กดปุ่ม 'Add Item'
+4. กรอกชื่อสินค้า, quantity และราคา
+5. กด 'Save'
 
 **Expected**
 
-New line item added to GRN, financial totals recalculated, activity log updated.
+เพิ่ม line item ใหม่ใน GRN, ยอดรวมทางการเงินถูกคำนวณใหม่, activity log อัปเดต
 
 ---
 
@@ -764,20 +764,20 @@ New line item added to GRN, financial totals recalculated, activity log updated.
 
 **Preconditions**
 
-GRN exists in DRAFT status; user has edit permission; product catalog accessible
+GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; สามารถเข้าถึง product catalog ได้
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Items' tab
-3. Click 'Add Item' button
-4. Leave product name field empty
-5. Fill in quantity and price
-6. Click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. กดแท็บ 'Items'
+3. กดปุ่ม 'Add Item'
+4. ปล่อย field ชื่อสินค้าว่างเปล่า
+5. กรอก quantity และราคา
+6. กด 'Save'
 
 **Expected**
 
-Error message displayed for empty product name, no line item added.
+แสดงข้อความแจ้งข้อผิดพลาดสำหรับชื่อสินค้าที่ว่างเปล่า, ไม่มีการเพิ่ม line item
 
 ---
 
@@ -790,19 +790,19 @@ Error message displayed for empty product name, no line item added.
 
 **Preconditions**
 
-GRN exists in DRAFT status; user does not have edit permission; product catalog accessible
+GRN อยู่ใน status DRAFT; ผู้ใช้ไม่มีสิทธิ์แก้ไข; สามารถเข้าถึง product catalog ได้
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Items' tab
-3. Click 'Add Item' button
-4. Fill in product name, quantity, and price
-5. Click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. กดแท็บ 'Items'
+3. กดปุ่ม 'Add Item'
+4. กรอกชื่อสินค้า, quantity และราคา
+5. กด 'Save'
 
 **Expected**
 
-User receives permission denied error, unable to add line item.
+ผู้ใช้ได้รับข้อความแจ้งข้อผิดพลาดปฏิเสธสิทธิ์, ไม่สามารถเพิ่ม line item ได้
 
 ---
 
@@ -815,19 +815,19 @@ User receives permission denied error, unable to add line item.
 
 **Preconditions**
 
-GRN exists in DRAFT status; user has edit permission; product catalog accessible; maximum quantity set for product
+GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; สามารถเข้าถึง product catalog ได้; กำหนด quantity สูงสุดสำหรับสินค้า
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Items' tab
-3. Click 'Add Item' button
-4. Fill in product name, maximum quantity, and price
-5. Click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. กดแท็บ 'Items'
+3. กดปุ่ม 'Add Item'
+4. กรอกชื่อสินค้า, quantity สูงสุด และราคา
+5. กด 'Save'
 
 **Expected**
 
-Maximum quantity enforced, financial totals recalculated, activity log updated.
+บังคับใช้ quantity สูงสุด, ยอดรวมทางการเงินถูกคำนวณใหม่, activity log อัปเดต
 
 ---
 
@@ -840,20 +840,20 @@ Maximum quantity enforced, financial totals recalculated, activity log updated.
 
 **Preconditions**
 
-GRN exists in DRAFT status; line items exist; user has edit permission
+GRN อยู่ใน status DRAFT; มี line item; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click on GRN number in list
-3. Navigate to 'Items' tab
-4. Select line item to edit
-5. Fill in new quantity, price, location
-6. Click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. คลิก GRN number ในรายการ
+3. ไปที่แท็บ 'Items'
+4. เลือก line item ที่ต้องการแก้ไข
+5. กรอก quantity, ราคา, location ใหม่
+6. กด 'Save'
 
 **Expected**
 
-Line item updated, financial totals recalculated, activity log records changes.
+Line item ถูกอัปเดต, ยอดรวมทางการเงินถูกคำนวณใหม่, activity log บันทึกการเปลี่ยนแปลง
 
 ---
 
@@ -866,20 +866,20 @@ Line item updated, financial totals recalculated, activity log records changes.
 
 **Preconditions**
 
-GRN exists in DRAFT status; line items exist; user has edit permission
+GRN อยู่ใน status DRAFT; มี line item; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click on GRN number in list
-3. Navigate to 'Items' tab
-4. Select line item to edit
-5. Enter an invalid price (non-numeric value)
-6. Click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. คลิก GRN number ในรายการ
+3. ไปที่แท็บ 'Items'
+4. เลือก line item ที่ต้องการแก้ไข
+5. กรอกราคาที่ไม่ถูกต้อง (ค่าที่ไม่ใช่ตัวเลข)
+6. กด 'Save'
 
 **Expected**
 
-System displays error message and does not update line item.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดและไม่อัปเดต line item
 
 ---
 
@@ -892,18 +892,18 @@ System displays error message and does not update line item.
 
 **Preconditions**
 
-GRN exists in DRAFT status; line items exist; user does not have edit permission
+GRN อยู่ใน status DRAFT; มี line item; ผู้ใช้ไม่มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click on GRN number in list
-3. Navigate to 'Items' tab
-4. Attempt to select line item to edit
+1. ไปที่ /procurement/goods-receive-note
+2. คลิก GRN number ในรายการ
+3. ไปที่แท็บ 'Items'
+4. พยายามเลือก line item เพื่อแก้ไข
 
 **Expected**
 
-User is denied access and cannot edit line item.
+ผู้ใช้ถูกปฏิเสธการเข้าถึงและไม่สามารถแก้ไข line item ได้
 
 ---
 
@@ -916,17 +916,17 @@ User is denied access and cannot edit line item.
 
 **Preconditions**
 
-GRN exists in DRAFT status; line items do not exist; user has edit permission
+GRN อยู่ใน status DRAFT; ไม่มี line item; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click on GRN number in list
-3. Navigate to 'Items' tab
+1. ไปที่ /procurement/goods-receive-note
+2. คลิก GRN number ในรายการ
+3. ไปที่แท็บ 'Items'
 
 **Expected**
 
-System displays message indicating no line items to edit.
+ระบบแสดงข้อความแจ้งว่าไม่มี line item ที่จะแก้ไข
 
 ---
 
@@ -939,17 +939,17 @@ System displays message indicating no line items to edit.
 
 **Preconditions**
 
-GRN exists in RECEIVED status; line items exist; user has edit permission
+GRN อยู่ใน status RECEIVED; มี line item; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click on GRN number in list
-3. Navigate to 'Items' tab
+1. ไปที่ /procurement/goods-receive-note
+2. คลิก GRN number ในรายการ
+3. ไปที่แท็บ 'Items'
 
 **Expected**
 
-System displays message indicating GRN cannot be edited.
+ระบบแสดงข้อความแจ้งว่าไม่สามารถแก้ไข GRN ได้
 
 ---
 
@@ -962,18 +962,18 @@ System displays message indicating GRN cannot be edited.
 
 **Preconditions**
 
-GRN exists in DRAFT status; line items exist; user has edit permission
+GRN อยู่ใน status DRAFT; มี line item; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click on 'Items' tab
-3. Click 'Delete' icon next to a line item
-4. Confirm deletion dialog
+1. ไปที่ /procurement/goods-receive-note
+2. กดแท็บ 'Items'
+3. กดไอคอน 'Delete' ที่ line item
+4. ยืนยัน dialog การลบ
 
 **Expected**
 
-Line item is removed, line numbers resequenced, financial totals recalculated, activity log updated.
+Line item ถูกลบ, หมายเลขแถวถูกเรียงใหม่, ยอดรวมทางการเงินถูกคำนวณใหม่, activity log อัปเดต
 
 ---
 
@@ -986,17 +986,17 @@ Line item is removed, line numbers resequenced, financial totals recalculated, a
 
 **Preconditions**
 
-GRN exists in DRAFT status; line items exist; user does not have edit permission
+GRN อยู่ใน status DRAFT; มี line item; ผู้ใช้ไม่มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click on 'Items' tab
-3. Click 'Delete' icon next to a line item
+1. ไปที่ /procurement/goods-receive-note
+2. กดแท็บ 'Items'
+3. กดไอคอน 'Delete' ที่ line item
 
 **Expected**
 
-User is presented with an error message indicating insufficient permissions.
+ผู้ใช้เห็นข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ
 
 ---
 
@@ -1009,17 +1009,17 @@ User is presented with an error message indicating insufficient permissions.
 
 **Preconditions**
 
-GRN exists in RECEIVED status; line items exist; user has edit permission
+GRN อยู่ใน status RECEIVED; มี line item; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click on 'Items' tab
-3. Click 'Delete' icon next to a line item
+1. ไปที่ /procurement/goods-receive-note
+2. กดแท็บ 'Items'
+3. กดไอคอน 'Delete' ที่ line item
 
 **Expected**
 
-User is presented with a warning that the GRN is in a non-editable state and cannot be modified.
+ผู้ใช้เห็นคำเตือนว่า GRN อยู่ใน state ที่แก้ไขไม่ได้และไม่สามารถแก้ไขได้
 
 ---
 
@@ -1032,18 +1032,18 @@ User is presented with a warning that the GRN is in a non-editable state and can
 
 **Preconditions**
 
-GRN exists in DRAFT status; multiple line items exist; user has edit permission
+GRN อยู่ใน status DRAFT; มี line item หลายรายการ; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click on 'Items' tab
-3. Select multiple line items
-4. Click 'Delete' icon
+1. ไปที่ /procurement/goods-receive-note
+2. กดแท็บ 'Items'
+3. เลือก line item หลายรายการ
+4. กดไอคอน 'Delete'
 
 **Expected**
 
-Selected line items are removed, line numbers resequenced, financial totals recalculated, activity log updated.
+Line item ที่เลือกถูกลบ, หมายเลขแถวถูกเรียงใหม่, ยอดรวมทางการเงินถูกคำนวณใหม่, activity log อัปเดต
 
 ---
 
@@ -1056,23 +1056,23 @@ Selected line items are removed, line numbers resequenced, financial totals reca
 
 **Preconditions**
 
-GRN exists (not VOID); at least one line item exists; user has permission to add costs
+GRN มีอยู่จริงและไม่ใช่ VOID; มี line item อย่างน้อยหนึ่งรายการ; ผู้ใช้มีสิทธิ์เพิ่มต้นทุน
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Add Extra Costs'
-3. Select 'Freight'
-4. Enter amount
-5. Select 'Handling'
-6. Enter amount
-7. Select 'Customs'
-8. Enter amount
-9. Click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'Add Extra Costs'
+3. เลือก 'Freight'
+4. กรอกจำนวน
+5. เลือก 'Handling'
+6. กรอกจำนวน
+7. เลือก 'Customs'
+8. กรอกจำนวน
+9. กด 'Save'
 
 **Expected**
 
-Extra cost entries added to GRN, costs distributed to line items, line item totals updated, GRN total increased by extra costs, activity log records.
+รายการ extra cost เพิ่มใน GRN, ต้นทุนกระจายไปยัง line item, ยอดรวม line item อัปเดต, ยอดรวม GRN เพิ่มขึ้นตาม extra costs, activity log บันทึก
 
 ---
 
@@ -1107,21 +1107,21 @@ System displays error message indicating insufficient permissions, 'Add Extra Co
 
 **Preconditions**
 
-GRN exists (not VOID); at least one line item exists; user has permission to add costs
+GRN มีอยู่จริงและไม่ใช่ VOID; มี line item อย่างน้อยหนึ่งรายการ; ผู้ใช้มีสิทธิ์เพิ่มต้นทุน
 
 **Steps**
 
-1. Navigate to /procurement/goods-receive-note
-2. Click 'Add Extra Costs'
-3. Select 'Freight'
-4. Enter negative amount
-5. Select 'Handling'
-6. Enter zero amount
-7. Click 'Save'
+1. ไปที่ /procurement/goods-receive-note
+2. กด 'Add Extra Costs'
+3. เลือก 'Freight'
+4. กรอกจำนวนติดลบ
+5. เลือก 'Handling'
+6. กรอกจำนวนเป็นศูนย์
+7. กด 'Save'
 
 **Expected**
 
-System displays error message for invalid amount, freight cost not added, handling cost not added, no changes made to GRN or line items.
+ระบบแสดงข้อความแจ้งข้อผิดพลาดสำหรับจำนวนที่ไม่ถูกต้อง, ค่า freight ไม่ถูกเพิ่ม, ค่า handling ไม่ถูกเพิ่ม, ไม่มีการเปลี่ยนแปลงกับ GRN หรือ line item
 
 ---
 
@@ -1922,4 +1922,4 @@ User receives a warning message to select at least one line item before performi
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

@@ -50,20 +50,20 @@ _Generated from `tests/159-price-list.spec.ts` annotations. Edit annotations, no
 
 **Preconditions**
 
-User is authenticated and has access to Vendor Management module
+ผู้ใช้ login แล้วและมีสิทธิ์เข้าถึงโมดูล Vendor Management
 
 **Steps**
 
-1. Navigate to /login
-2. Fill 'Username' with valid credentials
-3. Fill 'Password' with valid credentials
-4. Click 'Login'
-5. Click 'Vendor Management' in sidebar navigation
-6. Click 'Price Lists' submenu item
+1. ไปที่ /login
+2. กรอก 'Username' ด้วย credentials ที่ถูกต้อง
+3. กรอก 'Password' ด้วย credentials ที่ถูกต้อง
+4. คลิก 'Login'
+5. คลิก 'Vendor Management' ใน sidebar navigation
+6. คลิก submenu 'Price Lists'
 
 **Expected**
 
-System navigates to /vendor-management/price-list and displays the Price Lists page.
+ระบบ navigate ไปยัง /vendor-management/price-list และแสดงหน้า Price Lists
 
 ---
 
@@ -76,17 +76,17 @@ System navigates to /vendor-management/price-list and displays the Price Lists p
 
 **Preconditions**
 
-User is authenticated and has access to Vendor Management module
+ผู้ใช้ login แล้วและมีสิทธิ์เข้าถึงโมดูล Vendor Management
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Fill 'Search' input field with invalid keyword 'abcd'
-3. Click 'Search' button
+1. ไปที่ /vendor-management/price-list
+2. กรอก 'Search' input ด้วยคีย์เวิร์ดที่ไม่ถูกต้อง 'abcd'
+3. คลิกปุ่ม 'Search'
 
 **Expected**
 
-System displays an empty table and no price lists are filtered.
+ระบบแสดงตารางว่างและไม่มี price list ที่กรอง
 
 ---
 
@@ -99,16 +99,16 @@ System displays an empty table and no price lists are filtered.
 
 **Preconditions**
 
-User is authenticated and has access to Vendor Management module
+ผู้ใช้ login แล้วและมีสิทธิ์เข้าถึงโมดูล Vendor Management
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click on a price list name in the table
+1. ไปที่ /vendor-management/price-list
+2. คลิกชื่อ price list ในตาราง
 
 **Expected**
 
-System displays an empty detail page for the selected price list.
+ระบบแสดงหน้า detail ว่างสำหรับ price list ที่เลือก
 
 ---
 
@@ -121,15 +121,15 @@ System displays an empty detail page for the selected price list.
 
 **Preconditions**
 
-User is authenticated but does not have access to Vendor Management module
+ผู้ใช้ login แล้วแต่ไม่มีสิทธิ์เข้าถึงโมดูล Vendor Management
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
+1. ไปที่ /vendor-management/price-list
 
 **Expected**
 
-System displays an error message indicating insufficient access rights.
+ระบบแสดงข้อความ error แจ้งสิทธิ์การเข้าถึงไม่เพียงพอ
 
 ---
 
@@ -142,17 +142,17 @@ System displays an error message indicating insufficient access rights.
 
 **Preconditions**
 
-User is authenticated; has access to Vendor Management module; system has expired price lists
+ผู้ใช้ login แล้ว; มีสิทธิ์เข้าถึงโมดูล Vendor Management; ระบบมี price list ที่หมดอายุ
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Select 'Expired' from Status filter dropdown
-3. Verify that only expired price lists are displayed in the table
+1. ไปที่ /vendor-management/price-list
+2. เลือก 'Expired' จาก Status filter dropdown
+3. ตรวจสอบว่าแสดงเฉพาะ price list ที่หมดอายุในตาราง
 
 **Expected**
 
-System displays only expired price lists in the table.
+ระบบแสดงเฉพาะ price list ที่หมดอายุในตาราง
 
 ---
 
@@ -165,29 +165,29 @@ System displays only expired price lists in the table.
 
 **Preconditions**
 
-User is authenticated; has permission to create price lists; vendor directory contains at least one vendor; product catalog contains at least one product
+ผู้ใช้ login แล้ว; มีสิทธิ์สร้าง price list; vendor directory มี vendor อย่างน้อย 1 รายการ; product catalog มี product อย่างน้อย 1 รายการ
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click 'Add New'
-3. Fill 'Price List Number'
-4. Select 'Vendor'
-5. Select 'USD' as Currency
-6. Fill 'Valid From' date
-7. Click 'Add Item'
-8. Select 'Product'
-9. Enter 'MOQ' (optional)
-10. Select 'Unit'
-11. Fill 'Unit Price'
-12. Enter 'Lead Time' (optional)
-13. Fill 'Notes' (optional)
-14. Click 'Save'
-15. Verify 'Success Toast' message
+1. ไปที่ /vendor-management/price-list
+2. คลิก 'Add New'
+3. กรอก 'Price List Number'
+4. เลือก 'Vendor'
+5. เลือก 'USD' เป็น Currency
+6. กรอกวันที่ 'Valid From'
+7. คลิก 'Add Item'
+8. เลือก 'Product'
+9. กรอก 'MOQ' (optional)
+10. เลือก 'Unit'
+11. กรอก 'Unit Price'
+12. กรอก 'Lead Time' (optional)
+13. กรอก 'Notes' (optional)
+14. คลิก 'Save'
+15. ตรวจสอบข้อความ 'Success Toast'
 
 **Expected**
 
-Price list is created successfully and displayed in the list.
+price list สร้างสำเร็จและแสดงใน list
 
 ---
 
@@ -200,28 +200,28 @@ Price list is created successfully and displayed in the list.
 
 **Preconditions**
 
-User has permission to create price lists; product catalog contains at least one product
+ผู้ใช้มีสิทธิ์สร้าง price list; product catalog มี product อย่างน้อย 1 รายการ
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click 'Add New'
-3. Fill 'Price List Number'
-4. Select 'USD' as Currency
-5. Fill 'Valid From' date
-6. Click 'Add Item'
-7. Select 'Product'
-8. Enter 'MOQ' (optional)
-9. Select 'Unit'
-10. Fill 'Unit Price'
-11. Enter 'Lead Time' (optional)
-12. Fill 'Notes' (optional)
-13. Click 'Save'
-14. Verify error message for missing 'Vendor'
+1. ไปที่ /vendor-management/price-list
+2. คลิก 'Add New'
+3. กรอก 'Price List Number'
+4. เลือก 'USD' เป็น Currency
+5. กรอกวันที่ 'Valid From'
+6. คลิก 'Add Item'
+7. เลือก 'Product'
+8. กรอก 'MOQ' (optional)
+9. เลือก 'Unit'
+10. กรอก 'Unit Price'
+11. กรอก 'Lead Time' (optional)
+12. กรอก 'Notes' (optional)
+13. คลิก 'Save'
+14. ตรวจสอบข้อความ error สำหรับ 'Vendor' ที่ขาดหายไป
 
 **Expected**
 
-Error message displayed indicating 'Vendor' is required.
+แสดงข้อความ error แจ้งว่า 'Vendor' เป็นข้อมูลที่จำเป็น
 
 ---
 
@@ -234,29 +234,29 @@ Error message displayed indicating 'Vendor' is required.
 
 **Preconditions**
 
-User has permission to create price lists; vendor directory has at least one vendor; product catalog has at least one product
+ผู้ใช้มีสิทธิ์สร้าง price list; vendor directory มี vendor อย่างน้อย 1 รายการ; product catalog มี product อย่างน้อย 1 รายการ
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click 'Add New'
-3. Fill 'Price List Number'
-4. Select 'Vendor'
-5. Select 'USD' as Currency
-6. Fill 'Valid From' date
-7. Click 'Add Item'
-8. Select 'Product'
-9. Enter 'MOQ' (optional)
-10. Select 'Unit'
-11. Leave 'Unit Price' empty
-12. Enter 'Lead Time' (optional)
-13. Fill 'Notes' (optional)
-14. Click 'Save'
-15. Verify error message for missing 'Unit Price'
+1. ไปที่ /vendor-management/price-list
+2. คลิก 'Add New'
+3. กรอก 'Price List Number'
+4. เลือก 'Vendor'
+5. เลือก 'USD' เป็น Currency
+6. กรอกวันที่ 'Valid From'
+7. คลิก 'Add Item'
+8. เลือก 'Product'
+9. กรอก 'MOQ' (optional)
+10. เลือก 'Unit'
+11. ปล่อย 'Unit Price' ว่างเปล่า
+12. กรอก 'Lead Time' (optional)
+13. กรอก 'Notes' (optional)
+14. คลิก 'Save'
+15. ตรวจสอบข้อความ error สำหรับ 'Unit Price' ที่ขาดหายไป
 
 **Expected**
 
-Error message displayed indicating 'Unit Price' is required.
+แสดงข้อความ error แจ้งว่า 'Unit Price' เป็นข้อมูลที่จำเป็น
 
 ---
 
@@ -269,17 +269,17 @@ Error message displayed indicating 'Unit Price' is required.
 
 **Preconditions**
 
-User is authenticated with valid session; a price list exists
+ผู้ใช้ login แล้วพร้อม session ที่ถูกต้อง; มี price list อยู่
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click on price list name
-3. Verify navigation to /vendor-management/price-list/[id]
+1. ไปที่ /vendor-management/price-list
+2. คลิกชื่อ price list
+3. ตรวจสอบการ navigate ไปยัง /vendor-management/price-list/[id]
 
 **Expected**
 
-System navigates to price list detail page and displays correct price list data.
+ระบบ navigate ไปยังหน้า detail ของ price list และแสดงข้อมูล price list ที่ถูกต้อง
 
 ---
 
@@ -292,16 +292,16 @@ System navigates to price list detail page and displays correct price list data.
 
 **Preconditions**
 
-User is authenticated with valid session
+ผู้ใช้ login แล้วพร้อม session ที่ถูกต้อง
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Attempt to click on non-existent price list name
+1. ไปที่ /vendor-management/price-list
+2. พยายามคลิกชื่อ price list ที่ไม่มีอยู่
 
 **Expected**
 
-System displays error message or navigates to error page.
+ระบบแสดงข้อความ error หรือ navigate ไปยังหน้า error
 
 ---
 
@@ -314,16 +314,16 @@ System displays error message or navigates to error page.
 
 **Preconditions**
 
-User is authenticated with valid session and lacks edit permissions
+ผู้ใช้ login แล้วพร้อม session ที่ถูกต้องและไม่มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list/[id]
-2. Click on 'Edit' button
+1. ไปที่ /vendor-management/price-list/[id]
+2. คลิกปุ่ม 'Edit'
 
 **Expected**
 
-System prevents user from accessing edit functionality.
+ระบบป้องกันผู้ใช้ไม่ให้เข้าถึงฟังก์ชันแก้ไข
 
 ---
 
@@ -336,16 +336,16 @@ System prevents user from accessing edit functionality.
 
 **Preconditions**
 
-User is authenticated with valid session but lacks view permissions
+ผู้ใช้ login แล้วพร้อม session ที่ถูกต้องแต่ไม่มีสิทธิ์ดู
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list/[id]
-2. Verify system prevents access to view page
+1. ไปที่ /vendor-management/price-list/[id]
+2. ตรวจสอบว่าระบบป้องกันการเข้าถึงหน้าดู
 
 **Expected**
 
-System denies user access or displays error message.
+ระบบปฏิเสธการเข้าถึงของผู้ใช้หรือแสดงข้อความ error
 
 ---
 
@@ -358,16 +358,16 @@ System denies user access or displays error message.
 
 **Preconditions**
 
-User is authenticated; a price list with no line items exists
+ผู้ใช้ login แล้ว; มี price list ที่ไม่มี line item อยู่
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list/[id]
-2. Verify absence of line items in table.
+1. ไปที่ /vendor-management/price-list/[id]
+2. ตรวจสอบการไม่มี line item ในตาราง
 
 **Expected**
 
-System displays appropriate message or placeholder for line items.
+ระบบแสดงข้อความหรือ placeholder ที่เหมาะสมสำหรับ line item
 
 ---
 
@@ -380,21 +380,21 @@ System displays appropriate message or placeholder for line items.
 
 **Preconditions**
 
-User authenticated with valid session; price list exists and is editable; user has edit permissions
+ผู้ใช้ login แล้วพร้อม session ที่ถูกต้อง; price list มีอยู่และแก้ไขได้; ผู้ใช้มีสิทธิ์แก้ไข
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click 'Edit' button on price list detail page
-3. Fill in new valid from date
-4. Fill in new valid to date
-5. Fill in new notes
-6. Update price for a line item
-7. Click 'Save'
+1. ไปที่ /vendor-management/price-list
+2. คลิกปุ่ม 'Edit' ที่หน้า detail ของ price list
+3. กรอกวันที่ valid from ใหม่
+4. กรอกวันที่ valid to ใหม่
+5. กรอก notes ใหม่
+6. อัปเดตราคาสำหรับ line item
+7. คลิก 'Save'
 
 **Expected**
 
-Price list is updated successfully, success message is displayed, and user returns to view mode.
+price list อัปเดตสำเร็จ แสดงข้อความสำเร็จ และผู้ใช้กลับไปยัง view mode
 
 ---
 
@@ -407,19 +407,19 @@ Price list is updated successfully, success message is displayed, and user retur
 
 **Preconditions**
 
-Price list exists and is editable; user has edit permissions; user inputs invalid date format
+price list มีอยู่และแก้ไขได้; ผู้ใช้มีสิทธิ์แก้ไข; ผู้ใช้กรอกรูปแบบวันที่ที่ไม่ถูกต้อง
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click 'Edit' button on price list detail page
-3. Fill in new valid from date with invalid format
-4. Fill in new valid to date with invalid format
-5. Click 'Save'
+1. ไปที่ /vendor-management/price-list
+2. คลิกปุ่ม 'Edit' ที่หน้า detail ของ price list
+3. กรอกวันที่ valid from ด้วยรูปแบบที่ไม่ถูกต้อง
+4. กรอกวันที่ valid to ด้วยรูปแบบที่ไม่ถูกต้อง
+5. คลิก 'Save'
 
 **Expected**
 
-System displays error message for invalid date format, price list is not updated.
+ระบบแสดงข้อความ error สำหรับรูปแบบวันที่ที่ไม่ถูกต้อง และ price list ไม่ถูกอัปเดต
 
 ---
 
@@ -432,20 +432,20 @@ System displays error message for invalid date format, price list is not updated
 
 **Preconditions**
 
-User is authenticated with valid session; a source price list exists
+ผู้ใช้ login แล้วพร้อม session ที่ถูกต้อง; มี source price list อยู่
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click 'Duplicate' from actions menu
-3. Verify form pre-fills with copied values
-4. Modify as needed (dates, prices, items)
-5. Click 'Save'
-6. Verify success message and new price list detail page
+1. ไปที่ /vendor-management/price-list
+2. คลิก 'Duplicate' จาก actions menu
+3. ตรวจสอบว่าฟอร์มกรอกข้อมูลจากการคัดลอกล่วงหน้า
+4. แก้ไขตามต้องการ (วันที่, ราคา, รายการ)
+5. คลิก 'Save'
+6. ตรวจสอบข้อความสำเร็จและหน้า detail ของ price list ใหม่
 
 **Expected**
 
-New price list is created with pre-filled data; user can see the new price list detail page.
+price list ใหม่สร้างสำเร็จพร้อมข้อมูลที่กรอกล่วงหน้า; ผู้ใช้สามารถดูหน้า detail ของ price list ใหม่
 
 ---
 
@@ -458,17 +458,17 @@ New price list is created with pre-filled data; user can see the new price list 
 
 **Preconditions**
 
-User authenticated but lacks permission to duplicate price list
+ผู้ใช้ login แล้วแต่ไม่มีสิทธิ์ duplicate price list
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Attempt to click 'Duplicate' from actions menu
-3. Verify error message or no 'Duplicate' option available
+1. ไปที่ /vendor-management/price-list
+2. พยายามคลิก 'Duplicate' จาก actions menu
+3. ตรวจสอบข้อความ error หรือไม่มี option 'Duplicate'
 
 **Expected**
 
-User sees appropriate error message or no 'Duplicate' option is available.
+ผู้ใช้เห็นข้อความ error ที่เหมาะสมหรือไม่มี option 'Duplicate'
 
 ---
 
@@ -481,17 +481,17 @@ User sees appropriate error message or no 'Duplicate' option is available.
 
 **Preconditions**
 
-User is authenticated with valid session but no source price list exists
+ผู้ใช้ login แล้วพร้อม session ที่ถูกต้องแต่ไม่มี source price list อยู่
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Attempt to click 'Duplicate' from actions menu
-3. Verify error message or no 'Duplicate' option available
+1. ไปที่ /vendor-management/price-list
+2. พยายามคลิก 'Duplicate' จาก actions menu
+3. ตรวจสอบข้อความ error หรือไม่มี option 'Duplicate'
 
 **Expected**
 
-User sees appropriate error message or no 'Duplicate' option is available.
+ผู้ใช้เห็นข้อความ error ที่เหมาะสมหรือไม่มี option 'Duplicate'
 
 ---
 
@@ -504,18 +504,18 @@ User sees appropriate error message or no 'Duplicate' option is available.
 
 **Preconditions**
 
-User is authenticated; price list exists
+ผู้ใช้ login แล้ว; price list มีอยู่
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click 'Export' button
-3. Wait for export file generation
-4. Click download link
+1. ไปที่ /vendor-management/price-list
+2. คลิกปุ่ม 'Export'
+3. รอการสร้างไฟล์ export
+4. คลิก download link
 
 **Expected**
 
-Price list file is downloaded to user's device.
+ไฟล์ price list ถูก download มายังอุปกรณ์ของผู้ใช้
 
 ---
 
@@ -528,17 +528,17 @@ Price list file is downloaded to user's device.
 
 **Preconditions**
 
-User authenticated but does not have permission to export
+ผู้ใช้ login แล้วแต่ไม่มีสิทธิ์ export
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click 'Export' button
-3. Verify 'Export' button is disabled or permission error message is displayed
+1. ไปที่ /vendor-management/price-list
+2. คลิกปุ่ม 'Export'
+3. ตรวจสอบว่าปุ่ม 'Export' ถูก disabled หรือแสดงข้อความ error เรื่องสิทธิ์
 
 **Expected**
 
-User cannot export price list and receives appropriate permission error.
+ผู้ใช้ไม่สามารถ export price list และได้รับข้อความ error เรื่องสิทธิ์ที่เหมาะสม
 
 ---
 
@@ -551,17 +551,17 @@ User cannot export price list and receives appropriate permission error.
 
 **Preconditions**
 
-User is authenticated; price list contains a large number of entries
+ผู้ใช้ login แล้ว; price list มีรายการจำนวนมาก
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click 'Export' button
-3. Monitor browser performance and memory usage
+1. ไปที่ /vendor-management/price-list
+2. คลิกปุ่ม 'Export'
+3. ตรวจสอบ performance และการใช้หน่วยความจำของ browser
 
 **Expected**
 
-System handles large export requests without crashing or significant performance degradation.
+ระบบจัดการ export request ขนาดใหญ่ได้โดยไม่ crash หรือประสิทธิภาพลดลงอย่างมีนัยสำคัญ
 
 ---
 
@@ -574,16 +574,16 @@ System handles large export requests without crashing or significant performance
 
 **Preconditions**
 
-User authenticated; price list exists; user does not have delete permission
+ผู้ใช้ login แล้ว; price list มีอยู่; ผู้ใช้ไม่มีสิทธิ์ลบ
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click 'Delete' action on target price list
+1. ไปที่ /vendor-management/price-list
+2. คลิก action 'Delete' ที่ price list เป้าหมาย
 
 **Expected**
 
-User receives permission denied message and cannot delete price list.
+ผู้ใช้ได้รับข้อความปฏิเสธสิทธิ์และไม่สามารถลบ price list ได้
 
 ---
 
@@ -596,17 +596,17 @@ User receives permission denied message and cannot delete price list.
 
 **Preconditions**
 
-User authenticated; price list exists; user has delete permission
+ผู้ใช้ login แล้ว; price list มีอยู่; ผู้ใช้มีสิทธิ์ลบ
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click 'Delete' action on target price list
-3. Click 'Cancel' in confirmation dialog
+1. ไปที่ /vendor-management/price-list
+2. คลิก action 'Delete' ที่ price list เป้าหมาย
+3. คลิก 'Cancel' ใน confirmation dialog
 
 **Expected**
 
-Price list is not deleted and remains in the list.
+price list ไม่ถูกลบและยังคงอยู่ใน list
 
 ---
 
@@ -619,17 +619,17 @@ Price list is not deleted and remains in the list.
 
 **Preconditions**
 
-User authenticated; price list exists; user has delete permission
+ผู้ใช้ login แล้ว; price list มีอยู่; ผู้ใช้มีสิทธิ์ลบ
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click on target price list to open detail page
-3. Click 'Delete' action on detail page
+1. ไปที่ /vendor-management/price-list
+2. คลิก price list เป้าหมายเพื่อเปิดหน้า detail
+3. คลิก action 'Delete' ที่หน้า detail
 
 **Expected**
 
-Price list is deleted successfully and system navigates back to list page.
+price list ถูกลบสำเร็จและระบบ navigate กลับไปยังหน้า list
 
 ---
 
@@ -642,18 +642,18 @@ Price list is deleted successfully and system navigates back to list page.
 
 **Preconditions**
 
-User is authenticated; a price list with non-expired status exists
+ผู้ใช้ login แล้ว; มี price list ที่มีสถานะยังไม่หมดอายุ
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click the 'Mark as Expired' action on the desired price list
-3. Wait for the status to update
-4. Verify the success toast: 'Price list marked as expired'
+1. ไปที่ /vendor-management/price-list
+2. คลิก action 'Mark as Expired' ที่ price list ที่ต้องการ
+3. รอให้สถานะอัปเดต
+4. ตรวจสอบ success toast: 'Price list marked as expired'
 
 **Expected**
 
-Price list status is updated to expired and success toast is displayed.
+สถานะ price list อัปเดตเป็น expired และแสดง success toast
 
 ---
 
@@ -666,17 +666,17 @@ Price list status is updated to expired and success toast is displayed.
 
 **Preconditions**
 
-Multiple price lists exist with at least one having a non-expired status
+มี price list หลายรายการโดยอย่างน้อย 1 รายการมีสถานะยังไม่หมดอายุ
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Select and click the 'Mark as Expired' action on each price list one by one
-3. Wait for each status to update and verify success toasts for each action
+1. ไปที่ /vendor-management/price-list
+2. เลือกและคลิก action 'Mark as Expired' ที่แต่ละ price list ทีละรายการ
+3. รอให้แต่ละสถานะอัปเดตและตรวจสอบ success toast สำหรับแต่ละ action
 
 **Expected**
 
-Each selected price list's status is updated to expired and corresponding success toasts are displayed.
+สถานะของแต่ละ price list ที่เลือกอัปเดตเป็น expired และแสดง success toast ที่สอดคล้องกัน
 
 ---
 
@@ -689,19 +689,19 @@ Each selected price list's status is updated to expired and corresponding succes
 
 **Preconditions**
 
-A price list with expired status exists
+มี price list ที่มีสถานะ expired อยู่
 
 **Steps**
 
-1. Navigate to /vendor-management/price-list
-2. Click the 'Mark as Expired' action on the expired price list
-3. Verify no changes are made and no errors are shown
+1. ไปที่ /vendor-management/price-list
+2. คลิก action 'Mark as Expired' ที่ price list ที่หมดอายุแล้ว
+3. ตรวจสอบว่าไม่มีการเปลี่ยนแปลงและไม่แสดง error
 
 **Expected**
 
-User cannot mark an already expired price list as expired and no changes are made.
+ผู้ใช้ไม่สามารถทำเครื่องหมาย price list ที่หมดอายุแล้วว่าหมดอายุอีกครั้งได้และไม่มีการเปลี่ยนแปลงใด
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

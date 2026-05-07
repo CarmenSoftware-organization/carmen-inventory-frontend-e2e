@@ -33,17 +33,17 @@ _Generated from `tests/311-pr-returned-flow.spec.ts` annotations. Edit annotatio
 
 **Preconditions**
 
-Logged in as Requestor; a Returned PR exists (seeded via submitPRAsRequestor + sendForReviewAsHOD)
+Login เป็น Requestor; มี PR ที่ถูกส่งคืนอยู่ (seeded ผ่าน submitPRAsRequestor + sendForReviewAsHOD)
 
 **Steps**
 
-1. Open PR list
-2. Locate the seeded PR row
-3. Verify status badge reads Returned (or equivalent)
+1. เปิด PR list
+2. หาแถว PR ที่ seeded
+3. ตรวจสอบว่า status badge แสดง Returned (หรือเทียบเท่า)
 
 **Expected**
 
-PR row is visible in the list and the status badge filter matches /returned|sent back/i for the row.
+แถว PR visible ใน list และ status badge ตรงกับ /returned|sent back/i สำหรับแถวนั้น
 
 ---
 
@@ -55,17 +55,17 @@ PR row is visible in the list and the status badge filter matches /returned|sent
 
 **Preconditions**
 
-A Returned PR exists
+มี PR ที่ถูกส่งคืนอยู่
 
 **Steps**
 
-1. Navigate to the Returned PR detail page
-2. Verify URL
-3. Verify status badge
+1. ไปที่หน้า Returned PR detail
+2. ตรวจสอบ URL
+3. ตรวจสอบ status badge
 
 **Expected**
 
-URL is /procurement/purchase-request/<ref>; status badge text matches /returned|sent back/i.
+URL คือ /procurement/purchase-request/<ref>; text ของ status badge ตรงกับ /returned|sent back/i
 
 ---
 
@@ -77,16 +77,16 @@ URL is /procurement/purchase-request/<ref>; status badge text matches /returned|
 
 **Preconditions**
 
-On a Returned PR detail page
+อยู่ที่หน้า Returned PR detail
 
 **Steps**
 
-1. Click Workflow History tab
-2. Look for the HOD return reason text
+1. คลิกแท็บ Workflow History
+2. หาข้อความเหตุผลการส่งคืนจาก HOD
 
 **Expected**
 
-Workflow History panel contains the seeded return reason 'Please revise — returned for review' (or partial match).
+แผง Workflow History มีเหตุผลการส่งคืนที่ seeded ไว้ว่า 'Please revise — returned for review' (หรือ partial match)
 
 ---
 
@@ -98,15 +98,15 @@ Workflow History panel contains the seeded return reason 'Please revise — retu
 
 **Preconditions**
 
-On a Returned PR detail page
+อยู่ที่หน้า Returned PR detail
 
 **Steps**
 
-1. Inspect the action toolbar
+1. ตรวจสอบ action toolbar
 
 **Expected**
 
-Edit button is visible (Creator can enter Edit Mode to revise).
+ปุ่ม Edit visible (Creator สามารถเข้า Edit Mode เพื่อแก้ไขได้)
 
 ---
 
@@ -118,17 +118,17 @@ Edit button is visible (Creator can enter Edit Mode to revise).
 
 **Preconditions**
 
-Returned PR detail page is open with at least one line item
+หน้า Returned PR detail เปิดอยู่พร้อมอย่างน้อยหนึ่ง line item
 
 **Steps**
 
-1. Click Edit
-2. Modify first row quantity to 7
-3. Click Save Draft
+1. คลิก Edit
+2. แก้ไข quantity แถวแรกเป็น 7
+3. คลิก Save Draft
 
 **Expected**
 
-After save the page URL stays on /procurement/purchase-request/<ref>.
+หลังจากบันทึก URL ของหน้ายังคงอยู่ที่ /procurement/purchase-request/<ref>
 
 ---
 
@@ -140,17 +140,17 @@ After save the page URL stays on /procurement/purchase-request/<ref>.
 
 **Preconditions**
 
-Returned PR detail page is open
+หน้า Returned PR detail เปิดอยู่
 
 **Steps**
 
-1. Click Edit
-2. Add a new line item (product, qty, uom, price)
-3. Click Save Draft
+1. คลิก Edit
+2. เพิ่ม line item ใหม่ (product, qty, uom, price)
+3. คลิก Save Draft
 
 **Expected**
 
-After save the page URL stays on /procurement/purchase-request/<ref>.
+หลังจากบันทึก URL ของหน้ายังคงอยู่ที่ /procurement/purchase-request/<ref>
 
 ---
 
@@ -162,15 +162,15 @@ After save the page URL stays on /procurement/purchase-request/<ref>.
 
 **Preconditions**
 
-Returned PR detail page is open
+หน้า Returned PR detail เปิดอยู่
 
 **Steps**
 
-1. Click Submit on the Returned PR
+1. คลิก Submit บน Returned PR
 
 **Expected**
 
-A confirmation dialog (resubmit) becomes visible.
+dialog ยืนยัน (resubmit) ปรากฏขึ้น visible
 
 ---
 
@@ -182,17 +182,17 @@ A confirmation dialog (resubmit) becomes visible.
 
 **Preconditions**
 
-Submit confirmation dialog open on a Returned PR
+dialog ยืนยัน Submit เปิดอยู่บน Returned PR
 
 **Steps**
 
-1. Click Submit
+1. คลิก Submit
 2. Confirm dialog
-3. Wait for status badge to update
+3. รอ status badge อัปเดต
 
 **Expected**
 
-Status badge text matches /in.progress/i after confirm.
+text ของ status badge ตรงกับ /in.progress/i หลังจาก confirm
 
 ---
 
@@ -204,16 +204,16 @@ Status badge text matches /in.progress/i after confirm.
 
 **Preconditions**
 
-Submit confirmation dialog open on a Returned PR
+dialog ยืนยัน Submit เปิดอยู่บน Returned PR
 
 **Steps**
 
-1. Click Submit
-2. Click Cancel in the dialog
+1. คลิก Submit
+2. คลิก Cancel ใน dialog
 
 **Expected**
 
-Dialog closes; URL remains on the PR detail page.
+dialog ปิด; URL ยังคงอยู่ที่หน้า PR detail
 
 ---
 
@@ -225,17 +225,17 @@ Dialog closes; URL remains on the PR detail page.
 
 **Preconditions**
 
-Returned PR detail page is open
+หน้า Returned PR detail เปิดอยู่
 
 **Steps**
 
-1. Inspect Delete button presence
-2. If present, click and confirm
-3. Verify list URL
+1. ตรวจสอบการมีอยู่ของปุ่ม Delete
+2. ถ้ามีอยู่ ให้คลิกและ confirm
+3. ตรวจสอบ URL ของ list
 
 **Expected**
 
-Delete button visible; confirming delete navigates back to the PR list URL. Skipped when Delete is not allowed in this configuration.
+ปุ่ม Delete visible; การ confirm ลบนำทางกลับไปที่ PR list URL ข้ามเมื่อ Delete ไม่ได้รับอนุญาตใน configuration นี้
 
 ---
 
@@ -247,23 +247,23 @@ Delete button visible; confirming delete navigates back to the PR list URL. Skip
 
 **Preconditions**
 
-Logged in as Requestor; a fresh PR is seeded into the Returned state via submitPRAsRequestor + sendForReviewAsHOD
+Login เป็น Requestor; PR ใหม่ถูก seed ไว้ในสถานะ Returned ผ่าน submitPRAsRequestor + sendForReviewAsHOD
 
 **Steps**
 
-1. Open the Returned PR detail
-2. Click Workflow History tab and verify reason is shown
-3. Click Edit
-4. Modify first line item quantity
+1. เปิดหน้า Returned PR detail
+2. คลิกแท็บ Workflow History และตรวจสอบว่าเหตุผลถูกแสดง
+3. คลิก Edit
+4. แก้ไข quantity ของ line item แรก
 5. Save Draft
-6. Click Submit and Confirm
-7. Wait for status to read In Progress
+6. คลิก Submit และ Confirm
+7. รอ status แสดงเป็น In Progress
 
 **Expected**
 
-Status badge transitions to In Progress after the resubmit confirmation.
+Status badge เปลี่ยนเป็น In Progress หลังจากการ confirm resubmit
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

@@ -54,16 +54,16 @@ _Generated from `tests/402-po-purchaser-journey.spec.ts` annotations. Edit annot
 
 **Preconditions**
 
-Logged in as Purchaser (purchase@blueledgers.com)
+Login เป็น Purchaser (purchase@blueledgers.com)
 
 **Steps**
 
-1. Navigate to /procurement/purchase-order
-2. Verify URL and that the list table or empty-state is visible
+1. ไปที่ /procurement/purchase-order
+2. ตรวจสอบ URL และตรวจสอบว่า list table หรือ empty-state visible
 
 **Expected**
 
-URL is on PO list; My Pending tab is selected when present.
+URL อยู่ที่หน้า list ของ PO; แท็บ My Pending ถูกเลือกเมื่อมี
 
 ---
 
@@ -75,15 +75,15 @@ URL is on PO list; My Pending tab is selected when present.
 
 **Preconditions**
 
-On the PO list page
+อยู่ที่หน้า list ของ PO
 
 **Steps**
 
-1. Click All Documents tab
+1. กดแท็บ All Documents
 
 **Expected**
 
-All Documents tab becomes selected.
+แท็บ All Documents ถูกเลือก
 
 ---
 
@@ -95,17 +95,17 @@ All Documents tab becomes selected.
 
 **Preconditions**
 
-On the PO list page
+อยู่ที่หน้า list ของ PO
 
 **Steps**
 
-1. Open Filter panel
-2. Select status = DRAFT
+1. เปิดแผง Filter
+2. เลือก status = DRAFT
 3. Apply
 
 **Expected**
 
-URL stays on PO list after applying the filter.
+URL ยังคงอยู่ที่หน้า list ของ PO หลัง apply filter
 
 ---
 
@@ -117,15 +117,15 @@ URL stays on PO list after applying the filter.
 
 **Preconditions**
 
-On the PO list page
+อยู่ที่หน้า list ของ PO
 
 **Steps**
 
-1. Type partial reference in search box
+1. พิมพ์ reference บางส่วนในช่องค้นหา
 
 **Expected**
 
-URL stays on PO list after typing in the search input.
+URL ยังคงอยู่ที่หน้า list ของ PO หลังพิมพ์ในช่องค้นหา
 
 ---
 
@@ -137,16 +137,16 @@ URL stays on PO list after typing in the search input.
 
 **Preconditions**
 
-On the PO list page
+อยู่ที่หน้า list ของ PO
 
 **Steps**
 
-1. Click Date column header to sort
-2. Verify list re-orders
+1. คลิกหัวคอลัมน์ Date เพื่อเรียงลำดับ
+2. ตรวจสอบว่ารายการเรียงลำดับใหม่
 
 **Expected**
 
-URL stays on PO list after sort click.
+URL ยังคงอยู่ที่หน้า list ของ PO หลังคลิก sort
 
 ---
 
@@ -158,17 +158,17 @@ URL stays on PO list after sort click.
 
 **Preconditions**
 
-Logged in as Purchaser; on PO list
+Login เป็น Purchaser; อยู่ที่หน้า list ของ PO
 
 **Steps**
 
-1. Click New PO dropdown
-2. Choose Blank/Manual PO option
-3. Verify URL changes to /new
+1. กดปุ่ม dropdown New PO
+2. เลือก option Blank/Manual PO
+3. ตรวจสอบว่า URL เปลี่ยนเป็น /new
 
 **Expected**
 
-URL becomes /procurement/purchase-order/new and form is visible.
+URL เปลี่ยนเป็น /procurement/purchase-order/new และ form visible
 
 ---
 
@@ -180,16 +180,16 @@ URL becomes /procurement/purchase-order/new and form is visible.
 
 **Preconditions**
 
-On the create-PO form (blank)
+อยู่ที่ form สร้าง PO (blank)
 
 **Steps**
 
-1. Fill vendor, description, delivery date
-2. Add 1 line item
+1. กรอก vendor, description, delivery date
+2. เพิ่ม 1 line item
 
 **Expected**
 
-Description input retains the value entered (E2E-POP marker).
+Description input คงค่าที่กรอก (marker E2E-POP)
 
 ---
 
@@ -201,16 +201,16 @@ Description input retains the value entered (E2E-POP marker).
 
 **Preconditions**
 
-Header + ≥1 line item filled on create form
+กรอก header + ≥1 line item บน form สร้าง
 
 **Steps**
 
-1. Click Save
-2. Wait for redirect to detail
+1. กดบันทึก
+2. รอการ redirect ไปยังหน้า detail
 
 **Expected**
 
-URL changes to /procurement/purchase-order/<id> (not /new).
+URL เปลี่ยนเป็น /procurement/purchase-order/<id> (ไม่ใช่ /new)
 
 ---
 
@@ -222,15 +222,15 @@ URL changes to /procurement/purchase-order/<id> (not /new).
 
 **Preconditions**
 
-On the create-PO form with header but no items
+อยู่ที่ form สร้าง PO พร้อม header แต่ยังไม่มีรายการ
 
 **Steps**
 
-1. Click Save without adding any line item
+1. กดบันทึกโดยไม่เพิ่ม line item ใดๆ
 
 **Expected**
 
-Either Save button is disabled, or the form does not navigate from /new.
+ปุ่มบันทึกถูก disable หรือ form ไม่ navigate ออกจาก /new
 
 ---
 
@@ -242,16 +242,16 @@ Either Save button is disabled, or the form does not navigate from /new.
 
 **Preconditions**
 
-Logged in as Purchaser; on PO list
+Login เป็น Purchaser; อยู่ที่หน้า list ของ PO
 
 **Steps**
 
-1. Click New PO dropdown
-2. Choose From Price List
+1. กดปุ่ม dropdown New PO
+2. เลือก From Price List
 
 **Expected**
 
-Wizard step 1 renders (URL changes or dialog appears with vendor selection).
+Wizard step 1 แสดง (URL เปลี่ยนหรือ dialog ปรากฏพร้อมการเลือก vendor)
 
 ---
 
@@ -263,16 +263,16 @@ Wizard step 1 renders (URL changes or dialog appears with vendor selection).
 
 **Preconditions**
 
-From Price List wizard step 1 is open
+Wizard From Price List step 1 เปิดอยู่
 
 **Steps**
 
-1. Select first vendor
-2. Click Next/Continue
+1. เลือก vendor แรก
+2. กด Next/Continue
 
 **Expected**
 
-Wizard advances to step 2 (review screen visible).
+Wizard ไปยัง step 2 (หน้า review visible)
 
 ---
 
@@ -284,15 +284,15 @@ Wizard advances to step 2 (review screen visible).
 
 **Preconditions**
 
-From Price List wizard step 2 (Review) is open
+Wizard From Price List step 2 (Review) เปิดอยู่
 
 **Steps**
 
-1. Click Create/Submit on the wizard final step
+1. กด Create/Submit บน step สุดท้ายของ wizard
 
 **Expected**
 
-URL transitions away from /new to a created PO detail or list.
+URL เปลี่ยนออกจาก /new ไปยัง PO detail หรือ list ที่ถูกสร้าง
 
 ---
 
@@ -304,16 +304,16 @@ URL transitions away from /new to a created PO detail or list.
 
 **Preconditions**
 
-Logged in as Purchaser; on PO list
+Login เป็น Purchaser; อยู่ที่หน้า list ของ PO
 
 **Steps**
 
-1. Open From Price List wizard
-2. Inspect step 1 vendor list
+1. เปิด wizard From Price List
+2. ตรวจสอบรายการ vendor ใน step 1
 
 **Expected**
 
-If wizard shows empty vendor list, test skips with reason. Otherwise asserts wizard step 1 is visible.
+หาก wizard แสดงรายการ vendor ว่างเปล่า การทดสอบ skip พร้อมเหตุผล ไม่เช่นนั้นตรวจสอบว่า wizard step 1 visible
 
 > _Note: Dynamically skipped when DB lacks price list / vendor data._
 
@@ -327,16 +327,16 @@ If wizard shows empty vendor list, test skips with reason. Otherwise asserts wiz
 
 **Preconditions**
 
-Logged in as Purchaser; on PO list
+Login เป็น Purchaser; อยู่ที่หน้า list ของ PO
 
 **Steps**
 
-1. Click New PO dropdown
-2. Choose From PR
+1. กดปุ่ม dropdown New PO
+2. เลือก From PR
 
 **Expected**
 
-Wizard step 1 renders (PR selection list visible or dialog appears).
+Wizard step 1 แสดง (รายการเลือก PR visible หรือ dialog ปรากฏ)
 
 ---
 
@@ -348,16 +348,16 @@ Wizard step 1 renders (PR selection list visible or dialog appears).
 
 **Preconditions**
 
-From PR wizard step 1 is open with at least one approved PR
+Wizard From PR step 1 เปิดอยู่พร้อม PR ที่ approved อย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Select first approved PR
-2. Click Next/Continue
+1. เลือก PR ที่ approved แรก
+2. กด Next/Continue
 
 **Expected**
 
-Wizard advances to step 2 (review grouped POs by vendor).
+Wizard ไปยัง step 2 (review PO ที่จัดกลุ่มตาม vendor)
 
 ---
 
@@ -369,15 +369,15 @@ Wizard advances to step 2 (review grouped POs by vendor).
 
 **Preconditions**
 
-From PR wizard step 2 is open
+Wizard From PR step 2 เปิดอยู่
 
 **Steps**
 
-1. Click Create/Submit on the wizard final step
+1. กด Create/Submit บน step สุดท้ายของ wizard
 
 **Expected**
 
-URL transitions away from /new (POs created).
+URL เปลี่ยนออกจาก /new (PO ถูกสร้าง)
 
 ---
 
@@ -389,16 +389,16 @@ URL transitions away from /new (POs created).
 
 **Preconditions**
 
-Logged in as Purchaser; on PO list
+Login เป็น Purchaser; อยู่ที่หน้า list ของ PO
 
 **Steps**
 
-1. Open From PR wizard
-2. Inspect step 1 PR list
+1. เปิด wizard From PR
+2. ตรวจสอบรายการ PR ใน step 1
 
 **Expected**
 
-If wizard shows empty PR list, test skips with reason. Otherwise asserts wizard step 1 is visible.
+หาก wizard แสดงรายการ PR ว่างเปล่า การทดสอบ skip พร้อมเหตุผล ไม่เช่นนั้นตรวจสอบว่า wizard step 1 visible
 
 > _Note: Dynamically skipped when DB lacks approved PRs._
 
@@ -412,16 +412,16 @@ If wizard shows empty PR list, test skips with reason. Otherwise asserts wizard 
 
 **Preconditions**
 
-A Draft PO exists for this Purchaser (seeded via submitPOAsPurchaser)
+มี Draft PO สำหรับ Purchaser นี้ (seeded ผ่าน submitPOAsPurchaser)
 
 **Steps**
 
-1. Open the Draft PO detail
-2. Verify URL matches the PO ref
+1. เปิดหน้า detail ของ Draft PO
+2. ตรวจสอบว่า URL ตรงกับ PO ref
 
 **Expected**
 
-URL is /procurement/purchase-order/<ref>.
+URL เป็น /procurement/purchase-order/<ref>
 
 ---
 
@@ -433,16 +433,16 @@ URL is /procurement/purchase-order/<ref>.
 
 **Preconditions**
 
-On a Draft PO detail page with at least one item
+อยู่ที่หน้า detail ของ Draft PO ที่มีอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Locate Item Details panel tabs
-2. Switch through Items / Quantity / Pricing tabs if present
+1. ค้นหาแท็บใน Item Details panel
+2. สลับระหว่างแท็บ Items / Quantity / Pricing ถ้ามี
 
 **Expected**
 
-Tabs render and become selected when clicked (skipped if not present).
+แท็บแสดงและถูกเลือกเมื่อคลิก (skip ถ้าไม่มี)
 
 ---
 
@@ -454,15 +454,15 @@ Tabs render and become selected when clicked (skipped if not present).
 
 **Preconditions**
 
-On a Draft PO detail page
+อยู่ที่หน้า detail ของ Draft PO
 
 **Steps**
 
-1. Inspect the action toolbar
+1. ตรวจสอบ action toolbar
 
 **Expected**
 
-Edit button is visible (Submit button visibility depends on UI variant).
+ปุ่ม Edit visible (ความ visible ของปุ่ม Submit ขึ้นอยู่กับ UI variant)
 
 ---
 
@@ -474,17 +474,17 @@ Edit button is visible (Submit button visibility depends on UI variant).
 
 **Preconditions**
 
-A SENT or COMPLETED PO exists in the DB (any non-Draft, non-In-Progress)
+มี PO ที่มี status SENT หรือ COMPLETED ใน DB (ที่ไม่ใช่ Draft หรือ In-Progress)
 
 **Steps**
 
-1. Navigate to PO list
-2. Find a SENT/COMPLETED row
-3. Open it and inspect the toolbar
+1. ไปที่หน้า list ของ PO
+2. ค้นหาแถว SENT/COMPLETED
+3. เปิดและตรวจสอบ toolbar
 
 **Expected**
 
-Edit button is NOT visible OR is disabled. Skipped if no SENT/COMPLETED PO is found.
+ปุ่ม Edit ไม่ visible หรือถูก disable Skip ถ้าไม่มี PO ที่มี status SENT/COMPLETED
 
 > _Note: Dynamically skipped if no SENT/COMPLETED PO available._
 
@@ -498,17 +498,17 @@ Edit button is NOT visible OR is disabled. Skipped if no SENT/COMPLETED PO is fo
 
 **Preconditions**
 
-A Draft PO exists
+มี Draft PO อยู่ในระบบ
 
 **Steps**
 
-1. Open Draft PO detail
-2. Click Edit
-3. Verify Save/Cancel form-level buttons
+1. เปิดหน้า detail ของ Draft PO
+2. กด Edit
+3. ตรวจสอบปุ่ม Save/Cancel ระดับ form
 
 **Expected**
 
-Save button is visible after entering edit mode.
+ปุ่ม Save visible หลังเข้าสู่ edit mode
 
 ---
 
@@ -520,17 +520,17 @@ Save button is visible after entering edit mode.
 
 **Preconditions**
 
-Edit mode active on a Draft PO with at least one item
+edit mode active บน Draft PO ที่มีอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Enter edit mode
-2. Modify a quantity input
-3. Click Save
+1. เข้าสู่ edit mode
+2. แก้ไข quantity input
+3. กดบันทึก
 
 **Expected**
 
-After save the page URL stays on /procurement/purchase-order/<ref>.
+หลังบันทึก URL ยังคงอยู่ที่ /procurement/purchase-order/<ref>
 
 ---
 
@@ -542,17 +542,17 @@ After save the page URL stays on /procurement/purchase-order/<ref>.
 
 **Preconditions**
 
-Edit mode active on a Draft PO
+edit mode active บน Draft PO
 
 **Steps**
 
-1. Enter edit mode
-2. Add new line item
-3. Save
+1. เข้าสู่ edit mode
+2. เพิ่ม line item ใหม่
+3. บันทึก
 
 **Expected**
 
-After save the page URL stays on detail.
+หลังบันทึก URL ยังคงอยู่ที่หน้า detail
 
 ---
 
@@ -564,16 +564,16 @@ After save the page URL stays on detail.
 
 **Preconditions**
 
-Edit mode active on a Draft PO with no changes typed
+edit mode active บน Draft PO โดยไม่มีการเปลี่ยนแปลงที่พิมพ์
 
 **Steps**
 
-1. Enter edit mode
-2. Click Cancel without making changes
+1. เข้าสู่ edit mode
+2. กด Cancel โดยไม่ทำการเปลี่ยนแปลง
 
 **Expected**
 
-Form returns to view mode (Edit button visible again).
+Form กลับสู่ view mode (ปุ่ม Edit visible อีกครั้ง)
 
 ---
 
@@ -585,17 +585,17 @@ Form returns to view mode (Edit button visible again).
 
 **Preconditions**
 
-A Draft PO with ≥1 item exists
+มี Draft PO ที่มี ≥1 รายการ
 
 **Steps**
 
-1. Open Draft PO
-2. Click Submit
-3. Confirm dialog
+1. เปิด Draft PO
+2. กด Submit
+3. ยืนยัน dialog
 
 **Expected**
 
-URL stays on PO ref; status badge text updates (best effort).
+URL ยังคงอยู่ที่ PO ref; text ของ status badge อัปเดต (best effort)
 
 ---
 
@@ -607,18 +607,18 @@ URL stays on PO ref; status badge text updates (best effort).
 
 **Preconditions**
 
-An IN PROGRESS PO exists (post-submit). DRAFT also acceptable.
+มี PO ที่มี status IN PROGRESS (หลัง submit) DRAFT ก็ยอมรับได้เช่นกัน
 
 **Steps**
 
-1. Open the PO
-2. Click Edit
-3. Click Delete
-4. Confirm
+1. เปิด PO
+2. กด Edit
+3. กด Delete
+4. ยืนยัน
 
 **Expected**
 
-URL navigates back to list (PO removed).
+URL navigate กลับไปยัง list (PO ถูกลบ)
 
 ---
 
@@ -630,17 +630,17 @@ URL navigates back to list (PO removed).
 
 **Preconditions**
 
-An Approved PO exists (seeded via submitPOAsPurchaser + approveAsFC)
+มี PO ที่ approved (seeded ผ่าน submitPOAsPurchaser + approveAsFC)
 
 **Steps**
 
 1. Seed Approved PO
-2. Open detail
-3. Inspect action toolbar
+2. เปิดหน้า detail
+3. ตรวจสอบ action toolbar
 
 **Expected**
 
-Send to Vendor button is visible. Close button presence is secondary (not asserted hard if absent).
+ปุ่ม Send to Vendor visible ความ visible ของปุ่ม Close เป็นรอง (ไม่ assert hard ถ้าไม่มี)
 
 ---
 
@@ -652,17 +652,17 @@ Send to Vendor button is visible. Close button presence is secondary (not assert
 
 **Preconditions**
 
-An Approved PO exists
+มี PO ที่ approved อยู่ในระบบ
 
 **Steps**
 
-1. Open Approved PO
-2. Click Send to Vendor
-3. Confirm
+1. เปิด Approved PO
+2. กด Send to Vendor
+3. ยืนยัน
 
 **Expected**
 
-URL stays on PO ref; success toast or status update visible.
+URL ยังคงอยู่ที่ PO ref; success toast หรือการอัปเดต status visible
 
 ---
 
@@ -674,18 +674,18 @@ URL stays on PO ref; success toast or status update visible.
 
 **Preconditions**
 
-A SENT PO exists with items received (best-effort; trusts DB)
+มี SENT PO ที่มีรายการที่รับแล้ว (best-effort; เชื่อ DB)
 
 **Steps**
 
-1. Find a SENT PO with received items in the list
-2. Open detail
-3. Click Close
-4. Confirm
+1. ค้นหา SENT PO ที่มีรายการที่รับแล้วในรายการ
+2. เปิดหน้า detail
+3. กด Close
+4. ยืนยัน
 
 **Expected**
 
-Status text matches /completed/i after close. Skipped if no eligible PO.
+text ของ status ตรงกับ /completed/i หลัง close Skip ถ้าไม่มี PO ที่เข้าเกณฑ์
 
 > _Note: Dynamically skipped when no SENT-with-items PO exists._
 
@@ -699,17 +699,17 @@ Status text matches /completed/i after close. Skipped if no eligible PO.
 
 **Preconditions**
 
-An Approved/SENT PO exists with no items received
+มี Approved/SENT PO ที่ยังไม่มีรายการที่รับ
 
 **Steps**
 
-1. Find an eligible PO
-2. Click Close
-3. Confirm
+1. ค้นหา PO ที่เข้าเกณฑ์
+2. กด Close
+3. ยืนยัน
 
 **Expected**
 
-Status text matches /voided|cancelled/i after close. Skipped if no eligible PO.
+text ของ status ตรงกับ /voided|cancelled/i หลัง close Skip ถ้าไม่มี PO ที่เข้าเกณฑ์
 
 > _Note: Dynamically skipped when no eligible PO exists._
 
@@ -723,22 +723,22 @@ Status text matches /voided|cancelled/i after close. Skipped if no eligible PO.
 
 **Preconditions**
 
-Logged in as Purchaser
+Login เป็น Purchaser
 
 **Steps**
 
-1. Create blank PO (header + 1 item)
-2. Save Draft
+1. สร้าง blank PO (header + 1 รายการ)
+2. บันทึก Draft
 3. Submit
-4. FC approves (cross-context)
-5. Reload detail
-6. Click Send to Vendor
+4. FC approve (cross-context)
+5. Reload หน้า detail
+6. กด Send to Vendor
 
 **Expected**
 
-URL stays on PO ref after Send to Vendor (full lifecycle completes end-to-end).
+URL ยังคงอยู่ที่ PO ref หลัง Send to Vendor (lifecycle ครบถ้วน end-to-end)
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

@@ -18,13 +18,13 @@ purchaseTest.describe("GRN — List", () => {
     "TC-GRN-010001 View GRN List as Authenticated User",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated and has permission to view GRNs; at least one GRN exists in the system" },
+        { type: "preconditions", description: "Login เป็นผู้ใช้ที่มีสิทธิ์ดู GRN; มี GRN อย่างน้อยหนึ่งรายการในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Verify GRN list is displayed\n3. Select a GRN to view details",
+            "1. ไปที่ /procurement/goods-receive-note\n2. ตรวจสอบว่ารายการ GRN แสดง\n3. เลือก GRN เพื่อดูรายละเอียด",
         },
-        { type: "expected", description: "GRN list is displayed with current data. User can select a GRN to view details." },
+        { type: "expected", description: "รายการ GRN แสดงพร้อมข้อมูลปัจจุบัน ผู้ใช้สามารถเลือก GRN เพื่อดูรายละเอียดได้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -40,13 +40,13 @@ purchaseTest.describe("GRN — List", () => {
     "TC-GRN-010002 View GRN List with No GRNs",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to view GRNs; no GRNs exist in the system" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ดู GRN; ไม่มี GRN ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Verify empty state message is displayed",
+            "1. ไปที่ /procurement/goods-receive-note\n2. ตรวจสอบว่าข้อความ empty state แสดง",
         },
-        { type: "expected", description: "Empty state message is displayed indicating no GRNs are available." },
+        { type: "expected", description: "ข้อความ empty state แสดงว่าไม่มี GRN ให้แสดง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -62,13 +62,13 @@ purchaseTest.describe("GRN — List", () => {
     "TC-GRN-010004 View GRN List with Large Number of GRNs",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to view GRNs; a large number of GRNs exist in the system" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ดู GRN; มี GRN จำนวนมากในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Verify pagination works as expected\n3. Scroll through multiple pages of GRNs",
+            "1. ไปที่ /procurement/goods-receive-note\n2. ตรวจสอบว่า pagination ทำงานตามที่คาดหวัง\n3. เลื่อนผ่านหลายหน้าของ GRN",
         },
-        { type: "expected", description: "Pagination works as expected. User can scroll through multiple pages of GRNs." },
+        { type: "expected", description: "Pagination ทำงานตามที่คาดหวัง ผู้ใช้สามารถเลื่อนผ่านหลายหน้าของ GRN ได้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -86,13 +86,13 @@ requestorTest.describe("GRN — List — Permission denial", () => {
     "TC-GRN-010003 View GRN List with Insufficient Permissions",
     {
       annotation: [
-        { type: "preconditions", description: "User is authenticated but does not have permission to view GRNs; at least one GRN exists in the system" },
+        { type: "preconditions", description: "Login เป็นผู้ใช้ที่ไม่มีสิทธิ์ดู GRN; มี GRN อย่างน้อยหนึ่งรายการในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Verify access is denied or appropriate error message is displayed",
+            "1. ไปที่ /procurement/goods-receive-note\n2. ตรวจสอบว่าการเข้าถึงถูกปฏิเสธหรือแสดงข้อความแจ้งข้อผิดพลาดที่เหมาะสม",
         },
-        { type: "expected", description: "Access is denied or appropriate error message is displayed." },
+        { type: "expected", description: "การเข้าถึงถูกปฏิเสธหรือแสดงข้อความแจ้งข้อผิดพลาดที่เหมาะสม" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -115,13 +115,13 @@ purchaseTest.describe("GRN — Filter / Search", () => {
     "TC-GRN-020001 Filter by GRN Number",
     {
       annotation: [
-        { type: "preconditions", description: "User is on GRN List page and GRNs exist in system" },
+        { type: "preconditions", description: "ผู้ใช้อยู่ที่หน้า GRN List และมี GRN ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Fill 'GRN number' with a valid GRN number\n3. Verify filtered GRN list includes the entered GRN number",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กรอก 'GRN number' ด้วย GRN number ที่ถูกต้อง\n3. ตรวจสอบว่ารายการ GRN ที่กรองแล้วรวม GRN number ที่กรอก",
         },
-        { type: "expected", description: "GRN list is filtered to show only the GRN with the entered number." },
+        { type: "expected", description: "รายการ GRN กรองแสดงเฉพาะ GRN ที่มีหมายเลขที่กรอก" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -138,13 +138,13 @@ purchaseTest.describe("GRN — Filter / Search", () => {
     "TC-GRN-020002 Clear Filters",
     {
       annotation: [
-        { type: "preconditions", description: "User has applied filters to GRN list" },
+        { type: "preconditions", description: "ผู้ใช้ได้ apply filter ให้กับรายการ GRN แล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Clear Filters' button\n3. Verify the GRN list returns to full view",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กดปุ่ม 'Clear Filters'\n3. ตรวจสอบว่ารายการ GRN กลับสู่มุมมองเต็ม",
         },
-        { type: "expected", description: "GRN list returns to its initial state with all records visible." },
+        { type: "expected", description: "รายการ GRN กลับสู่สถานะเริ่มต้นพร้อมบันทึกทั้งหมด visible" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -161,13 +161,13 @@ purchaseTest.describe("GRN — Filter / Search", () => {
     "TC-GRN-020003 Invalid Search Term",
     {
       annotation: [
-        { type: "preconditions", description: "User is on GRN List page and GRNs exist in system" },
+        { type: "preconditions", description: "ผู้ใช้อยู่ที่หน้า GRN List และมี GRN ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Fill 'Search' box with an invalid term\n3. Wait 5 seconds\n4. Verify no records are displayed",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กรอกช่อง 'Search' ด้วยคำค้นหาที่ไม่ถูกต้อง\n3. รอ 5 วินาที\n4. ตรวจสอบว่าไม่มีบันทึกแสดง",
         },
-        { type: "expected", description: "No GRNs are displayed and the list remains unfiltered." },
+        { type: "expected", description: "ไม่มี GRN แสดงและรายการยังคงไม่มีการกรอง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -185,13 +185,13 @@ purchaseTest.describe("GRN — Filter / Search", () => {
     "TC-GRN-020004 Search with Empty Term",
     {
       annotation: [
-        { type: "preconditions", description: "User is on GRN List page and GRNs exist in system" },
+        { type: "preconditions", description: "ผู้ใช้อยู่ที่หน้า GRN List และมี GRN ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Clear the 'Search' box\n3. Verify the GRN list returns to full view",
+            "1. ไปที่ /procurement/goods-receive-note\n2. ล้างช่อง 'Search'\n3. ตรวจสอบว่ารายการ GRN กลับสู่มุมมองเต็ม",
         },
-        { type: "expected", description: "GRN list returns to its initial state with all records visible." },
+        { type: "expected", description: "รายการ GRN กลับสู่สถานะเริ่มต้นพร้อมบันทึกทั้งหมด visible" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -208,13 +208,13 @@ purchaseTest.describe("GRN — Filter / Search", () => {
     "TC-GRN-020005 Filter by Vendor Name and Invoice Number",
     {
       annotation: [
-        { type: "preconditions", description: "User is on GRN List page and GRNs exist in system" },
+        { type: "preconditions", description: "ผู้ใช้อยู่ที่หน้า GRN List และมี GRN ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Fill 'Vendor name' with a valid vendor name\n3. Fill 'Invoice number' with a valid invoice number\n4. Verify filtered GRN list includes the entered vendor and invoice",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กรอก 'Vendor name' ด้วยชื่อ vendor ที่ถูกต้อง\n3. กรอก 'Invoice number' ด้วยหมายเลข invoice ที่ถูกต้อง\n4. ตรวจสอบว่ารายการ GRN ที่กรองแล้วรวม vendor และ invoice ที่กรอก",
         },
-        { type: "expected", description: "GRN list is filtered to show only GRNs matching the entered vendor name and invoice number." },
+        { type: "expected", description: "รายการ GRN กรองแสดงเฉพาะ GRN ที่ตรงกับ vendor name และ invoice number ที่กรอก" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -238,13 +238,13 @@ purchaseTest.describe("GRN — Create from Single PO", () => {
     "TC-GRN-030001 Create GRN from Single PO - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'Create GRN' permission; at least one vendor with open/partial POs exists; products in PO are in product catalog" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'Create GRN'; มี vendor ที่มี PO เปิด/บางส่วนอย่างน้อยหนึ่งราย; สินค้าใน PO มีอยู่ใน product catalog" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'New GRN'\n3. Select a vendor\n4. Select a PO\n5. Fill received quantities\n6. Click 'Submit'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'New GRN'\n3. เลือก vendor\n4. เลือก PO\n5. กรอก quantity ที่รับ\n6. กด 'Submit'",
         },
-        { type: "expected", description: "GRN created with status RECEIVED, GRN number auto-generated, line items populated from PO, PO status updated (if fully received)." },
+        { type: "expected", description: "GRN ถูกสร้างพร้อม status RECEIVED, GRN number ถูกสร้างอัตโนมัติ, line item มาจาก PO, PO status อัปเดต (ถ้ารับครบ)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -261,13 +261,13 @@ purchaseTest.describe("GRN — Create from Single PO", () => {
     "TC-GRN-030003 Create GRN with No Vendor",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'Create GRN' permission; no vendors with open/partial POs exist" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'Create GRN'; ไม่มี vendor ที่มี PO เปิด/บางส่วน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'New GRN'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'New GRN'",
         },
-        { type: "expected", description: "User is unable to create GRN and receives an error message stating 'No vendor with open/partial POs found'." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถสร้าง GRN ได้และได้รับข้อความแจ้งข้อผิดพลาด 'No vendor with open/partial POs found'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -283,13 +283,13 @@ purchaseTest.describe("GRN — Create from Single PO", () => {
     "TC-GRN-030004 Create GRN with Invalid PO",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'Create GRN' permission; at least one vendor with an invalid PO exists" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'Create GRN'; มี vendor ที่มี PO ที่ไม่ถูกต้องอย่างน้อยหนึ่งราย" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'New GRN'\n3. Select a vendor\n4. Select an invalid PO\n5. Fill received quantities",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'New GRN'\n3. เลือก vendor\n4. เลือก PO ที่ไม่ถูกต้อง\n5. กรอก quantity ที่รับ",
         },
-        { type: "expected", description: "User is unable to create GRN and receives an error message stating 'Invalid purchase order selected'." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถสร้าง GRN ได้และได้รับข้อความแจ้งข้อผิดพลาด 'Invalid purchase order selected'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -305,13 +305,13 @@ purchaseTest.describe("GRN — Create from Single PO", () => {
     "TC-GRN-030005 Create GRN with No Product in Catalog",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'Create GRN' permission; vendor has open/partial POs; products in PO are not in product catalog" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor มี PO เปิด/บางส่วน; สินค้าใน PO ไม่มีใน product catalog" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'New GRN'\n3. Select a vendor\n4. Select a PO",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'New GRN'\n3. เลือก vendor\n4. เลือก PO",
         },
-        { type: "expected", description: "User is unable to create GRN and receives an error message stating 'Products in PO not found in product catalog'." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถสร้าง GRN ได้และได้รับข้อความแจ้งข้อผิดพลาด 'Products in PO not found in product catalog'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -329,13 +329,13 @@ requestorTest.describe("GRN — Create — Permission denial", () => {
     "TC-GRN-030002 Create GRN without Create GRN Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have 'Create GRN' permission" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์ 'Create GRN'" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'New GRN'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'New GRN'",
         },
-        { type: "expected", description: "User is unable to create GRN and receives an error message stating 'Insufficient permission to create GRN'." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถสร้าง GRN ได้และได้รับข้อความแจ้งข้อผิดพลาด 'Insufficient permission to create GRN'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -362,13 +362,13 @@ purchaseTest.describe("GRN — Create from Multiple POs", () => {
     "TC-GRN-040002 Create GRN from Multiple POs - Invalid PO Selection",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'Create GRN' permission; vendor has multiple open/partial POs; POs are in different currencies" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor มี PO เปิด/บางส่วนหลายรายการ; PO อยู่ในสกุลเงินที่แตกต่างกัน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Create GRN'\n3. Try to select POs from different vendors or in different currencies\n4. Click 'Submit'",
+            "1. ไปที่ /procurement/purchase-order\n2. กด 'Create GRN'\n3. พยายามเลือก PO จาก vendor ต่างรายหรือสกุลเงินต่างกัน\n4. กด 'Submit'",
         },
-        { type: "expected", description: "System displays error message prohibiting creation of GRN with POs from different vendors or currencies." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดห้ามการสร้าง GRN จาก PO ของ vendor ต่างรายหรือสกุลเงินต่างกัน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -383,13 +383,13 @@ purchaseTest.describe("GRN — Create from Multiple POs", () => {
     "TC-GRN-040004 Create GRN from Multiple POs - Edge Case - Partial POs",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'Create GRN' permission; vendor has multiple open/partial POs" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor มี PO เปิด/บางส่วนหลายรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Create GRN'\n3. Select partially fulfilled POs\n4. Click 'Submit'",
+            "1. ไปที่ /procurement/purchase-order\n2. กด 'Create GRN'\n3. เลือก PO ที่รับบางส่วน\n4. กด 'Submit'",
         },
-        { type: "expected", description: "GRN created with line items from partially fulfilled POs, each line item references its source PO, all source POs updated with GRN reference." },
+        { type: "expected", description: "GRN ถูกสร้างพร้อม line item จาก PO ที่รับบางส่วน, แต่ละ line item อ้างอิง PO ต้นทาง, PO ต้นทางทั้งหมดถูกอัปเดตพร้อม GRN reference" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -405,13 +405,13 @@ requestorTest.describe("GRN — Create from Multiple POs — Permission denial",
     "TC-GRN-040003 Create GRN from Multiple POs - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have 'Create GRN' permission; vendor has multiple open/partial POs" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์ 'Create GRN'; vendor มี PO เปิด/บางส่วนหลายรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/purchase-order\n2. Click 'Create GRN'\n3. Attempt to select POs and create GRN",
+            "1. ไปที่ /procurement/purchase-order\n2. กด 'Create GRN'\n3. พยายามเลือก PO และสร้าง GRN",
         },
-        { type: "expected", description: "System displays permission denied error message preventing GRN creation." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดปฏิเสธสิทธิ์ป้องกันการสร้าง GRN" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -430,13 +430,13 @@ purchaseTest.describe("GRN — Manual creation", () => {
     "TC-GRN-050001 Create Manual GRN with Valid Data",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'Create GRN' permission; vendor exists; products exist in catalog" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor มีอยู่ในระบบ; สินค้ามีใน catalog" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Create New GRN'\n3. Fill vendor field\n4. Fill product details\n5. Verify GRN information\n6. Click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'Create New GRN'\n3. กรอก vendor field\n4. กรอกรายละเอียดสินค้า\n5. ตรวจสอบข้อมูล GRN\n6. กด 'Save'",
         },
-        { type: "expected", description: "GRN is created without PO reference, status set to RECEIVED, no PO status updates triggered, activity log records manual creation." },
+        { type: "expected", description: "GRN ถูกสร้างโดยไม่มี PO reference, status ตั้งเป็น RECEIVED, ไม่มีการอัปเดต PO status, activity log บันทึกการสร้างแบบ manual" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -452,13 +452,13 @@ purchaseTest.describe("GRN — Manual creation", () => {
     "TC-GRN-050003 Create Manual GRN with Missing Vendor",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'Create GRN' permission; vendor does not exist in system" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor ไม่มีอยู่ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Create New GRN'\n3. Attempt to fill vendor field\n4. Verify error message",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'Create New GRN'\n3. พยายามกรอก vendor field\n4. ตรวจสอบข้อความแจ้งข้อผิดพลาด",
         },
-        { type: "expected", description: "Error message indicates that the vendor does not exist in the system." },
+        { type: "expected", description: "ข้อความแจ้งข้อผิดพลาดระบุว่า vendor ไม่มีอยู่ในระบบ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -475,13 +475,13 @@ purchaseTest.describe("GRN — Manual creation", () => {
     "TC-GRN-050004 Create Manual GRN with Empty Product Details",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'Create GRN' permission; vendor exists; products exist in catalog" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor มีอยู่ในระบบ; สินค้ามีใน catalog" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Create New GRN'\n3. Fill vendor field\n4. Fill product details with empty fields\n5. Attempt to click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'Create New GRN'\n3. กรอก vendor field\n4. กรอกรายละเอียดสินค้าด้วย field ว่างเปล่า\n5. พยายามกด 'Save'",
         },
-        { type: "expected", description: "Error message indicates that product details cannot be empty." },
+        { type: "expected", description: "ข้อความแจ้งข้อผิดพลาดระบุว่ารายละเอียดสินค้าไม่สามารถว่างเปล่าได้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -498,13 +498,13 @@ purchaseTest.describe("GRN — Manual creation", () => {
     "TC-GRN-050005 Create Manual GRN with Large Number of Products",
     {
       annotation: [
-        { type: "preconditions", description: "User has 'Create GRN' permission; vendor exists; products exist in catalog" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์ 'Create GRN'; vendor มีอยู่ในระบบ; สินค้ามีใน catalog" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Create New GRN'\n3. Fill vendor field\n4. Fill product details with a large number of entries\n5. Verify that system handles the large number of products without crashing",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'Create New GRN'\n3. กรอก vendor field\n4. กรอกรายละเอียดสินค้าจำนวนมาก\n5. ตรวจสอบว่าระบบรองรับสินค้าจำนวนมากได้โดยไม่ crash",
         },
-        { type: "expected", description: "GRN is created without PO reference, status set to RECEIVED, no PO status updates triggered, activity log records manual creation, and system handles large number of products without issues." },
+        { type: "expected", description: "GRN ถูกสร้างโดยไม่มี PO reference, status ตั้งเป็น RECEIVED, ไม่มีการอัปเดต PO status, activity log บันทึกการสร้างแบบ manual, และระบบรองรับสินค้าจำนวนมากได้โดยไม่มีปัญหา" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -521,13 +521,13 @@ requestorTest.describe("GRN — Manual creation — Permission denial", () => {
     "TC-GRN-050002 Create Manual GRN without Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have 'Create GRN' permission" },
+        { type: "preconditions", description: "ผู้ใช้ไม่มีสิทธิ์ 'Create GRN'" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Attempt to click 'Create New GRN'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. พยายามกด 'Create New GRN'",
         },
-        { type: "expected", description: "User is unable to click 'Create New GRN' or an appropriate error message is displayed." },
+        { type: "expected", description: "ผู้ใช้ไม่สามารถกด 'Create New GRN' ได้หรือแสดงข้อความแจ้งข้อผิดพลาดที่เหมาะสม" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -554,13 +554,13 @@ purchaseTest.describe("GRN — Edit Header", () => {
     "TC-GRN-060001 Edit GRN Header - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; GRN not yet committed" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; GRN ยังไม่ได้ commit" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Edit' next to the GRN\n3. Fill 'Received Date' with new date\n4. Fill 'Invoice Number' with new number\n5. Fill 'Currency' with new currency\n6. Click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'Edit' ที่ GRN\n3. กรอก 'Received Date' ด้วยวันที่ใหม่\n4. กรอก 'Invoice Number' ด้วยหมายเลขใหม่\n5. กรอก 'Currency' ด้วยสกุลเงินใหม่\n6. กด 'Save'",
         },
-        { type: "expected", description: "GRN header updated with new information, activity log records changes, financial calculations updated if currency changed." },
+        { type: "expected", description: "GRN header ถูกอัปเดตด้วยข้อมูลใหม่, activity log บันทึกการเปลี่ยนแปลง, การคำนวณทางการเงินอัปเดตหาก currency เปลี่ยน" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -585,13 +585,13 @@ purchaseTest.describe("GRN — Edit Header", () => {
     "TC-GRN-060002 Edit GRN Header - Invalid Currency",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; GRN not yet committed; incorrect currency selected" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; GRN ยังไม่ได้ commit; เลือก currency ที่ไม่ถูกต้อง" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Edit' next to the GRN\n3. Select invalid currency from dropdown\n4. Click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'Edit' ที่ GRN\n3. เลือก currency ที่ไม่ถูกต้องจาก dropdown\n4. กด 'Save'",
         },
-        { type: "expected", description: "System displays error message regarding invalid currency, GRN header remains unchanged." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดเกี่ยวกับ currency ที่ไม่ถูกต้อง, GRN header ยังคงไม่เปลี่ยนแปลง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -610,13 +610,13 @@ purchaseTest.describe("GRN — Edit Header", () => {
     "TC-GRN-060004 Edit GRN Header - Empty Fields",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; GRN not yet committed" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; GRN ยังไม่ได้ commit" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Edit' next to the GRN\n3. Leave all fields blank\n4. Click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'Edit' ที่ GRN\n3. ปล่อย field ทั้งหมดว่างเปล่า\n4. กด 'Save'",
         },
-        { type: "expected", description: "System displays error messages for all required fields, GRN header remains unchanged." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดสำหรับ field ที่จำเป็นทั้งหมด, GRN header ยังคงไม่เปลี่ยนแปลง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -639,13 +639,13 @@ purchaseTest.describe("GRN — Edit Header", () => {
     "TC-GRN-060005 Edit GRN Header - Future Date",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; GRN not yet committed" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; GRN ยังไม่ได้ commit" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Edit' next to the GRN\n3. Fill 'Received Date' with a future date\n4. Click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'Edit' ที่ GRN\n3. กรอก 'Received Date' ด้วยวันที่ในอนาคต\n4. กด 'Save'",
         },
-        { type: "expected", description: "System displays error message regarding invalid date, GRN header remains unchanged." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดเกี่ยวกับวันที่ไม่ถูกต้อง, GRN header ยังคงไม่เปลี่ยนแปลง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -669,13 +669,13 @@ requestorTest.describe("GRN — Edit Header — Permission denial", () => {
     "TC-GRN-060003 Edit GRN Header - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; user does not have edit permission; GRN not yet committed" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; ผู้ใช้ไม่มีสิทธิ์แก้ไข; GRN ยังไม่ได้ commit" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Edit' next to the GRN\n3. Attempt to modify 'Received Date'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'Edit' ที่ GRN\n3. พยายามแก้ไข 'Received Date'",
         },
-        { type: "expected", description: "System displays error message indicating insufficient permission, GRN header remains unchanged." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ, GRN header ยังคงไม่เปลี่ยนแปลง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -705,13 +705,13 @@ purchaseTest.describe("GRN — Add Line Item", () => {
     "TC-GRN-070001 Happy Path - Add Line Item",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; product catalog accessible" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; สามารถเข้าถึง product catalog ได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Items' tab\n3. Click 'Add Item' button\n4. Fill in product name, quantity, and price\n5. Click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กดแท็บ 'Items'\n3. กดปุ่ม 'Add Item'\n4. กรอกชื่อสินค้า, quantity และราคา\n5. กด 'Save'",
         },
-        { type: "expected", description: "New line item added to GRN, financial totals recalculated, activity log updated." },
+        { type: "expected", description: "เพิ่ม line item ใหม่ใน GRN, ยอดรวมทางการเงินถูกคำนวณใหม่, activity log อัปเดต" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -735,13 +735,13 @@ purchaseTest.describe("GRN — Add Line Item", () => {
     "TC-GRN-070002 Invalid Input - Empty Product Name",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; product catalog accessible" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; สามารถเข้าถึง product catalog ได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Items' tab\n3. Click 'Add Item' button\n4. Leave product name field empty\n5. Fill in quantity and price\n6. Click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กดแท็บ 'Items'\n3. กดปุ่ม 'Add Item'\n4. ปล่อย field ชื่อสินค้าว่างเปล่า\n5. กรอก quantity และราคา\n6. กด 'Save'",
         },
-        { type: "expected", description: "Error message displayed for empty product name, no line item added." },
+        { type: "expected", description: "แสดงข้อความแจ้งข้อผิดพลาดสำหรับชื่อสินค้าที่ว่างเปล่า, ไม่มีการเพิ่ม line item" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -764,13 +764,13 @@ purchaseTest.describe("GRN — Add Line Item", () => {
     "TC-GRN-070004 Edge Case - Add Item with Maximum Quantity",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; user has edit permission; product catalog accessible; maximum quantity set for product" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; ผู้ใช้มีสิทธิ์แก้ไข; สามารถเข้าถึง product catalog ได้; กำหนด quantity สูงสุดสำหรับสินค้า" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Items' tab\n3. Click 'Add Item' button\n4. Fill in product name, maximum quantity, and price\n5. Click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กดแท็บ 'Items'\n3. กดปุ่ม 'Add Item'\n4. กรอกชื่อสินค้า, quantity สูงสุด และราคา\n5. กด 'Save'",
         },
-        { type: "expected", description: "Maximum quantity enforced, financial totals recalculated, activity log updated." },
+        { type: "expected", description: "บังคับใช้ quantity สูงสุด, ยอดรวมทางการเงินถูกคำนวณใหม่, activity log อัปเดต" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -795,13 +795,13 @@ requestorTest.describe("GRN — Add Line Item — Permission denial", () => {
     "TC-GRN-070003 No Permission - User Tries to Add Item",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; user does not have edit permission; product catalog accessible" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; ผู้ใช้ไม่มีสิทธิ์แก้ไข; สามารถเข้าถึง product catalog ได้" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Items' tab\n3. Click 'Add Item' button\n4. Fill in product name, quantity, and price\n5. Click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กดแท็บ 'Items'\n3. กดปุ่ม 'Add Item'\n4. กรอกชื่อสินค้า, quantity และราคา\n5. กด 'Save'",
         },
-        { type: "expected", description: "User receives permission denied error, unable to add line item." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความแจ้งข้อผิดพลาดปฏิเสธสิทธิ์, ไม่สามารถเพิ่ม line item ได้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -831,13 +831,13 @@ purchaseTest.describe("GRN — Edit Line Item", () => {
     "TC-GRN-080001 Edit Existing Line Item - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; line items exist; user has edit permission" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; มี line item; ผู้ใช้มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click on GRN number in list\n3. Navigate to 'Items' tab\n4. Select line item to edit\n5. Fill in new quantity, price, location\n6. Click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. คลิก GRN number ในรายการ\n3. ไปที่แท็บ 'Items'\n4. เลือก line item ที่ต้องการแก้ไข\n5. กรอก quantity, ราคา, location ใหม่\n6. กด 'Save'",
         },
-        { type: "expected", description: "Line item updated, financial totals recalculated, activity log records changes." },
+        { type: "expected", description: "Line item ถูกอัปเดต, ยอดรวมทางการเงินถูกคำนวณใหม่, activity log บันทึกการเปลี่ยนแปลง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -857,13 +857,13 @@ purchaseTest.describe("GRN — Edit Line Item", () => {
     "TC-GRN-080002 Edit Line Item - Invalid Price Input",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; line items exist; user has edit permission" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; มี line item; ผู้ใช้มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click on GRN number in list\n3. Navigate to 'Items' tab\n4. Select line item to edit\n5. Enter an invalid price (non-numeric value)\n6. Click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. คลิก GRN number ในรายการ\n3. ไปที่แท็บ 'Items'\n4. เลือก line item ที่ต้องการแก้ไข\n5. กรอกราคาที่ไม่ถูกต้อง (ค่าที่ไม่ใช่ตัวเลข)\n6. กด 'Save'",
         },
-        { type: "expected", description: "System displays error message and does not update line item." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดและไม่อัปเดต line item" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -881,13 +881,13 @@ purchaseTest.describe("GRN — Edit Line Item", () => {
     "TC-GRN-080004 Edit Line Item - No Line Items Exist",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; line items do not exist; user has edit permission" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; ไม่มี line item; ผู้ใช้มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click on GRN number in list\n3. Navigate to 'Items' tab",
+            "1. ไปที่ /procurement/goods-receive-note\n2. คลิก GRN number ในรายการ\n3. ไปที่แท็บ 'Items'",
         },
-        { type: "expected", description: "System displays message indicating no line items to edit." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งว่าไม่มี line item ที่จะแก้ไข" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -902,13 +902,13 @@ purchaseTest.describe("GRN — Edit Line Item", () => {
     "TC-GRN-080005 Edit Line Item - GRN in RECEIVED Status",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in RECEIVED status; line items exist; user has edit permission" },
+        { type: "preconditions", description: "GRN อยู่ใน status RECEIVED; มี line item; ผู้ใช้มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click on GRN number in list\n3. Navigate to 'Items' tab",
+            "1. ไปที่ /procurement/goods-receive-note\n2. คลิก GRN number ในรายการ\n3. ไปที่แท็บ 'Items'",
         },
-        { type: "expected", description: "System displays message indicating GRN cannot be edited." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งว่าไม่สามารถแก้ไข GRN ได้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -935,13 +935,13 @@ requestorTest.describe("GRN — Edit Line Item — Permission denial", () => {
     "TC-GRN-080003 Edit Line Item - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; line items exist; user does not have edit permission" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; มี line item; ผู้ใช้ไม่มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click on GRN number in list\n3. Navigate to 'Items' tab\n4. Attempt to select line item to edit",
+            "1. ไปที่ /procurement/goods-receive-note\n2. คลิก GRN number ในรายการ\n3. ไปที่แท็บ 'Items'\n4. พยายามเลือก line item เพื่อแก้ไข",
         },
-        { type: "expected", description: "User is denied access and cannot edit line item." },
+        { type: "expected", description: "ผู้ใช้ถูกปฏิเสธการเข้าถึงและไม่สามารถแก้ไข line item ได้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -961,13 +961,13 @@ purchaseTest.describe("GRN — Delete Line Item", () => {
     "TC-GRN-090001 Delete a valid line item from a draft GRN",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; line items exist; user has edit permission" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; มี line item; ผู้ใช้มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click on 'Items' tab\n3. Click 'Delete' icon next to a line item\n4. Confirm deletion dialog",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กดแท็บ 'Items'\n3. กดไอคอน 'Delete' ที่ line item\n4. ยืนยัน dialog การลบ",
         },
-        { type: "expected", description: "Line item is removed, line numbers resequenced, financial totals recalculated, activity log updated." },
+        { type: "expected", description: "Line item ถูกลบ, หมายเลขแถวถูกเรียงใหม่, ยอดรวมทางการเงินถูกคำนวณใหม่, activity log อัปเดต" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -985,13 +985,13 @@ purchaseTest.describe("GRN — Delete Line Item", () => {
     "TC-GRN-090003 Try to delete a line item from a received GRN",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in RECEIVED status; line items exist; user has edit permission" },
+        { type: "preconditions", description: "GRN อยู่ใน status RECEIVED; มี line item; ผู้ใช้มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click on 'Items' tab\n3. Click 'Delete' icon next to a line item",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กดแท็บ 'Items'\n3. กดไอคอน 'Delete' ที่ line item",
         },
-        { type: "expected", description: "User is presented with a warning that the GRN is in a non-editable state and cannot be modified." },
+        { type: "expected", description: "ผู้ใช้เห็นคำเตือนว่า GRN อยู่ใน state ที่แก้ไขไม่ได้และไม่สามารถแก้ไขได้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -1009,13 +1009,13 @@ purchaseTest.describe("GRN — Delete Line Item", () => {
     "TC-GRN-090005 Delete multiple line items at once from a draft GRN",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; multiple line items exist; user has edit permission" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; มี line item หลายรายการ; ผู้ใช้มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click on 'Items' tab\n3. Select multiple line items\n4. Click 'Delete' icon",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กดแท็บ 'Items'\n3. เลือก line item หลายรายการ\n4. กดไอคอน 'Delete'",
         },
-        { type: "expected", description: "Selected line items are removed, line numbers resequenced, financial totals recalculated, activity log updated." },
+        { type: "expected", description: "Line item ที่เลือกถูกลบ, หมายเลขแถวถูกเรียงใหม่, ยอดรวมทางการเงินถูกคำนวณใหม่, activity log อัปเดต" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1035,13 +1035,13 @@ requestorTest.describe("GRN — Delete Line Item — Permission denial", () => {
     "TC-GRN-090002 Attempt to delete a line item without edit permission",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists in DRAFT status; line items exist; user does not have edit permission" },
+        { type: "preconditions", description: "GRN อยู่ใน status DRAFT; มี line item; ผู้ใช้ไม่มีสิทธิ์แก้ไข" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click on 'Items' tab\n3. Click 'Delete' icon next to a line item",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กดแท็บ 'Items'\n3. กดไอคอน 'Delete' ที่ line item",
         },
-        { type: "expected", description: "User is presented with an error message indicating insufficient permissions." },
+        { type: "expected", description: "ผู้ใช้เห็นข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -1061,13 +1061,13 @@ purchaseTest.describe("GRN — Extra Costs", () => {
     "TC-GRN-100001 Happy Path - Add Extra Costs",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists (not VOID); at least one line item exists; user has permission to add costs" },
+        { type: "preconditions", description: "GRN มีอยู่จริงและไม่ใช่ VOID; มี line item อย่างน้อยหนึ่งรายการ; ผู้ใช้มีสิทธิ์เพิ่มต้นทุน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Add Extra Costs'\n3. Select 'Freight'\n4. Enter amount\n5. Select 'Handling'\n6. Enter amount\n7. Select 'Customs'\n8. Enter amount\n9. Click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'Add Extra Costs'\n3. เลือก 'Freight'\n4. กรอกจำนวน\n5. เลือก 'Handling'\n6. กรอกจำนวน\n7. เลือก 'Customs'\n8. กรอกจำนวน\n9. กด 'Save'",
         },
-        { type: "expected", description: "Extra cost entries added to GRN, costs distributed to line items, line item totals updated, GRN total increased by extra costs, activity log records." },
+        { type: "expected", description: "รายการ extra cost เพิ่มใน GRN, ต้นทุนกระจายไปยัง line item, ยอดรวม line item อัปเดต, ยอดรวม GRN เพิ่มขึ้นตาม extra costs, activity log บันทึก" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1091,13 +1091,13 @@ purchaseTest.describe("GRN — Extra Costs", () => {
     "TC-GRN-100003 Edge Case - Invalid Cost Amount",
     {
       annotation: [
-        { type: "preconditions", description: "GRN exists (not VOID); at least one line item exists; user has permission to add costs" },
+        { type: "preconditions", description: "GRN มีอยู่จริงและไม่ใช่ VOID; มี line item อย่างน้อยหนึ่งรายการ; ผู้ใช้มีสิทธิ์เพิ่มต้นทุน" },
         {
           type: "steps",
           description:
-            "1. Navigate to /procurement/goods-receive-note\n2. Click 'Add Extra Costs'\n3. Select 'Freight'\n4. Enter negative amount\n5. Select 'Handling'\n6. Enter zero amount\n7. Click 'Save'",
+            "1. ไปที่ /procurement/goods-receive-note\n2. กด 'Add Extra Costs'\n3. เลือก 'Freight'\n4. กรอกจำนวนติดลบ\n5. เลือก 'Handling'\n6. กรอกจำนวนเป็นศูนย์\n7. กด 'Save'",
         },
-        { type: "expected", description: "System displays error message for invalid amount, freight cost not added, handling cost not added, no changes made to GRN or line items." },
+        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดสำหรับจำนวนที่ไม่ถูกต้อง, ค่า freight ไม่ถูกเพิ่ม, ค่า handling ไม่ถูกเพิ่ม, ไม่มีการเปลี่ยนแปลงกับ GRN หรือ line item" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],

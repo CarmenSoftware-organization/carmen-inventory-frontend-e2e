@@ -49,16 +49,16 @@ _Generated from `tests/303-pr-approver-journey.spec.ts` annotations. Edit annota
 
 **Preconditions**
 
-Logged in as HOD (hod@blueledgers.com)
+Login เป็น HOD (hod@blueledgers.com)
 
 **Steps**
 
-1. Navigate to My Approvals
-2. Verify pending count badge is visible
+1. ไปที่ My Approvals
+2. ตรวจสอบว่า badge จำนวน pending แสดงผล
 
 **Expected**
 
-My Approvals dashboard loads; pending count badge is visible.
+My Approvals dashboard โหลด; badge จำนวน pending แสดงผล
 
 ---
 
@@ -70,15 +70,15 @@ My Approvals dashboard loads; pending count badge is visible.
 
 **Preconditions**
 
-On My Approvals dashboard with at least one pending PR row
+อยู่ใน My Approvals dashboard และมีแถว PR ที่ pending อย่างน้อยหนึ่งแถว
 
 **Steps**
 
-1. Click first pending PR row
+1. คลิกแถว PR ที่ pending แรก
 
 **Expected**
 
-URL navigates to /procurement/purchase-request/<ref>.
+URL นำทางไปยัง /procurement/purchase-request/<ref>
 
 ---
 
@@ -90,16 +90,16 @@ URL navigates to /procurement/purchase-request/<ref>.
 
 **Preconditions**
 
-On My Approvals dashboard
+อยู่ใน My Approvals dashboard
 
 **Steps**
 
-1. Read pending badge value
-2. Count visible PR rows
+1. อ่านค่า badge pending
+2. นับแถว PR ที่แสดงผล
 
 **Expected**
 
-Badge value equals the visible row count (or both are zero).
+ค่า badge เท่ากับจำนวนแถวที่แสดงผล (หรือทั้งคู่เป็นศูนย์)
 
 ---
 
@@ -111,16 +111,16 @@ Badge value equals the visible row count (or both are zero).
 
 **Preconditions**
 
-On My Approvals dashboard
+อยู่ใน My Approvals dashboard
 
 **Steps**
 
-1. Look for category filter tabs (PO/PR/SR)
-2. Click PR tab if present
+1. หา category filter tabs (PO/PR/SR)
+2. คลิก tab PR ถ้ามี
 
 **Expected**
 
-PR tab becomes selected (skipped if dashboard has no tabs).
+tab PR ถูกเลือก (ข้ามหาก dashboard ไม่มี tabs)
 
 ---
 
@@ -132,16 +132,16 @@ PR tab becomes selected (skipped if dashboard has no tabs).
 
 **Preconditions**
 
-Logged in as HOD; navigated to PR list
+Login เป็น HOD; นำทางไปที่ PR list แล้ว
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Verify My Pending tab is selected
+1. ไปที่ /procurement/purchase-request
+2. ตรวจสอบว่า My Pending tab ถูกเลือก
 
 **Expected**
 
-URL is on PR list and the My Pending tab is selected when present.
+URL อยู่ที่ PR list และ My Pending tab ถูกเลือกเมื่อมี
 
 ---
 
@@ -153,15 +153,15 @@ URL is on PR list and the My Pending tab is selected when present.
 
 **Preconditions**
 
-On the PR list page
+อยู่ที่หน้า PR list
 
 **Steps**
 
-1. Click All Documents tab
+1. คลิก tab All Documents
 
 **Expected**
 
-All Documents tab becomes selected.
+tab All Documents ถูกเลือก
 
 ---
 
@@ -173,16 +173,16 @@ All Documents tab becomes selected.
 
 **Preconditions**
 
-On the PR list page
+อยู่ที่หน้า PR list
 
 **Steps**
 
-1. Open All Stage dropdown
-2. Select In Progress
+1. เปิด dropdown All Stage
+2. เลือก In Progress
 
 **Expected**
 
-URL stays on PR list (filter applied or no-op when dropdown absent).
+URL ยังคงอยู่ที่ PR list (filter ถูก apply หรือไม่ทำงานเมื่อไม่มี dropdown)
 
 ---
 
@@ -194,17 +194,17 @@ URL stays on PR list (filter applied or no-op when dropdown absent).
 
 **Preconditions**
 
-On the PR list page
+อยู่ที่หน้า PR list
 
 **Steps**
 
-1. Open Filter panel
-2. Select status
+1. เปิดแผง Filter
+2. เลือก status
 3. Apply
 
 **Expected**
 
-URL stays on PR list after applying the filter.
+URL ยังคงอยู่ที่ PR list หลัง apply filter
 
 ---
 
@@ -216,16 +216,16 @@ URL stays on PR list after applying the filter.
 
 **Preconditions**
 
-On the PR list page; at least one PR exists with a known reference
+อยู่ที่หน้า PR list; มี PR อย่างน้อยหนึ่งรายการที่มีเลขอ้างอิงที่รู้จัก
 
 **Steps**
 
-1. Type partial reference in search
-2. Wait for results
+1. พิมพ์เลขอ้างอิงบางส่วนในช่องค้นหา
+2. รอผลลัพธ์
 
 **Expected**
 
-URL stays on PR list after typing in the search input.
+URL ยังคงอยู่ที่ PR list หลังพิมพ์ในช่องค้นหา
 
 ---
 
@@ -237,16 +237,16 @@ URL stays on PR list after typing in the search input.
 
 **Preconditions**
 
-A pending PR (In Progress, HOD stage) exists; created via submitPRAsRequestor
+มี PR ที่ pending (In Progress, HOD stage) อยู่; สร้างผ่าน submitPRAsRequestor
 
 **Steps**
 
-1. Open the PR detail page
-2. Verify Items tab is the default
+1. เปิดหน้ารายละเอียด PR
+2. ตรวจสอบว่า Items tab เป็นค่าเริ่มต้น
 
 **Expected**
 
-URL is the detail URL; Items tab is selected when present.
+URL เป็น detail URL; Items tab ถูกเลือกเมื่อมี
 
 ---
 
@@ -258,15 +258,15 @@ URL is the detail URL; Items tab is selected when present.
 
 **Preconditions**
 
-On a pending PR detail page
+อยู่ที่หน้ารายละเอียด PR ที่ pending
 
 **Steps**
 
-1. Click Workflow History tab
+1. คลิก tab Workflow History
 
 **Expected**
 
-Workflow History tab becomes selected.
+tab Workflow History ถูกเลือก
 
 ---
 
@@ -278,15 +278,15 @@ Workflow History tab becomes selected.
 
 **Preconditions**
 
-On a pending PR detail page (read-only view)
+อยู่ที่หน้ารายละเอียด PR ที่ pending (โหมด read-only)
 
 **Steps**
 
-1. Inspect detail page header / action toolbar
+1. ตรวจสอบ header หน้ารายละเอียด / action toolbar
 
 **Expected**
 
-Standalone Approve, Reject, and Send for Review buttons are NOT visible at the page header (per BRD discrepancy — actions live in Edit Mode bulk toolbar).
+ปุ่ม Approve, Reject และ Send for Review แบบ standalone ไม่แสดงที่ header หน้า (ตาม BRD discrepancy — actions อยู่ใน Edit Mode bulk toolbar)
 
 ---
 
@@ -298,15 +298,15 @@ Standalone Approve, Reject, and Send for Review buttons are NOT visible at the p
 
 **Preconditions**
 
-On a pending PR detail page
+อยู่ที่หน้ารายละเอียด PR ที่ pending
 
 **Steps**
 
-1. Inspect the action toolbar
+1. ตรวจสอบ action toolbar
 
 **Expected**
 
-Edit button is visible (HOD can enter Edit Mode for bulk actions).
+ปุ่ม Edit แสดงผล (HOD สามารถเข้าโหมด Edit Mode สำหรับ bulk actions)
 
 ---
 
@@ -318,16 +318,16 @@ Edit button is visible (HOD can enter Edit Mode for bulk actions).
 
 **Preconditions**
 
-A pending PR detail page is open
+หน้ารายละเอียด PR ที่ pending เปิดอยู่
 
 **Steps**
 
-1. Click Edit
-2. Verify Save/Cancel form-level buttons appear
+1. คลิก Edit
+2. ตรวจสอบว่าปุ่ม Save/Cancel ระดับฟอร์มปรากฏ
 
 **Expected**
 
-Save Draft (or Cancel) form-level button is visible.
+ปุ่ม Save Draft (หรือ Cancel) ระดับฟอร์มแสดงผล
 
 ---
 
@@ -339,17 +339,17 @@ Save Draft (or Cancel) form-level button is visible.
 
 **Preconditions**
 
-Edit mode active on a pending PR with at least one item
+โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Enter edit mode
-2. Locate Approved Qty input on first row
-3. Verify it is editable
+1. เข้าโหมดแก้ไข
+2. หาช่อง Approved Qty ในแถวแรก
+3. ตรวจสอบว่าแก้ไขได้
 
 **Expected**
 
-Approved Qty input is visible and accepts a value.
+ช่อง Approved Qty แสดงผลและรับค่าได้
 
 ---
 
@@ -361,17 +361,17 @@ Approved Qty input is visible and accepts a value.
 
 **Preconditions**
 
-Edit mode active on a pending PR with at least one item
+โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Enter edit mode
-2. Locate Item Note input
-3. Type a note
+1. เข้าโหมดแก้ไข
+2. หาช่อง Item Note
+3. พิมพ์ note
 
 **Expected**
 
-Item Note input accepts the typed value.
+ช่อง Item Note รับค่าที่พิมพ์
 
 ---
 
@@ -383,17 +383,17 @@ Item Note input accepts the typed value.
 
 **Preconditions**
 
-Edit mode active on a pending PR with at least one item
+โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Enter edit mode
-2. Locate Delivery Point input
-3. Verify editable
+1. เข้าโหมดแก้ไข
+2. หาช่อง Delivery Point
+3. ตรวจสอบว่าแก้ไขได้
 
 **Expected**
 
-Delivery Point input is editable.
+ช่อง Delivery Point แก้ไขได้
 
 ---
 
@@ -405,16 +405,16 @@ Delivery Point input is editable.
 
 **Preconditions**
 
-Edit mode active on a pending PR with at least one item
+โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Enter edit mode
-2. Locate Vendor cell on first row
+1. เข้าโหมดแก้ไข
+2. หาเซลล์ Vendor ในแถวแรก
 
 **Expected**
 
-Vendor cell is disabled or non-editable per FR-PR-011A.
+เซลล์ Vendor ถูก disabled หรือแก้ไขไม่ได้ตาม FR-PR-011A
 
 ---
 
@@ -426,16 +426,16 @@ Vendor cell is disabled or non-editable per FR-PR-011A.
 
 **Preconditions**
 
-Edit mode active on a pending PR with at least one item
+โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Enter edit mode
-2. Locate Unit Price cell on first row
+1. เข้าโหมดแก้ไข
+2. หาเซลล์ Unit Price ในแถวแรก
 
 **Expected**
 
-Unit Price cell is disabled or non-editable per FR-PR-011A.
+เซลล์ Unit Price ถูก disabled หรือแก้ไขไม่ได้ตาม FR-PR-011A
 
 ---
 
@@ -447,16 +447,16 @@ Unit Price cell is disabled or non-editable per FR-PR-011A.
 
 **Preconditions**
 
-Edit mode active on a pending PR with at least one item
+โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Enter edit mode
-2. Locate Discount, Tax, FOC Qty cells
+1. เข้าโหมดแก้ไข
+2. หาเซลล์ Discount, Tax, FOC Qty
 
 **Expected**
 
-All three cells are disabled or non-editable per FR-PR-011A / FR-PR-024.
+เซลล์ทั้งสามถูก disabled หรือแก้ไขไม่ได้ตาม FR-PR-011A / FR-PR-024
 
 ---
 
@@ -468,18 +468,18 @@ All three cells are disabled or non-editable per FR-PR-011A / FR-PR-024.
 
 **Preconditions**
 
-Edit mode active on a pending PR
+โหมดแก้ไขเปิดใช้งานบน PR ที่ pending
 
 **Steps**
 
-1. Enter edit mode
-2. Select all rows
-3. Click Approve in bulk toolbar
+1. เข้าโหมดแก้ไข
+2. เลือกทุกแถว
+3. คลิก Approve ใน bulk toolbar
 4. Confirm
 
 **Expected**
 
-Status transitions away from In Progress (toast / next-stage / reload state).
+สถานะเปลี่ยนออกจาก In Progress (toast / ขั้นตอนถัดไป / reload state)
 
 ---
 
@@ -491,19 +491,19 @@ Status transitions away from In Progress (toast / next-stage / reload state).
 
 **Preconditions**
 
-Edit mode active on a pending PR
+โหมดแก้ไขเปิดใช้งานบน PR ที่ pending
 
 **Steps**
 
-1. Enter edit mode
-2. Select all rows
-3. Click Reject
-4. Enter reason
+1. เข้าโหมดแก้ไข
+2. เลือกทุกแถว
+3. คลิก Reject
+4. กรอกเหตุผล
 5. Confirm
 
 **Expected**
 
-URL stays on the PR ref after rejection (status badge updates).
+URL ยังคงอยู่ที่ ref ของ PR หลัง reject (badge สถานะอัปเดต)
 
 ---
 
@@ -515,19 +515,19 @@ URL stays on the PR ref after rejection (status badge updates).
 
 **Preconditions**
 
-Edit mode active on a pending PR
+โหมดแก้ไขเปิดใช้งานบน PR ที่ pending
 
 **Steps**
 
-1. Enter edit mode
-2. Select all rows
-3. Click Send for Review
-4. Enter reason + stage
+1. เข้าโหมดแก้ไข
+2. เลือกทุกแถว
+3. คลิก Send for Review
+4. กรอกเหตุผล + stage
 5. Confirm
 
 **Expected**
 
-URL stays on the PR ref after send for review.
+URL ยังคงอยู่ที่ ref ของ PR หลัง send for review
 
 ---
 
@@ -539,17 +539,17 @@ URL stays on the PR ref after send for review.
 
 **Preconditions**
 
-Edit mode active on a pending PR
+โหมดแก้ไขเปิดใช้งานบน PR ที่ pending
 
 **Steps**
 
-1. Enter edit mode
-2. Select all rows
-3. Click Split
+1. เข้าโหมดแก้ไข
+2. เลือกทุกแถว
+3. คลิก Split
 
 **Expected**
 
-Split UI appears (dialog or inline) — verified by URL stays on detail.
+UI ของ Split ปรากฏ (dialog หรือ inline) — ยืนยันโดย URL ยังคงอยู่ที่หน้ารายละเอียด
 
 ---
 
@@ -561,17 +561,17 @@ Split UI appears (dialog or inline) — verified by URL stays on detail.
 
 **Preconditions**
 
-Edit mode active on a pending PR with at least one item
+โหมดแก้ไขเปิดใช้งานบน PR ที่ pending และมีรายการสินค้าอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Enter edit mode
-2. Type into Approved Qty
-3. Click Cancel
+1. เข้าโหมดแก้ไข
+2. พิมพ์ใน Approved Qty
+3. คลิก Cancel
 
 **Expected**
 
-Form returns to view mode (Edit button visible again).
+ฟอร์มกลับสู่โหมดดู (ปุ่ม Edit แสดงผลอีกครั้ง)
 
 ---
 
@@ -583,17 +583,17 @@ Form returns to view mode (Edit button visible again).
 
 **Preconditions**
 
-Logged in as FC (fc@blueledgers.com); pending PRs exist in DB across multiple departments
+Login เป็น FC (fc@blueledgers.com); มี PR ที่ pending ในฐานข้อมูลจากหลายแผนก
 
 **Steps**
 
-1. Navigate to PR list as FC
-2. Open All Documents tab
-3. Read department column values from rows
+1. ไปที่ PR list ในฐานะ FC
+2. เปิด tab All Documents
+3. อ่านค่าคอลัมน์ department จากแถว
 
 **Expected**
 
-At least 2 distinct department values appear in the list (skipped if DB lacks cross-dept PRs).
+มีค่า department อย่างน้อย 2 ค่าที่แตกต่างกันปรากฏใน list (ข้ามหากฐานข้อมูลไม่มี PR ข้ามแผนก)
 
 ---
 
@@ -605,21 +605,21 @@ At least 2 distinct department values appear in the list (skipped if DB lacks cr
 
 **Preconditions**
 
-Logged in as HOD; a fresh pending PR is seeded via submitPRAsRequestor
+Login เป็น HOD; มี PR ที่ pending ใหม่ seeded ผ่าน submitPRAsRequestor
 
 **Steps**
 
-1. Open My Approvals
-2. Open PR detail
-3. Click Edit
-4. Adjust Approved Qty on first row
-5. Select all + Bulk Approve + Confirm
+1. เปิด My Approvals
+2. เปิดหน้ารายละเอียด PR
+3. คลิก Edit
+4. ปรับ Approved Qty ในแถวแรก
+5. เลือกทั้งหมด + Bulk Approve + Confirm
 
 **Expected**
 
-URL stays on the PR ref after bulk approve; the journey completes end-to-end.
+URL ยังคงอยู่ที่ ref ของ PR หลัง bulk approve; journey เสร็จสมบูรณ์แบบ end-to-end
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

@@ -23,13 +23,13 @@ purchaseTest.describe("Campaign — List", () => {
     "TC-CAM-010001 View Campaign List - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as procurement staff and has permission to view campaign list" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และมี permission ดู campaign list" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Verify Campaign List page is displayed\n3. Verify all campaigns are loaded and displayed in default table view\n4. Click on a campaign name\n5. Verify the campaign details page is displayed",
+            "1. ไปที่ /vendor-management/request-price-list\n2. ตรวจสอบว่าหน้า Campaign List แสดงขึ้นมา\n3. ตรวจสอบว่า campaigns ทั้งหมดโหลดและแสดงใน default table view\n4. คลิก campaign name\n5. ตรวจสอบว่าหน้า campaign details แสดงขึ้นมา",
         },
-        { type: "expected", description: "Campaign details page is correctly displayed with all relevant information." },
+        { type: "expected", description: "หน้า campaign details แสดงอย่างถูกต้องพร้อมข้อมูลที่เกี่ยวข้องทั้งหมด" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -45,13 +45,13 @@ purchaseTest.describe("Campaign — List", () => {
     "TC-CAM-010003 View Campaign List - Empty Campaign List",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to view campaign list but no campaigns are available" },
+        { type: "preconditions", description: "ผู้ใช้มี permission ดู campaign list แต่ไม่มี campaigns" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Verify no campaigns are listed",
+            "1. ไปที่ /vendor-management/request-price-list\n2. ตรวจสอบว่าไม่มี campaigns แสดงรายการ",
         },
-        { type: "expected", description: "User sees a message indicating no campaigns are currently available." },
+        { type: "expected", description: "ผู้ใช้เห็น message ว่าไม่มี campaigns ในขณะนี้" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -66,13 +66,13 @@ purchaseTest.describe("Campaign — List", () => {
     "TC-CAM-010004 View Campaign List - Filter by Status",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to view campaign list" },
+        { type: "preconditions", description: "ผู้ใช้มี permission ดู campaign list" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on filter options\n3. Select 'Active' status\n4. Verify only active campaigns are displayed",
+            "1. ไปที่ /vendor-management/request-price-list\n2. กด filter options\n3. เลือกสถานะ 'Active'\n4. ตรวจสอบว่าแสดงเฉพาะ campaigns ที่ active",
         },
-        { type: "expected", description: "Only campaigns with active status are displayed." },
+        { type: "expected", description: "แสดงเฉพาะ campaigns ที่มีสถานะ active" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -94,13 +94,13 @@ requestorTest.describe("Campaign — List — Permission denial", () => {
     "TC-CAM-010002 View Campaign List - Invalid Permissions",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in but does not have permission to view campaign list" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com แต่ไม่มี permission ดู campaign list" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Verify error message or redirect to home page",
+            "1. ไปที่ /vendor-management/request-price-list\n2. ตรวจสอบ error message หรือ redirect ไปยัง home page",
         },
-        { type: "expected", description: "User is shown an error message or redirected to home page." },
+        { type: "expected", description: "ผู้ใช้เห็น error message หรือถูก redirect ไปยัง home page" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -123,13 +123,13 @@ purchaseTest.describe("Campaign — Create wizard", () => {
     "TC-CAM-020001 Happy Path - Create Campaign with All Valid Inputs",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Staff and has the necessary permissions" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com พร้อม permissions ที่จำเป็น" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click 'Create New Campaign'\n3. Fill 'Campaign name' with valid text\n4. Fill 'Campaign description' with valid text\n5. Select 'Normal' from priority level\n6. Fill 'Scheduled start date' with valid date\n7. Click 'Next'\n8. Click on template named 'Template A'\n9. Click 'Next'\n10. Search for vendor 'Vendor X'\n11. Check vendor 'Vendor X' checkbox\n12. Click 'Next'\n13. Verify all details in summary\n14. Click 'Launch Campaign'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. กด 'Create New Campaign'\n3. กรอก 'Campaign name' ด้วยข้อความที่ถูกต้อง\n4. กรอก 'Campaign description' ด้วยข้อความที่ถูกต้อง\n5. เลือก 'Normal' จาก priority level\n6. กรอก 'Scheduled start date' ด้วยวันที่ที่ถูกต้อง\n7. กด 'Next'\n8. คลิก template ชื่อ 'Template A'\n9. กด 'Next'\n10. ค้นหา vendor 'Vendor X'\n11. เลือก checkbox vendor 'Vendor X'\n12. กด 'Next'\n13. ตรวจสอบรายละเอียดทั้งหมดใน summary\n14. กด 'Launch Campaign'",
         },
-        { type: "expected", description: "Campaign is created with status 'active' and vendors are invited. User navigated to campaign detail page with success message." },
+        { type: "expected", description: "Campaign ถูกสร้างด้วยสถานะ 'active' และ vendors ถูก invite ผู้ใช้ถูกนำทางไปยัง campaign detail page พร้อม success message" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -149,13 +149,13 @@ purchaseTest.describe("Campaign — Create wizard", () => {
     "TC-CAM-020002 Negative Path - Missing Required Fields",
     {
       annotation: [
-        { type: "preconditions", description: "User has the necessary permissions" },
+        { type: "preconditions", description: "ผู้ใช้มี permissions ที่จำเป็น" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click 'Create New Campaign'\n3. Fill 'Campaign name' with valid text\n4. Click 'Next'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. กด 'Create New Campaign'\n3. กรอก 'Campaign name' ด้วยข้อความที่ถูกต้อง\n4. กด 'Next'",
         },
-        { type: "expected", description: "System displays error message for missing 'Campaign description' and 'Scheduled start date'. User remains on step 1." },
+        { type: "expected", description: "ระบบแสดง error message สำหรับ 'Campaign description' และ 'Scheduled start date' ที่ขาดหายไป ผู้ใช้ยังคงอยู่ที่ step 1" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -175,13 +175,13 @@ purchaseTest.describe("Campaign — Create wizard", () => {
     "TC-CAM-020003 Negative Path - No Vendor Selected",
     {
       annotation: [
-        { type: "preconditions", description: "User has the necessary permissions" },
+        { type: "preconditions", description: "ผู้ใช้มี permissions ที่จำเป็น" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click 'Create New Campaign'\n3. Fill 'Campaign name' with valid text\n4. Fill 'Campaign description' with valid text\n5. Select 'Normal' from priority level\n6. Fill 'Scheduled start date' with valid date\n7. Click 'Next'\n8. Click on template named 'Template A'\n9. Click 'Next'\n10. Verify no vendors selected\n11. Click 'Next'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. กด 'Create New Campaign'\n3. กรอก 'Campaign name' ด้วยข้อความที่ถูกต้อง\n4. กรอก 'Campaign description' ด้วยข้อความที่ถูกต้อง\n5. เลือก 'Normal' จาก priority level\n6. กรอก 'Scheduled start date' ด้วยวันที่ที่ถูกต้อง\n7. กด 'Next'\n8. คลิก template ชื่อ 'Template A'\n9. กด 'Next'\n10. ตรวจสอบว่าไม่มี vendors ถูกเลือก\n11. กด 'Next'",
         },
-        { type: "expected", description: "System displays error message for missing vendor selection. User remains on step 3." },
+        { type: "expected", description: "ระบบแสดง error message สำหรับการไม่เลือก vendor ผู้ใช้ยังคงอยู่ที่ step 3" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -197,13 +197,13 @@ purchaseTest.describe("Campaign — Create wizard", () => {
     "TC-CAM-020004 Edge Case - Maximum Campaigns Per Week",
     {
       annotation: [
-        { type: "preconditions", description: "User has reached the maximum number of campaigns per week" },
+        { type: "preconditions", description: "ผู้ใช้ถึงจำนวน campaigns สูงสุดต่อสัปดาห์แล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click 'Create New Campaign'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. กด 'Create New Campaign'",
         },
-        { type: "expected", description: "System displays message indicating user has reached the maximum number of campaigns per week. User cannot proceed." },
+        { type: "expected", description: "ระบบแสดง message ว่าผู้ใช้ถึงจำนวน campaigns สูงสุดต่อสัปดาห์แล้วและไม่สามารถดำเนินต่อ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -224,13 +224,13 @@ purchaseTest.describe("Campaign — Detail", () => {
     "TC-CAM-030001 View active campaign detail",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as procurement staff; an active campaign exists" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และมี active campaign อยู่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on an active campaign name\n3. Wait for page to load",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก active campaign name\n3. รอให้หน้าโหลด",
         },
-        { type: "expected", description: "Campaign detail page is displayed with correct campaign data." },
+        { type: "expected", description: "หน้า campaign detail แสดงพร้อมข้อมูล campaign ที่ถูกต้อง" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -251,13 +251,13 @@ purchaseTest.describe("Campaign — Detail", () => {
     "TC-CAM-030003 Campaign detail with draft status",
     {
       annotation: [
-        { type: "preconditions", description: "Campaign is in draft status; user is logged in as procurement staff" },
+        { type: "preconditions", description: "Campaign อยู่ใน draft status และ Login เป็น purchase@blueledgers.com" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a draft campaign name\n3. Verify edit button is present, other buttons are not visible",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก draft campaign name\n3. ตรวจสอบว่า edit button มีอยู่ และ buttons อื่นไม่ visible",
         },
-        { type: "expected", description: "Campaign detail page is displayed with edit button visible, duplicate button is not visible." },
+        { type: "expected", description: "หน้า campaign detail แสดงพร้อม edit button ที่ visible และ duplicate button ไม่ visible" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -275,13 +275,13 @@ purchaseTest.describe("Campaign — Detail", () => {
     "TC-CAM-030004 View campaign detail with empty performance summary",
     {
       annotation: [
-        { type: "preconditions", description: "Campaign has no submissions; user is logged in as procurement staff" },
+        { type: "preconditions", description: "Campaign ไม่มี submissions และ Login เป็น purchase@blueledgers.com" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a campaign name\n3. Verify performance summary cards show no data",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก campaign name\n3. ตรวจสอบว่า performance summary cards ไม่แสดงข้อมูล",
         },
-        { type: "expected", description: "Performance summary cards display zero values or placeholders for data." },
+        { type: "expected", description: "Performance summary cards แสดงค่าศูนย์หรือ placeholders สำหรับข้อมูล" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -299,13 +299,13 @@ purchaseTest.describe("Campaign — Detail", () => {
     "TC-CAM-030005 Campaign detail with future start date",
     {
       annotation: [
-        { type: "preconditions", description: "Campaign has a future start date; user is logged in as procurement staff" },
+        { type: "preconditions", description: "Campaign มี future start date และ Login เป็น purchase@blueledgers.com" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a campaign with future start date\n3. Verify that the campaign detail is still accessible",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก campaign ที่มี future start date\n3. ตรวจสอบว่า campaign detail ยังสามารถเข้าถึงได้",
         },
-        { type: "expected", description: "Campaign detail page is displayed with the campaign data, including the future start date." },
+        { type: "expected", description: "หน้า campaign detail แสดงพร้อมข้อมูล campaign รวมถึง future start date" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -322,13 +322,13 @@ requestorTest.describe("Campaign — Detail — Permission denial", () => {
     "TC-CAM-030002 User with no permission to view campaign detail",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in with a role that does not have permission to view campaign details" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com ด้วย role ที่ไม่มี permission ดู campaign details" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Attempt to click on a campaign name\n3. Verify error message indicating insufficient permissions",
+            "1. ไปที่ /vendor-management/request-price-list\n2. พยายามคลิก campaign name\n3. ตรวจสอบ error message ว่าไม่มีสิทธิ์เพียงพอ",
         },
-        { type: "expected", description: "User is redirected to permission denied page or error message is displayed." },
+        { type: "expected", description: "ผู้ใช้ถูก redirect ไปยังหน้า permission denied หรือ error message แสดงขึ้นมา" },
         { type: "priority", description: "Critical" },
         { type: "testType", description: "Negative" },
       ],
@@ -351,13 +351,13 @@ purchaseTest.describe("Campaign — Edit", () => {
     "TC-CAM-040001 Edit Existing Campaign with Valid Data",
     {
       annotation: [
-        { type: "preconditions", description: "A campaign has been created and saved in the system" },
+        { type: "preconditions", description: "Campaign ถูกสร้างและบันทึกในระบบแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on 'Campaign Detail' link\n3. Click 'Edit' button\n4. Fill in the campaign name, description, priority, dates, and select a template\n5. Select a vendor and configure settings\n6. Click 'Save Changes'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก link 'Campaign Detail'\n3. กด 'Edit' button\n4. กรอก campaign name, description, priority, dates และเลือก template\n5. เลือก vendor และ configure settings\n6. กด 'Save Changes'",
         },
-        { type: "expected", description: "The campaign is updated successfully and the system navigates to the updated campaign detail page with a success message." },
+        { type: "expected", description: "Campaign ถูกอัปเดตสำเร็จและระบบนำทางไปยัง campaign detail page ที่อัปเดตแล้วพร้อม success message" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -376,13 +376,13 @@ purchaseTest.describe("Campaign — Edit", () => {
     "TC-CAM-040002 Edit Campaign with Invalid Priority Value",
     {
       annotation: [
-        { type: "preconditions", description: "A campaign has been created and saved in the system" },
+        { type: "preconditions", description: "Campaign ถูกสร้างและบันทึกในระบบแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on 'Campaign Detail' link\n3. Click 'Edit' button\n4. Fill in the campaign name, description, and dates\n5. Enter 'Invalid' in the priority field\n6. Select a template, vendor, and configure settings\n7. Click 'Save Changes'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก link 'Campaign Detail'\n3. กด 'Edit' button\n4. กรอก campaign name, description และ dates\n5. กรอก 'Invalid' ใน priority field\n6. เลือก template, vendor และ configure settings\n7. กด 'Save Changes'",
         },
-        { type: "expected", description: "The system displays an error message indicating that the priority field is invalid." },
+        { type: "expected", description: "ระบบแสดง error message ว่า priority field ไม่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -397,13 +397,13 @@ purchaseTest.describe("Campaign — Edit", () => {
     "TC-CAM-040004 Edit Campaign with No Data Changes",
     {
       annotation: [
-        { type: "preconditions", description: "A campaign has been created and saved in the system" },
+        { type: "preconditions", description: "Campaign ถูกสร้างและบันทึกในระบบแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on 'Campaign Detail' link\n3. Click 'Edit' button\n4. Verify all fields display current data\n5. Click 'Save Changes'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก link 'Campaign Detail'\n3. กด 'Edit' button\n4. ตรวจสอบว่า fields ทั้งหมดแสดงข้อมูลปัจจุบัน\n5. กด 'Save Changes'",
         },
-        { type: "expected", description: "The system displays a confirmation that no changes were made." },
+        { type: "expected", description: "ระบบแสดง confirmation ว่าไม่มีการเปลี่ยนแปลง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -420,13 +420,13 @@ requestorTest.describe("Campaign — Edit — Permission denial", () => {
     "TC-CAM-040003 Edit Campaign with No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "A campaign has been created and saved; user does not have permission to edit campaigns" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com Campaign ถูกสร้างและบันทึกแล้ว และผู้ใช้ไม่มี permission แก้ไข campaigns" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on 'Campaign Detail' link\n3. Click 'Edit' button",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก link 'Campaign Detail'\n3. กด 'Edit' button",
         },
-        { type: "expected", description: "The system displays an error message indicating that the user does not have permission to edit campaigns." },
+        { type: "expected", description: "ระบบแสดง error message ว่าผู้ใช้ไม่มี permission แก้ไข campaigns" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -456,13 +456,13 @@ purchaseTest.describe("Campaign — Duplicate", () => {
     "TC-CAM-050001 Duplicate Campaign - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as a Procurement Staff and has access to the campaign list" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และมีสิทธิ์เข้าถึง campaign list" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a campaign from the list\n3. Click on the 'Duplicate' button\n4. Wait for the new campaign to be created\n5. Verify the new campaign name includes '(Copy)' suffix\n6. Verify the status is set to 'Draft'\n7. Verify all settings, vendor selections, and template selection are copied\n8. Navigate to the new campaign detail page",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก campaign จาก list\n3. กด 'Duplicate' button\n4. รอให้ campaign ใหม่ถูกสร้าง\n5. ตรวจสอบว่า campaign name ใหม่มี suffix '(Copy)'\n6. ตรวจสอบว่าสถานะถูกตั้งเป็น 'Draft'\n7. ตรวจสอบว่า settings, vendor selections และ template selection ทั้งหมดถูก copy\n8. ไปยังหน้า campaign detail ใหม่",
         },
-        { type: "expected", description: "The new campaign is successfully duplicated and the user is navigated to the new campaign detail page." },
+        { type: "expected", description: "campaign ใหม่ถูก duplicate สำเร็จและผู้ใช้ถูกนำทางไปยังหน้า campaign detail ใหม่" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -481,13 +481,13 @@ purchaseTest.describe("Campaign — Duplicate", () => {
     "TC-CAM-050003 Duplicate Campaign - Empty Campaign List",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as a Procurement Staff and the campaign list is empty" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และ campaign list ว่างเปล่า" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Verify the campaign list is empty\n3. Click on the 'Duplicate' button\n4. Verify the system prompts the user to create a new campaign first",
+            "1. ไปที่ /vendor-management/request-price-list\n2. ตรวจสอบว่า campaign list ว่างเปล่า\n3. กด 'Duplicate' button\n4. ตรวจสอบว่าระบบแจ้งให้ผู้ใช้สร้าง campaign ใหม่ก่อน",
         },
-        { type: "expected", description: "The user is informed that they need to create a new campaign before they can duplicate it." },
+        { type: "expected", description: "ผู้ใช้ได้รับแจ้งว่าต้องสร้าง campaign ใหม่ก่อนจึงจะ duplicate ได้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -502,13 +502,13 @@ purchaseTest.describe("Campaign — Duplicate", () => {
     "TC-CAM-050004 Duplicate Campaign - Campaign with Attached Files",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as a Procurement Staff and a campaign with attached files exists in the system" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และมี campaign ที่มี attached files อยู่ในระบบ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a campaign with attached files\n3. Click on the 'Duplicate' button\n4. Verify all settings, vendor selections, template selection, and files are copied to the new campaign",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก campaign ที่มี attached files\n3. กด 'Duplicate' button\n4. ตรวจสอบว่า settings, vendor selections, template selection และ files ทั้งหมดถูก copy ไปยัง campaign ใหม่",
         },
-        { type: "expected", description: "The new campaign is duplicated with all settings, vendor selections, template, and attached files copied." },
+        { type: "expected", description: "campaign ใหม่ถูก duplicate พร้อม settings, vendor selections, template และ attached files ทั้งหมดที่ถูก copy" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -525,13 +525,13 @@ requestorTest.describe("Campaign — Duplicate — Permission denial", () => {
     "TC-CAM-050002 Duplicate Campaign - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have permission to duplicate campaigns" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com และไม่มี permission duplicate campaigns" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a campaign from the list\n3. Attempt to click on the 'Duplicate' button\n4. Verify an error message is displayed indicating insufficient permission",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก campaign จาก list\n3. พยายามกด 'Duplicate' button\n4. ตรวจสอบว่า error message แสดงว่าสิทธิ์ไม่เพียงพอ",
         },
-        { type: "expected", description: "The user is prevented from duplicating the campaign and sees an error message." },
+        { type: "expected", description: "ผู้ใช้ถูกป้องกันไม่ให้ duplicate campaign และเห็น error message" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -561,13 +561,13 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
     "TC-CAM-060001 Send Reminder - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Staff and has access to the vendor reminder feature" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และมีสิทธิ์เข้าถึง vendor reminder feature" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a campaign detail page\n3. Click on the 'Vendors' tab\n4. Identify a vendor with 'pending' or 'in_progress' status\n5. Click 'Send Reminder' button\n6. Verify success message: 'Reminder sent successfully'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิกหน้า campaign detail\n3. กด tab 'Vendors'\n4. ระบุ vendor ที่มีสถานะ 'pending' หรือ 'in_progress'\n5. กด 'Send Reminder' button\n6. ตรวจสอบ success message: 'Reminder sent successfully'",
         },
-        { type: "expected", description: "Reminder is sent to vendor, reminder count is incremented, and last reminder date is updated." },
+        { type: "expected", description: "Reminder ถูกส่งไปยัง vendor reminder count เพิ่มขึ้น และวันที่ส่ง reminder ล่าสุดถูกอัปเดต" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -588,13 +588,13 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
     "TC-CAM-060003 Send Reminder - Invalid Vendor Status",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Staff" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a campaign detail page\n3. Click on the 'Vendors' tab\n4. Identify a vendor with 'complete' status\n5. Attempt to click 'Send Reminder' button",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิกหน้า campaign detail\n3. กด tab 'Vendors'\n4. ระบุ vendor ที่มีสถานะ 'complete'\n5. พยายามกด 'Send Reminder' button",
         },
-        { type: "expected", description: "System displays an error message indicating the vendor status is invalid for sending reminders." },
+        { type: "expected", description: "ระบบแสดง error message ว่าสถานะ vendor ไม่ถูกต้องสำหรับการส่ง reminders" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -609,13 +609,13 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
     "TC-CAM-060004 Send Reminder - Reminder Already Sent",
     {
       annotation: [
-        { type: "preconditions", description: "Vendor has already received a reminder within the last 24 hours" },
+        { type: "preconditions", description: "Vendor ได้รับ reminder ไปแล้วภายใน 24 ชั่วโมงที่ผ่านมา" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a campaign detail page\n3. Click on the 'Vendors' tab\n4. Identify a vendor with 'pending' or 'in_progress' status but has received a reminder within the last 24 hours\n5. Click 'Send Reminder' button",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิกหน้า campaign detail\n3. กด tab 'Vendors'\n4. ระบุ vendor ที่มีสถานะ 'pending' หรือ 'in_progress' แต่ได้รับ reminder ไปแล้วภายใน 24 ชั่วโมงที่ผ่านมา\n5. กด 'Send Reminder' button",
         },
-        { type: "expected", description: "System displays a warning message indicating the reminder has already been sent within the last 24 hours." },
+        { type: "expected", description: "ระบบแสดง warning message ว่า reminder ถูกส่งไปแล้วภายใน 24 ชั่วโมงที่ผ่านมา" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -630,13 +630,13 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
     "TC-CAM-060005 Send Reminder - Empty Reminder Message",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Staff" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a campaign detail page\n3. Click on the 'Vendors' tab\n4. Identify a vendor with 'pending' or 'in_progress' status\n5. Click 'Send Reminder' button without entering a message\n6. Click 'Send' in the reminder dialog",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิกหน้า campaign detail\n3. กด tab 'Vendors'\n4. ระบุ vendor ที่มีสถานะ 'pending' หรือ 'in_progress'\n5. กด 'Send Reminder' button โดยไม่กรอก message\n6. กด 'Send' ใน reminder dialog",
         },
-        { type: "expected", description: "System displays an error message indicating the reminder message field cannot be empty." },
+        { type: "expected", description: "ระบบแสดง error message ว่า reminder message field ต้องไม่ว่างเปล่า" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -661,13 +661,13 @@ requestorTest.describe("Campaign — Send Reminder — Permission denial", () =>
     "TC-CAM-060002 Send Reminder - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as a non-Procurement Staff member" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com ซึ่งไม่ใช่ Procurement Staff" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a campaign detail page\n3. Click on the 'Vendors' tab\n4. Attempt to click 'Send Reminder' button for a vendor",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิกหน้า campaign detail\n3. กด tab 'Vendors'\n4. พยายามกด 'Send Reminder' button สำหรับ vendor",
         },
-        { type: "expected", description: "User receives an error message indicating they do not have permission to send reminders." },
+        { type: "expected", description: "ผู้ใช้ได้รับ error message ว่าไม่มี permission ส่ง reminders" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -687,13 +687,13 @@ purchaseTest.describe("Campaign — Mark as Expired", () => {
     "TC-CAM-070001 Mark campaign as expired - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "User has access to a campaign that is not already expired" },
+        { type: "preconditions", description: "ผู้ใช้มีสิทธิ์เข้าถึง campaign ที่ยังไม่ expired" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a campaign to open its detail page\n3. Click on the actions dropdown menu\n4. Click 'Mark as Expired'\n5. Confirm the action",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก campaign เพื่อเปิดหน้า detail\n3. กด actions dropdown menu\n4. กด 'Mark as Expired'\n5. ยืนยันการดำเนินการ",
         },
-        { type: "expected", description: "Campaign status is updated to 'Expired' and a success toast 'Campaign marked as expired' is displayed." },
+        { type: "expected", description: "สถานะ campaign อัปเดตเป็น 'Expired' และ success toast 'Campaign marked as expired' แสดง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -714,13 +714,13 @@ purchaseTest.describe("Campaign — Mark as Expired", () => {
     "TC-CAM-070003 Mark campaign as expired - Campaign already expired",
     {
       annotation: [
-        { type: "preconditions", description: "Selected campaign is already marked as expired" },
+        { type: "preconditions", description: "campaign ที่เลือกถูก mark เป็น expired ไปแล้ว" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a campaign to open its detail page\n3. Click on the actions dropdown menu\n4. Click 'Mark as Expired'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก campaign เพื่อเปิดหน้า detail\n3. กด actions dropdown menu\n4. กด 'Mark as Expired'",
         },
-        { type: "expected", description: "User is informed that the campaign is already expired and the action is not performed." },
+        { type: "expected", description: "ผู้ใช้ได้รับการแจ้งเตือนว่า campaign นี้ expired ไปแล้วและไม่มีการดำเนินการใด ๆ" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -738,13 +738,13 @@ purchaseTest.describe("Campaign — Mark as Expired", () => {
     "TC-CAM-070004 Mark campaign as expired - Empty campaign list",
     {
       annotation: [
-        { type: "preconditions", description: "Campaign list is empty" },
+        { type: "preconditions", description: "รายการ campaign ว่างเปล่า" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Try to click on a campaign to open its detail page\n3. Click on the actions dropdown menu\n4. Click 'Mark as Expired'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. พยายามคลิก campaign เพื่อเปิดหน้า detail\n3. กด actions dropdown menu\n4. กด 'Mark as Expired'",
         },
-        { type: "expected", description: "User is presented with a message indicating there are no campaigns available." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความแจ้งว่าไม่มี campaign ให้ใช้งาน" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -761,13 +761,13 @@ requestorTest.describe("Campaign — Mark as Expired — Permission denial", () 
     "TC-CAM-070002 Mark campaign as expired - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User has a role that does not have permission to mark campaigns as expired" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com ซึ่งไม่มีสิทธิ์ mark campaign เป็น expired" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on a campaign to open its detail page\n3. Click on the actions dropdown menu\n4. Click 'Mark as Expired'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิก campaign เพื่อเปิดหน้า detail\n3. กด actions dropdown menu\n4. กด 'Mark as Expired'",
         },
-        { type: "expected", description: "User receives an error message indicating they do not have permission to perform this action." },
+        { type: "expected", description: "ผู้ใช้ได้รับข้อความ error แจ้งว่าไม่มีสิทธิ์ดำเนินการนี้" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -787,13 +787,13 @@ purchaseTest.describe("Campaign — Delete", () => {
     "TC-CAM-080001 Happy Path - Delete Campaign",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager and has a campaign in the campaign list" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี role Procurement Manager และมี campaign อยู่ในรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on campaign name\n3. Click on 'Actions' dropdown\n4. Click 'Delete'\n5. Click 'Delete' in confirmation dialog",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิกชื่อ campaign\n3. กด 'Actions' dropdown\n4. กด 'Delete'\n5. กด 'Delete' ใน confirmation dialog",
         },
-        { type: "expected", description: "Campaign is removed from database and list, success toast 'Campaign deleted successfully' is shown." },
+        { type: "expected", description: "campaign ถูกลบออกจากฐานข้อมูลและรายการ และ success toast 'Campaign deleted successfully' แสดง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -815,13 +815,13 @@ purchaseTest.describe("Campaign — Delete", () => {
     "TC-CAM-080002 Negative - No Campaign Selected",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี role Procurement Manager" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on 'Actions' dropdown without selecting any campaign\n3. Click 'Delete'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. กด 'Actions' dropdown โดยไม่ได้เลือก campaign ใด\n3. กด 'Delete'",
         },
-        { type: "expected", description: "System displays error message 'Please select a campaign to delete'." },
+        { type: "expected", description: "ระบบแสดง error message 'Please select a campaign to delete'" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -836,13 +836,13 @@ purchaseTest.describe("Campaign — Delete", () => {
     "TC-CAM-080003 Edge Case - Multiple Campaigns Selected",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Manager and has multiple campaigns selected" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี role Procurement Manager และมีการเลือก campaign หลายรายการ" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Select multiple campaigns\n3. Click on 'Actions' dropdown\n4. Click 'Delete'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. เลือก campaign หลายรายการ\n3. กด 'Actions' dropdown\n4. กด 'Delete'",
         },
-        { type: "expected", description: "System displays error message 'Please select one campaign to delete'." },
+        { type: "expected", description: "ระบบแสดง error message 'Please select one campaign to delete'" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -859,13 +859,13 @@ requestorTest.describe("Campaign — Delete — Permission denial", () => {
     "TC-CAM-080004 Negative - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Regular User" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com มี role Regular User" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click on campaign name\n3. Click on 'Actions' dropdown\n4. Click 'Delete'",
+            "1. ไปที่ /vendor-management/request-price-list\n2. คลิกชื่อ campaign\n3. กด 'Actions' dropdown\n4. กด 'Delete'",
         },
-        { type: "expected", description: "System displays error message 'You do not have permission to delete campaigns'." },
+        { type: "expected", description: "ระบบแสดง error message 'You do not have permission to delete campaigns'" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -893,13 +893,13 @@ purchaseTest.describe("Campaign — Export", () => {
     "TC-CAM-090001 Export campaign data - happy path",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as procurement staff and has permission to export campaign data" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข้อมูล campaign" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click 'Export' button\n3. Wait for file generation\n4. Verify file download starts",
+            "1. ไปที่ /vendor-management/request-price-list\n2. กด 'Export' button\n3. รอการสร้างไฟล์\n4. ตรวจสอบว่าการ download ไฟล์เริ่มต้น",
         },
-        { type: "expected", description: "File download starts and user receives a success message." },
+        { type: "expected", description: "การ download ไฟล์เริ่มต้นและผู้ใช้ได้รับ success message" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -920,13 +920,13 @@ purchaseTest.describe("Campaign — Export", () => {
     "TC-CAM-090003 Export campaign data - large dataset",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to export campaign data with a large dataset" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข้อมูล campaign และมีชุดข้อมูลขนาดใหญ่" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click 'Export' button\n3. Wait for file generation\n4. Verify file download starts",
+            "1. ไปที่ /vendor-management/request-price-list\n2. กด 'Export' button\n3. รอการสร้างไฟล์\n4. ตรวจสอบว่าการ download ไฟล์เริ่มต้น",
         },
-        { type: "expected", description: "File download starts without any issues and user receives a success message." },
+        { type: "expected", description: "การ download ไฟล์เริ่มต้นโดยไม่มีปัญหาและผู้ใช้ได้รับ success message" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -941,13 +941,13 @@ purchaseTest.describe("Campaign — Export", () => {
     "TC-CAM-090004 Export campaign data - multiple exports",
     {
       annotation: [
-        { type: "preconditions", description: "User has permission to export campaign data" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข้อมูล campaign" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click 'Export' button 5 times within 5 minutes\n3. Wait for file generation after each click\n4. Verify file download starts each time",
+            "1. ไปที่ /vendor-management/request-price-list\n2. กด 'Export' button 5 ครั้งภายใน 5 นาที\n3. รอการสร้างไฟล์หลังกดแต่ละครั้ง\n4. ตรวจสอบว่าการ download ไฟล์เริ่มต้นทุกครั้ง",
         },
-        { type: "expected", description: "File download starts after each export request and user receives success messages for each." },
+        { type: "expected", description: "การ download ไฟล์เริ่มต้นหลังแต่ละคำขอ export และผู้ใช้ได้รับ success message สำหรับแต่ละครั้ง" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
       ],
@@ -964,13 +964,13 @@ requestorTest.describe("Campaign — Export — Permission denial", () => {
     "TC-CAM-090002 Export campaign data - no permission",
     {
       annotation: [
-        { type: "preconditions", description: "User does not have permission to export campaign data" },
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com ซึ่งไม่มีสิทธิ์ export ข้อมูล campaign" },
         {
           type: "steps",
           description:
-            "1. Navigate to /vendor-management/request-price-list\n2. Click 'Export' button\n3. Verify error message displayed",
+            "1. ไปที่ /vendor-management/request-price-list\n2. กด 'Export' button\n3. ตรวจสอบว่า error message แสดง",
         },
-        { type: "expected", description: "User sees an error message indicating they do not have permission to export campaign data." },
+        { type: "expected", description: "ผู้ใช้เห็น error message แจ้งว่าไม่มีสิทธิ์ export ข้อมูล campaign" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -997,13 +997,13 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
     "TC-CAM-100001 Filter by Status - Active",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Staff and is on the Campaigns page" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี role Procurement Staff และอยู่ที่หน้า Campaigns" },
         {
           type: "steps",
           description:
-            "1. Click status filter dropdown\n2. Select 'Active'\n3. Verify that only active campaigns are displayed\n4. Verify the result count matches the number of active campaigns",
+            "1. กด status filter dropdown\n2. เลือก 'Active'\n3. ตรวจสอบว่าแสดงเฉพาะ campaign ที่ Active\n4. ตรวจสอบว่าจำนวนผลลัพธ์ตรงกับจำนวน campaign ที่ Active",
         },
-        { type: "expected", description: "Only active campaigns are displayed with correct result count." },
+        { type: "expected", description: "แสดงเฉพาะ campaign ที่ Active พร้อมจำนวนผลลัพธ์ที่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1023,13 +1023,13 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
     "TC-CAM-100002 Search by Text - Valid Term",
     {
       annotation: [
-        { type: "preconditions", description: "User is logged in as Procurement Staff and is on the Campaigns page" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี role Procurement Staff และอยู่ที่หน้า Campaigns" },
         {
           type: "steps",
           description:
-            "1. Type 'Inventory' in search input\n2. Verify that relevant campaigns are filtered and displayed\n3. Verify the result count matches the number of campaigns containing 'Inventory'",
+            "1. พิมพ์ 'Inventory' ใน search input\n2. ตรวจสอบว่า campaign ที่เกี่ยวข้องถูก filter และแสดง\n3. ตรวจสอบว่าจำนวนผลลัพธ์ตรงกับจำนวน campaign ที่มีคำว่า 'Inventory'",
         },
-        { type: "expected", description: "Campaigns containing 'Inventory' are filtered and displayed with correct result count." },
+        { type: "expected", description: "campaign ที่มีคำว่า 'Inventory' ถูก filter และแสดงพร้อมจำนวนผลลัพธ์ที่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],
@@ -1046,13 +1046,13 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
     "TC-CAM-100003 Filter by Status - No Campaigns",
     {
       annotation: [
-        { type: "preconditions", description: "User is on the Campaigns page with no active campaigns" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และอยู่ที่หน้า Campaigns ที่ไม่มี campaign ที่ Active" },
         {
           type: "steps",
           description:
-            "1. Click status filter dropdown\n2. Select 'Active'\n3. Verify that no campaigns are displayed\n4. Verify the result count is 0",
+            "1. กด status filter dropdown\n2. เลือก 'Active'\n3. ตรวจสอบว่าไม่มี campaign แสดง\n4. ตรวจสอบว่าจำนวนผลลัพธ์เป็น 0",
         },
-        { type: "expected", description: "No campaigns are displayed and result count is 0." },
+        { type: "expected", description: "ไม่มี campaign แสดงและจำนวนผลลัพธ์เป็น 0" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1067,13 +1067,13 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
     "TC-CAM-100004 Search by Text - No Matching Terms",
     {
       annotation: [
-        { type: "preconditions", description: "User is on the Campaigns page" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และอยู่ที่หน้า Campaigns" },
         {
           type: "steps",
           description:
-            "1. Type 'NonexistentTerm' in search input\n2. Verify that no campaigns are displayed\n3. Verify the result count is 0",
+            "1. พิมพ์ 'NonexistentTerm' ใน search input\n2. ตรวจสอบว่าไม่มี campaign แสดง\n3. ตรวจสอบว่าจำนวนผลลัพธ์เป็น 0",
         },
-        { type: "expected", description: "No campaigns are displayed and result count is 0." },
+        { type: "expected", description: "ไม่มี campaign แสดงและจำนวนผลลัพธ์เป็น 0" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -1091,13 +1091,13 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
     "TC-CAM-100005 Filter by Status - All Statuses",
     {
       annotation: [
-        { type: "preconditions", description: "User is on the Campaigns page" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และอยู่ที่หน้า Campaigns" },
         {
           type: "steps",
           description:
-            "1. Click status filter dropdown\n2. Select 'All'\n3. Verify that all campaigns are displayed\n4. Verify the result count matches the total number of campaigns",
+            "1. กด status filter dropdown\n2. เลือก 'All'\n3. ตรวจสอบว่า campaign ทั้งหมดแสดง\n4. ตรวจสอบว่าจำนวนผลลัพธ์ตรงกับจำนวน campaign ทั้งหมด",
         },
-        { type: "expected", description: "All campaigns are displayed with correct result count." },
+        { type: "expected", description: "campaign ทั้งหมดแสดงพร้อมจำนวนผลลัพธ์ที่ถูกต้อง" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
       ],

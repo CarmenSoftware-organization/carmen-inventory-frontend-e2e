@@ -58,16 +58,16 @@ _Generated from `tests/900-period-end.spec.ts` annotations. Edit annotations, no
 
 **Preconditions**
 
-User is authenticated and has period view permission
+Login เป็น purchase@blueledgers.com และมี period view permission
 
 **Steps**
 
-1. Navigate to /inventory-management/period-end
-2. Click 'View Details'
+1. ไปที่ /inventory-management/period-end
+2. กด 'View Details'
 
 **Expected**
 
-User is navigated to the period detail page.
+ผู้ใช้ถูกนำทางไปยังหน้า period detail
 
 ---
 
@@ -80,15 +80,15 @@ User is navigated to the period detail page.
 
 **Preconditions**
 
-User is authenticated but lacks period view permission
+Login เป็น requestor@blueledgers.com แต่ไม่มี period view permission
 
 **Steps**
 
-1. Navigate to /inventory-management/period-end
+1. ไปที่ /inventory-management/period-end
 
 **Expected**
 
-User is redirected to permission denied page.
+ผู้ใช้ถูก redirect ไปยังหน้า permission denied
 
 ---
 
@@ -101,15 +101,15 @@ User is redirected to permission denied page.
 
 **Preconditions**
 
-User has period view permission; no periods in history
+ผู้ใช้มี period view permission และไม่มี periods ใน history
 
 **Steps**
 
-1. Navigate to /inventory-management/period-end
+1. ไปที่ /inventory-management/period-end
 
 **Expected**
 
-Period history table is empty, but current period card is still visible.
+ตาราง period history ว่างเปล่า แต่ current period card ยังคง visible
 
 ---
 
@@ -122,15 +122,15 @@ Period history table is empty, but current period card is still visible.
 
 **Preconditions**
 
-User has period view permission; no current period
+ผู้ใช้มี period view permission และไม่มี current period
 
 **Steps**
 
-1. Navigate to /inventory-management/period-end
+1. ไปที่ /inventory-management/period-end
 
 **Expected**
 
-Only period history is displayed, current period card is not shown.
+แสดงเฉพาะ period history และ current period card ไม่แสดง
 
 ---
 
@@ -143,15 +143,15 @@ Only period history is displayed, current period card is not shown.
 
 **Preconditions**
 
-User has period view permission; current period is closed
+ผู้ใช้มี period view permission และ current period ถูกปิดแล้ว
 
 **Steps**
 
-1. Navigate to /inventory-management/period-end
+1. ไปที่ /inventory-management/period-end
 
 **Expected**
 
-Current period card shows closed status and cannot be closed again.
+Current period card แสดงสถานะ closed และไม่สามารถปิดได้อีก
 
 ---
 
@@ -164,16 +164,16 @@ Current period card shows closed status and cannot be closed again.
 
 **Preconditions**
 
-User has permission to view period detail; open period exists
+ผู้ใช้มี permission ดู period detail และมี open period อยู่
 
 **Steps**
 
-1. Navigate to /inventory-management/period-end/12345
-2. Click 'Start Period Close'
+1. ไปที่ /inventory-management/period-end/12345
+2. กด 'Start Period Close'
 
 **Expected**
 
-System displays period detail page with validation overview, adjustments tab, and 'Start Period Close' button.
+ระบบแสดงหน้า period detail พร้อม validation overview, adjustments tab และปุ่ม 'Start Period Close'
 
 ---
 
@@ -186,16 +186,16 @@ System displays period detail page with validation overview, adjustments tab, an
 
 **Preconditions**
 
-User is authenticated but lacks permission to view period detail
+Login เป็น requestor@blueledgers.com แต่ไม่มี permission ดู period detail
 
 **Steps**
 
-1. Navigate to /inventory-management/period-end/12345
-2. Verify system redirects to login or permission denied page
+1. ไปที่ /inventory-management/period-end/12345
+2. ตรวจสอบว่าระบบ redirect ไปยัง login หรือหน้า permission denied
 
 **Expected**
 
-System redirects user to login page or displays permission denied message.
+ระบบ redirect ผู้ใช้ไปยัง login page หรือแสดง permission denied message
 
 ---
 
@@ -208,16 +208,16 @@ System redirects user to login page or displays permission denied message.
 
 **Preconditions**
 
-User has permission; invalid period ID is provided
+ผู้ใช้มี permission และ period ID ที่ให้มาไม่ถูกต้อง
 
 **Steps**
 
-1. Navigate to /inventory-management/period-end/invalid_id
-2. Verify system displays error message or redirects to home page
+1. ไปที่ /inventory-management/period-end/invalid_id
+2. ตรวจสอบว่าระบบแสดง error message หรือ redirect ไปยัง home page
 
 **Expected**
 
-System displays error message or redirects user to home page.
+ระบบแสดง error message หรือ redirect ผู้ใช้ไปยัง home page
 
 ---
 
@@ -230,16 +230,16 @@ System displays error message or redirects user to home page.
 
 **Preconditions**
 
-User has permission; period has incomplete validation stages
+ผู้ใช้มี permission และ period มี validation stages ที่ยังไม่สมบูรณ์
 
 **Steps**
 
-1. Navigate to /inventory-management/period-end/67890
-2. Verify validation overview shows incomplete stages and 'View Full Validation Details' link
+1. ไปที่ /inventory-management/period-end/67890
+2. ตรวจสอบว่า validation overview แสดง stages ที่ยังไม่สมบูรณ์และ link 'View Full Validation Details'
 
 **Expected**
 
-System displays period detail page with validation overview indicating incomplete stages and 'View Full Validation Details' link.
+ระบบแสดงหน้า period detail พร้อม validation overview ที่บ่งชี้ stages ที่ยังไม่สมบูรณ์และ link 'View Full Validation Details'
 
 ---
 
@@ -252,19 +252,19 @@ System displays period detail page with validation overview indicating incomplet
 
 **Preconditions**
 
-User has close permission; period is open or in_progress
+ผู้ใช้มี close permission และ period อยู่ใน open หรือ in_progress
 
 **Steps**
 
-1. Navigate to /inventory-management/period-end/close/[id]
-2. Verify validation checklist sections are displayed
-3. Click 'Validate All'
-4. Verify all validations pass
-5. Verify 'Close Period' button is enabled
+1. ไปที่ /inventory-management/period-end/close/[id]
+2. ตรวจสอบว่า validation checklist sections แสดงขึ้นมา
+3. กด 'Validate All'
+4. ตรวจสอบว่า validations ทั้งหมดผ่าน
+5. ตรวจสอบว่าปุ่ม 'Close Period' ถูก enable
 
 **Expected**
 
-All validation sections pass, 'Close Period' button is enabled.
+validation sections ทั้งหมดผ่าน และปุ่ม 'Close Period' ถูก enable
 
 ---
 
@@ -277,16 +277,16 @@ All validation sections pass, 'Close Period' button is enabled.
 
 **Preconditions**
 
-User is authenticated; period is closed
+Login เป็น purchase@blueledgers.com และ period ถูกปิดแล้ว
 
 **Steps**
 
-1. Navigate to /inventory-management/period-end/close/[id]
-2. Verify error message for closed period
+1. ไปที่ /inventory-management/period-end/close/[id]
+2. ตรวจสอบ error message สำหรับ period ที่ถูกปิดแล้ว
 
 **Expected**
 
-Error message displayed indicating period is already closed.
+Error message แสดงว่า period ถูกปิดแล้ว
 
 ---
 
@@ -299,16 +299,16 @@ Error message displayed indicating period is already closed.
 
 **Preconditions**
 
-User has close permission
+ผู้ใช้มี close permission
 
 **Steps**
 
-1. Navigate to /inventory-management/period-end/close/invalid_id
-2. Verify error message for invalid period ID
+1. ไปที่ /inventory-management/period-end/close/invalid_id
+2. ตรวจสอบ error message สำหรับ period ID ที่ไม่ถูกต้อง
 
 **Expected**
 
-Error message displayed indicating invalid period ID.
+Error message แสดงว่า period ID ไม่ถูกต้อง
 
 ---
 
@@ -321,18 +321,18 @@ Error message displayed indicating invalid period ID.
 
 **Preconditions**
 
-User has close permission; period is open or in_progress
+ผู้ใช้มี close permission และ period อยู่ใน open หรือ in_progress
 
 **Steps**
 
-1. Navigate to /inventory-management/period-end/close/[id]
-2. Click 'Validate All'
-3. Verify all sections fail validation
-4. Verify 'Close Period' button is disabled
+1. ไปที่ /inventory-management/period-end/close/[id]
+2. กด 'Validate All'
+3. ตรวจสอบว่า sections ทั้งหมด validation ล้มเหลว
+4. ตรวจสอบว่าปุ่ม 'Close Period' ถูก disable
 
 **Expected**
 
-All sections fail validation, 'Close Period' button remains disabled.
+sections ทั้งหมด validation ล้มเหลว และปุ่ม 'Close Period' ยังคง disable
 
 ---
 
@@ -345,23 +345,23 @@ All sections fail validation, 'Close Period' button remains disabled.
 
 **Preconditions**
 
-User has close permission; period status is closing; all 3 validation stages pass
+ผู้ใช้มี close permission สถานะ period เป็น closing และ validation stages ทั้ง 3 ผ่าน
 
 **Steps**
 
-1. Navigate to /procurement/close-workflow
-2. Click 'Close Period' button
-3. Confirm 'Close Period' dialog
-4. Verify period status updated to 'closed'
-5. Verify closedBy and closedAt fields populated
-6. Verify activity log entry recorded
-7. Verify transactions blocked for this period
-8. Verify success message displayed
-9. Verify redirection to period list page
+1. ไปที่ /procurement/close-workflow
+2. กด 'Close Period' button
+3. ยืนยัน 'Close Period' dialog
+4. ตรวจสอบว่าสถานะ period อัปเดตเป็น 'closed'
+5. ตรวจสอบว่า fields closedBy และ closedAt ถูกกรอก
+6. ตรวจสอบว่า activity log entry ถูกบันทึก
+7. ตรวจสอบว่า transactions สำหรับ period นี้ถูกบล็อก
+8. ตรวจสอบว่า success message แสดง
+9. ตรวจสอบว่า redirect ไปยัง period list page
 
 **Expected**
 
-Period is successfully closed, all validations pass, period status updated, closedBy and closedAt populated, activity log entry recorded, transactions blocked, success message displayed, and user redirected to period list page.
+Period ถูกปิดสำเร็จ validations ทั้งหมดผ่าน สถานะ period อัปเดต closedBy และ closedAt ถูกกรอก activity log entry ถูกบันทึก transactions ถูกบล็อก success message แสดง และผู้ใช้ถูก redirect ไปยัง period list page
 
 ---
 
@@ -374,18 +374,18 @@ Period is successfully closed, all validations pass, period status updated, clos
 
 **Preconditions**
 
-User has close permission; period status is closing; all 3 validation stages pass
+ผู้ใช้มี close permission สถานะ period เป็น closing และ validation stages ทั้ง 3 ผ่าน
 
 **Steps**
 
-1. Navigate to /procurement/close-workflow
-2. Click 'Close Period' button
-3. Input invalid confirmation
-4. Verify error message displayed
+1. ไปที่ /procurement/close-workflow
+2. กด 'Close Period' button
+3. กรอก confirmation ที่ไม่ถูกต้อง
+4. ตรวจสอบว่า error message แสดง
 
 **Expected**
 
-Error message displayed for invalid input.
+Error message แสดงสำหรับ input ที่ไม่ถูกต้อง
 
 ---
 
@@ -398,17 +398,17 @@ Error message displayed for invalid input.
 
 **Preconditions**
 
-Period status is closing; all 3 validation stages pass
+Login เป็น requestor@blueledgers.com สถานะ period เป็น closing และ validation stages ทั้ง 3 ผ่าน
 
 **Steps**
 
-1. Navigate to /procurement/close-workflow
-2. Click 'Close Period' button
-3. Verify 403 Forbidden error
+1. ไปที่ /procurement/close-workflow
+2. กด 'Close Period' button
+3. ตรวจสอบ 403 Forbidden error
 
 **Expected**
 
-403 Forbidden error displayed.
+403 Forbidden error แสดงขึ้นมา
 
 ---
 
@@ -421,18 +421,18 @@ Period status is closing; all 3 validation stages pass
 
 **Preconditions**
 
-User has close permission; period status is closing; all 3 validation stages pass
+ผู้ใช้มี close permission สถานะ period เป็น closing และ validation stages ทั้ง 3 ผ่าน
 
 **Steps**
 
-1. Navigate to /procurement/close-workflow
+1. ไปที่ /procurement/close-workflow
 2. Trigger database error
-3. Click 'Close Period' button
-4. Verify error message with retry option
+3. กด 'Close Period' button
+4. ตรวจสอบว่า error message พร้อม retry option แสดง
 
 **Expected**
 
-Error message with retry option displayed due to database error.
+Error message พร้อม retry option แสดงเนื่องจาก database error
 
 ---
 
@@ -445,18 +445,18 @@ Error message with retry option displayed due to database error.
 
 **Preconditions**
 
-User has close permission; period status is closing
+ผู้ใช้มี close permission และสถานะ period เป็น closing
 
 **Steps**
 
-1. Navigate to /procurement/close-workflow
-2. Manually fail one validation stage
-3. Click 'Close Period' button
-4. Verify error message displayed
+1. ไปที่ /procurement/close-workflow
+2. ทำให้ validation stage หนึ่ง fail แบบ manual
+3. กด 'Close Period' button
+4. ตรวจสอบว่า error message แสดง
 
 **Expected**
 
-Error message displayed indicating validation failure.
+Error message แสดงบ่งชี้ว่า validation ล้มเหลว
 
 ---
 
@@ -469,17 +469,17 @@ Error message displayed indicating validation failure.
 
 **Preconditions**
 
-User has permission to run validation; all transactions are posted
+ผู้ใช้มี permission ทำ validation และ transactions ทั้งหมดถูก post แล้ว
 
 **Steps**
 
-1. Navigate to /period-close
-2. Click 'Run Validation'
-3. Verify all transaction statuses are 'Posted'
+1. ไปที่ /period-close
+2. กด 'Run Validation'
+3. ตรวจสอบว่า transaction statuses ทั้งหมดเป็น 'Posted'
 
 **Expected**
 
-All transactions are reported as posted and transactionsCommitted is true.
+transactions ทั้งหมดถูกรายงานว่า posted และ transactionsCommitted เป็น true
 
 ---
 
@@ -492,17 +492,17 @@ All transactions are reported as posted and transactionsCommitted is true.
 
 **Preconditions**
 
-User has permission to run validation; one GRN document is missing 'Posted' status
+ผู้ใช้มี permission ทำ validation และเอกสาร GRN หนึ่งรายการขาดสถานะ 'Posted'
 
 **Steps**
 
-1. Navigate to /period-close
-2. Click 'Run Validation'
-3. Verify GRN document status is not 'Posted'
+1. ไปที่ /period-close
+2. กด 'Run Validation'
+3. ตรวจสอบว่าสถานะเอกสาร GRN ไม่ใช่ 'Posted'
 
 **Expected**
 
-GRN document is flagged as pending and transactionsCommitted is false.
+เอกสาร GRN ถูก flag ว่า pending และ transactionsCommitted เป็น false
 
 ---
 
@@ -515,16 +515,16 @@ GRN document is flagged as pending and transactionsCommitted is false.
 
 **Preconditions**
 
-User does not have permission to run validation
+ผู้ใช้ไม่มี permission ทำ validation
 
 **Steps**
 
-1. Navigate to /period-close
-2. Click 'Run Validation'
+1. ไปที่ /period-close
+2. กด 'Run Validation'
 
 **Expected**
 
-System denies permission and does not allow validation to proceed.
+ระบบปฏิเสธสิทธิ์และไม่อนุญาตให้ validation ดำเนินต่อ
 
 ---
 
@@ -537,17 +537,17 @@ System denies permission and does not allow validation to proceed.
 
 **Preconditions**
 
-User has permission to run validation; some transaction types have pending statuses
+ผู้ใช้มี permission ทำ validation และ transaction types บางรายการมีสถานะ pending
 
 **Steps**
 
-1. Navigate to /period-close
-2. Click 'Run Validation'
-3. Verify pending statuses for each transaction type
+1. ไปที่ /period-close
+2. กด 'Run Validation'
+3. ตรวจสอบ pending statuses สำหรับแต่ละ transaction type
 
 **Expected**
 
-Pending statuses for each transaction type are reported and transactionsCommitted is false.
+Pending statuses สำหรับแต่ละ transaction type ถูกรายงาน และ transactionsCommitted เป็น false
 
 ---
 
@@ -560,19 +560,19 @@ Pending statuses for each transaction type are reported and transactionsCommitte
 
 **Preconditions**
 
-User logged in with valid credentials and has permission to perform validation
+Login เป็น purchase@blueledgers.com ด้วย credentials ที่ถูกต้องและมี permission ทำ validation
 
 **Steps**
 
-1. Navigate to /period-close-checklist
-2. Click 'Run Validation'
-3. System queries spot checks for the period date range
-4. Verify all spot checks have 'completed' status
-5. SpotChecksComplete is set to true
+1. ไปที่ /period-close-checklist
+2. กด 'Run Validation'
+3. ระบบ query spot checks สำหรับ period date range
+4. ตรวจสอบว่า spot checks ทั้งหมดมีสถานะ 'completed'
+5. SpotChecksComplete ถูกตั้งเป็น true
 
 **Expected**
 
-Spot checks are validated successfully and all are marked as completed.
+spot checks ผ่านการตรวจสอบสำเร็จและถูกทำเครื่องหมายเป็น completed ทั้งหมด
 
 ---
 
@@ -585,17 +585,17 @@ Spot checks are validated successfully and all are marked as completed.
 
 **Preconditions**
 
-There are no spot checks recorded for the validation period
+ไม่มี spot checks ที่บันทึกไว้สำหรับ validation period
 
 **Steps**
 
-1. Navigate to /period-close-checklist
-2. Click 'Run Validation'
-3. Verify system displays a message indicating no spot checks for the period
+1. ไปที่ /period-close-checklist
+2. กด 'Run Validation'
+3. ตรวจสอบว่าระบบแสดง message ว่าไม่มี spot checks สำหรับ period
 
 **Expected**
 
-System correctly identifies and displays that there are no spot checks for the validation period.
+ระบบระบุและแสดงอย่างถูกต้องว่าไม่มี spot checks สำหรับ validation period
 
 ---
 
@@ -608,18 +608,18 @@ System correctly identifies and displays that there are no spot checks for the v
 
 **Preconditions**
 
-Some spot checks are marked as 'incomplete' for the validation period
+spot checks บางรายการถูกทำเครื่องหมายเป็น 'incomplete' สำหรับ validation period
 
 **Steps**
 
-1. Navigate to /period-close-checklist
-2. Click 'Run Validation'
-3. Verify the list of incomplete spot checks is displayed
-4. Verify SpotChecksComplete is set to false
+1. ไปที่ /period-close-checklist
+2. กด 'Run Validation'
+3. ตรวจสอบว่า list ของ spot checks ที่ไม่สมบูรณ์แสดงขึ้นมา
+4. ตรวจสอบว่า SpotChecksComplete ถูกตั้งเป็น false
 
 **Expected**
 
-System correctly identifies and lists incomplete spot checks, and sets SpotChecksComplete to false.
+ระบบระบุและแสดง list ของ spot checks ที่ไม่สมบูรณ์อย่างถูกต้อง และตั้งค่า SpotChecksComplete เป็น false
 
 ---
 
@@ -632,18 +632,18 @@ System correctly identifies and lists incomplete spot checks, and sets SpotCheck
 
 **Preconditions**
 
-User has permission to run validation; period date range is set
+ผู้ใช้มี permission ทำ validation และ period date range ถูกกำหนดแล้ว
 
 **Steps**
 
-1. Navigate to /procurement/validation
-2. Click 'Run Validation'
-3. Verify all physical counts are marked as 'finalized'
-4. Check GL adjustments for each count are posted
+1. ไปที่ /procurement/validation
+2. กด 'Run Validation'
+3. ตรวจสอบว่า physical counts ทั้งหมดถูกทำเครื่องหมายเป็น 'finalized'
+4. ตรวจสอบว่า GL adjustments สำหรับแต่ละ count ถูก post
 
 **Expected**
 
-physicalCountsFinalized is true and all counts are marked as finalized with GL adjustments posted.
+physicalCountsFinalized เป็น true และ counts ทั้งหมดถูกทำเครื่องหมายเป็น finalized พร้อม GL adjustments ที่ถูก post
 
 ---
 
@@ -656,17 +656,17 @@ physicalCountsFinalized is true and all counts are marked as finalized with GL a
 
 **Preconditions**
 
-User has permission to run validation; no physical counts exist for the period date range
+ผู้ใช้มี permission ทำ validation และไม่มี physical counts สำหรับ period date range
 
 **Steps**
 
-1. Navigate to /procurement/validation
-2. Click 'Run Validation'
-3. Verify no physical counts are listed and no errors are shown
+1. ไปที่ /procurement/validation
+2. กด 'Run Validation'
+3. ตรวจสอบว่าไม่มี physical counts แสดงรายการและไม่มี errors
 
 **Expected**
 
-physicalCountsFinalized is true and no non-finalized counts are listed.
+physicalCountsFinalized เป็น true และไม่มี non-finalized counts ในรายการ
 
 ---
 
@@ -679,17 +679,17 @@ physicalCountsFinalized is true and no non-finalized counts are listed.
 
 **Preconditions**
 
-User does not have permission to run validation
+ผู้ใช้ไม่มี permission ทำ validation
 
 **Steps**
 
-1. Navigate to /procurement/validation
-2. Click 'Run Validation'
-3. Verify user is prompted to log in or access is denied
+1. ไปที่ /procurement/validation
+2. กด 'Run Validation'
+3. ตรวจสอบว่าผู้ใช้ถูกแจ้งให้ login หรือถูกปฏิเสธสิทธิ์เข้าถึง
 
 **Expected**
 
-Validation cannot be run and user is denied access.
+ไม่สามารถทำ validation ได้และผู้ใช้ถูกปฏิเสธสิทธิ์เข้าถึง
 
 ---
 
@@ -702,18 +702,18 @@ Validation cannot be run and user is denied access.
 
 **Preconditions**
 
-Some physical counts for the period date range are not finalized
+physical counts บางรายการสำหรับ period date range ยังไม่ finalized
 
 **Steps**
 
-1. Navigate to /procurement/validation
-2. Click 'Run Validation'
-3. Verify non-finalized counts are listed and status is not 'finalized'
-4. Check GL adjustments for non-finalized counts are not posted
+1. ไปที่ /procurement/validation
+2. กด 'Run Validation'
+3. ตรวจสอบว่า non-finalized counts ถูกแสดงรายการและสถานะไม่ใช่ 'finalized'
+4. ตรวจสอบว่า GL adjustments สำหรับ non-finalized counts ไม่ถูก post
 
 **Expected**
 
-physicalCountsFinalized is false and non-finalized counts are listed with GL adjustments not posted.
+physicalCountsFinalized เป็น false และ non-finalized counts ถูกแสดงรายการพร้อม GL adjustments ที่ไม่ถูก post
 
 ---
 
@@ -726,18 +726,18 @@ physicalCountsFinalized is false and non-finalized counts are listed with GL adj
 
 **Preconditions**
 
-The period date range selected does not have any physical counts
+period date range ที่เลือกไม่มี physical counts
 
 **Steps**
 
-1. Navigate to /procurement/validation
-2. Select a period date range
-3. Click 'Run Validation'
-4. Verify no physical counts are listed
+1. ไปที่ /procurement/validation
+2. เลือก period date range
+3. กด 'Run Validation'
+4. ตรวจสอบว่าไม่มี physical counts แสดงรายการ
 
 **Expected**
 
-physicalCountsFinalized is true and no non-finalized counts are listed.
+physicalCountsFinalized เป็น true และไม่มี non-finalized counts ในรายการ
 
 ---
 
@@ -750,20 +750,20 @@ physicalCountsFinalized is true and no non-finalized counts are listed.
 
 **Preconditions**
 
-User is logged in with permissions to perform period actions
+Login เป็น purchase@blueledgers.com พร้อม permissions ทำ period actions
 
 **Steps**
 
-1. Navigate to /period-closure/active-period
-2. Click 'View' button
-3. Fill in period ID
-4. Click 'Validate' button
-5. Fill in any required validation details
-6. Click 'Close Period' button
+1. ไปที่ /period-closure/active-period
+2. กด 'View' button
+3. กรอก period ID
+4. กด 'Validate' button
+5. กรอก validation details ที่จำเป็น
+6. กด 'Close Period' button
 
 **Expected**
 
-Activity log entry is created with all required details and is immutable.
+Activity log entry ถูกสร้างพร้อมรายละเอียดที่จำเป็นทั้งหมดและไม่สามารถเปลี่ยนแปลงได้
 
 ---
 
@@ -776,18 +776,18 @@ Activity log entry is created with all required details and is immutable.
 
 **Preconditions**
 
-User logs in with invalid credentials
+ผู้ใช้ login ด้วย credentials ที่ไม่ถูกต้อง
 
 **Steps**
 
-1. Navigate to /period-closure/active-period
-2. Click 'View' button
-3. Fill in period ID
-4. Click 'Validate' button
+1. ไปที่ /period-closure/active-period
+2. กด 'View' button
+3. กรอก period ID
+4. กด 'Validate' button
 
 **Expected**
 
-User is redirected to login page or receives an error message.
+ผู้ใช้ถูก redirect ไปยัง login page หรือได้รับ error message
 
 ---
 
@@ -800,18 +800,18 @@ User is redirected to login page or receives an error message.
 
 **Preconditions**
 
-User logs in without permissions to perform period actions
+ผู้ใช้ login โดยไม่มี permissions ทำ period actions
 
 **Steps**
 
-1. Navigate to /period-closure/active-period
-2. Click 'View' button
-3. Fill in period ID
-4. Click 'Validate' button
+1. ไปที่ /period-closure/active-period
+2. กด 'View' button
+3. กรอก period ID
+4. กด 'Validate' button
 
 **Expected**
 
-User receives a permission denied error or is redirected to a restricted page.
+ผู้ใช้ได้รับ permission denied error หรือถูก redirect ไปยังหน้าที่ถูกจำกัด
 
 ---
 
@@ -824,17 +824,17 @@ User receives a permission denied error or is redirected to a restricted page.
 
 **Preconditions**
 
-User has valid credentials and permissions to perform period actions
+ผู้ใช้มี credentials ที่ถูกต้องและ permissions ทำ period actions
 
 **Steps**
 
-1. Navigate to /period-closure/active-period
-2. Click 'View' button
-3. Click 'Validate' button without filling in period ID
+1. ไปที่ /period-closure/active-period
+2. กด 'View' button
+3. กด 'Validate' button โดยไม่กรอก period ID
 
 **Expected**
 
-System prompts the user to enter a period ID.
+ระบบแจ้งให้ผู้ใช้กรอก period ID
 
 ---
 
@@ -847,21 +847,21 @@ System prompts the user to enter a period ID.
 
 **Preconditions**
 
-User has valid credentials and permissions to perform period actions
+ผู้ใช้มี credentials ที่ถูกต้องและ permissions ทำ period actions
 
 **Steps**
 
-1. Navigate to /period-closure/active-period
-2. Click 'View' button
-3. Fill in period ID
-4. Click 'Validate' button
-5. Enter the maximum possible timestamp value
+1. ไปที่ /period-closure/active-period
+2. กด 'View' button
+3. กรอก period ID
+4. กด 'Validate' button
+5. กรอก timestamp value สูงสุดที่เป็นไปได้
 
 **Expected**
 
-System handles the timestamp overflow gracefully, possibly by truncating the value to a valid timestamp.
+ระบบจัดการ timestamp overflow อย่างเหมาะสม โดยอาจตัดค่าให้เป็น timestamp ที่ถูกต้อง
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

@@ -20,7 +20,7 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com ผ่าน auth fixture" },
         { type: "steps", description: "1. ไปที่ /config/tax-profile" },
         { type: "expected", description: "URL matches /config/tax-profile; หน้า list ของ tax profile (มี name + rate columns) โหลดสำเร็จ" },
         { type: "priority", description: "High" },
@@ -37,7 +37,7 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP-010002 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/tax-profile" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/tax-profile" },
         { type: "steps", description: "1. ไปที่ /config/tax-profile" },
         { type: "expected", description: "ปุ่ม Add visible บนหน้า list (พร้อมเปิด dialog สำหรับ name + rate)" },
         { type: "priority", description: "High" },
@@ -54,7 +54,7 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/tax-profile" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/tax-profile" },
         { type: "steps", description: "1. ไปที่ /config/tax-profile\n2. พิมพ์ 'test' ในช่องค้นหา" },
         { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
         { type: "priority", description: "Medium" },
@@ -72,7 +72,7 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/tax-profile" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/tax-profile" },
         { type: "steps", description: "1. ไปที่ /config/tax-profile\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มี tax profile ที่ตรงกับคำค้น)" },
         { type: "priority", description: "Medium" },
@@ -90,7 +90,7 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP-010005 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/tax-profile" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/tax-profile" },
         { type: "steps", description: "1. เปิด Add dialog\n2. กด Save โดยไม่กรอก name (rate ปล่อยตามค่า default)" },
         { type: "expected", description: "Error message ปรากฏใต้ name input (required validation block submit); ปิด dialog ด้วย Cancel" },
         { type: "priority", description: "High" },
@@ -110,7 +110,7 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
     "TC-TP-010006 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; tax profile ชื่อ NAME ยังไม่มีอยู่ใน DB" },
+        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; tax profile ชื่อ NAME ยังไม่มีอยู่ใน DB" },
         { type: "steps", description: "1. เปิด Add dialog\n2. กรอก name = NAME (rate ใช้ค่า default ของฟอร์ม)\n3. กด Save\n4. ค้นหา NAME ใน list" },
         { type: "expected", description: "Success toast (created/success/สำเร็จ) และแถวใหม่ที่มี NAME ปรากฏใน list" },
         { type: "priority", description: "High" },

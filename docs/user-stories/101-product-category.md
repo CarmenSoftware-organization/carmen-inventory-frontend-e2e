@@ -100,18 +100,18 @@ _Generated from `tests/101-product-category.spec.ts` annotations. Edit annotatio
 
 **Preconditions**
 
-User is authenticated and has category view permission
+ผู้ใช้ login แล้วและมีสิทธิ์ดู category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Verify all top-level categories are displayed
-3. Click on a category
-4. Verify subcategories are displayed in expandable tree structure
+1. ไปที่ /product-management/category
+2. ตรวจสอบว่า category ระดับบนสุดทั้งหมดแสดงอยู่
+3. คลิก category
+4. ตรวจสอบว่า subcategory แสดงในโครงสร้าง tree ที่ขยายได้
 
 **Expected**
 
-All categories are correctly displayed and expandable in tree structure.
+category ทั้งหมดแสดงถูกต้องและสามารถขยายได้ในโครงสร้าง tree
 
 ---
 
@@ -124,16 +124,16 @@ All categories are correctly displayed and expandable in tree structure.
 
 **Preconditions**
 
-User is authenticated but does not have category view permission
+ผู้ใช้ login แล้วแต่ไม่มีสิทธิ์ดู category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Verify no categories are displayed
+1. ไปที่ /product-management/category
+2. ตรวจสอบว่าไม่มี category แสดง
 
 **Expected**
 
-User sees an error message or restricted access message.
+ผู้ใช้เห็นข้อความ error หรือข้อความแจ้งการจำกัดสิทธิ์
 
 ---
 
@@ -146,23 +146,23 @@ User sees an error message or restricted access message.
 
 **Preconditions**
 
-User has category view permission
+ผู้ใช้มีสิทธิ์ดู category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on a top-level category
-3. Verify subcategories are expanded
-4. Click on a subcategory
-5. Verify sub-subcategories are expanded
-6. Click on a sub-subcategory
-7. Verify sub-sub-subcategories are expanded
-8. Click on a sub-sub-subcategory
-9. Verify the category tree reverts to previous state
+1. ไปที่ /product-management/category
+2. คลิก category ระดับบนสุด
+3. ตรวจสอบว่า subcategory ขยายออก
+4. คลิก subcategory
+5. ตรวจสอบว่า sub-subcategory ขยายออก
+6. คลิก sub-subcategory
+7. ตรวจสอบว่า sub-sub-subcategory ขยายออก
+8. คลิก sub-sub-subcategory
+9. ตรวจสอบว่า tree กลับสู่สถานะก่อนหน้า
 
 **Expected**
 
-User can expand and collapse category levels as expected.
+ผู้ใช้สามารถขยายและยุบระดับ category ได้ตามที่คาดหวัง
 
 ---
 
@@ -175,17 +175,17 @@ User can expand and collapse category levels as expected.
 
 **Preconditions**
 
-User has category view permission
+ผู้ใช้มีสิทธิ์ดู category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on a category with a very long name
-3. Verify subcategories are still displayed properly
+1. ไปที่ /product-management/category
+2. คลิก category ที่มีชื่อยาวมาก
+3. ตรวจสอบว่า subcategory ยังแสดงอย่างถูกต้อง
 
 **Expected**
 
-Category hierarchy is displayed correctly even with very long category names.
+โครงสร้าง category hierarchy แสดงถูกต้องแม้ชื่อ category จะยาวมาก
 
 ---
 
@@ -198,19 +198,19 @@ Category hierarchy is displayed correctly even with very long category names.
 
 **Preconditions**
 
-User has category view permission
+ผู้ใช้มีสิทธิ์ดู category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on a top-level category
-3. Click on a subcategory
-4. Click on a sub-subcategory
-5. Verify all levels are displayed properly
+1. ไปที่ /product-management/category
+2. คลิก category ระดับบนสุด
+3. คลิก subcategory
+4. คลิก sub-subcategory
+5. ตรวจสอบว่าทุกระดับแสดงถูกต้อง
 
 **Expected**
 
-All levels of category hierarchy are displayed correctly.
+ทุกระดับของ category hierarchy แสดงถูกต้อง
 
 ---
 
@@ -223,17 +223,17 @@ All levels of category hierarchy are displayed correctly.
 
 **Preconditions**
 
-User has category creation permission and 'Product Manager' or 'System Administrator' role
+ผู้ใช้มีสิทธิ์สร้าง category และมี role 'Product Manager' หรือ 'System Administrator'
 
 **Steps**
 
-1. Click 'New Category'
-2. Fill 'Category Name' with valid name
-3. Click 'Save'
+1. คลิก 'New Category'
+2. กรอก 'Category Name' ด้วยชื่อที่ถูกต้อง
+3. คลิก 'Save'
 
 **Expected**
 
-Category is created successfully, visible in the list of categories.
+category สร้างสำเร็จและแสดงอยู่ใน list ของ category
 
 ---
 
@@ -246,17 +246,17 @@ Category is created successfully, visible in the list of categories.
 
 **Preconditions**
 
-User does not have category creation permission
+ผู้ใช้ไม่มีสิทธิ์สร้าง category
 
 **Steps**
 
-1. Click 'New Category'
-2. Fill 'Category Name' with valid name
-3. Click 'Save'
+1. คลิก 'New Category'
+2. กรอก 'Category Name' ด้วยชื่อที่ถูกต้อง
+3. คลิก 'Save'
 
 **Expected**
 
-User receives an error message indicating they do not have permission to create a category.
+ผู้ใช้ได้รับข้อความ error แจ้งว่าไม่มีสิทธิ์สร้าง category
 
 ---
 
@@ -269,17 +269,17 @@ User receives an error message indicating they do not have permission to create 
 
 **Preconditions**
 
-User has category creation permission
+ผู้ใช้มีสิทธิ์สร้าง category
 
 **Steps**
 
-1. Click 'New Category'
-2. Fill 'Category Name' with 101 characters (exceeds max length of 100)
-3. Click 'Save'
+1. คลิก 'New Category'
+2. กรอก 'Category Name' ด้วย 101 ตัวอักษร (เกินความยาวสูงสุด 100)
+3. คลิก 'Save'
 
 **Expected**
 
-Category creation fails with an error message indicating the name exceeds the maximum length.
+การสร้าง category ล้มเหลวพร้อมข้อความ error แจ้งว่าชื่อเกินความยาวสูงสุด
 
 ---
 
@@ -292,19 +292,19 @@ Category creation fails with an error message indicating the name exceeds the ma
 
 **Preconditions**
 
-User has category creation permission; at least one root-level category exists; parent category is active
+ผู้ใช้มีสิทธิ์สร้าง category; มี root-level category อย่างน้อย 1 รายการ; parent category มีอยู่จริงและ active
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on the parent category
-3. Click 'New Subcategory'
-4. Fill in the subcategory name
-5. Click 'Save'
+1. ไปที่ /product-management/category
+2. คลิก parent category
+3. คลิก 'New Subcategory'
+4. กรอกชื่อ subcategory
+5. คลิก 'Save'
 
 **Expected**
 
-Subcategory is successfully created and displayed under the parent category.
+subcategory สร้างสำเร็จและแสดงอยู่ใต้ parent category
 
 ---
 
@@ -317,19 +317,19 @@ Subcategory is successfully created and displayed under the parent category.
 
 **Preconditions**
 
-User has category creation permission; at least one root-level category exists
+ผู้ใช้มีสิทธิ์สร้าง category; มี root-level category อย่างน้อย 1 รายการ
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on the parent category
-3. Click 'New Subcategory'
-4. Fill in an invalid subcategory name (e.g., only numbers)
-5. Click 'Save'
+1. ไปที่ /product-management/category
+2. คลิก parent category
+3. คลิก 'New Subcategory'
+4. กรอกชื่อ subcategory ที่ไม่ถูกต้อง (เช่น ตัวเลขอย่างเดียว)
+5. คลิก 'Save'
 
 **Expected**
 
-Error message is displayed indicating the subcategory name is invalid.
+แสดงข้อความ error แจ้งว่าชื่อ subcategory ไม่ถูกต้อง
 
 ---
 
@@ -342,17 +342,17 @@ Error message is displayed indicating the subcategory name is invalid.
 
 **Preconditions**
 
-User does not have category creation permission
+ผู้ใช้ไม่มีสิทธิ์สร้าง category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on the parent category
-3. Click 'New Subcategory'
+1. ไปที่ /product-management/category
+2. คลิก parent category
+3. คลิก 'New Subcategory'
 
 **Expected**
 
-User is prompted to log in or does not have access to perform the action.
+ผู้ใช้ถูกแจ้งให้ login หรือไม่มีสิทธิ์ดำเนินการ
 
 ---
 
@@ -365,18 +365,18 @@ User is prompted to log in or does not have access to perform the action.
 
 **Preconditions**
 
-User has category creation permission; at least one root-level category exists
+ผู้ใช้มีสิทธิ์สร้าง category; มี root-level category อย่างน้อย 1 รายการ
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on the parent category
-3. Click 'New Subcategory'
-4. Repeat the above steps up to the maximum allowed subcategory levels
+1. ไปที่ /product-management/category
+2. คลิก parent category
+3. คลิก 'New Subcategory'
+4. ทำซ้ำขั้นตอนข้างต้นจนถึงระดับ subcategory สูงสุดที่อนุญาต
 
 **Expected**
 
-System limits the creation of subcategories to the maximum allowed level and does not allow further nesting.
+ระบบจำกัดการสร้าง subcategory ที่ระดับสูงสุดที่อนุญาตและไม่ยอมให้ซ้อนเพิ่มเติม
 
 ---
 
@@ -389,19 +389,19 @@ System limits the creation of subcategories to the maximum allowed level and doe
 
 **Preconditions**
 
-User has category creation permission; at least one subcategory exists; parent subcategory is active
+ผู้ใช้มีสิทธิ์สร้าง category; มี subcategory อย่างน้อย 1 รายการ; parent subcategory มีอยู่จริงและ active
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click 'New Item Group'
-3. Fill 'Item Group Name'
-4. Select 'Parent Subcategory'
-5. Click 'Save'
+1. ไปที่ /product-management/category
+2. คลิก 'New Item Group'
+3. กรอก 'Item Group Name'
+4. เลือก 'Parent Subcategory'
+5. คลิก 'Save'
 
 **Expected**
 
-New item group is created and displayed in the category list.
+item group ใหม่สร้างสำเร็จและแสดงอยู่ใน category list
 
 ---
 
@@ -414,16 +414,16 @@ New item group is created and displayed in the category list.
 
 **Preconditions**
 
-User does not have category creation permission
+ผู้ใช้ไม่มีสิทธิ์สร้าง category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Try to click 'New Item Group'
+1. ไปที่ /product-management/category
+2. พยายามคลิก 'New Item Group'
 
 **Expected**
 
-User cannot access 'New Item Group' button and sees appropriate permission error message.
+ผู้ใช้ไม่สามารถเข้าถึงปุ่ม 'New Item Group' และเห็นข้อความ error เรื่องสิทธิ์ที่เหมาะสม
 
 ---
 
@@ -436,19 +436,19 @@ User cannot access 'New Item Group' button and sees appropriate permission error
 
 **Preconditions**
 
-User has category creation permission; no subcategory exists
+ผู้ใช้มีสิทธิ์สร้าง category; ไม่มี subcategory อยู่
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click 'New Item Group'
-3. Fill 'Item Group Name'
-4. Select 'Non-Existent Subcategory'
-5. Click 'Save'
+1. ไปที่ /product-management/category
+2. คลิก 'New Item Group'
+3. กรอก 'Item Group Name'
+4. เลือก 'Non-Existent Subcategory'
+5. คลิก 'Save'
 
 **Expected**
 
-User receives error message indicating that the selected subcategory does not exist.
+ผู้ใช้ได้รับข้อความ error แจ้งว่า subcategory ที่เลือกไม่มีอยู่
 
 ---
 
@@ -461,18 +461,18 @@ User receives error message indicating that the selected subcategory does not ex
 
 **Preconditions**
 
-User has category creation permission; at least one subcategory exists
+ผู้ใช้มีสิทธิ์สร้าง category; มี subcategory อย่างน้อย 1 รายการ
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click 'New Item Group'
-3. Fill 'Item Group Name' with a name longer than the allowed limit
-4. Click 'Save'
+1. ไปที่ /product-management/category
+2. คลิก 'New Item Group'
+3. กรอก 'Item Group Name' ด้วยชื่อที่ยาวเกินขีดจำกัด
+4. คลิก 'Save'
 
 **Expected**
 
-User receives error message indicating that the item group name exceeds the allowed character limit.
+ผู้ใช้ได้รับข้อความ error แจ้งว่าชื่อ item group เกินขีดจำกัดจำนวนตัวอักษร
 
 ---
 
@@ -485,19 +485,19 @@ User receives error message indicating that the item group name exceeds the allo
 
 **Preconditions**
 
-User has category edit permission; category exists; not actively referenced in critical processes
+ผู้ใช้มีสิทธิ์แก้ไข category; category มีอยู่จริง; ไม่ถูกอ้างอิงในกระบวนการสำคัญ
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Select existing category
-3. Click 'Edit'
-4. Fill new category name
-5. Click 'Save'
+1. ไปที่ /product-management/category
+2. เลือก category ที่มีอยู่
+3. คลิก 'Edit'
+4. กรอกชื่อ category ใหม่
+5. คลิก 'Save'
 
 **Expected**
 
-Category name is updated successfully and reflected in the system.
+ชื่อ category อัปเดตสำเร็จและสะท้อนในระบบ
 
 ---
 
@@ -510,17 +510,17 @@ Category name is updated successfully and reflected in the system.
 
 **Preconditions**
 
-User has category edit permission; category does not exist
+ผู้ใช้มีสิทธิ์แก้ไข category; category ไม่มีอยู่
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Attempt to select non-existent category
-3. Click 'Edit'
+1. ไปที่ /product-management/category
+2. พยายามเลือก category ที่ไม่มีอยู่
+3. คลิก 'Edit'
 
 **Expected**
 
-System displays error message indicating that the category does not exist.
+ระบบแสดงข้อความ error แจ้งว่า category ไม่มีอยู่
 
 ---
 
@@ -533,17 +533,17 @@ System displays error message indicating that the category does not exist.
 
 **Preconditions**
 
-User does not have category edit permission
+ผู้ใช้ไม่มีสิทธิ์แก้ไข category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Select existing category
-3. Click 'Edit'
+1. ไปที่ /product-management/category
+2. เลือก category ที่มีอยู่
+3. คลิก 'Edit'
 
 **Expected**
 
-System displays error message indicating insufficient permissions.
+ระบบแสดงข้อความ error แจ้งว่าสิทธิ์ไม่เพียงพอ
 
 ---
 
@@ -556,19 +556,19 @@ System displays error message indicating insufficient permissions.
 
 **Preconditions**
 
-User has category edit permission; category exists
+ผู้ใช้มีสิทธิ์แก้ไข category; category มีอยู่จริง
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Select existing category
-3. Click 'Edit'
-4. Fill invalid category name (e.g., less than 3 characters)
-5. Click 'Save'
+1. ไปที่ /product-management/category
+2. เลือก category ที่มีอยู่
+3. คลิก 'Edit'
+4. กรอกชื่อ category ที่ไม่ถูกต้อง (เช่น น้อยกว่า 3 ตัวอักษร)
+5. คลิก 'Save'
 
 **Expected**
 
-System displays error message indicating invalid input.
+ระบบแสดงข้อความ error แจ้ง input ที่ไม่ถูกต้อง
 
 ---
 
@@ -581,17 +581,17 @@ System displays error message indicating invalid input.
 
 **Preconditions**
 
-Category is actively referenced in critical processes
+category ถูกอ้างอิงอยู่ในกระบวนการสำคัญ
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Select existing category
-3. Click 'Edit'
+1. ไปที่ /product-management/category
+2. เลือก category ที่มีอยู่
+3. คลิก 'Edit'
 
 **Expected**
 
-System displays error message indicating that the category cannot be edited due to active references.
+ระบบแสดงข้อความ error แจ้งว่าไม่สามารถแก้ไข category ได้เนื่องจากมีการอ้างอิงที่ active อยู่
 
 ---
 
@@ -604,19 +604,19 @@ System displays error message indicating that the category cannot be edited due 
 
 **Preconditions**
 
-System Administrator logged in; category exists and is not marked as deleted
+Login เป็น System Administrator; category มีอยู่จริงและไม่ได้ถูกทำเครื่องหมายว่าลบแล้ว
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Select existing category to delete
-3. Click 'Delete'
-4. Verify 'Are you sure you want to delete this category?' dialog appears
-5. Click 'Yes'
+1. ไปที่ /product-management/category
+2. เลือก category ที่มีอยู่เพื่อลบ
+3. คลิก 'Delete'
+4. ตรวจสอบว่า dialog 'Are you sure you want to delete this category?' ปรากฏ
+5. คลิก 'Yes'
 
 **Expected**
 
-Category is marked as deleted while retaining related data for audit tracking.
+category ถูกทำเครื่องหมายว่าลบแล้วโดยยังคงข้อมูลที่เกี่ยวข้องเพื่อการตรวจสอบ
 
 ---
 
@@ -629,18 +629,18 @@ Category is marked as deleted while retaining related data for audit tracking.
 
 **Preconditions**
 
-Category exists and has at least one product assignment
+category มีอยู่จริงและมี product ที่กำหนดไว้อย่างน้อย 1 รายการ
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Select category with product assignment
-3. Click 'Delete'
-4. Verify error message 'Cannot delete category with product assignments'
+1. ไปที่ /product-management/category
+2. เลือก category ที่มี product กำหนดไว้
+3. คลิก 'Delete'
+4. ตรวจสอบข้อความ error 'Cannot delete category with product assignments'
 
 **Expected**
 
-Category deletion attempt fails and error message is displayed.
+การพยายามลบ category ล้มเหลวและแสดงข้อความ error
 
 ---
 
@@ -653,18 +653,18 @@ Category deletion attempt fails and error message is displayed.
 
 **Preconditions**
 
-Non-existing category name entered
+กรอกชื่อ category ที่ไม่มีอยู่
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Enter non-existing category name in search
-3. Click 'Delete'
-4. Verify 'Category not found' message
+1. ไปที่ /product-management/category
+2. กรอกชื่อ category ที่ไม่มีอยู่ในช่องค้นหา
+3. คลิก 'Delete'
+4. ตรวจสอบข้อความ 'Category not found'
 
 **Expected**
 
-System returns 'Category not found' message and no changes are made.
+ระบบแสดงข้อความ 'Category not found' และไม่มีการเปลี่ยนแปลงใด
 
 ---
 
@@ -677,20 +677,20 @@ System returns 'Category not found' message and no changes are made.
 
 **Preconditions**
 
-Category exists and is not marked as deleted
+category มีอยู่จริงและไม่ได้ถูกทำเครื่องหมายว่าลบแล้ว
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Select existing category to delete
-3. Click 'Delete'
-4. Log out
-5. Try to confirm deletion
-6. Verify 'Please log in to proceed' message
+1. ไปที่ /product-management/category
+2. เลือก category ที่มีอยู่เพื่อลบ
+3. คลิก 'Delete'
+4. Logout
+5. พยายามยืนยันการลบ
+6. ตรวจสอบข้อความ 'Please log in to proceed'
 
 **Expected**
 
-Deletion cannot proceed and user is prompted to log in.
+ไม่สามารถดำเนินการลบได้และผู้ใช้ถูกแจ้งให้ login
 
 ---
 
@@ -703,18 +703,18 @@ Deletion cannot proceed and user is prompted to log in.
 
 **Preconditions**
 
-User has category management permission; multiple categories exist at the same level; user is viewing the tree view
+ผู้ใช้มีสิทธิ์จัดการ category; มี category หลายรายการในระดับเดียวกัน; ผู้ใช้กำลังดู tree view
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Find category A and B under the same parent
-3. Click and drag category B next to category A
-4. Release the mouse
+1. ไปที่ /product-management/category
+2. หา category A และ B ภายใต้ parent เดียวกัน
+3. คลิกและลาก category B ไปวางถัดจาก category A
+4. ปล่อยเมาส์
 
 **Expected**
 
-Categories A and B are reordered next to each other under the same parent.
+category A และ B ถูกจัดเรียงใหม่ติดกันภายใต้ parent เดียวกัน
 
 ---
 
@@ -727,18 +727,18 @@ Categories A and B are reordered next to each other under the same parent.
 
 **Preconditions**
 
-User has category management permission; multiple categories exist at different levels
+ผู้ใช้มีสิทธิ์จัดการ category; มี category หลายรายการในระดับที่แตกต่างกัน
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Find category C under parent 1
-3. Click and drag category C into parent 2
-4. Release the mouse
+1. ไปที่ /product-management/category
+2. หา category C ภายใต้ parent 1
+3. คลิกและลาก category C เข้า parent 2
+4. ปล่อยเมาส์
 
 **Expected**
 
-Category C is moved under parent 2.
+category C ถูกย้ายไปอยู่ใต้ parent 2
 
 ---
 
@@ -751,16 +751,16 @@ Category C is moved under parent 2.
 
 **Preconditions**
 
-User does not have category management permission
+ผู้ใช้ไม่มีสิทธิ์จัดการ category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Attempt to click and drag category A and B
+1. ไปที่ /product-management/category
+2. พยายามคลิกและลาก category A และ B
 
 **Expected**
 
-User cannot reorder categories and an error message is displayed.
+ผู้ใช้ไม่สามารถจัดเรียง category ใหม่ได้และแสดงข้อความ error
 
 ---
 
@@ -773,17 +773,17 @@ User cannot reorder categories and an error message is displayed.
 
 **Preconditions**
 
-User has category management permission; multiple categories exist at the same level
+ผู้ใช้มีสิทธิ์จัดการ category; มี category หลายรายการในระดับเดียวกัน
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click and drag category A out of its current parent
-3. Release the mouse
+1. ไปที่ /product-management/category
+2. คลิกและลาก category A ออกนอก parent ปัจจุบัน
+3. ปล่อยเมาส์
 
 **Expected**
 
-Category A remains in its current position and an error message is displayed.
+category A ยังคงอยู่ที่ตำแหน่งเดิมและแสดงข้อความ error
 
 ---
 
@@ -796,16 +796,16 @@ Category A remains in its current position and an error message is displayed.
 
 **Preconditions**
 
-User has category management permission; single category exists
+ผู้ใช้มีสิทธิ์จัดการ category; มี category เพียง 1 รายการ
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Attempt to click and drag the single category
+1. ไปที่ /product-management/category
+2. พยายามคลิกและลาก category เดียวที่มีอยู่
 
 **Expected**
 
-User cannot reorder a single category and an error message is displayed.
+ผู้ใช้ไม่สามารถจัดเรียง category เพียงรายการเดียวได้และแสดงข้อความ error
 
 ---
 
@@ -818,17 +818,17 @@ User cannot reorder a single category and an error message is displayed.
 
 **Preconditions**
 
-User is viewing Categories page with existing categories
+ผู้ใช้กำลังดูหน้า Categories ที่มี category อยู่
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click 'List' view option
-3. Verify that categories are displayed in a flat list format
+1. ไปที่ /product-management/category
+2. คลิกตัวเลือก view 'List'
+3. ตรวจสอบว่า category แสดงในรูปแบบ flat list
 
 **Expected**
 
-Categories are displayed in a flat list format.
+category แสดงในรูปแบบ flat list
 
 ---
 
@@ -841,17 +841,17 @@ Categories are displayed in a flat list format.
 
 **Preconditions**
 
-User is viewing Categories page with existing categories in List view
+ผู้ใช้กำลังดูหน้า Categories ที่มี category อยู่ใน List view
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click 'Tree' view option
-3. Verify that categories are displayed in a hierarchical tree format
+1. ไปที่ /product-management/category
+2. คลิกตัวเลือก view 'Tree'
+3. ตรวจสอบว่า category แสดงในรูปแบบ tree แบบลำดับชั้น
 
 **Expected**
 
-Categories are displayed in a hierarchical tree format.
+category แสดงในรูปแบบ tree แบบลำดับชั้น
 
 ---
 
@@ -864,18 +864,18 @@ Categories are displayed in a hierarchical tree format.
 
 **Preconditions**
 
-User is viewing Categories page with no categories
+ผู้ใช้กำลังดูหน้า Categories ที่ไม่มี category อยู่
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click 'Tree' view option
-3. Click 'List' view option
-4. Verify that no categories are displayed
+1. ไปที่ /product-management/category
+2. คลิกตัวเลือก view 'Tree'
+3. คลิกตัวเลือก view 'List'
+4. ตรวจสอบว่าไม่มี category แสดง
 
 **Expected**
 
-No categories are displayed.
+ไม่มี category แสดง
 
 ---
 
@@ -888,19 +888,19 @@ No categories are displayed.
 
 **Preconditions**
 
-User is viewing Categories page with existing categories
+ผู้ใช้กำลังดูหน้า Categories ที่มี category อยู่
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click 'Tree' view option
-3. Click 'List' view option
-4. Click 'Tree' view option
-5. Verify that categories are displayed in a hierarchical tree format
+1. ไปที่ /product-management/category
+2. คลิกตัวเลือก view 'Tree'
+3. คลิกตัวเลือก view 'List'
+4. คลิกตัวเลือก view 'Tree'
+5. ตรวจสอบว่า category แสดงในรูปแบบ tree แบบลำดับชั้น
 
 **Expected**
 
-Categories are displayed in a hierarchical tree format.
+category แสดงในรูปแบบ tree แบบลำดับชั้น
 
 ---
 
@@ -913,18 +913,18 @@ Categories are displayed in a hierarchical tree format.
 
 **Preconditions**
 
-User has permission to view categories
+ผู้ใช้มีสิทธิ์ดู category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on 'Search' icon
-3. Fill 'Category Name' with 'Electronics'
-4. Click 'Search'
+1. ไปที่ /product-management/category
+2. คลิกไอคอน 'Search'
+3. กรอก 'Category Name' ด้วย 'Electronics'
+4. คลิก 'Search'
 
 **Expected**
 
-Search results highlight 'Electronics' category with matching descriptions.
+ผลการค้นหาแสดง category 'Electronics' พร้อมคำอธิบายที่ตรงกัน
 
 ---
 
@@ -937,18 +937,18 @@ Search results highlight 'Electronics' category with matching descriptions.
 
 **Preconditions**
 
-User has permission to view categories
+ผู้ใช้มีสิทธิ์ดู category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on 'Search' icon
-3. Fill 'Category Name' with 'InvalidCategory123'
-4. Click 'Search'
+1. ไปที่ /product-management/category
+2. คลิกไอคอน 'Search'
+3. กรอก 'Category Name' ด้วย 'InvalidCategory123'
+4. คลิก 'Search'
 
 **Expected**
 
-Search results show no matches and clear message or placeholder informing user that no results were found.
+ผลการค้นหาไม่พบรายการที่ตรงกันและแสดงข้อความหรือ placeholder แจ้งว่าไม่พบผลลัพธ์
 
 ---
 
@@ -961,18 +961,18 @@ Search results show no matches and clear message or placeholder informing user t
 
 **Preconditions**
 
-User has permission to view categories
+ผู้ใช้มีสิทธิ์ดู category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on 'Search' icon
-3. Fill 'Category Name' with empty input
-4. Click 'Search'
+1. ไปที่ /product-management/category
+2. คลิกไอคอน 'Search'
+3. กรอก 'Category Name' ด้วย input ว่างเปล่า
+4. คลิก 'Search'
 
 **Expected**
 
-Search results do not change from default view.
+ผลการค้นหาไม่เปลี่ยนจาก view เริ่มต้น
 
 ---
 
@@ -985,18 +985,18 @@ Search results do not change from default view.
 
 **Preconditions**
 
-User does not have permission to view categories
+ผู้ใช้ไม่มีสิทธิ์ดู category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on 'Search' icon
-3. Fill 'Category Name' with 'Office Supplies'
-4. Click 'Search'
+1. ไปที่ /product-management/category
+2. คลิกไอคอน 'Search'
+3. กรอก 'Category Name' ด้วย 'Office Supplies'
+4. คลิก 'Search'
 
 **Expected**
 
-User is redirected to permission denied page or receives error message.
+ผู้ใช้ถูก redirect ไปยังหน้าปฏิเสธสิทธิ์หรือได้รับข้อความ error
 
 ---
 
@@ -1009,19 +1009,19 @@ User is redirected to permission denied page or receives error message.
 
 **Preconditions**
 
-User is viewing Categories page; multiple categories exist with varied attributes
+ผู้ใช้กำลังดูหน้า Categories; มี category หลายรายการที่มีคุณสมบัติหลากหลาย
 
 **Steps**
 
-1. Click on the 'Filter' button
-2. Select 'Level' and choose 'Tier 1'
-3. Select 'Status' and choose 'Active'
-4. Select 'Parent' and choose 'Electronics'
-5. Click 'Apply Filters'
+1. คลิกปุ่ม 'Filter'
+2. เลือก 'Level' และเลือก 'Tier 1'
+3. เลือก 'Status' และเลือก 'Active'
+4. เลือก 'Parent' และเลือก 'Electronics'
+5. คลิก 'Apply Filters'
 
 **Expected**
 
-Filtered categories are displayed according to selected criteria.
+category ที่กรองแสดงตามเกณฑ์ที่เลือก
 
 ---
 
@@ -1034,17 +1034,17 @@ Filtered categories are displayed according to selected criteria.
 
 **Preconditions**
 
-User is viewing Categories page; multiple categories exist
+ผู้ใช้กำลังดูหน้า Categories; มี category หลายรายการ
 
 **Steps**
 
-1. Click on the 'Filter' button
-2. Select 'Level' and choose an invalid option (e.g., 'Invalid Tier')
-3. Click 'Apply Filters'
+1. คลิกปุ่ม 'Filter'
+2. เลือก 'Level' และเลือก option ที่ไม่ถูกต้อง (เช่น 'Invalid Tier')
+3. คลิก 'Apply Filters'
 
 **Expected**
 
-Error message is displayed indicating invalid input.
+แสดงข้อความ error แจ้ง input ที่ไม่ถูกต้อง
 
 ---
 
@@ -1057,17 +1057,17 @@ Error message is displayed indicating invalid input.
 
 **Preconditions**
 
-User is viewing Categories page; multiple categories exist
+ผู้ใช้กำลังดูหน้า Categories; มี category หลายรายการ
 
 **Steps**
 
-1. Click on the 'Filter' button
-2. Select 'Level' and choose 'Tier 3'
-3. Click 'Apply Filters'
+1. คลิกปุ่ม 'Filter'
+2. เลือก 'Level' และเลือก 'Tier 3'
+3. คลิก 'Apply Filters'
 
 **Expected**
 
-No categories are displayed, message indicates no matching results.
+ไม่มี category แสดงและข้อความแจ้งว่าไม่พบผลลัพธ์ที่ตรงกัน
 
 ---
 
@@ -1080,17 +1080,17 @@ No categories are displayed, message indicates no matching results.
 
 **Preconditions**
 
-User is viewing Categories page; multiple categories exist
+ผู้ใช้กำลังดูหน้า Categories; มี category หลายรายการ
 
 **Steps**
 
-1. Click on the 'Filter' button
-2. Do not make any selections
-3. Click 'Apply Filters'
+1. คลิกปุ่ม 'Filter'
+2. ไม่เลือกตัวเลือกใดๆ
+3. คลิก 'Apply Filters'
 
 **Expected**
 
-All categories are displayed.
+แสดง category ทั้งหมด
 
 ---
 
@@ -1103,17 +1103,17 @@ All categories are displayed.
 
 **Preconditions**
 
-User has logged in and selected a category in the tree view
+ผู้ใช้ login แล้วและเลือก category ใน tree view
 
 **Steps**
 
-1. Navigate to the category tree view
-2. Click on a category with at least one parent
-3. Verify the breadcrumb trail shows the full path from the root to the selected category
+1. ไปที่ category tree view
+2. คลิก category ที่มี parent อย่างน้อย 1 ระดับ
+3. ตรวจสอบว่า breadcrumb trail แสดงเส้นทางเต็มจาก root ไปยัง category ที่เลือก
 
 **Expected**
 
-The breadcrumb trail correctly displays the path from the root to the selected category.
+breadcrumb trail แสดงเส้นทางจาก root ไปยัง category ที่เลือกได้อย่างถูกต้อง
 
 ---
 
@@ -1126,17 +1126,17 @@ The breadcrumb trail correctly displays the path from the root to the selected c
 
 **Preconditions**
 
-User has selected a category in the tree view with at least one parent
+ผู้ใช้เลือก category ใน tree view ที่มี parent อย่างน้อย 1 ระดับ
 
 **Steps**
 
-1. Navigate to a selected category with a breadcrumb trail
-2. Click on the second-to-last breadcrumb in the trail
-3. Verify the user is navigated to the parent category
+1. ไปที่ category ที่เลือกซึ่งมี breadcrumb trail
+2. คลิก breadcrumb ก่อนสุดท้ายใน trail
+3. ตรวจสอบว่าผู้ใช้ถูกนำไปยัง parent category
 
 **Expected**
 
-The user is successfully navigated to the parent category as indicated by the breadcrumb click.
+ผู้ใช้ถูกนำไปยัง parent category ตามที่ระบุโดย breadcrumb ที่คลิกได้สำเร็จ
 
 ---
 
@@ -1149,16 +1149,16 @@ The user is successfully navigated to the parent category as indicated by the br
 
 **Preconditions**
 
-User has selected a category with multiple levels of parents
+ผู้ใช้เลือก category ที่มี parent หลายระดับ
 
 **Steps**
 
-1. Navigate to a deeply nested category
-2. Verify the breadcrumb trail correctly displays all levels of parent categories
+1. ไปที่ category ที่ซ้อนลึก
+2. ตรวจสอบว่า breadcrumb trail แสดงทุกระดับของ parent category ได้ถูกต้อง
 
 **Expected**
 
-The breadcrumb trail correctly and fully displays the path from the root to the selected category, regardless of depth.
+breadcrumb trail แสดงเส้นทางจาก root ไปยัง category ที่เลือกได้อย่างถูกต้องและครบถ้วน ไม่ว่าจะลึกแค่ไหน
 
 ---
 
@@ -1171,16 +1171,16 @@ The breadcrumb trail correctly and fully displays the path from the root to the 
 
 **Preconditions**
 
-User has selected a top-level category with no parent
+ผู้ใช้เลือก category ระดับบนสุดที่ไม่มี parent
 
 **Steps**
 
-1. Navigate to a top-level category
-2. Verify the breadcrumb trail is not displayed
+1. ไปที่ category ระดับบนสุด
+2. ตรวจสอบว่า breadcrumb trail ไม่แสดง
 
 **Expected**
 
-The breadcrumb trail is not displayed when the selected category is a top-level category.
+breadcrumb trail ไม่แสดงเมื่อ category ที่เลือกเป็นระดับบนสุด
 
 ---
 
@@ -1193,15 +1193,15 @@ The breadcrumb trail is not displayed when the selected category is a top-level 
 
 **Preconditions**
 
-User has not selected any category
+ผู้ใช้ยังไม่ได้เลือก category ใดๆ
 
 **Steps**
 
-1. Verify the breadcrumb trail is not visible
+1. ตรวจสอบว่า breadcrumb trail ไม่ visible
 
 **Expected**
 
-The breadcrumb trail is not visible when no category is selected.
+breadcrumb trail ไม่ visible เมื่อไม่ได้เลือก category
 
 ---
 
@@ -1214,19 +1214,19 @@ The breadcrumb trail is not visible when no category is selected.
 
 **Preconditions**
 
-User is authenticated and viewing category hierarchy in tree view
+ผู้ใช้ login แล้วและกำลังดู category hierarchy ใน tree view
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Wait for the category tree to load
-3. Select a category node
-4. Verify that the category count is displayed
-5. Expand the selected category node to see the counts of its descendants
+1. ไปที่ /product-management/category
+2. รอให้ category tree โหลด
+3. เลือก category node
+4. ตรวจสอบว่าจำนวน category แสดงอยู่
+5. ขยาย category node ที่เลือกเพื่อดูจำนวนของ descendant
 
 **Expected**
 
-Category count is accurate and displayed, and the counts of all descendants are also shown.
+จำนวน category แม่นยำและแสดงอยู่ รวมถึงจำนวนของ descendant ทั้งหมดก็แสดงด้วย
 
 ---
 
@@ -1239,18 +1239,18 @@ Category count is accurate and displayed, and the counts of all descendants are 
 
 **Preconditions**
 
-Selected category has no product assignments
+category ที่เลือกไม่มี product กำหนดไว้
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Wait for the category tree to load
-3. Select a category node with no product assignments
-4. Verify that the count for the selected category and its descendants is zero
+1. ไปที่ /product-management/category
+2. รอให้ category tree โหลด
+3. เลือก category node ที่ไม่มี product กำหนดไว้
+4. ตรวจสอบว่าจำนวนของ category ที่เลือกและ descendant เป็นศูนย์
 
 **Expected**
 
-Category and descendant counts display zero.
+จำนวน category และ descendant แสดงเป็นศูนย์
 
 ---
 
@@ -1263,18 +1263,18 @@ Category and descendant counts display zero.
 
 **Preconditions**
 
-User has limited permissions to view category counts
+ผู้ใช้มีสิทธิ์จำกัดในการดูจำนวน category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Wait for the category tree to load
-3. Select a category node
-4. Verify that the count is hidden or displayed as unauthorized
+1. ไปที่ /product-management/category
+2. รอให้ category tree โหลด
+3. เลือก category node
+4. ตรวจสอบว่าจำนวนถูกซ่อนหรือแสดงว่าไม่มีสิทธิ์
 
 **Expected**
 
-Category count is hidden or displayed as unauthorized for the user with limited permissions.
+จำนวน category ถูกซ่อนหรือแสดงว่าไม่มีสิทธิ์สำหรับผู้ใช้ที่มีสิทธิ์จำกัด
 
 ---
 
@@ -1287,18 +1287,18 @@ Category count is hidden or displayed as unauthorized for the user with limited 
 
 **Preconditions**
 
-Selected category has no descendant categories
+category ที่เลือกไม่มี descendant
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Wait for the category tree to load
-3. Select a category node with no descendants
-4. Verify that the count is displayed for the selected category only, and there are no counts for descendants
+1. ไปที่ /product-management/category
+2. รอให้ category tree โหลด
+3. เลือก category node ที่ไม่มี descendant
+4. ตรวจสอบว่าจำนวนแสดงเฉพาะ category ที่เลือกเท่านั้น และไม่มีจำนวนสำหรับ descendant
 
 **Expected**
 
-Category count is accurate and only shown for the selected category, with no counts for descendants.
+จำนวน category แม่นยำและแสดงเฉพาะ category ที่เลือก โดยไม่มีจำนวนสำหรับ descendant
 
 ---
 
@@ -1311,18 +1311,18 @@ Category count is accurate and only shown for the selected category, with no cou
 
 **Preconditions**
 
-All categories have no product assignments
+category ทั้งหมดไม่มี product กำหนดไว้
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Wait for the category tree to load
-3. Select multiple category nodes
-4. Verify that the count for each selected category is zero
+1. ไปที่ /product-management/category
+2. รอให้ category tree โหลด
+3. เลือก category node หลายรายการ
+4. ตรวจสอบว่าจำนวนของแต่ละ category ที่เลือกเป็นศูนย์
 
 **Expected**
 
-Each selected category count displays zero.
+จำนวนของแต่ละ category ที่เลือกแสดงเป็นศูนย์
 
 ---
 
@@ -1335,19 +1335,19 @@ Each selected category count displays zero.
 
 **Preconditions**
 
-User has category management permission; target parent exists and accepts children
+ผู้ใช้มีสิทธิ์จัดการ category; target parent มีอยู่จริงและรับ children ได้
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on the category to move
-3. Click on the 'Move' button
-4. Select the valid target parent
-5. Click 'Move'
+1. ไปที่ /product-management/category
+2. คลิก category ที่ต้องการย้าย
+3. คลิกปุ่ม 'Move'
+4. เลือก target parent ที่ถูกต้อง
+5. คลิก 'Move'
 
 **Expected**
 
-Category is moved to the target parent successfully, hierarchy remains consistent.
+category ถูกย้ายไปยัง target parent สำเร็จและ hierarchy ยังคงสอดคล้องกัน
 
 ---
 
@@ -1360,19 +1360,19 @@ Category is moved to the target parent successfully, hierarchy remains consisten
 
 **Preconditions**
 
-Target parent is the same as the current parent
+target parent เป็น parent ปัจจุบัน
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on the category to move
-3. Click on the 'Move' button
-4. Select the same target parent
-5. Click 'Move'
+1. ไปที่ /product-management/category
+2. คลิก category ที่ต้องการย้าย
+3. คลิกปุ่ม 'Move'
+4. เลือก target parent เดิม
+5. คลิก 'Move'
 
 **Expected**
 
-No change in category hierarchy, user receives an error message indicating that the target parent cannot be the same as the current parent.
+ไม่มีการเปลี่ยนแปลง category hierarchy และผู้ใช้ได้รับข้อความ error แจ้งว่า target parent ต้องไม่เป็น parent ปัจจุบัน
 
 ---
 
@@ -1385,19 +1385,19 @@ No change in category hierarchy, user receives an error message indicating that 
 
 **Preconditions**
 
-Target parent does not accept children at appropriate level
+target parent ไม่รับ children ในระดับที่เหมาะสม
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on the category to move
-3. Click on the 'Move' button
-4. Select the invalid target parent
-5. Click 'Move'
+1. ไปที่ /product-management/category
+2. คลิก category ที่ต้องการย้าย
+3. คลิกปุ่ม 'Move'
+4. เลือก target parent ที่ไม่ถูกต้อง
+5. คลิก 'Move'
 
 **Expected**
 
-Operation is rejected, user receives an error message indicating that the target parent is invalid or does not accept children at the appropriate level.
+การดำเนินการถูกปฏิเสธ ผู้ใช้ได้รับข้อความ error แจ้งว่า target parent ไม่ถูกต้องหรือไม่รับ children ในระดับที่เหมาะสม
 
 ---
 
@@ -1410,19 +1410,19 @@ Operation is rejected, user receives an error message indicating that the target
 
 **Preconditions**
 
-User does not have category management permission
+ผู้ใช้ไม่มีสิทธิ์จัดการ category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on the category to move
-3. Click on the 'Move' button
-4. Select the target parent
-5. Click 'Move'
+1. ไปที่ /product-management/category
+2. คลิก category ที่ต้องการย้าย
+3. คลิกปุ่ม 'Move'
+4. เลือก target parent
+5. คลิก 'Move'
 
 **Expected**
 
-User is redirected to permission denied page or receives an error message indicating insufficient permissions.
+ผู้ใช้ถูก redirect ไปยังหน้าปฏิเสธสิทธิ์หรือได้รับข้อความ error แจ้งว่าสิทธิ์ไม่เพียงพอ
 
 ---
 
@@ -1435,19 +1435,19 @@ User is redirected to permission denied page or receives an error message indica
 
 **Preconditions**
 
-Target parent would create a circular reference if the move were to happen
+target parent จะสร้าง circular reference หากดำเนินการย้าย
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on the category to move
-3. Click on the 'Move' button
-4. Select the target parent that would create a loop
-5. Click 'Move'
+1. ไปที่ /product-management/category
+2. คลิก category ที่ต้องการย้าย
+3. คลิกปุ่ม 'Move'
+4. เลือก target parent ที่จะสร้าง loop
+5. คลิก 'Move'
 
 **Expected**
 
-Operation is rejected, user receives an error message indicating that a circular reference would be created.
+การดำเนินการถูกปฏิเสธ ผู้ใช้ได้รับข้อความ error แจ้งว่าจะเกิด circular reference
 
 ---
 
@@ -1460,18 +1460,18 @@ Operation is rejected, user receives an error message indicating that a circular
 
 **Preconditions**
 
-User has category edit permission; category exists and is not deleted
+ผู้ใช้มีสิทธิ์แก้ไข category; category มีอยู่จริงและไม่ได้ถูกลบ
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click 'Activate' on the desired category
-3. Verify category status is now active
-4. Confirm category is visible in product assignment dropdowns
+1. ไปที่ /product-management/category
+2. คลิก 'Activate' ที่ category ที่ต้องการ
+3. ตรวจสอบว่าสถานะ category เป็น active แล้ว
+4. ยืนยันว่า category visible ใน product assignment dropdowns
 
 **Expected**
 
-Category status is updated to active, visible in product assignments.
+สถานะ category อัปเดตเป็น active และ visible ใน product assignments
 
 ---
 
@@ -1484,18 +1484,18 @@ Category status is updated to active, visible in product assignments.
 
 **Preconditions**
 
-User has category edit permission; category exists and is deactivated
+ผู้ใช้มีสิทธิ์แก้ไข category; category มีอยู่จริงและถูก deactivated แล้ว
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click 'Activate' on the desired category
-3. Verify category status is now active
-4. Confirm category is visible in product assignment dropdowns
+1. ไปที่ /product-management/category
+2. คลิก 'Activate' ที่ category ที่ต้องการ
+3. ตรวจสอบว่าสถานะ category เป็น active แล้ว
+4. ยืนยันว่า category visible ใน product assignment dropdowns
 
 **Expected**
 
-Category status is updated to active, visible in product assignments.
+สถานะ category อัปเดตเป็น active และ visible ใน product assignments
 
 ---
 
@@ -1508,17 +1508,17 @@ Category status is updated to active, visible in product assignments.
 
 **Preconditions**
 
-User has category edit permission; category does not exist
+ผู้ใช้มีสิทธิ์แก้ไข category; category ไม่มีอยู่
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Attempt to click 'Activate' on a non-existent category
-3. Verify error message or no change in category status
+1. ไปที่ /product-management/category
+2. พยายามคลิก 'Activate' ที่ category ที่ไม่มีอยู่
+3. ตรวจสอบข้อความ error หรือการไม่เปลี่ยนแปลงสถานะ category
 
 **Expected**
 
-Category status remains unchanged, error message displayed.
+สถานะ category ไม่เปลี่ยนแปลงและแสดงข้อความ error
 
 ---
 
@@ -1531,17 +1531,17 @@ Category status remains unchanged, error message displayed.
 
 **Preconditions**
 
-User has selected a category in tree or list view; has permission to view category details
+ผู้ใช้เลือก category ใน tree หรือ list view; มีสิทธิ์ดูรายละเอียด category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on an existing category in the list or tree view
-3. Verify that the category name, description, hierarchy position, product count, and audit information are displayed.
+1. ไปที่ /product-management/category
+2. คลิก category ที่มีอยู่ใน list หรือ tree view
+3. ตรวจสอบว่าชื่อ category, คำอธิบาย, ตำแหน่งใน hierarchy, จำนวน product และข้อมูล audit แสดงอยู่
 
 **Expected**
 
-Category details are displayed correctly.
+รายละเอียด category แสดงถูกต้อง
 
 ---
 
@@ -1554,17 +1554,17 @@ Category details are displayed correctly.
 
 **Preconditions**
 
-Non-existent category selected
+เลือก category ที่ไม่มีอยู่
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on a non-existent category in the list or tree view
-3. Verify that an error message indicating the category does not exist is displayed.
+1. ไปที่ /product-management/category
+2. คลิก category ที่ไม่มีอยู่ใน list หรือ tree view
+3. ตรวจสอบว่าแสดงข้อความ error แจ้งว่า category ไม่มีอยู่
 
 **Expected**
 
-Error message indicating the category does not exist is displayed.
+แสดงข้อความ error แจ้งว่า category ไม่มีอยู่
 
 ---
 
@@ -1577,17 +1577,17 @@ Error message indicating the category does not exist is displayed.
 
 **Preconditions**
 
-User does not have permission to view category details
+ผู้ใช้ไม่มีสิทธิ์ดูรายละเอียด category
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on a category in the list or tree view
-3. Verify that the system redirects to a permission denied page or displays an error message.
+1. ไปที่ /product-management/category
+2. คลิก category ใน list หรือ tree view
+3. ตรวจสอบว่าระบบ redirect ไปยังหน้าปฏิเสธสิทธิ์หรือแสดงข้อความ error
 
 **Expected**
 
-User is redirected to a permission denied page or sees an error message.
+ผู้ใช้ถูก redirect ไปยังหน้าปฏิเสธสิทธิ์หรือเห็นข้อความ error
 
 ---
 
@@ -1600,17 +1600,17 @@ User is redirected to a permission denied page or sees an error message.
 
 **Preconditions**
 
-Category has zero products
+category มี product เป็นศูนย์
 
 **Steps**
 
-1. Navigate to /product-management/category
-2. Click on a category with zero products in the list or tree view
-3. Verify that the category details are displayed with a zero product count.
+1. ไปที่ /product-management/category
+2. คลิก category ที่มี product เป็นศูนย์ใน list หรือ tree view
+3. ตรวจสอบว่ารายละเอียด category แสดงจำนวน product เป็นศูนย์
 
 **Expected**
 
-Category details are displayed with a zero product count.
+รายละเอียด category แสดงจำนวน product เป็นศูนย์
 
 ---
 
@@ -1623,18 +1623,18 @@ Category details are displayed with a zero product count.
 
 **Preconditions**
 
-Categories are available and accessible to the Product module
+category มีอยู่และ Product module เข้าถึงได้
 
 **Steps**
 
-1. Navigate to /product-management/product/new
-2. Click on the dropdown for product category
-3. Select a valid category
-4. Verify the selected category is displayed in the UI
+1. ไปที่ /product-management/product/new
+2. คลิก dropdown สำหรับ product category
+3. เลือก category ที่ถูกต้อง
+4. ตรวจสอบว่า category ที่เลือกแสดงใน UI
 
 **Expected**
 
-The selected category is correctly displayed in the UI.
+category ที่เลือกแสดงใน UI ได้ถูกต้อง
 
 ---
 
@@ -1647,18 +1647,18 @@ The selected category is correctly displayed in the UI.
 
 **Preconditions**
 
-Categories are available and accessible to the Product module
+category มีอยู่และ Product module เข้าถึงได้
 
 **Steps**
 
-1. Navigate to /product-management/product/new
-2. Click on the dropdown for product category
-3. Try to select an unavailable category
-4. Verify the selection does not change
+1. ไปที่ /product-management/product/new
+2. คลิก dropdown สำหรับ product category
+3. พยายามเลือก category ที่ไม่พร้อมใช้งาน
+4. ตรวจสอบว่าการเลือกไม่เปลี่ยนแปลง
 
 **Expected**
 
-The unavailable category is not selected and the current selection remains unchanged.
+category ที่ไม่พร้อมใช้งานไม่ถูกเลือกและการเลือกปัจจุบันยังคงเดิม
 
 ---
 
@@ -1671,18 +1671,18 @@ The unavailable category is not selected and the current selection remains uncha
 
 **Preconditions**
 
-Categories are available and accessible to the Product module
+category มีอยู่และ Product module เข้าถึงได้
 
 **Steps**
 
-1. Navigate to /product-management/product/new
-2. Click on the dropdown for product category
-3. Select multiple categories using the multi-selection feature (if available)
-4. Verify all selected categories are correctly displayed in the UI
+1. ไปที่ /product-management/product/new
+2. คลิก dropdown สำหรับ product category
+3. เลือก category หลายรายการด้วย multi-selection (ถ้ามี)
+4. ตรวจสอบว่า category ที่เลือกทั้งหมดแสดงใน UI ได้ถูกต้อง
 
 **Expected**
 
-All selected categories are correctly displayed in the UI.
+category ที่เลือกทั้งหมดแสดงใน UI ได้ถูกต้อง
 
 ---
 
@@ -1695,18 +1695,18 @@ All selected categories are correctly displayed in the UI.
 
 **Preconditions**
 
-Category data is available for reporting; product categories are valid
+ข้อมูล category พร้อมสำหรับการรายงาน; product category ถูกต้อง
 
 **Steps**
 
-1. Navigate to /inventory/reports
-2. Click 'Generate Report'
-3. Select 'Daily Report' from the dropdown
-4. Click 'Generate'
+1. ไปที่ /inventory/reports
+2. คลิก 'Generate Report'
+3. เลือก 'Daily Report' จาก dropdown
+4. คลิก 'Generate'
 
 **Expected**
 
-The inventory report is generated successfully with the correct category data.
+รายงาน inventory สร้างสำเร็จพร้อมข้อมูล category ที่ถูกต้อง
 
 ---
 
@@ -1719,18 +1719,18 @@ The inventory report is generated successfully with the correct category data.
 
 **Preconditions**
 
-Category data is partially invalid or missing
+ข้อมูล category บางส่วนไม่ถูกต้องหรือขาดหายไป
 
 **Steps**
 
-1. Navigate to /inventory/reports
-2. Click 'Generate Report'
-3. Select 'Daily Report' from the dropdown
-4. Click 'Generate'
+1. ไปที่ /inventory/reports
+2. คลิก 'Generate Report'
+3. เลือก 'Daily Report' จาก dropdown
+4. คลิก 'Generate'
 
 **Expected**
 
-The report generation fails with an error message indicating invalid category data.
+การสร้างรายงานล้มเหลวพร้อมข้อความ error แจ้งว่าข้อมูล category ไม่ถูกต้อง
 
 ---
 
@@ -1743,18 +1743,18 @@ The report generation fails with an error message indicating invalid category da
 
 **Preconditions**
 
-System allows a maximum number of categories for reporting; database contains the maximum number of categories
+ระบบอนุญาต category สูงสุดสำหรับการรายงาน; ฐานข้อมูลมี category ถึงจำนวนสูงสุด
 
 **Steps**
 
-1. Navigate to /inventory/reports
-2. Click 'Generate Report'
-3. Select 'Daily Report' from the dropdown
-4. Click 'Generate'
+1. ไปที่ /inventory/reports
+2. คลิก 'Generate Report'
+3. เลือก 'Daily Report' จาก dropdown
+4. คลิก 'Generate'
 
 **Expected**
 
-The report generation succeeds and includes all categories up to the maximum allowed.
+การสร้างรายงานสำเร็จและรวม category ทั้งหมดจนถึงจำนวนสูงสุดที่อนุญาต
 
 ---
 
@@ -1767,19 +1767,19 @@ The report generation succeeds and includes all categories up to the maximum all
 
 **Preconditions**
 
-Categories are available and assigned to products; user has permission to create purchase requests
+category มีอยู่และกำหนดไว้กับ product; ผู้ใช้มีสิทธิ์สร้าง purchase request
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Select a category from the dropdown
-4. Fill in product details
-5. Click 'Save'
+1. ไปที่ /procurement/purchase-request
+2. คลิก 'New Purchase Request'
+3. เลือก category จาก dropdown
+4. กรอกรายละเอียด product
+5. คลิก 'Save'
 
 **Expected**
 
-Purchase request is created and associated with the selected category.
+purchase request สร้างสำเร็จและเชื่อมโยงกับ category ที่เลือก
 
 ---
 
@@ -1792,18 +1792,18 @@ Purchase request is created and associated with the selected category.
 
 **Preconditions**
 
-Categories are available; an invalid category is selected
+category มีอยู่; เลือก category ที่ไม่ถูกต้อง
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Select an invalid or non-existent category
-4. Attempt to Save
+1. ไปที่ /procurement/purchase-request
+2. คลิก 'New Purchase Request'
+3. เลือก category ที่ไม่ถูกต้องหรือไม่มีอยู่
+4. พยายาม Save
 
 **Expected**
 
-System displays an error message indicating the invalid category selection.
+ระบบแสดงข้อความ error แจ้งการเลือก category ที่ไม่ถูกต้อง
 
 ---
 
@@ -1816,17 +1816,17 @@ System displays an error message indicating the invalid category selection.
 
 **Preconditions**
 
-No categories are available; user has permission to create purchase requests
+ไม่มี category; ผู้ใช้มีสิทธิ์สร้าง purchase request
 
 **Steps**
 
-1. Navigate to /procurement/purchase-request
-2. Click 'New Purchase Request'
-3. Attempt to select a category from the dropdown
+1. ไปที่ /procurement/purchase-request
+2. คลิก 'New Purchase Request'
+3. พยายามเลือก category จาก dropdown
 
 **Expected**
 
-System displays a message indicating no categories are available.
+ระบบแสดงข้อความแจ้งว่าไม่มี category
 
 ---
 
@@ -1839,18 +1839,18 @@ System displays a message indicating no categories are available.
 
 **Preconditions**
 
-Categories are available and associated with purchase orders; spend analysis feature is enabled
+category มีอยู่และเชื่อมโยงกับ purchase order; ฟีเจอร์ spend analysis เปิดใช้งาน
 
 **Steps**
 
-1. Navigate to /spend-analysis
-2. Click 'Analyze by Category'
-3. Select a category
-4. Click 'Generate Report'
+1. ไปที่ /spend-analysis
+2. คลิก 'Analyze by Category'
+3. เลือก category
+4. คลิก 'Generate Report'
 
 **Expected**
 
-Spend analysis report is generated and displayed for the selected category.
+รายงาน spend analysis สร้างสำเร็จและแสดงสำหรับ category ที่เลือก
 
 ---
 
@@ -1863,20 +1863,20 @@ Spend analysis report is generated and displayed for the selected category.
 
 **Preconditions**
 
-Category data available for recipe queries; recipe ingredients have categories
+ข้อมูล category พร้อมสำหรับ recipe query; ingredient ของ recipe มี category
 
 **Steps**
 
-1. Navigate to /recipes
-2. Click 'New Recipe'
-3. Select ingredients from different categories
-4. Click 'Save'
-5. Navigate to 'Recipe Costs'
-6. Verify that costs are calculated correctly by category
+1. ไปที่ /recipes
+2. คลิก 'New Recipe'
+3. เลือก ingredient จาก category ต่างๆ
+4. คลิก 'Save'
+5. ไปที่ 'Recipe Costs'
+6. ตรวจสอบว่าต้นทุนคำนวณถูกต้องตาม category
 
 **Expected**
 
-Recipe costs are displayed correctly by category.
+ต้นทุน recipe แสดงถูกต้องตาม category
 
 ---
 
@@ -1889,19 +1889,19 @@ Recipe costs are displayed correctly by category.
 
 **Preconditions**
 
-Recipe ingredients have categories
+ingredient ของ recipe มี category
 
 **Steps**
 
-1. Navigate to /recipes
-2. Click 'New Recipe'
-3. Select an ingredient that does not belong to any category
-4. Click 'Save'
-5. Verify error message or invalid state
+1. ไปที่ /recipes
+2. คลิก 'New Recipe'
+3. เลือก ingredient ที่ไม่อยู่ใน category ใดๆ
+4. คลิก 'Save'
+5. ตรวจสอบข้อความ error หรือสถานะที่ไม่ถูกต้อง
 
 **Expected**
 
-Error message displayed or ingredient selection rejected.
+แสดงข้อความ error หรือการเลือก ingredient ถูกปฏิเสธ
 
 ---
 
@@ -1914,19 +1914,19 @@ Error message displayed or ingredient selection rejected.
 
 **Preconditions**
 
-Recipe ingredients have categories
+ingredient ของ recipe มี category
 
 **Steps**
 
-1. Navigate to /recipes
-2. Click 'Usage Analysis'
-3. Verify that ingredient usage is displayed by category
+1. ไปที่ /recipes
+2. คลิก 'Usage Analysis'
+3. ตรวจสอบว่าการใช้ ingredient แสดงตาม category
 
 **Expected**
 
-Ingredient usage is correctly displayed by category.
+การใช้ ingredient แสดงตาม category ได้ถูกต้อง
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>

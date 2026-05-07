@@ -41,16 +41,16 @@ _Generated from `tests/403-po-approver-journey.spec.ts` annotations. Edit annota
 
 **Preconditions**
 
-Logged in as FC (fc@blueledgers.com)
+Login เป็น FC (fc@blueledgers.com)
 
 **Steps**
 
-1. Navigate to My Approvals (or appropriate FC dashboard)
-2. Verify the total-pending indicator is rendered
+1. ไปที่ My Approvals (หรือ FC dashboard ที่เหมาะสม)
+2. ตรวจสอบว่า indicator total-pending ถูก render
 
 **Expected**
 
-URL contains 'approval' or 'dashboard'; a count/badge or row count is visible.
+URL มี 'approval' หรือ 'dashboard'; count/badge หรือ row count visible
 
 ---
 
@@ -62,16 +62,16 @@ URL contains 'approval' or 'dashboard'; a count/badge or row count is visible.
 
 **Preconditions**
 
-On My Approval dashboard with at least one pending PO
+อยู่ที่ My Approval dashboard พร้อม PO ที่รอดำเนินการอย่างน้อยหนึ่งรายการ
 
 **Steps**
 
-1. Click PO/Purchase Order filter tab
-2. Verify rows render or empty state
+1. กดแท็บ filter PO/Purchase Order
+2. ตรวจสอบว่าแถวแสดงหรือมี empty state
 
 **Expected**
 
-PO tab is selected (aria-selected=true) when present.
+แท็บ PO ถูกเลือก (aria-selected=true) เมื่อมี
 
 ---
 
@@ -83,17 +83,17 @@ PO tab is selected (aria-selected=true) when present.
 
 **Preconditions**
 
-On My Approval dashboard with at least one pending PO row (seeded via submitPOAsPurchaser)
+อยู่ที่ My Approval dashboard พร้อมแถว PO ที่รอดำเนินการอย่างน้อยหนึ่งแถว (seeded ผ่าน submitPOAsPurchaser)
 
 **Steps**
 
-1. Seed PO via Purchaser context
-2. Navigate to dashboard
-3. Click the seeded PO row
+1. Seed PO ผ่าน Purchaser context
+2. ไปที่ dashboard
+3. คลิกแถว PO ที่ seed
 
 **Expected**
 
-URL navigates to /procurement/purchase-order/<ref>.
+URL navigate ไปยัง /procurement/purchase-order/<ref>
 
 ---
 
@@ -105,16 +105,16 @@ URL navigates to /procurement/purchase-order/<ref>.
 
 **Preconditions**
 
-An IN PROGRESS PO exists (seeded via submitPOAsPurchaser)
+มี PO ที่มี status IN PROGRESS (seeded ผ่าน submitPOAsPurchaser)
 
 **Steps**
 
-1. Open the PO detail page as FC
-2. Verify URL and status badge
+1. เปิดหน้า detail ของ PO ในฐานะ FC
+2. ตรวจสอบ URL และ status badge
 
 **Expected**
 
-URL is /procurement/purchase-order/<ref>; status badge text matches /in.progress/i.
+URL เป็น /procurement/purchase-order/<ref>; text ของ status badge ตรงกับ /in.progress/i
 
 ---
 
@@ -126,16 +126,16 @@ URL is /procurement/purchase-order/<ref>; status badge text matches /in.progress
 
 **Preconditions**
 
-On an IN PROGRESS PO detail page as FC
+อยู่ที่หน้า detail ของ IN PROGRESS PO ในฐานะ FC
 
 **Steps**
 
-1. Inspect vendor / description / delivery date inputs
-2. Verify they are disabled or non-editable
+1. ตรวจสอบ input ของ vendor / description / delivery date
+2. ตรวจสอบว่า input เหล่านั้นถูก disable หรือแก้ไขไม่ได้
 
 **Expected**
 
-Vendor input or one of the header fields is disabled/readonly. Skipped if no header field is detectable.
+Vendor input หรือหนึ่งใน header field ถูก disable/readonly Skip ถ้าไม่สามารถตรวจจับ header field ได้
 
 ---
 
@@ -147,15 +147,15 @@ Vendor input or one of the header fields is disabled/readonly. Skipped if no hea
 
 **Preconditions**
 
-On an IN PROGRESS PO detail page as FC
+อยู่ที่หน้า detail ของ IN PROGRESS PO ในฐานะ FC
 
 **Steps**
 
-1. Inspect the action toolbar
+1. ตรวจสอบ action toolbar
 
 **Expected**
 
-Edit button is visible. Comment button is visible when present.
+ปุ่ม Edit visible ปุ่ม Comment visible เมื่อมี
 
 ---
 
@@ -167,17 +167,17 @@ Edit button is visible. Comment button is visible when present.
 
 **Preconditions**
 
-An IN PROGRESS PO with ≥1 item exists (seeded via submitPOAsPurchaser)
+มี IN PROGRESS PO ที่มี ≥1 รายการ (seeded ผ่าน submitPOAsPurchaser)
 
 **Steps**
 
-1. Open PO detail
-2. Click Edit
-3. Select first item via row checkbox
+1. เปิดหน้า detail ของ PO
+2. กด Edit
+3. เลือกรายการแรกผ่าน row checkbox
 
 **Expected**
 
-Item action toolbar (Approve/Review/Reject) becomes visible.
+Item action toolbar (Approve/Review/Reject) visible
 
 ---
 
@@ -189,17 +189,17 @@ Item action toolbar (Approve/Review/Reject) becomes visible.
 
 **Preconditions**
 
-Item action toolbar visible on a row
+Item action toolbar visible บนแถว
 
 **Steps**
 
-1. Select item
-2. Click Approve in toolbar
-3. Verify badge
+1. เลือกรายการ
+2. กด Approve ใน toolbar
+3. ตรวจสอบ badge
 
 **Expected**
 
-Item row shows an Approved badge.
+แถวรายการแสดง badge Approved
 
 ---
 
@@ -211,17 +211,17 @@ Item row shows an Approved badge.
 
 **Preconditions**
 
-Item action toolbar visible on a row
+Item action toolbar visible บนแถว
 
 **Steps**
 
-1. Select item
-2. Click Review in toolbar
-3. Verify badge + footer button
+1. เลือกรายการ
+2. กด Review ใน toolbar
+3. ตรวจสอบ badge + ปุ่ม footer
 
 **Expected**
 
-Item row shows a Review badge; document Send Back button is visible in footer.
+แถวรายการแสดง badge Review; ปุ่ม Send Back ของเอกสาร visible ใน footer
 
 ---
 
@@ -233,17 +233,17 @@ Item row shows a Review badge; document Send Back button is visible in footer.
 
 **Preconditions**
 
-Item action toolbar visible on a row
+Item action toolbar visible บนแถว
 
 **Steps**
 
-1. Select item
-2. Click Reject in toolbar
-3. Verify badge + footer button
+1. เลือกรายการ
+2. กด Reject ใน toolbar
+3. ตรวจสอบ badge + ปุ่ม footer
 
 **Expected**
 
-Item row shows a Reject badge; document Reject button is visible in footer.
+แถวรายการแสดง badge Reject; ปุ่ม Reject ของเอกสาร visible ใน footer
 
 ---
 
@@ -255,17 +255,17 @@ Item row shows a Reject badge; document Reject button is visible in footer.
 
 **Preconditions**
 
-An IN PROGRESS PO with ≥1 item exists
+มี IN PROGRESS PO ที่มี ≥1 รายการ
 
 **Steps**
 
-1. Enter edit mode
-2. Select item and mark Approve
-3. Verify Document Approve button
+1. เข้าสู่ edit mode
+2. เลือกรายการและทำเครื่องหมาย Approve
+3. ตรวจสอบปุ่ม Document Approve
 
 **Expected**
 
-Document Approve button is visible (and enabled when present).
+ปุ่ม Document Approve visible (และ enabled เมื่อมี)
 
 ---
 
@@ -277,16 +277,16 @@ Document Approve button is visible (and enabled when present).
 
 **Preconditions**
 
-All items marked Approved; Document Approve button visible
+รายการทั้งหมดถูกทำเครื่องหมาย Approved; ปุ่ม Document Approve visible
 
 **Steps**
 
-1. Approve all items
-2. Click Document Approve PO button
+1. approve รายการทั้งหมด
+2. กดปุ่ม Document Approve PO
 
 **Expected**
 
-Confirmation dialog is visible.
+Confirmation dialog visible
 
 ---
 
@@ -298,17 +298,17 @@ Confirmation dialog is visible.
 
 **Preconditions**
 
-Document Approve confirmation dialog open
+Confirmation dialog ของ Document Approve เปิดอยู่
 
 **Steps**
 
-1. Approve item
-2. Click Document Approve
-3. Confirm dialog
+1. approve รายการ
+2. กด Document Approve
+3. ยืนยัน dialog
 
 **Expected**
 
-Status badge text matches /approved|sent/i after confirmation.
+text ของ status badge ตรงกับ /approved|sent/i หลังการยืนยัน
 
 ---
 
@@ -320,16 +320,16 @@ Status badge text matches /approved|sent/i after confirmation.
 
 **Preconditions**
 
-Item marked Review; Document Send Back button visible
+รายการถูกทำเครื่องหมาย Review; ปุ่ม Document Send Back visible
 
 **Steps**
 
-1. Mark item Review
-2. Click Document Send Back
+1. ทำเครื่องหมายรายการว่า Review
+2. กด Document Send Back
 
 **Expected**
 
-Send Back dialog is visible.
+Send Back dialog visible
 
 ---
 
@@ -341,18 +341,18 @@ Send Back dialog is visible.
 
 **Preconditions**
 
-Send Back dialog open
+Send Back dialog เปิดอยู่
 
 **Steps**
 
-1. Mark item Review
-2. Click Send Back
-3. Enter reason
-4. Confirm
+1. ทำเครื่องหมายรายการว่า Review
+2. กด Send Back
+3. กรอกเหตุผล
+4. ยืนยัน
 
 **Expected**
 
-URL stays on PO ref after confirmation.
+URL ยังคงอยู่ที่ PO ref หลังการยืนยัน
 
 ---
 
@@ -364,16 +364,16 @@ URL stays on PO ref after confirmation.
 
 **Preconditions**
 
-Item marked Reject; Document Reject button visible
+รายการถูกทำเครื่องหมาย Reject; ปุ่ม Document Reject visible
 
 **Steps**
 
-1. Mark item Reject
-2. Click Document Reject
+1. ทำเครื่องหมายรายการว่า Reject
+2. กด Document Reject
 
 **Expected**
 
-Reject dialog is visible.
+Reject dialog visible
 
 ---
 
@@ -385,18 +385,18 @@ Reject dialog is visible.
 
 **Preconditions**
 
-Reject dialog open
+Reject dialog เปิดอยู่
 
 **Steps**
 
-1. Mark item Reject
-2. Click Document Reject
-3. Enter optional reason
-4. Confirm
+1. ทำเครื่องหมายรายการว่า Reject
+2. กด Document Reject
+3. กรอกเหตุผล (optional)
+4. ยืนยัน
 
 **Expected**
 
-Status badge text matches /rejected/i after confirmation.
+text ของ status badge ตรงกับ /rejected/i หลังการยืนยัน
 
 ---
 
@@ -408,16 +408,16 @@ Status badge text matches /rejected/i after confirmation.
 
 **Preconditions**
 
-Edit mode active on an IN PROGRESS PO with no item marked
+edit mode active บน IN PROGRESS PO โดยไม่มีรายการที่ถูกทำเครื่องหมาย
 
 **Steps**
 
-1. Enter edit mode
-2. Click Cancel without selecting/marking any item
+1. เข้าสู่ edit mode
+2. กด Cancel โดยไม่เลือก/ทำเครื่องหมายรายการใดๆ
 
 **Expected**
 
-Form returns to view mode (Edit button visible again).
+Form กลับสู่ view mode (ปุ่ม Edit visible อีกครั้ง)
 
 ---
 
@@ -429,23 +429,23 @@ Form returns to view mode (Edit button visible again).
 
 **Preconditions**
 
-Logged in as FC; a fresh IN PROGRESS PO is seeded via submitPOAsPurchaser
+Login เป็น FC; มี IN PROGRESS PO ใหม่ที่ seed ผ่าน submitPOAsPurchaser
 
 **Steps**
 
 1. Seed IN PROGRESS PO
-2. Open PO detail
-3. Click Edit
-4. Select first item
-5. Mark Approve
-6. Click Document Approve
-7. Confirm dialog
+2. เปิดหน้า detail ของ PO
+3. กด Edit
+4. เลือกรายการแรก
+5. ทำเครื่องหมาย Approve
+6. กด Document Approve
+7. ยืนยัน dialog
 
 **Expected**
 
-Status badge transitions to APPROVED/SENT after confirmation.
+status badge เปลี่ยนเป็น APPROVED/SENT หลังการยืนยัน
 
 ---
 
 
-<sub>Last regenerated: 2026-05-06 · git 3adf1d3</sub>
+<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>
