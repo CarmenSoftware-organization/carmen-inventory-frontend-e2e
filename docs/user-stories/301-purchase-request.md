@@ -5,21 +5,21 @@ _Generated from `tests/301-purchase-request.spec.ts` annotations. Edit annotatio
 **Module:** Purchase Request
 **Spec:** `tests/301-purchase-request.spec.ts`
 **Default role:** Requestor
-**Total test cases:** 131 (85 High / 28 Medium / 9 Low / 9 unset)
+**Total test cases:** 131 (94 High / 28 Medium / 9 Low)
 
 ## Test Cases at a Glance
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-PR-010001 | Create a basic purchase request with default values | Critical | Happy Path |
+| TC-PR-010001 | Create a basic purchase request with default values | High | Happy Path |
 | TC-PR-010002 | Create a purchase request with FOC item | High | Happy Path |
-| TC-PR-010003 | Attempt to create a purchase request with invalid delivery date | Critical | Negative |
+| TC-PR-010003 | Attempt to create a purchase request with invalid delivery date | High | Negative |
 | TC-PR-010004 | Create a purchase request without login | High | Negative |
 | TC-PR-010005 | Add line items with zero quantity and unit price | High | Edge Case |
 | TC-PR-020001 | Edit draft PR - Happy Path | High | Happy Path |
 | TC-PR-020002 | Edit returned PR - Negative Case | High | Negative |
 | TC-PR-020003 _(skipped)_ | Edit PR with version conflict - Edge Case | Medium | Edge Case |
-| TC-PR-030001 | Submit valid PR with all required fields | Critical | Happy Path |
+| TC-PR-030001 | Submit valid PR with all required fields | High | Happy Path |
 | TC-PR-030002 | Submit PR with missing required fields | High | Negative |
 | TC-PR-030003 | Submit PR without required permissions | High | Negative |
 | TC-PR-030004 | Submit PR with extremely large value | High | Edge Case |
@@ -28,7 +28,7 @@ _Generated from `tests/301-purchase-request.spec.ts` annotations. Edit annotatio
 | TC-PR-040002 | Attempt to view PR with no permissions | High | Negative |
 | TC-PR-040003 | View PR with all approvals completed | High | Happy Path |
 | TC-PR-040004 | View PR with missing attachments | Medium | Edge Case |
-| TC-PR-050001 | Approve Purchase Request - Happy Path | Critical | Happy Path |
+| TC-PR-050001 | Approve Purchase Request - Happy Path | High | Happy Path |
 | TC-PR-050002 | Approve Purchase Request - Invalid Approval Authority | High | Negative |
 | TC-PR-050003 | Approve Purchase Request - No Additional Approvals Needed | Medium | Edge Case |
 | TC-PR-050004 | Approve Purchase Request - Multiple Approvals Required | High | Edge Case |
@@ -67,29 +67,29 @@ _Generated from `tests/301-purchase-request.spec.ts` annotations. Edit annotatio
 | TC-PR-220003 _(skipped)_ | Duplicate PR import | Low | Edge Case |
 | TC-PR-220004 _(skipped)_ | Import with unauthorized access | Low | Negative |
 | TC-PR-220005 _(skipped)_ | Import with no file selected | Low | Edge Case |
-| TC-PR-310001 _(skipped)_ | Happy Path - Valid PR Data | Critical | Happy Path |
+| TC-PR-310001 _(skipped)_ | Happy Path - Valid PR Data | High | Happy Path |
 | TC-PR-310002 _(skipped)_ | Negative - No PR Data | High | Negative |
 | TC-PR-310003 _(skipped)_ | Negative - Date Format Error | High | Negative |
 | TC-PR-310004 _(skipped)_ | Edge Case - Year Change | Medium | Edge Case |
 | TC-PR-310005 _(skipped)_ | Negative - Database Sequence Exhausted | High | Negative |
-| TC-PR-320001 _(skipped)_ | Happy Path: Add Items and Verify Totals | Critical | Happy Path |
+| TC-PR-320001 _(skipped)_ | Happy Path: Add Items and Verify Totals | High | Happy Path |
 | TC-PR-320002 _(skipped)_ | Negative: Invalid Discount Percentage | High | Negative |
 | TC-PR-320003 _(skipped)_ | Edge Case: Multi-Currency with Exchange Rate | Medium | Edge Case |
-| TC-PR-330001 _(skipped)_ | Happy Path - General PR | Critical | Happy Path |
+| TC-PR-330001 _(skipped)_ | Happy Path - General PR | High | Happy Path |
 | TC-PR-330002 _(skipped)_ | Negative - Invalid Department ID | High | Negative |
 | TC-PR-330003 _(skipped)_ | Edge Case - High Value Asset PR | High | Edge Case |
 | TC-PR-330004 _(skipped)_ | Negative - No User Assigned to Role | High | Negative |
 | TC-PR-340001 _(skipped)_ | Happy Path - Sufficient Funds | High | Happy Path |
 | TC-PR-340002 _(skipped)_ | Negative Case - Insufficient Funds | High | Negative |
 | TC-PR-340003 _(skipped)_ | Edge Case - No Budget Codes | High | Edge Case |
-| TC-PR-350001 _(skipped)_ | Happy Path - PR Submitted Notification | Critical | Happy Path |
+| TC-PR-350001 _(skipped)_ | Happy Path - PR Submitted Notification | High | Happy Path |
 | TC-PR-350002 _(skipped)_ | Negative - Invalid Email Preference | High | Negative |
 | TC-PR-350003 _(skipped)_ | Edge Case - PR Rejected with No Pending Approvals | Medium | Edge Case |
 | TC-PR-350004 _(skipped)_ | Negative - User Not Authorized to Approve | High | Negative |
 | TC-PR-400002 | Negative - Empty Comment | Medium | Negative |
 | TC-PR-400003 | Edge Case - Comment Length Limit | Low | Edge Case |
 | TC-PR-400004 | Negative - No Permission to Add Comment | Medium | Negative |
-| TC-PR-410001 | Happy Path: Convert Approved PR to PO | Critical | Happy Path |
+| TC-PR-410001 | Happy Path: Convert Approved PR to PO | High | Happy Path |
 | TC-PR-410002 | Negative: Invalid Vendor | High | Negative |
 | TC-PR-410003 | Edge Case: PR with No Delivery Date | Medium | Edge Case |
 | TC-PR-410004 | Negative: No Permission to Convert PR | High | Negative |
@@ -150,7 +150,7 @@ _Generated from `tests/301-purchase-request.spec.ts` annotations. Edit annotatio
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Happy Path
+**Priority:** High · **Test Type:** Happy Path
 
 **Preconditions**
 
@@ -212,7 +212,7 @@ Login เป็น Requestor และมี FOC quantities
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Negative
+**Priority:** High · **Test Type:** Negative
 
 **Preconditions**
 
@@ -355,7 +355,7 @@ User B ถูกกระตุ้นให้แก้ไข conflict หรื
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Happy Path
+**Priority:** High · **Test Type:** Happy Path
 
 **Preconditions**
 
@@ -568,7 +568,7 @@ Login เป็น Approver (HOD) และมี PR ที่ขาด attachme
 > **As a** Purchase user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Happy Path
+**Priority:** High · **Test Type:** Happy Path
 
 **Preconditions**
 
@@ -1537,7 +1537,7 @@ PR หลายรายการได้รับ approval แล้วแล�
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Happy Path
+**Priority:** High · **Test Type:** Happy Path
 
 **Preconditions**
 
@@ -1655,7 +1655,7 @@ PR หลายรายการได้รับ approval แล้วแล�
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Happy Path
+**Priority:** High · **Test Type:** Happy Path
 
 **Preconditions**
 
@@ -1729,7 +1729,7 @@ PR หลายรายการได้รับ approval แล้วแล�
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Happy Path
+**Priority:** High · **Test Type:** Happy Path
 
 **Preconditions**
 
@@ -1898,7 +1898,7 @@ Login เป็น Requestor; มี PR ที่ไม่มี budget codes �
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Happy Path
+**Priority:** High · **Test Type:** Happy Path
 
 **Preconditions**
 
@@ -2075,7 +2075,7 @@ Login เป็น Finance Manager (FC) และมี PR ที่สร้า
 > **As a** Requestor user, **I want** this Purchase Request behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Happy Path
+**Priority:** High · **Test Type:** Happy Path
 
 **Preconditions**
 
@@ -3468,4 +3468,4 @@ Login เป็น Finance Manager และมี PR ที่มี budget all
 ---
 
 
-<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>
+<sub>Last regenerated: 2026-05-07 · git 56da8b7</sub>

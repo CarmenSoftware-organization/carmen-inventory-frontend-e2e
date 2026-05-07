@@ -5,23 +5,23 @@ _Generated from `tests/1001-campaign.spec.ts` annotations. Edit annotations, not
 **Module:** Campaign
 **Spec:** `tests/1001-campaign.spec.ts`
 **Default role:** Purchase
-**Total test cases:** 43 (20 High / 17 Medium / 1 Low / 5 unset)
+**Total test cases:** 43 (25 High / 17 Medium / 1 Low)
 
 ## Test Cases at a Glance
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-CAM-010001 | View Campaign List - Happy Path | Critical | Happy Path |
+| TC-CAM-010001 | View Campaign List - Happy Path | High | Happy Path |
 | TC-CAM-010002 | View Campaign List - Invalid Permissions | High | Negative |
 | TC-CAM-010003 | View Campaign List - Empty Campaign List | High | Edge Case |
 | TC-CAM-010004 | View Campaign List - Filter by Status | Medium | Happy Path |
-| TC-CAM-020001 | Happy Path - Create Campaign with All Valid Inputs | Critical | Happy Path |
+| TC-CAM-020001 | Happy Path - Create Campaign with All Valid Inputs | High | Happy Path |
 | TC-CAM-020002 | Negative Path - Missing Required Fields | High | Negative |
 | TC-CAM-020003 | Negative Path - No Vendor Selected | High | Negative |
 | TC-CAM-020004 | Edge Case - Maximum Campaigns Per Week | Medium | Edge Case |
-| TC-CAM-030001 | View active campaign detail | Critical | Happy Path |
-| TC-CAM-030002 | User with no permission to view campaign detail | Critical | Negative |
-| TC-CAM-030003 | Campaign detail with draft status | Critical | Happy Path |
+| TC-CAM-030001 | View active campaign detail | High | Happy Path |
+| TC-CAM-030002 | User with no permission to view campaign detail | High | Negative |
+| TC-CAM-030003 | Campaign detail with draft status | High | Happy Path |
 | TC-CAM-030004 | View campaign detail with empty performance summary | High | Edge Case |
 | TC-CAM-030005 | Campaign detail with future start date | Medium | Edge Case |
 | TC-CAM-040001 | Edit Existing Campaign with Valid Data | High | Happy Path |
@@ -62,7 +62,7 @@ _Generated from `tests/1001-campaign.spec.ts` annotations. Edit annotations, not
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Happy Path
+**Priority:** High · **Test Type:** Happy Path
 
 **Preconditions**
 
@@ -155,7 +155,7 @@ Login เป็น requestor@blueledgers.com แต่ไม่มี permission
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Happy Path
+**Priority:** High · **Test Type:** Happy Path
 
 **Preconditions**
 
@@ -266,7 +266,7 @@ Campaign ถูกสร้างด้วยสถานะ 'active' และ 
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Happy Path
+**Priority:** High · **Test Type:** Happy Path
 
 **Preconditions**
 
@@ -289,7 +289,7 @@ Login เป็น purchase@blueledgers.com และมี active campaign อ�
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Negative
+**Priority:** High · **Test Type:** Negative
 
 **Preconditions**
 
@@ -312,7 +312,7 @@ Login เป็น requestor@blueledgers.com ด้วย role ที่ไม�
 > **As a** Purchase user, **I want** this Campaign behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Critical · **Test Type:** Happy Path
+**Priority:** High · **Test Type:** Happy Path
 
 **Preconditions**
 
@@ -1110,4 +1110,4 @@ campaign ทั้งหมดแสดงพร้อมจำนวนผล�
 ---
 
 
-<sub>Last regenerated: 2026-05-07 · git 4d2c6d8</sub>
+<sub>Last regenerated: 2026-05-07 · git 56da8b7</sub>

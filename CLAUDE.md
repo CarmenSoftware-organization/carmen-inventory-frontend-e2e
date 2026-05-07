@@ -43,7 +43,11 @@ bun run report                  # open last HTML report
   - `steps` — numbered, newline-separated user actions starting with `1.`.
   - `expected` — concrete outcome (URL, toast, locator state). Avoid just echoing the title.
   - `priority` — one of `High` | `Medium` | `Low`.
-  - `testType` — one of `Smoke` | `CRUD` | `Validation` | `Functional` | `Security` | `Authorization` (extend as needed; keep consistent across modules).
+  - `testType` — taxonomy of what the test is verifying. Two orthogonal axes are in active use; a single test picks one value (the dominant intent):
+    - **Test category** (what part of the system): `Smoke` | `CRUD` | `Validation` | `Functional` | `Security` | `Authorization` | `Auth-guard`
+    - **Test intent** (what flow shape): `Happy Path` | `Negative` | `Edge Case` | `Alternate Flow`
+
+    Extend as needed; keep the choice consistent across modules. Run the audit below to inventory current usage before introducing a new value.
   - Optional: `note`.
 - **Shared security helpers** (`tests/helpers/security-cases.ts`) carry their own annotations and interpolate `${listPath}` so each consuming spec gets module-specific metadata for free. When adding a new helper-generated test, follow the same pattern.
 - **Annotation completeness is a hard requirement.** Every `test(...)` and `test.skip(...)` in `tests/*.spec.ts` MUST carry all five annotation fields (`preconditions`, `steps`, `expected`, `priority`, `testType`). The 1-field `expected`-only shape is not acceptable — fill it out at write-time, not later. Audit before merging:
