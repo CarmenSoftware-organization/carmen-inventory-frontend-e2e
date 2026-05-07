@@ -44,38 +44,39 @@ interface SyncTarget {
 
 const SYNC_TARGETS: SyncTarget[] = [
   { jsonFile: "001-login-results.json", sheetTab: "Login" },
-  { jsonFile: "031-adjustment-type-results.json", sheetTab: "Adjustment Type" },
-  { jsonFile: "029-business-type-results.json", sheetTab: "Business Type" },
-  { jsonFile: "602-credit-note-reason-results.json", sheetTab: "Credit Note Reason" },
-  { jsonFile: "032-credit-term-results.json", sheetTab: "Credit Term" },
-  { jsonFile: "040-currency-results.json", sheetTab: "Currency" },
-  { jsonFile: "079-delivery-point-results.json", sheetTab: "Delivery Point" },
   { jsonFile: "010-department-results.json", sheetTab: "Department" },
-  { jsonFile: "041-exchange-rate-results.json", sheetTab: "Exchange Rate" },
-  { jsonFile: "030-extra-cost-results.json", sheetTab: "Extra Cost" },
-  { jsonFile: "080-location-results.json", sheetTab: "Location" },
-  { jsonFile: "042-tax-profile-results.json", sheetTab: "Tax Profile" },
   { jsonFile: "020-unit-results.json", sheetTab: "Unit" },
+  { jsonFile: "029-business-type-results.json", sheetTab: "Business_Type" },
+  { jsonFile: "030-extra-cost-results.json", sheetTab: "Extra_Cost" },
+  { jsonFile: "031-adjustment-type-results.json", sheetTab: "Adjustment_Type" },
+  { jsonFile: "032-credit-term-results.json", sheetTab: "Credit_Term" },
+  { jsonFile: "040-currency-results.json", sheetTab: "Currency" },
+  { jsonFile: "041-exchange-rate-results.json", sheetTab: "Exchange_Rate" },
+  { jsonFile: "042-tax-profile-results.json", sheetTab: "Tax_Profile" },
+  { jsonFile: "079-delivery-point-results.json", sheetTab: "Delivery_Point" },
+  { jsonFile: "080-location-results.json", sheetTab: "Location" },
+  { jsonFile: "101-product-category-results.json", sheetTab: "Product_Category" },
   { jsonFile: "150-vendor-results.json", sheetTab: "Vendor" },
-  { jsonFile: "301-purchase-request-results.json", sheetTab: "Purchase Request" },
-  { jsonFile: "160-price-list-template-results.json", sheetTab: "Price List Template" },
-  { jsonFile: "401-purchase-order-results.json", sheetTab: "Purchase Order" },
-  { jsonFile: "159-price-list-results.json", sheetTab: "Price List" },
-  { jsonFile: "900-period-end-results.json", sheetTab: "Period End" },
-  { jsonFile: "201-my-approvals-results.json", sheetTab: "My Approvals" },
-  { jsonFile: "501-good-received-note-results.json", sheetTab: "GRN" },
+  { jsonFile: "159-pl-results.json", sheetTab: "PL" },
+  { jsonFile: "160-pl-template-results.json", sheetTab: "PL_Template" },
+  { jsonFile: "201-my-approvals-results.json", sheetTab: "My_Approvals" },
+  { jsonFile: "301-pr-results.json", sheetTab: "PR" },
+  { jsonFile: "302-pr-creator-journey-results.json", sheetTab: "PR_Creator" },
+  { jsonFile: "303-pr-approver-journey-results.json", sheetTab: "PR_Approver" },
+  { jsonFile: "304-pr-purchaser-journey-results.json", sheetTab: "PR_Purchaser" },
+  { jsonFile: "310-pr-template-results.json", sheetTab: "PR_Template" },
+  { jsonFile: "311-pr-returned-flow-results.json", sheetTab: "PR_Returned_Flow" },
+  { jsonFile: "401-po-results.json", sheetTab: "PO" },
+  { jsonFile: "402-po-purchaser-journey-results.json", sheetTab: "PO_Purchaser" },
+  { jsonFile: "403-po-approver-journey-results.json", sheetTab: "PO_Approver" },
+  { jsonFile: "404-po-creator-journey-results.json", sheetTab: "PO_Creator" },
+  { jsonFile: "501-grn-results.json", sheetTab: "GRN" },
+  { jsonFile: "601-cn-results.json", sheetTab: "CN" },
+  { jsonFile: "602-cn-reason-results.json", sheetTab: "CN_Reason" },
+  { jsonFile: "701-sr-results.json", sheetTab: "SR" },
+  { jsonFile: "720-stock-issue-results.json", sheetTab: "Stock_Issue" },
+  { jsonFile: "900-period-end-results.json", sheetTab: "Period_End" },
   { jsonFile: "1001-campaign-results.json", sheetTab: "Campaign" },
-  { jsonFile: "601-credit-note-results.json", sheetTab: "Credit Note" },
-  { jsonFile: "720-stock-issue-results.json", sheetTab: "Stock Issue" },
-  { jsonFile: "701-store-requisition-results.json", sheetTab: "Store Requisition" },
-  { jsonFile: "310-purchase-request-template-results.json", sheetTab: "Purchase Request Template" },
-  { jsonFile: "101-product-category-results.json", sheetTab: "Product Category" },
-  { jsonFile: "302-pr-creator-journey-results.json", sheetTab: "PR Creator" },
-  { jsonFile: "303-pr-approver-journey-results.json", sheetTab: "PR Approver" },
-  { jsonFile: "304-pr-purchaser-journey-results.json", sheetTab: "PR Purchaser" },
-  { jsonFile: "311-pr-returned-flow-results.json", sheetTab: "PR Returned Flow" },
-  { jsonFile: "402-po-purchaser-journey-results.json", sheetTab: "PO Purchaser" },
-  { jsonFile: "403-po-approver-journey-results.json", sheetTab: "PO Approver" },
 ];
 
 const RESULTS_DIR = resolve(process.cwd(), "tests/results");
@@ -125,10 +126,7 @@ async function ensureHeaders(
 ): Promise<string[]> {
   const missing = CANONICAL_HEADER.filter((c) => {
     if (c === "Run Date") {
-      return (
-        currentHeader.indexOf("Run Date") < 0 &&
-        currentHeader.indexOf("Test Date") < 0
-      );
+      return currentHeader.indexOf("Run Date") < 0 && currentHeader.indexOf("Test Date") < 0;
     }
     return currentHeader.indexOf(c) < 0;
   });
@@ -206,9 +204,7 @@ async function syncTab(
       spreadsheetId,
       range: `${target.sheetTab}!A2:Z`,
     });
-    console.log(
-      `[${target.sheetTab}] reset — cleared ${grid.length - 1} data row(s)`,
-    );
+    console.log(`[${target.sheetTab}] reset — cleared ${grid.length - 1} data row(s)`);
     grid = [header];
   }
 
@@ -234,9 +230,7 @@ async function syncTab(
   const noteCol = header.indexOf("Note");
 
   if (idCol < 0 || statusCol < 0 || dateCol < 0) {
-    console.warn(
-      `[${target.sheetTab}] missing required columns (Test ID/Status/Run Date) — skipping`,
-    );
+    console.warn(`[${target.sheetTab}] missing required columns (Test ID/Status/Run Date) — skipping`);
     return;
   }
 
@@ -325,10 +319,7 @@ async function syncTab(
     });
   }
 
-  console.log(
-    `[${target.sheetTab}] updated ${matched} rows` +
-      (appended > 0 ? `, appended ${appended} new rows` : ""),
-  );
+  console.log(`[${target.sheetTab}] updated ${matched} rows` + (appended > 0 ? `, appended ${appended} new rows` : ""));
 }
 
 async function main() {
@@ -342,8 +333,7 @@ async function main() {
     process.exit(1);
   }
 
-  const resetMode =
-    process.argv.includes("--reset") || process.env.SYNC_RESET === "1";
+  const resetMode = process.argv.includes("--reset") || process.env.SYNC_RESET === "1";
   if (resetMode) {
     console.log(
       "Reset mode: data rows will be cleared in every tab before syncing (header preserved). " +

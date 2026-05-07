@@ -1,9 +1,9 @@
 # Price List Template — User Stories
 
-_Generated from `tests/160-price-list-template.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/160-pl-template.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Price List Template
-**Spec:** `tests/160-price-list-template.spec.ts`
+**Spec:** `tests/160-pl-template.spec.ts`
 **Default role:** Purchase
 **Total test cases:** 26 (17 High / 8 Medium / 1 Low)
 
@@ -680,4 +680,4 @@ Login เข้า Carmen Inventory พร้อมสิทธิ์ดู temp
 ---
 
 
-<sub>Last regenerated: 2026-05-07 · git 6b1bee1</sub>
+<sub>Last regenerated: 2026-05-07 · git 200baef</sub>

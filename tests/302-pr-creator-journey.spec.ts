@@ -3,7 +3,7 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { PurchaseRequestPage, LIST_PATH } from "./pages/purchase-request.page";
 import { createDraftPR, submitDraftPR, deleteDraftPR, e2eDescription } from "./pages/pr-creator.helpers";
 
-// Persona-journey spec — Creator (Requestor). Runs alongside 301-purchase-request.spec.ts
+// Persona-journey spec — Creator (Requestor). Runs alongside 301-pr.spec.ts
 // (per-action multi-role) without modifying it. Source docs:
 // docs/persona-doc/Purchase Request/Creator/INDEX.md and step-01..08.md.
 const requestorTest = createAuthTest("requestor@blueledgers.com");

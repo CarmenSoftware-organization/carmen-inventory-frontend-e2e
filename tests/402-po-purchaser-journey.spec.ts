@@ -7,7 +7,7 @@ import {
   gotoPODetail,
 } from "./pages/po-approver.helpers";
 
-// Persona-journey spec — PO Purchaser. Runs alongside 401-purchase-order.spec.ts
+// Persona-journey spec — PO Purchaser. Runs alongside 401-po.spec.ts
 // (per-action multi-role) without modifying it. Source docs:
 // docs/persona-doc/Purchase Order/Purchaser/INDEX.md and step-01..05.md.
 const purchaseTest = createAuthTest("purchase@blueledgers.com");

@@ -11,7 +11,7 @@ import {
 } from "./pages/pr-approver.helpers";
 
 // Persona-journey spec — Approver (HOD primary, FC for scope contrast).
-// Runs alongside 301-purchase-request.spec.ts (per-action) and 302-pr-creator-journey.spec.ts.
+// Runs alongside 301-pr.spec.ts (per-action) and 302-pr-creator-journey.spec.ts.
 // Source docs: docs/persona-doc/Purchase Request/Approver/INDEX.md and step-01..04.md.
 const hodTest = createAuthTest("hod@blueledgers.com");
 const fcTest = createAuthTest("fc@blueledgers.com");

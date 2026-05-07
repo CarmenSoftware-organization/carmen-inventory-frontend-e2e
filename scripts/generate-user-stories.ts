@@ -27,8 +27,15 @@ const MODULE_NAME_OVERRIDES: Record<string, string> = {
   "001-login": "Login & Logout",
   "150-vendor": "Vendor",
   "201-my-approvals": "My Approvals",
-  "501-good-received-note": "GRN",
-  "310-purchase-request-template": "Purchase Request Template",
+  "501-grn": "GRN",
+  "301-pr": "Purchase Request",
+  "310-pr-template": "Purchase Request Template",
+  "401-po": "Purchase Order",
+  "601-cn": "Credit Note",
+  "602-cn-reason": "Credit Note Reason",
+  "159-pl": "Price List",
+  "160-pl-template": "Price List Template",
+  "701-sr": "Store Requisition",
 };
 
 interface Annotations {

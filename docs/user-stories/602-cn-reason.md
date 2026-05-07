@@ -1,9 +1,9 @@
 # Credit Note Reason — User Stories
 
-_Generated from `tests/602-credit-note-reason.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/602-cn-reason.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Credit Note Reason
-**Spec:** `tests/602-credit-note-reason.spec.ts`
+**Spec:** `tests/602-cn-reason.spec.ts`
 **Default role:** Admin
 **Total test cases:** 13 (9 High / 4 Medium / 0 Low)
 
@@ -313,4 +313,4 @@ User ถูก redirect ออกจาก /config/credit-note-reason หรื�
 ---
 
 
-<sub>Last regenerated: 2026-05-07 · git 6b1bee1</sub>
+<sub>Last regenerated: 2026-05-07 · git 200baef</sub>
