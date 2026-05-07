@@ -3,8 +3,7 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { PageFormCrudHelper } from "./pages/page-form-crud.helper";
 import { addPageFormSecurityCases } from "./helpers/security-cases";
 
-const test = createAuthTest("purchase@blueledgers.com");
-const adminTest = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/department";
 const UID = Date.now().toString(36);
 const CODE = `E2E${UID.slice(-4).toUpperCase()}`;
@@ -19,7 +18,7 @@ const opts = {
 };
 
 test.describe("Department — Smoke & CRUD", () => {
-  adminTest(
+  test(
     "TC-DEP-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
@@ -36,7 +35,7 @@ test.describe("Department — Smoke & CRUD", () => {
     await expect(page).toHaveURL(new RegExp(PATH));
   });
 
-  adminTest(
+  test(
     "TC-DEP-010002 ปุ่ม Add แสดง",
     {
       annotation: [
@@ -53,7 +52,7 @@ test.describe("Department — Smoke & CRUD", () => {
     await expect(h.list.addButton()).toBeVisible();
   });
 
-  adminTest(
+  test(
     "TC-DEP-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
@@ -71,7 +70,7 @@ test.describe("Department — Smoke & CRUD", () => {
     await h.list.search("test");
   });
 
-  adminTest(
+  test(
     "TC-DEP-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
@@ -89,7 +88,7 @@ test.describe("Department — Smoke & CRUD", () => {
     await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
-  adminTest(
+  test(
     "TC-DEP-010005 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
     {
       annotation: [
@@ -108,7 +107,7 @@ test.describe("Department — Smoke & CRUD", () => {
     await expect(page).toHaveURL(/\/new/);
   });
 
-  adminTest(
+  test(
     "TC-DEP-010006 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
@@ -133,7 +132,7 @@ test.describe("Department — Smoke & CRUD", () => {
     await expect(page.getByRole("cell", { name: NAME })).toBeVisible();
   });
 
-  adminTest(
+  test(
     "TC-DEP-010007 แก้ไขชื่อและบันทึก",
     {
       annotation: [

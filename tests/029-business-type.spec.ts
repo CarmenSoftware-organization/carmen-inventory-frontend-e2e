@@ -3,7 +3,7 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { DialogCrudHelper } from "./pages/dialog-crud.helper";
 import { addDialogSecurityCases } from "./helpers/security-cases";
 
-const test = createAuthTest("purchase@blueledgers.com");
+const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/business-type";
 const UID = Date.now().toString(36);
 const NAME = `E2E BT ${UID}`;
@@ -20,7 +20,7 @@ test.describe("Business Type — Smoke & CRUD", () => {
     "TC-BT-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com ผ่าน auth fixture" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture" },
         { type: "steps", description: "1. ไปที่ /config/business-type" },
         { type: "expected", description: "URL ตรงกับ /config/business-type; หน้า list โหลดสำเร็จโดยไม่ error" },
         { type: "priority", description: "High" },
@@ -37,7 +37,7 @@ test.describe("Business Type — Smoke & CRUD", () => {
     "TC-BT-010002 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/business-type" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type" },
         { type: "steps", description: "1. ไปที่ /config/business-type" },
         { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
         { type: "priority", description: "High" },
@@ -54,7 +54,7 @@ test.describe("Business Type — Smoke & CRUD", () => {
     "TC-BT-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/business-type" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type" },
         { type: "steps", description: "1. ไปที่ /config/business-type\n2. พิมพ์ 'test' ในช่องค้นหา" },
         { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
         { type: "priority", description: "Medium" },
@@ -72,7 +72,7 @@ test.describe("Business Type — Smoke & CRUD", () => {
     "TC-BT-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/business-type" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type" },
         { type: "steps", description: "1. ไปที่ /config/business-type\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
         { type: "priority", description: "Medium" },
@@ -90,7 +90,7 @@ test.describe("Business Type — Smoke & CRUD", () => {
     "TC-BT-010005 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; อยู่ที่ /config/business-type" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type" },
         { type: "steps", description: "1. ไปที่ /config/business-type\n2. เปิด dialog Add\n3. กด Save โดยไม่กรอก name" },
         { type: "expected", description: "Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)" },
         { type: "priority", description: "High" },
@@ -110,7 +110,7 @@ test.describe("Business Type — Smoke & CRUD", () => {
     "TC-BT-010006 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
         { type: "steps", description: "1. ไปที่ /config/business-type\n2. เปิด dialog Add\n3. กรอก name\n4. กด Save\n5. ค้นหาด้วย NAME" },
         { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี NAME ปรากฏใน list" },
         { type: "priority", description: "High" },

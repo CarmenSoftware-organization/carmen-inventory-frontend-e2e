@@ -3,7 +3,7 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { ConfigListPage } from "./pages/config-list.page";
 import { addListOnlySecurityCases } from "./helpers/security-cases";
 
-const test = createAuthTest("purchase@blueledgers.com");
+const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/exchange-rate";
 
 test.describe("Exchange Rate — Smoke", () => {
@@ -11,7 +11,7 @@ test.describe("Exchange Rate — Smoke", () => {
     "TC-ER-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com ผ่าน createAuthTest แล้ว" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน createAuthTest แล้ว" },
         { type: "steps", description: `1. นำทางไปยัง ${PATH}\n2. รอหน้า list โหลด` },
         { type: "expected", description: "หน้า list โหลดสำเร็จและ URL ตรงกับ /config/exchange-rate" },
         { type: "priority", description: "High" },

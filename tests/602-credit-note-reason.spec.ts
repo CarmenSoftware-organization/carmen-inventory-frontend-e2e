@@ -3,7 +3,7 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { DialogCrudHelper } from "./pages/dialog-crud.helper";
 import { addDialogSecurityCases } from "./helpers/security-cases";
 
-const test = createAuthTest("purchase@blueledgers.com");
+const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/credit-note-reason";
 const UID = Date.now().toString(36);
 const NAME = `E2E CNR ${UID}`;
@@ -20,7 +20,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com via auth fixture" },
+        { type: "preconditions", description: "Logged in as admin@blueledgers.com via auth fixture" },
         { type: "steps", description: "1. ไปที่ /config/credit-note-reason" },
         { type: "expected", description: "URL matches /config/credit-note-reason; ปุ่ม Add และช่องค้นหา visible บนหน้า list" },
         { type: "priority", description: "High" },
@@ -37,7 +37,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-010002 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/credit-note-reason" },
+        { type: "preconditions", description: "Logged in as admin@blueledgers.com; on /config/credit-note-reason" },
         { type: "steps", description: "1. ไปที่ /config/credit-note-reason" },
         { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
         { type: "priority", description: "High" },
@@ -54,7 +54,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/credit-note-reason" },
+        { type: "preconditions", description: "Logged in as admin@blueledgers.com; on /config/credit-note-reason" },
         { type: "steps", description: "1. ไปที่ /config/credit-note-reason\n2. พิมพ์ 'test' ในช่องค้นหา" },
         { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
         { type: "priority", description: "Medium" },
@@ -72,7 +72,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/credit-note-reason" },
+        { type: "preconditions", description: "Logged in as admin@blueledgers.com; on /config/credit-note-reason" },
         { type: "steps", description: "1. ไปที่ /config/credit-note-reason\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
         { type: "priority", description: "Medium" },
@@ -90,7 +90,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-010005 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /config/credit-note-reason" },
+        { type: "preconditions", description: "Logged in as admin@blueledgers.com; on /config/credit-note-reason" },
         { type: "steps", description: "1. เปิด Add dialog\n2. กด Save โดยไม่กรอก name\n3. กด Cancel เพื่อปิด dialog" },
         { type: "expected", description: "Error message ปรากฏใน dialog (form ไม่ submit; client-side validation block)" },
         { type: "priority", description: "High" },
@@ -110,7 +110,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-010006 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
+        { type: "preconditions", description: "Logged in as admin@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
         { type: "steps", description: "1. เปิด Add dialog\n2. กรอก name\n3. กด Save\n4. ค้นหาด้วย NAME ใน list" },
         { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี NAME ปรากฏใน list" },
         { type: "priority", description: "High" },

@@ -15,7 +15,7 @@ import {
   DeleteConfirmDialog,
 } from "./pages/delivery-point.page";
 
-const test = createAuthTest("purchase@blueledgers.com");
+const test = createAuthTest("admin@blueledgers.com");
 
 const UID = Date.now().toString(36);
 const DP_NAME = `E2E DP ${UID}`;
@@ -29,7 +29,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP-010001 อ่านค่า table ของ delivery point ได้",
     {
       annotation: [
-        { type: "preconditions", description: "ผู้ใช้ purchase@blueledgers.com (จาก createAuthTest) login แล้ว และมี delivery point ในระบบอย่างน้อย 1 รายการ" },
+        { type: "preconditions", description: "ผู้ใช้ admin@blueledgers.com (จาก createAuthTest) login แล้ว และมี delivery point ในระบบอย่างน้อย 1 รายการ" },
         { type: "steps", description: "1. เปิดหน้า /config/delivery-point\n2. รอ table โหลด\n3. ตรวจสอบปุ่ม Add" },
         { type: "expected", description: "URL ลงท้ายด้วย config/delivery-point, table แสดงผล และปุ่ม Add visible" },
         { type: "priority", description: "High" },
