@@ -25,13 +25,13 @@ See `.env.example` for all environment variables.
 ## Running subsets
 
 ```bash
-bun run test:login              # login.spec.ts only (TC-L00101..L30)
-bun run test:chromium           # everything except login
+bun run test:login              # 001-login.spec.ts only (TC-LOGIN-010001..010030)
+bun run test:chromium           # everything except login (auto-runs the setup project first)
 bun run test:ui                 # Playwright UI mode
 bun run test:headed             # headed browser
 bun run test:debug              # step-through debugger
-bunx playwright test currency   # single spec
-bunx playwright test -g "TC-L00101"  # single test by title
+bunx playwright test currency   # single spec (substring match against filename)
+bunx playwright test -g "TC-LOGIN-010001"  # single test by title
 bun run report                  # open last HTML report
 ```
 
@@ -51,30 +51,34 @@ Any `playwright test` flag (`--headed`, `--ui`, `-g <pattern>`, `--debug`, …) 
 
 ```
 .
-├── playwright.config.ts          # 2 projects (login, chromium), webServer, CSV reporter
+├── playwright.config.ts          # 3 projects (setup, login, chromium); webServer; JSON reporter
 ├── tests/
-│   ├── *.spec.ts                 # login + 12 domain modules + vendor
+│   ├── auth.setup.ts             # setup project — pre-authenticates every role once per run
+│   ├── *.spec.ts                 # 33 specs: 001-login, 010-department, …, 1001-campaign
 │   ├── pages/                    # page objects (locator factories)
-│   ├── fixtures/auth.fixture.ts  # createAuthTest(email)
+│   ├── fixtures/
+│   │   ├── auth.fixture.ts       # createAuthTest(email) — boots context from .auth/<email>.json
+│   │   └── auth.paths.ts         # authFile(email) — single-source path helper
 │   ├── helpers/                  # shared helpers (security-cases, CRUD helpers)
-│   ├── reporters/tc-csv-reporter.ts
-│   ├── results/*.csv             # per-spec result CSVs (checked in as seeds)
+│   ├── reporters/tc-json-reporter.ts
+│   ├── results/*.json            # per-spec result JSONs (checked in as seeds; updated each run)
 │   ├── scripts/                  # shell runners (run-module.sh, run-all.sh)
 │   └── test-users.ts             # role-based test accounts
-└── scripts/sync-test-results.ts  # pushes CSV → Google Sheets
+├── .auth/                        # runtime — gitignored; storageState files written by setup
+└── scripts/sync-test-results.ts  # pushes results JSON → Google Sheets
 ```
 
 ## Test accounts
 
-Defined in `tests/test-users.ts`. Seven roles (Requestor, HOD, Purchase, FC, GM, Owner, TT). Most share password `12345678`; `TT` uses `Qaz123!@#`.
+Defined in `tests/test-users.ts`. Nine roles: Requestor, HOD, Purchase, FC, GM, Owner, StoreManager, Budget, TT. Most share password `12345678`; `TT` uses `Qaz123!@#`. The `setup` project pre-authenticates every role once per `bun test` invocation and persists cookies to `.auth/<email>.json`; subsequent specs reuse that storageState instead of logging in per test.
 
 ## Test IDs
 
-Every test title starts with a `TC-<area><NN>` ID (e.g. `TC-L00101`, `TC-DP00103`). The CSV reporter (`tests/reporters/tc-csv-reporter.ts`) parses these IDs and writes one CSV per spec into `tests/results/`. Preserve the pattern when adding new tests — otherwise they won't appear in the reports.
+Every test title starts with a `TC-<PREFIX>-XXYYYY` ID (2-digit section + 4-digit sequence — e.g. `TC-LOGIN-010001`, `TC-DP-010003`). Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`. The JSON reporter (`tests/reporters/tc-json-reporter.ts`) parses these IDs and writes one JSON per spec into `tests/results/`. Preserve the pattern when adding new tests — otherwise they won't appear in the reports. Run `bun audit:tc-ids` to verify TC ID format and prefix-catalog registration before opening a PR.
 
 ## Google Sheets sync (optional)
 
-`bun e2e:sync` reads `tests/results/*.csv` and upserts Status + Test Date into a Google Sheet. To enable:
+`bun e2e:sync` reads `tests/results/*.json` and upserts Status + Test Date into a Google Sheet. To enable:
 
 1. Google Cloud Console → create project → enable **Google Sheets API**
 2. IAM → Service Accounts → create one → download JSON key
@@ -88,7 +92,7 @@ Every test title starts with a `TC-<area><NN>` ID (e.g. `TC-L00101`, `TC-DP00103
 
 The shell runners (`tests/scripts/run-module.sh` and `run-all.sh`) call `bun e2e:sync` automatically after each run, wrapped in `|| true` so missing credentials don't fail tests.
 
-Tab mapping is hard-coded in `SYNC_TARGETS` inside `scripts/sync-test-results.ts` — add an entry there for any new CSV.
+Tab mapping is hard-coded in `SYNC_TARGETS` inside `scripts/sync-test-results.ts` — add an entry there for any new results file.
 
 ## Notes for contributors
 
