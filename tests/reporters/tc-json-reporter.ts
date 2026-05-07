@@ -37,6 +37,7 @@ import type {
   FullConfig,
   FullResult,
   Reporter,
+  Suite,
   TestCase,
   TestResult,
 } from "@playwright/test/reporter";
@@ -77,6 +78,25 @@ function statusLabel(result: TestResult): string {
 
 function specKey(file: string): string {
   return basename(file).replace(/\.spec\.(ts|js|tsx|jsx)$/, "");
+}
+
+const SPEC_FILE_RE = /\.spec\.(ts|js|tsx|jsx)$/;
+
+/**
+ * Walk parent suites to find the spec file that registered this test. Tests
+ * created by shared helpers (e.g. `tests/helpers/security-cases.ts`) have
+ * `test.location.file` pointing at the helper, but the enclosing suite chain
+ * still hangs off the consuming spec's file-level suite. Returns undefined if
+ * no `.spec.ts` ancestor exists.
+ */
+function findSpecFile(test: TestCase): string | undefined {
+  let suite: Suite | undefined = test.parent;
+  while (suite) {
+    const file = suite.location?.file;
+    if (file && SPEC_FILE_RE.test(file)) return file;
+    suite = suite.parent;
+  }
+  return undefined;
 }
 
 /**
@@ -148,7 +168,7 @@ export default class TCJsonReporter implements Reporter {
     const runDate = new Date().toISOString();
     const status = statusLabel(result);
     const error = result.error?.message?.split("\n")[0] ?? "";
-    const key = specKey(test.location.file);
+    const key = specKey(findSpecFile(test) ?? test.location.file);
     const bucket = this.rowsBySpec.get(key) ?? [];
     const meta = readAnnotations(test);
     for (const id of ids) {

@@ -30,6 +30,7 @@ export default defineConfig({
       name: "setup",
       testMatch: /auth\.setup\.ts$/,
       retries: 2,
+      fullyParallel: false,
       use: { ...devices["Desktop Chrome"] },
     },
     {
