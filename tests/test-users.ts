@@ -7,6 +7,7 @@ export const TEST_USERS = [
   { role: "Owner", email: "owner@blueledgers.com", password: "12345678" },
   { role: "StoreManager", email: "storemanager@blueledgers.com", password: "12345678" },
   { role: "Budget", email: "budget@blueledgers.com", password: "12345678" },
+  { role: "Admin", email: "admin@blueledgers.com", password: "12345678" },
 ] as const;
 
 /** Default password used by most test users — kept for backward compatibility. */
