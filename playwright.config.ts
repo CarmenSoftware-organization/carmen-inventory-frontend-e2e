@@ -35,6 +35,7 @@ export default defineConfig({
     {
       name: "login",
       testMatch: /001-login\.spec\.ts/,
+      fullyParallel: false,
       use: { ...devices["Desktop Chrome"] },
     },
     {
