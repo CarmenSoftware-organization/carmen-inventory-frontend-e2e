@@ -7,7 +7,7 @@
  *
  * For each sheet tab:
  *   1. Read the current header row. If the tab is empty, bootstrap it with
- *      the canonical 13-column header. If it exists but is missing any of
+ *      the canonical 14-column header. If it exists but is missing any of
  *      the canonical columns, append them (preserves existing columns).
  *   2. Build a `testId → row number` index from the sheet's Test ID column.
  *   3. For each JSON row:
@@ -209,7 +209,7 @@ async function syncTab(
     grid = [header];
   }
 
-  // Resolve column indexes (all 13 canonical + legacy "Test Date" fallback).
+  // Resolve column indexes (all 14 canonical + legacy "Test Date" fallback).
   const idCol = header.indexOf("Test ID");
   const seqCol = header.indexOf("Seq");
   const titleCol = (() => {
