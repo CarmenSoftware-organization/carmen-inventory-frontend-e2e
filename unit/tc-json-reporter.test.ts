@@ -50,4 +50,20 @@ describe("copyScreenshot", () => {
     expect(existsSync(out)).toBe(true);
     expect(readFileSync(out, "utf8")).toBe("PNGDATA");
   });
+
+  it("overwrites the existing file for the same testId (latest run wins)", () => {
+    const base = mkdtempSync(join(tmpdir(), "shot-"));
+    dirs.push(base);
+    const destDir = join(base, "screenshots");
+
+    const first = join(base, "first.png");
+    writeFileSync(first, "OLD");
+    copyScreenshot(first, destDir, "TC-L00101");
+
+    const second = join(base, "second.png");
+    writeFileSync(second, "NEW");
+    copyScreenshot(second, destDir, "TC-L00101");
+
+    expect(readFileSync(join(destDir, "TC-L00101.png"), "utf8")).toBe("NEW");
+  });
 });
