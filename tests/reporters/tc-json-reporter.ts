@@ -21,17 +21,18 @@
  *     "runDate": "2026-04-23T10:34:17.250Z",
  *     "duration": 2521,
  *     "error": "",
- *     "note": ""
+ *     "note": "",
+ *     "screenshot": "screenshots/TC-L00101.png"
  *   }
  *
  * Rows are sorted by `testId` before writing. `seq` is a 1-based index within
  * the sorted list.
  *
- * Reporter-populated fields: seq, testId, title, status, runDate, duration, error.
+ * Reporter-populated fields: seq, testId, title, status, runDate, duration, error, screenshot.
  * Annotation-populated (from Playwright `test.annotations`):
  *   preconditions | steps | expected | priority | testType | note
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { basename, resolve } from "node:path";
 import type {
   FullConfig,
@@ -56,9 +57,34 @@ export interface TCResultRow {
   duration: number;
   error: string;
   note: string;
+  screenshot: string;
 }
 
 const TC_REGEX = /\bTC-[A-Z]{2,5}-\d{6}\b/g;
+
+/**
+ * Find the auto-captured screenshot attachment. Playwright uses the name
+ * "screenshot" for all auto-captured screenshots regardless of the screenshot
+ * mode. Returns its on-disk path, or undefined if the test produced none.
+ */
+export function findScreenshotPath(
+  attachments: ReadonlyArray<{ name: string; path?: string }>,
+): string | undefined {
+  return attachments.find((a) => a.name === "screenshot" && a.path)?.path;
+}
+
+/**
+ * Copy a screenshot file to `<destDir>/<testId>.png`, creating destDir if
+ * needed. Overwrites any existing file for that testId (latest run wins).
+ */
+export function copyScreenshot(
+  srcPath: string,
+  destDir: string,
+  testId: string,
+): void {
+  mkdirSync(destDir, { recursive: true });
+  copyFileSync(srcPath, resolve(destDir, `${testId}.png`));
+}
 
 function statusLabel(result: TestResult): string {
   switch (result.status) {
@@ -153,9 +179,13 @@ type PartialRow = Omit<TCResultRow, "seq">;
 export default class TCJsonReporter implements Reporter {
   private rowsBySpec = new Map<string, PartialRow[]>();
   private outDir: string;
+  private screenshotsRelDir: string;
+  private screenshotsAbsDir: string;
 
-  constructor(options: { outputDir?: string } = {}) {
+  constructor(options: { outputDir?: string; screenshotsDir?: string } = {}) {
     this.outDir = resolve(process.cwd(), options.outputDir ?? "tests/results");
+    this.screenshotsRelDir = options.screenshotsDir ?? "screenshots";
+    this.screenshotsAbsDir = resolve(process.cwd(), this.screenshotsRelDir);
   }
 
   onBegin(_config: FullConfig) {
@@ -171,7 +201,13 @@ export default class TCJsonReporter implements Reporter {
     const key = specKey(findSpecFile(test) ?? test.location.file);
     const bucket = this.rowsBySpec.get(key) ?? [];
     const meta = readAnnotations(test);
+    const shotSrc = findScreenshotPath(result.attachments);
     for (const id of ids) {
+      let screenshot = "";
+      if (shotSrc) {
+        copyScreenshot(shotSrc, this.screenshotsAbsDir, id);
+        screenshot = `${this.screenshotsRelDir}/${id}.png`;
+      }
       bucket.push({
         testId: id,
         title: test.title,
@@ -179,6 +215,7 @@ export default class TCJsonReporter implements Reporter {
         duration: Math.round(result.duration),
         error,
         runDate,
+        screenshot,
         ...meta,
       });
     }
