@@ -61,9 +61,9 @@ export interface TCResultRow {
 const TC_REGEX = /\bTC-[A-Z]{2,5}-\d{6}\b/g;
 
 /**
- * Find the auto-captured screenshot attachment (Playwright names it
- * "screenshot" when `screenshot: "on"`). Returns its on-disk path, or
- * undefined if the test produced no screenshot.
+ * Find the auto-captured screenshot attachment. Playwright uses the name
+ * "screenshot" for all auto-captured screenshots regardless of the screenshot
+ * mode. Returns its on-disk path, or undefined if the test produced none.
  */
 export function findScreenshotPath(
   attachments: ReadonlyArray<{ name: string; path?: string }>,
