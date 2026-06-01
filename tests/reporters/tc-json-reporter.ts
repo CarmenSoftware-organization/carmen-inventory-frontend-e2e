@@ -31,7 +31,7 @@
  * Annotation-populated (from Playwright `test.annotations`):
  *   preconditions | steps | expected | priority | testType | note
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { basename, resolve } from "node:path";
 import type {
   FullConfig,
@@ -59,6 +59,30 @@ export interface TCResultRow {
 }
 
 const TC_REGEX = /\bTC-[A-Z]{2,5}-\d{6}\b/g;
+
+/**
+ * Find the auto-captured screenshot attachment (Playwright names it
+ * "screenshot" when `screenshot: "on"`). Returns its on-disk path, or
+ * undefined if the test produced no screenshot.
+ */
+export function findScreenshotPath(
+  attachments: ReadonlyArray<{ name: string; path?: string }>,
+): string | undefined {
+  return attachments.find((a) => a.name === "screenshot" && a.path)?.path;
+}
+
+/**
+ * Copy a screenshot file to `<destDir>/<testId>.png`, creating destDir if
+ * needed. Overwrites any existing file for that testId (latest run wins).
+ */
+export function copyScreenshot(
+  srcPath: string,
+  destDir: string,
+  testId: string,
+): void {
+  mkdirSync(destDir, { recursive: true });
+  copyFileSync(srcPath, resolve(destDir, `${testId}.png`));
+}
 
 function statusLabel(result: TestResult): string {
   switch (result.status) {
