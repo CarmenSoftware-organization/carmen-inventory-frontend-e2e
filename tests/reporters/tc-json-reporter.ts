@@ -21,13 +21,14 @@
  *     "runDate": "2026-04-23T10:34:17.250Z",
  *     "duration": 2521,
  *     "error": "",
- *     "note": ""
+ *     "note": "",
+ *     "screenshot": "screenshots/TC-L00101.png"
  *   }
  *
  * Rows are sorted by `testId` before writing. `seq` is a 1-based index within
  * the sorted list.
  *
- * Reporter-populated fields: seq, testId, title, status, runDate, duration, error.
+ * Reporter-populated fields: seq, testId, title, status, runDate, duration, error, screenshot.
  * Annotation-populated (from Playwright `test.annotations`):
  *   preconditions | steps | expected | priority | testType | note
  */
@@ -56,6 +57,7 @@ export interface TCResultRow {
   duration: number;
   error: string;
   note: string;
+  screenshot: string;
 }
 
 const TC_REGEX = /\bTC-[A-Z]{2,5}-\d{6}\b/g;
@@ -177,9 +179,13 @@ type PartialRow = Omit<TCResultRow, "seq">;
 export default class TCJsonReporter implements Reporter {
   private rowsBySpec = new Map<string, PartialRow[]>();
   private outDir: string;
+  private screenshotsRelDir: string;
+  private screenshotsAbsDir: string;
 
-  constructor(options: { outputDir?: string } = {}) {
+  constructor(options: { outputDir?: string; screenshotsDir?: string } = {}) {
     this.outDir = resolve(process.cwd(), options.outputDir ?? "tests/results");
+    this.screenshotsRelDir = options.screenshotsDir ?? "screenshots";
+    this.screenshotsAbsDir = resolve(process.cwd(), this.screenshotsRelDir);
   }
 
   onBegin(_config: FullConfig) {
@@ -195,7 +201,13 @@ export default class TCJsonReporter implements Reporter {
     const key = specKey(findSpecFile(test) ?? test.location.file);
     const bucket = this.rowsBySpec.get(key) ?? [];
     const meta = readAnnotations(test);
+    const shotSrc = findScreenshotPath(result.attachments);
     for (const id of ids) {
+      let screenshot = "";
+      if (shotSrc) {
+        copyScreenshot(shotSrc, this.screenshotsAbsDir, id);
+        screenshot = `${this.screenshotsRelDir}/${id}.png`;
+      }
       bucket.push({
         testId: id,
         title: test.title,
@@ -203,6 +215,7 @@ export default class TCJsonReporter implements Reporter {
         duration: Math.round(result.duration),
         error,
         runDate,
+        screenshot,
         ...meta,
       });
     }
