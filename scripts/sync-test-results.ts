@@ -116,6 +116,7 @@ const CANONICAL_HEADER = [
   "Duration (ms)",
   "Error",
   "Note",
+  "Screenshot",
 ];
 
 async function ensureHeaders(
@@ -228,6 +229,7 @@ async function syncTab(
   const durationCol = header.indexOf("Duration (ms)");
   const errorCol = header.indexOf("Error");
   const noteCol = header.indexOf("Note");
+  const screenshotCol = header.indexOf("Screenshot");
 
   if (idCol < 0 || statusCol < 0 || dateCol < 0) {
     console.warn(`[${target.sheetTab}] missing required columns (Test ID/Status/Run Date) — skipping`);
@@ -264,6 +266,7 @@ async function syncTab(
       if (durationCol >= 0) row[durationCol] = String(r.duration);
       if (errorCol >= 0) row[errorCol] = r.error;
       if (noteCol >= 0) row[noteCol] = r.note;
+      if (screenshotCol >= 0) row[screenshotCol] = r.screenshot ?? "";
       appendRows.push(row);
       appended++;
       continue;
@@ -283,6 +286,7 @@ async function syncTab(
     if (durationCol >= 0) push(durationCol, String(r.duration));
     if (errorCol >= 0) push(errorCol, r.error);
     if (seqCol >= 0) push(seqCol, String(r.seq));
+    if (screenshotCol >= 0) push(screenshotCol, r.screenshot ?? "");
 
     // Annotation-owned columns: always overwrite (code is truth).
     push(preconditionsCol, r.preconditions);
