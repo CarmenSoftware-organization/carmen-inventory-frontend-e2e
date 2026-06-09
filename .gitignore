@@ -9,3 +9,6 @@ playwright/.cache/
 .env.local
 .DS_Store
 .auth/
+
+# wiki-screenshots per-run artifact
+tests/wiki-screenshots/last-run.json
