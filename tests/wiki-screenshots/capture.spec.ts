@@ -89,6 +89,20 @@ test("capture wiki screenshots", async ({ browser }) => {
             { timeout: 8_000 },
           )
           .catch(() => {});
+        // Dismiss a blocking permission/error dialog (e.g. a 403 on a secondary
+        // sub-resource, rendered as a Radix alertdialog) so the underlying page
+        // is captured, not the modal. Gated on the error text to stay targeted.
+        const blockedNotice = page
+          .getByText(/permission denied|something went wrong/i)
+          .first();
+        if (await blockedNotice.isVisible().catch(() => false)) {
+          await page
+            .getByRole("button", { name: /^(close|ok|got it|dismiss)$/i })
+            .first()
+            .click({ timeout: 2_000 })
+            .catch(() => {});
+          await page.waitForTimeout(400);
+        }
         const out = outputFile(spec);
         mkdirSync(dirname(out), { recursive: true });
         await page.screenshot({ path: out, fullPage: true });
