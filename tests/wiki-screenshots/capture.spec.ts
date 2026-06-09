@@ -58,6 +58,7 @@ test("capture wiki screenshots", async ({ browser }) => {
   for (const [role, specs] of byRole) {
     const context = await browser.newContext({
       storageState: authFile(emailForRole(role)),
+      baseURL: BASE_URL,
       viewport: DEFAULT_VIEWPORT,
     });
     await setEnLocale(context, BASE_URL);
