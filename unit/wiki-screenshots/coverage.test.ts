@@ -36,6 +36,12 @@ describe("computeCoverage", () => {
     expect(rows[0].status).toBe("skipped");
     expect(rows[0].reason).toBe("timeout");
   });
+
+  it("classifies a skipped route with no shot as skipped", () => {
+    const rows = computeCoverage(["/no-shot"], [], { "/no-shot": "timeout" });
+    expect(rows[0].status).toBe("skipped");
+    expect(rows[0].reason).toBe("timeout");
+  });
 });
 
 describe("renderReport", () => {
@@ -44,5 +50,7 @@ describe("renderReport", () => {
     expect(md).toContain("# Screenshot Coverage");
     expect(md).toContain("| Route | Status |");
     expect(md).toMatch(/covered: \d+/);
+    expect(md).toMatch(/missing: \d+/);
+    expect(md).toMatch(/stale: \d+/);
   });
 });
