@@ -12,3 +12,4 @@ playwright/.cache/
 
 # wiki-screenshots per-run artifact
 tests/wiki-screenshots/last-run.json
+tests/wiki-screenshots/seed-ids.json

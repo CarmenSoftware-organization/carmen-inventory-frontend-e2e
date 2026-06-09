@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import type { ShotSpec } from "./types";
 import { discoverRoutes } from "./route-discovery";
 import { SHOTS } from "./manifest";
+import { loadSeedOverlay, applySeedOverlay } from "./seed-overlay";
 
 export type CoverageStatus =
   | "covered"
@@ -88,6 +89,7 @@ function main(): void {
   const frontendDir = process.env.E2E_FRONTEND_DIR ?? "../carmen-inventory-frontend";
   const specsDir = process.env.WIKI_SPECS_DIR ?? "../carmen-wiki/.specs";
   const resultsPath = join(process.cwd(), "tests/wiki-screenshots/last-run.json");
+  const seedIdsPath = join(process.cwd(), "tests/wiki-screenshots/seed-ids.json");
 
   const routes = discoverRoutes(join(frontendDir, "app"));
   let skipped: Record<string, string> = {};
@@ -98,7 +100,10 @@ function main(): void {
       console.warn(`Ignoring malformed ${resultsPath}`);
     }
   }
-  const md = renderReport(computeCoverage(routes, SHOTS, skipped));
+  // Discovered seedIds (gitignored, env-specific) count toward coverage just
+  // like hand-set ones, so a route auto-seeded this run isn't reported needs-seed.
+  const shots = applySeedOverlay(SHOTS, loadSeedOverlay(seedIdsPath));
+  const md = renderReport(computeCoverage(routes, shots, skipped));
 
   const out = join(specsDir, "screenshot-coverage.md");
   mkdirSync(dirname(out), { recursive: true });

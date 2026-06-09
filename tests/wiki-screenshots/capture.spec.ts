@@ -6,11 +6,13 @@ import type { ShotSpec } from "./types";
 import { TEST_USERS } from "../test-users";
 import { authFile } from "../fixtures/auth.paths";
 import { setEnLocale } from "./locale";
+import { loadSeedOverlay, applySeedOverlay } from "./seed-overlay";
 
 const ASSETS_DIR =
   process.env.WIKI_ASSETS_DIR ?? "../carmen-wiki/assets/screenshots/inventory";
 const BASE_URL = process.env.E2E_BASE_URL ?? "http://localhost:3000";
 const RESULTS = join(process.cwd(), "tests/wiki-screenshots/last-run.json");
+const SEED_IDS = join(process.cwd(), "tests/wiki-screenshots/seed-ids.json");
 const DEFAULT_VIEWPORT = { width: 1440, height: 900 };
 
 function emailForRole(role: string): string {
@@ -37,7 +39,8 @@ test("capture wiki screenshots", async ({ browser }) => {
   const skipped: Record<string, string> = {};
   const claimedOutputs = new Map<string, string>(); // output file -> first spec.path that claimed it
   const byRole = new Map<string, ShotSpec[]>();
-  for (const spec of SHOTS) {
+  const shots = applySeedOverlay(SHOTS, loadSeedOverlay(SEED_IDS));
+  for (const spec of shots) {
     if (spec.path.includes(":") && !spec.seedId) {
       skipped[spec.path] = "dynamic route without seedId";
       continue;
@@ -78,6 +81,14 @@ test("capture wiki screenshots", async ({ browser }) => {
         if (spec.waitFor) {
           await page.waitForSelector(spec.waitFor, { timeout: 15_000 });
         }
+        // Let lazy content settle: wait for Tailwind skeleton placeholders to
+        // clear so detail pages aren't captured mid-load. Best-effort.
+        await page
+          .waitForFunction(
+            () => document.querySelectorAll(".animate-pulse").length === 0,
+            { timeout: 8_000 },
+          )
+          .catch(() => {});
         const out = outputFile(spec);
         mkdirSync(dirname(out), { recursive: true });
         await page.screenshot({ path: out, fullPage: true });
