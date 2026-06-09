@@ -40,7 +40,11 @@
     "audit:tc-ids:legacy": "bun run scripts/audit-tc-ids.ts --legacy-mode",
     "migrate:tc-propose": "bun run scripts/migrate-tc-ids/propose.ts",
     "migrate:tc-apply": "bun run scripts/migrate-tc-ids/apply.ts",
-    "migrate:tc-sheet": "bun run scripts/migrate-tc-ids/sync-sheet.ts"
+    "migrate:tc-sheet": "bun run scripts/migrate-tc-ids/sync-sheet.ts",
+
+    "wiki:seed": "bun run tests/wiki-screenshots/seed-manifest.ts",
+    "wiki:coverage": "bun run tests/wiki-screenshots/coverage.ts",
+    "wiki:capture": "playwright test --project=wiki-screenshots"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",

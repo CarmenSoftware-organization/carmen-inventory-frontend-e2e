@@ -41,8 +41,15 @@ export default defineConfig({
     },
     {
       name: "chromium",
-      testIgnore: /001-login\.spec\.ts$|auth\.setup\.ts$/,
+      testIgnore: /001-login\.spec\.ts$|auth\.setup\.ts$|wiki-screenshots\//,
       dependencies: ["setup"],
+      use: { ...devices["Desktop Chrome"] },
+    },
+    {
+      name: "wiki-screenshots",
+      testMatch: /wiki-screenshots\/capture\.spec\.ts$/,
+      dependencies: ["setup"],
+      fullyParallel: false,
       use: { ...devices["Desktop Chrome"] },
     },
   ],
