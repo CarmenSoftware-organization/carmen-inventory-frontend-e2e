@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { SHOTS } from "./manifest";
@@ -21,7 +21,7 @@ function emailForRole(role: string): string {
 
 function resolvePath(spec: ShotSpec): string {
   return spec.seedId
-    ? spec.path.replace(/\/:[A-Za-z_]+/, `/${spec.seedId}`)
+    ? spec.path.replace(/\/:[A-Za-z_]+/g, `/${spec.seedId}`)
     : spec.path;
 }
 
@@ -81,9 +81,10 @@ test("capture wiki screenshots", async ({ browser }) => {
         const out = outputFile(spec);
         mkdirSync(dirname(out), { recursive: true });
         await page.screenshot({ path: out, fullPage: true });
-        if (spec.viewport) await page.setViewportSize(DEFAULT_VIEWPORT);
       } catch (err) {
         skipped[spec.path] = (err as Error).message.split("\n")[0];
+      } finally {
+        if (spec.viewport) await page.setViewportSize(DEFAULT_VIEWPORT);
       }
     }
     await context.close();
@@ -93,4 +94,14 @@ test("capture wiki screenshots", async ({ browser }) => {
   console.log(
     `Captured ${SHOTS.length - Object.keys(skipped).length} screens; skipped ${Object.keys(skipped).length}.`,
   );
+
+  const unexpected = Object.entries(skipped).filter(
+    ([, reason]) => !reason.includes("seedId") && !reason.includes("collides"),
+  );
+  expect(
+    unexpected,
+    `Unexpected capture failures (not seedId/collision):\n${unexpected
+      .map(([p, r]) => `  ${p} :: ${r}`)
+      .join("\n")}`,
+  ).toEqual([]);
 });

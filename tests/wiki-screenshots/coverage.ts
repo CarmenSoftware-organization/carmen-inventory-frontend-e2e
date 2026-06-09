@@ -90,9 +90,14 @@ function main(): void {
   const resultsPath = join(process.cwd(), "tests/wiki-screenshots/last-run.json");
 
   const routes = discoverRoutes(join(frontendDir, "app"));
-  const skipped: Record<string, string> = existsSync(resultsPath)
-    ? JSON.parse(readFileSync(resultsPath, "utf8"))
-    : {};
+  let skipped: Record<string, string> = {};
+  if (existsSync(resultsPath)) {
+    try {
+      skipped = JSON.parse(readFileSync(resultsPath, "utf8"));
+    } catch {
+      console.warn(`Ignoring malformed ${resultsPath}`);
+    }
+  }
   const md = renderReport(computeCoverage(routes, SHOTS, skipped));
 
   const out = join(specsDir, "screenshot-coverage.md");

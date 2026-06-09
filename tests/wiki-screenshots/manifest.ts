@@ -46,7 +46,7 @@ export const SHOTS: ShotSpec[] = [
   { path: "/inventory-management/spot-check/:id", module: "spot-check", slug: "detail" },
   // TODO: set seedId
   { path: "/inventory-management/spot-check/:id/review", module: "spot-check", slug: "review" },
-  // TODO: set seedId
+  // TODO: set seedId — NOTE: collides with /config/location/:id (both -> location/detail.png); give this a distinct module/slug before seeding
   { path: "/inventory-management/spot-check/location/:location_id", module: "location", slug: "detail" },
   { path: "/inventory-management/transaction", module: "transaction", slug: "index" },
   { path: "/notifications", module: "notifications", slug: "index" },
