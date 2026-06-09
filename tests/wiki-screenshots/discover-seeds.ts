@@ -61,10 +61,12 @@ const ERROR_RE = /permission denied|something went wrong|failed to (fetch|load)|
 /** Load a detail URL and report whether it rendered a real record (not error/stuck). */
 async function detailRenders(page: Page, url: string): Promise<boolean> {
   try {
-    await page.goto(url, { waitUntil: "networkidle", timeout: 30_000 });
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30_000 });
   } catch {
     return false;
   }
+  // Bounded settle — networkidle may never fire (persistent websocket).
+  await page.waitForLoadState("networkidle", { timeout: 6_000 }).catch(() => {});
   await page
     .waitForFunction(() => document.querySelectorAll(".animate-pulse").length === 0, { timeout: 8_000 })
     .catch(() => {});
@@ -98,7 +100,8 @@ async function discoverForGroup(
     }
   };
   page.on("response", handler);
-  await page.goto(loadPath, { waitUntil: "networkidle", timeout: 30_000 }).catch(() => {});
+  await page.goto(loadPath, { waitUntil: "domcontentloaded", timeout: 30_000 }).catch(() => {});
+  await page.waitForLoadState("networkidle", { timeout: 6_000 }).catch(() => {});
   await page.waitForTimeout(1200);
   page.off("response", handler);
 
