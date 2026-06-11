@@ -10,6 +10,7 @@
     "test:debug": "playwright test --debug",
     "test:login": "playwright test --project=login",
     "test:chromium": "playwright test --project=chromium",
+    "test:uat": "bun run scripts/run-env.ts uat",
     "test:unit": "vitest run",
 
     "e2e": "playwright test",
@@ -18,19 +19,10 @@
     "e2e:debug": "playwright test --debug",
     "e2e:login": "playwright test --project=login",
     "e2e:chromium": "playwright test --project=chromium",
+    "e2e:uat": "bun run scripts/run-env.ts uat",
     "e2e:report": "playwright show-report",
     "e2e:sync": "bun run scripts/sync-test-results.ts",
     "e2e:sync:reset": "bun run scripts/sync-test-results.ts --reset",
-
-    "e2e_win": "node node_modules/@playwright/test/cli.js test",
-    "e2e_win:ui": "node node_modules/@playwright/test/cli.js test --ui",
-    "e2e_win:headed": "node node_modules/@playwright/test/cli.js test --headed",
-    "e2e_win:debug": "node node_modules/@playwright/test/cli.js test --debug",
-    "e2e_win:login": "node node_modules/@playwright/test/cli.js test --project=login",
-    "e2e_win:chromium": "node node_modules/@playwright/test/cli.js test --project=chromium",
-    "e2e_win:report": "node node_modules/@playwright/test/cli.js show-report",
-    "e2e_win:sync": "bun run scripts/sync-test-results.ts",
-    "e2e_win:sync:reset": "bun run scripts/sync-test-results.ts --reset",
 
     "docs:user-stories": "bun run scripts/generate-user-stories.ts",
     "report": "playwright show-report",

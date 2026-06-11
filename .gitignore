@@ -7,7 +7,8 @@ videos/
 blob-report/
 playwright/.cache/
 .env
-.env.local
+.env.*
+!.env.example
 .DS_Store
 .auth/
 
