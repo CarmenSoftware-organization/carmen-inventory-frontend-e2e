@@ -53,6 +53,10 @@ Playwright จะแนบ attachment ชื่อ `"video"` (contentType `video
 
 ไม่แตะ `screenshot` (`"on"` อยู่แล้ว) และ `trace` (`"on-first-retry"` อยู่แล้ว)
 
+ยกเว้น project `wiki-screenshots` ที่ตั้ง `video: "off"` ใน `use:` ของ project — เพราะ
+batch job นั้นสร้าง browser context เองและ navigate หลายร้อย route ที่ไม่มี TC ID วิดีโอ
+จึงไม่ถูกคัดลอกเข้า `videos/` และมีแต่จะทำให้ `test-results/` บวมโดยเปล่าประโยชน์
+
 ### 2. โฟลเดอร์เก็บวิดีโอ
 
 - โฟลเดอร์ใหม่ที่ root ของ repo: `videos/` (คู่ขนานกับ `screenshots/`)
@@ -70,15 +74,15 @@ Playwright จะแนบ attachment ชื่อ `"video"` (contentType `video
   (field ใหม่ `videosRelDir` / `videosAbsDir` ใน constructor เหมือน screenshot)
 - ใน `onTestEnd`:
   - หา video attachment ด้วย `findVideoPath(result.attachments)`
-  - ถ้าพบ **และไฟล์มีอยู่จริง** (`existsSync` guard): `copyVideo(...)` สำหรับ **ทุก** TC ID
-    ที่ match ในชื่อเทสต์ (คัดลอกวิดีโอเดียวกันไปทุก ID เหมือน screenshot) แล้วบันทึก
-    relative path (`videos/<TCID>.webm`) ลงฟิลด์ `video` ของแต่ละ row
-  - ถ้าไม่พบ attachment หรือไฟล์ยังไม่มี: ฟิลด์ `video` เป็น `""`
-- **เหตุผลของ `existsSync` guard**: วิดีโอของ Playwright ถูก finalize ตอน browser context
-  ปิด — ปกติพร้อมก่อน `onTestEnd` ถูกเรียก แต่ guard กันกรณีขอบ (เช่น context ที่ยังไม่ปิด
-  หรือเทสต์ที่ถูก interrupt) ไม่ให้ `copyFileSync` โยน error ทำให้ทั้ง reporter ล้ม
-  — screenshot ไม่ต้อง guard เพราะถ่าย ณ จุดจบเทสต์แบบ synchronous กว่า แต่ video เป็นไฟล์
-  ที่เขียน async จึงเพิ่มความระมัดระวังไว้
+  - ถ้าพบ: `copyVideo(...)` สำหรับ **ทุก** TC ID ที่ match ในชื่อเทสต์ (คัดลอกวิดีโอเดียวกัน
+    ไปทุก ID เหมือน screenshot) แล้วบันทึก relative path (`videos/<TCID>.webm`) ลงฟิลด์
+    `video` ของแต่ละ row
+  - ถ้าไม่พบ attachment หรือ copy ล้มเหลว: ฟิลด์ `video` เป็น `""`
+- **การกันความเปราะ (try/catch + warn)**: วิดีโอของ Playwright ถูก finalize ตอน browser
+  context ปิด — ปกติพร้อมก่อน `onTestEnd` ถูกเรียก แต่ห่อ `copyVideo(...)` ด้วย `try/catch`
+  เพื่อกันกรณีขอบ (เช่น ไฟล์ยังไม่ flush, สิทธิ์เขียนไม่พอ) ไม่ให้ error ทำให้ทั้ง reporter ล้ม
+  เมื่อ copy ล้มเหลวจะ `console.warn` (ตามสไตล์ log เดิมของ `onEnd`) แทนการ silent-drop
+  เพื่อให้เห็นว่ามีวิดีโอตกหล่น — ดีกว่า `existsSync` guard ที่จะข้ามเงียบ ๆ โดยไม่มีสัญญาณ
 - พฤติกรรม retry: `onTestEnd` ถูกเรียกต่อ attempt — attempt ล่าสุดเขียนทับไฟล์
   (ตรงกับข้อกำหนด "รันล่าสุดทับ")
 - อัปเดต doc comment หัวไฟล์ให้สะท้อนฟิลด์ `video` ใหม่, เพิ่ม `video` ใน list ของ

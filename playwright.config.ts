@@ -50,7 +50,10 @@ export default defineConfig({
       testMatch: /wiki-screenshots\/capture\.spec\.ts$/,
       dependencies: ["setup"],
       fullyParallel: false,
-      use: { ...devices["Desktop Chrome"] },
+      // This batch job creates its own browser contexts and navigates many
+      // routes with no TC ID, so videos would never be copied to videos/ and
+      // would only bloat test-results/. Opt out of the global video: "on".
+      use: { ...devices["Desktop Chrome"], video: "off" },
     },
   ],
   webServer: START_FRONTEND
