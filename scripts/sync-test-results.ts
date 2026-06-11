@@ -7,7 +7,7 @@
  *
  * For each sheet tab:
  *   1. Read the current header row. If the tab is empty, bootstrap it with
- *      the canonical 14-column header. If it exists but is missing any of
+ *      the canonical 15-column header. If it exists but is missing any of
  *      the canonical columns, append them (preserves existing columns).
  *   2. Build a `testId → row number` index from the sheet's Test ID column.
  *   3. For each JSON row:
@@ -117,6 +117,7 @@ const CANONICAL_HEADER = [
   "Error",
   "Note",
   "Screenshot",
+  "Video",
 ];
 
 async function ensureHeaders(
@@ -209,7 +210,7 @@ async function syncTab(
     grid = [header];
   }
 
-  // Resolve column indexes (all 14 canonical + legacy "Test Date" fallback).
+  // Resolve column indexes (all 15 canonical + legacy "Test Date" fallback).
   const idCol = header.indexOf("Test ID");
   const seqCol = header.indexOf("Seq");
   const titleCol = (() => {
@@ -230,6 +231,7 @@ async function syncTab(
   const errorCol = header.indexOf("Error");
   const noteCol = header.indexOf("Note");
   const screenshotCol = header.indexOf("Screenshot");
+  const videoCol = header.indexOf("Video");
 
   if (idCol < 0 || statusCol < 0 || dateCol < 0) {
     console.warn(`[${target.sheetTab}] missing required columns (Test ID/Status/Run Date) — skipping`);
@@ -267,6 +269,7 @@ async function syncTab(
       if (errorCol >= 0) row[errorCol] = r.error;
       if (noteCol >= 0) row[noteCol] = r.note;
       if (screenshotCol >= 0) row[screenshotCol] = r.screenshot ?? "";
+      if (videoCol >= 0) row[videoCol] = r.video ?? "";
       appendRows.push(row);
       appended++;
       continue;
@@ -287,6 +290,7 @@ async function syncTab(
     if (errorCol >= 0) push(errorCol, r.error);
     if (seqCol >= 0) push(seqCol, String(r.seq));
     if (screenshotCol >= 0) push(screenshotCol, r.screenshot ?? "");
+    if (videoCol >= 0) push(videoCol, r.video ?? "");
 
     // Annotation-owned columns: always overwrite (code is truth).
     push(preconditionsCol, r.preconditions);
