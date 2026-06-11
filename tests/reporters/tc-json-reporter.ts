@@ -33,7 +33,7 @@
  * Annotation-populated (from Playwright `test.annotations`):
  *   preconditions | steps | expected | priority | testType | note
  */
-import { copyFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { basename, resolve } from "node:path";
 import type {
   FullConfig,
@@ -242,9 +242,14 @@ export default class TCJsonReporter implements Reporter {
         screenshot = `${this.screenshotsRelDir}/${id}.png`;
       }
       let video = "";
-      if (videoSrc && existsSync(videoSrc)) {
-        copyVideo(videoSrc, this.videosAbsDir, id);
-        video = `${this.videosRelDir}/${id}.webm`;
+      if (videoSrc) {
+        try {
+          copyVideo(videoSrc, this.videosAbsDir, id);
+          video = `${this.videosRelDir}/${id}.webm`;
+        } catch (e) {
+          // eslint-disable-next-line no-console
+          console.warn(`[tc-json-reporter] video copy failed for ${id}: ${e}`);
+        }
       }
       bucket.push({
         testId: id,
