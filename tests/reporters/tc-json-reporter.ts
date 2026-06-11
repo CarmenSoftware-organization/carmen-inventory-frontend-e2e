@@ -86,6 +86,30 @@ export function copyScreenshot(
   copyFileSync(srcPath, resolve(destDir, `${testId}.png`));
 }
 
+/**
+ * Find the auto-captured video attachment. Playwright uses the name "video"
+ * for the recorded video regardless of the video mode. Returns its on-disk
+ * path, or undefined if the test produced none.
+ */
+export function findVideoPath(
+  attachments: ReadonlyArray<{ name: string; path?: string }>,
+): string | undefined {
+  return attachments.find((a) => a.name === "video" && a.path)?.path;
+}
+
+/**
+ * Copy a video file to `<destDir>/<testId>.webm`, creating destDir if needed.
+ * Overwrites any existing file for that testId (latest run wins).
+ */
+export function copyVideo(
+  srcPath: string,
+  destDir: string,
+  testId: string,
+): void {
+  mkdirSync(destDir, { recursive: true });
+  copyFileSync(srcPath, resolve(destDir, `${testId}.webm`));
+}
+
 function statusLabel(result: TestResult): string {
   switch (result.status) {
     case "passed":

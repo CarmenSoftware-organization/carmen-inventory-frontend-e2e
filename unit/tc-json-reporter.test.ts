@@ -11,6 +11,8 @@ import { join } from "node:path";
 import {
   findScreenshotPath,
   copyScreenshot,
+  findVideoPath,
+  copyVideo,
 } from "../tests/reporters/tc-json-reporter";
 
 describe("findScreenshotPath", () => {
@@ -65,5 +67,60 @@ describe("copyScreenshot", () => {
     copyScreenshot(second, destDir, "TC-L00101");
 
     expect(readFileSync(join(destDir, "TC-L00101.png"), "utf8")).toBe("NEW");
+  });
+});
+
+describe("findVideoPath", () => {
+  it("returns the path of the attachment named 'video'", () => {
+    const atts = [
+      { name: "screenshot", path: "/tmp/shot.png" },
+      { name: "video", path: "/tmp/v.webm" },
+    ];
+    expect(findVideoPath(atts)).toBe("/tmp/v.webm");
+  });
+
+  it("returns undefined when there is no video attachment", () => {
+    expect(findVideoPath([{ name: "screenshot", path: "/tmp/shot.png" }])).toBeUndefined();
+  });
+
+  it("ignores a video attachment that has no path", () => {
+    expect(findVideoPath([{ name: "video" }])).toBeUndefined();
+  });
+});
+
+describe("copyVideo", () => {
+  const dirs: string[] = [];
+  afterEach(() => {
+    for (const d of dirs) rmSync(d, { recursive: true, force: true });
+  });
+
+  it("copies the source file to <destDir>/<testId>.webm, creating the dir", () => {
+    const base = mkdtempSync(join(tmpdir(), "vid-"));
+    dirs.push(base);
+    const src = join(base, "source.webm");
+    writeFileSync(src, "WEBMDATA");
+    const destDir = join(base, "videos");
+
+    copyVideo(src, destDir, "TC-L00101");
+
+    const out = join(destDir, "TC-L00101.webm");
+    expect(existsSync(out)).toBe(true);
+    expect(readFileSync(out, "utf8")).toBe("WEBMDATA");
+  });
+
+  it("overwrites the existing file for the same testId (latest run wins)", () => {
+    const base = mkdtempSync(join(tmpdir(), "vid-"));
+    dirs.push(base);
+    const destDir = join(base, "videos");
+
+    const first = join(base, "first.webm");
+    writeFileSync(first, "OLD");
+    copyVideo(first, destDir, "TC-L00101");
+
+    const second = join(base, "second.webm");
+    writeFileSync(second, "NEW");
+    copyVideo(second, destDir, "TC-L00101");
+
+    expect(readFileSync(join(destDir, "TC-L00101.webm"), "utf8")).toBe("NEW");
   });
 });
