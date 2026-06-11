@@ -17,12 +17,18 @@ bun run test:headed             # headed browser
 bun run test:login              # only 001-login.spec.ts
 bun run test -- 001-login.spec.ts   # single file
 bun run test -- -g "TC-L00101"     # single test by title
+bun run test:uat                # run the suite against UAT (loads .env.uat)
+bun run test:uat -- --project=login # ...forwarding any playwright flags
 bun run report                  # open last HTML report
 ```
 
 ## How the runner starts the frontend
 
 `playwright.config.ts` spawns `bun dev` in `../carmen-inventory-frontend` via Playwright's `webServer`. To test against an already running instance (e.g. staging) set `E2E_NO_WEBSERVER=1` and override `E2E_BASE_URL`. To point at a frontend at a different path, set `E2E_FRONTEND_DIR` — note that Playwright resolves the `cwd` option relative to the config file, so relative paths are evaluated from this repo root. See `.env.example`.
+
+## Running against a named environment (`.env.uat`, etc.)
+
+bun only auto-loads `.env` / `.env.local`, never a custom name. `scripts/run-env.ts` (exposed as `bun run test:uat` / `bun run e2e:uat`) parses `.env.<name>` (first positional arg, default `uat`) and runs `playwright test` with the file's vars **overriding** the inherited `.env` ones (otherwise the auto-loaded localhost values would shadow UAT). Remaining args are forwarded to `playwright test`. `.env.uat` sets `E2E_NO_WEBSERVER=1` + the deployed `E2E_BASE_URL`, so the run targets UAT with no local frontend. Add a new target by creating `.env.<name>` and calling `bun run scripts/run-env.ts <name>` — no code change. The `parseEnvFile` parser is unit-tested in `unit/run-env.test.ts`.
 
 ## Architecture
 
