@@ -23,7 +23,7 @@ export default defineConfig({
     baseURL: BASE_URL,
     trace: "on-first-retry",
     screenshot: "on",
-    video: "retain-on-failure",
+    video: "on",
   },
   projects: [
     {
