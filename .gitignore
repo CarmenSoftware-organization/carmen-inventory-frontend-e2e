@@ -3,6 +3,7 @@ dist/
 playwright-report/
 test-results/
 screenshots/
+videos/
 blob-report/
 playwright/.cache/
 .env

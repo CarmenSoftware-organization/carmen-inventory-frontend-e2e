@@ -22,13 +22,14 @@
  *     "duration": 2521,
  *     "error": "",
  *     "note": "",
- *     "screenshot": "screenshots/TC-L00101.png"
+ *     "screenshot": "screenshots/TC-L00101.png",
+ *     "video": "videos/TC-L00101.webm"
  *   }
  *
  * Rows are sorted by `testId` before writing. `seq` is a 1-based index within
  * the sorted list.
  *
- * Reporter-populated fields: seq, testId, title, status, runDate, duration, error, screenshot.
+ * Reporter-populated fields: seq, testId, title, status, runDate, duration, error, screenshot, video.
  * Annotation-populated (from Playwright `test.annotations`):
  *   preconditions | steps | expected | priority | testType | note
  */
@@ -58,6 +59,7 @@ export interface TCResultRow {
   error: string;
   note: string;
   screenshot: string;
+  video: string;
 }
 
 const TC_REGEX = /\bTC-[A-Z]{2,5}-\d{6}\b/g;
@@ -84,6 +86,30 @@ export function copyScreenshot(
 ): void {
   mkdirSync(destDir, { recursive: true });
   copyFileSync(srcPath, resolve(destDir, `${testId}.png`));
+}
+
+/**
+ * Find the auto-captured video attachment. Playwright uses the name "video"
+ * for the recorded video regardless of the video mode. Returns its on-disk
+ * path, or undefined if the test produced none.
+ */
+export function findVideoPath(
+  attachments: ReadonlyArray<{ name: string; path?: string }>,
+): string | undefined {
+  return attachments.find((a) => a.name === "video" && a.path)?.path;
+}
+
+/**
+ * Copy a video file to `<destDir>/<testId>.webm`, creating destDir if needed.
+ * Overwrites any existing file for that testId (latest run wins).
+ */
+export function copyVideo(
+  srcPath: string,
+  destDir: string,
+  testId: string,
+): void {
+  mkdirSync(destDir, { recursive: true });
+  copyFileSync(srcPath, resolve(destDir, `${testId}.webm`));
 }
 
 function statusLabel(result: TestResult): string {
@@ -181,11 +207,17 @@ export default class TCJsonReporter implements Reporter {
   private outDir: string;
   private screenshotsRelDir: string;
   private screenshotsAbsDir: string;
+  private videosRelDir: string;
+  private videosAbsDir: string;
 
-  constructor(options: { outputDir?: string; screenshotsDir?: string } = {}) {
+  constructor(
+    options: { outputDir?: string; screenshotsDir?: string; videosDir?: string } = {},
+  ) {
     this.outDir = resolve(process.cwd(), options.outputDir ?? "tests/results");
     this.screenshotsRelDir = options.screenshotsDir ?? "screenshots";
     this.screenshotsAbsDir = resolve(process.cwd(), this.screenshotsRelDir);
+    this.videosRelDir = options.videosDir ?? "videos";
+    this.videosAbsDir = resolve(process.cwd(), this.videosRelDir);
   }
 
   onBegin(_config: FullConfig) {
@@ -202,11 +234,22 @@ export default class TCJsonReporter implements Reporter {
     const bucket = this.rowsBySpec.get(key) ?? [];
     const meta = readAnnotations(test);
     const shotSrc = findScreenshotPath(result.attachments);
+    const videoSrc = findVideoPath(result.attachments);
     for (const id of ids) {
       let screenshot = "";
       if (shotSrc) {
         copyScreenshot(shotSrc, this.screenshotsAbsDir, id);
         screenshot = `${this.screenshotsRelDir}/${id}.png`;
+      }
+      let video = "";
+      if (videoSrc) {
+        try {
+          copyVideo(videoSrc, this.videosAbsDir, id);
+          video = `${this.videosRelDir}/${id}.webm`;
+        } catch (e) {
+          // eslint-disable-next-line no-console
+          console.warn(`[tc-json-reporter] video copy failed for ${id}: ${e}`);
+        }
       }
       bucket.push({
         testId: id,
@@ -216,6 +259,7 @@ export default class TCJsonReporter implements Reporter {
         error,
         runDate,
         screenshot,
+        video,
         ...meta,
       });
     }
