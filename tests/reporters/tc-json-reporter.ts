@@ -22,17 +22,18 @@
  *     "duration": 2521,
  *     "error": "",
  *     "note": "",
- *     "screenshot": "screenshots/TC-L00101.png"
+ *     "screenshot": "screenshots/TC-L00101.png",
+ *     "video": "videos/TC-L00101.webm"
  *   }
  *
  * Rows are sorted by `testId` before writing. `seq` is a 1-based index within
  * the sorted list.
  *
- * Reporter-populated fields: seq, testId, title, status, runDate, duration, error, screenshot.
+ * Reporter-populated fields: seq, testId, title, status, runDate, duration, error, screenshot, video.
  * Annotation-populated (from Playwright `test.annotations`):
  *   preconditions | steps | expected | priority | testType | note
  */
-import { copyFileSync, mkdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { basename, resolve } from "node:path";
 import type {
   FullConfig,
@@ -58,6 +59,7 @@ export interface TCResultRow {
   error: string;
   note: string;
   screenshot: string;
+  video: string;
 }
 
 const TC_REGEX = /\bTC-[A-Z]{2,5}-\d{6}\b/g;
@@ -205,11 +207,17 @@ export default class TCJsonReporter implements Reporter {
   private outDir: string;
   private screenshotsRelDir: string;
   private screenshotsAbsDir: string;
+  private videosRelDir: string;
+  private videosAbsDir: string;
 
-  constructor(options: { outputDir?: string; screenshotsDir?: string } = {}) {
+  constructor(
+    options: { outputDir?: string; screenshotsDir?: string; videosDir?: string } = {},
+  ) {
     this.outDir = resolve(process.cwd(), options.outputDir ?? "tests/results");
     this.screenshotsRelDir = options.screenshotsDir ?? "screenshots";
     this.screenshotsAbsDir = resolve(process.cwd(), this.screenshotsRelDir);
+    this.videosRelDir = options.videosDir ?? "videos";
+    this.videosAbsDir = resolve(process.cwd(), this.videosRelDir);
   }
 
   onBegin(_config: FullConfig) {
@@ -226,11 +234,17 @@ export default class TCJsonReporter implements Reporter {
     const bucket = this.rowsBySpec.get(key) ?? [];
     const meta = readAnnotations(test);
     const shotSrc = findScreenshotPath(result.attachments);
+    const videoSrc = findVideoPath(result.attachments);
     for (const id of ids) {
       let screenshot = "";
       if (shotSrc) {
         copyScreenshot(shotSrc, this.screenshotsAbsDir, id);
         screenshot = `${this.screenshotsRelDir}/${id}.png`;
+      }
+      let video = "";
+      if (videoSrc && existsSync(videoSrc)) {
+        copyVideo(videoSrc, this.videosAbsDir, id);
+        video = `${this.videosRelDir}/${id}.webm`;
       }
       bucket.push({
         testId: id,
@@ -240,6 +254,7 @@ export default class TCJsonReporter implements Reporter {
         error,
         runDate,
         screenshot,
+        video,
         ...meta,
       });
     }
