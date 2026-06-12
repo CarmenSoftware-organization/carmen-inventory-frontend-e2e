@@ -101,3 +101,18 @@ Tab mapping is hard-coded in `SYNC_TARGETS` inside `scripts/sync-test-results.ts
 - **Test titles are in Thai** to match the product UX.
 
 See [CLAUDE.md](./CLAUDE.md) for the architecture deep-dive used by AI coding agents.
+
+## Testing the React SPA (carmen-inventory-frontend-react)
+
+The suite is frontend-agnostic — the UI of the Vite SPA port is identical to the
+Next app. To run against the SPA:
+
+```bash
+E2E_FRONTEND_DIR=../carmen-inventory-frontend-react \
+VITE_DEV_PROXY_TARGET=<backend-url> \
+bun e2e
+```
+
+`002-spa-smoke.spec.ts` (TC-SPA-01xxxx) is a cross-section smoke moved here from
+the SPA repo — it additionally asserts SPA-specific behavior (auth-guard redirect,
+real dashboard instead of the migration placeholder).
