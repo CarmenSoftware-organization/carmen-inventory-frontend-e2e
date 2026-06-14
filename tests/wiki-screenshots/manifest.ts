@@ -3,7 +3,6 @@
 import type { ShotSpec } from "./types";
 
 export const SHOTS: ShotSpec[] = [
-  { path: "/", module: "root", slug: "index" },
   { path: "/config", module: "config", slug: "index" },
   { path: "/config/adjustment-type", module: "adjustment-type", slug: "index" },
   { path: "/config/business-type", module: "business-type", slug: "index" },

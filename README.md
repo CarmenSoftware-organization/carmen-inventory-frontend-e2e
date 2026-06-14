@@ -1,8 +1,8 @@
 # carmen-inventory-frontend-e2e
 
-Playwright end-to-end test suite for the [**carmen-inventory-frontend**](https://github.com/CarmenSoftware-organization/carmen-inventory-frontend) Next.js app.
+Playwright end-to-end test suite for the [**carmen-inventory-frontend-react**](https://github.com/CarmenSoftware-organization/carmen-inventory-frontend-react) Vite SPA.
 
-The frontend lives in a sibling directory (`../carmen-inventory-frontend`). This repo contains only tests, page objects, fixtures, and a CSV-to-Google-Sheets reporter — no application code.
+The frontend lives in a sibling directory (`../carmen-inventory-frontend-react`). This repo contains only tests, page objects, fixtures, and a CSV-to-Google-Sheets reporter — no application code. (The suite is frontend-agnostic; point `E2E_FRONTEND_DIR` at the legacy Next.js app `../carmen-inventory-frontend` to run against it instead — see below.)
 
 ## Quickstart
 
@@ -12,7 +12,7 @@ bun run install-browsers    # one-time: installs Chromium
 bun test                    # runs the full suite (boots the frontend via Playwright webServer)
 ```
 
-`bun test` will spawn `bun dev` in `../carmen-inventory-frontend`. To test against an already running frontend (e.g. staging) set:
+`bun test` will spawn `bun dev` in `../carmen-inventory-frontend-react` (Vite dev server, serves on `:3000`). To test against an already running frontend (e.g. staging) set:
 
 ```bash
 export E2E_NO_WEBSERVER=1
@@ -102,17 +102,22 @@ Tab mapping is hard-coded in `SYNC_TARGETS` inside `scripts/sync-test-results.ts
 
 See [CLAUDE.md](./CLAUDE.md) for the architecture deep-dive used by AI coding agents.
 
-## Testing the React SPA (carmen-inventory-frontend-react)
+## Default target: the React SPA
 
-The suite is frontend-agnostic — the UI of the Vite SPA port is identical to the
-Next app. To run against the SPA:
-
-```bash
-E2E_FRONTEND_DIR=../carmen-inventory-frontend-react \
-VITE_DEV_PROXY_TARGET=<backend-url> \
-bun e2e
-```
+By default the suite drives the **React SPA** (`../carmen-inventory-frontend-react`,
+Vite, `:3000`). The SPA reads its backend from `public/config.json`, so no dev proxy
+is required; set `VITE_DEV_PROXY_TARGET=<backend-url>` only if you blank out
+`BACKEND_URL` in that file to route `/api` through Vite's proxy instead.
 
 `002-spa-smoke.spec.ts` (TC-SPA-01xxxx) is a cross-section smoke moved here from
-the SPA repo — it additionally asserts SPA-specific behavior (auth-guard redirect,
-real dashboard instead of the migration placeholder).
+the SPA repo — it asserts SPA-specific behavior (auth-guard redirect, real dashboard
+instead of the migration placeholder).
+
+### Running against the legacy Next.js app
+
+The suite is frontend-agnostic. To run against the original Next app
+(`../carmen-inventory-frontend`, App Router) instead:
+
+```bash
+E2E_FRONTEND_DIR=../carmen-inventory-frontend bun e2e
+```
