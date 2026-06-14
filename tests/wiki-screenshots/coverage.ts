@@ -1,7 +1,7 @@
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import type { ShotSpec } from "./types";
-import { discoverRoutes } from "./route-discovery";
+import { discoverFrontendRoutes } from "./route-discovery";
 import { SHOTS } from "./manifest";
 import { loadSeedOverlay, applySeedOverlay } from "./seed-overlay";
 
@@ -86,12 +86,13 @@ export function renderReport(rows: CoverageRow[]): string {
 
 /** CLI entry: discover routes, diff against SHOTS, write the report into the wiki. */
 function main(): void {
-  const frontendDir = process.env.E2E_FRONTEND_DIR ?? "../carmen-inventory-frontend";
+  const frontendDir =
+    process.env.E2E_FRONTEND_DIR ?? "../carmen-inventory-frontend-react";
   const specsDir = process.env.WIKI_SPECS_DIR ?? "../carmen-wiki/.specs";
   const resultsPath = join(process.cwd(), "tests/wiki-screenshots/last-run.json");
   const seedIdsPath = join(process.cwd(), "tests/wiki-screenshots/seed-ids.json");
 
-  const routes = discoverRoutes(join(frontendDir, "app"));
+  const routes = discoverFrontendRoutes(frontendDir);
   let skipped: Record<string, string> = {};
   if (existsSync(resultsPath)) {
     try {

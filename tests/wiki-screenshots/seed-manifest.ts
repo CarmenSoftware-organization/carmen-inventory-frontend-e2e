@@ -1,6 +1,6 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { discoverRoutes } from "./route-discovery";
+import { discoverFrontendRoutes } from "./route-discovery";
 
 const ACTION_SLUGS = new Set(["new", "review", "entry"]);
 
@@ -52,8 +52,9 @@ export function generateManifestSource(routes: string[]): string {
 }
 
 function main(): void {
-  const frontendDir = process.env.E2E_FRONTEND_DIR ?? "../carmen-inventory-frontend";
-  const routes = discoverRoutes(join(frontendDir, "app"));
+  const frontendDir =
+    process.env.E2E_FRONTEND_DIR ?? "../carmen-inventory-frontend-react";
+  const routes = discoverFrontendRoutes(frontendDir);
   const out = join(process.cwd(), "tests/wiki-screenshots/manifest.ts");
   writeFileSync(out, generateManifestSource(routes));
   console.log(`Wrote ${out} (${routes.length} routes discovered)`);
