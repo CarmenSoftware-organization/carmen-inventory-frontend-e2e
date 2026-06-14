@@ -12,6 +12,16 @@ export class DashboardPage extends BasePage {
   readonly logoutMenuItem = () =>
     this.page.getByRole("menuitem", { name: /Log ?out|ออกจากระบบ|Sign ?out/i });
 
+  /**
+   * Confirm button inside the React SPA's logout confirmation AlertDialog.
+   * Scoped to role="alertdialog" so it never collides with the menu item, which
+   * carries the same label. The legacy Next app logs out without this dialog.
+   */
+  readonly logoutConfirmButton = () =>
+    this.page
+      .getByRole("alertdialog")
+      .getByRole("button", { name: /Log ?out|ออกจากระบบ|Sign ?out/i });
+
   async goto() {
     await this.page.goto("/dashboard");
     await this.page.waitForLoadState("networkidle");
@@ -23,17 +33,30 @@ export class DashboardPage extends BasePage {
     const trigger = this.userMenuTrigger();
     await trigger.waitFor({ state: "visible", timeout: 15_000 });
     // Retry up to 3 times in case the menu fails to open on first click
+    let opened = false;
     for (let attempt = 0; attempt < 3; attempt++) {
       await trigger.click();
       try {
         await this.logoutMenuItem().waitFor({ state: "visible", timeout: 3_000 });
         await this.logoutMenuItem().click();
-        return;
+        opened = true;
+        break;
       } catch {
         // Menu didn't open — close any stray overlays and retry
         await this.page.keyboard.press("Escape").catch(() => null);
       }
     }
-    throw new Error("Logout menu item never appeared after 3 attempts");
+    if (!opened) {
+      throw new Error("Logout menu item never appeared after 3 attempts");
+    }
+    // The React SPA gates logout behind a confirmation AlertDialog; the legacy
+    // Next app logs out directly. Confirm the dialog if (and only if) it appears.
+    try {
+      const confirm = this.logoutConfirmButton();
+      await confirm.waitFor({ state: "visible", timeout: 3_000 });
+      await confirm.click();
+    } catch {
+      // No confirmation dialog — legacy Next app already logging out.
+    }
   }
 }
