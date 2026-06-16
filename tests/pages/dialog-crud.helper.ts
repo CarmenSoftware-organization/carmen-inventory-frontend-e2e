@@ -11,6 +11,7 @@ export interface DialogCrudOptions {
   listPath: string;
   nameInputId: string; // e.g. "business-type-name"
   activeSwitchId?: string; // e.g. "business-type-is-active"
+  descriptionInputId?: string; // e.g. "unit-description"
 }
 
 class _BasePageImpl extends BasePage {}
@@ -39,6 +40,29 @@ export class DialogCrudHelper {
     return this.opts.activeSwitchId
       ? this.page.locator(`#${this.opts.activeSwitchId}`)
       : null;
+  }
+
+  descriptionInput(): Locator {
+    if (!this.opts.descriptionInputId) {
+      throw new Error("descriptionInputId not configured for this module");
+    }
+    return this.page.locator(`#${this.opts.descriptionInputId}`);
+  }
+
+  /** Read the Radix status switch state (role="switch" → aria-checked). */
+  async isActive(): Promise<boolean> {
+    const sw = this.activeSwitch();
+    if (!sw) throw new Error("activeSwitchId not configured for this module");
+    return (await sw.getAttribute("aria-checked")) === "true";
+  }
+
+  /** Set the status switch to `on`, clicking only if it differs from current. */
+  async setActive(on: boolean): Promise<void> {
+    const sw = this.activeSwitch();
+    if (!sw) throw new Error("activeSwitchId not configured for this module");
+    if ((await this.isActive()) !== on) {
+      await sw.click();
+    }
   }
 
   cancelButton(): Locator {
