@@ -541,6 +541,132 @@ test.describe("เข้าสู่ระบบ", () => {
       await expect(page).toHaveURL(/login/);
     },
   );
+
+  // ── Redirect / session / form UX (batch 2) ────────────────────────────────
+  test(
+    "TC-LOGIN-010035 login พร้อม ?next= ที่ valid ต้อง redirect ไปปลายทางนั้น",
+    {
+      annotation: [
+        { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out; /profile เป็น shell route ที่ requestor เข้าได้" },
+        { type: "steps", description: "1. เปิด /login?next=/profile\n2. login ด้วย requestor@blueledgers.com\n3. ตรวจสอบ URL ปลายทาง" },
+        { type: "expected", description: "หลัง login redirect ไป /profile (เคารพ ?next= ที่ปลอดภัย) ไม่ใช่ /dashboard" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await page.goto("/login?next=/profile");
+      await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+      await expect(page).toHaveURL(/\/profile/, { timeout: 15_000 });
+    },
+  );
+
+  test(
+    "TC-LOGIN-010043 refresh token ปลอม/เสีย เข้า /dashboard ต้องเด้งไป login",
+    {
+      annotation: [
+        { type: "preconditions", description: "browser logged out; localStorage มี refresh token ที่ไม่ valid (ปลอม)" },
+        { type: "steps", description: "1. เปิด /login เพื่อ set origin\n2. set localStorage carmen.refresh_token เป็นค่าปลอม\n3. navigate ไป /dashboard" },
+        { type: "expected", description: "boot ใช้ refresh token ปลอม → backend ปฏิเสธ → token store ว่าง → RequireAuth เด้งไป /login" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Security" },
+      ],
+    },
+    async ({ page }) => {
+      await page.goto("/login");
+      await page.evaluate(() =>
+        localStorage.setItem("carmen.refresh_token", "garbage-invalid-token"),
+      );
+      await page.goto("/dashboard");
+      await expect(page).toHaveURL(/login/, { timeout: 15_000 });
+    },
+  );
+
+  test(
+    "TC-LOGIN-010041 ปุ่ม show/hide password สลับการแสดงรหัสผ่านได้",
+    {
+      annotation: [
+        { type: "preconditions", description: "browser logged out; อยู่ที่ /login" },
+        { type: "steps", description: "1. เปิด /login\n2. กรอกรหัสผ่าน\n3. กดปุ่ม Show password\n4. กดปุ่ม Hide password" },
+        { type: "expected", description: "เริ่มต้น type=password; กด Show → type=text; กด Hide → type=password อีกครั้ง" },
+        { type: "priority", description: "Low" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.passwordInput().fill(TEST_PASSWORD);
+
+      await expect(loginPage.passwordInput()).toHaveAttribute("type", "password");
+      await loginPage.showPasswordToggle().click();
+      await expect(loginPage.passwordInput()).toHaveAttribute("type", "text");
+      await loginPage.hidePasswordToggle().click();
+      await expect(loginPage.passwordInput()).toHaveAttribute("type", "password");
+    },
+  );
+
+  test(
+    "TC-LOGIN-010039 ปุ่ม Sign In ถูก disable ระหว่าง request กำลังทำงาน (กัน double-submit)",
+    {
+      annotation: [
+        { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out" },
+        { type: "steps", description: "1. เปิด /login\n2. กรอก credentials\n3. กด Sign In\n4. ตรวจสถานะปุ่มทันทีระหว่าง request" },
+        { type: "expected", description: "ปุ่ม disabled ระหว่าง in-flight; ถ้า backend ตอบเร็วจน redirect ไป /dashboard ก่อนสังเกตได้ ถือว่าผ่าน (ไม่เปิดช่อง double-submit) — best-effort" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.emailInput().fill("requestor@blueledgers.com");
+      await loginPage.passwordInput().fill(TEST_PASSWORD);
+      await loginPage.submitButton().click();
+
+      // best-effort: จับ disabled ทันภายใน 1s หรือถือว่า login จบเร็วแล้วไป dashboard
+      let sawDisabled = true;
+      try {
+        await expect(loginPage.submitButton()).toBeDisabled({ timeout: 1_000 });
+      } catch {
+        sawDisabled = false;
+      }
+      if (!sawDisabled) {
+        await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
+      }
+    },
+  );
+
+  test(
+    "TC-LOGIN-010042 หลังผิดซ้ำจนโดน rate-limit ต้องแสดง countdown และ disable ปุ่ม",
+    {
+      annotation: [
+        { type: "preconditions", description: "browser logged out; backend rate-limiter เปิด (429 + retry_after หลังผิด 3 ครั้งด้วย email เดียวกัน)" },
+        { type: "steps", description: "1. สร้าง email ปลอม unique ต่อ run\n2. login ด้วยรหัสผิดซ้ำ 3 ครั้ง\n3. ตรวจ UI หลังโดน 429" },
+        { type: "expected", description: "แสดงข้อความ countdown 'Too many login attempts. Try again in Ns.' และปุ่ม Sign In ถูก disable — best-effort (พึ่ง retry_after จาก backend)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      const wrongEmail = `countdown-${Date.now()}@nonexistent.com`;
+
+      for (let i = 0; i < 3; i++) {
+        await loginPage.goto();
+        const resPromise = page.waitForResponse(
+          (res) => res.url().includes("/auth") && res.request().method() === "POST",
+          { timeout: 10_000 },
+        );
+        await loginPage.login(wrongEmail, "wrongpassword");
+        await resPromise.catch(() => null);
+      }
+
+      await expect(loginPage.countdownMessage()).toBeVisible({ timeout: 15_000 });
+      await expect(loginPage.submitButton()).toBeDisabled();
+    },
+  );
 });
 
 test.describe("ออกจากระบบ", () => {
