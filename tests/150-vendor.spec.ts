@@ -1,6 +1,9 @@
 import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { VendorPage } from "./pages/vendor.page";
+import { BU_CODE } from "./test-users";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
+import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 const test = createAuthTest("purchase@blueledgers.com");
 
@@ -744,4 +747,166 @@ test.afterAll(async ({ browser }) => {
   } finally {
     await context.close();
   }
+});
+
+// ── admin@blueledgers.com + BLAVG CRUD ─────────────────────────────────────
+// The describes above run as purchase@blueledgers.com (authz coverage) and are
+// left untouched. This block verifies an admin can CRUD vendors with the active
+// BU pinned to BLAVG.
+const adminTest = createAuthTest("admin@blueledgers.com");
+
+adminTest.describe.serial("Vendor — admin@BLAVG CRUD", () => {
+  const ADMIN_CODE = `VA${UID.slice(-5).toUpperCase()}`;
+  const ADMIN_NAME = `E2E VA ${UID}`;
+  const ADMIN_NAME_UPDATED = `E2E VA Upd ${UID}`;
+
+  // The React vendor form is a single sectioned page (no Radix tabs), so the
+  // tab-based VendorPage helpers (switchTab/fillGeneral) don't apply here.
+  // These local helpers target the redesigned form directly:
+  //   - code  → #vendor-code
+  //   - name  → hero NameField <input> (placeholder "e.g. บริษัท ABC จำกัด")
+  const nameInput = (page: import("@playwright/test").Page) =>
+    page.getByPlaceholder(/บริษัท ABC|e\.g\. .*ABC/i).first();
+
+  async function fillCodeAndName(
+    page: import("@playwright/test").Page,
+    code: string,
+    name: string,
+  ) {
+    const codeField = page.locator("#vendor-code");
+    await codeField.waitFor({ state: "visible", timeout: 15_000 });
+    await codeField.fill(code);
+    await nameInput(page).fill(name);
+  }
+
+  adminTest.beforeEach(async ({ page }) => {
+    await ensureActiveBu(page, BU_CODE);
+  });
+
+  adminTest(
+    "TC-VEN-010050 active BU = BLAVG",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
+        { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const units = await getBusinessUnits(page);
+      const active = defaultBu(units);
+      expect(active?.code).toBe(BU_CODE);
+
+      const switcher = new BuSwitcherPage(page);
+      await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
+    },
+  );
+
+  adminTest(
+    "TC-VEN-030050 สร้าง vendor (admin/BLAVG) สำเร็จ",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; vendor ADMIN_CODE/ADMIN_NAME ยังไม่มีใน DB" },
+        { type: "steps", description: "1. เปิด new form\n2. กรอก code + name ใน tab General\n3. เลือก business type (ถ้ามี option)\n4. กด Save\n5. กลับ list และค้นหาด้วย ADMIN_NAME" },
+        { type: "expected", description: "Save toast/feedback ปรากฏ และ vendor ใหม่ค้นเจอใน list ภายใน 10s" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const vendor = new VendorPage(page);
+      await vendor.gotoNew();
+      await fillCodeAndName(page, ADMIN_CODE, ADMIN_NAME);
+      await vendor.saveButton().click();
+      await vendor.expectSaved();
+
+      await vendor.gotoList();
+      await vendor.list.search(ADMIN_NAME);
+      await expect(page.getByText(ADMIN_NAME).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  adminTest(
+    "TC-VEN-040050 แก้ name ของ vendor แล้ว persist",
+    {
+      annotation: [
+        { type: "preconditions", description: "TC-VEN-030050 ผ่านแล้ว → vendor ที่ ADMIN_NAME มีอยู่ใน DB; login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. ไปที่ list และเปิด detail ของ vendor ตาม ADMIN_NAME\n2. กด Edit\n3. สลับไป tab general\n4. แก้ name เป็น ADMIN_NAME_UPDATED\n5. กด Save\n6. กลับ list ค้นหาด้วย ADMIN_NAME_UPDATED" },
+        { type: "expected", description: "Save toast/feedback ปรากฏ และ ADMIN_NAME_UPDATED ค้นเจอใน list ภายใน 10s (ค่าถูก persist)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const vendor = new VendorPage(page);
+      await vendor.gotoList();
+      await vendor.openDetailByName(ADMIN_NAME);
+      await vendor.editButton().click();
+      await nameInput(page).fill(ADMIN_NAME_UPDATED);
+      await vendor.saveButton().click();
+      await vendor.expectSaved();
+
+      await vendor.gotoList();
+      await vendor.list.search(ADMIN_NAME_UPDATED);
+      await expect(page.getByText(ADMIN_NAME_UPDATED).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  adminTest(
+    "TC-VEN-200050 สร้าง vendor code ซ้ำ ต้องถูก reject",
+    {
+      annotation: [
+        { type: "preconditions", description: "TC-VEN-040050 ผ่านแล้ว → vendor ที่ ADMIN_CODE มีอยู่ใน DB; login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. เปิด new form\n2. กรอก code = ADMIN_CODE (ซ้ำ) + name ใหม่\n3. เลือก business type (ถ้ามี)\n4. กด Save" },
+        { type: "expected", description: "รายการที่สองไม่ถูกสร้าง: ยังอยู่ที่ form (/new) หรือมี error (backend reject duplicate code)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Negative" },
+      ],
+    },
+    async ({ page }) => {
+      const vendor = new VendorPage(page);
+      await vendor.gotoNew();
+      await fillCodeAndName(page, ADMIN_CODE, `${ADMIN_NAME} dup`);
+      await vendor.saveButton().click();
+
+      // Duplicate code must be rejected: either the form stays on /new, or an
+      // error toast/indicator surfaces. We assert it did NOT redirect to detail.
+      await expect(page).toHaveURL(/\/new(\?|$|#)/, { timeout: 10_000 });
+    },
+  );
+
+  adminTest(
+    "TC-VEN-050050 ลบ vendor (admin/BLAVG) cleanup",
+    {
+      annotation: [
+        { type: "preconditions", description: "TC-VEN-200050 ผ่านแล้ว → vendor ที่ ADMIN_NAME_UPDATED ยังคงอยู่ใน DB; login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. ไปที่ list และค้นหาด้วย ADMIN_NAME_UPDATED\n2. เปิด row actions\n3. คลิก menuitem Delete\n4. ใน alertdialog กดยืนยัน Delete/Confirm" },
+        { type: "expected", description: "Success toast ('success/deleted/สำเร็จ') ปรากฏภายใน 10s" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const vendor = new VendorPage(page);
+      await vendor.gotoList();
+      await vendor.list.search(ADMIN_NAME_UPDATED);
+      const row = page.getByRole("row").filter({ hasText: ADMIN_NAME_UPDATED }).first();
+
+      const actionsBtn = row.getByRole("button", { name: /row actions|actions|more/i }).first();
+      await actionsBtn.click();
+      await page.getByRole("menuitem", { name: /delete|ลบ/i }).first().click();
+
+      const dialog = page.getByRole("alertdialog");
+      await expect(dialog).toBeVisible({ timeout: 5_000 });
+      await dialog.getByRole("button", { name: /^(delete|confirm|ลบ|ok)$/i }).click();
+
+      await expect(
+        page.locator('[data-sonner-toast], [role="status"]')
+          .filter({ hasText: /success|deleted|ลบ.*สำเร็จ|สำเร็จ/i })
+          .first(),
+      ).toBeVisible({ timeout: 10_000 });
+    },
+  );
 });

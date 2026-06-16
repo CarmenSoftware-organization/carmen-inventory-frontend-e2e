@@ -4,8 +4,8 @@ _Generated from `tests/101-product-category.spec.ts` annotations. Edit annotatio
 
 **Module:** Product Category
 **Spec:** `tests/101-product-category.spec.ts`
-**Default role:** Purchase
-**Total test cases:** 77 (61 High / 16 Medium / 0 Low)
+**Default role:** Admin
+**Total test cases:** 81 (65 High / 16 Medium / 0 Low)
 
 ## Test Cases at a Glance
 
@@ -16,6 +16,7 @@ _Generated from `tests/101-product-category.spec.ts` annotations. Edit annotatio
 | TC-CAT-010003 | Expand and collapse category levels | High | Happy Path |
 | TC-CAT-010004 | Category hierarchy with very long names | Medium | Edge Case |
 | TC-CAT-010005 | Multiple levels of categories | High | Happy Path |
+| TC-CAT-010050 | active BU = BLAVG | High | Smoke |
 | TC-CAT-020001 | Happy Path - Create Root Category | High | Happy Path |
 | TC-CAT-020002 | Negative - No Permission to Create Category | High | Negative |
 | TC-CAT-020003 | Edge Case - Category Name Exceeds Maximum Length | High | Edge Case |
@@ -23,15 +24,18 @@ _Generated from `tests/101-product-category.spec.ts` annotations. Edit annotatio
 | TC-CAT-030002 | Negative Case - Invalid Subcategory Name | High | Negative |
 | TC-CAT-030003 | Negative Case - No Permission | High | Negative |
 | TC-CAT-030004 | Edge Case - Maximum Subcategory Level | Medium | Edge Case |
+| TC-CAT-030050 | สร้าง root category สำเร็จ | High | CRUD |
 | TC-CAT-040001 | Create Valid Item Group | High | Happy Path |
 | TC-CAT-040002 | Create Item Group with Missing Permission | High | Negative |
 | TC-CAT-040003 | Create Item Group with Invalid Subcategory Selection | High | Negative |
 | TC-CAT-040005 | Create Item Group with Long Name | Medium | Edge Case |
+| TC-CAT-040050 | แก้ไขชื่อ category แล้วค่าคงอยู่ | High | CRUD |
 | TC-CAT-050001 | Edit Existing Category Name | High | Happy Path |
 | TC-CAT-050002 | Try to Edit Non-Existent Category | High | Negative |
 | TC-CAT-050003 | Edit Category with No Permission | High | Negative |
 | TC-CAT-050004 | Edit Category with Invalid Input | High | Negative |
 | TC-CAT-050005 | Edit Category with Active Reference | High | Edge Case |
+| TC-CAT-050050 | ลบ category สำเร็จ (cleanup) | High | CRUD |
 | TC-CAT-060001 | Delete existing category | High | Happy Path |
 | TC-CAT-060002 | Attempt to delete category with assigned products | High | Negative |
 | TC-CAT-060003 | Attempt to delete non-existing category | High | Negative |
@@ -93,7 +97,7 @@ _Generated from `tests/101-product-category.spec.ts` annotations. Edit annotatio
 
 ## TC-CAT-010001 — View all categories
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -117,7 +121,7 @@ category ทั้งหมดแสดงถูกต้องและสา�
 
 ## TC-CAT-010002 — No permission to view categories
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -139,7 +143,7 @@ category ทั้งหมดแสดงถูกต้องและสา�
 
 ## TC-CAT-010003 — Expand and collapse category levels
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -168,7 +172,7 @@ category ทั้งหมดแสดงถูกต้องและสา�
 
 ## TC-CAT-010004 — Category hierarchy with very long names
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -191,7 +195,7 @@ category ทั้งหมดแสดงถูกต้องและสา�
 
 ## TC-CAT-010005 — Multiple levels of categories
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -214,9 +218,31 @@ category ทั้งหมดแสดงถูกต้องและสา�
 
 ---
 
+## TC-CAT-010050 — active BU = BLAVG
+
+> **As a** Admin user, **I want** core Product Category interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+
+**Steps**
+
+1. อ่าน profile API (/api/proxy/api/user/profile)
+2. หา business unit ที่ is_default
+3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher
+
+**Expected**
+
+default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น
+
+---
+
 ## TC-CAT-020001 — Happy Path - Create Root Category
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -239,7 +265,7 @@ category สร้างสำเร็จและแสดงอยู่ใ�
 
 ## TC-CAT-020002 — Negative - No Permission to Create Category
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -262,7 +288,7 @@ category สร้างสำเร็จและแสดงอยู่ใ�
 
 ## TC-CAT-020003 — Edge Case - Category Name Exceeds Maximum Length
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -285,7 +311,7 @@ category สร้างสำเร็จและแสดงอยู่ใ�
 
 ## TC-CAT-030001 — Happy Path - Create Subcategory
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -310,7 +336,7 @@ subcategory สร้างสำเร็จและแสดงอยู่�
 
 ## TC-CAT-030002 — Negative Case - Invalid Subcategory Name
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -335,7 +361,7 @@ subcategory สร้างสำเร็จและแสดงอยู่�
 
 ## TC-CAT-030003 — Negative Case - No Permission
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -358,7 +384,7 @@ subcategory สร้างสำเร็จและแสดงอยู่�
 
 ## TC-CAT-030004 — Edge Case - Maximum Subcategory Level
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -380,9 +406,33 @@ subcategory สร้างสำเร็จและแสดงอยู่�
 
 ---
 
+## TC-CAT-030050 — สร้าง root category สำเร็จ
+
+> **As a** Admin user, **I want** to create a new Product Category record, **so that** it becomes available for downstream operations.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG; มี Tax Profile ที่ active อย่างน้อย 1 รายการ
+
+**Steps**
+
+1. ไปที่ /product-management/category
+2. คลิก 'Add Category'
+3. กรอก Code และ Name ด้วยค่าที่ไม่ซ้ำ
+4. เลือก Tax Profile รายการแรก
+5. คลิก 'Create'
+
+**Expected**
+
+แสดง toast 'Category created successfully' และ root category ใหม่ปรากฏใน tree
+
+---
+
 ## TC-CAT-040001 — Create Valid Item Group
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -407,7 +457,7 @@ item group ใหม่สร้างสำเร็จและแสดงอ
 
 ## TC-CAT-040002 — Create Item Group with Missing Permission
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -429,7 +479,7 @@ item group ใหม่สร้างสำเร็จและแสดงอ
 
 ## TC-CAT-040003 — Create Item Group with Invalid Subcategory Selection
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -454,7 +504,7 @@ item group ใหม่สร้างสำเร็จและแสดงอ
 
 ## TC-CAT-040005 — Create Item Group with Long Name
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -476,9 +526,34 @@ item group ใหม่สร้างสำเร็จและแสดงอ
 
 ---
 
+## TC-CAT-040050 — แก้ไขชื่อ category แล้วค่าคงอยู่
+
+> **As a** Admin user, **I want** to edit an existing Product Category record, **so that** its data stays accurate.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG; category จาก TC-CAT-030050 ถูกสร้างแล้ว
+
+**Steps**
+
+1. ไปที่ /product-management/category
+2. hover ที่ row ของ category ที่สร้างไว้
+3. คลิกปุ่ม Edit
+4. แก้ Name เป็นชื่อใหม่
+5. คลิก 'Save'
+6. reload หน้า
+
+**Expected**
+
+แสดง toast 'Category updated successfully'; ชื่อใหม่ปรากฏใน tree และยังคงอยู่หลัง reload
+
+---
+
 ## TC-CAT-050001 — Edit Existing Category Name
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -503,7 +578,7 @@ item group ใหม่สร้างสำเร็จและแสดงอ
 
 ## TC-CAT-050002 — Try to Edit Non-Existent Category
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -526,7 +601,7 @@ item group ใหม่สร้างสำเร็จและแสดงอ
 
 ## TC-CAT-050003 — Edit Category with No Permission
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -549,7 +624,7 @@ item group ใหม่สร้างสำเร็จและแสดงอ
 
 ## TC-CAT-050004 — Edit Category with Invalid Input
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -574,7 +649,7 @@ item group ใหม่สร้างสำเร็จและแสดงอ
 
 ## TC-CAT-050005 — Edit Category with Active Reference
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -595,9 +670,33 @@ category ถูกอ้างอิงอยู่ในกระบวนก�
 
 ---
 
+## TC-CAT-050050 — ลบ category สำเร็จ (cleanup)
+
+> **As a** Admin user, **I want** to delete a Product Category record, **so that** the list reflects only valid entries.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG; category (ชื่อที่แก้ไขแล้ว) จาก TC-CAT-040050 ยังมีอยู่
+
+**Steps**
+
+1. ไปที่ /product-management/category
+2. hover ที่ row ของ category
+3. คลิกปุ่ม Delete
+4. ยืนยันใน AlertDialog ด้วยปุ่ม 'Delete'
+5. reload หน้า
+
+**Expected**
+
+แสดง toast 'Category deleted successfully'; category หายไปจาก tree และไม่กลับมาหลัง reload
+
+---
+
 ## TC-CAT-060001 — Delete existing category
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -622,7 +721,7 @@ category ถูกทำเครื่องหมายว่าลบแล�
 
 ## TC-CAT-060002 — Attempt to delete category with assigned products
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -646,7 +745,7 @@ category มีอยู่จริงและมี product ที่กำ�
 
 ## TC-CAT-060003 — Attempt to delete non-existing category
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -670,7 +769,7 @@ category มีอยู่จริงและมี product ที่กำ�
 
 ## TC-CAT-060004 — Delete category after logging out
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -696,7 +795,7 @@ category มีอยู่จริงและไม่ได้ถูกท�
 
 ## TC-CAT-070001 — Reorder Categories within Same Parent
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -720,7 +819,7 @@ category A และ B ถูกจัดเรียงใหม่ติดก
 
 ## TC-CAT-070002 — Move Category to Different Parent
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -744,7 +843,7 @@ category C ถูกย้ายไปอยู่ใต้ parent 2
 
 ## TC-CAT-070003 — Unable to Reorder without Permission
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -766,7 +865,7 @@ category C ถูกย้ายไปอยู่ใต้ parent 2
 
 ## TC-CAT-070004 — Attempt to Drag Category Outside of Current Parent
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -789,7 +888,7 @@ category A ยังคงอยู่ที่ตำแหน่งเดิม
 
 ## TC-CAT-070005 — Drag Category with No Siblings
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -811,7 +910,7 @@ category A ยังคงอยู่ที่ตำแหน่งเดิม
 
 ## TC-CAT-080001 — Switch from Tree to List View
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -834,7 +933,7 @@ category แสดงในรูปแบบ flat list
 
 ## TC-CAT-080002 — Switch from List to Tree View
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -857,7 +956,7 @@ category แสดงในรูปแบบ tree แบบลำดับช�
 
 ## TC-CAT-080003 — Negative: Switch View with No Categories
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -881,7 +980,7 @@ category แสดงในรูปแบบ tree แบบลำดับช�
 
 ## TC-CAT-080004 — Edge Case: Switch Views Multiple Times
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -906,7 +1005,7 @@ category แสดงในรูปแบบ tree แบบลำดับช�
 
 ## TC-CAT-090001 — Happy Path - Search for Existing Category
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -930,7 +1029,7 @@ category แสดงในรูปแบบ tree แบบลำดับช�
 
 ## TC-CAT-090002 — Negative Case - Search with Invalid Input
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -954,7 +1053,7 @@ category แสดงในรูปแบบ tree แบบลำดับช�
 
 ## TC-CAT-090003 — Edge Case - Search with Empty Input
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -978,7 +1077,7 @@ category แสดงในรูปแบบ tree แบบลำดับช�
 
 ## TC-CAT-090004 — Negative Case - User without Permission
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1002,7 +1101,7 @@ category แสดงในรูปแบบ tree แบบลำดับช�
 
 ## TC-CAT-100001 — Apply multiple filters successfully
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -1027,7 +1126,7 @@ category ที่กรองแสดงตามเกณฑ์ที่เ�
 
 ## TC-CAT-100002 — Apply filters with invalid input
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1050,7 +1149,7 @@ category ที่กรองแสดงตามเกณฑ์ที่เ�
 
 ## TC-CAT-100003 — Apply filters with no categories matching
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -1073,7 +1172,7 @@ category ที่กรองแสดงตามเกณฑ์ที่เ�
 
 ## TC-CAT-100004 — Apply filters with no filters applied
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -1096,7 +1195,7 @@ category ที่กรองแสดงตามเกณฑ์ที่เ�
 
 ## TC-CAT-110001 — Select a Category with Breadcrumbs
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -1119,7 +1218,7 @@ breadcrumb trail แสดงเส้นทางจาก root ไปยัง
 
 ## TC-CAT-110002 — Navigate Up a Level Using Breadcrumbs
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -1142,7 +1241,7 @@ breadcrumb trail แสดงเส้นทางจาก root ไปยัง
 
 ## TC-CAT-110003 — Breadcrumb Trail Displays Correctly with Multiple Parents
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -1164,7 +1263,7 @@ breadcrumb trail แสดงเส้นทางจาก root ไปยัง
 
 ## TC-CAT-110004 — Breadcrumb Trail Not Displayed for Single-Level Categories
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -1186,7 +1285,7 @@ breadcrumb trail ไม่แสดงเมื่อ category ที่เล�
 
 ## TC-CAT-110005 — Breadcrumb Trail Missing When No Category Selected
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1207,7 +1306,7 @@ breadcrumb trail ไม่ visible เมื่อไม่ได้เลือ
 
 ## TC-CAT-120001 — View Category Item Counts - Happy Path
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -1232,7 +1331,7 @@ breadcrumb trail ไม่ visible เมื่อไม่ได้เลือ
 
 ## TC-CAT-120002 — View Category Item Counts - No Product Assignments
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1256,7 +1355,7 @@ category ที่เลือกไม่มี product กำหนดไว�
 
 ## TC-CAT-120003 — View Category Item Counts - User with Limited Permissions
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1280,7 +1379,7 @@ category ที่เลือกไม่มี product กำหนดไว�
 
 ## TC-CAT-120004 — View Category Item Counts - Edge Case - Category with No Descendants
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -1304,7 +1403,7 @@ category ที่เลือกไม่มี descendant
 
 ## TC-CAT-120005 — View Category Item Counts - Edge Case - All Categories Empty
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -1328,7 +1427,7 @@ category ทั้งหมดไม่มี product กำหนดไว้
 
 ## TC-CAT-130001 — Move Category to a Valid Parent with Permission
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -1353,7 +1452,7 @@ category ถูกย้ายไปยัง target parent สำเร็จ�
 
 ## TC-CAT-130002 — Attempt to Move Category to Same Parent
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1378,7 +1477,7 @@ target parent เป็น parent ปัจจุบัน
 
 ## TC-CAT-130003 — Move Category to Invalid Parent
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1403,7 +1502,7 @@ target parent ไม่รับ children ในระดับที่เห�
 
 ## TC-CAT-130004 — Move Category without Permission
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1428,7 +1527,7 @@ target parent ไม่รับ children ในระดับที่เห�
 
 ## TC-CAT-130005 — Move Category When Parent Hierarchy Would Form a Loop
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -1453,7 +1552,7 @@ target parent จะสร้าง circular reference หากดำเนิ�
 
 ## TC-CAT-140001 — Activate Category with Valid Permission
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Happy Path
@@ -1477,7 +1576,7 @@ target parent จะสร้าง circular reference หากดำเนิ�
 
 ## TC-CAT-140003 — Attempt to Activate Deactivated Category with Valid Permission
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Happy Path
@@ -1501,7 +1600,7 @@ target parent จะสร้าง circular reference หากดำเนิ�
 
 ## TC-CAT-140005 — Attempt to Activate Non-Existent Category
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -1524,7 +1623,7 @@ target parent จะสร้าง circular reference หากดำเนิ�
 
 ## TC-CAT-150001 — View existing category details
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Happy Path
@@ -1547,7 +1646,7 @@ target parent จะสร้าง circular reference หากดำเนิ�
 
 ## TC-CAT-150002 — Verify category not found error
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1570,7 +1669,7 @@ target parent จะสร้าง circular reference หากดำเนิ�
 
 ## TC-CAT-150003 — Access category without permission
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -1593,7 +1692,7 @@ target parent จะสร้าง circular reference หากดำเนิ�
 
 ## TC-CAT-150004 — Edge case - category with zero products
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -1616,7 +1715,7 @@ category มี product เป็นศูนย์
 
 ## TC-CAT-210001 — Happy Path - Valid Category Selection
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -1640,7 +1739,7 @@ category ที่เลือกแสดงใน UI ได้ถูกต้�
 
 ## TC-CAT-210002 — Negative Case - Unavailable Category
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1664,7 +1763,7 @@ category ที่ไม่พร้อมใช้งานไม่ถูก�
 
 ## TC-CAT-210003 — Edge Case - Multiple Category Selection
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -1688,7 +1787,7 @@ category ที่เลือกทั้งหมดแสดงใน UI ไ�
 
 ## TC-CAT-220001 — Happy Path - Generate Inventory Report with Valid Categories
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -1712,7 +1811,7 @@ category ที่เลือกทั้งหมดแสดงใน UI ไ�
 
 ## TC-CAT-220002 — Negative Case - Generate Report Without Valid Categories
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1736,7 +1835,7 @@ category ที่เลือกทั้งหมดแสดงใน UI ไ�
 
 ## TC-CAT-220003 — Edge Case - Generate Report with Maximum Number of Categories
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -1785,7 +1884,7 @@ purchase request สร้างสำเร็จและเชื่อมโ
 
 ## TC-CAT-230002 — Negative Case - Invalid Category Selection
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -1809,7 +1908,7 @@ category มีอยู่; เลือก category ที่ไม่ถู�
 
 ## TC-CAT-230003 — Edge Case - No Categories Available
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -1832,7 +1931,7 @@ category มีอยู่; เลือก category ที่ไม่ถู�
 
 ## TC-CAT-230005 — Happy Path - Spend Analysis by Category
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -1856,7 +1955,7 @@ category มีอยู่และเชื่อมโยงกับ purchas
 
 ## TC-CAT-240001 — Happy Path - Recipe Cost Calculation by Category
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Happy Path
@@ -1882,7 +1981,7 @@ category มีอยู่และเชื่อมโยงกับ purchas
 
 ## TC-CAT-240002 — Negative - Invalid Ingredient Selection
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -1907,7 +2006,7 @@ ingredient ของ recipe มี category
 
 ## TC-CAT-240004 — Happy Path - Ingredient Usage Analysis by Category
 
-> **As a** Purchase user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Happy Path
@@ -1929,4 +2028,4 @@ ingredient ของ recipe มี category
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+<sub>Last regenerated: 2026-06-16 · git 45c46c7</sub>

@@ -1,6 +1,9 @@
 import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { ProductCategoryPage, LIST_PATH } from "./pages/product-category.page";
+import { BU_CODE } from "./test-users";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
+import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Product Manager / System Administrator == purchase@blueledgers.com.
@@ -1747,6 +1750,203 @@ purchaseTest.describe("Product Category — Recipe cost integration", () => {
     },
     async ({ page }) => {
       await page.goto("/recipes").catch(() => {});
+    },
+  );
+});
+
+// ── admin@blueledgers.com + BLAVG CRUD ─────────────────────────────────────
+// The describes above run as purchase/requestor (multi-role authz coverage) and
+// are left untouched. This block verifies an admin can CRUD product categories
+// with the active BU pinned to BLAVG.
+//
+// NOTE: the shared ProductCategoryPage (button label "New Category", a single
+// name input) predates the redesigned React UI. The live UI has an "Add Category"
+// button, a Code + Name + required Tax Profile form inside a dialog, hover-only
+// edit/delete tree-row actions, and an AlertDialog delete confirm. This block
+// therefore uses self-contained LOCAL locators (matching the live UI) instead of
+// the stale shared page object — the existing describes still depend on it, so it
+// is left unmodified.
+const adminTest = createAuthTest("admin@blueledgers.com");
+
+const CAT_UID = Date.now().toString(36);
+const CAT_CODE = `E2E${CAT_UID}`.slice(0, 10); // form caps code at 10 chars
+const CAT_NAME = `E2E CAT ${CAT_UID}`;
+const CAT_NAME_UPDATED = `E2E CAT Upd ${CAT_UID}`;
+
+// ── local locators (match the redesigned product-category UI) ──────────────
+const addCategoryButton = (page: import("@playwright/test").Page) =>
+  page.getByRole("button", { name: /add category|เพิ่มหมวดหมู่/i }).first();
+
+const categoryDialog = (page: import("@playwright/test").Page) =>
+  page.getByRole("dialog");
+
+const codeInput = (page: import("@playwright/test").Page) =>
+  categoryDialog(page).locator("#code");
+
+const nameInput = (page: import("@playwright/test").Page) =>
+  categoryDialog(page).locator("#name");
+
+const taxProfileTrigger = (page: import("@playwright/test").Page) =>
+  categoryDialog(page).getByRole("combobox").first();
+
+const createButton = (page: import("@playwright/test").Page) =>
+  categoryDialog(page).getByRole("button", { name: /^(create|สร้าง)$/i }).first();
+
+const saveButton = (page: import("@playwright/test").Page) =>
+  categoryDialog(page).getByRole("button", { name: /^(save|บันทึก)$/i }).first();
+
+// A tree row, matched by visible text (code Badge + name live in the same row button).
+const treeRow = (page: import("@playwright/test").Page, text: string) =>
+  page.getByText(text, { exact: false }).first();
+
+// Hover-only row actions carry aria-label = edit / delete (translated).
+const editAction = (page: import("@playwright/test").Page) =>
+  page.getByRole("button", { name: /^(edit|แก้ไข)$/i });
+
+const deleteAction = (page: import("@playwright/test").Page) =>
+  page.getByRole("button", { name: /^(delete|ลบ)$/i });
+
+const confirmDeleteButton = (page: import("@playwright/test").Page) =>
+  page.getByRole("alertdialog").getByRole("button", { name: /^(delete|ลบ|deleting|กำลังลบ)/i }).first();
+
+// Pick the first available Tax Profile option (form requires a tax_profile_id).
+async function selectFirstTaxProfile(page: import("@playwright/test").Page) {
+  await taxProfileTrigger(page).click();
+  const option = page.getByRole("option").first();
+  await option.waitFor({ state: "visible", timeout: 10_000 });
+  await option.click();
+}
+
+// Open the row's hover toolbar by hovering the row, then return the actions.
+async function hoverRow(page: import("@playwright/test").Page, text: string) {
+  const row = treeRow(page, text);
+  await row.waitFor({ state: "visible", timeout: 15_000 });
+  await row.scrollIntoViewIfNeeded();
+  await row.hover();
+}
+
+adminTest.describe.serial("Product Category — admin@BLAVG CRUD", () => {
+  adminTest.beforeEach(async ({ page }) => {
+    await ensureActiveBu(page, BU_CODE);
+  });
+
+  adminTest(
+    "TC-CAT-010050 active BU = BLAVG",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
+        { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const units = await getBusinessUnits(page);
+      const active = defaultBu(units);
+      expect(active?.code).toBe(BU_CODE);
+
+      const switcher = new BuSwitcherPage(page);
+      await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
+    },
+  );
+
+  adminTest(
+    "TC-CAT-030050 สร้าง root category สำเร็จ",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี Tax Profile ที่ active อย่างน้อย 1 รายการ" },
+        {
+          type: "steps",
+          description:
+            "1. ไปที่ /product-management/category\n2. คลิก 'Add Category'\n3. กรอก Code และ Name ด้วยค่าที่ไม่ซ้ำ\n4. เลือก Tax Profile รายการแรก\n5. คลิก 'Create'",
+        },
+        { type: "expected", description: "แสดง toast 'Category created successfully' และ root category ใหม่ปรากฏใน tree" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const cat = new ProductCategoryPage(page);
+      await cat.gotoList();
+
+      await addCategoryButton(page).click();
+      await categoryDialog(page).waitFor({ state: "visible", timeout: 10_000 });
+      await codeInput(page).fill(CAT_CODE);
+      await nameInput(page).fill(CAT_NAME);
+      await selectFirstTaxProfile(page);
+      await createButton(page).click();
+
+      // Success toast (sonner) + node materialises in the tree.
+      await expect(cat.toast()).toContainText(/created successfully|สร้าง.*สำเร็จ/i, { timeout: 15_000 });
+      await expect(treeRow(page, CAT_NAME)).toBeVisible({ timeout: 15_000 });
+    },
+  );
+
+  adminTest(
+    "TC-CAT-040050 แก้ไขชื่อ category แล้วค่าคงอยู่",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; category จาก TC-CAT-030050 ถูกสร้างแล้ว" },
+        {
+          type: "steps",
+          description:
+            "1. ไปที่ /product-management/category\n2. hover ที่ row ของ category ที่สร้างไว้\n3. คลิกปุ่ม Edit\n4. แก้ Name เป็นชื่อใหม่\n5. คลิก 'Save'\n6. reload หน้า",
+        },
+        { type: "expected", description: "แสดง toast 'Category updated successfully'; ชื่อใหม่ปรากฏใน tree และยังคงอยู่หลัง reload" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const cat = new ProductCategoryPage(page);
+      await cat.gotoList();
+
+      await hoverRow(page, CAT_NAME);
+      await editAction(page).first().click();
+      await categoryDialog(page).waitFor({ state: "visible", timeout: 10_000 });
+      await nameInput(page).fill(CAT_NAME_UPDATED);
+      await saveButton(page).click();
+
+      await expect(cat.toast()).toContainText(/updated successfully|อัปเดต.*สำเร็จ/i, { timeout: 15_000 });
+      await expect(treeRow(page, CAT_NAME_UPDATED)).toBeVisible({ timeout: 15_000 });
+
+      // Persistence guard: the new name survives a reload (server-side update).
+      await cat.gotoList();
+      await expect(treeRow(page, CAT_NAME_UPDATED)).toBeVisible({ timeout: 15_000 });
+    },
+  );
+
+  adminTest(
+    "TC-CAT-050050 ลบ category สำเร็จ (cleanup)",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; category (ชื่อที่แก้ไขแล้ว) จาก TC-CAT-040050 ยังมีอยู่" },
+        {
+          type: "steps",
+          description:
+            "1. ไปที่ /product-management/category\n2. hover ที่ row ของ category\n3. คลิกปุ่ม Delete\n4. ยืนยันใน AlertDialog ด้วยปุ่ม 'Delete'\n5. reload หน้า",
+        },
+        { type: "expected", description: "แสดง toast 'Category deleted successfully'; category หายไปจาก tree และไม่กลับมาหลัง reload" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const cat = new ProductCategoryPage(page);
+      await cat.gotoList();
+
+      await hoverRow(page, CAT_NAME_UPDATED);
+      await deleteAction(page).first().click();
+      await page.getByRole("alertdialog").waitFor({ state: "visible", timeout: 10_000 });
+      await confirmDeleteButton(page).click();
+
+      await expect(cat.toast()).toContainText(/deleted successfully|ลบ.*สำเร็จ/i, { timeout: 15_000 });
+      await expect(treeRow(page, CAT_NAME_UPDATED)).toHaveCount(0, { timeout: 15_000 });
+
+      // Cleanup guard: deletion persists after reload.
+      await cat.gotoList();
+      await expect(treeRow(page, CAT_NAME_UPDATED)).toHaveCount(0, { timeout: 15_000 });
     },
   );
 });
