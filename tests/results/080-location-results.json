@@ -1,0 +1,36 @@
+[
+  {
+    "seq": 1,
+    "testId": "TC-LOC-050002",
+    "title": "TC-LOC-050002 ยกเลิกการลบ record ต้องยังอยู่",
+    "status": "Pass",
+    "duration": 15397,
+    "error": "",
+    "runDate": "2026-06-16T17:51:34.698Z",
+    "screenshot": "screenshots/TC-LOC-050002.png",
+    "video": "videos/TC-LOC-050002.webm",
+    "preconditions": "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG",
+    "steps": "1. สร้าง location ผ่าน new form\n2. เปิด detail กด Edit กด Delete\n3. ใน confirm dialog กด Cancel\n4. กลับ list ค้นหายืนยัน record ยังอยู่\n5. ลบ record (cleanup)",
+    "expected": "Confirm dialog ปิดโดยไม่ลบ; record ยังปรากฏใน list",
+    "priority": "Medium",
+    "testType": "Functional",
+    "note": ""
+  },
+  {
+    "seq": 2,
+    "testId": "TC-LOC-100001",
+    "title": "TC-LOC-100001 XSS payload ในชื่อต้องไม่รัน script",
+    "status": "Pass",
+    "duration": 4393,
+    "error": "",
+    "runDate": "2026-06-16T17:51:39.100Z",
+    "screenshot": "screenshots/TC-LOC-100001.png",
+    "video": "videos/TC-LOC-100001.webm",
+    "preconditions": "Logged in user with permission to access /config/location; XSS dialog guard attached",
+    "steps": "1. เปิด new form ของ /config/location\n2. กรอก code ด้วย random suffix\n3. กรอก name ด้วย XSS payload \"<script>alert('xss-e2e')</script>\"\n4. กด Save",
+    "expected": "ไม่มี browser alert/dialog จาก payload; URL ยังคงอยู่ภายใต้ /config/ (ฟอร์มอาจ reject หรือ save แบบ escaped)",
+    "priority": "High",
+    "testType": "Security",
+    "note": ""
+  }
+]

@@ -1,0 +1,19 @@
+[
+  {
+    "seq": 1,
+    "testId": "TC-CUR-999999",
+    "title": "TC-CUR-999999 inspect + cleanup E2E leftovers",
+    "status": "Pass",
+    "duration": 13352,
+    "error": "",
+    "runDate": "2026-06-16T16:29:51.635Z",
+    "screenshot": "screenshots/TC-CUR-999999.png",
+    "video": "videos/TC-CUR-999999.webm",
+    "preconditions": "",
+    "steps": "",
+    "expected": "",
+    "priority": "",
+    "testType": "",
+    "note": ""
+  }
+]
