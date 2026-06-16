@@ -26,7 +26,7 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 |-----------|--------|---------------|-------|
 | `001-login.spec.ts` | `LOGIN` | 01, 10–19 | Login flows + security |
 | `002-spa-smoke.spec.ts` | `SPA` | 01 | Cross-section smoke (covers the React SPA port) |
-| `010-department.spec.ts` | `DEP` | 01–05, 10 | CRUD + security |
+| `010-department.spec.ts` | `DEP` | 01, 03–05, 10, 20 | CRUD + security |
 | `020-unit.spec.ts` | `UN` | 01–05, 10 | CRUD + security |
 | `029-business-type.spec.ts` | `BT` | 01–05, 10 | CRUD + security |
 | `030-extra-cost.spec.ts` | `EC` | 01–05, 10 | CRUD + security |

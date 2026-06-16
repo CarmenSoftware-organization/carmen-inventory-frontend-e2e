@@ -45,7 +45,7 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP-010009 active BU = BLAVG",
+    "TC-DEP-010005 active BU = BLAVG",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
@@ -121,7 +121,7 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP-010005 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
+    "TC-DEP-200001 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new" },
@@ -143,9 +143,9 @@ test.describe("Department — Smoke & CRUD", () => {
   // same record. Serial mode keeps them in one worker (stable module-level UID)
   // and skips the rest if one fails, instead of cascading into fresh workers
   // (a worker restart after a failure recomputes the Date.now()-based UID).
-  test.describe.serial("CRUD chain — shares the TC-DEP-010006 record", () => {
+  test.describe.serial("CRUD chain — shares the TC-DEP-030001 record", () => {
   test(
-    "TC-DEP-010006 สร้างรายการใหม่และปรากฏในตาราง",
+    "TC-DEP-030001 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; record CODE/NAME ยังไม่มีอยู่ใน DB" },
@@ -170,10 +170,10 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP-010007 แก้ไขชื่อและบันทึก",
+    "TC-DEP-040001 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; TC-DEP-010006 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; TC-DEP-030001 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด detail\n3. กดปุ่ม Edit\n4. clear name และกรอก NAME_UPDATED\n5. กด Save" },
         { type: "expected", description: "Updated/success toast ปรากฏ (updated/success/สำเร็จ)" },
         { type: "priority", description: "High" },
@@ -195,10 +195,10 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP-010013 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error",
+    "TC-DEP-200002 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "TC-DEP-010007 ผ่านแล้ว → record มี name = NAME_UPDATED" },
+        { type: "preconditions", description: "TC-DEP-040001 ผ่านแล้ว → record มี name = NAME_UPDATED" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด detail\n3. กด Edit\n4. clear code + name\n5. กด Save" },
         { type: "expected", description: "Save button ยังคง visible (form ไม่ submit; ยังอยู่ใน edit mode)" },
         { type: "priority", description: "Medium" },
@@ -219,10 +219,10 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP-010008 ลบรายการ",
+    "TC-DEP-050001 ลบรายการ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-DEP-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-DEP-200002 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด detail\n3. กด Edit\n4. กด Delete\n5. ยืนยัน Delete" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
         { type: "priority", description: "High" },
@@ -251,7 +251,7 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-DEP-010010 แก้ไขแล้ว persist หลัง reload",
+    "TC-DEP-040002 แก้ไขแล้ว persist หลัง reload",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
@@ -311,7 +311,7 @@ test.describe("Department — Smoke & CRUD", () => {
   );
 
   test(
-    "TC-DEP-010012 ค้นหาด้วย code เจอรายการ",
+    "TC-DEP-010006 ค้นหาด้วย code เจอรายการ",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
@@ -345,7 +345,7 @@ test.describe("Department — Smoke & CRUD", () => {
   );
 
   test(
-    "TC-DEP-010011 สร้าง code ซ้ำ ต้องถูก reject",
+    "TC-DEP-200004 สร้าง code ซ้ำ ต้องถูก reject",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
@@ -385,7 +385,7 @@ test.describe("Department — Smoke & CRUD", () => {
   );
 
   test(
-    "TC-DEP-010014 toggle is_active แล้ว persist",
+    "TC-DEP-030003 toggle is_active แล้ว persist",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
@@ -423,7 +423,7 @@ test.describe("Department — Smoke & CRUD", () => {
   );
 
   test(
-    "TC-DEP-010018 code เกิน maxLength ต้องถูกจำกัดที่ 10",
+    "TC-DEP-200003 code เกิน maxLength ต้องถูกจำกัดที่ 10",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new" },
@@ -442,7 +442,7 @@ test.describe("Department — Smoke & CRUD", () => {
   );
 
   test(
-    "TC-DEP-010021 บันทึกโดยกรอก field เดียว ต้องถูก block",
+    "TC-DEP-200005 บันทึกโดยกรอก field เดียว ต้องถูก block",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new" },
@@ -468,7 +468,7 @@ test.describe("Department — Smoke & CRUD", () => {
   );
 
   test(
-    "TC-DEP-010015 description สร้าง/แก้ไข + maxLength 256",
+    "TC-DEP-030002 description สร้าง/แก้ไข + maxLength 256",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
@@ -511,7 +511,7 @@ test.describe("Department — Smoke & CRUD", () => {
   );
 
   test(
-    "TC-DEP-010016 Cancel ขณะ form dirty ต้องเด้ง Discard dialog",
+    "TC-DEP-040003 Cancel ขณะ form dirty ต้องเด้ง Discard dialog",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี record อยู่" },
@@ -554,7 +554,7 @@ test.describe("Department — Smoke & CRUD", () => {
   );
 
   test(
-    "TC-DEP-010017 ยกเลิกการลบ record ต้องยังอยู่",
+    "TC-DEP-050002 ยกเลิกการลบ record ต้องยังอยู่",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี record อยู่" },
@@ -596,7 +596,7 @@ test.describe("Department — Smoke & CRUD", () => {
   );
 
   test(
-    "TC-DEP-010019 assign user เข้า department members",
+    "TC-DEP-040004 assign user เข้า department members",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip" },
@@ -619,7 +619,7 @@ test.describe("Department — Smoke & CRUD", () => {
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
       // open fresh from the list before editing (avoids the create-toast/update-toast
-      // overlap racing the reload — see TC-DEP-010010)
+      // overlap racing the reload — see TC-DEP-040002)
       await h.list.goto();
       await h.list.search(name);
       await h.clickRowName(name);
@@ -656,7 +656,7 @@ test.describe("Department — Smoke & CRUD", () => {
   );
 
   test(
-    "TC-DEP-010020 assign user เป็น Head of Department",
+    "TC-DEP-040005 assign user เป็น Head of Department",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip" },
