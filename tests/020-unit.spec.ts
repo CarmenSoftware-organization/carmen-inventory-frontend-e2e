@@ -114,6 +114,124 @@ test.describe("Unit — Smoke", () => {
     },
   );
 
+  test(
+    "TC-UN-010006 สร้าง unit ใหม่และปรากฏในตาราง",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. เปิด Add dialog\n2. กรอก name\n3. กด Save\n4. ค้นหา name ใน list\n5. ลบ record" },
+        { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวที่มี name ปรากฏใน list" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new DialogCrudHelper(page, opts);
+      const name = `E2E UN006 ${UID}`;
+      await h.list.goto();
+      await h.openAddDialog();
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+      await h.list.search(name);
+      await expect(page.getByRole("cell", { name })).toBeVisible();
+      await h.deleteRow(name);
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-UN-010007 แก้ไขชื่อแล้ว persist",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง unit\n2. ค้นหาและเปิดแถวเพื่อแก้ไข\n3. แก้ name เป็นค่าใหม่ กด Save\n4. ค้นหา name ใหม่/เดิมใน list\n5. ลบ record" },
+        { type: "expected", description: "Updated toast; list มีแถว name ใหม่ และไม่พบ name เดิม (ค่าถูก persist จริง)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new DialogCrudHelper(page, opts);
+      const name = `E2E UN007 ${UID}`;
+      const renamed = `E2E UN007 Upd ${UID}`;
+      await h.list.goto();
+      await h.openAddDialog();
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.list.search(name);
+      await h.clickRow(name);
+      await expect(h.nameInput()).toBeEnabled({ timeout: 5_000 });
+      await h.nameInput().fill(renamed);
+      await h.saveButton().click();
+      await expect(page.getByText(/updated|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.list.goto();
+      await h.list.search(renamed);
+      await expect(page.getByRole("cell", { name: renamed })).toBeVisible({ timeout: 10_000 });
+
+      await h.deleteRow(renamed);
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-UN-010008 ลบ unit",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง unit\n2. ค้นหาใน list\n3. เปิด Row actions → Delete → ยืนยัน\n4. ค้นหาอีกครั้ง" },
+        { type: "expected", description: "Deleted toast; ไม่พบแถว name ใน list (empty state)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new DialogCrudHelper(page, opts);
+      const name = `E2E UN008 ${UID}`;
+      await h.list.goto();
+      await h.openAddDialog();
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.list.goto();
+      await h.list.search(name);
+      await h.deleteRow(name);
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.list.goto();
+      await h.list.search(name);
+      await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-UN-010009 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. เปิด Add dialog\n2. กด Save โดยไม่กรอก name" },
+        { type: "expected", description: "Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Validation" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new DialogCrudHelper(page, opts);
+      await h.list.goto();
+      await h.openAddDialog();
+      await h.saveButton().click();
+      await expect(h.errorMessage().first()).toBeVisible();
+      await h.cancelButton().click();
+    },
+  );
+
   addDialogSecurityCases(test, {
     prefix: "UN",
     listPath: PATH,

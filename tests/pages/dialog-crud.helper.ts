@@ -76,7 +76,9 @@ export class DialogCrudHelper {
   }
 
   errorMessage(): Locator {
-    return this.dialog().locator("[data-invalid='true'], [role='alert']");
+    return this.dialog().locator(
+      "[aria-invalid='true'], [data-invalid='true'], p.text-destructive, [role='alert']",
+    );
   }
 
   deleteConfirm(): Locator {
