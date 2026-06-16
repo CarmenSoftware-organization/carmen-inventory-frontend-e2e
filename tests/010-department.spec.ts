@@ -340,4 +340,127 @@ test.describe("Department — Smoke & CRUD", () => {
       await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
     },
   );
+
+  test(
+    "TC-DEP-010011 สร้าง code ซ้ำ ต้องถูก reject",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง department ด้วย code X\n2. สร้างอีกรายการด้วย code X เดิม (name ต่าง)\n3. กด Save" },
+        { type: "expected", description: "รายการที่สองไม่ถูกสร้าง: ยังอยู่ที่ฟอร์ม /new (ไม่ navigate ไป detail) — backend reject code ซ้ำ" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Negative" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const code = `D11${UID.slice(-4).toUpperCase()}`;
+      const name = `DEP010011 ${UID}`;
+
+      await h.gotoNew();
+      await h.codeInput().fill(code);
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.gotoNew();
+      await h.codeInput().fill(code);
+      await h.nameInput().fill(`${name} dup`);
+      await h.saveButton().click();
+      await expect(page).toHaveURL(/\/new/, { timeout: 10_000 });
+      await expect(h.saveButton()).toBeVisible();
+
+      // cleanup the first record
+      await h.list.goto();
+      await h.list.search(name);
+      await h.clickRowName(name);
+      await h.editButton().click();
+      await h.deleteButton().click();
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-DEP-010014 toggle is_active แล้ว persist",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. เปิด new form\n2. ปิด switch is_active\n3. กรอก code+name แล้ว Save\n4. reload detail แล้วอ่านสถานะ switch" },
+        { type: "expected", description: "หลัง save+reload switch is_active = false (ค่าถูก persist)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const code = `D14${UID.slice(-4).toUpperCase()}`;
+      const name = `DEP010014 ${UID}`;
+
+      await h.gotoNew();
+      await h.codeInput().fill(code);
+      await h.nameInput().fill(name);
+      await h.setActive(false);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await page.reload();
+      await page.waitForLoadState("networkidle");
+      await expect(h.activeSwitch()!).toHaveAttribute("aria-checked", "false");
+
+      // cleanup
+      await h.list.goto();
+      await h.list.search(name);
+      await h.clickRowName(name);
+      await h.editButton().click();
+      await h.deleteButton().click();
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-DEP-010018 code เกิน maxLength ต้องถูกจำกัดที่ 10",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new" },
+        { type: "steps", description: "1. เปิด new form\n2. พิมพ์ code ยาว 15 ตัวอักษร" },
+        { type: "expected", description: "ค่าใน input ถูกตัดที่ 10 ตัวอักษร (maxLength=10)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      await h.gotoNew();
+      await h.codeInput().fill("ABCDEFGHIJ12345");
+      await expect(h.codeInput()).toHaveValue("ABCDEFGHIJ");
+    },
+  );
+
+  test(
+    "TC-DEP-010021 บันทึกโดยกรอก field เดียว ต้องถูก block",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new" },
+        { type: "steps", description: "1. เปิด new form กรอกเฉพาะ name (code ว่าง) กด Save\n2. เปิด new form ใหม่ กรอกเฉพาะ code (name ว่าง) กด Save" },
+        { type: "expected", description: "ทั้งสองกรณีฟอร์ม block submit: ยังอยู่ที่ /new" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+
+      await h.gotoNew();
+      await h.nameInput().fill(`DEP010021 ${UID}`);
+      await h.saveButton().click();
+      await expect(page).toHaveURL(/\/new/);
+
+      await h.gotoNew();
+      await h.codeInput().fill(`D21${UID.slice(-4).toUpperCase()}`);
+      await h.saveButton().click();
+      await expect(page).toHaveURL(/\/new/);
+    },
+  );
 });
