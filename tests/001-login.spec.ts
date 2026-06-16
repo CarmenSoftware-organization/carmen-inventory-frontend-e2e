@@ -702,4 +702,41 @@ test.describe("ออกจากระบบ", () => {
       },
     );
   }
+
+  test(
+    "TC-LOGIN-010038 logout ต้องลบ refresh token และเข้าถึง dashboard ไม่ได้",
+    {
+      annotation: [
+        { type: "preconditions", description: "User requestor@blueledgers.com login สำเร็จและมี refresh token ใน localStorage" },
+        { type: "steps", description: "1. login ด้วย requestor@blueledgers.com\n2. ตรวจว่ามี refresh token\n3. logout\n4. ตรวจว่า refresh token ถูกลบ\n5. navigate ไป /dashboard" },
+        { type: "expected", description: "หลัง logout: refresh token ถูกลบจาก localStorage และเข้า /dashboard ไม่ได้ (เด้งกลับ /login)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Security" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+      await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
+
+      const before = await page.evaluate(() =>
+        localStorage.getItem("carmen.refresh_token"),
+      );
+      expect(before).toBeTruthy();
+
+      const dashboardPage = new DashboardPage(page);
+      await dashboardPage.userMenuTrigger().waitFor({ state: "visible", timeout: 15_000 });
+      await dashboardPage.logout();
+      await expect(page).toHaveURL(/login/, { timeout: 10_000 });
+
+      const after = await page.evaluate(() =>
+        localStorage.getItem("carmen.refresh_token"),
+      );
+      expect(after).toBeFalsy();
+
+      await page.goto("/dashboard");
+      await expect(page).toHaveURL(/login/, { timeout: 15_000 });
+    },
+  );
 });
