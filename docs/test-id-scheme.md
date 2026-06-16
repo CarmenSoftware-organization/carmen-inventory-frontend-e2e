@@ -35,10 +35,10 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `040-currency.spec.ts` | `CUR` | 01, 03–05, 10, 20 | CRUD + security |
 | `041-exchange-rate.spec.ts` | `ER` | 01–02, 10 | List/Detail + security |
 | `042-tax-profile.spec.ts` | `TP` | 01, 03–05, 10, 20 | CRUD + security |
-| `079-delivery-point.spec.ts` | `DP` | 01–05, 10–19 | CRUD + security |
+| `079-delivery-point.spec.ts` | `DP` | 01, 03–05, 10–19, 20 | CRUD + security |
 | `080-location.spec.ts` | `LOC` | 01, 03–05, 10, 20 | CRUD + security |
 | `101-product-category.spec.ts` | `CAT` | 01–15, 20–29, 90 | Multi-prefix collapse (CATEG/PRODU/RECIP) |
-| `150-vendor.spec.ts` | `VEN` | 01–05, 10–19 | CRUD + security |
+| `150-vendor.spec.ts` | `VEN` | 01, 03–05, 10–19, 20 | CRUD + security |
 | `159-pl.spec.ts` | `PL` | 01–08, 90 | CRUD + sub-journeys + edge cases |
 | `160-pl-template.spec.ts` | `PT` | 01–06, 90 | CRUD + sub-journeys + edge cases |
 | `201-my-approvals.spec.ts` | `MA` | 01–06, 90 | CRUD + edge cases |

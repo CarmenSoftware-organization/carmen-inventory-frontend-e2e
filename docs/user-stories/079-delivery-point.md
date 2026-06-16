@@ -37,29 +37,29 @@ _Generated from `tests/079-delivery-point.spec.ts` annotations. Edit annotations
 | TC-DP-010024 | เปลี่ยน view mode แล้ว column visibility ยังคงอยู่ | Medium | Functional |
 | TC-DP-010025 | refresh หน้าแล้ว column ที่ซ่อนไว้กลับมาเป็น default | Medium | Functional |
 | TC-DP-010026 | card view ไม่มี column toggle เพราะไม่มี column | Medium | Functional |
-| TC-DP-010027 | กด Add แล้ว dialog เปิดขึ้นมา | High | Smoke |
-| TC-DP-010028 | dialog เปิดมา field name เป็น empty string | Medium | Functional |
-| TC-DP-010029 | dialog เปิดมา is active default เป็น true | Medium | Functional |
-| TC-DP-010030 | กรอก name แล้ว save ได้ ข้อมูลขึ้น table | High | CRUD |
-| TC-DP-010031 | กด save โดยไม่กรอก name ระบบต้องด่า | High | Validation |
-| TC-DP-010032 | กรอก name ซ้ำกับที่มีอยู่แล้ว ระบบต้องห้าม | Medium | Validation |
-| TC-DP-010033 | กรอก name ยาวเกิน limit ระบบต้องห้าม | Medium | Validation |
-| TC-DP-010034 | กรอก name เป็น space ล้วน ระบบต้องด่า | Medium | Validation |
-| TC-DP-010035 | กด cancel แล้ว dialog ปิด ไม่มีข้อมูลขึ้น table | Medium | Functional |
-| TC-DP-010036 | สร้างด้วย is active = false แล้วค่าบันทึกถูก | High | CRUD |
-| TC-DP-010037 | กดที่ column name แล้ว dialog เปิดขึ้นมา | High | CRUD |
-| TC-DP-010038 | dialog เปิดมา field name แสดงค่าเดิมถูกต้อง | Medium | Functional |
-| TC-DP-010039 | dialog เปิดมา is active แสดงค่าเดิมถูกต้อง | Medium | Functional |
-| TC-DP-010040 | แก้ name แล้ว save ข้อมูลใน table อัพเดท | High | CRUD |
-| TC-DP-010041 | ลบ name ออกทั้งหมดแล้ว save ระบบต้องด่า | Medium | Validation |
-| TC-DP-010042 | แก้ name เป็นค่าเดิมแล้ว save ได้ปกติ | Medium | CRUD |
-| TC-DP-010043 | กด cancel ระหว่าง edit ข้อมูลเดิมไม่เปลี่ยน | Medium | Functional |
-| TC-DP-010044 | toggle is active แล้ว save ค่าเปลี่ยนถูก | High | CRUD |
-| TC-DP-010045 | กด trash icon แล้ว confirm dialog เปิดขึ้นมา | High | CRUD |
-| TC-DP-010046 | กด confirm แล้วข้อมูลหายออกจาก table | High | CRUD |
-| TC-DP-010047 | กด cancel ใน confirm dialog ข้อมูลยังอยู่ | Medium | Functional |
-| TC-DP-010048 | ลบแล้ว total count ใน table ลดลง 1 | Medium | CRUD |
-| TC-DP-010049 | ลบรายการสุดท้ายในหน้า ระบบ paginate กลับหน้าก่อนหน้า | Low | Functional |
+| TC-DP-030001 | กด Add แล้ว dialog เปิดขึ้นมา | High | Smoke |
+| TC-DP-030002 | dialog เปิดมา field name เป็น empty string | Medium | Functional |
+| TC-DP-030003 | dialog เปิดมา is active default เป็น true | Medium | Functional |
+| TC-DP-030004 | กรอก name แล้ว save ได้ ข้อมูลขึ้น table | High | CRUD |
+| TC-DP-030005 | กด cancel แล้ว dialog ปิด ไม่มีข้อมูลขึ้น table | Medium | Functional |
+| TC-DP-030006 | สร้างด้วย is active = false แล้วค่าบันทึกถูก | High | CRUD |
+| TC-DP-040001 | กดที่ column name แล้ว dialog เปิดขึ้นมา | High | CRUD |
+| TC-DP-040002 | dialog เปิดมา field name แสดงค่าเดิมถูกต้อง | Medium | Functional |
+| TC-DP-040003 | dialog เปิดมา is active แสดงค่าเดิมถูกต้อง | Medium | Functional |
+| TC-DP-040004 | แก้ name แล้ว save ข้อมูลใน table อัพเดท | High | CRUD |
+| TC-DP-040005 | แก้ name เป็นค่าเดิมแล้ว save ได้ปกติ | Medium | CRUD |
+| TC-DP-040006 | กด cancel ระหว่าง edit ข้อมูลเดิมไม่เปลี่ยน | Medium | Functional |
+| TC-DP-040007 | toggle is active แล้ว save ค่าเปลี่ยนถูก | High | CRUD |
+| TC-DP-050001 | กด trash icon แล้ว confirm dialog เปิดขึ้นมา | High | CRUD |
+| TC-DP-050002 | กด confirm แล้วข้อมูลหายออกจาก table | High | CRUD |
+| TC-DP-050003 | กด cancel ใน confirm dialog ข้อมูลยังอยู่ | Medium | Functional |
+| TC-DP-050004 | ลบแล้ว total count ใน table ลดลง 1 | Medium | CRUD |
+| TC-DP-050005 | ลบรายการสุดท้ายในหน้า ระบบ paginate กลับหน้าก่อนหน้า | Low | Functional |
+| TC-DP-200001 | กด save โดยไม่กรอก name ระบบต้องด่า | High | Validation |
+| TC-DP-200002 | กรอก name ซ้ำกับที่มีอยู่แล้ว ระบบต้องห้าม | Medium | Validation |
+| TC-DP-200003 | กรอก name ยาวเกิน limit ระบบต้องห้าม | Medium | Validation |
+| TC-DP-200004 | กรอก name เป็น space ล้วน ระบบต้องด่า | Medium | Validation |
+| TC-DP-200005 | ลบ name ออกทั้งหมดแล้ว save ระบบต้องด่า | Medium | Validation |
 
 ---
 
@@ -651,7 +651,7 @@ column name ยังถูกซ่อนเมื่อกลับมา tabl
 
 ---
 
-## TC-DP-010027 — กด Add แล้ว dialog เปิดขึ้นมา
+## TC-DP-030001 — กด Add แล้ว dialog เปิดขึ้นมา
 
 > **As a** Admin user, **I want** to see the Add button on the Delivery Point list, **so that** I can create new records.
 
@@ -674,7 +674,7 @@ dialog เปิดและ visible เมื่อกด Add
 
 ---
 
-## TC-DP-010028 — dialog เปิดมา field name เป็น empty string
+## TC-DP-030002 — dialog เปิดมา field name เป็น empty string
 
 > **As a** Admin user, **I want** a clear empty-state when no Delivery Point records match my search, **so that** I know nothing was found.
 
@@ -696,7 +696,7 @@ field name มี value = '' (empty string) เมื่อ dialog เปิด
 
 ---
 
-## TC-DP-010029 — dialog เปิดมา is active default เป็น true
+## TC-DP-030003 — dialog เปิดมา is active default เป็น true
 
 > **As a** Admin user, **I want** this Delivery Point interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -718,7 +718,7 @@ active switch มี data-state = 'checked' (default true)
 
 ---
 
-## TC-DP-010030 — กรอก name แล้ว save ได้ ข้อมูลขึ้น table
+## TC-DP-030004 — กรอก name แล้ว save ได้ ข้อมูลขึ้น table
 
 > **As a** Admin user, **I want** to manage Delivery Point records via CRUD, **so that** the data stays correct over time.
 
@@ -742,98 +742,7 @@ active switch มี data-state = 'checked' (default true)
 
 ---
 
-## TC-DP-010031 — กด save โดยไม่กรอก name ระบบต้องด่า
-
-> **As a** Admin user, **I want** the system to block invalid Delivery Point submissions, **so that** data quality is preserved.
-
-**Priority:** High · **Test Type:** Validation
-
-**Preconditions**
-
-ผู้ใช้ login แล้ว
-
-**Steps**
-
-1. เปิดหน้า list
-2. กด Add
-3. กด Save โดยไม่กรอกอะไร
-
-**Expected**
-
-แสดง error message สำหรับ field ที่ require ว่าง
-
----
-
-## TC-DP-010032 — กรอก name ซ้ำกับที่มีอยู่แล้ว ระบบต้องห้าม
-
-> **As a** Admin user, **I want** the system to block invalid Delivery Point submissions, **so that** data quality is preserved.
-
-**Priority:** Medium · **Test Type:** Validation
-
-**Preconditions**
-
-ผู้ใช้ login แล้ว และมี delivery point DP_NAME อยู่แล้ว (จาก TC-DP-010030)
-
-**Steps**
-
-1. เปิดหน้า list
-2. กด Add
-3. กรอก name ซ้ำ
-4. Save
-
-**Expected**
-
-ระบบแสดง error duplicate/exists/already และไม่บันทึก
-
----
-
-## TC-DP-010033 — กรอก name ยาวเกิน limit ระบบต้องห้าม
-
-> **As a** Admin user, **I want** the system to block invalid Delivery Point submissions, **so that** data quality is preserved.
-
-**Priority:** Medium · **Test Type:** Validation
-
-**Preconditions**
-
-ผู้ใช้ login แล้ว
-
-**Steps**
-
-1. เปิดหน้า list
-2. กด Add
-3. กรอก name ยาว 150 ตัวอักษร
-4. ตรวจสอบ value
-
-**Expected**
-
-name input ตัดข้อความให้ยาวไม่เกิน 100 ตัวอักษร
-
----
-
-## TC-DP-010034 — กรอก name เป็น space ล้วน ระบบต้องด่า
-
-> **As a** Admin user, **I want** the system to block invalid Delivery Point submissions, **so that** data quality is preserved.
-
-**Priority:** Medium · **Test Type:** Validation
-
-**Preconditions**
-
-ผู้ใช้ login แล้ว
-
-**Steps**
-
-1. เปิดหน้า list
-2. กด Add
-3. กรอก name = '    ' (space ล้วน)
-4. กด Save
-
-**Expected**
-
-แสดง error message และ dialog ยังเปิดอยู่ (ไม่บันทึก space ล้วน)
-
----
-
-## TC-DP-010035 — กด cancel แล้ว dialog ปิด ไม่มีข้อมูลขึ้น table
+## TC-DP-030005 — กด cancel แล้ว dialog ปิด ไม่มีข้อมูลขึ้น table
 
 > **As a** Admin user, **I want** a clear empty-state when no Delivery Point records match my search, **so that** I know nothing was found.
 
@@ -857,7 +766,7 @@ dialog ปิด และข้อมูลไม่ถูกบันทึก
 
 ---
 
-## TC-DP-010036 — สร้างด้วย is active = false แล้วค่าบันทึกถูก
+## TC-DP-030006 — สร้างด้วย is active = false แล้วค่าบันทึกถูก
 
 > **As a** Admin user, **I want** to create a new Delivery Point record, **so that** it becomes available for downstream operations.
 
@@ -881,7 +790,7 @@ dialog ปิด และข้อมูลไม่ถูกบันทึก
 
 ---
 
-## TC-DP-010037 — กดที่ column name แล้ว dialog เปิดขึ้นมา
+## TC-DP-040001 — กดที่ column name แล้ว dialog เปิดขึ้นมา
 
 > **As a** Admin user, **I want** to manage Delivery Point records via CRUD, **so that** the data stays correct over time.
 
@@ -889,7 +798,7 @@ dialog ปิด และข้อมูลไม่ถูกบันทึก
 
 **Preconditions**
 
-ผู้ใช้ login แล้ว และมี DP_NAME ใน table (จาก TC-DP-010030)
+ผู้ใช้ login แล้ว และมี DP_NAME ใน table (จาก TC-DP-030004)
 
 **Steps**
 
@@ -904,7 +813,7 @@ dialog edit เปิดและ visible เมื่อคลิกที่ n
 
 ---
 
-## TC-DP-010038 — dialog เปิดมา field name แสดงค่าเดิมถูกต้อง
+## TC-DP-040002 — dialog เปิดมา field name แสดงค่าเดิมถูกต้อง
 
 > **As a** Admin user, **I want** this Delivery Point interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -927,7 +836,7 @@ field name มี value ตรงกับ DP_NAME (ค่าเดิม)
 
 ---
 
-## TC-DP-010039 — dialog เปิดมา is active แสดงค่าเดิมถูกต้อง
+## TC-DP-040003 — dialog เปิดมา is active แสดงค่าเดิมถูกต้อง
 
 > **As a** Admin user, **I want** this Delivery Point interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -950,7 +859,7 @@ active switch มี data-state = 'checked' (ตรงกับค่าเด�
 
 ---
 
-## TC-DP-010040 — แก้ name แล้ว save ข้อมูลใน table อัพเดท
+## TC-DP-040004 — แก้ name แล้ว save ข้อมูลใน table อัพเดท
 
 > **As a** Admin user, **I want** to manage Delivery Point records via CRUD, **so that** the data stays correct over time.
 
@@ -974,31 +883,7 @@ active switch มี data-state = 'checked' (ตรงกับค่าเด�
 
 ---
 
-## TC-DP-010041 — ลบ name ออกทั้งหมดแล้ว save ระบบต้องด่า
-
-> **As a** Admin user, **I want** the system to block invalid Delivery Point submissions, **so that** data quality is preserved.
-
-**Priority:** Medium · **Test Type:** Validation
-
-**Preconditions**
-
-ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table
-
-**Steps**
-
-1. เปิดหน้า list
-2. search DP_NAME_UPDATED
-3. คลิก row
-4. clear name
-5. Save
-
-**Expected**
-
-แสดง error message field require — ไม่อนุญาตให้ save name ว่าง
-
----
-
-## TC-DP-010042 — แก้ name เป็นค่าเดิมแล้ว save ได้ปกติ
+## TC-DP-040005 — แก้ name เป็นค่าเดิมแล้ว save ได้ปกติ
 
 > **As a** Admin user, **I want** to manage Delivery Point records via CRUD, **so that** the data stays correct over time.
 
@@ -1022,7 +907,7 @@ active switch มี data-state = 'checked' (ตรงกับค่าเด�
 
 ---
 
-## TC-DP-010043 — กด cancel ระหว่าง edit ข้อมูลเดิมไม่เปลี่ยน
+## TC-DP-040006 — กด cancel ระหว่าง edit ข้อมูลเดิมไม่เปลี่ยน
 
 > **As a** Admin user, **I want** this Delivery Point interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -1047,7 +932,7 @@ table ยังคงแสดง DP_NAME_UPDATED (ค่าใหม่ไม�
 
 ---
 
-## TC-DP-010044 — toggle is active แล้ว save ค่าเปลี่ยนถูก
+## TC-DP-040007 — toggle is active แล้ว save ค่าเปลี่ยนถูก
 
 > **As a** Admin user, **I want** to manage Delivery Point records via CRUD, **so that** the data stays correct over time.
 
@@ -1072,7 +957,7 @@ table ยังคงแสดง DP_NAME_UPDATED (ค่าใหม่ไม�
 
 ---
 
-## TC-DP-010045 — กด trash icon แล้ว confirm dialog เปิดขึ้นมา
+## TC-DP-050001 — กด trash icon แล้ว confirm dialog เปิดขึ้นมา
 
 > **As a** Admin user, **I want** to manage Delivery Point records via CRUD, **so that** the data stays correct over time.
 
@@ -1096,7 +981,7 @@ confirm dialog เปิดและ visible เมื่อกด trash
 
 ---
 
-## TC-DP-010046 — กด confirm แล้วข้อมูลหายออกจาก table
+## TC-DP-050002 — กด confirm แล้วข้อมูลหายออกจาก table
 
 > **As a** Admin user, **I want** to manage Delivery Point records via CRUD, **so that** the data stays correct over time.
 
@@ -1120,7 +1005,7 @@ confirm dialog เปิดและ visible เมื่อกด trash
 
 ---
 
-## TC-DP-010047 — กด cancel ใน confirm dialog ข้อมูลยังอยู่
+## TC-DP-050003 — กด cancel ใน confirm dialog ข้อมูลยังอยู่
 
 > **As a** Admin user, **I want** this Delivery Point interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -1144,7 +1029,7 @@ row ยังคงอยู่ใน table (ไม่ถูกลบเมื�
 
 ---
 
-## TC-DP-010048 — ลบแล้ว total count ใน table ลดลง 1
+## TC-DP-050004 — ลบแล้ว total count ใน table ลดลง 1
 
 > **As a** Admin user, **I want** to delete a Delivery Point record, **so that** the list reflects only valid entries.
 
@@ -1168,7 +1053,7 @@ row ยังคงอยู่ใน table (ไม่ถูกลบเมื�
 
 ---
 
-## TC-DP-010049 — ลบรายการสุดท้ายในหน้า ระบบ paginate กลับหน้าก่อนหน้า
+## TC-DP-050005 — ลบรายการสุดท้ายในหน้า ระบบ paginate กลับหน้าก่อนหน้า
 
 > **As a** Admin user, **I want** this Delivery Point interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -1191,5 +1076,120 @@ row ยังคงอยู่ใน table (ไม่ถูกลบเมื�
 
 ---
 
+## TC-DP-200001 — กด save โดยไม่กรอก name ระบบต้องด่า
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+> **As a** Admin user, **I want** the system to block invalid Delivery Point submissions, **so that** data quality is preserved.
+
+**Priority:** High · **Test Type:** Validation
+
+**Preconditions**
+
+ผู้ใช้ login แล้ว
+
+**Steps**
+
+1. เปิดหน้า list
+2. กด Add
+3. กด Save โดยไม่กรอกอะไร
+
+**Expected**
+
+แสดง error message สำหรับ field ที่ require ว่าง
+
+---
+
+## TC-DP-200002 — กรอก name ซ้ำกับที่มีอยู่แล้ว ระบบต้องห้าม
+
+> **As a** Admin user, **I want** the system to block invalid Delivery Point submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+ผู้ใช้ login แล้ว และมี delivery point DP_NAME อยู่แล้ว (จาก TC-DP-030004)
+
+**Steps**
+
+1. เปิดหน้า list
+2. กด Add
+3. กรอก name ซ้ำ
+4. Save
+
+**Expected**
+
+ระบบแสดง error duplicate/exists/already และไม่บันทึก
+
+---
+
+## TC-DP-200003 — กรอก name ยาวเกิน limit ระบบต้องห้าม
+
+> **As a** Admin user, **I want** the system to block invalid Delivery Point submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+ผู้ใช้ login แล้ว
+
+**Steps**
+
+1. เปิดหน้า list
+2. กด Add
+3. กรอก name ยาว 150 ตัวอักษร
+4. ตรวจสอบ value
+
+**Expected**
+
+name input ตัดข้อความให้ยาวไม่เกิน 100 ตัวอักษร
+
+---
+
+## TC-DP-200004 — กรอก name เป็น space ล้วน ระบบต้องด่า
+
+> **As a** Admin user, **I want** the system to block invalid Delivery Point submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+ผู้ใช้ login แล้ว
+
+**Steps**
+
+1. เปิดหน้า list
+2. กด Add
+3. กรอก name = '    ' (space ล้วน)
+4. กด Save
+
+**Expected**
+
+แสดง error message และ dialog ยังเปิดอยู่ (ไม่บันทึก space ล้วน)
+
+---
+
+## TC-DP-200005 — ลบ name ออกทั้งหมดแล้ว save ระบบต้องด่า
+
+> **As a** Admin user, **I want** the system to block invalid Delivery Point submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+ผู้ใช้ login แล้ว และมี DP_NAME_UPDATED ใน table
+
+**Steps**
+
+1. เปิดหน้า list
+2. search DP_NAME_UPDATED
+3. คลิก row
+4. clear name
+5. Save
+
+**Expected**
+
+แสดง error message field require — ไม่อนุญาตให้ save name ว่าง
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git a67fffa</sub>
