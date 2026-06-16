@@ -1,6 +1,9 @@
 import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { CampaignPage, LIST_PATH } from "./pages/campaign.page";
+import { BU_CODE } from "./test-users";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
+import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Procurement Staff/Manager == purchase@blueledgers.com.
@@ -1110,6 +1113,88 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
         await filter.click().catch(() => {});
         await cam.statusOption(/^all$/i).click({ timeout: 5_000 }).catch(() => {});
       }
+    },
+  );
+});
+
+// ── admin@blueledgers.com + BLAVG ──────────────────────────────────────────
+// The describes above run as purchase/requestor (authz coverage) and are left
+// untouched. Campaign create is a multi-step wizard (name/desc/priority/date →
+// template → vendors → launch), so this block is intentionally LIGHT: BU
+// precondition + BU-assert + a couple of hardened list/filter cases (no wizard
+// create chain). See the procurement-trio rollout spec.
+const adminTest = createAuthTest("admin@blueledgers.com");
+
+adminTest.describe("Campaign — admin@BLAVG", () => {
+  adminTest.beforeEach(async ({ page }) => {
+    await ensureActiveBu(page, BU_CODE);
+  });
+
+  adminTest(
+    "TC-CAM-010050 active BU = BLAVG",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
+        { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const units = await getBusinessUnits(page);
+      const active = defaultBu(units);
+      expect(active?.code).toBe(BU_CODE);
+
+      const switcher = new BuSwitcherPage(page);
+      await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
+    },
+  );
+
+  adminTest(
+    "TC-CAM-010051 หน้า list โหลดสำเร็จ (admin/BLAVG) + ปุ่ม Add แสดง",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Vendor Management" },
+        { type: "steps", description: "1. ไปที่ /vendor-management/request-price-list\n2. ตรวจสอบ URL และ heading 'Request for Pricing'\n3. ตรวจสอบว่าปุ่ม 'Add Request' แสดง" },
+        { type: "expected", description: "URL เป็น /vendor-management/request-price-list, heading 'Request for Pricing' แสดง, และปุ่ม Add แสดง (hard assert)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const cam = new CampaignPage(page);
+      await cam.gotoList();
+      await expect(page).toHaveURL(/vendor-management\/request-price-list/);
+      await expect(
+        page.getByRole("heading", { name: /request for pricing/i }).first(),
+      ).toBeVisible({ timeout: 15_000 });
+      await expect(
+        page.getByRole("button", { name: /add request|create new campaign|^add$/i }).first(),
+      ).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  adminTest(
+    "TC-CAM-010052 ค้นหาคำที่ไม่มี → empty state",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Request for Pricing" },
+        { type: "steps", description: "1. ไปที่ /vendor-management/request-price-list\n2. กรอกคำค้นหาที่ไม่มีอยู่จริงในช่อง Search แล้วกด Enter\n3. ตรวจสอบว่าแสดง empty state" },
+        { type: "expected", description: "ตารางแสดง empty state ('No data found') สำหรับคำค้นที่ไม่ตรง (hard assert)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Negative" },
+      ],
+    },
+    async ({ page }) => {
+      const cam = new CampaignPage(page);
+      await cam.gotoList();
+      const search = cam.searchInput();
+      await expect(search).toBeVisible({ timeout: 10_000 });
+      await search.fill("__NONEXISTENT_E2E_CAM_KEYWORD__");
+      // SearchInput only fires onSearch on Enter — not on change.
+      await search.press("Enter");
+      await expect(cam.emptyState()).toBeVisible({ timeout: 10_000 });
     },
   );
 });
