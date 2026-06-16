@@ -1,6 +1,7 @@
 import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { PageFormCrudHelper } from "./pages/page-form-crud.helper";
+import { DepartmentMembersHelper } from "./pages/department-form.helper";
 import { addPageFormSecurityCases } from "./helpers/security-cases";
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
@@ -585,6 +586,122 @@ test.describe("Department — Smoke & CRUD", () => {
       await expect(page.getByRole("cell", { name })).toBeVisible();
 
       // cleanup (actually delete)
+      await h.clickRowName(name);
+      await h.editButton().click();
+      await h.deleteButton().click();
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-DEP-010019 assign user เข้า department members",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip" },
+        { type: "steps", description: "1. สร้าง record\n2. เปิด record จาก list แล้วกด Edit\n3. ใน section 'Department Members' เลือก user ตัวแรกแล้วย้ายไปขวา\n4. Save\n5. reload เปิด detail เช็คว่า user ปรากฏใน members" },
+        { type: "expected", description: "user ที่ถูก assign แสดงใน section members หลัง reload — หรือ skip ถ้าไม่มี user ว่างให้ assign" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const members = new DepartmentMembersHelper(page);
+      const code = `D19${UID.slice(-4).toUpperCase()}`;
+      const name = `DEP010019 ${UID}`;
+
+      await h.gotoNew();
+      await h.codeInput().fill(code);
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      // open FRESH from list, then edit (the path that persists)
+      await h.list.goto();
+      await h.list.search(name);
+      await h.clickRowName(name);
+      await h.editButton().click();
+
+      const available = await members.availableCount("Department Members");
+      if (available === 0) {
+        await h.deleteButton().click();
+        await h.deleteConfirmButton().click();
+        await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+        test.skip(true, "No assignable users in BLAVG — skipping member-assignment test.");
+        return;
+      }
+
+      const moved = await members.assignFirstAvailable("Department Members");
+      expect(moved).not.toBeNull();
+      await h.saveButton().click();
+      await expect(page.getByText(/updated|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await page.reload();
+      await page.waitForLoadState("networkidle");
+      // assigned user's name is now shown in the (view-mode) members section
+      await expect(page.getByText(moved!.split("\n")[0].trim(), { exact: false }).first()).toBeVisible({ timeout: 10_000 });
+
+      // cleanup
+      await h.list.goto();
+      await h.list.search(name);
+      await h.clickRowName(name);
+      await h.editButton().click();
+      await h.deleteButton().click();
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-DEP-010020 assign user เป็น Head of Department",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip" },
+        { type: "steps", description: "1. สร้าง record\n2. เปิด record จาก list แล้วกด Edit\n3. ใน section 'Head of Department' เลือก user ตัวแรกแล้วย้ายไปขวา\n4. Save\n5. reload เปิด detail เช็คว่า user ปรากฏใน HOD" },
+        { type: "expected", description: "user ที่ถูก assign แสดงใน section HOD หลัง reload — หรือ skip ถ้าไม่มี user ให้ assign" },
+        { type: "priority", description: "Low" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const members = new DepartmentMembersHelper(page);
+      const code = `D20${UID.slice(-4).toUpperCase()}`;
+      const name = `DEP010020 ${UID}`;
+
+      await h.gotoNew();
+      await h.codeInput().fill(code);
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.list.goto();
+      await h.list.search(name);
+      await h.clickRowName(name);
+      await h.editButton().click();
+
+      const available = await members.availableCount("Head of Department");
+      if (available === 0) {
+        await h.deleteButton().click();
+        await h.deleteConfirmButton().click();
+        await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+        test.skip(true, "No assignable users in BLAVG — skipping HOD-assignment test.");
+        return;
+      }
+
+      const moved = await members.assignFirstAvailable("Head of Department");
+      expect(moved).not.toBeNull();
+      await h.saveButton().click();
+      await expect(page.getByText(/updated|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await page.reload();
+      await page.waitForLoadState("networkidle");
+      await expect(page.getByText(moved!.split("\n")[0].trim(), { exact: false }).first()).toBeVisible({ timeout: 10_000 });
+
+      // cleanup
+      await h.list.goto();
+      await h.list.search(name);
       await h.clickRowName(name);
       await h.editButton().click();
       await h.deleteButton().click();
