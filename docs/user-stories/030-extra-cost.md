@@ -5,7 +5,7 @@ _Generated from `tests/030-extra-cost.spec.ts` annotations. Edit annotations, no
 **Module:** Extra Cost
 **Spec:** `tests/030-extra-cost.spec.ts`
 **Default role:** Admin
-**Total test cases:** 13 (9 High / 4 Medium / 0 Low)
+**Total test cases:** 19 (12 High / 7 Medium / 0 Low)
 
 ## Test Cases at a Glance
 
@@ -15,15 +15,21 @@ _Generated from `tests/030-extra-cost.spec.ts` annotations. Edit annotations, no
 | TC-EC-010002 | ปุ่ม Add แสดง | High | Smoke |
 | TC-EC-010003 | ช่องค้นหาใช้งานได้ | Medium | Smoke |
 | TC-EC-010004 | ค้นหาคำที่ไม่มีต้องแสดง empty state | Medium | Functional |
+| TC-EC-010005 | active BU = BLAVG | High | Smoke |
 | TC-EC-030001 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
 | TC-EC-040001 | แก้ไขชื่อและบันทึก | High | CRUD |
+| TC-EC-040002 | toggle is_active แล้ว persist | Medium | CRUD |
+| TC-EC-040003 | แก้ไขชื่อแล้ว persist | High | CRUD |
+| TC-EC-040004 | ยกเลิกการแก้ไข ค่าต้องไม่ถูกบันทึก | Medium | Functional |
 | TC-EC-050001 | ลบรายการ | High | CRUD |
+| TC-EC-050002 | ยกเลิกการลบ record ต้องยังอยู่ | Medium | Functional |
 | TC-EC-100001 | XSS payload ในชื่อต้องไม่รัน script | High | Security |
 | TC-EC-100002 | SQL injection payload ต้องไม่ทำให้ระบบ crash | High | Security |
 | TC-EC-100003 | ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100 | Medium | Validation |
 | TC-EC-100004 _(skipped)_ | user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect | High | Authorization |
 | TC-EC-200001 | บันทึกโดยไม่กรอกชื่อต้องแสดง error | High | Validation |
 | TC-EC-200002 | แก้ไข: clear name แล้วบันทึก ต้องแสดง error | Medium | Validation |
+| TC-EC-200003 | สร้าง name ซ้ำ ต้องถูก reject | High | Negative |
 
 ---
 
@@ -109,6 +115,28 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 ---
 
+## TC-EC-010005 — active BU = BLAVG
+
+> **As a** Admin user, **I want** core Extra Cost interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+
+**Steps**
+
+1. อ่าน profile API (/api/proxy/api/user/profile)
+2. หา business unit ที่ is_default
+3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher
+
+**Expected**
+
+default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น
+
+---
+
 ## TC-EC-030001 — สร้างรายการใหม่และปรากฏในตาราง
 
 > **As a** Admin user, **I want** to create a new Extra Cost record, **so that** it becomes available for downstream operations.
@@ -156,6 +184,75 @@ Updated/success toast ปรากฏ; แถวที่มีชื่อ NAME
 
 ---
 
+## TC-EC-040002 — toggle is_active แล้ว persist
+
+> **As a** Admin user, **I want** to manage Extra Cost records via CRUD, **so that** the data stays correct over time.
+
+**Priority:** Medium · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. เปิด Add dialog กรอก name ปิด switch is_active กด Save
+2. เปิดแถวอีกครั้งอ่านสถานะ switch
+3. ลบ record
+
+**Expected**
+
+หลังเปิดแถวใหม่ switch is_active = false (ค่าถูก persist)
+
+---
+
+## TC-EC-040003 — แก้ไขชื่อแล้ว persist
+
+> **As a** Admin user, **I want** to edit an existing Extra Cost record, **so that** its data stays accurate.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. สร้าง record
+2. เปิดแถวจาก list แก้ name แล้ว Save
+3. ยืนยัน list มี name ใหม่ ไม่พบ name เดิม
+4. ลบ record
+
+**Expected**
+
+Updated; list มีแถว name ใหม่ และไม่พบ name เดิม (ค่าถูก persist จริง)
+
+---
+
+## TC-EC-040004 — ยกเลิกการแก้ไข ค่าต้องไม่ถูกบันทึก
+
+> **As a** Admin user, **I want** this Extra Cost interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** Medium · **Test Type:** Functional
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. สร้าง record
+2. เปิดแถวแก้ name เป็นค่าใหม่
+3. กด Cancel (dialog ปิดโดยไม่ save)
+4. เปิดแถวเดิมอีกครั้งเช็ค name
+5. ลบ record
+
+**Expected**
+
+หลัง Cancel แล้วเปิดใหม่ name ยังเป็นค่าเดิม (การแก้ไขไม่ถูกบันทึก)
+
+---
+
 ## TC-EC-050001 — ลบรายการ
 
 > **As a** Admin user, **I want** to delete a Extra Cost record, **so that** the list reflects only valid entries.
@@ -175,6 +272,29 @@ TC-EC-200002 ผ่านแล้ว → record NAME_UPDATED ยังคงม
 **Expected**
 
 Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
+
+---
+
+## TC-EC-050002 — ยกเลิกการลบ record ต้องยังอยู่
+
+> **As a** Admin user, **I want** this Extra Cost interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** Medium · **Test Type:** Functional
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. สร้าง record
+2. เปิด delete dialog แล้วกด Cancel
+3. ค้นหา record ใน list
+4. ลบ record (cleanup)
+
+**Expected**
+
+Delete dialog ปิดโดยไม่ลบ; record ยังปรากฏใน list
 
 ---
 
@@ -310,5 +430,27 @@ Error message แสดงใน dialog (required validation); dialog ยัง�
 
 ---
 
+## TC-EC-200003 — สร้าง name ซ้ำ ต้องถูก reject
 
-<sub>Last regenerated: 2026-06-16 · git 2d72894</sub>
+> **As a** Admin user, **I want** this Extra Cost behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. สร้าง record ด้วย name X
+2. เปิด Add dialog กรอก name X เดิม กด Save
+
+**Expected**
+
+รายการที่สองไม่ถูกสร้าง: dialog ยังเปิดอยู่ (backend reject name ซ้ำ)
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git e23b6a9</sub>
