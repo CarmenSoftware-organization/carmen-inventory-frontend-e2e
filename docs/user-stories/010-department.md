@@ -5,7 +5,7 @@ _Generated from `tests/010-department.spec.ts` annotations. Edit annotations, no
 **Module:** Department
 **Spec:** `tests/010-department.spec.ts`
 **Default role:** Admin
-**Total test cases:** 23 (12 High / 10 Medium / 0 Low / 1 unset)
+**Total test cases:** 25 (12 High / 11 Medium / 1 Low / 1 unset)
 
 ## Test Cases at a Glance
 
@@ -29,6 +29,8 @@ _Generated from `tests/010-department.spec.ts` annotations. Edit annotations, no
 | TC-DEP-010016 | Cancel ขณะ form dirty ต้องเด้ง Discard dialog | Medium | Functional |
 | TC-DEP-010017 | ยกเลิกการลบ record ต้องยังอยู่ | Medium | Functional |
 | TC-DEP-010018 | code เกิน maxLength ต้องถูกจำกัดที่ 10 | Medium | Validation |
+| TC-DEP-010019 | assign user เข้า department members | Medium | CRUD |
+| TC-DEP-010020 | assign user เป็น Head of Department | Low | CRUD |
 | TC-DEP-010021 | บันทึกโดยกรอก field เดียว ต้องถูก block | Medium | Validation |
 | TC-DEP-100001 | XSS payload ในชื่อต้องไม่รัน script | High | Security |
 | TC-DEP-100002 | SQL injection payload ต้องไม่ทำให้ระบบ crash | High | Security |
@@ -440,6 +442,54 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /config/departme
 
 ---
 
+## TC-DEP-010019 — assign user เข้า department members
+
+> **As a** Admin user, **I want** to manage Department records via CRUD, **so that** the data stays correct over time.
+
+**Priority:** Medium · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip
+
+**Steps**
+
+1. สร้าง record
+2. เปิด record จาก list แล้วกด Edit
+3. ใน section 'Department Members' เลือก user ตัวแรกแล้วย้ายไปขวา
+4. Save
+5. reload เปิด detail เช็คว่า user ปรากฏใน members
+
+**Expected**
+
+user ที่ถูก assign แสดงใน section members หลัง reload — หรือ skip ถ้าไม่มี user ว่างให้ assign
+
+---
+
+## TC-DEP-010020 — assign user เป็น Head of Department
+
+> **As a** Admin user, **I want** to manage Department records via CRUD, **so that** the data stays correct over time.
+
+**Priority:** Low · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip
+
+**Steps**
+
+1. สร้าง record
+2. เปิด record จาก list แล้วกด Edit
+3. ใน section 'Head of Department' เลือก user ตัวแรกแล้วย้ายไปขวา
+4. Save
+5. reload เปิด detail เช็คว่า user ปรากฏใน HOD
+
+**Expected**
+
+user ที่ถูก assign แสดงใน section HOD หลัง reload — หรือ skip ถ้าไม่มี user ให้ assign
+
+---
+
 ## TC-DEP-010021 — บันทึกโดยกรอก field เดียว ต้องถูก block
 
 > **As a** Admin user, **I want** the system to block invalid Department submissions, **so that** data quality is preserved.
@@ -549,4 +599,4 @@ User ถูก redirect ออกจาก /config/department หรือ ป�
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git 86f0b8b</sub>
+<sub>Last regenerated: 2026-06-16 · git 2039f05</sub>
