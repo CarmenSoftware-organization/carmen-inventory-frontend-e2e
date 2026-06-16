@@ -18,6 +18,7 @@ const opts = {
   codeInputId: "department-code",
   nameInputId: "department-name",
   activeSwitchId: "department-is-active",
+  descriptionInputId: "department-description",
 };
 
 test.describe("Department — Smoke & CRUD", () => {
@@ -247,4 +248,86 @@ test.describe("Department — Smoke & CRUD", () => {
     makeHelper: (page) => new PageFormCrudHelper(page, opts),
     skipAuth: true, // TCS-DEP00112 skipped
   });
+
+  test(
+    "TC-DEP-010010 แก้ไขแล้ว persist หลัง reload",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง department (code+name)\n2. เปิด detail กด Edit เปลี่ยน name เป็นค่าใหม่ แล้ว Save\n3. reload หน้า detail\n4. กลับ list ค้นหา name ใหม่และ name เดิม" },
+        { type: "expected", description: "หลัง reload ฟอร์มแสดง name ใหม่ (ค่าถูก persist จริง ไม่ใช่แค่ toast); list มีแถว name ใหม่ และไม่พบ name เดิม" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const code = `D10${UID.slice(-4).toUpperCase()}`;
+      const name = `DEP010010 ${UID}`;
+      const renamed = `DEP010010 Upd ${UID}`;
+
+      await h.gotoNew();
+      await h.codeInput().fill(code);
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.editButton().click();
+      await h.nameInput().clear();
+      await h.nameInput().fill(renamed);
+      await h.saveButton().click();
+      await expect(page.getByText(/updated|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await page.reload();
+      await page.waitForLoadState("networkidle");
+      await expect(page.locator(`#${opts.nameInputId}`)).toHaveValue(renamed);
+
+      await h.list.goto();
+      await h.list.search(renamed);
+      await expect(page.getByRole("cell", { name: renamed })).toBeVisible();
+      await h.list.search(name);
+      await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
+
+      await h.list.search(renamed);
+      await h.clickRowName(renamed);
+      await h.editButton().click();
+      await h.deleteButton().click();
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-DEP-010012 ค้นหาด้วย code เจอรายการ",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง department ด้วย code+name ที่รู้ค่า\n2. กลับ list แล้วค้นหาด้วย code\n3. ลบ record" },
+        { type: "expected", description: "list แสดงแถวที่มี name ของ record เมื่อค้นด้วย code" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const code = `D12${UID.slice(-4).toUpperCase()}`;
+      const name = `DEP010012 ${UID}`;
+
+      await h.gotoNew();
+      await h.codeInput().fill(code);
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.list.goto();
+      await h.list.search(code);
+      await expect(page.getByRole("cell", { name })).toBeVisible();
+
+      await h.clickRowName(name);
+      await h.editButton().click();
+      await h.deleteButton().click();
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
 });
