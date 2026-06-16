@@ -274,7 +274,9 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.saveButton().click();
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
-      // open the record FRESH from the list, then edit (the realistic path that persists)
+      // Open the record fresh from the list before editing. (Editing right after
+      // create also persists; opening fresh avoids the create toast satisfying the
+      // update-toast wait below, which could race the reload against the PATCH.)
       await h.list.goto();
       await h.list.search(name);
       await h.clickRowName(name);
@@ -617,7 +619,8 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.saveButton().click();
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
-      // open FRESH from list, then edit (the path that persists)
+      // open fresh from the list before editing (avoids the create-toast/update-toast
+      // overlap racing the reload — see TC-DEP-010010)
       await h.list.goto();
       await h.list.search(name);
       await h.clickRowName(name);
