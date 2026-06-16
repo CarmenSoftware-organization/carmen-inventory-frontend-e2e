@@ -344,7 +344,7 @@ test.describe("Department — Smoke & CRUD", () => {
     },
   );
 
-  test.fixme(
+  test(
     "TC-DEP-010011 สร้าง code ซ้ำ ต้องถูก reject",
     {
       annotation: [
@@ -353,7 +353,6 @@ test.describe("Department — Smoke & CRUD", () => {
         { type: "expected", description: "รายการที่สองไม่ถูกสร้าง: ยังอยู่ที่ฟอร์ม /new (ไม่ navigate ไป detail) — backend reject code ซ้ำ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
-        { type: "note", description: "Skipped via test.fixme: backend currently has NO unique constraint on department code per BU, so duplicates are accepted. Assertion encodes the intended behaviour — unskip when the backend adds the constraint." },
       ],
     },
     async ({ page }) => {
