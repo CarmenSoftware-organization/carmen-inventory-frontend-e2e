@@ -15,15 +15,15 @@ _Generated from `tests/029-business-type.spec.ts` annotations. Edit annotations,
 | TC-BT-010002 | ปุ่ม Add แสดง | High | Smoke |
 | TC-BT-010003 | ช่องค้นหาใช้งานได้ | Medium | Smoke |
 | TC-BT-010004 | ค้นหาคำที่ไม่มีต้องแสดง empty state | Medium | Functional |
-| TC-BT-010005 | บันทึกโดยไม่กรอกชื่อต้องแสดง error | High | Validation |
-| TC-BT-010006 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
-| TC-BT-010007 | แก้ไขชื่อและบันทึก | High | CRUD |
-| TC-BT-010008 | ลบรายการ | High | CRUD |
-| TC-BT-010013 | แก้ไข: clear name แล้วบันทึก ต้องแสดง error | Medium | Validation |
+| TC-BT-030001 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
+| TC-BT-040001 | แก้ไขชื่อและบันทึก | High | CRUD |
+| TC-BT-050001 | ลบรายการ | High | CRUD |
 | TC-BT-100001 | XSS payload ในชื่อต้องไม่รัน script | High | Security |
 | TC-BT-100002 | SQL injection payload ต้องไม่ทำให้ระบบ crash | High | Security |
 | TC-BT-100003 | ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100 | Medium | Validation |
 | TC-BT-100004 _(skipped)_ | user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect | High | Authorization |
+| TC-BT-200001 | บันทึกโดยไม่กรอกชื่อต้องแสดง error | High | Validation |
+| TC-BT-200002 | แก้ไข: clear name แล้วบันทึก ต้องแสดง error | Medium | Validation |
 
 ---
 
@@ -109,29 +109,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 ---
 
-## TC-BT-010005 — บันทึกโดยไม่กรอกชื่อต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Business Type submissions, **so that** data quality is preserved.
-
-**Priority:** High · **Test Type:** Validation
-
-**Preconditions**
-
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type
-
-**Steps**
-
-1. ไปที่ /config/business-type
-2. เปิด dialog Add
-3. กด Save โดยไม่กรอก name
-
-**Expected**
-
-Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)
-
----
-
-## TC-BT-010006 — สร้างรายการใหม่และปรากฏในตาราง
+## TC-BT-030001 — สร้างรายการใหม่และปรากฏในตาราง
 
 > **As a** Admin user, **I want** to create a new Business Type record, **so that** it becomes available for downstream operations.
 
@@ -155,7 +133,7 @@ Success toast (created/success/สำเร็จ); แถวใหม่ที�
 
 ---
 
-## TC-BT-010007 — แก้ไขชื่อและบันทึก
+## TC-BT-040001 — แก้ไขชื่อและบันทึก
 
 > **As a** Admin user, **I want** to edit an existing Business Type record, **so that** its data stays accurate.
 
@@ -163,7 +141,7 @@ Success toast (created/success/สำเร็จ); แถวใหม่ที�
 
 **Preconditions**
 
-TC-BT-010006 ผ่านแล้ว → record NAME มีอยู่ใน DB
+TC-BT-030001 ผ่านแล้ว → record NAME มีอยู่ใน DB
 
 **Steps**
 
@@ -179,7 +157,7 @@ Updated/success toast ปรากฏ; แถวที่มี NAME_UPDATED ป
 
 ---
 
-## TC-BT-010008 — ลบรายการ
+## TC-BT-050001 — ลบรายการ
 
 > **As a** Admin user, **I want** to delete a Business Type record, **so that** the list reflects only valid entries.
 
@@ -187,7 +165,7 @@ Updated/success toast ปรากฏ; แถวที่มี NAME_UPDATED ป
 
 **Preconditions**
 
-TC-BT-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB
+TC-BT-200002 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB
 
 **Steps**
 
@@ -198,29 +176,6 @@ TC-BT-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงม
 **Expected**
 
 Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
-
----
-
-## TC-BT-010013 — แก้ไข: clear name แล้วบันทึก ต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Business Type submissions, **so that** data quality is preserved.
-
-**Priority:** Medium · **Test Type:** Validation
-
-**Preconditions**
-
-TC-BT-010007 ผ่านแล้ว → record มี name = NAME_UPDATED
-
-**Steps**
-
-1. ค้นหา NAME_UPDATED ใน list
-2. เปิด edit dialog
-3. clear name
-4. กด Save
-
-**Expected**
-
-Error message ปรากฏใน dialog (form block submit; ยังคงอยู่ใน edit mode)
 
 ---
 
@@ -312,5 +267,50 @@ User ถูก redirect ออกจาก /config/business-type หรือ �
 
 ---
 
+## TC-BT-200001 — บันทึกโดยไม่กรอกชื่อต้องแสดง error
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+> **As a** Admin user, **I want** the system to block invalid Business Type submissions, **so that** data quality is preserved.
+
+**Priority:** High · **Test Type:** Validation
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type
+
+**Steps**
+
+1. ไปที่ /config/business-type
+2. เปิด dialog Add
+3. กด Save โดยไม่กรอก name
+
+**Expected**
+
+Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)
+
+---
+
+## TC-BT-200002 — แก้ไข: clear name แล้วบันทึก ต้องแสดง error
+
+> **As a** Admin user, **I want** the system to block invalid Business Type submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+TC-BT-040001 ผ่านแล้ว → record มี name = NAME_UPDATED
+
+**Steps**
+
+1. ค้นหา NAME_UPDATED ใน list
+2. เปิด edit dialog
+3. clear name
+4. กด Save
+
+**Expected**
+
+Error message ปรากฏใน dialog (form block submit; ยังคงอยู่ใน edit mode)
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git 2d72894</sub>

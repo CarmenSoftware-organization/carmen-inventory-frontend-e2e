@@ -87,7 +87,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CNR-010005 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
+    "TC-CNR-200001 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as admin@blueledgers.com; on /config/credit-note-reason" },
@@ -107,7 +107,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CNR-010006 สร้างรายการใหม่และปรากฏในตาราง",
+    "TC-CNR-030001 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Logged in as admin@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
@@ -131,10 +131,10 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CNR-010007 แก้ไขชื่อและบันทึก",
+    "TC-CNR-040001 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CNR-010006 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-CNR-030001 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด edit dialog\n3. clear name แล้วกรอก NAME_UPDATED\n4. กด Save\n5. ค้นหา NAME_UPDATED ใน list" },
         { type: "expected", description: "Updated/success toast ปรากฏ; แถวที่มี NAME_UPDATED ปรากฏใน list" },
         { type: "priority", description: "High" },
@@ -157,10 +157,10 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CNR-010013 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
+    "TC-CNR-200002 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CNR-010007 ผ่านแล้ว → record มี name = NAME_UPDATED" },
+        { type: "preconditions", description: "TC-CNR-040001 ผ่านแล้ว → record มี name = NAME_UPDATED" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด edit dialog\n3. clear name\n4. กด Save\n5. กด Cancel เพื่อปิด dialog" },
         { type: "expected", description: "Error message ปรากฏใน dialog (form ไม่ submit; ยังอยู่ใน edit mode)" },
         { type: "priority", description: "Medium" },
@@ -179,10 +179,10 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CNR-010008 ลบรายการ",
+    "TC-CNR-050001 ลบรายการ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CNR-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-CNR-200002 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. กด Delete บนแถว\n3. ยืนยัน Delete ใน confirm dialog" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
         { type: "priority", description: "High" },

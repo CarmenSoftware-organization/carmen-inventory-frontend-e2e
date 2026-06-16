@@ -15,15 +15,15 @@ _Generated from `tests/040-currency.spec.ts` annotations. Edit annotations, not 
 | TC-CUR-010002 | ปุ่ม Add แสดง | High | Smoke |
 | TC-CUR-010003 | ช่องค้นหาใช้งานได้ | Medium | Smoke |
 | TC-CUR-010004 | ค้นหาคำที่ไม่มีต้องแสดง empty state | Medium | Functional |
-| TC-CUR-010005 | บันทึกโดยไม่กรอกชื่อต้องแสดง error | High | Validation |
-| TC-CUR-010006 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
-| TC-CUR-010007 | แก้ไขชื่อและบันทึก | High | CRUD |
-| TC-CUR-010008 | ลบรายการ | High | CRUD |
-| TC-CUR-010013 | แก้ไข: clear name แล้วบันทึก ต้องแสดง error | Medium | Validation |
+| TC-CUR-030001 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
+| TC-CUR-040001 | แก้ไขชื่อและบันทึก | High | CRUD |
+| TC-CUR-050001 | ลบรายการ | High | CRUD |
 | TC-CUR-100001 | XSS payload ในชื่อต้องไม่รัน script | High | Security |
 | TC-CUR-100002 | SQL injection payload ต้องไม่ทำให้ระบบ crash | High | Security |
 | TC-CUR-100003 | ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100 | Medium | Validation |
 | TC-CUR-100004 _(skipped)_ | user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect | High | Authorization |
+| TC-CUR-200001 | บันทึกโดยไม่กรอกชื่อต้องแสดง error | High | Validation |
+| TC-CUR-200002 | แก้ไข: clear name แล้วบันทึก ต้องแสดง error | Medium | Validation |
 
 ---
 
@@ -109,30 +109,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 ---
 
-## TC-CUR-010005 — บันทึกโดยไม่กรอกชื่อต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Currency submissions, **so that** data quality is preserved.
-
-**Priority:** High · **Test Type:** Validation
-
-**Preconditions**
-
-Login เป็น admin@blueledgers.com; เปิด add dialog ของ /config/currency
-
-**Steps**
-
-1. ไปที่ /config/currency
-2. เปิด add dialog
-3. กด Save โดยไม่กรอก name (และไม่เลือก ISO code)
-4. ปิด dialog ด้วย Cancel
-
-**Expected**
-
-Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)
-
----
-
-## TC-CUR-010006 — สร้างรายการใหม่และปรากฏในตาราง
+## TC-CUR-030001 — สร้างรายการใหม่และปรากฏในตาราง
 
 > **As a** Admin user, **I want** to create a new Currency record, **so that** it becomes available for downstream operations.
 
@@ -158,7 +135,7 @@ Success toast (created/success/สำเร็จ); แถวใหม่ที�
 
 ---
 
-## TC-CUR-010007 — แก้ไขชื่อและบันทึก
+## TC-CUR-040001 — แก้ไขชื่อและบันทึก
 
 > **As a** Admin user, **I want** to edit an existing Currency record, **so that** its data stays accurate.
 
@@ -166,7 +143,7 @@ Success toast (created/success/สำเร็จ); แถวใหม่ที�
 
 **Preconditions**
 
-TC-CUR-010006 ผ่านแล้ว → record NAME มีอยู่ใน DB
+TC-CUR-030001 ผ่านแล้ว → record NAME มีอยู่ใน DB
 
 **Steps**
 
@@ -183,7 +160,7 @@ Updated/success toast ปรากฏ; แถวที่มี Name = NAME_UPDA
 
 ---
 
-## TC-CUR-010008 — ลบรายการ
+## TC-CUR-050001 — ลบรายการ
 
 > **As a** Admin user, **I want** to delete a Currency record, **so that** the list reflects only valid entries.
 
@@ -191,7 +168,7 @@ Updated/success toast ปรากฏ; แถวที่มี Name = NAME_UPDA
 
 **Preconditions**
 
-TC-CUR-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB
+TC-CUR-200002 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB
 
 **Steps**
 
@@ -203,31 +180,6 @@ TC-CUR-010013 ผ่านแล้ว → record NAME_UPDATED ยังคง�
 **Expected**
 
 Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
-
----
-
-## TC-CUR-010013 — แก้ไข: clear name แล้วบันทึก ต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Currency submissions, **so that** data quality is preserved.
-
-**Priority:** Medium · **Test Type:** Validation
-
-**Preconditions**
-
-TC-CUR-010007 ผ่านแล้ว → record มี name = NAME_UPDATED
-
-**Steps**
-
-1. ไปที่ /config/currency
-2. ค้นหา NAME_UPDATED
-3. คลิกแถวเพื่อเปิด edit dialog
-4. clear name
-5. กด Save
-6. ปิด dialog ด้วย Cancel
-
-**Expected**
-
-Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)
 
 ---
 
@@ -319,5 +271,53 @@ User ถูก redirect ออกจาก /config/currency หรือ ปุ�
 
 ---
 
+## TC-CUR-200001 — บันทึกโดยไม่กรอกชื่อต้องแสดง error
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+> **As a** Admin user, **I want** the system to block invalid Currency submissions, **so that** data quality is preserved.
+
+**Priority:** High · **Test Type:** Validation
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; เปิด add dialog ของ /config/currency
+
+**Steps**
+
+1. ไปที่ /config/currency
+2. เปิด add dialog
+3. กด Save โดยไม่กรอก name (และไม่เลือก ISO code)
+4. ปิด dialog ด้วย Cancel
+
+**Expected**
+
+Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)
+
+---
+
+## TC-CUR-200002 — แก้ไข: clear name แล้วบันทึก ต้องแสดง error
+
+> **As a** Admin user, **I want** the system to block invalid Currency submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+TC-CUR-040001 ผ่านแล้ว → record มี name = NAME_UPDATED
+
+**Steps**
+
+1. ไปที่ /config/currency
+2. ค้นหา NAME_UPDATED
+3. คลิกแถวเพื่อเปิด edit dialog
+4. clear name
+5. กด Save
+6. ปิด dialog ด้วย Cancel
+
+**Expected**
+
+Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git 2d72894</sub>

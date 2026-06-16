@@ -26,19 +26,19 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 |-----------|--------|---------------|-------|
 | `001-login.spec.ts` | `LOGIN` | 01, 10–19 | Login flows + security |
 | `002-spa-smoke.spec.ts` | `SPA` | 01 | Cross-section smoke (covers the React SPA port) |
-| `010-department.spec.ts` | `DEP` | 01–05, 10 | CRUD + security |
-| `020-unit.spec.ts` | `UN` | 01–05, 10 | CRUD + security |
-| `029-business-type.spec.ts` | `BT` | 01–05, 10 | CRUD + security |
-| `030-extra-cost.spec.ts` | `EC` | 01–05, 10 | CRUD + security |
-| `031-adjustment-type.spec.ts` | `AT` | 01–05, 10 | CRUD + security |
-| `032-credit-term.spec.ts` | `CT` | 01–05, 10 | CRUD + security |
-| `040-currency.spec.ts` | `CUR` | 01–05, 10 | CRUD + security |
+| `010-department.spec.ts` | `DEP` | 01, 03–05, 10, 20 | CRUD + security |
+| `020-unit.spec.ts` | `UN` | 01, 03–05, 10, 20 | CRUD + security |
+| `029-business-type.spec.ts` | `BT` | 01, 03–05, 10, 20 | CRUD + security |
+| `030-extra-cost.spec.ts` | `EC` | 01, 03–05, 10, 20 | CRUD + security |
+| `031-adjustment-type.spec.ts` | `AT` | 01, 03–05, 10, 20 | CRUD + security |
+| `032-credit-term.spec.ts` | `CT` | 01, 03–05, 10, 20 | CRUD + security |
+| `040-currency.spec.ts` | `CUR` | 01, 03–05, 10, 20 | CRUD + security |
 | `041-exchange-rate.spec.ts` | `ER` | 01–02, 10 | List/Detail + security |
-| `042-tax-profile.spec.ts` | `TP` | 01–05, 10 | CRUD + security |
-| `079-delivery-point.spec.ts` | `DP` | 01–05, 10–19 | CRUD + security |
-| `080-location.spec.ts` | `LOC` | 01–05, 10 | CRUD + security |
+| `042-tax-profile.spec.ts` | `TP` | 01, 03–05, 10, 20 | CRUD + security |
+| `079-delivery-point.spec.ts` | `DP` | 01, 03–05, 10–19, 20 | CRUD + security |
+| `080-location.spec.ts` | `LOC` | 01, 03–05, 10, 20 | CRUD + security |
 | `101-product-category.spec.ts` | `CAT` | 01–15, 20–29, 90 | Multi-prefix collapse (CATEG/PRODU/RECIP) |
-| `150-vendor.spec.ts` | `VEN` | 01–05, 10–19 | CRUD + security |
+| `150-vendor.spec.ts` | `VEN` | 01, 03–05, 10–19, 20 | CRUD + security |
 | `159-pl.spec.ts` | `PL` | 01–08, 90 | CRUD + sub-journeys + edge cases |
 | `160-pl-template.spec.ts` | `PT` | 01–06, 90 | CRUD + sub-journeys + edge cases |
 | `201-my-approvals.spec.ts` | `MA` | 01–06, 90 | CRUD + edge cases |
@@ -47,7 +47,7 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `401-po.spec.ts` | `PO` | 01–07, 10–19, 20–29, 30–39, 90 | Module entry point + sub-journeys (06–07) |
 | `501-grn.spec.ts` | `GRN` | 01–18, 90 | CRUD + sub-journeys + security + edge cases |
 | `601-cn.spec.ts` | `CN` | 01–11, 20–29, 30–39, 50–54, 90 | CRUD + validation + integration |
-| `602-cn-reason.spec.ts` | `CNR` | 01–05, 10 | CRUD + security |
+| `602-cn-reason.spec.ts` | `CNR` | 01, 03–05, 10, 20 | CRUD + security |
 | `701-sr.spec.ts` | `SR` | 01–12, 90 | CRUD + sub-journeys + security + edge cases |
 | `720-stock-issue.spec.ts` | `SI` | 01–06, 90 | CRUD + sub-journeys + edge cases |
 | `900-period-end.spec.ts` | `PE` | 01–04, 31–34, 90 | CRUD + integration + edge cases |

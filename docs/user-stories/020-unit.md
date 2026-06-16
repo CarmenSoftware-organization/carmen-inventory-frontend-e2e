@@ -16,18 +16,18 @@ _Generated from `tests/020-unit.spec.ts` annotations. Edit annotations, not this
 | TC-UN-010003 | ช่องค้นหาใช้งานได้ | Medium | Smoke |
 | TC-UN-010004 | ค้นหาคำที่ไม่มีต้องแสดง empty state | Medium | Functional |
 | TC-UN-010005 | active BU = BLAVG | High | Smoke |
-| TC-UN-010006 | สร้าง unit ใหม่และปรากฏในตาราง | High | CRUD |
-| TC-UN-010007 | แก้ไขชื่อแล้ว persist | High | CRUD |
-| TC-UN-010008 | ลบ unit | High | CRUD |
-| TC-UN-010009 | บันทึกโดยไม่กรอกชื่อต้องแสดง error | High | Validation |
-| TC-UN-010010 | สร้าง name ซ้ำ ต้องถูก reject | High | Negative |
-| TC-UN-010011 | description สร้าง/แก้ไข + maxLength | Medium | CRUD |
-| TC-UN-010012 | toggle is_active แล้ว persist | Medium | CRUD |
-| TC-UN-010013 | แก้ไข: clear name แล้วบันทึก ต้องแสดง error | Medium | Validation |
+| TC-UN-030001 | สร้าง unit ใหม่และปรากฏในตาราง | High | CRUD |
+| TC-UN-040001 | แก้ไขชื่อแล้ว persist | High | CRUD |
+| TC-UN-040002 | toggle is_active แล้ว persist | Medium | CRUD |
+| TC-UN-050001 | ลบ unit | High | CRUD |
 | TC-UN-100001 | XSS payload ในชื่อต้องไม่รัน script | High | Security |
 | TC-UN-100002 | SQL injection payload ต้องไม่ทำให้ระบบ crash | High | Security |
 | TC-UN-100003 | ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100 | Medium | Validation |
 | TC-UN-100004 _(skipped)_ | user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect | High | Authorization |
+| TC-UN-200001 | บันทึกโดยไม่กรอกชื่อต้องแสดง error | High | Validation |
+| TC-UN-200002 | สร้าง name ซ้ำ ต้องถูก reject | High | Negative |
+| TC-UN-200003 | description สร้าง/แก้ไข + maxLength | Medium | CRUD |
+| TC-UN-200004 | แก้ไข: clear name แล้วบันทึก ต้องแสดง error | Medium | Validation |
 
 ---
 
@@ -135,7 +135,7 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 
 ---
 
-## TC-UN-010006 — สร้าง unit ใหม่และปรากฏในตาราง
+## TC-UN-030001 — สร้าง unit ใหม่และปรากฏในตาราง
 
 > **As a** Admin user, **I want** to create a new Unit record, **so that** it becomes available for downstream operations.
 
@@ -159,7 +159,7 @@ Success toast (created/success/สำเร็จ); แถวที่มี nam
 
 ---
 
-## TC-UN-010007 — แก้ไขชื่อแล้ว persist
+## TC-UN-040001 — แก้ไขชื่อแล้ว persist
 
 > **As a** Admin user, **I want** to edit an existing Unit record, **so that** its data stays accurate.
 
@@ -183,96 +183,7 @@ Updated toast; list มีแถว name ใหม่ และไม่พบ n
 
 ---
 
-## TC-UN-010008 — ลบ unit
-
-> **As a** Admin user, **I want** to delete a Unit record, **so that** the list reflects only valid entries.
-
-**Priority:** High · **Test Type:** CRUD
-
-**Preconditions**
-
-Login เป็น admin@blueledgers.com; active BU = BLAVG
-
-**Steps**
-
-1. สร้าง unit
-2. ค้นหาใน list
-3. เปิด Row actions → Delete → ยืนยัน
-4. ค้นหาอีกครั้ง
-
-**Expected**
-
-Deleted toast; ไม่พบแถว name ใน list (empty state)
-
----
-
-## TC-UN-010009 — บันทึกโดยไม่กรอกชื่อต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Unit submissions, **so that** data quality is preserved.
-
-**Priority:** High · **Test Type:** Validation
-
-**Preconditions**
-
-Login เป็น admin@blueledgers.com; active BU = BLAVG
-
-**Steps**
-
-1. เปิด Add dialog
-2. กด Save โดยไม่กรอก name
-
-**Expected**
-
-Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)
-
----
-
-## TC-UN-010010 — สร้าง name ซ้ำ ต้องถูก reject
-
-> **As a** Admin user, **I want** this Unit behavior verified, **so that** the feature works as expected.
-<!-- TODO: refine narrative -->
-
-**Priority:** High · **Test Type:** Negative
-
-**Preconditions**
-
-Login เป็น admin@blueledgers.com; active BU = BLAVG
-
-**Steps**
-
-1. สร้าง unit ด้วย name X
-2. เปิด Add dialog กรอก name X เดิม กด Save
-
-**Expected**
-
-รายการที่สองไม่ถูกสร้าง: dialog ยังเปิดอยู่ (backend reject name ซ้ำ)
-
----
-
-## TC-UN-010011 — description สร้าง/แก้ไข + maxLength
-
-> **As a** Admin user, **I want** to create a new Unit record, **so that** it becomes available for downstream operations.
-
-**Priority:** Medium · **Test Type:** CRUD
-
-**Preconditions**
-
-Login เป็น admin@blueledgers.com; active BU = BLAVG
-
-**Steps**
-
-1. สร้าง unit พร้อม description
-2. เปิดแถวอีกครั้งเช็คค่า description
-3. ทดสอบ maxLength โดยพิมพ์ยาวเกิน
-4. ลบ record
-
-**Expected**
-
-description ถูก persist (เห็นค่าเดิมเมื่อเปิด dialog ใหม่); ช่อง description ถูกจำกัดความยาวตาม maxLength
-
----
-
-## TC-UN-010012 — toggle is_active แล้ว persist
+## TC-UN-040002 — toggle is_active แล้ว persist
 
 > **As a** Admin user, **I want** to manage Unit records via CRUD, **so that** the data stays correct over time.
 
@@ -294,11 +205,11 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 
 ---
 
-## TC-UN-010013 — แก้ไข: clear name แล้วบันทึก ต้องแสดง error
+## TC-UN-050001 — ลบ unit
 
-> **As a** Admin user, **I want** the system to block invalid Unit submissions, **so that** data quality is preserved.
+> **As a** Admin user, **I want** to delete a Unit record, **so that** the list reflects only valid entries.
 
-**Priority:** Medium · **Test Type:** Validation
+**Priority:** High · **Test Type:** CRUD
 
 **Preconditions**
 
@@ -307,13 +218,13 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 **Steps**
 
 1. สร้าง unit
-2. เปิดแถวเพื่อแก้ไข
-3. clear name กด Save
-4. ลบ record
+2. ค้นหาใน list
+3. เปิด Row actions → Delete → ยืนยัน
+4. ค้นหาอีกครั้ง
 
 **Expected**
 
-Error message ปรากฏใน dialog (validation block submit; dialog ไม่ปิด)
+Deleted toast; ไม่พบแถว name ใน list (empty state)
 
 ---
 
@@ -405,5 +316,94 @@ User ถูก redirect ออกจาก /config/unit หรือ ปุ่�
 
 ---
 
+## TC-UN-200001 — บันทึกโดยไม่กรอกชื่อต้องแสดง error
 
-<sub>Last regenerated: 2026-06-16 · git 3b8641f</sub>
+> **As a** Admin user, **I want** the system to block invalid Unit submissions, **so that** data quality is preserved.
+
+**Priority:** High · **Test Type:** Validation
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. เปิด Add dialog
+2. กด Save โดยไม่กรอก name
+
+**Expected**
+
+Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)
+
+---
+
+## TC-UN-200002 — สร้าง name ซ้ำ ต้องถูก reject
+
+> **As a** Admin user, **I want** this Unit behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. สร้าง unit ด้วย name X
+2. เปิด Add dialog กรอก name X เดิม กด Save
+
+**Expected**
+
+รายการที่สองไม่ถูกสร้าง: dialog ยังเปิดอยู่ (backend reject name ซ้ำ)
+
+---
+
+## TC-UN-200003 — description สร้าง/แก้ไข + maxLength
+
+> **As a** Admin user, **I want** to create a new Unit record, **so that** it becomes available for downstream operations.
+
+**Priority:** Medium · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. สร้าง unit พร้อม description
+2. เปิดแถวอีกครั้งเช็คค่า description
+3. ทดสอบ maxLength โดยพิมพ์ยาวเกิน
+4. ลบ record
+
+**Expected**
+
+description ถูก persist (เห็นค่าเดิมเมื่อเปิด dialog ใหม่); ช่อง description ถูกจำกัดความยาวตาม maxLength
+
+---
+
+## TC-UN-200004 — แก้ไข: clear name แล้วบันทึก ต้องแสดง error
+
+> **As a** Admin user, **I want** the system to block invalid Unit submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. สร้าง unit
+2. เปิดแถวเพื่อแก้ไข
+3. clear name กด Save
+4. ลบ record
+
+**Expected**
+
+Error message ปรากฏใน dialog (validation block submit; dialog ไม่ปิด)
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git 2d72894</sub>

@@ -16,29 +16,29 @@ _Generated from `tests/150-vendor.spec.ts` annotations. Edit annotations, not th
 | TC-VEN-010003 | ช่องค้นหาใช้งานได้ | Medium | Smoke |
 | TC-VEN-010004 | ค้นหาคำที่ไม่มีต้องแสดง empty state | Medium | Functional |
 | TC-VEN-010005 | Filter status (active/inactive) ใช้งานได้ | Medium | Functional |
-| TC-VEN-010006 | เปิดหน้า new form สำเร็จ | High | Smoke |
-| TC-VEN-010007 | เลือก business type จาก dropdown ได้ | Medium | Functional |
-| TC-VEN-010008 | สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ | High | CRUD |
-| TC-VEN-010009 | สร้าง vendor พร้อม address 1 รายการ | High | CRUD |
-| TC-VEN-010010 | สร้าง vendor พร้อม contact 1 รายการ (primary) | High | CRUD |
-| TC-VEN-010011 | สลับ tab ทั้ง 4 tabs ได้ | Medium | Functional |
-| TC-VEN-010012 | เพิ่ม address row ได้หลาย row | Medium | Functional |
-| TC-VEN-010013 | ลบ address row ได้ | Medium | Functional |
-| TC-VEN-010014 | เพิ่ม contact row ได้หลาย row | Medium | Functional |
-| TC-VEN-010015 | ลบ contact row ได้ | Medium | Functional |
-| TC-VEN-010016 | เปลี่ยน primary contact ได้ (radio exclusive) | Medium | Functional |
-| TC-VEN-010017 | เพิ่ม info row (label/value) ได้ | Medium | Functional |
-| TC-VEN-010018 | ลบ info row ได้ | Medium | Functional |
-| TC-VEN-010019 | บันทึกโดยไม่กรอก code ต้องแสดง error | High | Validation |
-| TC-VEN-010020 | บันทึกโดยไม่กรอก name ต้องแสดง error | High | Validation |
-| TC-VEN-010021 | code เกิน 10 ตัวอักษรต้องถูก reject | Medium | Validation |
-| TC-VEN-010022 | name เกิน 100 ตัวอักษรต้องถูก reject | Medium | Validation |
-| TC-VEN-010023 | address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement) | Medium | Validation |
-| TC-VEN-010024 | contact email รูปแบบผิดต้องแสดง error | Medium | Validation |
-| TC-VEN-010025 | แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ | High | CRUD |
-| TC-VEN-010026 | เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่ | Medium | Functional |
-| TC-VEN-010027 | ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก) | High | CRUD |
-| TC-VEN-010028 | หลังลบแล้วค้นหาไม่พบ row นั้นอีก | Medium | Functional |
+| TC-VEN-030001 | เปิดหน้า new form สำเร็จ | High | Smoke |
+| TC-VEN-030002 | เลือก business type จาก dropdown ได้ | Medium | Functional |
+| TC-VEN-030003 | สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ | High | CRUD |
+| TC-VEN-030004 | สร้าง vendor พร้อม address 1 รายการ | High | CRUD |
+| TC-VEN-030005 | สร้าง vendor พร้อม contact 1 รายการ (primary) | High | CRUD |
+| TC-VEN-030006 | สลับ tab ทั้ง 4 tabs ได้ | Medium | Functional |
+| TC-VEN-030007 | เพิ่ม address row ได้หลาย row | Medium | Functional |
+| TC-VEN-030008 | ลบ address row ได้ | Medium | Functional |
+| TC-VEN-030009 | เพิ่ม contact row ได้หลาย row | Medium | Functional |
+| TC-VEN-030010 | ลบ contact row ได้ | Medium | Functional |
+| TC-VEN-030011 | เปลี่ยน primary contact ได้ (radio exclusive) | Medium | Functional |
+| TC-VEN-030012 | เพิ่ม info row (label/value) ได้ | Medium | Functional |
+| TC-VEN-030013 | ลบ info row ได้ | Medium | Functional |
+| TC-VEN-040001 | แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ | High | CRUD |
+| TC-VEN-050001 | เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่ | Medium | Functional |
+| TC-VEN-050002 | ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก) | High | CRUD |
+| TC-VEN-050003 | หลังลบแล้วค้นหาไม่พบ row นั้นอีก | Medium | Functional |
+| TC-VEN-200001 | บันทึกโดยไม่กรอก code ต้องแสดง error | High | Validation |
+| TC-VEN-200002 | บันทึกโดยไม่กรอก name ต้องแสดง error | High | Validation |
+| TC-VEN-200003 | code เกิน 10 ตัวอักษรต้องถูก reject | Medium | Validation |
+| TC-VEN-200004 | name เกิน 100 ตัวอักษรต้องถูก reject | Medium | Validation |
+| TC-VEN-200005 | address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement) | Medium | Validation |
+| TC-VEN-200006 | contact email รูปแบบผิดต้องแสดง error | Medium | Validation |
 
 ---
 
@@ -146,7 +146,7 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor
 
 ---
 
-## TC-VEN-010006 — เปิดหน้า new form สำเร็จ
+## TC-VEN-030001 — เปิดหน้า new form สำเร็จ
 
 > **As a** Purchase user, **I want** core Vendor interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -166,7 +166,7 @@ URL ตรงกับ /vendor-management/vendor/new; code input, name input แ
 
 ---
 
-## TC-VEN-010007 — เลือก business type จาก dropdown ได้
+## TC-VEN-030002 — เลือก business type จาก dropdown ได้
 
 > **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -188,7 +188,7 @@ Trigger ของ business type แสดง label ของรายการ�
 
 ---
 
-## TC-VEN-010008 — สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ
+## TC-VEN-030003 — สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ
 
 > **As a** Purchase user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
 
@@ -212,7 +212,7 @@ Save toast/feedback ปรากฏ และ vendor ใหม่ค้นเจ
 
 ---
 
-## TC-VEN-010009 — สร้าง vendor พร้อม address 1 รายการ
+## TC-VEN-030004 — สร้าง vendor พร้อม address 1 รายการ
 
 > **As a** Purchase user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
 
@@ -237,7 +237,7 @@ Save toast/feedback ปรากฏ บ่งชี้ว่า vendor พร้
 
 ---
 
-## TC-VEN-010010 — สร้าง vendor พร้อม contact 1 รายการ (primary)
+## TC-VEN-030005 — สร้าง vendor พร้อม contact 1 รายการ (primary)
 
 > **As a** Purchase user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
 
@@ -262,7 +262,7 @@ Save toast/feedback ปรากฏ และ vendor ที่มี contact ค
 
 ---
 
-## TC-VEN-010011 — สลับ tab ทั้ง 4 tabs ได้
+## TC-VEN-030006 — สลับ tab ทั้ง 4 tabs ได้
 
 > **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -283,7 +283,7 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
 
 ---
 
-## TC-VEN-010012 — เพิ่ม address row ได้หลาย row
+## TC-VEN-030007 — เพิ่ม address row ได้หลาย row
 
 > **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -305,7 +305,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ---
 
-## TC-VEN-010013 — ลบ address row ได้
+## TC-VEN-030008 — ลบ address row ได้
 
 > **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -328,7 +328,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ---
 
-## TC-VEN-010014 — เพิ่ม contact row ได้หลาย row
+## TC-VEN-030009 — เพิ่ม contact row ได้หลาย row
 
 > **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -350,7 +350,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ---
 
-## TC-VEN-010015 — ลบ contact row ได้
+## TC-VEN-030010 — ลบ contact row ได้
 
 > **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -373,7 +373,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ---
 
-## TC-VEN-010016 — เปลี่ยน primary contact ได้ (radio exclusive)
+## TC-VEN-030011 — เปลี่ยน primary contact ได้ (radio exclusive)
 
 > **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -397,7 +397,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ---
 
-## TC-VEN-010017 — เพิ่ม info row (label/value) ได้
+## TC-VEN-030012 — เพิ่ม info row (label/value) ได้
 
 > **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -419,7 +419,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ---
 
-## TC-VEN-010018 — ลบ info row ได้
+## TC-VEN-030013 — ลบ info row ได้
 
 > **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -442,7 +442,99 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ---
 
-## TC-VEN-010019 — บันทึกโดยไม่กรอก code ต้องแสดง error
+## TC-VEN-040001 — แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ
+
+> **As a** Purchase user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+TC-VEN-030003 ผ่านแล้ว → vendor ที่ NAME มีอยู่ใน DB; logged in as purchase@blueledgers.com
+
+**Steps**
+
+1. ไปที่ list และเปิด detail ของ vendor ตาม NAME
+2. กด Edit
+3. สลับไป tab general
+4. แก้ name เป็น NAME_UPDATED
+5. กด Save
+6. กลับ list ค้นหาด้วย NAME_UPDATED
+
+**Expected**
+
+Save toast/feedback ปรากฏ และ NAME_UPDATED ค้นเจอใน list ภายใน 10s
+
+---
+
+## TC-VEN-050001 — เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่
+
+> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** Medium · **Test Type:** Functional
+
+**Preconditions**
+
+TC-VEN-040001 ผ่านแล้ว → vendor ที่ NAME_UPDATED มีอยู่ใน DB
+
+**Steps**
+
+1. ไปที่ list และค้นหาด้วย NAME_UPDATED
+2. เปิด row actions ของ row นั้น
+3. คลิก menuitem Delete
+4. ใน alertdialog กด Cancel
+
+**Expected**
+
+Alertdialog ปิดและแถวของ NAME_UPDATED ยังคง visible (ไม่ถูกลบ)
+
+---
+
+## TC-VEN-050002 — ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก)
+
+> **As a** Purchase user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+TC-VEN-050001 ผ่านแล้ว → vendor ที่ NAME_UPDATED ยังคงอยู่ใน DB
+
+**Steps**
+
+1. ไปที่ list และค้นหาด้วย NAME_UPDATED
+2. เปิด row actions
+3. คลิก menuitem Delete
+4. ใน alertdialog กดยืนยัน Delete/Confirm
+
+**Expected**
+
+Success toast ('success/deleted/สำเร็จ') ปรากฏภายใน 10s
+
+---
+
+## TC-VEN-050003 — หลังลบแล้วค้นหาไม่พบ row นั้นอีก
+
+> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** Medium · **Test Type:** Functional
+
+**Preconditions**
+
+TC-VEN-050002 ผ่านแล้ว → vendor ที่ NAME_UPDATED ถูกลบจาก DB แล้ว
+
+**Steps**
+
+1. ไปที่ list
+2. ค้นหาด้วย NAME_UPDATED
+
+**Expected**
+
+Empty-state placeholder ปรากฏภายใน 10s (ยืนยันว่าลบได้สำเร็จจริง)
+
+---
+
+## TC-VEN-200001 — บันทึกโดยไม่กรอก code ต้องแสดง error
 
 > **As a** Purchase user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
 
@@ -464,7 +556,7 @@ Error indicator ปรากฏและ URL ยังคงอยู่ที�
 
 ---
 
-## TC-VEN-010020 — บันทึกโดยไม่กรอก name ต้องแสดง error
+## TC-VEN-200002 — บันทึกโดยไม่กรอก name ต้องแสดง error
 
 > **As a** Purchase user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
 
@@ -486,7 +578,7 @@ Error indicator ปรากฏและ URL ยังคงอยู่ที�
 
 ---
 
-## TC-VEN-010021 — code เกิน 10 ตัวอักษรต้องถูก reject
+## TC-VEN-200003 — code เกิน 10 ตัวอักษรต้องถูก reject
 
 > **As a** Purchase user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
 
@@ -507,7 +599,7 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
 
 ---
 
-## TC-VEN-010022 — name เกิน 100 ตัวอักษรต้องถูก reject
+## TC-VEN-200004 — name เกิน 100 ตัวอักษรต้องถูก reject
 
 > **As a** Purchase user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
 
@@ -528,7 +620,7 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
 
 ---
 
-## TC-VEN-010023 — address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement)
+## TC-VEN-200005 — address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement)
 
 > **As a** Purchase user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
 
@@ -551,7 +643,7 @@ Error indicator ปรากฏและ URL ยังคงอยู่ที�
 
 ---
 
-## TC-VEN-010024 — contact email รูปแบบผิดต้องแสดง error
+## TC-VEN-200006 — contact email รูปแบบผิดต้องแสดง error
 
 > **As a** Purchase user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
 
@@ -574,97 +666,5 @@ URL ยังคงอยู่ที่ /new (HTML5 native email validation blo
 
 ---
 
-## TC-VEN-010025 — แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ
 
-> **As a** Purchase user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
-
-**Priority:** High · **Test Type:** CRUD
-
-**Preconditions**
-
-TC-VEN-010008 ผ่านแล้ว → vendor ที่ NAME มีอยู่ใน DB; logged in as purchase@blueledgers.com
-
-**Steps**
-
-1. ไปที่ list และเปิด detail ของ vendor ตาม NAME
-2. กด Edit
-3. สลับไป tab general
-4. แก้ name เป็น NAME_UPDATED
-5. กด Save
-6. กลับ list ค้นหาด้วย NAME_UPDATED
-
-**Expected**
-
-Save toast/feedback ปรากฏ และ NAME_UPDATED ค้นเจอใน list ภายใน 10s
-
----
-
-## TC-VEN-010026 — เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่
-
-> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
-
-**Priority:** Medium · **Test Type:** Functional
-
-**Preconditions**
-
-TC-VEN-010025 ผ่านแล้ว → vendor ที่ NAME_UPDATED มีอยู่ใน DB
-
-**Steps**
-
-1. ไปที่ list และค้นหาด้วย NAME_UPDATED
-2. เปิด row actions ของ row นั้น
-3. คลิก menuitem Delete
-4. ใน alertdialog กด Cancel
-
-**Expected**
-
-Alertdialog ปิดและแถวของ NAME_UPDATED ยังคง visible (ไม่ถูกลบ)
-
----
-
-## TC-VEN-010027 — ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก)
-
-> **As a** Purchase user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
-
-**Priority:** High · **Test Type:** CRUD
-
-**Preconditions**
-
-TC-VEN-010026 ผ่านแล้ว → vendor ที่ NAME_UPDATED ยังคงอยู่ใน DB
-
-**Steps**
-
-1. ไปที่ list และค้นหาด้วย NAME_UPDATED
-2. เปิด row actions
-3. คลิก menuitem Delete
-4. ใน alertdialog กดยืนยัน Delete/Confirm
-
-**Expected**
-
-Success toast ('success/deleted/สำเร็จ') ปรากฏภายใน 10s
-
----
-
-## TC-VEN-010028 — หลังลบแล้วค้นหาไม่พบ row นั้นอีก
-
-> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
-
-**Priority:** Medium · **Test Type:** Functional
-
-**Preconditions**
-
-TC-VEN-010027 ผ่านแล้ว → vendor ที่ NAME_UPDATED ถูกลบจาก DB แล้ว
-
-**Steps**
-
-1. ไปที่ list
-2. ค้นหาด้วย NAME_UPDATED
-
-**Expected**
-
-Empty-state placeholder ปรากฏภายใน 10s (ยืนยันว่าลบได้สำเร็จจริง)
-
----
-
-
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+<sub>Last regenerated: 2026-06-16 · git a67fffa</sub>

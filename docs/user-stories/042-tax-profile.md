@@ -15,15 +15,15 @@ _Generated from `tests/042-tax-profile.spec.ts` annotations. Edit annotations, n
 | TC-TP-010002 | ปุ่ม Add แสดง | High | Smoke |
 | TC-TP-010003 | ช่องค้นหาใช้งานได้ | Medium | Smoke |
 | TC-TP-010004 | ค้นหาคำที่ไม่มีต้องแสดง empty state | Medium | Functional |
-| TC-TP-010005 | บันทึกโดยไม่กรอกชื่อต้องแสดง error | High | Validation |
-| TC-TP-010006 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
-| TC-TP-010007 | แก้ไขชื่อและบันทึก | High | CRUD |
-| TC-TP-010008 | ลบรายการ | High | CRUD |
-| TC-TP-010013 | แก้ไข: clear name แล้วบันทึก ต้องแสดง error | Medium | Validation |
+| TC-TP-030001 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
+| TC-TP-040001 | แก้ไขชื่อและบันทึก | High | CRUD |
+| TC-TP-050001 | ลบรายการ | High | CRUD |
 | TC-TP-100001 | XSS payload ในชื่อต้องไม่รัน script | High | Security |
 | TC-TP-100002 | SQL injection payload ต้องไม่ทำให้ระบบ crash | High | Security |
 | TC-TP-100003 | ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100 | Medium | Validation |
 | TC-TP-100004 _(skipped)_ | user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect | High | Authorization |
+| TC-TP-200001 | บันทึกโดยไม่กรอกชื่อต้องแสดง error | High | Validation |
+| TC-TP-200002 | แก้ไข: clear name แล้วบันทึก ต้องแสดง error | Medium | Validation |
 
 ---
 
@@ -109,28 +109,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มี tax 
 
 ---
 
-## TC-TP-010005 — บันทึกโดยไม่กรอกชื่อต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Tax Profile submissions, **so that** data quality is preserved.
-
-**Priority:** High · **Test Type:** Validation
-
-**Preconditions**
-
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/tax-profile
-
-**Steps**
-
-1. เปิด Add dialog
-2. กด Save โดยไม่กรอก name (rate ปล่อยตามค่า default)
-
-**Expected**
-
-Error message ปรากฏใต้ name input (required validation block submit); ปิด dialog ด้วย Cancel
-
----
-
-## TC-TP-010006 — สร้างรายการใหม่และปรากฏในตาราง
+## TC-TP-030001 — สร้างรายการใหม่และปรากฏในตาราง
 
 > **As a** Admin user, **I want** to create a new Tax Profile record, **so that** it becomes available for downstream operations.
 
@@ -153,7 +132,7 @@ Success toast (created/success/สำเร็จ) และแถวใหม�
 
 ---
 
-## TC-TP-010007 — แก้ไขชื่อและบันทึก
+## TC-TP-040001 — แก้ไขชื่อและบันทึก
 
 > **As a** Admin user, **I want** to edit an existing Tax Profile record, **so that** its data stays accurate.
 
@@ -161,7 +140,7 @@ Success toast (created/success/สำเร็จ) และแถวใหม�
 
 **Preconditions**
 
-TC-TP-010006 ผ่านแล้ว → tax profile ชื่อ NAME มีอยู่ใน DB
+TC-TP-030001 ผ่านแล้ว → tax profile ชื่อ NAME มีอยู่ใน DB
 
 **Steps**
 
@@ -176,7 +155,7 @@ Updated/success toast ปรากฏ และแถว NAME_UPDATED ปรา�
 
 ---
 
-## TC-TP-010008 — ลบรายการ
+## TC-TP-050001 — ลบรายการ
 
 > **As a** Admin user, **I want** to delete a Tax Profile record, **so that** the list reflects only valid entries.
 
@@ -184,7 +163,7 @@ Updated/success toast ปรากฏ และแถว NAME_UPDATED ปรา�
 
 **Preconditions**
 
-TC-TP-010013 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED ยังคงมีอยู่ใน DB
+TC-TP-200002 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED ยังคงมีอยู่ใน DB
 
 **Steps**
 
@@ -195,29 +174,6 @@ TC-TP-010013 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED 
 **Expected**
 
 Deleted/success toast ปรากฏ (deleted/success/สำเร็จ) และ tax profile ถูกลบจาก DB
-
----
-
-## TC-TP-010013 — แก้ไข: clear name แล้วบันทึก ต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Tax Profile submissions, **so that** data quality is preserved.
-
-**Priority:** Medium · **Test Type:** Validation
-
-**Preconditions**
-
-TC-TP-010007 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED มีอยู่ใน DB
-
-**Steps**
-
-1. ค้นหา NAME_UPDATED ใน list
-2. เปิด edit dialog
-3. clear name (rate ไม่แตะ)
-4. กด Save
-
-**Expected**
-
-Error message ปรากฏใต้ name input (required validation block submit); ปิด dialog ด้วย Cancel
 
 ---
 
@@ -309,5 +265,49 @@ User ถูก redirect ออกจาก /config/tax-profile หรือ ป�
 
 ---
 
+## TC-TP-200001 — บันทึกโดยไม่กรอกชื่อต้องแสดง error
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+> **As a** Admin user, **I want** the system to block invalid Tax Profile submissions, **so that** data quality is preserved.
+
+**Priority:** High · **Test Type:** Validation
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; อยู่ที่ /config/tax-profile
+
+**Steps**
+
+1. เปิด Add dialog
+2. กด Save โดยไม่กรอก name (rate ปล่อยตามค่า default)
+
+**Expected**
+
+Error message ปรากฏใต้ name input (required validation block submit); ปิด dialog ด้วย Cancel
+
+---
+
+## TC-TP-200002 — แก้ไข: clear name แล้วบันทึก ต้องแสดง error
+
+> **As a** Admin user, **I want** the system to block invalid Tax Profile submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+TC-TP-040001 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED มีอยู่ใน DB
+
+**Steps**
+
+1. ค้นหา NAME_UPDATED ใน list
+2. เปิด edit dialog
+3. clear name (rate ไม่แตะ)
+4. กด Save
+
+**Expected**
+
+Error message ปรากฏใต้ name input (required validation block submit); ปิด dialog ด้วย Cancel
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git 2d72894</sub>
