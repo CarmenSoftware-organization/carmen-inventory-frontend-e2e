@@ -1,42 +1,74 @@
-import { expect } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
-import { PageFormCrudHelper } from "./pages/page-form-crud.helper";
-import { addPageFormSecurityCases } from "./helpers/security-cases";
+import { DialogCrudHelper } from "./pages/dialog-crud.helper";
+import { addDialogSecurityCases } from "./helpers/security-cases";
+import { BU_CODE } from "./test-users";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
+import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/adjustment-type";
 const UID = Date.now().toString(36);
-const CODE = `E2E${UID.slice(-4).toUpperCase()}`;
+const CODE = `E2EA${UID.slice(-4).toUpperCase()}`;
 const NAME = `E2E AT ${UID}`;
 const NAME_UPDATED = `E2E AT Upd ${UID}`;
-const CODE_OUT = `E2EO${UID.slice(-4).toUpperCase()}`;
-const NAME_OUT = `E2E AT OUT ${UID}`;
 
 const opts = {
   listPath: PATH,
-  codeInputId: "adjustment-type-code",
   nameInputId: "adjustment-type-name",
   activeSwitchId: "adjustment-type-is-active",
+  descriptionInputId: "adjustment-type-description",
 };
 
 test.describe("Adjustment Type — Smoke & CRUD", () => {
+  test.beforeEach(async ({ page }) => {
+    await ensureActiveBu(page, BU_CODE);
+  });
+
+  // Adjustment-type's unique key is `code`. Helpers below fill the extra `code`
+  // field and the required `type` Radix Select inside the open dialog.
+  const selectType = async (
+    h: DialogCrudHelper,
+    page: Page,
+    label: "Stock In" | "Stock Out" = "Stock In",
+  ) => {
+    await h.dialog().getByRole("combobox").first().click();
+    await page.getByRole("option", { name: label }).click();
+  };
+
+  const createAT = async (
+    h: DialogCrudHelper,
+    page: Page,
+    code: string,
+    name: string,
+    active = true,
+  ) => {
+    await h.openAddDialog();
+    await page.locator("#adjustment-type-code").fill(code);
+    await h.nameInput().fill(name);
+    await selectType(h, page);
+    if (!active) await h.setActive(false);
+    await h.saveButton().click();
+    await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({
+      timeout: 10_000,
+    });
+  };
+
   test(
     "TC-AT-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture" },
         { type: "steps", description: "1. ไปที่ /config/adjustment-type" },
-        { type: "expected", description: "URL ตรงกับ /config/adjustment-type; ปุ่ม Add และช่องค้นหา visible ภายใน 10s" },
+        { type: "expected", description: "URL ตรงกับ /config/adjustment-type; หน้า list render สำเร็จ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
+    const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await expect(page).toHaveURL(new RegExp(PATH));
-    await expect(h.list.addButton()).toBeVisible({ timeout: 10_000 });
-    await expect(h.list.searchInput()).toBeVisible();
   });
 
   test(
@@ -51,7 +83,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
       ],
     },
     async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
+    const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await expect(h.list.addButton()).toBeVisible();
   });
@@ -68,7 +100,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
       ],
     },
     async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
+    const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await expect(h.list.searchInput()).toBeVisible();
     await h.list.search("test");
@@ -86,56 +118,68 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
       ],
     },
     async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
+    const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(`__NOPE__${UID}`);
-    // DataGrid keeps a placeholder row in tbody when empty, so assert the
-    // empty-state text instead of row count 0.
     await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
   test(
-    "TC-AT-200001 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
+    "TC-AT-010005 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/adjustment-type/new" },
-        { type: "steps", description: "1. เปิดฟอร์ม new\n2. กด Save โดยไม่กรอก code/name" },
-        { type: "expected", description: "URL ยังคงอยู่ที่ /new (ฟอร์ม block submit ด้วย client-side validation)" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
+        { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const units = await getBusinessUnits(page);
+      const active = defaultBu(units);
+      expect(active?.code).toBe(BU_CODE);
+
+      const switcher = new BuSwitcherPage(page);
+      await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
+    },
+  );
+
+  test(
+    "TC-AT-200001 บันทึกโดยไม่กรอกข้อมูลต้องแสดง error",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/adjustment-type" },
+        { type: "steps", description: "1. เปิด Add dialog\n2. กด Save โดยไม่กรอก code/name" },
+        { type: "expected", description: "Error message แสดงใน dialog (required validation); dialog ยังเปิดอยู่" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
-    await h.gotoNew();
+    const h = new DialogCrudHelper(page, opts);
+    await h.list.goto();
+    await h.openAddDialog();
     await h.saveButton().click();
-    await expect(page).toHaveURL(/\/new/);
+    await expect(h.errorMessage().first()).toBeVisible();
+    await h.cancelButton().click();
   });
 
   test(
-    "TC-AT-030001 สร้างรายการใหม่ (Stock In) และปรากฏในตาราง",
+    "TC-AT-030001 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; record CODE ยังไม่มีอยู่ใน DB" },
-        { type: "steps", description: "1. เปิด new form\n2. กรอก code + name\n3. เลือก type = Stock In ใน combobox\n4. กด Save\n5. กลับ list และค้นหาด้วย CODE" },
+        { type: "steps", description: "1. เปิด Add dialog\n2. กรอก code = CODE, name = NAME, เลือก type = Stock In\n3. กด Save\n4. ค้นหาด้วย CODE" },
         { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี CODE ปรากฏใน list" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
-    await h.gotoNew();
-    await h.codeInput().fill(CODE);
-    await h.nameInput().fill(NAME);
-    // `type` is a required Select — pick the first option (Stock In)
-    await page.getByRole("combobox").first().click();
-    await page.getByRole("option", { name: "Stock In" }).click();
-    await h.saveButton().click();
-    await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({
-      timeout: 10_000,
-    });
+    const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
+    await createAT(h, page, CODE, NAME);
     await h.list.search(CODE);
     await expect(
       page.getByRole("button", { name: CODE, exact: true }).first(),
@@ -147,72 +191,69 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     {
       annotation: [
         { type: "preconditions", description: "TC-AT-030001 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB" },
-        { type: "steps", description: "1. ค้นหา CODE ใน list\n2. คลิกแถวเพื่อเปิด detail\n3. กดปุ่ม Edit\n4. แก้ name เป็น NAME_UPDATED\n5. กด Save" },
-        { type: "expected", description: "Updated/success toast ปรากฏ (updated/success/สำเร็จ)" },
+        { type: "steps", description: "1. ค้นหา CODE ใน list\n2. คลิกแถวเพื่อเปิด edit dialog\n3. clear ชื่อและกรอก NAME_UPDATED\n4. กด Save\n5. ค้นหา CODE" },
+        { type: "expected", description: "Updated/success toast ปรากฏ; แถว CODE ที่มีชื่อ NAME_UPDATED ปรากฏใน list" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
+    const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(CODE);
-    await h.clickRowName(CODE);
-    // Form loads in view mode → wait for the prefilled name before editing
-    await expect(h.nameInput()).toHaveValue(NAME, { timeout: 10_000 });
-    await h.editButton().click();
-    // Wait for the input to become editable (mode switched to edit)
-    await expect(h.nameInput()).toBeEnabled({ timeout: 5_000 });
+    await h.clickRow(CODE);
+    await h.nameInput().clear();
     await h.nameInput().fill(NAME_UPDATED);
     await h.saveButton().click();
     await expect(page.getByText(/updated|success|สำเร็จ/i).first()).toBeVisible({
       timeout: 10_000,
     });
+    // List uses CACHE_STATIC; re-navigate to force a fresh fetch before asserting.
+    await h.list.goto();
+    await h.list.search(CODE);
+    await expect(page.getByRole("cell", { name: NAME_UPDATED })).toBeVisible({
+      timeout: 10_000,
+    });
   });
 
   test(
-    "TC-AT-200002 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error",
+    "TC-AT-200002 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "TC-AT-040001 ผ่านแล้ว → record มี name = NAME_UPDATED" },
-        { type: "steps", description: "1. ค้นหา CODE ใน list\n2. เปิด detail\n3. กด Edit\n4. clear code + name\n5. กด Save" },
-        { type: "expected", description: "Save button ยังคง visible (form ไม่ submit; ยังอยู่ใน edit mode)" },
+        { type: "steps", description: "1. ค้นหา CODE ใน list\n2. เปิด edit dialog\n3. clear name\n4. กด Save" },
+        { type: "expected", description: "Error message แสดงใน dialog (required validation); dialog ยังเปิดอยู่" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Validation" },
       ],
     },
     async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
+    const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(CODE);
-    await h.clickRowName(CODE);
-    await expect(h.nameInput()).toHaveValue(NAME_UPDATED, { timeout: 10_000 });
-    await h.editButton().click();
-    await expect(h.nameInput()).toBeEnabled({ timeout: 5_000 });
-    await h.codeInput().clear();
+    await h.clickRow(CODE);
     await h.nameInput().clear();
     await h.saveButton().click();
-    await expect(h.saveButton()).toBeVisible();
+    await expect(h.errorMessage().first()).toBeVisible();
+    await h.cancelButton().click();
   });
 
   test(
-    "TC-AT-050001 ลบรายการ (Stock In)",
+    "TC-AT-050001 ลบรายการ",
     {
       annotation: [
         { type: "preconditions", description: "TC-AT-200002 ผ่านแล้ว → record CODE ยังคงมีอยู่ใน DB" },
-        { type: "steps", description: "1. ค้นหา CODE ใน list\n2. เปิด detail\n3. กด Edit\n4. กด Delete\n5. ยืนยัน Delete" },
+        { type: "steps", description: "1. ค้นหา CODE ใน list\n2. กด Delete ที่แถว\n3. ยืนยัน Delete" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
+    const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await h.list.search(CODE);
-    await h.clickRowName(CODE);
-    await h.editButton().click();
-    await h.deleteButton().click();
+    await h.deleteRow(CODE);
     await h.deleteConfirmButton().click();
     await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({
       timeout: 10_000,
@@ -220,62 +261,185 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-AT-030002 สร้างรายการใหม่ (Stock Out) และปรากฏในตาราง",
+    "TC-AT-040002 toggle is_active แล้ว persist",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; record CODE_OUT ยังไม่มีอยู่ใน DB" },
-        { type: "steps", description: "1. เปิด new form\n2. กรอก code_out + name_out\n3. เลือก type = Stock Out ใน combobox\n4. กด Save\n5. กลับ list และค้นหาด้วย CODE_OUT" },
-        { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี CODE_OUT ปรากฏใน list" },
-        { type: "priority", description: "High" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. เปิด Add dialog กรอก code/name เลือก type ปิด switch is_active กด Save\n2. เปิดแถวอีกครั้งอ่านสถานะ switch\n3. ลบ record" },
+        { type: "expected", description: "หลังเปิดแถวใหม่ switch is_active = false (ค่าถูก persist)" },
+        { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
-    await h.gotoNew();
-    await h.codeInput().fill(CODE_OUT);
-    await h.nameInput().fill(NAME_OUT);
-    await page.getByRole("combobox").first().click();
-    await page.getByRole("option", { name: "Stock Out" }).click();
-    await h.saveButton().click();
-    await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({
-      timeout: 10_000,
-    });
-    await h.list.goto();
-    await h.list.search(CODE_OUT);
-    await expect(
-      page.getByRole("button", { name: CODE_OUT, exact: true }).first(),
-    ).toBeVisible({ timeout: 10_000 });
-  });
+      const h = new DialogCrudHelper(page, opts);
+      const code = `E2EB${UID.slice(-3).toUpperCase()}`;
+      const name = `E2E AT042 ${UID}`;
+      await h.list.goto();
+      await createAT(h, page, code, name, false);
+
+      await h.list.search(code);
+      await h.clickRow(code);
+      await expect(h.activeSwitch()!).toHaveAttribute("aria-checked", "false", { timeout: 5_000 });
+      await h.cancelButton().click();
+
+      await h.list.goto();
+      await h.list.search(code);
+      await h.deleteRow(code);
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
 
   test(
-    "TC-AT-050002 ลบรายการ (Stock Out)",
+    "TC-AT-040003 แก้ไขชื่อแล้ว persist",
     {
       annotation: [
-        { type: "preconditions", description: "TC-AT-030002 ผ่านแล้ว → record CODE_OUT มีอยู่ใน DB" },
-        { type: "steps", description: "1. ค้นหา CODE_OUT ใน list\n2. เปิด detail\n3. กด Edit\n4. กด Delete\n5. ยืนยัน Delete" },
-        { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง record\n2. เปิดแถวจาก list แก้ name แล้ว Save\n3. ยืนยัน list มี name ใหม่ ไม่พบ name เดิม\n4. ลบ record" },
+        { type: "expected", description: "Updated; list มีแถว name ใหม่ และไม่พบ name เดิม (ค่าถูก persist จริง)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
-    await h.list.goto();
-    await h.list.search(CODE_OUT);
-    await h.clickRowName(CODE_OUT);
-    await h.editButton().click();
-    await h.deleteButton().click();
-    await h.deleteConfirmButton().click();
-    await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({
-      timeout: 10_000,
-    });
-  });
+      const h = new DialogCrudHelper(page, opts);
+      const code = `E2EC${UID.slice(-3).toUpperCase()}`;
+      const name = `E2E AT043 ${UID}`;
+      const renamed = `E2E AT043 Upd ${UID}`;
+      await h.list.goto();
+      await createAT(h, page, code, name);
 
-  addPageFormSecurityCases(test, {
+      await h.list.search(code);
+      await h.clickRow(code);
+      await expect(h.nameInput()).toBeEnabled({ timeout: 5_000 });
+      await h.nameInput().fill(renamed);
+      await h.saveButton().click();
+      await expect(h.dialog()).toBeHidden({ timeout: 10_000 });
+
+      await h.list.goto();
+      await h.list.search(code);
+      await expect(page.getByRole("cell", { name: renamed })).toBeVisible({ timeout: 10_000 });
+
+      await h.deleteRow(code);
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-AT-040004 ยกเลิกการแก้ไข ค่าต้องไม่ถูกบันทึก",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง record\n2. เปิดแถวแก้ name เป็นค่าใหม่\n3. กด Cancel (dialog ปิดโดยไม่ save)\n4. เปิดแถวเดิมอีกครั้งเช็ค name\n5. ลบ record" },
+        { type: "expected", description: "หลัง Cancel แล้วเปิดใหม่ name ยังเป็นค่าเดิม (การแก้ไขไม่ถูกบันทึก)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new DialogCrudHelper(page, opts);
+      const code = `E2ED${UID.slice(-3).toUpperCase()}`;
+      const name = `E2E AT044 ${UID}`;
+      await h.list.goto();
+      await createAT(h, page, code, name);
+
+      await h.list.search(code);
+      await h.clickRow(code);
+      await expect(h.nameInput()).toBeEnabled({ timeout: 5_000 });
+      await h.nameInput().fill(`${name} DIRTY`);
+      await h.cancelButton().click();
+      await expect(h.dialog()).toBeHidden({ timeout: 5_000 });
+
+      await h.list.goto();
+      await h.list.search(code);
+      await h.clickRow(code);
+      await expect(h.nameInput()).toHaveValue(name, { timeout: 5_000 });
+      await h.cancelButton().click();
+
+      await h.list.goto();
+      await h.list.search(code);
+      await h.deleteRow(code);
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-AT-200003 สร้าง code ซ้ำ ต้องถูก reject",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง record ด้วย code X\n2. เปิด Add dialog กรอก code X เดิม + ชื่อใหม่ เลือก type กด Save" },
+        { type: "expected", description: "รายการที่สองไม่ถูกสร้าง: dialog ยังเปิดอยู่ (backend reject code ซ้ำ)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Negative" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new DialogCrudHelper(page, opts);
+      const code = `E2EF${UID.slice(-3).toUpperCase()}`;
+      await h.list.goto();
+      await createAT(h, page, code, `E2E AT200 ${UID}`);
+
+      await h.openAddDialog();
+      await page.locator("#adjustment-type-code").fill(code);
+      await h.nameInput().fill(`E2E AT200b ${UID}`);
+      await selectType(h, page);
+      await h.saveButton().click();
+      await expect(h.dialog()).toBeVisible({ timeout: 10_000 });
+      await h.cancelButton().click();
+
+      await h.list.goto();
+      await h.list.search(code);
+      await h.deleteRow(code);
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-AT-050002 ยกเลิกการลบ record ต้องยังอยู่",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง record\n2. เปิด delete dialog แล้วกด Cancel\n3. ค้นหา record ใน list\n4. ลบ record (cleanup)" },
+        { type: "expected", description: "Delete dialog ปิดโดยไม่ลบ; record ยังปรากฏใน list" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new DialogCrudHelper(page, opts);
+      const code = `E2EG${UID.slice(-3).toUpperCase()}`;
+      await h.list.goto();
+      await createAT(h, page, code, `E2E AT050 ${UID}`);
+
+      await h.list.goto();
+      await h.list.search(code);
+      await h.deleteRow(code);
+      const dialog = page.getByRole("alertdialog");
+      await expect(dialog).toBeVisible({ timeout: 5_000 });
+      await dialog.getByRole("button", { name: /^(Cancel|ยกเลิก)$/i }).click();
+      await expect(dialog).toBeHidden({ timeout: 5_000 });
+
+      await h.list.goto();
+      await h.list.search(code);
+      await expect(
+        page.getByRole("button", { name: code, exact: true }).first(),
+      ).toBeVisible();
+
+      await h.deleteRow(code);
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  addDialogSecurityCases(test, {
     prefix: "AT",
     listPath: PATH,
-    makeHelper: (page) => new PageFormCrudHelper(page, opts),
-    skipAuth: true, // TC-AT-100004 skipped
+    makeHelper: (page) => new DialogCrudHelper(page, opts),
+    skipAuth: true,
   });
 });

@@ -5,7 +5,7 @@ _Generated from `tests/041-exchange-rate.spec.ts` annotations. Edit annotations,
 **Module:** Exchange Rate
 **Spec:** `tests/041-exchange-rate.spec.ts`
 **Default role:** Admin
-**Total test cases:** 6 (4 High / 2 Medium / 0 Low)
+**Total test cases:** 7 (5 High / 2 Medium / 0 Low)
 
 ## Test Cases at a Glance
 
@@ -13,6 +13,7 @@ _Generated from `tests/041-exchange-rate.spec.ts` annotations. Edit annotations,
 | --- | --- | --- | --- |
 | TC-ER-010001 | หน้า list โหลดสำเร็จ | High | Smoke |
 | TC-ER-010002 | ปุ่ม Add แสดง | Medium | Smoke |
+| TC-ER-010005 | active BU = BLAVG | High | Smoke |
 | TC-ER-100001 | XSS payload ในชื่อต้องไม่รัน script | High | Security |
 | TC-ER-100002 | SQL injection payload ในช่องค้นหาต้องไม่ crash | High | Security |
 | TC-ER-100003 | ค้นหาด้วย string ยาวมากต้องไม่ crash | Medium | Validation |
@@ -57,6 +58,28 @@ _(no steps documented)_
 **Expected**
 
 ปุ่ม Add แสดงบนหน้า list
+
+---
+
+## TC-ER-010005 — active BU = BLAVG
+
+> **As a** Admin user, **I want** core Exchange Rate interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+
+**Steps**
+
+1. อ่าน profile API (/api/proxy/api/user/profile)
+2. หา business unit ที่ is_default
+3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher
+
+**Expected**
+
+default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น
 
 ---
 
@@ -146,4 +169,4 @@ User ถูก redirect ออกจาก /config/exchange-rate หรือ �
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+<sub>Last regenerated: 2026-06-16 · git d32a234</sub>

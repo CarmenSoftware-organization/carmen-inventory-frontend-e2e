@@ -2,6 +2,9 @@ import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { PageFormCrudHelper } from "./pages/page-form-crud.helper";
 import { addPageFormSecurityCases } from "./helpers/security-cases";
+import { BU_CODE } from "./test-users";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
+import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/location";
@@ -22,6 +25,57 @@ const opts = {
 };
 
 test.describe("Location — Smoke & CRUD", () => {
+  test.beforeEach(async ({ page }) => {
+    await ensureActiveBu(page, BU_CODE);
+  });
+
+  test(
+    "TC-LOC-010005 active BU = BLAVG",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
+        { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const units = await getBusinessUnits(page);
+      const active = defaultBu(units);
+      expect(active?.code).toBe(BU_CODE);
+
+      const switcher = new BuSwitcherPage(page);
+      await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
+    },
+  );
+
+  const createLOC = async (h: PageFormCrudHelper, page: import("@playwright/test").Page, code: string, name: string, active = true) => {
+    await h.gotoNew();
+    await h.codeInput().fill(code);
+    await h.nameInput().fill(name);
+    const locationTypeGroup = page.getByRole("group").filter({ hasText: "Location Type" });
+    await locationTypeGroup.getByRole("combobox").first().click();
+    await page.getByRole("option", { name: "Inventory" }).click();
+    const physicalCountGroup = page.getByRole("group").filter({ hasText: "Physical Count" });
+    await physicalCountGroup.getByRole("combobox").first().click();
+    await page.getByRole("option", { name: "Yes" }).click();
+    await page.getByRole("button", { name: /Select Delivery Point/i }).click();
+    await page.getByRole("dialog").locator("button[data-value]").first().click();
+    if (!active) await h.setActive(false);
+    await h.saveButton().click();
+    await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+  };
+  const deleteLOC = async (h: PageFormCrudHelper, page: import("@playwright/test").Page, name: string) => {
+    await h.list.goto();
+    await h.list.search(name);
+    await h.clickRowName(name);
+    await h.editButton().click();
+    await h.deleteButton().click();
+    await h.deleteConfirmButton().click();
+    await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+  };
+
   test(
     "TC-LOC-010001 หน้า list โหลดสำเร็จ",
     {
@@ -300,6 +354,181 @@ test.describe("Location — Smoke & CRUD", () => {
       timeout: 10_000,
     });
   });
+
+  test(
+    "TC-LOC-040002 toggle is_active แล้ว persist",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG" },
+        { type: "steps", description: "1. สร้าง location ผ่าน new form โดยปิด switch is_active\n2. กลับ list ค้นหา name แล้วเปิด detail\n3. อ่านสถานะ switch is_active\n4. ลบ record (cleanup)" },
+        { type: "expected", description: "หลังเปิด detail ใหม่ switch is_active มี aria-checked = false (ค่าถูก persist)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const c2 = `E2EB${UID.slice(-3).toUpperCase()}`;
+      const name = `E2E LOC042 ${UID}`;
+      await createLOC(h, page, c2, name, false);
+
+      await h.list.goto();
+      await h.list.search(name);
+      await h.clickRowName(name);
+      await expect(h.activeSwitch()!).toHaveAttribute("aria-checked", "false", { timeout: 5_000 });
+
+      await deleteLOC(h, page, name);
+    },
+  );
+
+  test(
+    "TC-LOC-040003 แก้ไขชื่อแล้ว persist",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG" },
+        { type: "steps", description: "1. สร้าง location ผ่าน new form\n2. เปิด detail จาก list กด Edit แก้ name แล้ว Save\n3. กลับ list ค้นหา name ใหม่ เปิด detail ยืนยันค่า\n4. ลบ record (cleanup)" },
+        { type: "expected", description: "Updated/success toast; หลังเปิด detail ใหม่ nameInput มีค่าเป็น name ที่แก้ไข (ค่าถูก persist จริง)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const c3 = `E2EC${UID.slice(-3).toUpperCase()}`;
+      const name3 = `E2E LOC043 ${UID}`;
+      const renamed3 = `E2E LOC043 Upd ${UID}`;
+      await createLOC(h, page, c3, name3);
+
+      await h.list.goto();
+      await h.list.search(name3);
+      await h.clickRowName(name3);
+      // detail page opens in VIEW mode (name rendered as text, not input) → click Edit first
+      await h.editButton().click();
+      await expect(h.nameInput()).toBeEnabled({ timeout: 5_000 });
+      await expect(h.nameInput()).toHaveValue(name3, { timeout: 10_000 });
+      await h.nameInput().fill(renamed3);
+      await h.saveButton().click();
+      await expect(page.getByText(/updated|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.list.goto();
+      await h.list.search(renamed3);
+      await h.clickRowName(renamed3);
+      // verify persist via view-mode heading + Edit-mode input value
+      await expect(page.getByRole("heading", { name: renamed3 })).toBeVisible({ timeout: 10_000 });
+      await h.editButton().click();
+      await expect(h.nameInput()).toHaveValue(renamed3, { timeout: 10_000 });
+
+      await deleteLOC(h, page, renamed3);
+    },
+  );
+
+  test(
+    "TC-LOC-040004 ยกเลิกการแก้ไข ค่าต้องไม่ถูกบันทึก",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG" },
+        { type: "steps", description: "1. สร้าง location ผ่าน new form\n2. เปิด detail กด Edit แก้ name เป็นค่าใหม่\n3. กด Cancel\n4. เปิด detail เดิมอีกครั้งเช็ค name\n5. ลบ record (cleanup)" },
+        { type: "expected", description: "หลัง Cancel แล้วเปิดใหม่ nameInput ยังเป็นค่าเดิม (การแก้ไขไม่ถูกบันทึก)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const c4 = `E2ED${UID.slice(-3).toUpperCase()}`;
+      const name4 = `E2E LOC044 ${UID}`;
+      await createLOC(h, page, c4, name4);
+
+      await h.list.goto();
+      await h.list.search(name4);
+      await h.clickRowName(name4);
+      await h.editButton().click();
+      await expect(h.nameInput()).toBeEnabled({ timeout: 5_000 });
+      await h.nameInput().fill(`${name4} DIRTY`);
+      await h.cancelButton().click();
+
+      await h.list.goto();
+      await h.list.search(name4);
+      await h.clickRowName(name4);
+      // detail opens in VIEW mode → verify name via heading, then confirm via Edit-mode input
+      await expect(page.getByRole("heading", { name: name4 })).toBeVisible({ timeout: 10_000 });
+      await h.editButton().click();
+      await expect(h.nameInput()).toHaveValue(name4, { timeout: 10_000 });
+
+      await deleteLOC(h, page, name4);
+    },
+  );
+
+  test(
+    "TC-LOC-200003 สร้าง code ซ้ำ ต้องถูก reject",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG" },
+        { type: "steps", description: "1. สร้าง location ด้วย code X\n2. เปิด new form อีกครั้งกรอก code X เดิม (name ต่าง) กด Save" },
+        { type: "expected", description: "รายการที่สองไม่ถูกสร้าง: URL ยังคงอยู่ที่ /new (backend reject code ซ้ำ)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Negative" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const cdup = `E2EF${UID.slice(-3).toUpperCase()}`;
+      const name = `E2E LOC200 ${UID}`;
+      await createLOC(h, page, cdup, name);
+
+      // attempt duplicate code with a different name; do NOT assert success toast
+      await h.gotoNew();
+      await h.codeInput().fill(cdup);
+      await h.nameInput().fill(`E2E LOC200b ${UID}`);
+      const locationTypeGroup = page.getByRole("group").filter({ hasText: "Location Type" });
+      await locationTypeGroup.getByRole("combobox").first().click();
+      await page.getByRole("option", { name: "Inventory" }).click();
+      const physicalCountGroup = page.getByRole("group").filter({ hasText: "Physical Count" });
+      await physicalCountGroup.getByRole("combobox").first().click();
+      await page.getByRole("option", { name: "Yes" }).click();
+      await page.getByRole("button", { name: /Select Delivery Point/i }).click();
+      await page.getByRole("dialog").locator("button[data-value]").first().click();
+      await h.saveButton().click();
+      await expect(page).toHaveURL(/\/new/, { timeout: 10_000 });
+
+      await deleteLOC(h, page, name);
+    },
+  );
+
+  test(
+    "TC-LOC-050002 ยกเลิกการลบ record ต้องยังอยู่",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG" },
+        { type: "steps", description: "1. สร้าง location ผ่าน new form\n2. เปิด detail กด Edit กด Delete\n3. ใน confirm dialog กด Cancel\n4. กลับ list ค้นหายืนยัน record ยังอยู่\n5. ลบ record (cleanup)" },
+        { type: "expected", description: "Confirm dialog ปิดโดยไม่ลบ; record ยังปรากฏใน list" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const c5 = `E2EG${UID.slice(-3).toUpperCase()}`;
+      const name5 = `E2E LOC050 ${UID}`;
+      await createLOC(h, page, c5, name5);
+
+      await h.list.goto();
+      await h.list.search(name5);
+      await h.clickRowName(name5);
+      await h.editButton().click();
+      await h.deleteButton().click();
+      const dlg = page.getByRole("alertdialog");
+      await expect(dlg).toBeVisible({ timeout: 5_000 });
+      await dlg.getByRole("button", { name: /^(Cancel|ยกเลิก)$/i }).click();
+      await expect(dlg).toBeHidden({ timeout: 5_000 });
+
+      await h.list.goto();
+      await h.list.search(name5);
+      await expect(page.getByRole("cell", { name: name5 })).toBeVisible({ timeout: 10_000 });
+
+      await deleteLOC(h, page, name5);
+    },
+  );
 
   addPageFormSecurityCases(test, {
     prefix: "LOC",
