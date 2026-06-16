@@ -53,6 +53,8 @@ const SYNC_TARGETS: SyncTarget[] = [
   { jsonFile: "040-currency-results.json", sheetTab: "Currency" },
   { jsonFile: "041-exchange-rate-results.json", sheetTab: "Exchange_Rate" },
   { jsonFile: "042-tax-profile-results.json", sheetTab: "Tax_Profile" },
+  { jsonFile: "043-certification-results.json", sheetTab: "Certification" },
+  { jsonFile: "044-eco-results.json", sheetTab: "Eco" },
   { jsonFile: "079-delivery-point-results.json", sheetTab: "Delivery_Point" },
   { jsonFile: "080-location-results.json", sheetTab: "Location" },
   { jsonFile: "101-product-category-results.json", sheetTab: "Product_Category" },
@@ -177,11 +179,21 @@ async function syncTab(
     const status = e?.status ?? e?.code;
     const message = e?.message ?? String(err);
     if (status === 400 || status === 404) {
-      console.warn(`[${target.sheetTab}] skipped — ${message}`);
-      return;
+      // Tab does not exist yet (range parse fails for an unknown tab). Since we
+      // only reach here when there ARE rows to write (rows.length === 0 returns
+      // earlier), create the tab and fall through to the header bootstrap below.
+      await sheets.spreadsheets.batchUpdate({
+        spreadsheetId,
+        requestBody: {
+          requests: [{ addSheet: { properties: { title: target.sheetTab } } }],
+        },
+      });
+      console.log(`[${target.sheetTab}] tab did not exist — created`);
+      grid = [];
+    } else {
+      console.error(`[${target.sheetTab}] error (${status ?? "?"}): ${message}`);
+      throw err;
     }
-    console.error(`[${target.sheetTab}] error (${status ?? "?"}): ${message}`);
-    throw err;
   }
 
   // Bootstrap empty tab with canonical header.
