@@ -14,13 +14,44 @@ import {
   DeliveryPointDialog,
   DeleteConfirmDialog,
 } from "./pages/delivery-point.page";
+import { BU_CODE } from "./test-users";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
+import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 const test = createAuthTest("admin@blueledgers.com");
+
+// Pin the active BU to BLAVG for every test in this file (precondition).
+test.beforeEach(async ({ page }) => {
+  await ensureActiveBu(page, BU_CODE);
+});
 
 const UID = Date.now().toString(36);
 const DP_NAME = `E2E DP ${UID}`;
 const DP_NAME_INACTIVE = `E2E DP Inactive ${UID}`;
 const DP_NAME_UPDATED = `E2E DP Upd ${UID}`;
+
+test.describe("จุดส่งของ — BU", () => {
+  test(
+    "TC-DP-010050 active BU = BLAVG",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
+        { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const units = await getBusinessUnits(page);
+      const active = defaultBu(units);
+      expect(active?.code).toBe(BU_CODE);
+
+      const switcher = new BuSwitcherPage(page);
+      await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
+    },
+  );
+});
 
 // ─── Read (TC-DP-010001..TC-DP-010026) ──────────────────────────────────────────────────
 
