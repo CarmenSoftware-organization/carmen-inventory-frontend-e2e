@@ -19,6 +19,7 @@ export function buLabel(bu: BusinessUnit): string {
   return bu.alias_name ? `${bu.alias_name} - ${bu.name}` : bu.name;
 }
 
+/** Escape regex metacharacters so a literal string can be embedded in a RegExp (e.g. matching buLabel output). */
 export function escapeRegExp(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }

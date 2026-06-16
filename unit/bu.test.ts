@@ -40,4 +40,8 @@ describe("escapeRegExp", () => {
   it("escapes regex metacharacters", () => {
     expect(escapeRegExp("A+B (x)")).toBe("A\\+B \\(x\\)");
   });
+
+  it("escapes dot, dollar, and bracket metacharacters", () => {
+    expect(escapeRegExp("price: $9.99 [USD]")).toBe("price: \\$9\\.99 \\[USD\\]");
+  });
 });
