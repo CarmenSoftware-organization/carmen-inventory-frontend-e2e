@@ -278,8 +278,6 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 
 รายการที่สองไม่ถูกสร้าง: ยังอยู่ที่ฟอร์ม /new (ไม่ navigate ไป detail) — backend reject code ซ้ำ
 
-> _Note: Skipped via test.fixme: backend currently has NO unique constraint on department code per BU, so duplicates are accepted. Assertion encodes the intended behaviour — unskip when the backend adds the constraint._
-
 ---
 
 ## TC-DEP-010012 — ค้นหาด้วย code เจอรายการ
@@ -599,4 +597,4 @@ User ถูก redirect ออกจาก /config/department หรือ ป�
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git 2039f05</sub>
+<sub>Last regenerated: 2026-06-16 · git ad895d6</sub>
