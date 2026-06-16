@@ -1,6 +1,13 @@
 import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { PriceListTemplatePage, LIST_PATH } from "./pages/price-list-template.page";
+import { BU_CODE } from "./test-users";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
+import { BuSwitcherPage } from "./pages/bu-switcher.page";
+
+// Module-level unique id so the admin serial chain's names stay consistent
+// across a worker restart (Date.now() recomputes identically per process).
+const UID = Date.now().toString(36);
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Procurement Manager == purchase@blueledgers.com,
