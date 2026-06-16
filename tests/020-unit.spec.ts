@@ -1,12 +1,28 @@
 import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { ConfigListPage } from "./pages/config-list.page";
-import { addListOnlySecurityCases } from "./helpers/security-cases";
+import { DialogCrudHelper } from "./pages/dialog-crud.helper";
+import { addDialogSecurityCases } from "./helpers/security-cases";
+import { BU_CODE } from "./test-users";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
+import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/unit";
+const UID = Date.now().toString(36);
+
+const opts = {
+  listPath: PATH,
+  nameInputId: "unit-name",
+  activeSwitchId: "unit-is-active",
+  descriptionInputId: "unit-description",
+};
 
 test.describe("Unit — Smoke", () => {
+  test.beforeEach(async ({ page }) => {
+    await ensureActiveBu(page, BU_CODE);
+  });
+
   test(
     "TC-UN-010001 หน้า list โหลดสำเร็จ",
     {
@@ -77,5 +93,31 @@ test.describe("Unit — Smoke", () => {
     await expect(list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
-  addListOnlySecurityCases(test, { prefix: "UN", listPath: PATH, skipTcs: ["TC-UN-100004"] });
+  test(
+    "TC-UN-010005 active BU = BLAVG",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
+        { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const units = await getBusinessUnits(page);
+      const active = defaultBu(units);
+      expect(active?.code).toBe(BU_CODE);
+
+      const switcher = new BuSwitcherPage(page);
+      await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
+    },
+  );
+
+  addDialogSecurityCases(test, {
+    prefix: "UN",
+    listPath: PATH,
+    makeHelper: (page) => new DialogCrudHelper(page, opts),
+    skipAuth: true, // TC-UN-100004 (authz) skipped
+  });
 });
