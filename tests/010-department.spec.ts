@@ -266,29 +266,39 @@ test.describe("Department — Smoke & CRUD", () => {
       const name = `DEP010010 ${UID}`;
       const renamed = `DEP010010 Upd ${UID}`;
 
+      // create
       await h.gotoNew();
       await h.codeInput().fill(code);
       await h.nameInput().fill(name);
       await h.saveButton().click();
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
+      // open the record FRESH from the list, then edit (the realistic path that persists)
+      await h.list.goto();
+      await h.list.search(name);
+      await h.clickRowName(name);
       await h.editButton().click();
       await h.nameInput().clear();
       await h.nameInput().fill(renamed);
       await h.saveButton().click();
       await expect(page.getByText(/updated|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
+      // reload: the persisted value must survive a fresh fetch
       await page.reload();
       await page.waitForLoadState("networkidle");
       await expect(page.locator(`#${opts.nameInputId}`)).toHaveValue(renamed);
 
+      // list reflects the rename
       await h.list.goto();
       await h.list.search(renamed);
       await expect(page.getByRole("cell", { name: renamed })).toBeVisible();
       await h.list.search(name);
       await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
 
+      // cleanup — navigate to list fresh so empty-state from prior search doesn't linger
+      await h.list.goto();
       await h.list.search(renamed);
+      await expect(page.getByRole("cell", { name: renamed })).toBeVisible({ timeout: 10_000 });
       await h.clickRowName(renamed);
       await h.editButton().click();
       await h.deleteButton().click();
