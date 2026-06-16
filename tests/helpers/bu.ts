@@ -59,8 +59,8 @@ export async function ensureActiveBu(page: Page, code: string): Promise<void> {
   const switcher = new BuSwitcherPage(page);
   await page.goto("/dashboard");
   await switcher.open();
-  await switcher.itemByName(target.name).click();
-  await switcher.waitForToast(new RegExp(`Switched to ${escapeRegExp(target.name)}`, "i"));
+  await switcher.itemByName(buLabel(target)).click();
+  await switcher.waitForToast(new RegExp(`Switched to ${escapeRegExp(buLabel(target))}`, "i"));
 
   // Confirm via backend truth that the default flipped to the target.
   const after = await getBusinessUnits(page);
