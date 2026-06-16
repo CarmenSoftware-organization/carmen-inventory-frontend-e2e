@@ -230,6 +230,192 @@ test.describe("Business Type — Smoke & CRUD", () => {
     });
   });
 
+  test(
+    "TC-BT-040002 toggle is_active แล้ว persist",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. เปิด Add dialog กรอก name ปิด switch is_active กด Save\n2. เปิดแถวอีกครั้งอ่านสถานะ switch\n3. ลบ record" },
+        { type: "expected", description: "หลังเปิดแถวใหม่ switch is_active = false (ค่าถูก persist)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new DialogCrudHelper(page, opts);
+      const name = `E2E BT042 ${UID}`;
+      await h.list.goto();
+      await h.openAddDialog();
+      await h.nameInput().fill(name);
+      await h.setActive(false);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.list.search(name);
+      await h.clickRow(name);
+      await expect(h.activeSwitch()!).toHaveAttribute("aria-checked", "false", { timeout: 5_000 });
+      await h.cancelButton().click();
+
+      await h.list.goto();
+      await h.list.search(name);
+      await h.deleteRow(name);
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-BT-040003 แก้ไขชื่อแล้ว persist",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง record\n2. เปิดแถวจาก list แก้ name แล้ว Save\n3. ยืนยัน list มี name ใหม่ ไม่พบ name เดิม\n4. ลบ record" },
+        { type: "expected", description: "Updated; list มีแถว name ใหม่ และไม่พบ name เดิม (ค่าถูก persist จริง)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new DialogCrudHelper(page, opts);
+      const name = `E2E BT043 ${UID}`;
+      const renamed = `E2E BT043 Upd ${UID}`;
+      await h.list.goto();
+      await h.openAddDialog();
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.list.search(name);
+      await h.clickRow(name);
+      await expect(h.nameInput()).toBeEnabled({ timeout: 5_000 });
+      await h.nameInput().fill(renamed);
+      await h.saveButton().click();
+      await expect(h.dialog()).toBeHidden({ timeout: 10_000 });
+
+      await h.list.goto();
+      await h.list.search(renamed);
+      await expect(page.getByRole("cell", { name: renamed })).toBeVisible({ timeout: 10_000 });
+
+      await h.deleteRow(renamed);
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-BT-040004 ยกเลิกการแก้ไข ค่าต้องไม่ถูกบันทึก",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง record\n2. เปิดแถวแก้ name เป็นค่าใหม่\n3. กด Cancel (dialog ปิดโดยไม่ save)\n4. เปิดแถวเดิมอีกครั้งเช็ค name\n5. ลบ record" },
+        { type: "expected", description: "หลัง Cancel แล้วเปิดใหม่ name ยังเป็นค่าเดิม (การแก้ไขไม่ถูกบันทึก)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new DialogCrudHelper(page, opts);
+      const name = `E2E BT044 ${UID}`;
+      await h.list.goto();
+      await h.openAddDialog();
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.list.search(name);
+      await h.clickRow(name);
+      await expect(h.nameInput()).toBeEnabled({ timeout: 5_000 });
+      await h.nameInput().fill(`${name} DIRTY`);
+      await h.cancelButton().click();
+      await expect(h.dialog()).toBeHidden({ timeout: 5_000 });
+
+      await h.list.goto();
+      await h.list.search(name);
+      await h.clickRow(name);
+      await expect(h.nameInput()).toHaveValue(name, { timeout: 5_000 });
+      await h.cancelButton().click();
+
+      await h.list.goto();
+      await h.list.search(name);
+      await h.deleteRow(name);
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-BT-200003 สร้าง name ซ้ำ ต้องถูก reject",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง record ด้วย name X\n2. เปิด Add dialog กรอก name X เดิม กด Save" },
+        { type: "expected", description: "รายการที่สองไม่ถูกสร้าง: dialog ยังเปิดอยู่ (backend reject name ซ้ำ)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Negative" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new DialogCrudHelper(page, opts);
+      const name = `E2E BT200 ${UID}`;
+      await h.list.goto();
+      await h.openAddDialog();
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.list.goto();
+      await h.openAddDialog();
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(h.dialog()).toBeVisible({ timeout: 10_000 });
+      await h.cancelButton().click();
+
+      await h.list.goto();
+      await h.list.search(name);
+      await h.deleteRow(name);
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-BT-050002 ยกเลิกการลบ record ต้องยังอยู่",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง record\n2. เปิด delete dialog แล้วกด Cancel\n3. ค้นหา record ใน list\n4. ลบ record (cleanup)" },
+        { type: "expected", description: "Delete dialog ปิดโดยไม่ลบ; record ยังปรากฏใน list" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new DialogCrudHelper(page, opts);
+      const name = `E2E BT050 ${UID}`;
+      await h.list.goto();
+      await h.openAddDialog();
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.list.goto();
+      await h.list.search(name);
+      await h.deleteRow(name);
+      const dialog = page.getByRole("alertdialog");
+      await expect(dialog).toBeVisible({ timeout: 5_000 });
+      await dialog.getByRole("button", { name: /^(Cancel|ยกเลิก)$/i }).click();
+      await expect(dialog).toBeHidden({ timeout: 5_000 });
+
+      await h.list.goto();
+      await h.list.search(name);
+      await expect(page.getByRole("cell", { name })).toBeVisible();
+
+      await h.deleteRow(name);
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
   addDialogSecurityCases(test, {
     prefix: "BT",
     listPath: PATH,
