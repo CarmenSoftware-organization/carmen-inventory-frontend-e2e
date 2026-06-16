@@ -558,7 +558,7 @@ test.describe("เข้าสู่ระบบ", () => {
       const loginPage = new LoginPage(page);
       await page.goto("/login?next=/profile");
       await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
-      await expect(page).toHaveURL(/\/profile/, { timeout: 15_000 });
+      await expect(page).toHaveURL(/\/profile(\?|$)/, { timeout: 15_000 });
     },
   );
 
@@ -653,16 +653,20 @@ test.describe("เข้าสู่ระบบ", () => {
       const loginPage = new LoginPage(page);
       const wrongEmail = `countdown-${Date.now()}@nonexistent.com`;
 
+      let lastStatus = 0;
       for (let i = 0; i < 3; i++) {
         await loginPage.goto();
-        const resPromise = page.waitForResponse(
+        const responsePromise = page.waitForResponse(
           (res) => res.url().includes("/auth") && res.request().method() === "POST",
           { timeout: 10_000 },
         );
         await loginPage.login(wrongEmail, "wrongpassword");
-        await resPromise.catch(() => null);
+        const response = await responsePromise;
+        lastStatus = response.status();
       }
 
+      // ยืนยันว่าโดน rate-limit จริงก่อนเช็ค UI (ล้มชัดเจนหาก backend เปลี่ยน threshold)
+      expect(lastStatus).toBe(429);
       await expect(loginPage.countdownMessage()).toBeVisible({ timeout: 15_000 });
       await expect(loginPage.submitButton()).toBeDisabled();
     },
