@@ -4,8 +4,8 @@ _Generated from `tests/150-vendor.spec.ts` annotations. Edit annotations, not th
 
 **Module:** Vendor
 **Spec:** `tests/150-vendor.spec.ts`
-**Default role:** Purchase
-**Total test cases:** 28 (10 High / 18 Medium / 0 Low)
+**Default role:** Admin
+**Total test cases:** 33 (15 High / 18 Medium / 0 Low)
 
 ## Test Cases at a Glance
 
@@ -16,6 +16,7 @@ _Generated from `tests/150-vendor.spec.ts` annotations. Edit annotations, not th
 | TC-VEN-010003 | ช่องค้นหาใช้งานได้ | Medium | Smoke |
 | TC-VEN-010004 | ค้นหาคำที่ไม่มีต้องแสดง empty state | Medium | Functional |
 | TC-VEN-010005 | Filter status (active/inactive) ใช้งานได้ | Medium | Functional |
+| TC-VEN-010050 | active BU = BLAVG | High | Smoke |
 | TC-VEN-030001 | เปิดหน้า new form สำเร็จ | High | Smoke |
 | TC-VEN-030002 | เลือก business type จาก dropdown ได้ | Medium | Functional |
 | TC-VEN-030003 | สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ | High | CRUD |
@@ -29,22 +30,26 @@ _Generated from `tests/150-vendor.spec.ts` annotations. Edit annotations, not th
 | TC-VEN-030011 | เปลี่ยน primary contact ได้ (radio exclusive) | Medium | Functional |
 | TC-VEN-030012 | เพิ่ม info row (label/value) ได้ | Medium | Functional |
 | TC-VEN-030013 | ลบ info row ได้ | Medium | Functional |
+| TC-VEN-030050 | สร้าง vendor (admin/BLAVG) สำเร็จ | High | CRUD |
 | TC-VEN-040001 | แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ | High | CRUD |
+| TC-VEN-040050 | แก้ name ของ vendor แล้ว persist | High | CRUD |
 | TC-VEN-050001 | เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่ | Medium | Functional |
 | TC-VEN-050002 | ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก) | High | CRUD |
 | TC-VEN-050003 | หลังลบแล้วค้นหาไม่พบ row นั้นอีก | Medium | Functional |
+| TC-VEN-050050 | ลบ vendor (admin/BLAVG) cleanup | High | CRUD |
 | TC-VEN-200001 | บันทึกโดยไม่กรอก code ต้องแสดง error | High | Validation |
 | TC-VEN-200002 | บันทึกโดยไม่กรอก name ต้องแสดง error | High | Validation |
 | TC-VEN-200003 | code เกิน 10 ตัวอักษรต้องถูก reject | Medium | Validation |
 | TC-VEN-200004 | name เกิน 100 ตัวอักษรต้องถูก reject | Medium | Validation |
 | TC-VEN-200005 | address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement) | Medium | Validation |
 | TC-VEN-200006 | contact email รูปแบบผิดต้องแสดง error | Medium | Validation |
+| TC-VEN-200050 | สร้าง vendor code ซ้ำ ต้องถูก reject | High | Negative |
 
 ---
 
 ## TC-VEN-010001 — หน้า list โหลดสำเร็จ
 
-> **As a** Purchase user, **I want** the Vendor list page to load successfully, **so that** I can manage Vendor records.
+> **As a** Admin user, **I want** the Vendor list page to load successfully, **so that** I can manage Vendor records.
 
 **Priority:** High · **Test Type:** Smoke
 
@@ -64,7 +69,7 @@ URL ตรงกับ /vendor-management/vendor และปุ่ม Add visib
 
 ## TC-VEN-010002 — ปุ่ม Add แสดง
 
-> **As a** Purchase user, **I want** to see the Add button on the Vendor list, **so that** I can create new records.
+> **As a** Admin user, **I want** to see the Add button on the Vendor list, **so that** I can create new records.
 
 **Priority:** High · **Test Type:** Smoke
 
@@ -84,7 +89,7 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor
 
 ## TC-VEN-010003 — ช่องค้นหาใช้งานได้
 
-> **As a** Purchase user, **I want** to type into the Vendor search field, **so that** I can quickly locate existing records.
+> **As a** Admin user, **I want** to type into the Vendor search field, **so that** I can quickly locate existing records.
 
 **Priority:** Medium · **Test Type:** Smoke
 
@@ -105,7 +110,7 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor
 
 ## TC-VEN-010004 — ค้นหาคำที่ไม่มีต้องแสดง empty state
 
-> **As a** Purchase user, **I want** a clear empty-state when no Vendor records match my search, **so that** I know nothing was found.
+> **As a** Admin user, **I want** a clear empty-state when no Vendor records match my search, **so that** I know nothing was found.
 
 **Priority:** Medium · **Test Type:** Functional
 
@@ -126,7 +131,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 ## TC-VEN-010005 — Filter status (active/inactive) ใช้งานได้
 
-> **As a** Purchase user, **I want** to filter the Vendor list, **so that** I can narrow results to relevant records.
+> **As a** Admin user, **I want** to filter the Vendor list, **so that** I can narrow results to relevant records.
 
 **Priority:** Medium · **Test Type:** Functional
 
@@ -146,9 +151,31 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor
 
 ---
 
+## TC-VEN-010050 — active BU = BLAVG
+
+> **As a** Admin user, **I want** core Vendor interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+
+**Steps**
+
+1. อ่าน profile API (/api/proxy/api/user/profile)
+2. หา business unit ที่ is_default
+3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher
+
+**Expected**
+
+default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น
+
+---
+
 ## TC-VEN-030001 — เปิดหน้า new form สำเร็จ
 
-> **As a** Purchase user, **I want** core Vendor interactions to work, **so that** day-to-day usage stays smooth.
+> **As a** Admin user, **I want** core Vendor interactions to work, **so that** day-to-day usage stays smooth.
 
 **Priority:** High · **Test Type:** Smoke
 
@@ -168,7 +195,7 @@ URL ตรงกับ /vendor-management/vendor/new; code input, name input แ
 
 ## TC-VEN-030002 — เลือก business type จาก dropdown ได้
 
-> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
@@ -190,7 +217,7 @@ Trigger ของ business type แสดง label ของรายการ�
 
 ## TC-VEN-030003 — สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ
 
-> **As a** Purchase user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
+> **As a** Admin user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
 
 **Priority:** High · **Test Type:** CRUD
 
@@ -214,7 +241,7 @@ Save toast/feedback ปรากฏ และ vendor ใหม่ค้นเจ
 
 ## TC-VEN-030004 — สร้าง vendor พร้อม address 1 รายการ
 
-> **As a** Purchase user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
+> **As a** Admin user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
 
 **Priority:** High · **Test Type:** CRUD
 
@@ -239,7 +266,7 @@ Save toast/feedback ปรากฏ บ่งชี้ว่า vendor พร้
 
 ## TC-VEN-030005 — สร้าง vendor พร้อม contact 1 รายการ (primary)
 
-> **As a** Purchase user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
+> **As a** Admin user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
 
 **Priority:** High · **Test Type:** CRUD
 
@@ -264,7 +291,7 @@ Save toast/feedback ปรากฏ และ vendor ที่มี contact ค
 
 ## TC-VEN-030006 — สลับ tab ทั้ง 4 tabs ได้
 
-> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
@@ -285,7 +312,7 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
 
 ## TC-VEN-030007 — เพิ่ม address row ได้หลาย row
 
-> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
@@ -307,7 +334,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ## TC-VEN-030008 — ลบ address row ได้
 
-> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
@@ -330,7 +357,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ## TC-VEN-030009 — เพิ่ม contact row ได้หลาย row
 
-> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
@@ -352,7 +379,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ## TC-VEN-030010 — ลบ contact row ได้
 
-> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
@@ -375,7 +402,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ## TC-VEN-030011 — เปลี่ยน primary contact ได้ (radio exclusive)
 
-> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
@@ -399,7 +426,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ## TC-VEN-030012 — เพิ่ม info row (label/value) ได้
 
-> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
@@ -421,7 +448,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ## TC-VEN-030013 — ลบ info row ได้
 
-> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
@@ -442,9 +469,33 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 ---
 
+## TC-VEN-030050 — สร้าง vendor (admin/BLAVG) สำเร็จ
+
+> **As a** Admin user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG; vendor ADMIN_CODE/ADMIN_NAME ยังไม่มีใน DB
+
+**Steps**
+
+1. เปิด new form
+2. กรอก code + name ใน tab General
+3. เลือก business type (ถ้ามี option)
+4. กด Save
+5. กลับ list และค้นหาด้วย ADMIN_NAME
+
+**Expected**
+
+Save toast/feedback ปรากฏ และ vendor ใหม่ค้นเจอใน list ภายใน 10s
+
+---
+
 ## TC-VEN-040001 — แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ
 
-> **As a** Purchase user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
+> **As a** Admin user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
 
 **Priority:** High · **Test Type:** CRUD
 
@@ -467,9 +518,34 @@ Save toast/feedback ปรากฏ และ NAME_UPDATED ค้นเจอใ
 
 ---
 
+## TC-VEN-040050 — แก้ name ของ vendor แล้ว persist
+
+> **As a** Admin user, **I want** to manage Vendor records via CRUD, **so that** the data stays correct over time.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+TC-VEN-030050 ผ่านแล้ว → vendor ที่ ADMIN_NAME มีอยู่ใน DB; login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. ไปที่ list และเปิด detail ของ vendor ตาม ADMIN_NAME
+2. กด Edit
+3. สลับไป tab general
+4. แก้ name เป็น ADMIN_NAME_UPDATED
+5. กด Save
+6. กลับ list ค้นหาด้วย ADMIN_NAME_UPDATED
+
+**Expected**
+
+Save toast/feedback ปรากฏ และ ADMIN_NAME_UPDATED ค้นเจอใน list ภายใน 10s (ค่าถูก persist)
+
+---
+
 ## TC-VEN-050001 — เปิด delete dialog ของ vendor แล้ว cancel — row ยังอยู่
 
-> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
@@ -492,7 +568,7 @@ Alertdialog ปิดและแถวของ NAME_UPDATED ยังคง vi
 
 ## TC-VEN-050002 — ลบ vendor ที่สร้างในชุด test สำเร็จ (cleanup หลัก)
 
-> **As a** Purchase user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
+> **As a** Admin user, **I want** to create a new Vendor record, **so that** it becomes available for downstream operations.
 
 **Priority:** High · **Test Type:** CRUD
 
@@ -515,7 +591,7 @@ Success toast ('success/deleted/สำเร็จ') ปรากฏภายใ
 
 ## TC-VEN-050003 — หลังลบแล้วค้นหาไม่พบ row นั้นอีก
 
-> **As a** Purchase user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
@@ -534,9 +610,32 @@ Empty-state placeholder ปรากฏภายใน 10s (ยืนยัน�
 
 ---
 
+## TC-VEN-050050 — ลบ vendor (admin/BLAVG) cleanup
+
+> **As a** Admin user, **I want** to delete a Vendor record, **so that** the list reflects only valid entries.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+TC-VEN-200050 ผ่านแล้ว → vendor ที่ ADMIN_NAME_UPDATED ยังคงอยู่ใน DB; login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. ไปที่ list และค้นหาด้วย ADMIN_NAME_UPDATED
+2. เปิด row actions
+3. คลิก menuitem Delete
+4. ใน alertdialog กดยืนยัน Delete/Confirm
+
+**Expected**
+
+Success toast ('success/deleted/สำเร็จ') ปรากฏภายใน 10s
+
+---
+
 ## TC-VEN-200001 — บันทึกโดยไม่กรอก code ต้องแสดง error
 
-> **As a** Purchase user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
+> **As a** Admin user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
 
 **Priority:** High · **Test Type:** Validation
 
@@ -558,7 +657,7 @@ Error indicator ปรากฏและ URL ยังคงอยู่ที�
 
 ## TC-VEN-200002 — บันทึกโดยไม่กรอก name ต้องแสดง error
 
-> **As a** Purchase user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
+> **As a** Admin user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
 
 **Priority:** High · **Test Type:** Validation
 
@@ -580,7 +679,7 @@ Error indicator ปรากฏและ URL ยังคงอยู่ที�
 
 ## TC-VEN-200003 — code เกิน 10 ตัวอักษรต้องถูก reject
 
-> **As a** Purchase user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
+> **As a** Admin user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
 
 **Priority:** Medium · **Test Type:** Validation
 
@@ -601,7 +700,7 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
 
 ## TC-VEN-200004 — name เกิน 100 ตัวอักษรต้องถูก reject
 
-> **As a** Purchase user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
+> **As a** Admin user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
 
 **Priority:** Medium · **Test Type:** Validation
 
@@ -622,7 +721,7 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
 
 ## TC-VEN-200005 — address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement)
 
-> **As a** Purchase user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
+> **As a** Admin user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
 
 **Priority:** Medium · **Test Type:** Validation
 
@@ -645,7 +744,7 @@ Error indicator ปรากฏและ URL ยังคงอยู่ที�
 
 ## TC-VEN-200006 — contact email รูปแบบผิดต้องแสดง error
 
-> **As a** Purchase user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
+> **As a** Admin user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
 
 **Priority:** Medium · **Test Type:** Validation
 
@@ -666,5 +765,29 @@ URL ยังคงอยู่ที่ /new (HTML5 native email validation blo
 
 ---
 
+## TC-VEN-200050 — สร้าง vendor code ซ้ำ ต้องถูก reject
 
-<sub>Last regenerated: 2026-06-16 · git a67fffa</sub>
+> **As a** Admin user, **I want** this Vendor behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+TC-VEN-040050 ผ่านแล้ว → vendor ที่ ADMIN_CODE มีอยู่ใน DB; login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. เปิด new form
+2. กรอก code = ADMIN_CODE (ซ้ำ) + name ใหม่
+3. เลือก business type (ถ้ามี)
+4. กด Save
+
+**Expected**
+
+รายการที่สองไม่ถูกสร้าง: ยังอยู่ที่ form (/new) หรือมี error (backend reject duplicate code)
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git 18bd4be</sub>
