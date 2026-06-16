@@ -5,7 +5,7 @@ _Generated from `tests/079-delivery-point.spec.ts` annotations. Edit annotations
 **Module:** Delivery Point
 **Spec:** `tests/079-delivery-point.spec.ts`
 **Default role:** Admin
-**Total test cases:** 49 (10 High / 38 Medium / 1 Low)
+**Total test cases:** 50 (11 High / 38 Medium / 1 Low)
 
 ## Test Cases at a Glance
 
@@ -37,6 +37,7 @@ _Generated from `tests/079-delivery-point.spec.ts` annotations. Edit annotations
 | TC-DP-010024 | เปลี่ยน view mode แล้ว column visibility ยังคงอยู่ | Medium | Functional |
 | TC-DP-010025 | refresh หน้าแล้ว column ที่ซ่อนไว้กลับมาเป็น default | Medium | Functional |
 | TC-DP-010026 | card view ไม่มี column toggle เพราะไม่มี column | Medium | Functional |
+| TC-DP-010050 | active BU = BLAVG | High | Smoke |
 | TC-DP-030001 | กด Add แล้ว dialog เปิดขึ้นมา | High | Smoke |
 | TC-DP-030002 | dialog เปิดมา field name เป็น empty string | Medium | Functional |
 | TC-DP-030003 | dialog เปิดมา is active default เป็น true | Medium | Functional |
@@ -651,6 +652,28 @@ column name ยังถูกซ่อนเมื่อกลับมา tabl
 
 ---
 
+## TC-DP-010050 — active BU = BLAVG
+
+> **As a** Admin user, **I want** core Delivery Point interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+
+**Steps**
+
+1. อ่าน profile API (/api/proxy/api/user/profile)
+2. หา business unit ที่ is_default
+3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher
+
+**Expected**
+
+default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น
+
+---
+
 ## TC-DP-030001 — กด Add แล้ว dialog เปิดขึ้นมา
 
 > **As a** Admin user, **I want** to see the Add button on the Delivery Point list, **so that** I can create new records.
@@ -1192,4 +1215,4 @@ name input ตัดข้อความให้ยาวไม่เกิน
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git a67fffa</sub>
+<sub>Last regenerated: 2026-06-16 · git 18bd4be</sub>
