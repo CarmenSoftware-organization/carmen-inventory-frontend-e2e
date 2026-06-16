@@ -11,7 +11,7 @@ export interface BusinessUnit {
   is_default: boolean;
 }
 
-export const PROFILE_ENDPOINT = "/api/proxy/api/user/profile";
+const PROFILE_ENDPOINT = "/api/proxy/api/user/profile";
 
 /** The active BU: the one flagged is_default, else the first (mirrors useProfile). */
 export function defaultBu(units: BusinessUnit[]): BusinessUnit | undefined {
@@ -58,7 +58,7 @@ export async function getBusinessUnits(page: Page): Promise<BusinessUnit[]> {
 
   // Register intercept BEFORE navigation to avoid races.
   const responsePromise = page.waitForResponse(
-    (r) => r.url() === profileUrl && r.request().method() === "GET",
+    (r) => r.url().split("?")[0] === profileUrl && r.request().method() === "GET",
     { timeout: 20_000 },
   );
   await page.goto("/dashboard");
@@ -93,11 +93,14 @@ export async function ensureActiveBu(page: Page, code: string): Promise<void> {
   }
   if (target.is_default) return; // already active — fast path
 
+  // NOTE: switching persists server-side and is account-global. Under workers:1 the
+  // admin account's default BU stays changed for subsequent specs in the run.
   // Page is already on /dashboard from the getBusinessUnits call above.
   const switcher = new BuSwitcherPage(page);
   await switcher.open();
   await switcher.itemByName(buLabel(target)).click();
-  await switcher.waitForToast(new RegExp(`Switched to ${escapeRegExp(buLabel(target))}`, "i"));
+  // Frontend toast is `Switched to ${bu.name}` (name only) — match on name, not the full label.
+  await switcher.waitForToast(new RegExp(`Switched to ${escapeRegExp(target.name)}`, "i"));
 
   // Confirm via backend truth that the default flipped to the target.
   const after = await getBusinessUnits(page);

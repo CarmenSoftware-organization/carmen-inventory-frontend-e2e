@@ -3,7 +3,7 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { PageFormCrudHelper } from "./pages/page-form-crud.helper";
 import { addPageFormSecurityCases } from "./helpers/security-cases";
 import { BU_CODE } from "./test-users";
-import { ensureActiveBu, getBusinessUnits, defaultBu, buLabel } from "./helpers/bu";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 const test = createAuthTest("admin@blueledgers.com");
@@ -62,8 +62,6 @@ test.describe("Department — Smoke & CRUD", () => {
 
       const switcher = new BuSwitcherPage(page);
       await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
-      // buLabel documents the full rendered form; name is the stable substring.
-      void buLabel;
     },
   );
 
