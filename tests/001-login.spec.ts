@@ -8,15 +8,15 @@ import { TEST_USERS, TEST_PASSWORD } from "./test-users";
  *
  * TC ranges
  *   TC-LOGIN-010001..TC-LOGIN-010006  Login success per role (Requestor/HOD/Purchase/FC/GM/Owner), then logout
- *   TC-LOGIN-010007          TT (user without department) → dialog "No department assigned"
+ *   TC-LOGIN-100001          TT (user without department) → dialog "No department assigned"
  *   TC-LOGIN-010008..TC-LOGIN-010013  Logout success per role
  *   TC-LOGIN-010014..TC-LOGIN-010022  Validation / error handling
- *   TC-LOGIN-010023..TC-LOGIN-010026  Edge cases (case-sensitivity, trim, mask, Enter key)
- *   TC-LOGIN-010027..TC-LOGIN-010028  Auth-guard redirects
- *   TC-LOGIN-010027..TC-LOGIN-010030  Security (SQL injection / XSS / wrong username 401 / rate limit 429)
+ *   TC-LOGIN-010023..TC-LOGIN-100003  Edge cases (case-sensitivity, trim, mask, Enter key)
+ *   TC-LOGIN-100004..TC-LOGIN-100005  Auth-guard redirects
+ *   TC-LOGIN-100004..TC-LOGIN-100007  Security (SQL injection / XSS / wrong username 401 / rate limit 429)
  *   TC-LOGIN-010031..TC-LOGIN-010032  Login success — StoreManager / Budget
  *   TC-LOGIN-010033..TC-LOGIN-010034  Logout success — StoreManager / Budget
- *   TC-LOGIN-010036          Open-redirect guard (next param ที่เป็น external URL)
+ *   TC-LOGIN-100008          Open-redirect guard (next param ที่เป็น external URL)
  *   TC-LOGIN-010037          Session persistence หลัง reload (refresh-token boot)
  *   TC-LOGIN-010040          Backend ล่ม → friendly error, คงอยู่ /login (mocked)
  */
@@ -30,7 +30,7 @@ const LOGIN_TC: Record<string, string> = {
   Owner: "TC-LOGIN-010006",
   StoreManager: "TC-LOGIN-010031",
   Budget: "TC-LOGIN-010032",
-  // TT intentionally omitted — handled by dedicated TC-LOGIN-010007 below
+  // TT intentionally omitted — handled by dedicated TC-LOGIN-100001 below
   // (user has no department → login should surface a "No department assigned"
   // dialog instead of redirecting to /dashboard).
 };
@@ -83,7 +83,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── TT: user without department → dialog ─────────────────────────────────
   test.skip(
-    "TC-LOGIN-010007 TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department",
+    "TC-LOGIN-100001 TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department",
     {
       annotation: [
         { type: "preconditions", description: "User tt@blueledgers.com มีอยู่จริงและ active แต่ยังไม่ถูกกำหนด department ในระบบ; browser logged out" },
@@ -336,7 +336,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── Auth-guard redirects ──────────────────────────────────────────────────
   test(
-    "TC-LOGIN-010025 เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login",
+    "TC-LOGIN-100002 เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login",
     {
       annotation: [
         { type: "preconditions", description: "Browser ไม่มี session/cookies (logged out)" },
@@ -353,7 +353,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-LOGIN-010026 user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard",
+    "TC-LOGIN-100003 user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard",
     {
       annotation: [
         { type: "preconditions", description: "User requestor@blueledgers.com login สำเร็จและมี active session อยู่แล้วที่ /dashboard" },
@@ -376,7 +376,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── Security ──────────────────────────────────────────────────────────────
   test(
-    "TC-LOGIN-010027 อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย",
+    "TC-LOGIN-100004 อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย",
     {
       annotation: [
         { type: "preconditions", description: "browser logged out; อยู่ที่ /login" },
@@ -394,7 +394,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-LOGIN-010028 อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย",
+    "TC-LOGIN-100005 อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย",
     {
       annotation: [
         { type: "preconditions", description: "browser logged out; อยู่ที่ /login" },
@@ -415,7 +415,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-LOGIN-010029 login username ผิดต้องได้รับ HTTP 401",
+    "TC-LOGIN-100006 login username ผิดต้องได้รับ HTTP 401",
     {
       annotation: [
         { type: "preconditions", description: "browser logged out; อยู่ที่ /login; ไม่มี user 'wrong-user@nonexistent.com' ในระบบ" },
@@ -442,7 +442,7 @@ test.describe("เข้าสู่ระบบ", () => {
   });
 
   test(
-    "TC-LOGIN-010030 login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429",
+    "TC-LOGIN-100007 login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429",
     {
       annotation: [
         { type: "preconditions", description: "browser logged out; อยู่ที่ /login; backend rate-limiter เปิดใช้งานอยู่ (429 หลัง 3 ครั้งที่ผิดด้วย email เดียวกัน)" },
@@ -474,7 +474,7 @@ test.describe("เข้าสู่ระบบ", () => {
 
   // ── Redirect / session / error-handling ───────────────────────────────────
   test(
-    "TC-LOGIN-010036 next param แบบ external URL ต้องไม่ redirect ออกนอกเว็บ (open-redirect guard)",
+    "TC-LOGIN-100008 next param แบบ external URL ต้องไม่ redirect ออกนอกเว็บ (open-redirect guard)",
     {
       annotation: [
         { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out" },
@@ -563,7 +563,7 @@ test.describe("เข้าสู่ระบบ", () => {
   );
 
   test(
-    "TC-LOGIN-010043 refresh token ปลอม/เสีย เข้า /dashboard ต้องเด้งไป login",
+    "TC-LOGIN-100009 refresh token ปลอม/เสีย เข้า /dashboard ต้องเด้งไป login",
     {
       annotation: [
         { type: "preconditions", description: "browser logged out; localStorage มี refresh token ที่ไม่ valid (ปลอม)" },
@@ -708,7 +708,7 @@ test.describe("ออกจากระบบ", () => {
   }
 
   test(
-    "TC-LOGIN-010038 logout ต้องลบ refresh token และเข้าถึง dashboard ไม่ได้",
+    "TC-LOGIN-100010 logout ต้องลบ refresh token และเข้าถึง dashboard ไม่ได้",
     {
       annotation: [
         { type: "preconditions", description: "User requestor@blueledgers.com login สำเร็จและมี refresh token ใน localStorage" },

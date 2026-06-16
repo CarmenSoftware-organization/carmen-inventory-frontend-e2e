@@ -17,7 +17,6 @@ _Generated from `tests/001-login.spec.ts` annotations. Edit annotations, not thi
 | TC-LOGIN-010004 | FC เข้าสู่ระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010005 | GM เข้าสู่ระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010006 | Owner เข้าสู่ระบบสำเร็จ | High | Smoke |
-| TC-LOGIN-010007 _(skipped)_ | TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department | High | Auth-guard |
 | TC-LOGIN-010008 | Requestor ออกจากระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010009 | HOD ออกจากระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010010 | Purchase ออกจากระบบสำเร็จ | High | Smoke |
@@ -35,25 +34,26 @@ _Generated from `tests/001-login.spec.ts` annotations. Edit annotations, not thi
 | TC-LOGIN-010022 | รองรับช่องว่างหน้า/หลังอีเมล | Low | Functional |
 | TC-LOGIN-010023 | ช่องรหัสผ่านถูก mask | Low | Functional |
 | TC-LOGIN-010024 | กด Enter เพื่อ submit form ได้ | Medium | Functional |
-| TC-LOGIN-010025 | เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login | High | Auth-guard |
-| TC-LOGIN-010026 | user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard | Medium | Auth-guard |
-| TC-LOGIN-010027 | อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย | High | Security |
-| TC-LOGIN-010028 | อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย | High | Security |
-| TC-LOGIN-010029 | login username ผิดต้องได้รับ HTTP 401 | High | Security |
-| TC-LOGIN-010030 | login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429 | High | Security |
 | TC-LOGIN-010031 | StoreManager เข้าสู่ระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010032 | Budget เข้าสู่ระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010033 | StoreManager ออกจากระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010034 | Budget ออกจากระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010035 | login พร้อม ?next= ที่ valid ต้อง redirect ไปปลายทางนั้น | High | Functional |
-| TC-LOGIN-010036 | next param แบบ external URL ต้องไม่ redirect ออกนอกเว็บ (open-redirect guard) | High | Security |
 | TC-LOGIN-010037 | session คงอยู่หลัง reload (refresh-token boot) | High | Functional |
-| TC-LOGIN-010038 | logout ต้องลบ refresh token และเข้าถึง dashboard ไม่ได้ | High | Security |
 | TC-LOGIN-010039 | ปุ่ม Sign In ถูก disable ระหว่าง request กำลังทำงาน (กัน double-submit) | Medium | Functional |
 | TC-LOGIN-010040 | backend ล่มต้องแสดง error อย่างนุ่มนวลและคงอยู่ /login | Medium | Validation |
 | TC-LOGIN-010041 | ปุ่ม show/hide password สลับการแสดงรหัสผ่านได้ | Low | Functional |
 | TC-LOGIN-010042 | หลังผิดซ้ำจนโดน rate-limit ต้องแสดง countdown และ disable ปุ่ม | Medium | Functional |
-| TC-LOGIN-010043 | refresh token ปลอม/เสีย เข้า /dashboard ต้องเด้งไป login | High | Security |
+| TC-LOGIN-100001 _(skipped)_ | TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department | High | Auth-guard |
+| TC-LOGIN-100002 | เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login | High | Auth-guard |
+| TC-LOGIN-100003 | user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard | Medium | Auth-guard |
+| TC-LOGIN-100004 | อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย | High | Security |
+| TC-LOGIN-100005 | อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย | High | Security |
+| TC-LOGIN-100006 | login username ผิดต้องได้รับ HTTP 401 | High | Security |
+| TC-LOGIN-100007 | login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429 | High | Security |
+| TC-LOGIN-100008 | next param แบบ external URL ต้องไม่ redirect ออกนอกเว็บ (open-redirect guard) | High | Security |
+| TC-LOGIN-100009 | refresh token ปลอม/เสีย เข้า /dashboard ต้องเด้งไป login | High | Security |
+| TC-LOGIN-100010 | logout ต้องลบ refresh token และเข้าถึง dashboard ไม่ได้ | High | Security |
 
 ---
 
@@ -192,28 +192,6 @@ User owner@blueledgers.com มีอยู่จริงและ active; brows
 **Expected**
 
 หลัง Sign In ไปที่ /dashboard และหลัง logout กลับมา /login
-
----
-
-## TC-LOGIN-010007 — TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department _(skipped)_
-
-> **As an** unauthenticated user hitting a protected route, **I want** to be redirected to /login, **so that** protected screens stay protected.
-
-**Priority:** High · **Test Type:** Auth-guard
-
-**Preconditions**
-
-User tt@blueledgers.com มีอยู่จริงและ active แต่ยังไม่ถูกกำหนด department ในระบบ; browser logged out
-
-**Steps**
-
-1. เปิด /login
-2. กรอก email = tt@blueledgers.com, password = Qaz123!@#
-3. กด Sign In
-
-**Expected**
-
-แสดง alertdialog/modal ข้อความ 'No department assigned' (หรือคำแปลไทยที่สื่อความเดียวกัน)
 
 ---
 
@@ -596,139 +574,6 @@ Form submit และ redirect ไปที่ /dashboard เหมือนก�
 
 ---
 
-## TC-LOGIN-010025 — เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login
-
-> **As an** unauthenticated user hitting a protected route, **I want** to be redirected to /login, **so that** protected screens stay protected.
-
-**Priority:** High · **Test Type:** Auth-guard
-
-**Preconditions**
-
-Browser ไม่มี session/cookies (logged out)
-
-**Steps**
-
-1. clear cookies
-2. navigate ตรงไปที่ /dashboard โดยไม่ผ่าน /login
-
-**Expected**
-
-Auth-guard redirect กลับไปที่ /login (ไม่อนุญาตให้เข้า /dashboard เมื่อยังไม่ได้ login)
-
----
-
-## TC-LOGIN-010026 — user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard
-
-> **As an** unauthenticated user hitting a protected route, **I want** to be redirected to /login, **so that** protected screens stay protected.
-
-**Priority:** Medium · **Test Type:** Auth-guard
-
-**Preconditions**
-
-User requestor@blueledgers.com login สำเร็จและมี active session อยู่แล้วที่ /dashboard
-
-**Steps**
-
-1. login ด้วย requestor@blueledgers.com
-2. รอ /dashboard โหลดเสร็จ
-3. navigate ไปที่ /login อีกครั้ง
-
-**Expected**
-
-Auth-guard redirect กลับไปที่ /dashboard (ไม่ให้ user ที่ login แล้วเห็นหน้า /login ซ้ำ)
-
----
-
-## TC-LOGIN-010027 — อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย
-
-> **As the** system, **I want** SQL-injection payloads in Login & Logout fields to be safely handled, **so that** the database remains intact.
-
-**Priority:** High · **Test Type:** Security
-
-**Preconditions**
-
-browser logged out; อยู่ที่ /login
-
-**Steps**
-
-1. เปิด /login
-2. กรอก email = "admin' OR '1'='1", password = 'anything'
-3. กด Sign In
-
-**Expected**
-
-Login fail และคงอยู่ที่ /login; SQL injection payload ไม่ถูก execute (ไม่มีข้อมูลรั่วไหล / ไม่ได้ session)
-
----
-
-## TC-LOGIN-010028 — อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย
-
-> **As the** system, **I want** XSS payloads in Login & Logout inputs to be neutralized, **so that** no script executes in users' browsers.
-
-**Priority:** High · **Test Type:** Security
-
-**Preconditions**
-
-browser logged out; อยู่ที่ /login
-
-**Steps**
-
-1. เปิด /login
-2. ติด listener สำหรับ browser dialog (ห้ามเปิด)
-3. กรอก email = '<script>alert(1)</script>@x.com', password = 'anything'
-4. กด Sign In
-
-**Expected**
-
-ไม่มี alert dialog เด้งจาก XSS payload และคงอยู่ที่ /login (input ถูก sanitize/escape)
-
----
-
-## TC-LOGIN-010029 — login username ผิดต้องได้รับ HTTP 401
-
-> **As the** system, **I want** Login & Logout inputs hardened against common attacks, **so that** the application stays safe.
-
-**Priority:** High · **Test Type:** Security
-
-**Preconditions**
-
-browser logged out; อยู่ที่ /login; ไม่มี user 'wrong-user@nonexistent.com' ในระบบ
-
-**Steps**
-
-1. เปิด /login
-2. ดัก response จาก POST /auth
-3. กรอก email = 'wrong-user@nonexistent.com', password = 'anypassword'
-4. กด Sign In
-
-**Expected**
-
-Backend ตอบกลับ HTTP 401 Unauthorized และ user คงอยู่ที่ /login
-
----
-
-## TC-LOGIN-010030 — login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429
-
-> **As the** system, **I want** abusive Login & Logout inputs/requests bounded, **so that** safety and stability are preserved.
-
-**Priority:** High · **Test Type:** Security
-
-**Preconditions**
-
-browser logged out; อยู่ที่ /login; backend rate-limiter เปิดใช้งานอยู่ (429 หลัง 3 ครั้งที่ผิดด้วย email เดียวกัน)
-
-**Steps**
-
-1. สร้าง email ที่ไม่มีจริง (unique per run)
-2. login ด้วย email + รหัสผิด ซ้ำ 3 ครั้ง
-3. ตรวจสอบ HTTP status ของ response สุดท้าย
-
-**Expected**
-
-Response สุดท้ายเป็น HTTP 429 Too Many Requests และคงอยู่ที่ /login (rate-limit ทำงาน)
-
----
-
 ## TC-LOGIN-010031 — StoreManager เข้าสู่ระบบสำเร็จ
 
 > **As a** any authenticated user, **I want** core Login & Logout interactions to work, **so that** day-to-day usage stays smooth.
@@ -843,28 +688,6 @@ User requestor@blueledgers.com มีอยู่จริงและ active; b
 
 ---
 
-## TC-LOGIN-010036 — next param แบบ external URL ต้องไม่ redirect ออกนอกเว็บ (open-redirect guard)
-
-> **As the** system, **I want** Login & Logout inputs hardened against common attacks, **so that** the application stays safe.
-
-**Priority:** High · **Test Type:** Security
-
-**Preconditions**
-
-User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out
-
-**Steps**
-
-1. เปิด /login?next=//evil.example.com
-2. login ด้วย requestor@blueledgers.com
-3. ตรวจสอบ origin/path ปลายทางหลัง login
-
-**Expected**
-
-resolveNextPath ปฏิเสธ next ที่เป็น external URL → redirect ไป /dashboard บน origin เดิม (ไม่หลุดไป evil.example.com)
-
----
-
 ## TC-LOGIN-010037 — session คงอยู่หลัง reload (refresh-token boot)
 
 > **As a** any authenticated user, **I want** this Login & Logout interaction to behave as expected, **so that** the workflow stays predictable.
@@ -885,30 +708,6 @@ User requestor@blueledgers.com login สำเร็จและอยู่ท�
 **Expected**
 
 หลัง reload boot ใช้ refresh token ออก access token ใหม่ → ยังอยู่ที่ /dashboard และ user menu ปรากฏ (ไม่เด้งไป /login)
-
----
-
-## TC-LOGIN-010038 — logout ต้องลบ refresh token และเข้าถึง dashboard ไม่ได้
-
-> **As the** system, **I want** Login & Logout inputs hardened against common attacks, **so that** the application stays safe.
-
-**Priority:** High · **Test Type:** Security
-
-**Preconditions**
-
-User requestor@blueledgers.com login สำเร็จและมี refresh token ใน localStorage
-
-**Steps**
-
-1. login ด้วย requestor@blueledgers.com
-2. ตรวจว่ามี refresh token
-3. logout
-4. ตรวจว่า refresh token ถูกลบ
-5. navigate ไป /dashboard
-
-**Expected**
-
-หลัง logout: refresh token ถูกลบจาก localStorage และเข้า /dashboard ไม่ได้ (เด้งกลับ /login)
 
 ---
 
@@ -1003,7 +802,184 @@ browser logged out; backend rate-limiter เปิด (429 + retry_after หล�
 
 ---
 
-## TC-LOGIN-010043 — refresh token ปลอม/เสีย เข้า /dashboard ต้องเด้งไป login
+## TC-LOGIN-100001 — TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department _(skipped)_
+
+> **As an** unauthenticated user hitting a protected route, **I want** to be redirected to /login, **so that** protected screens stay protected.
+
+**Priority:** High · **Test Type:** Auth-guard
+
+**Preconditions**
+
+User tt@blueledgers.com มีอยู่จริงและ active แต่ยังไม่ถูกกำหนด department ในระบบ; browser logged out
+
+**Steps**
+
+1. เปิด /login
+2. กรอก email = tt@blueledgers.com, password = Qaz123!@#
+3. กด Sign In
+
+**Expected**
+
+แสดง alertdialog/modal ข้อความ 'No department assigned' (หรือคำแปลไทยที่สื่อความเดียวกัน)
+
+---
+
+## TC-LOGIN-100002 — เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login
+
+> **As an** unauthenticated user hitting a protected route, **I want** to be redirected to /login, **so that** protected screens stay protected.
+
+**Priority:** High · **Test Type:** Auth-guard
+
+**Preconditions**
+
+Browser ไม่มี session/cookies (logged out)
+
+**Steps**
+
+1. clear cookies
+2. navigate ตรงไปที่ /dashboard โดยไม่ผ่าน /login
+
+**Expected**
+
+Auth-guard redirect กลับไปที่ /login (ไม่อนุญาตให้เข้า /dashboard เมื่อยังไม่ได้ login)
+
+---
+
+## TC-LOGIN-100003 — user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard
+
+> **As an** unauthenticated user hitting a protected route, **I want** to be redirected to /login, **so that** protected screens stay protected.
+
+**Priority:** Medium · **Test Type:** Auth-guard
+
+**Preconditions**
+
+User requestor@blueledgers.com login สำเร็จและมี active session อยู่แล้วที่ /dashboard
+
+**Steps**
+
+1. login ด้วย requestor@blueledgers.com
+2. รอ /dashboard โหลดเสร็จ
+3. navigate ไปที่ /login อีกครั้ง
+
+**Expected**
+
+Auth-guard redirect กลับไปที่ /dashboard (ไม่ให้ user ที่ login แล้วเห็นหน้า /login ซ้ำ)
+
+---
+
+## TC-LOGIN-100004 — อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย
+
+> **As the** system, **I want** SQL-injection payloads in Login & Logout fields to be safely handled, **so that** the database remains intact.
+
+**Priority:** High · **Test Type:** Security
+
+**Preconditions**
+
+browser logged out; อยู่ที่ /login
+
+**Steps**
+
+1. เปิด /login
+2. กรอก email = "admin' OR '1'='1", password = 'anything'
+3. กด Sign In
+
+**Expected**
+
+Login fail และคงอยู่ที่ /login; SQL injection payload ไม่ถูก execute (ไม่มีข้อมูลรั่วไหล / ไม่ได้ session)
+
+---
+
+## TC-LOGIN-100005 — อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย
+
+> **As the** system, **I want** XSS payloads in Login & Logout inputs to be neutralized, **so that** no script executes in users' browsers.
+
+**Priority:** High · **Test Type:** Security
+
+**Preconditions**
+
+browser logged out; อยู่ที่ /login
+
+**Steps**
+
+1. เปิด /login
+2. ติด listener สำหรับ browser dialog (ห้ามเปิด)
+3. กรอก email = '<script>alert(1)</script>@x.com', password = 'anything'
+4. กด Sign In
+
+**Expected**
+
+ไม่มี alert dialog เด้งจาก XSS payload และคงอยู่ที่ /login (input ถูก sanitize/escape)
+
+---
+
+## TC-LOGIN-100006 — login username ผิดต้องได้รับ HTTP 401
+
+> **As the** system, **I want** Login & Logout inputs hardened against common attacks, **so that** the application stays safe.
+
+**Priority:** High · **Test Type:** Security
+
+**Preconditions**
+
+browser logged out; อยู่ที่ /login; ไม่มี user 'wrong-user@nonexistent.com' ในระบบ
+
+**Steps**
+
+1. เปิด /login
+2. ดัก response จาก POST /auth
+3. กรอก email = 'wrong-user@nonexistent.com', password = 'anypassword'
+4. กด Sign In
+
+**Expected**
+
+Backend ตอบกลับ HTTP 401 Unauthorized และ user คงอยู่ที่ /login
+
+---
+
+## TC-LOGIN-100007 — login ชื่อเดิมผิด 3 ครั้ง ต้องได้รับ HTTP 429
+
+> **As the** system, **I want** abusive Login & Logout inputs/requests bounded, **so that** safety and stability are preserved.
+
+**Priority:** High · **Test Type:** Security
+
+**Preconditions**
+
+browser logged out; อยู่ที่ /login; backend rate-limiter เปิดใช้งานอยู่ (429 หลัง 3 ครั้งที่ผิดด้วย email เดียวกัน)
+
+**Steps**
+
+1. สร้าง email ที่ไม่มีจริง (unique per run)
+2. login ด้วย email + รหัสผิด ซ้ำ 3 ครั้ง
+3. ตรวจสอบ HTTP status ของ response สุดท้าย
+
+**Expected**
+
+Response สุดท้ายเป็น HTTP 429 Too Many Requests และคงอยู่ที่ /login (rate-limit ทำงาน)
+
+---
+
+## TC-LOGIN-100008 — next param แบบ external URL ต้องไม่ redirect ออกนอกเว็บ (open-redirect guard)
+
+> **As the** system, **I want** Login & Logout inputs hardened against common attacks, **so that** the application stays safe.
+
+**Priority:** High · **Test Type:** Security
+
+**Preconditions**
+
+User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out
+
+**Steps**
+
+1. เปิด /login?next=//evil.example.com
+2. login ด้วย requestor@blueledgers.com
+3. ตรวจสอบ origin/path ปลายทางหลัง login
+
+**Expected**
+
+resolveNextPath ปฏิเสธ next ที่เป็น external URL → redirect ไป /dashboard บน origin เดิม (ไม่หลุดไป evil.example.com)
+
+---
+
+## TC-LOGIN-100009 — refresh token ปลอม/เสีย เข้า /dashboard ต้องเด้งไป login
 
 > **As the** system, **I want** Login & Logout inputs hardened against common attacks, **so that** the application stays safe.
 
@@ -1025,5 +1001,29 @@ boot ใช้ refresh token ปลอม → backend ปฏิเสธ → tok
 
 ---
 
+## TC-LOGIN-100010 — logout ต้องลบ refresh token และเข้าถึง dashboard ไม่ได้
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+> **As the** system, **I want** Login & Logout inputs hardened against common attacks, **so that** the application stays safe.
+
+**Priority:** High · **Test Type:** Security
+
+**Preconditions**
+
+User requestor@blueledgers.com login สำเร็จและมี refresh token ใน localStorage
+
+**Steps**
+
+1. login ด้วย requestor@blueledgers.com
+2. ตรวจว่ามี refresh token
+3. logout
+4. ตรวจว่า refresh token ถูกลบ
+5. navigate ไป /dashboard
+
+**Expected**
+
+หลัง logout: refresh token ถูกลบจาก localStorage และเข้า /dashboard ไม่ได้ (เด้งกลับ /login)
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git 69f97e7</sub>
