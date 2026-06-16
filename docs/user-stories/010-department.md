@@ -5,7 +5,7 @@ _Generated from `tests/010-department.spec.ts` annotations. Edit annotations, no
 **Module:** Department
 **Spec:** `tests/010-department.spec.ts`
 **Default role:** Admin
-**Total test cases:** 13 (9 High / 4 Medium / 0 Low)
+**Total test cases:** 14 (10 High / 4 Medium / 0 Low)
 
 ## Test Cases at a Glance
 
@@ -19,6 +19,7 @@ _Generated from `tests/010-department.spec.ts` annotations. Edit annotations, no
 | TC-DEP-010006 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
 | TC-DEP-010007 | แก้ไขชื่อและบันทึก | High | CRUD |
 | TC-DEP-010008 | ลบรายการ | High | CRUD |
+| TC-DEP-010009 | active BU = BLAVG | High | Smoke |
 | TC-DEP-010013 | แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error | Medium | Validation |
 | TC-DEP-100001 | XSS payload ในชื่อต้องไม่รัน script | High | Security |
 | TC-DEP-100002 | SQL injection payload ต้องไม่ทำให้ระบบ crash | High | Security |
@@ -202,6 +203,28 @@ Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
 
 ---
 
+## TC-DEP-010009 — active BU = BLAVG
+
+> **As a** Admin user, **I want** core Department interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+
+**Steps**
+
+1. อ่าน profile API (/api/proxy/api/user/profile)
+2. หา business unit ที่ is_default
+3. เปิดหน้าใดๆ ที่มี navbar แล้วอ่าน label ของ BU switcher
+
+**Expected**
+
+default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น
+
+---
+
 ## TC-DEP-010013 — แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error
 
 > **As a** Admin user, **I want** the system to block invalid Department submissions, **so that** data quality is preserved.
@@ -314,4 +337,4 @@ User ถูก redirect ออกจาก /config/department หรือ ป�
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+<sub>Last regenerated: 2026-06-16 · git c1d642c</sub>
