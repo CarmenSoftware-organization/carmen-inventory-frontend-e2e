@@ -1,98 +1,95 @@
-import { expect } from "@playwright/test";
-import { createAuthTest } from "./fixtures/auth.fixture";
-import { DialogCrudHelper } from "./pages/dialog-crud.helper";
-import { addDialogSecurityCases } from "./helpers/security-cases";
+# Extra Cost — BLAVG precondition + complex coverage + doc_version fix — Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Pin active BU = `BLAVG` for the extra-cost spec, add an assert + 5 complex tests, and fix the frontend `doc_version` omission that breaks extra-cost edits.
+
+**Architecture:** Frontend fix first (`extra-cost-dialog.tsx` + type send `doc_version`, mirroring department/unit/business-type) so edits persist; then e2e changes in `tests/030-extra-cost.spec.ts` reusing `DialogCrudHelper`. Self-contained tests (own unique `E2E EC0NN <UID>` name, cleanup-by-delete); edit tests gate navigation on the dialog closing.
+
+**Tech Stack:** Playwright + TypeScript (e2e); React (frontend, repo `../carmen-inventory-frontend-react`).
+
+**Design doc:** `docs/superpowers/specs/2026-06-16-extra-cost-bu-and-complex-design.md`
+
+**Verified facts:** EC dialog fields = `#extra-cost-name` (required) + `#extra-cost-is-active`. Update = PATCH; payload omits `doc_version`; `ExtraCost` type lacks it. No discard-on-dirty (Cancel closes directly). e2e `opts = { listPath, nameInputId:"extra-cost-name", activeSwitchId:"extra-cost-is-active" }`. Existing tests: smoke `010001-010004`, validation `200001/200002`, CRUD `030001/040001/050001`, security `addDialogSecurityCases(skipAuth:true)`. New IDs fit existing sections → no catalog change. Helpers (`ensureActiveBu`/`getBusinessUnits`/`defaultBu`/`BuSwitcherPage`/`DialogCrudHelper`/`BU_CODE`) on `main`.
+
+---
+
+## Task 1: Frontend — send `doc_version` on extra-cost update
+
+**Repo:** `/Users/samutpra/GitHub/carmensoftware-organize/carmen-inventory-frontend-react`
+**Files:** `types/extra-cost.ts`, `routes/config/extra-cost/_components/extra-cost-dialog.tsx`
+
+- [ ] **Step 1: Branch**
+```bash
+cd /Users/samutpra/GitHub/carmensoftware-organize/carmen-inventory-frontend-react
+git checkout main && git pull --ff-only && git checkout -b fix/extra-cost-doc-version
+```
+
+- [ ] **Step 2: `types/extra-cost.ts`** — replace the two interfaces with EXACTLY:
+```ts
+export interface ExtraCost {
+  id: string;
+  /** Optimistic-concurrency token — backend requires it back on PATCH update. */
+  doc_version: number;
+  name: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CreateExtraCostDto {
+  name: string;
+  is_active: boolean;
+  /** Only sent on update for optimistic concurrency; absent on create. */
+  doc_version?: number;
+}
+```
+
+- [ ] **Step 3: `extra-cost-dialog.tsx`** — in `onSubmit`'s `if (isEdit)` branch change:
+```ts
+      updateExtraCost.mutate(
+        { id: extraCost.id, ...payload },
+```
+to:
+```ts
+      updateExtraCost.mutate(
+        // doc_version round-trips the loaded record's version — backend requires
+        // it on PATCH for optimistic concurrency (omitting it → 400).
+        { id: extraCost.id, doc_version: extraCost.doc_version, ...payload },
+```
+Do NOT change the create branch.
+
+- [ ] **Step 4: Verify** — `bunx tsc --noEmit` → clean (exit 0).
+
+- [ ] **Step 5: Commit**
+```bash
+git add types/extra-cost.ts routes/config/extra-cost/_components/extra-cost-dialog.tsx
+git commit -m "fix(extra-cost): send doc_version on update (PATCH requires it)"
+```
+
+---
+
+## Task 2: e2e — BU precondition + assert TC-EC-010005
+
+**Repo:** e2e (branch `test/extra-cost-bu-and-complex`)
+**Files:** `tests/030-extra-cost.spec.ts`
+
+- [ ] **Step 1: Add imports** (after the existing imports)
+```ts
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+```
 
-const test = createAuthTest("admin@blueledgers.com");
-const PATH = "/config/extra-cost";
-const UID = Date.now().toString(36);
-const NAME = `E2E EC ${UID}`;
-const NAME_UPDATED = `E2E EC Upd ${UID}`;
-
-const opts = {
-  listPath: PATH,
-  nameInputId: "extra-cost-name",
-  activeSwitchId: "extra-cost-is-active",
-};
-
-test.describe("Extra Cost — Smoke & CRUD", () => {
+- [ ] **Step 2: Add beforeEach** immediately after `test.describe("Extra Cost — Smoke & CRUD", () => {`:
+```ts
   test.beforeEach(async ({ page }) => {
     await ensureActiveBu(page, BU_CODE);
   });
+```
 
-  test(
-    "TC-EC-010001 หน้า list โหลดสำเร็จ",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture" },
-        { type: "steps", description: "1. ไปที่ /config/extra-cost" },
-        { type: "expected", description: "URL ตรงกับ /config/extra-cost; หน้า list render สำเร็จ" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "Smoke" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await expect(page).toHaveURL(new RegExp(PATH));
-  });
-
-  test(
-    "TC-EC-010002 ปุ่ม Add แสดง",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/extra-cost" },
-        { type: "steps", description: "1. ไปที่ /config/extra-cost" },
-        { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "Smoke" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await expect(h.list.addButton()).toBeVisible();
-  });
-
-  test(
-    "TC-EC-010003 ช่องค้นหาใช้งานได้",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/extra-cost" },
-        { type: "steps", description: "1. ไปที่ /config/extra-cost\n2. พิมพ์ 'test' ในช่องค้นหา" },
-        { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
-        { type: "priority", description: "Medium" },
-        { type: "testType", description: "Smoke" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await expect(h.list.searchInput()).toBeVisible();
-    await h.list.search("test");
-  });
-
-  test(
-    "TC-EC-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/extra-cost" },
-        { type: "steps", description: "1. ไปที่ /config/extra-cost\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
-        { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
-        { type: "priority", description: "Medium" },
-        { type: "testType", description: "Functional" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await h.list.search(`__NOPE__${UID}`);
-    await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
-  });
-
+- [ ] **Step 3: Add the assert test** after the existing `TC-EC-010004` test:
+```ts
   test(
     "TC-EC-010005 active BU = BLAVG",
     {
@@ -113,121 +110,24 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
       await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
     },
   );
+```
 
-  test(
-    "TC-EC-200001 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/extra-cost" },
-        { type: "steps", description: "1. เปิด Add dialog\n2. กด Save โดยไม่กรอกชื่อ" },
-        { type: "expected", description: "Error message แสดงใน dialog (required validation); dialog ยังเปิดอยู่" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "Validation" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await h.openAddDialog();
-    await h.saveButton().click();
-    await expect(h.errorMessage().first()).toBeVisible();
-    await h.cancelButton().click();
-  });
+- [ ] **Step 4: Run** — `bun run test -- -g "TC-EC-010005"` → PASS (frontend webServer serves the Task-1 fix branch). Retry once on cold "Auth server unavailable".
 
-  test(
-    "TC-EC-030001 สร้างรายการใหม่และปรากฏในตาราง",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
-        { type: "steps", description: "1. เปิด Add dialog\n2. กรอก name = NAME\n3. กด Save\n4. ค้นหาด้วย NAME" },
-        { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มีชื่อ NAME ปรากฏใน list" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "CRUD" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await h.openAddDialog();
-    await h.nameInput().fill(NAME);
-    await h.saveButton().click();
-    await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({
-      timeout: 10_000,
-    });
-    await h.list.search(NAME);
-    await expect(page.getByRole("cell", { name: NAME })).toBeVisible();
-  });
+- [ ] **Step 5: Commit**
+```bash
+git add tests/030-extra-cost.spec.ts
+git commit -m "test(extra-cost): lock active BU to BLAVG (precondition + assert TC-EC-010005)"
+```
 
-  test(
-    "TC-EC-040001 แก้ไขชื่อและบันทึก",
-    {
-      annotation: [
-        { type: "preconditions", description: "TC-EC-030001 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
-        { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด edit dialog\n3. clear ชื่อและกรอก NAME_UPDATED\n4. กด Save\n5. ค้นหา NAME_UPDATED" },
-        { type: "expected", description: "Updated/success toast ปรากฏ; แถวที่มีชื่อ NAME_UPDATED ปรากฏใน list" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "CRUD" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await h.list.search(NAME);
-    await h.clickRow(NAME);
-    await h.nameInput().clear();
-    await h.nameInput().fill(NAME_UPDATED);
-    await h.saveButton().click();
-    await expect(page.getByText(/updated|success|สำเร็จ/i).first()).toBeVisible({
-      timeout: 10_000,
-    });
-    await h.list.search(NAME_UPDATED);
-    await expect(page.getByRole("cell", { name: NAME_UPDATED })).toBeVisible();
-  });
+---
 
-  test(
-    "TC-EC-200002 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
-    {
-      annotation: [
-        { type: "preconditions", description: "TC-EC-040001 ผ่านแล้ว → record มี name = NAME_UPDATED" },
-        { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด edit dialog\n3. clear name\n4. กด Save" },
-        { type: "expected", description: "Error message แสดงใน dialog (required validation); dialog ยังเปิดอยู่" },
-        { type: "priority", description: "Medium" },
-        { type: "testType", description: "Validation" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await h.list.search(NAME_UPDATED);
-    await h.clickRow(NAME_UPDATED);
-    await h.nameInput().clear();
-    await h.saveButton().click();
-    await expect(h.errorMessage().first()).toBeVisible();
-    await h.cancelButton().click();
-  });
+## Task 3: e2e — complex cases (is_active, edit-persist, edit-cancel, dup-name, delete-cancel)
 
-  test(
-    "TC-EC-050001 ลบรายการ",
-    {
-      annotation: [
-        { type: "preconditions", description: "TC-EC-200002 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
-        { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. กด Delete ที่แถว\n3. ยืนยัน Delete" },
-        { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "CRUD" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await h.list.search(NAME_UPDATED);
-    await h.deleteRow(NAME_UPDATED);
-    await h.deleteConfirmButton().click();
-    await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({
-      timeout: 10_000,
-    });
-  });
+**Files:** `tests/030-extra-cost.spec.ts`
 
+- [ ] **Step 1: Add the five tests** before the `addDialogSecurityCases(...)` call (inside the describe):
+```ts
   test(
     "TC-EC-040002 toggle is_active แล้ว persist",
     {
@@ -413,11 +313,51 @@ test.describe("Extra Cost — Smoke & CRUD", () => {
       await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
     },
   );
+```
 
-  addDialogSecurityCases(test, {
-    prefix: "EC",
-    listPath: PATH,
-    makeHelper: (page) => new DialogCrudHelper(page, opts),
-    skipAuth: true, // TCS-EC00112 skipped
-  });
-});
+- [ ] **Step 2: Run** — `bun run test -- -g "TC-EC-040002|TC-EC-040003|TC-EC-040004|TC-EC-200003|TC-EC-050002"` → all PASS. Notes:
+  - 040002/040003/040004 exercise edit → pass only against the Task-1 fixed frontend (PATCH 200). If edit still 400s, STOP and report DONE_WITH_CONCERNS (dev server not on the fix branch).
+  - `TC-EC-200003`: if the backend ACCEPTS the duplicate (dialog closes), STOP and report DONE_WITH_CONCERNS (do NOT loosen; delete both records). Controller will convert it to `test.fixme`.
+  - Retry once on transient cold-auth flakes. Do NOT loosen real assertions.
+
+- [ ] **Step 3: Commit**
+```bash
+git add tests/030-extra-cost.spec.ts
+git commit -m "test(extra-cost): is_active persist, edit-persist guard, edit-cancel, dup-name, delete-cancel"
+```
+
+---
+
+## Task 4: Docs + audit + full regression
+
+**Files:** Regenerate `docs/user-stories/030-extra-cost.md`
+
+- [ ] **Step 1: Annotation completeness**
+```bash
+f=tests/030-extra-cost.spec.ts; pre=$(grep -c 'type: "preconditions"' "$f"); exp=$(grep -c 'type: "expected"' "$f"); echo "pre=$pre exp=$exp"; [ "$pre" = "$exp" ] && echo OK || echo MISMATCH
+```
+Expected: `OK`.
+
+- [ ] **Step 2: TC-ID audit** — `bun audit:tc-ids` → `0 errors`.
+
+- [ ] **Step 3: Regenerate docs** — `bun docs:user-stories`; confirm:
+```bash
+grep -oE "TC-EC-(010005|040002|040003|040004|200003|050002)" docs/user-stories/030-extra-cost.md | sort -u | tr '\n' ' '; echo
+```
+Expected: all 6 listed.
+
+- [ ] **Step 4: Full spec run** — `bun run test -- 030-extra-cost.spec.ts` → all PASS (dup-name skipped only if backend accepts; existing `TC-EC-040001` edit now passes via Task 1). No failures.
+
+- [ ] **Step 5: Commit**
+```bash
+git add tests/030-extra-cost.spec.ts docs/user-stories/030-extra-cost.md
+git commit -m "docs(user-stories): regenerate for new extra-cost test cases"
+```
+
+---
+
+## Self-Review notes
+- **Spec coverage:** frontend doc_version fix (Task 1); BU precondition + `TC-EC-010005` (Task 2); complex cases `040002/040003/040004/200003/050002` (Task 3); docs/audit (Task 4). `040004` is edit-cancel (the EC dialog has no discard prompt — same as business-type).
+- **Self-containment:** each new test builds its own `E2E EC0NN <UID>` name and deletes it; no dependence on the existing `NAME`/`NAME_UPDATED` chain.
+- **Type/method consistency:** `DialogCrudHelper` methods + `getBusinessUnits/defaultBu/BuSwitcherPage.trigger` used as in business-type; `doc_version` threaded through `ExtraCost`/`CreateExtraCostDto` + dialog in Task 1 before edit tests rely on it.
+- **Known risks (flagged in-task):** doc_version dependency on the deployed frontend; dup-name → fixme if backend accepts.
