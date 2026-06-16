@@ -585,4 +585,4 @@ URL ยังคงอยู่ที่ PR ref หลังจาก bulk appro
 ---
 
 
-<sub>Last regenerated: 2026-05-07 · git 200baef</sub>
+<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>

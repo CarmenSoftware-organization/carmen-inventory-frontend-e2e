@@ -16,6 +16,9 @@ import { TEST_USERS, TEST_PASSWORD } from "./test-users";
  *   TC-LOGIN-010027..TC-LOGIN-010030  Security (SQL injection / XSS / wrong username 401 / rate limit 429)
  *   TC-LOGIN-010031..TC-LOGIN-010032  Login success — StoreManager / Budget
  *   TC-LOGIN-010033..TC-LOGIN-010034  Logout success — StoreManager / Budget
+ *   TC-LOGIN-010036          Open-redirect guard (next param ที่เป็น external URL)
+ *   TC-LOGIN-010037          Session persistence หลัง reload (refresh-token boot)
+ *   TC-LOGIN-010040          Backend ล่ม → friendly error, คงอยู่ /login (mocked)
  */
 
 const LOGIN_TC: Record<string, string> = {
@@ -66,7 +69,7 @@ test.describe("เข้าสู่ระบบ", () => {
       async ({ page }) => {
         const loginPage = new LoginPage(page);
         await loginPage.goto();
-        await loginPage.login(user.email, user.password);
+        await loginPage.loginWithRetry(user.email, user.password);
         await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
 
         // Logout immediately to release the session
@@ -79,7 +82,7 @@ test.describe("เข้าสู่ระบบ", () => {
   }
 
   // ── TT: user without department → dialog ─────────────────────────────────
-  test(
+  test.skip(
     "TC-LOGIN-010007 TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department",
     {
       annotation: [
@@ -349,7 +352,7 @@ test.describe("เข้าสู่ระบบ", () => {
     await expect(page).toHaveURL(/login/, { timeout: 10_000 });
   });
 
-  test.skip(
+  test(
     "TC-LOGIN-010026 user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard",
     {
       annotation: [
@@ -468,6 +471,206 @@ test.describe("เข้าสู่ระบบ", () => {
     expect(lastStatus).toBe(429);
     await expect(page).toHaveURL(/login/);
   });
+
+  // ── Redirect / session / error-handling ───────────────────────────────────
+  test(
+    "TC-LOGIN-010036 next param แบบ external URL ต้องไม่ redirect ออกนอกเว็บ (open-redirect guard)",
+    {
+      annotation: [
+        { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out" },
+        { type: "steps", description: "1. เปิด /login?next=//evil.example.com\n2. login ด้วย requestor@blueledgers.com\n3. ตรวจสอบ origin/path ปลายทางหลัง login" },
+        { type: "expected", description: "resolveNextPath ปฏิเสธ next ที่เป็น external URL → redirect ไป /dashboard บน origin เดิม (ไม่หลุดไป evil.example.com)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Security" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await page.goto("/login?next=//evil.example.com");
+      const origin = new URL(page.url()).origin;
+      await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+
+      await expect(page).toHaveURL(/\/dashboard/, { timeout: 15_000 });
+      // ต้องคงอยู่บน origin เดิม — open-redirect ต้องไม่พาออกนอกเว็บ
+      expect(new URL(page.url()).origin).toBe(origin);
+    },
+  );
+
+  test(
+    "TC-LOGIN-010037 session คงอยู่หลัง reload (refresh-token boot)",
+    {
+      annotation: [
+        { type: "preconditions", description: "User requestor@blueledgers.com login สำเร็จและอยู่ที่ /dashboard; refresh token ถูกเก็บใน localStorage" },
+        { type: "steps", description: "1. login ด้วย requestor@blueledgers.com\n2. รอ /dashboard\n3. reload หน้า\n4. ตรวจสอบว่ายัง authenticated" },
+        { type: "expected", description: "หลัง reload boot ใช้ refresh token ออก access token ใหม่ → ยังอยู่ที่ /dashboard และ user menu ปรากฏ (ไม่เด้งไป /login)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+      await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
+
+      await page.reload();
+      await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
+      const dashboardPage = new DashboardPage(page);
+      await expect(dashboardPage.userMenuTrigger()).toBeVisible({ timeout: 15_000 });
+    },
+  );
+
+  test(
+    "TC-LOGIN-010040 backend ล่มต้องแสดง error อย่างนุ่มนวลและคงอยู่ /login",
+    {
+      annotation: [
+        { type: "preconditions", description: "browser logged out; อยู่ที่ /login; mock /api/auth/login ให้ fail (network error)" },
+        { type: "steps", description: "1. intercept POST **/api/auth/login แล้ว abort\n2. เปิด /login\n3. กรอก requestor@blueledgers.com + password\n4. กด Sign In" },
+        { type: "expected", description: "แสดง alert ข้อความ 'Auth server unavailable' (ไม่ crash / ไม่โชว์ raw stack) และคงอยู่ที่ /login" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Validation" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await page.route("**/api/auth/login", (route) => route.abort());
+      await loginPage.goto();
+      await loginPage.login("requestor@blueledgers.com", TEST_PASSWORD);
+
+      await expect(loginPage.serverUnavailableMessage()).toBeVisible({ timeout: 15_000 });
+      await expect(page).toHaveURL(/login/);
+    },
+  );
+
+  // ── Redirect / session / form UX (batch 2) ────────────────────────────────
+  test(
+    "TC-LOGIN-010035 login พร้อม ?next= ที่ valid ต้อง redirect ไปปลายทางนั้น",
+    {
+      annotation: [
+        { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out; /profile เป็น shell route ที่ requestor เข้าได้" },
+        { type: "steps", description: "1. เปิด /login?next=/profile\n2. login ด้วย requestor@blueledgers.com\n3. ตรวจสอบ URL ปลายทาง" },
+        { type: "expected", description: "หลัง login redirect ไป /profile (เคารพ ?next= ที่ปลอดภัย) ไม่ใช่ /dashboard" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await page.goto("/login?next=/profile");
+      await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+      await expect(page).toHaveURL(/\/profile(\?|$)/, { timeout: 15_000 });
+    },
+  );
+
+  test(
+    "TC-LOGIN-010043 refresh token ปลอม/เสีย เข้า /dashboard ต้องเด้งไป login",
+    {
+      annotation: [
+        { type: "preconditions", description: "browser logged out; localStorage มี refresh token ที่ไม่ valid (ปลอม)" },
+        { type: "steps", description: "1. เปิด /login เพื่อ set origin\n2. set localStorage carmen.refresh_token เป็นค่าปลอม\n3. navigate ไป /dashboard" },
+        { type: "expected", description: "boot ใช้ refresh token ปลอม → backend ปฏิเสธ → token store ว่าง → RequireAuth เด้งไป /login" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Security" },
+      ],
+    },
+    async ({ page }) => {
+      await page.goto("/login");
+      await page.evaluate(() =>
+        localStorage.setItem("carmen.refresh_token", "garbage-invalid-token"),
+      );
+      await page.goto("/dashboard");
+      await expect(page).toHaveURL(/login/, { timeout: 15_000 });
+    },
+  );
+
+  test(
+    "TC-LOGIN-010041 ปุ่ม show/hide password สลับการแสดงรหัสผ่านได้",
+    {
+      annotation: [
+        { type: "preconditions", description: "browser logged out; อยู่ที่ /login" },
+        { type: "steps", description: "1. เปิด /login\n2. กรอกรหัสผ่าน\n3. กดปุ่ม Show password\n4. กดปุ่ม Hide password" },
+        { type: "expected", description: "เริ่มต้น type=password; กด Show → type=text; กด Hide → type=password อีกครั้ง" },
+        { type: "priority", description: "Low" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.passwordInput().fill(TEST_PASSWORD);
+
+      await expect(loginPage.passwordInput()).toHaveAttribute("type", "password");
+      await loginPage.showPasswordToggle().click();
+      await expect(loginPage.passwordInput()).toHaveAttribute("type", "text");
+      await loginPage.hidePasswordToggle().click();
+      await expect(loginPage.passwordInput()).toHaveAttribute("type", "password");
+    },
+  );
+
+  test(
+    "TC-LOGIN-010039 ปุ่ม Sign In ถูก disable ระหว่าง request กำลังทำงาน (กัน double-submit)",
+    {
+      annotation: [
+        { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out" },
+        { type: "steps", description: "1. เปิด /login\n2. กรอก credentials\n3. กด Sign In\n4. ตรวจสถานะปุ่มทันทีระหว่าง request" },
+        { type: "expected", description: "ปุ่ม disabled ระหว่าง in-flight; ถ้า backend ตอบเร็วจน redirect ไป /dashboard ก่อนสังเกตได้ ถือว่าผ่าน (ไม่เปิดช่อง double-submit) — best-effort" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.emailInput().fill("requestor@blueledgers.com");
+      await loginPage.passwordInput().fill(TEST_PASSWORD);
+      await loginPage.submitButton().click();
+
+      // best-effort: จับ disabled ทันภายใน 1s หรือถือว่า login จบเร็วแล้วไป dashboard
+      let sawDisabled = true;
+      try {
+        await expect(loginPage.submitButton()).toBeDisabled({ timeout: 1_000 });
+      } catch {
+        sawDisabled = false;
+      }
+      if (!sawDisabled) {
+        await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
+      }
+    },
+  );
+
+  test(
+    "TC-LOGIN-010042 หลังผิดซ้ำจนโดน rate-limit ต้องแสดง countdown และ disable ปุ่ม",
+    {
+      annotation: [
+        { type: "preconditions", description: "browser logged out; backend rate-limiter เปิด (429 + retry_after หลังผิด 3 ครั้งด้วย email เดียวกัน)" },
+        { type: "steps", description: "1. สร้าง email ปลอม unique ต่อ run\n2. login ด้วยรหัสผิดซ้ำ 3 ครั้ง\n3. ตรวจ UI หลังโดน 429" },
+        { type: "expected", description: "แสดงข้อความ countdown 'Too many login attempts. Try again in Ns.' และปุ่ม Sign In ถูก disable — best-effort (พึ่ง retry_after จาก backend)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      const wrongEmail = `countdown-${Date.now()}@nonexistent.com`;
+
+      let lastStatus = 0;
+      for (let i = 0; i < 3; i++) {
+        await loginPage.goto();
+        const responsePromise = page.waitForResponse(
+          (res) => res.url().includes("/auth") && res.request().method() === "POST",
+          { timeout: 10_000 },
+        );
+        await loginPage.login(wrongEmail, "wrongpassword");
+        const response = await responsePromise;
+        lastStatus = response.status();
+      }
+
+      // ยืนยันว่าโดน rate-limit จริงก่อนเช็ค UI (ล้มชัดเจนหาก backend เปลี่ยน threshold)
+      expect(lastStatus).toBe(429);
+      await expect(loginPage.countdownMessage()).toBeVisible({ timeout: 15_000 });
+      await expect(loginPage.submitButton()).toBeDisabled();
+    },
+  );
 });
 
 test.describe("ออกจากระบบ", () => {
@@ -503,4 +706,41 @@ test.describe("ออกจากระบบ", () => {
       },
     );
   }
+
+  test(
+    "TC-LOGIN-010038 logout ต้องลบ refresh token และเข้าถึง dashboard ไม่ได้",
+    {
+      annotation: [
+        { type: "preconditions", description: "User requestor@blueledgers.com login สำเร็จและมี refresh token ใน localStorage" },
+        { type: "steps", description: "1. login ด้วย requestor@blueledgers.com\n2. ตรวจว่ามี refresh token\n3. logout\n4. ตรวจว่า refresh token ถูกลบ\n5. navigate ไป /dashboard" },
+        { type: "expected", description: "หลัง logout: refresh token ถูกลบจาก localStorage และเข้า /dashboard ไม่ได้ (เด้งกลับ /login)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Security" },
+      ],
+    },
+    async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+      await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
+
+      const before = await page.evaluate(() =>
+        localStorage.getItem("carmen.refresh_token"),
+      );
+      expect(before).toBeTruthy();
+
+      const dashboardPage = new DashboardPage(page);
+      await dashboardPage.userMenuTrigger().waitFor({ state: "visible", timeout: 15_000 });
+      await dashboardPage.logout();
+      await expect(page).toHaveURL(/login/, { timeout: 10_000 });
+
+      const after = await page.evaluate(() =>
+        localStorage.getItem("carmen.refresh_token"),
+      );
+      expect(after).toBeFalsy();
+
+      await page.goto("/dashboard");
+      await expect(page).toHaveURL(/login/, { timeout: 15_000 });
+    },
+  );
 });

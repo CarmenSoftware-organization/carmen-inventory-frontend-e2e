@@ -310,4 +310,4 @@ User ถูก redirect ออกจาก /config/tax-profile หรือ ป�
 ---
 
 
-<sub>Last regenerated: 2026-05-07 · git 200baef</sub>
+<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
