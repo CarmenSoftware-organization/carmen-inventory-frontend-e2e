@@ -406,4 +406,4 @@ User ถูก redirect ออกจาก /config/unit หรือ ปุ่�
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git cac91bd</sub>
+<sub>Last regenerated: 2026-06-16 · git 3b8641f</sub>
