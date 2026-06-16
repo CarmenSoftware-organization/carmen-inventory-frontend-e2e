@@ -1,19 +1,140 @@
-import { expect } from "@playwright/test";
-import { createAuthTest } from "./fixtures/auth.fixture";
-import { PageFormCrudHelper } from "./pages/page-form-crud.helper";
-import { DepartmentMembersHelper } from "./pages/department-form.helper";
-import { addPageFormSecurityCases } from "./helpers/security-cases";
-import { BU_CODE } from "./test-users";
-import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
-import { BuSwitcherPage } from "./pages/bu-switcher.page";
+# Department — Additional Test Cases Implementation Plan
 
-const test = createAuthTest("admin@blueledgers.com");
-const PATH = "/config/department";
-const UID = Date.now().toString(36);
-const CODE = `E2E${UID.slice(-4).toUpperCase()}`;
-const NAME = `E2E DEP ${UID}`;
-const NAME_UPDATED = `E2E DEP Upd ${UID}`;
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+**Goal:** Add coverage for the department module's untested behaviour: edit-persistence (regression guard for the `doc_version` fix), duplicate-code rejection, `is_active` toggle, description field, discard/delete-cancel dialogs, code maxLength, individual required-field validation, search-by-code, and member/HOD assignment.
+
+**Architecture:** New tests live in `tests/010-department.spec.ts`, reusing `PageFormCrudHelper` (extended with a description input + active-switch helpers) and a small new `DepartmentMembersHelper` page object for the Transfer (members/HOD) widget. Independent tests are **self-contained** (create their own record with a per-test unique code/name, assert, then delete) so they don't depend on the serial CRUD chain. Data-dependent tests (member/HOD assignment) are **skip-guarded**. The `beforeEach(ensureActiveBu(BLAVG))` already in the describe applies to all.
+
+**Tech Stack:** Playwright (`@playwright/test`), TypeScript. Frontend under test: `../carmen-inventory-frontend-react`.
+
+**Design context (verified against the frontend):**
+- Form: `routes/config/department/_components/department-form.tsx`. Fields: `#department-code` (maxLength 10), `#department-name` (maxLength 100), `#department-description` (Textarea, maxLength 256), `#department-is-active` (Radix Switch: `role="switch"`, `aria-checked`). Toolbar modes: view (Edit button) / edit (Save+Cancel+Delete). Create success → navigate to detail + toast `created successfully`/`สร้าง...สำเร็จ`. Update success → toast `updated successfully`/`อัปเดต...สำเร็จ` and back to view mode. Update PATCH now sends `doc_version` (fixed).
+- Edit while dirty → Cancel/Back opens **DiscardDialog** (alertdialog, confirm button text **"Discard"** / `ละทิ้ง`). Delete opens **DeleteDialog** (alertdialog, **Cancel** + **Delete** actions).
+- Members section heading: **"Department Members"**; HOD heading: **"Head of Department"**. Each renders a Transfer with a left "available" list (Checkbox + user full name) and a move button `aria-label="Move selected to right"`. The test env renders English labels.
+- `PageFormCrudHelper` (`tests/pages/page-form-crud.helper.ts`) is shared by department/location/adjustment-type; extend it generically (opts-driven), do not hardcode department specifics there.
+- Module-level `const UID` in the spec is ONE value per run; each new self-contained test MUST build its own unique code/name (embed the TC number) to avoid colliding with the serial chain and each other. Code must stay ≤10 chars.
+
+**Deferred (NOT in this plan — surfaced to the user):** list **pagination** test. `ConfigListPage` exposes no pagination affordance and a reliable test needs >10 seeded departments; low value, high flake. Revisit only if pagination locators + guaranteed data are added.
+
+---
+
+## File Structure
+
+- **Modify** `tests/pages/page-form-crud.helper.ts` — add optional `descriptionInputId` to `PageFormCrudOptions`; add `descriptionInput()`, `isActive()`, `setActive(on)`.
+- **Create** `tests/pages/department-form.helper.ts` — `DepartmentMembersHelper`: scope a Transfer by section heading, count available users, assign the first available.
+- **Modify** `tests/010-department.spec.ts` — add `descriptionInputId` to `opts`; add the new tests; the import of the members helper.
+- **Regenerate** `docs/user-stories/010-department.md`.
+
+---
+
+## Task 1: Extend page objects
+
+**Files:**
+- Modify: `tests/pages/page-form-crud.helper.ts`
+- Create: `tests/pages/department-form.helper.ts`
+
+- [ ] **Step 1: Add description + active-switch helpers to `PageFormCrudHelper`**
+
+In `tests/pages/page-form-crud.helper.ts`, add `descriptionInputId?: string;` to the `PageFormCrudOptions` interface (after `activeSwitchId`). Then add these methods to the class (after `activeSwitch()`):
+
+```ts
+  descriptionInput(): Locator {
+    if (!this.opts.descriptionInputId) {
+      throw new Error("descriptionInputId not configured for this module");
+    }
+    return this.page.locator(`#${this.opts.descriptionInputId}`);
+  }
+
+  /** Read the Radix status switch state (role="switch" → aria-checked). */
+  async isActive(): Promise<boolean> {
+    const sw = this.activeSwitch();
+    if (!sw) throw new Error("activeSwitchId not configured for this module");
+    return (await sw.getAttribute("aria-checked")) === "true";
+  }
+
+  /** Set the status switch to `on`, clicking only if it differs from current. */
+  async setActive(on: boolean): Promise<void> {
+    const sw = this.activeSwitch();
+    if (!sw) throw new Error("activeSwitchId not configured for this module");
+    if ((await this.isActive()) !== on) {
+      await sw.click();
+    }
+  }
+```
+
+- [ ] **Step 2: Create the members/HOD Transfer helper**
+
+Create `tests/pages/department-form.helper.ts`:
+
+```ts
+import type { Page, Locator } from "@playwright/test";
+
+/**
+ * Scopes interactions to one of the department form's two Transfer widgets,
+ * identified by its section heading ("Department Members" or "Head of
+ * Department"). The form renders both with an identical move button
+ * (aria-label "Move selected to right"), so every locator is scoped to the
+ * section container to avoid cross-matching.
+ */
+export class DepartmentMembersHelper {
+  constructor(private readonly page: Page) {}
+
+  /** The section container (the bordered card) that holds the given heading. */
+  private section(heading: string): Locator {
+    return this.page
+      .locator("div")
+      .filter({ has: this.page.getByText(heading, { exact: true }) })
+      .filter({ has: this.page.getByRole("button", { name: "Move selected to right" }) })
+      .last();
+  }
+
+  /** Number of selectable users in the section's left ("available") list. */
+  async availableCount(heading: string): Promise<number> {
+    return this.section(heading).getByRole("checkbox").count();
+  }
+
+  /**
+   * Tick the first available user and move it to the right (assigned) list.
+   * Returns the moved user's visible label, or null if none were available.
+   */
+  async assignFirstAvailable(heading: string): Promise<string | null> {
+    const section = this.section(heading);
+    const firstCheckbox = section.getByRole("checkbox").first();
+    if ((await firstCheckbox.count()) === 0) return null;
+    const row = section.locator("li, [role='listitem']").filter({ has: firstCheckbox }).first();
+    const label = (await row.innerText().catch(() => "")).trim();
+    await firstCheckbox.check();
+    await section.getByRole("button", { name: "Move selected to right" }).click();
+    return label || "(moved)";
+  }
+}
+```
+
+- [ ] **Step 3: Type-check**
+
+Run: `bunx tsc --noEmit`
+Expected: clean (exit 0).
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add tests/pages/page-form-crud.helper.ts tests/pages/department-form.helper.ts
+git commit -m "test(e2e): extend page objects for department description/active/members"
+```
+
+---
+
+## Task 2: Regression guard + search-by-code
+
+**Files:**
+- Modify: `tests/010-department.spec.ts`
+
+- [ ] **Step 1: Add `descriptionInputId` to `opts`**
+
+In `tests/010-department.spec.ts`, update the `opts` object to include the description field:
+
+```ts
 const opts = {
   listPath: PATH,
   codeInputId: "department-code",
@@ -21,235 +142,13 @@ const opts = {
   activeSwitchId: "department-is-active",
   descriptionInputId: "department-description",
 };
+```
 
-test.describe("Department — Smoke & CRUD", () => {
-  test.beforeEach(async ({ page }) => {
-    await ensureActiveBu(page, BU_CODE);
-  });
+- [ ] **Step 2: Add the two tests**
 
-  test(
-    "TC-DEP-010001 หน้า list โหลดสำเร็จ",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture" },
-        { type: "steps", description: "1. ไปที่ /config/department" },
-        { type: "expected", description: "URL ตรงกับ /config/department; หน้า list โหลดสำเร็จและพร้อมใช้งาน" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "Smoke" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
-    await h.list.goto();
-    await expect(page).toHaveURL(new RegExp(PATH));
-  });
+Insert these two tests immediately AFTER the `addPageFormSecurityCases(...)` call's closing — i.e. just before the final `});` that closes `test.describe("Department — Smoke & CRUD", ...)`. (They are self-contained, not part of the serial chain.)
 
-  test(
-    "TC-DEP-010009 active BU = BLAVG",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
-        { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าใดๆ ที่มี navbar แล้วอ่าน label ของ BU switcher" },
-        { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "Smoke" },
-      ],
-    },
-    async ({ page }) => {
-      // getBusinessUnits navigates to /dashboard internally to capture the
-      // profile response; the page is already on /dashboard when it returns.
-      const units = await getBusinessUnits(page);
-      const active = defaultBu(units);
-      expect(active?.code).toBe(BU_CODE);
-
-      const switcher = new BuSwitcherPage(page);
-      await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
-    },
-  );
-
-  test(
-    "TC-DEP-010002 ปุ่ม Add แสดง",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department" },
-        { type: "steps", description: "1. ไปที่ /config/department\n2. ตรวจสอบว่าปุ่ม Add ปรากฏ" },
-        { type: "expected", description: "ปุ่ม Add visible บนหน้า list (พร้อมเข้าสู่ flow create)" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "Smoke" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
-    await h.list.goto();
-    await expect(h.list.addButton()).toBeVisible();
-  });
-
-  test(
-    "TC-DEP-010003 ช่องค้นหาใช้งานได้",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department" },
-        { type: "steps", description: "1. ไปที่ /config/department\n2. พิมพ์ 'test' ในช่องค้นหา" },
-        { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
-        { type: "priority", description: "Medium" },
-        { type: "testType", description: "Smoke" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
-    await h.list.goto();
-    await expect(h.list.searchInput()).toBeVisible();
-    await h.list.search("test");
-  });
-
-  test(
-    "TC-DEP-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department" },
-        { type: "steps", description: "1. ไปที่ /config/department\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
-        { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
-        { type: "priority", description: "Medium" },
-        { type: "testType", description: "Functional" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
-    await h.list.goto();
-    await h.list.search(`__NOPE__${UID}`);
-    await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
-  });
-
-  test(
-    "TC-DEP-010005 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new" },
-        { type: "steps", description: "1. เปิดฟอร์ม new\n2. กด Save โดยไม่กรอก code/name (รวมถึง parent ถ้ามี)" },
-        { type: "expected", description: "URL ยังคงอยู่ที่ /new (ฟอร์ม block submit ด้วย client-side validation)" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "Validation" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
-    await h.gotoNew();
-    await h.saveButton().click();
-    // Stays on /new because validation fails
-    await expect(page).toHaveURL(/\/new/);
-  });
-
-  // Ordered CRUD chain: create → edit → validate → delete, all operating on the
-  // same record. Serial mode keeps them in one worker (stable module-level UID)
-  // and skips the rest if one fails, instead of cascading into fresh workers
-  // (a worker restart after a failure recomputes the Date.now()-based UID).
-  test.describe.serial("CRUD chain — shares the TC-DEP-010006 record", () => {
-  test(
-    "TC-DEP-010006 สร้างรายการใหม่และปรากฏในตาราง",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; record CODE/NAME ยังไม่มีอยู่ใน DB" },
-        { type: "steps", description: "1. เปิด new form\n2. กรอก code + name (ใช้ default parent/hierarchy ถ้ามี)\n3. กด Save\n4. กลับ list และค้นหาด้วย NAME" },
-        { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี NAME ปรากฏใน list" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "CRUD" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
-    await h.gotoNew();
-    await h.codeInput().fill(CODE);
-    await h.nameInput().fill(NAME);
-    await h.saveButton().click();
-    await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({
-      timeout: 10_000,
-    });
-    await h.list.goto();
-    await h.list.search(NAME);
-    await expect(page.getByRole("cell", { name: NAME })).toBeVisible();
-  });
-
-  test(
-    "TC-DEP-010007 แก้ไขชื่อและบันทึก",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; TC-DEP-010006 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB" },
-        { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด detail\n3. กดปุ่ม Edit\n4. clear name และกรอก NAME_UPDATED\n5. กด Save" },
-        { type: "expected", description: "Updated/success toast ปรากฏ (updated/success/สำเร็จ)" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "CRUD" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
-    await h.list.goto();
-    await h.list.search(NAME);
-    await h.clickRowName(NAME);
-    await h.editButton().click();
-    await h.nameInput().clear();
-    await h.nameInput().fill(NAME_UPDATED);
-    await h.saveButton().click();
-    await expect(page.getByText(/updated|success|สำเร็จ/i).first()).toBeVisible({
-      timeout: 10_000,
-    });
-  });
-
-  test(
-    "TC-DEP-010013 แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error",
-    {
-      annotation: [
-        { type: "preconditions", description: "TC-DEP-010007 ผ่านแล้ว → record มี name = NAME_UPDATED" },
-        { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด detail\n3. กด Edit\n4. clear code + name\n5. กด Save" },
-        { type: "expected", description: "Save button ยังคง visible (form ไม่ submit; ยังอยู่ใน edit mode)" },
-        { type: "priority", description: "Medium" },
-        { type: "testType", description: "Validation" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
-    await h.list.goto();
-    await h.list.search(NAME_UPDATED);
-    await h.clickRowName(NAME_UPDATED);
-    await h.editButton().click();
-    await h.codeInput().clear();
-    await h.nameInput().clear();
-    await h.saveButton().click();
-    // Validation must keep us on the form (Save button still visible)
-    await expect(h.saveButton()).toBeVisible();
-  });
-
-  test(
-    "TC-DEP-010008 ลบรายการ",
-    {
-      annotation: [
-        { type: "preconditions", description: "TC-DEP-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
-        { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด detail\n3. กด Edit\n4. กด Delete\n5. ยืนยัน Delete" },
-        { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "CRUD" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new PageFormCrudHelper(page, opts);
-    await h.list.goto();
-    await h.list.search(NAME_UPDATED);
-    await h.clickRowName(NAME_UPDATED);
-    await h.editButton().click();
-    await h.deleteButton().click();
-    await h.deleteConfirmButton().click();
-    await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({
-      timeout: 10_000,
-    });
-  });
-  }); // end CRUD serial chain
-
-  addPageFormSecurityCases(test, {
-    prefix: "DEP",
-    listPath: PATH,
-    makeHelper: (page) => new PageFormCrudHelper(page, opts),
-    skipAuth: true, // TCS-DEP00112 skipped
-  });
-
+```ts
   test(
     "TC-DEP-010010 แก้ไขแล้ว persist หลัง reload",
     {
@@ -274,12 +173,7 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.saveButton().click();
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
-      // Open the record fresh from the list before editing. (Editing right after
-      // create also persists; opening fresh avoids the create toast satisfying the
-      // update-toast wait below, which could race the reload against the PATCH.)
-      await h.list.goto();
-      await h.list.search(name);
-      await h.clickRowName(name);
+      // edit name from the detail page we just landed on
       await h.editButton().click();
       await h.nameInput().clear();
       await h.nameInput().fill(renamed);
@@ -298,10 +192,8 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.list.search(name);
       await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
 
-      // cleanup — navigate to list fresh so empty-state from prior search doesn't linger
-      await h.list.goto();
+      // cleanup
       await h.list.search(renamed);
-      await expect(page.getByRole("cell", { name: renamed })).toBeVisible({ timeout: 10_000 });
       await h.clickRowName(renamed);
       await h.editButton().click();
       await h.deleteButton().click();
@@ -336,6 +228,7 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.list.search(code);
       await expect(page.getByRole("cell", { name })).toBeVisible();
 
+      // cleanup
       await h.clickRowName(name);
       await h.editButton().click();
       await h.deleteButton().click();
@@ -343,8 +236,33 @@ test.describe("Department — Smoke & CRUD", () => {
       await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
     },
   );
+```
 
-  test.fixme(
+- [ ] **Step 3: Run both new tests**
+
+Run: `bun run test -- -g "TC-DEP-010010|TC-DEP-010012"`
+Expected: both PASS. (TC-DEP-010010 is the regression guard for the `doc_version` fix — it must show the rename surviving a reload.)
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add tests/010-department.spec.ts
+git commit -m "test(department): edit-persist regression guard + search-by-code"
+```
+
+---
+
+## Task 3: Duplicate code, is_active toggle, code maxLength, required fields
+
+**Files:**
+- Modify: `tests/010-department.spec.ts`
+
+- [ ] **Step 1: Add the four tests**
+
+Insert after the TC-DEP-010012 test, still inside the describe:
+
+```ts
+  test(
     "TC-DEP-010011 สร้าง code ซ้ำ ต้องถูก reject",
     {
       annotation: [
@@ -353,7 +271,6 @@ test.describe("Department — Smoke & CRUD", () => {
         { type: "expected", description: "รายการที่สองไม่ถูกสร้าง: ยังอยู่ที่ฟอร์ม /new (ไม่ navigate ไป detail) — backend reject code ซ้ำ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
-        { type: "note", description: "Skipped via test.fixme: backend currently has NO unique constraint on department code per BU, so duplicates are accepted. Assertion encodes the intended behaviour — unskip when the backend adds the constraint." },
       ],
     },
     async ({ page }) => {
@@ -361,16 +278,19 @@ test.describe("Department — Smoke & CRUD", () => {
       const code = `D11${UID.slice(-4).toUpperCase()}`;
       const name = `DEP010011 ${UID}`;
 
+      // first record
       await h.gotoNew();
       await h.codeInput().fill(code);
       await h.nameInput().fill(name);
       await h.saveButton().click();
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
+      // duplicate code attempt
       await h.gotoNew();
       await h.codeInput().fill(code);
       await h.nameInput().fill(`${name} dup`);
       await h.saveButton().click();
+      // Must NOT succeed: no created toast, still on the new form.
       await expect(page).toHaveURL(/\/new/, { timeout: 10_000 });
       await expect(h.saveButton()).toBeVisible();
 
@@ -437,8 +357,8 @@ test.describe("Department — Smoke & CRUD", () => {
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
       await h.gotoNew();
-      await h.codeInput().fill("ABCDEFGHIJ12345");
-      await expect(h.codeInput()).toHaveValue("ABCDEFGHIJ");
+      await h.codeInput().fill("ABCDEFGHIJ12345"); // 15 chars
+      await expect(h.codeInput()).toHaveValue("ABCDEFGHIJ"); // capped at 10
     },
   );
 
@@ -456,18 +376,43 @@ test.describe("Department — Smoke & CRUD", () => {
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
 
+      // name only → blocked
       await h.gotoNew();
       await h.nameInput().fill(`DEP010021 ${UID}`);
       await h.saveButton().click();
       await expect(page).toHaveURL(/\/new/);
 
+      // code only → blocked
       await h.gotoNew();
       await h.codeInput().fill(`D21${UID.slice(-4).toUpperCase()}`);
       await h.saveButton().click();
       await expect(page).toHaveURL(/\/new/);
     },
   );
+```
 
+- [ ] **Step 2: Run the four tests**
+
+Run: `bun run test -- -g "TC-DEP-010011|TC-DEP-010014|TC-DEP-010018|TC-DEP-010021"`
+Expected: all PASS.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add tests/010-department.spec.ts
+git commit -m "test(department): duplicate-code, is_active toggle, code maxLength, required-field cases"
+```
+
+---
+
+## Task 4: Description CRUD, discard dialog, delete-cancel
+
+**Files:**
+- Modify: `tests/010-department.spec.ts`
+
+- [ ] **Step 1: Add the three tests** (insert after TC-DEP-010021)
+
+```ts
   test(
     "TC-DEP-010015 description สร้าง/แก้ไข + maxLength 256",
     {
@@ -496,11 +441,12 @@ test.describe("Department — Smoke & CRUD", () => {
       await page.waitForLoadState("networkidle");
       await expect(h.descriptionInput()).toHaveValue(desc);
 
+      // maxLength 256: enter edit, type 300 chars, expect cap
       await h.editButton().click();
       await h.descriptionInput().fill("x".repeat(300));
       await expect(h.descriptionInput()).toHaveValue("x".repeat(256));
 
-      // cleanup
+      // cleanup (discard the edit, then delete)
       await h.list.goto();
       await h.list.search(name);
       await h.clickRowName(name);
@@ -533,15 +479,18 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.saveButton().click();
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
+      // edit → dirty → cancel
       await h.editButton().click();
       await h.nameInput().clear();
       await h.nameInput().fill(`${name} DIRTY`);
       await h.cancelButton().click();
 
+      // Discard dialog appears; confirm it
       const discardConfirm = page.getByRole("alertdialog").getByRole("button", { name: /^(Discard|ละทิ้ง|ทิ้ง)$/i });
       await expect(discardConfirm).toBeVisible({ timeout: 5_000 });
       await discardConfirm.click();
 
+      // back to view; reload confirms name unchanged
       await page.reload();
       await page.waitForLoadState("networkidle");
       await expect(page.locator(`#${opts.nameInputId}`)).toHaveValue(name);
@@ -576,6 +525,7 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.saveButton().click();
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
+      // open delete dialog, then cancel it
       await h.editButton().click();
       await h.deleteButton().click();
       const dialog = page.getByRole("alertdialog");
@@ -583,11 +533,12 @@ test.describe("Department — Smoke & CRUD", () => {
       await dialog.getByRole("button", { name: /^(Cancel|ยกเลิก)$/i }).click();
       await expect(dialog).toBeHidden({ timeout: 5_000 });
 
+      // record survives
       await h.list.goto();
       await h.list.search(name);
       await expect(page.getByRole("cell", { name })).toBeVisible();
 
-      // cleanup (actually delete)
+      // cleanup (actually delete now)
       await h.clickRowName(name);
       await h.editButton().click();
       await h.deleteButton().click();
@@ -595,14 +546,45 @@ test.describe("Department — Smoke & CRUD", () => {
       await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
     },
   );
+```
 
+- [ ] **Step 2: Run the three tests**
+
+Run: `bun run test -- -g "TC-DEP-010015|TC-DEP-010016|TC-DEP-010017"`
+Expected: all PASS. If the Discard-dialog confirm button name differs from `/^(Discard|ละทิ้ง|ทิ้ง)$/i`, inspect the rendered alertdialog and widen the regex (report the actual label).
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add tests/010-department.spec.ts
+git commit -m "test(department): description CRUD/maxLength, discard dialog, delete-cancel"
+```
+
+---
+
+## Task 5: Member & HOD assignment (skip-guarded)
+
+**Files:**
+- Modify: `tests/010-department.spec.ts`
+
+- [ ] **Step 1: Import the members helper**
+
+Add to the imports at the top of `tests/010-department.spec.ts`:
+
+```ts
+import { DepartmentMembersHelper } from "./pages/department-form.helper";
+```
+
+- [ ] **Step 2: Add the two tests** (insert after TC-DEP-010017)
+
+```ts
   test(
     "TC-DEP-010019 assign user เข้า department members",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip" },
-        { type: "steps", description: "1. สร้าง record\n2. เปิด record จาก list แล้วกด Edit\n3. ใน section 'Department Members' เลือก user ตัวแรกแล้วย้ายไปขวา\n4. Save\n5. reload เปิด detail เช็คว่า user ปรากฏใน members" },
-        { type: "expected", description: "user ที่ถูก assign แสดงใน section members หลัง reload — หรือ skip ถ้าไม่มี user ว่างให้ assign" },
+        { type: "steps", description: "1. สร้าง record แล้วเข้า Edit\n2. ใน section 'Department Members' เลือก user ตัวแรกแล้วย้ายไปขวา\n3. Save\n4. reload เปิด detail เช็คจำนวน members" },
+        { type: "expected", description: "members ที่ถูกย้ายถูกบันทึก (count ≥ 1 หลัง reload) — หรือ skip ถ้าไม่มี user ว่างให้ assign" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
@@ -619,15 +601,10 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.saveButton().click();
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
-      // open fresh from the list before editing (avoids the create-toast/update-toast
-      // overlap racing the reload — see TC-DEP-010010)
-      await h.list.goto();
-      await h.list.search(name);
-      await h.clickRowName(name);
       await h.editButton().click();
-
       const available = await members.availableCount("Department Members");
       if (available === 0) {
+        // No assignable users seeded — clean up and skip.
         await h.deleteButton().click();
         await h.deleteConfirmButton().click();
         await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
@@ -642,8 +619,10 @@ test.describe("Department — Smoke & CRUD", () => {
 
       await page.reload();
       await page.waitForLoadState("networkidle");
-      // assigned user's name is now shown in the (view-mode) members section
-      await expect(page.getByText(moved!.split("\n")[0].trim(), { exact: false }).first()).toBeVisible({ timeout: 10_000 });
+      // The members section heading shows a count badge ≥ 1 after assignment.
+      await expect(
+        page.getByText("Department Members", { exact: true }).locator("xpath=following-sibling::*[1]"),
+      ).toHaveText(/[1-9]/, { timeout: 10_000 });
 
       // cleanup
       await h.list.goto();
@@ -661,8 +640,8 @@ test.describe("Department — Smoke & CRUD", () => {
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip" },
-        { type: "steps", description: "1. สร้าง record\n2. เปิด record จาก list แล้วกด Edit\n3. ใน section 'Head of Department' เลือก user ตัวแรกแล้วย้ายไปขวา\n4. Save\n5. reload เปิด detail เช็คว่า user ปรากฏใน HOD" },
-        { type: "expected", description: "user ที่ถูก assign แสดงใน section HOD หลัง reload — หรือ skip ถ้าไม่มี user ให้ assign" },
+        { type: "steps", description: "1. สร้าง record แล้วเข้า Edit\n2. ใน section 'Head of Department' เลือก user ตัวแรกแล้วย้ายไปขวา\n3. Save\n4. reload เปิด detail เช็คจำนวน HOD" },
+        { type: "expected", description: "HOD ที่ถูกย้ายถูกบันทึก (count ≥ 1 หลัง reload) — หรือ skip ถ้าไม่มี user ให้ assign" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "CRUD" },
       ],
@@ -679,11 +658,7 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.saveButton().click();
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
-      await h.list.goto();
-      await h.list.search(name);
-      await h.clickRowName(name);
       await h.editButton().click();
-
       const available = await members.availableCount("Head of Department");
       if (available === 0) {
         await h.deleteButton().click();
@@ -700,7 +675,9 @@ test.describe("Department — Smoke & CRUD", () => {
 
       await page.reload();
       await page.waitForLoadState("networkidle");
-      await expect(page.getByText(moved!.split("\n")[0].trim(), { exact: false }).first()).toBeVisible({ timeout: 10_000 });
+      await expect(
+        page.getByText("Head of Department", { exact: true }).locator("xpath=following-sibling::*[1]"),
+      ).toHaveText(/[1-9]/, { timeout: 10_000 });
 
       // cleanup
       await h.list.goto();
@@ -712,4 +689,67 @@ test.describe("Department — Smoke & CRUD", () => {
       await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
     },
   );
-});
+```
+
+- [ ] **Step 3: Run the two tests**
+
+Run: `bun run test -- -g "TC-DEP-010019|TC-DEP-010020"`
+Expected: PASS or SKIP (skip is acceptable if BLAVG has no assignable users). If they FAIL on the Transfer locator (e.g. section scoping matches the wrong card or the count-badge assertion), inspect the rendered DOM in edit mode and report — the section-scoping (`DepartmentMembersHelper.section`) or the count-badge XPath may need adjustment. Do NOT loosen the assertion to make a broken locator pass.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add tests/010-department.spec.ts
+git commit -m "test(department): member & HOD assignment (skip-guarded)"
+```
+
+---
+
+## Task 6: Docs + audits + full regression
+
+**Files:**
+- Regenerate: `docs/user-stories/010-department.md`
+
+- [ ] **Step 1: Annotation completeness**
+
+Run:
+```bash
+f=tests/010-department.spec.ts; pre=$(grep -c 'type: "preconditions"' "$f"); exp=$(grep -c 'type: "expected"' "$f"); echo "pre=$pre exp=$exp"; [ "$pre" = "$exp" ] && echo OK || echo MISMATCH
+```
+Expected: `OK`.
+
+- [ ] **Step 2: TC-ID audit**
+
+Run: `bun audit:tc-ids`
+Expected: `0 errors`. (All new IDs are `TC-DEP-0100xx`, section 01 — within the DEP `01–05, 10` catalog.)
+
+- [ ] **Step 3: Regenerate user-story docs**
+
+Run: `bun docs:user-stories`
+Then confirm the new IDs are present:
+```bash
+grep -oE "TC-DEP-0100(10|11|12|14|15|16|17|18|19|20|21)" docs/user-stories/010-department.md | sort -u
+```
+Expected: all 11 IDs listed.
+
+- [ ] **Step 4: Full department spec run**
+
+Run: `bun run test -- 010-department.spec.ts`
+Expected: all PASS (010019/010020 may SKIP). No failures.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add tests/010-department.spec.ts docs/user-stories/010-department.md
+git commit -m "docs(user-stories): regenerate for new department test cases"
+```
+
+---
+
+## Self-Review notes
+
+- **Spec coverage vs the approved tiers:** Tier 1 → 010010 (regression guard), 010011, 010014 (Tasks 2–3). Tier 2 → 010015, 010016, 010017, 010018 (Tasks 3–4). Tier 3 → 010019, 010020 (Task 5). Tier 4 → 010012 (search-by-code), 010021 (individual required) (Tasks 2–3). Pagination is explicitly **deferred** (documented above) — surface this to the user at execution handoff.
+- **Unique data:** every self-contained test derives its own `code`/`name` from the TC number + module `UID`; codes are ≤10 chars (`D10....`, `D11....`, etc.) so they never collide with the serial chain (`E2E....`) or each other.
+- **Cleanup:** each create-heavy test deletes its record at the end. Leftovers only persist if a test fails mid-way (acceptable for E2E-prefixed data).
+- **Type/method consistency:** `descriptionInput()`, `isActive()`, `setActive()` (Task 1) are used exactly as named in Tasks 3–4; `DepartmentMembersHelper.availableCount`/`assignFirstAvailable` (Task 1) are used as named in Task 5; `opts.descriptionInputId` is added in Task 2 Step 1 before first use.
+- **Known risk:** the Transfer tests (Task 5) are the highest-flake — section scoping + count-badge assertion are the fragile points and are flagged for live verification; they skip cleanly when no users are assignable.

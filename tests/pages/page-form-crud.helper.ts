@@ -17,6 +17,7 @@ export interface PageFormCrudOptions {
   codeInputId: string; // e.g. "department-code"
   nameInputId: string; // e.g. "department-name"
   activeSwitchId?: string; // e.g. "department-is-active"
+  descriptionInputId?: string; // e.g. "department-description"
 }
 
 class _BasePageImpl extends BasePage {}
@@ -50,6 +51,29 @@ export class PageFormCrudHelper {
     return this.opts.activeSwitchId
       ? this.page.locator(`#${this.opts.activeSwitchId}`)
       : null;
+  }
+
+  descriptionInput(): Locator {
+    if (!this.opts.descriptionInputId) {
+      throw new Error("descriptionInputId not configured for this module");
+    }
+    return this.page.locator(`#${this.opts.descriptionInputId}`);
+  }
+
+  /** Read the Radix status switch state (role="switch" → aria-checked). */
+  async isActive(): Promise<boolean> {
+    const sw = this.activeSwitch();
+    if (!sw) throw new Error("activeSwitchId not configured for this module");
+    return (await sw.getAttribute("aria-checked")) === "true";
+  }
+
+  /** Set the status switch to `on`, clicking only if it differs from current. */
+  async setActive(on: boolean): Promise<void> {
+    const sw = this.activeSwitch();
+    if (!sw) throw new Error("activeSwitchId not configured for this module");
+    if ((await this.isActive()) !== on) {
+      await sw.click();
+    }
   }
 
   // Save button is rendered by FormToolbar — name is "Create" or "Save" depending on mode

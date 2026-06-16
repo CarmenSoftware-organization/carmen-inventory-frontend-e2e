@@ -5,7 +5,7 @@ _Generated from `tests/010-department.spec.ts` annotations. Edit annotations, no
 **Module:** Department
 **Spec:** `tests/010-department.spec.ts`
 **Default role:** Admin
-**Total test cases:** 14 (10 High / 4 Medium / 0 Low)
+**Total test cases:** 25 (12 High / 11 Medium / 1 Low / 1 unset)
 
 ## Test Cases at a Glance
 
@@ -16,11 +16,22 @@ _Generated from `tests/010-department.spec.ts` annotations. Edit annotations, no
 | TC-DEP-010003 | ช่องค้นหาใช้งานได้ | Medium | Smoke |
 | TC-DEP-010004 | ค้นหาคำที่ไม่มีต้องแสดง empty state | Medium | Functional |
 | TC-DEP-010005 | บันทึกโดยไม่กรอก code/name ต้องแสดง error | High | Validation |
-| TC-DEP-010006 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
+| TC-DEP-010006 | chain — shares the TC-DEP-010006 record | — | — |
 | TC-DEP-010007 | แก้ไขชื่อและบันทึก | High | CRUD |
 | TC-DEP-010008 | ลบรายการ | High | CRUD |
 | TC-DEP-010009 | active BU = BLAVG | High | Smoke |
+| TC-DEP-010010 | แก้ไขแล้ว persist หลัง reload | High | Functional |
+| TC-DEP-010011 | สร้าง code ซ้ำ ต้องถูก reject | High | Negative |
+| TC-DEP-010012 | ค้นหาด้วย code เจอรายการ | Medium | Functional |
 | TC-DEP-010013 | แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error | Medium | Validation |
+| TC-DEP-010014 | toggle is_active แล้ว persist | High | CRUD |
+| TC-DEP-010015 | description สร้าง/แก้ไข + maxLength 256 | Medium | CRUD |
+| TC-DEP-010016 | Cancel ขณะ form dirty ต้องเด้ง Discard dialog | Medium | Functional |
+| TC-DEP-010017 | ยกเลิกการลบ record ต้องยังอยู่ | Medium | Functional |
+| TC-DEP-010018 | code เกิน maxLength ต้องถูกจำกัดที่ 10 | Medium | Validation |
+| TC-DEP-010019 | assign user เข้า department members | Medium | CRUD |
+| TC-DEP-010020 | assign user เป็น Head of Department | Low | CRUD |
+| TC-DEP-010021 | บันทึกโดยกรอก field เดียว ต้องถูก block | Medium | Validation |
 | TC-DEP-100001 | XSS payload ในชื่อต้องไม่รัน script | High | Security |
 | TC-DEP-100002 | SQL injection payload ต้องไม่ทำให้ระบบ crash | High | Security |
 | TC-DEP-100003 | ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100 | Medium | Validation |
@@ -132,26 +143,24 @@ URL ยังคงอยู่ที่ /new (ฟอร์ม block submit ด�
 
 ---
 
-## TC-DEP-010006 — สร้างรายการใหม่และปรากฏในตาราง
+## TC-DEP-010006 — chain — shares the TC-DEP-010006 record
 
-> **As a** Admin user, **I want** to create a new Department record, **so that** it becomes available for downstream operations.
+> **As a** Admin user, **I want** this Department behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
 
-**Priority:** High · **Test Type:** CRUD
+**Priority:** _unset_ · **Test Type:** _unset_
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; record CODE/NAME ยังไม่มีอยู่ใน DB
+_(none documented)_
 
 **Steps**
 
-1. เปิด new form
-2. กรอก code + name (ใช้ default parent/hierarchy ถ้ามี)
-3. กด Save
-4. กลับ list และค้นหาด้วย NAME
+_(no steps documented)_
 
 **Expected**
 
-Success toast (created/success/สำเร็จ); แถวใหม่ที่มี NAME ปรากฏใน list
+_(no expected outcome documented)_
 
 ---
 
@@ -225,6 +234,76 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 
 ---
 
+## TC-DEP-010010 — แก้ไขแล้ว persist หลัง reload
+
+> **As a** Admin user, **I want** this Department interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** High · **Test Type:** Functional
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. สร้าง department (code+name)
+2. เปิด detail กด Edit เปลี่ยน name เป็นค่าใหม่ แล้ว Save
+3. reload หน้า detail
+4. กลับ list ค้นหา name ใหม่และ name เดิม
+
+**Expected**
+
+หลัง reload ฟอร์มแสดง name ใหม่ (ค่าถูก persist จริง ไม่ใช่แค่ toast); list มีแถว name ใหม่ และไม่พบ name เดิม
+
+---
+
+## TC-DEP-010011 — สร้าง code ซ้ำ ต้องถูก reject
+
+> **As a** Admin user, **I want** this Department behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. สร้าง department ด้วย code X
+2. สร้างอีกรายการด้วย code X เดิม (name ต่าง)
+3. กด Save
+
+**Expected**
+
+รายการที่สองไม่ถูกสร้าง: ยังอยู่ที่ฟอร์ม /new (ไม่ navigate ไป detail) — backend reject code ซ้ำ
+
+> _Note: Skipped via test.fixme: backend currently has NO unique constraint on department code per BU, so duplicates are accepted. Assertion encodes the intended behaviour — unskip when the backend adds the constraint._
+
+---
+
+## TC-DEP-010012 — ค้นหาด้วย code เจอรายการ
+
+> **As a** Admin user, **I want** this Department interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** Medium · **Test Type:** Functional
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. สร้าง department ด้วย code+name ที่รู้ค่า
+2. กลับ list แล้วค้นหาด้วย code
+3. ลบ record
+
+**Expected**
+
+list แสดงแถวที่มี name ของ record เมื่อค้นด้วย code
+
+---
+
 ## TC-DEP-010013 — แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error
 
 > **As a** Admin user, **I want** the system to block invalid Department submissions, **so that** data quality is preserved.
@@ -246,6 +325,189 @@ TC-DEP-010007 ผ่านแล้ว → record มี name = NAME_UPDATED
 **Expected**
 
 Save button ยังคง visible (form ไม่ submit; ยังอยู่ใน edit mode)
+
+---
+
+## TC-DEP-010014 — toggle is_active แล้ว persist
+
+> **As a** Admin user, **I want** to manage Department records via CRUD, **so that** the data stays correct over time.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. เปิด new form
+2. ปิด switch is_active
+3. กรอก code+name แล้ว Save
+4. reload detail แล้วอ่านสถานะ switch
+
+**Expected**
+
+หลัง save+reload switch is_active = false (ค่าถูก persist)
+
+---
+
+## TC-DEP-010015 — description สร้าง/แก้ไข + maxLength 256
+
+> **As a** Admin user, **I want** to create a new Department record, **so that** it becomes available for downstream operations.
+
+**Priority:** Medium · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. สร้าง department พร้อม description
+2. reload เช็คค่า description
+3. ตรวจ maxLength: พิมพ์ description ยาว 300 ตัว
+4. ลบ record
+
+**Expected**
+
+description ถูก persist หลัง reload; ช่อง description ถูกจำกัดที่ 256 ตัวอักษร
+
+---
+
+## TC-DEP-010016 — Cancel ขณะ form dirty ต้องเด้ง Discard dialog
+
+> **As a** Admin user, **I want** this Department interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** Medium · **Test Type:** Functional
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG; มี record อยู่
+
+**Steps**
+
+1. สร้าง record
+2. เปิด detail กด Edit เปลี่ยน name (form dirty)
+3. กด Cancel
+4. ยืนยัน Discard
+5. reload เช็ค name เดิม
+
+**Expected**
+
+Discard dialog ปรากฏ; หลังยืนยันกลับ view mode และ name ยังเป็นค่าเดิม (ไม่ถูกบันทึก)
+
+---
+
+## TC-DEP-010017 — ยกเลิกการลบ record ต้องยังอยู่
+
+> **As a** Admin user, **I want** this Department interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** Medium · **Test Type:** Functional
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG; มี record อยู่
+
+**Steps**
+
+1. สร้าง record
+2. เปิด detail กด Edit แล้วกด Delete
+3. ใน dialog กด Cancel
+4. กลับ list ค้นหา record
+
+**Expected**
+
+Delete dialog ปิดโดยไม่ลบ; record ยังปรากฏใน list
+
+---
+
+## TC-DEP-010018 — code เกิน maxLength ต้องถูกจำกัดที่ 10
+
+> **As a** Admin user, **I want** the system to block invalid Department submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new
+
+**Steps**
+
+1. เปิด new form
+2. พิมพ์ code ยาว 15 ตัวอักษร
+
+**Expected**
+
+ค่าใน input ถูกตัดที่ 10 ตัวอักษร (maxLength=10)
+
+---
+
+## TC-DEP-010019 — assign user เข้า department members
+
+> **As a** Admin user, **I want** to manage Department records via CRUD, **so that** the data stays correct over time.
+
+**Priority:** Medium · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip
+
+**Steps**
+
+1. สร้าง record
+2. เปิด record จาก list แล้วกด Edit
+3. ใน section 'Department Members' เลือก user ตัวแรกแล้วย้ายไปขวา
+4. Save
+5. reload เปิด detail เช็คว่า user ปรากฏใน members
+
+**Expected**
+
+user ที่ถูก assign แสดงใน section members หลัง reload — หรือ skip ถ้าไม่มี user ว่างให้ assign
+
+---
+
+## TC-DEP-010020 — assign user เป็น Head of Department
+
+> **As a** Admin user, **I want** to manage Department records via CRUD, **so that** the data stays correct over time.
+
+**Priority:** Low · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip
+
+**Steps**
+
+1. สร้าง record
+2. เปิด record จาก list แล้วกด Edit
+3. ใน section 'Head of Department' เลือก user ตัวแรกแล้วย้ายไปขวา
+4. Save
+5. reload เปิด detail เช็คว่า user ปรากฏใน HOD
+
+**Expected**
+
+user ที่ถูก assign แสดงใน section HOD หลัง reload — หรือ skip ถ้าไม่มี user ให้ assign
+
+---
+
+## TC-DEP-010021 — บันทึกโดยกรอก field เดียว ต้องถูก block
+
+> **As a** Admin user, **I want** the system to block invalid Department submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new
+
+**Steps**
+
+1. เปิด new form กรอกเฉพาะ name (code ว่าง) กด Save
+2. เปิด new form ใหม่ กรอกเฉพาะ code (name ว่าง) กด Save
+
+**Expected**
+
+ทั้งสองกรณีฟอร์ม block submit: ยังอยู่ที่ /new
 
 ---
 
@@ -337,4 +599,4 @@ User ถูก redirect ออกจาก /config/department หรือ ป�
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git c1d642c</sub>
+<sub>Last regenerated: 2026-06-16 · git 2039f05</sub>
