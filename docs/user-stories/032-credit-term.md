@@ -15,15 +15,15 @@ _Generated from `tests/032-credit-term.spec.ts` annotations. Edit annotations, n
 | TC-CT-010002 | ปุ่ม Add แสดง | High | Smoke |
 | TC-CT-010003 | ช่องค้นหาใช้งานได้ | Medium | Smoke |
 | TC-CT-010004 | ค้นหาคำที่ไม่มีต้องแสดง empty state | Medium | Functional |
-| TC-CT-010005 | บันทึกโดยไม่กรอกชื่อต้องแสดง error | High | Validation |
-| TC-CT-010006 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
-| TC-CT-010007 | แก้ไขชื่อและบันทึก | High | CRUD |
-| TC-CT-010008 | ลบรายการ | High | CRUD |
-| TC-CT-010013 | แก้ไข: clear name แล้วบันทึก ต้องแสดง error | Medium | Validation |
+| TC-CT-030001 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
+| TC-CT-040001 | แก้ไขชื่อและบันทึก | High | CRUD |
+| TC-CT-050001 | ลบรายการ | High | CRUD |
 | TC-CT-100001 | XSS payload ในชื่อต้องไม่รัน script | High | Security |
 | TC-CT-100002 | SQL injection payload ต้องไม่ทำให้ระบบ crash | High | Security |
 | TC-CT-100003 | ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100 | Medium | Validation |
 | TC-CT-100004 _(skipped)_ | user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect | High | Authorization |
+| TC-CT-200001 | บันทึกโดยไม่กรอกชื่อต้องแสดง error | High | Validation |
+| TC-CT-200002 | แก้ไข: clear name แล้วบันทึก ต้องแสดง error | Medium | Validation |
 
 ---
 
@@ -109,28 +109,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 ---
 
-## TC-CT-010005 — บันทึกโดยไม่กรอกชื่อต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Credit Term submissions, **so that** data quality is preserved.
-
-**Priority:** High · **Test Type:** Validation
-
-**Preconditions**
-
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/credit-term พร้อม add dialog เปิดอยู่
-
-**Steps**
-
-1. กดปุ่ม Add เพื่อเปิด dialog
-2. กด Save โดยไม่กรอกชื่อ
-
-**Expected**
-
-Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)
-
----
-
-## TC-CT-010006 — สร้างรายการใหม่และปรากฏในตาราง
+## TC-CT-030001 — สร้างรายการใหม่และปรากฏในตาราง
 
 > **As a** Admin user, **I want** to create a new Credit Term record, **so that** it becomes available for downstream operations.
 
@@ -154,7 +133,7 @@ Success toast (created/success/สำเร็จ); แถวใหม่ที�
 
 ---
 
-## TC-CT-010007 — แก้ไขชื่อและบันทึก
+## TC-CT-040001 — แก้ไขชื่อและบันทึก
 
 > **As a** Admin user, **I want** to edit an existing Credit Term record, **so that** its data stays accurate.
 
@@ -162,7 +141,7 @@ Success toast (created/success/สำเร็จ); แถวใหม่ที�
 
 **Preconditions**
 
-TC-CT-010006 ผ่านแล้ว → record NAME มีอยู่ใน DB
+TC-CT-030001 ผ่านแล้ว → record NAME มีอยู่ใน DB
 
 **Steps**
 
@@ -178,7 +157,7 @@ Updated/success toast ปรากฏ; แถวที่มี NAME_UPDATED ป
 
 ---
 
-## TC-CT-010008 — ลบรายการ
+## TC-CT-050001 — ลบรายการ
 
 > **As a** Admin user, **I want** to delete a Credit Term record, **so that** the list reflects only valid entries.
 
@@ -186,7 +165,7 @@ Updated/success toast ปรากฏ; แถวที่มี NAME_UPDATED ป
 
 **Preconditions**
 
-TC-CT-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB
+TC-CT-200002 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB
 
 **Steps**
 
@@ -197,29 +176,6 @@ TC-CT-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงม
 **Expected**
 
 Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
-
----
-
-## TC-CT-010013 — แก้ไข: clear name แล้วบันทึก ต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Credit Term submissions, **so that** data quality is preserved.
-
-**Priority:** Medium · **Test Type:** Validation
-
-**Preconditions**
-
-TC-CT-010007 ผ่านแล้ว → record มี name = NAME_UPDATED
-
-**Steps**
-
-1. ค้นหา NAME_UPDATED ใน list
-2. เปิด edit dialog
-3. clear name
-4. กด Save
-
-**Expected**
-
-Error message ปรากฏใน dialog (form block submit; ยังอยู่ใน edit mode)
 
 ---
 
@@ -311,5 +267,49 @@ User ถูก redirect ออกจาก /config/credit-term หรือ ป�
 
 ---
 
+## TC-CT-200001 — บันทึกโดยไม่กรอกชื่อต้องแสดง error
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+> **As a** Admin user, **I want** the system to block invalid Credit Term submissions, **so that** data quality is preserved.
+
+**Priority:** High · **Test Type:** Validation
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; อยู่ที่ /config/credit-term พร้อม add dialog เปิดอยู่
+
+**Steps**
+
+1. กดปุ่ม Add เพื่อเปิด dialog
+2. กด Save โดยไม่กรอกชื่อ
+
+**Expected**
+
+Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)
+
+---
+
+## TC-CT-200002 — แก้ไข: clear name แล้วบันทึก ต้องแสดง error
+
+> **As a** Admin user, **I want** the system to block invalid Credit Term submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+TC-CT-040001 ผ่านแล้ว → record มี name = NAME_UPDATED
+
+**Steps**
+
+1. ค้นหา NAME_UPDATED ใน list
+2. เปิด edit dialog
+3. clear name
+4. กด Save
+
+**Expected**
+
+Error message ปรากฏใน dialog (form block submit; ยังอยู่ใน edit mode)
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git 2d72894</sub>

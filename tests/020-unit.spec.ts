@@ -115,7 +115,7 @@ test.describe("Unit — Smoke", () => {
   );
 
   test(
-    "TC-UN-010006 สร้าง unit ใหม่และปรากฏในตาราง",
+    "TC-UN-030001 สร้าง unit ใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
@@ -142,7 +142,7 @@ test.describe("Unit — Smoke", () => {
   );
 
   test(
-    "TC-UN-010007 แก้ไขชื่อแล้ว persist",
+    "TC-UN-040001 แก้ไขชื่อแล้ว persist",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
@@ -184,7 +184,7 @@ test.describe("Unit — Smoke", () => {
   );
 
   test(
-    "TC-UN-010008 ลบ unit",
+    "TC-UN-050001 ลบ unit",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
@@ -216,7 +216,7 @@ test.describe("Unit — Smoke", () => {
   );
 
   test(
-    "TC-UN-010009 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
+    "TC-UN-200001 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
@@ -237,7 +237,7 @@ test.describe("Unit — Smoke", () => {
   );
 
   test(
-    "TC-UN-010010 สร้าง name ซ้ำ ต้องถูก reject",
+    "TC-UN-200002 สร้าง name ซ้ำ ต้องถูก reject",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
@@ -274,7 +274,7 @@ test.describe("Unit — Smoke", () => {
   );
 
   test(
-    "TC-UN-010011 description สร้าง/แก้ไข + maxLength",
+    "TC-UN-200003 description สร้าง/แก้ไข + maxLength",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
@@ -315,7 +315,7 @@ test.describe("Unit — Smoke", () => {
   );
 
   test(
-    "TC-UN-010012 toggle is_active แล้ว persist",
+    "TC-UN-040002 toggle is_active แล้ว persist",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
@@ -350,7 +350,7 @@ test.describe("Unit — Smoke", () => {
   );
 
   test(
-    "TC-UN-010013 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
+    "TC-UN-200004 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },

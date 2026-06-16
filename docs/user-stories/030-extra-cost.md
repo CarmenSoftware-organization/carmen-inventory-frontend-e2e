@@ -15,15 +15,15 @@ _Generated from `tests/030-extra-cost.spec.ts` annotations. Edit annotations, no
 | TC-EC-010002 | ปุ่ม Add แสดง | High | Smoke |
 | TC-EC-010003 | ช่องค้นหาใช้งานได้ | Medium | Smoke |
 | TC-EC-010004 | ค้นหาคำที่ไม่มีต้องแสดง empty state | Medium | Functional |
-| TC-EC-010005 | บันทึกโดยไม่กรอกชื่อต้องแสดง error | High | Validation |
-| TC-EC-010006 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
-| TC-EC-010007 | แก้ไขชื่อและบันทึก | High | CRUD |
-| TC-EC-010008 | ลบรายการ | High | CRUD |
-| TC-EC-010013 | แก้ไข: clear name แล้วบันทึก ต้องแสดง error | Medium | Validation |
+| TC-EC-030001 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
+| TC-EC-040001 | แก้ไขชื่อและบันทึก | High | CRUD |
+| TC-EC-050001 | ลบรายการ | High | CRUD |
 | TC-EC-100001 | XSS payload ในชื่อต้องไม่รัน script | High | Security |
 | TC-EC-100002 | SQL injection payload ต้องไม่ทำให้ระบบ crash | High | Security |
 | TC-EC-100003 | ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100 | Medium | Validation |
 | TC-EC-100004 _(skipped)_ | user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect | High | Authorization |
+| TC-EC-200001 | บันทึกโดยไม่กรอกชื่อต้องแสดง error | High | Validation |
+| TC-EC-200002 | แก้ไข: clear name แล้วบันทึก ต้องแสดง error | Medium | Validation |
 
 ---
 
@@ -109,28 +109,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 ---
 
-## TC-EC-010005 — บันทึกโดยไม่กรอกชื่อต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Extra Cost submissions, **so that** data quality is preserved.
-
-**Priority:** High · **Test Type:** Validation
-
-**Preconditions**
-
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/extra-cost
-
-**Steps**
-
-1. เปิด Add dialog
-2. กด Save โดยไม่กรอกชื่อ
-
-**Expected**
-
-Error message แสดงใน dialog (required validation); dialog ยังเปิดอยู่
-
----
-
-## TC-EC-010006 — สร้างรายการใหม่และปรากฏในตาราง
+## TC-EC-030001 — สร้างรายการใหม่และปรากฏในตาราง
 
 > **As a** Admin user, **I want** to create a new Extra Cost record, **so that** it becomes available for downstream operations.
 
@@ -153,7 +132,7 @@ Success toast (created/success/สำเร็จ); แถวใหม่ที�
 
 ---
 
-## TC-EC-010007 — แก้ไขชื่อและบันทึก
+## TC-EC-040001 — แก้ไขชื่อและบันทึก
 
 > **As a** Admin user, **I want** to edit an existing Extra Cost record, **so that** its data stays accurate.
 
@@ -161,7 +140,7 @@ Success toast (created/success/สำเร็จ); แถวใหม่ที�
 
 **Preconditions**
 
-TC-EC-010006 ผ่านแล้ว → record NAME มีอยู่ใน DB
+TC-EC-030001 ผ่านแล้ว → record NAME มีอยู่ใน DB
 
 **Steps**
 
@@ -177,7 +156,7 @@ Updated/success toast ปรากฏ; แถวที่มีชื่อ NAME
 
 ---
 
-## TC-EC-010008 — ลบรายการ
+## TC-EC-050001 — ลบรายการ
 
 > **As a** Admin user, **I want** to delete a Extra Cost record, **so that** the list reflects only valid entries.
 
@@ -185,7 +164,7 @@ Updated/success toast ปรากฏ; แถวที่มีชื่อ NAME
 
 **Preconditions**
 
-TC-EC-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB
+TC-EC-200002 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB
 
 **Steps**
 
@@ -196,29 +175,6 @@ TC-EC-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงม
 **Expected**
 
 Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
-
----
-
-## TC-EC-010013 — แก้ไข: clear name แล้วบันทึก ต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Extra Cost submissions, **so that** data quality is preserved.
-
-**Priority:** Medium · **Test Type:** Validation
-
-**Preconditions**
-
-TC-EC-010007 ผ่านแล้ว → record มี name = NAME_UPDATED
-
-**Steps**
-
-1. ค้นหา NAME_UPDATED ใน list
-2. เปิด edit dialog
-3. clear name
-4. กด Save
-
-**Expected**
-
-Error message แสดงใน dialog (required validation); dialog ยังเปิดอยู่
 
 ---
 
@@ -310,5 +266,49 @@ User ถูก redirect ออกจาก /config/extra-cost หรือ ป�
 
 ---
 
+## TC-EC-200001 — บันทึกโดยไม่กรอกชื่อต้องแสดง error
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+> **As a** Admin user, **I want** the system to block invalid Extra Cost submissions, **so that** data quality is preserved.
+
+**Priority:** High · **Test Type:** Validation
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; อยู่ที่ /config/extra-cost
+
+**Steps**
+
+1. เปิด Add dialog
+2. กด Save โดยไม่กรอกชื่อ
+
+**Expected**
+
+Error message แสดงใน dialog (required validation); dialog ยังเปิดอยู่
+
+---
+
+## TC-EC-200002 — แก้ไข: clear name แล้วบันทึก ต้องแสดง error
+
+> **As a** Admin user, **I want** the system to block invalid Extra Cost submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+TC-EC-040001 ผ่านแล้ว → record มี name = NAME_UPDATED
+
+**Steps**
+
+1. ค้นหา NAME_UPDATED ใน list
+2. เปิด edit dialog
+3. clear name
+4. กด Save
+
+**Expected**
+
+Error message แสดงใน dialog (required validation); dialog ยังเปิดอยู่
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git 2d72894</sub>

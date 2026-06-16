@@ -87,7 +87,7 @@ test.describe("Business Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-BT-010005 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
+    "TC-BT-200001 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type" },
@@ -107,7 +107,7 @@ test.describe("Business Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-BT-010006 สร้างรายการใหม่และปรากฏในตาราง",
+    "TC-BT-030001 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
@@ -131,10 +131,10 @@ test.describe("Business Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-BT-010007 แก้ไขชื่อและบันทึก",
+    "TC-BT-040001 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "TC-BT-010006 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-BT-030001 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด edit dialog\n3. แก้ name เป็น NAME_UPDATED\n4. กด Save\n5. ค้นหาด้วย NAME_UPDATED" },
         { type: "expected", description: "Updated/success toast ปรากฏ; แถวที่มี NAME_UPDATED ปรากฏใน list" },
         { type: "priority", description: "High" },
@@ -159,10 +159,10 @@ test.describe("Business Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-BT-010013 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
+    "TC-BT-200002 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "TC-BT-010007 ผ่านแล้ว → record มี name = NAME_UPDATED" },
+        { type: "preconditions", description: "TC-BT-040001 ผ่านแล้ว → record มี name = NAME_UPDATED" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด edit dialog\n3. clear name\n4. กด Save" },
         { type: "expected", description: "Error message ปรากฏใน dialog (form block submit; ยังคงอยู่ใน edit mode)" },
         { type: "priority", description: "Medium" },
@@ -181,10 +181,10 @@ test.describe("Business Type — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-BT-010008 ลบรายการ",
+    "TC-BT-050001 ลบรายการ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-BT-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-BT-200002 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. กด Delete บนแถว\n3. ยืนยัน Delete ใน confirm dialog" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
         { type: "priority", description: "High" },

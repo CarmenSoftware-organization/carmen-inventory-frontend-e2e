@@ -15,17 +15,17 @@ _Generated from `tests/031-adjustment-type.spec.ts` annotations. Edit annotation
 | TC-AT-010002 | ปุ่ม Add แสดง | High | Smoke |
 | TC-AT-010003 | ช่องค้นหาใช้งานได้ | Medium | Smoke |
 | TC-AT-010004 | ค้นหาคำที่ไม่มีต้องแสดง empty state | Medium | Functional |
-| TC-AT-010005 | บันทึกโดยไม่กรอก code/name ต้องแสดง error | High | Validation |
-| TC-AT-010006 | สร้างรายการใหม่ (Stock In) และปรากฏในตาราง | High | CRUD |
-| TC-AT-010007 | แก้ไขชื่อและบันทึก | High | CRUD |
-| TC-AT-010008 | ลบรายการ (Stock In) | High | CRUD |
-| TC-AT-010009 | สร้างรายการใหม่ (Stock Out) และปรากฏในตาราง | High | CRUD |
-| TC-AT-010010 | ลบรายการ (Stock Out) | High | CRUD |
-| TC-AT-010015 | แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error | Medium | Validation |
+| TC-AT-030001 | สร้างรายการใหม่ (Stock In) และปรากฏในตาราง | High | CRUD |
+| TC-AT-030002 | สร้างรายการใหม่ (Stock Out) และปรากฏในตาราง | High | CRUD |
+| TC-AT-040001 | แก้ไขชื่อและบันทึก | High | CRUD |
+| TC-AT-050001 | ลบรายการ (Stock In) | High | CRUD |
+| TC-AT-050002 | ลบรายการ (Stock Out) | High | CRUD |
 | TC-AT-100001 | XSS payload ในชื่อต้องไม่รัน script | High | Security |
 | TC-AT-100002 | SQL injection payload ต้องไม่ทำให้ระบบ crash | High | Security |
 | TC-AT-100003 | ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100 | Medium | Validation |
 | TC-AT-100004 _(skipped)_ | user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect | High | Authorization |
+| TC-AT-200001 | บันทึกโดยไม่กรอก code/name ต้องแสดง error | High | Validation |
+| TC-AT-200002 | แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error | Medium | Validation |
 
 ---
 
@@ -111,28 +111,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 ---
 
-## TC-AT-010005 — บันทึกโดยไม่กรอก code/name ต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Adjustment Type submissions, **so that** data quality is preserved.
-
-**Priority:** High · **Test Type:** Validation
-
-**Preconditions**
-
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/adjustment-type/new
-
-**Steps**
-
-1. เปิดฟอร์ม new
-2. กด Save โดยไม่กรอก code/name
-
-**Expected**
-
-URL ยังคงอยู่ที่ /new (ฟอร์ม block submit ด้วย client-side validation)
-
----
-
-## TC-AT-010006 — สร้างรายการใหม่ (Stock In) และปรากฏในตาราง
+## TC-AT-030001 — สร้างรายการใหม่ (Stock In) และปรากฏในตาราง
 
 > **As a** Admin user, **I want** to create a new Adjustment Type record, **so that** it becomes available for downstream operations.
 
@@ -156,55 +135,7 @@ Success toast (created/success/สำเร็จ); แถวใหม่ที�
 
 ---
 
-## TC-AT-010007 — แก้ไขชื่อและบันทึก
-
-> **As a** Admin user, **I want** to edit an existing Adjustment Type record, **so that** its data stays accurate.
-
-**Priority:** High · **Test Type:** CRUD
-
-**Preconditions**
-
-TC-AT-010006 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB
-
-**Steps**
-
-1. ค้นหา CODE ใน list
-2. คลิกแถวเพื่อเปิด detail
-3. กดปุ่ม Edit
-4. แก้ name เป็น NAME_UPDATED
-5. กด Save
-
-**Expected**
-
-Updated/success toast ปรากฏ (updated/success/สำเร็จ)
-
----
-
-## TC-AT-010008 — ลบรายการ (Stock In)
-
-> **As a** Admin user, **I want** to delete a Adjustment Type record, **so that** the list reflects only valid entries.
-
-**Priority:** High · **Test Type:** CRUD
-
-**Preconditions**
-
-TC-AT-010015 ผ่านแล้ว → record CODE ยังคงมีอยู่ใน DB
-
-**Steps**
-
-1. ค้นหา CODE ใน list
-2. เปิด detail
-3. กด Edit
-4. กด Delete
-5. ยืนยัน Delete
-
-**Expected**
-
-Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
-
----
-
-## TC-AT-010009 — สร้างรายการใหม่ (Stock Out) และปรากฏในตาราง
+## TC-AT-030002 — สร้างรายการใหม่ (Stock Out) และปรากฏในตาราง
 
 > **As a** Admin user, **I want** to create a new Adjustment Type record, **so that** it becomes available for downstream operations.
 
@@ -228,7 +159,31 @@ Success toast (created/success/สำเร็จ); แถวใหม่ที�
 
 ---
 
-## TC-AT-010010 — ลบรายการ (Stock Out)
+## TC-AT-040001 — แก้ไขชื่อและบันทึก
+
+> **As a** Admin user, **I want** to edit an existing Adjustment Type record, **so that** its data stays accurate.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+TC-AT-030001 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB
+
+**Steps**
+
+1. ค้นหา CODE ใน list
+2. คลิกแถวเพื่อเปิด detail
+3. กดปุ่ม Edit
+4. แก้ name เป็น NAME_UPDATED
+5. กด Save
+
+**Expected**
+
+Updated/success toast ปรากฏ (updated/success/สำเร็จ)
+
+---
+
+## TC-AT-050001 — ลบรายการ (Stock In)
 
 > **As a** Admin user, **I want** to delete a Adjustment Type record, **so that** the list reflects only valid entries.
 
@@ -236,7 +191,31 @@ Success toast (created/success/สำเร็จ); แถวใหม่ที�
 
 **Preconditions**
 
-TC-AT-010009 ผ่านแล้ว → record CODE_OUT มีอยู่ใน DB
+TC-AT-200002 ผ่านแล้ว → record CODE ยังคงมีอยู่ใน DB
+
+**Steps**
+
+1. ค้นหา CODE ใน list
+2. เปิด detail
+3. กด Edit
+4. กด Delete
+5. ยืนยัน Delete
+
+**Expected**
+
+Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
+
+---
+
+## TC-AT-050002 — ลบรายการ (Stock Out)
+
+> **As a** Admin user, **I want** to delete a Adjustment Type record, **so that** the list reflects only valid entries.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+TC-AT-030002 ผ่านแล้ว → record CODE_OUT มีอยู่ใน DB
 
 **Steps**
 
@@ -249,30 +228,6 @@ TC-AT-010009 ผ่านแล้ว → record CODE_OUT มีอยู่ใ�
 **Expected**
 
 Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
-
----
-
-## TC-AT-010015 — แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Adjustment Type submissions, **so that** data quality is preserved.
-
-**Priority:** Medium · **Test Type:** Validation
-
-**Preconditions**
-
-TC-AT-010007 ผ่านแล้ว → record มี name = NAME_UPDATED
-
-**Steps**
-
-1. ค้นหา CODE ใน list
-2. เปิด detail
-3. กด Edit
-4. clear code + name
-5. กด Save
-
-**Expected**
-
-Save button ยังคง visible (form ไม่ submit; ยังอยู่ใน edit mode)
 
 ---
 
@@ -363,5 +318,50 @@ User ถูก redirect ออกจาก /config/adjustment-type หรือ 
 
 ---
 
+## TC-AT-200001 — บันทึกโดยไม่กรอก code/name ต้องแสดง error
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+> **As a** Admin user, **I want** the system to block invalid Adjustment Type submissions, **so that** data quality is preserved.
+
+**Priority:** High · **Test Type:** Validation
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; อยู่ที่ /config/adjustment-type/new
+
+**Steps**
+
+1. เปิดฟอร์ม new
+2. กด Save โดยไม่กรอก code/name
+
+**Expected**
+
+URL ยังคงอยู่ที่ /new (ฟอร์ม block submit ด้วย client-side validation)
+
+---
+
+## TC-AT-200002 — แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error
+
+> **As a** Admin user, **I want** the system to block invalid Adjustment Type submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+TC-AT-040001 ผ่านแล้ว → record มี name = NAME_UPDATED
+
+**Steps**
+
+1. ค้นหา CODE ใน list
+2. เปิด detail
+3. กด Edit
+4. clear code + name
+5. กด Save
+
+**Expected**
+
+Save button ยังคง visible (form ไม่ submit; ยังอยู่ใน edit mode)
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git 2d72894</sub>

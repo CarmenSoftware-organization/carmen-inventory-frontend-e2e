@@ -89,7 +89,7 @@ test.describe("Currency — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CUR-010005 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
+    "TC-CUR-200001 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; เปิด add dialog ของ /config/currency" },
@@ -109,7 +109,7 @@ test.describe("Currency — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CUR-010006 สร้างรายการใหม่และปรากฏในตาราง",
+    "TC-CUR-030001 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB; ISO code IDR เลือกได้จาก lookup" },
@@ -151,10 +151,10 @@ test.describe("Currency — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CUR-010007 แก้ไขชื่อและบันทึก",
+    "TC-CUR-040001 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CUR-010006 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-CUR-030001 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ไปที่ /config/currency\n2. ค้นหา NAME\n3. คลิกแถวเพื่อเปิด edit dialog\n4. clear name แล้วกรอก NAME_UPDATED\n5. กด Save\n6. ค้นหา NAME_UPDATED" },
         { type: "expected", description: "Updated/success toast ปรากฏ; แถวที่มี Name = NAME_UPDATED ปรากฏใน list" },
         { type: "priority", description: "High" },
@@ -177,10 +177,10 @@ test.describe("Currency — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CUR-010013 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
+    "TC-CUR-200002 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CUR-010007 ผ่านแล้ว → record มี name = NAME_UPDATED" },
+        { type: "preconditions", description: "TC-CUR-040001 ผ่านแล้ว → record มี name = NAME_UPDATED" },
         { type: "steps", description: "1. ไปที่ /config/currency\n2. ค้นหา NAME_UPDATED\n3. คลิกแถวเพื่อเปิด edit dialog\n4. clear name\n5. กด Save\n6. ปิด dialog ด้วย Cancel" },
         { type: "expected", description: "Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)" },
         { type: "priority", description: "Medium" },
@@ -199,10 +199,10 @@ test.describe("Currency — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-CUR-010008 ลบรายการ",
+    "TC-CUR-050001 ลบรายการ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-CUR-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-CUR-200002 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
         { type: "steps", description: "1. ไปที่ /config/currency\n2. ค้นหา NAME_UPDATED\n3. กด delete บนแถว\n4. ยืนยัน Delete" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
         { type: "priority", description: "High" },

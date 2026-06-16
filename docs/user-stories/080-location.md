@@ -15,17 +15,17 @@ _Generated from `tests/080-location.spec.ts` annotations. Edit annotations, not 
 | TC-LOC-010002 | ปุ่ม Add แสดง | High | Smoke |
 | TC-LOC-010003 | ช่องค้นหาใช้งานได้ | Medium | Smoke |
 | TC-LOC-010004 | ค้นหาคำที่ไม่มีต้องแสดง empty state | Medium | Functional |
-| TC-LOC-010005 | บันทึกโดยไม่กรอก code/name ต้องแสดง error | High | Validation |
-| TC-LOC-010006 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
-| TC-LOC-010007 | แก้ไขชื่อและบันทึก | High | CRUD |
-| TC-LOC-010008 | ลบรายการ | High | CRUD |
-| TC-LOC-010013 | แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error | Medium | Validation |
-| TC-LOC-010014 | สร้าง location_type = Direct และลบ | Medium | CRUD |
-| TC-LOC-010015 | สร้าง location_type = Consignment และลบ | Medium | CRUD |
+| TC-LOC-030001 | สร้างรายการใหม่และปรากฏในตาราง | High | CRUD |
+| TC-LOC-030002 | สร้าง location_type = Direct และลบ | Medium | CRUD |
+| TC-LOC-030003 | สร้าง location_type = Consignment และลบ | Medium | CRUD |
+| TC-LOC-040001 | แก้ไขชื่อและบันทึก | High | CRUD |
+| TC-LOC-050001 | ลบรายการ | High | CRUD |
 | TC-LOC-100001 | XSS payload ในชื่อต้องไม่รัน script | High | Security |
 | TC-LOC-100002 | SQL injection payload ต้องไม่ทำให้ระบบ crash | High | Security |
 | TC-LOC-100003 | ชื่อยาวเกิน maxLength ต้องถูกจำกัดที่ 100 | Medium | Validation |
 | TC-LOC-100004 _(skipped)_ | user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect | High | Authorization |
+| TC-LOC-200001 | บันทึกโดยไม่กรอก code/name ต้องแสดง error | High | Validation |
+| TC-LOC-200002 | แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error | Medium | Validation |
 
 ---
 
@@ -111,28 +111,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 ---
 
-## TC-LOC-010005 — บันทึกโดยไม่กรอก code/name ต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Location submissions, **so that** data quality is preserved.
-
-**Priority:** High · **Test Type:** Validation
-
-**Preconditions**
-
-Login เป็น admin@blueledgers.com; on /config/location/new
-
-**Steps**
-
-1. เปิดฟอร์ม new
-2. กด Save โดยไม่กรอก code/name
-
-**Expected**
-
-URL ยังคงอยู่ที่ /new (ฟอร์ม block submit ด้วย client-side validation)
-
----
-
-## TC-LOC-010006 — สร้างรายการใหม่และปรากฏในตาราง
+## TC-LOC-030001 — สร้างรายการใหม่และปรากฏในตาราง
 
 > **As a** Admin user, **I want** to create a new Location record, **so that** it becomes available for downstream operations.
 
@@ -158,79 +137,7 @@ Success toast (created/success/สำเร็จ); แถวใหม่ที�
 
 ---
 
-## TC-LOC-010007 — แก้ไขชื่อและบันทึก
-
-> **As a** Admin user, **I want** to edit an existing Location record, **so that** its data stays accurate.
-
-**Priority:** High · **Test Type:** CRUD
-
-**Preconditions**
-
-TC-LOC-010006 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB
-
-**Steps**
-
-1. ค้นหา NAME ใน list
-2. คลิกแถวเพื่อเปิด detail
-3. กด Edit
-4. clear name แล้วใส่ NAME_UPDATED
-5. กด Save
-
-**Expected**
-
-Updated/success toast ปรากฏ (updated/success/สำเร็จ)
-
----
-
-## TC-LOC-010008 — ลบรายการ
-
-> **As a** Admin user, **I want** to delete a Location record, **so that** the list reflects only valid entries.
-
-**Priority:** High · **Test Type:** CRUD
-
-**Preconditions**
-
-TC-LOC-010013 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB
-
-**Steps**
-
-1. ค้นหา NAME_UPDATED ใน list
-2. เปิด detail
-3. กด Edit
-4. กด Delete
-5. ยืนยัน Delete
-
-**Expected**
-
-Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
-
----
-
-## TC-LOC-010013 — แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error
-
-> **As a** Admin user, **I want** the system to block invalid Location submissions, **so that** data quality is preserved.
-
-**Priority:** Medium · **Test Type:** Validation
-
-**Preconditions**
-
-TC-LOC-010007 ผ่านแล้ว → record มี name = NAME_UPDATED
-
-**Steps**
-
-1. ค้นหา NAME_UPDATED ใน list
-2. เปิด detail
-3. กด Edit
-4. clear code + name
-5. กด Save
-
-**Expected**
-
-Save button ยังคง visible (form ไม่ submit; ยังอยู่ใน edit mode)
-
----
-
-## TC-LOC-010014 — สร้าง location_type = Direct และลบ
+## TC-LOC-030002 — สร้าง location_type = Direct และลบ
 
 > **As a** Admin user, **I want** to create a new Location record, **so that** it becomes available for downstream operations.
 
@@ -257,7 +164,7 @@ Created toast → แถวปรากฏใน list → Deleted toast หล�
 
 ---
 
-## TC-LOC-010015 — สร้าง location_type = Consignment และลบ
+## TC-LOC-030003 — สร้าง location_type = Consignment และลบ
 
 > **As a** Admin user, **I want** to create a new Location record, **so that** it becomes available for downstream operations.
 
@@ -281,6 +188,54 @@ Login เป็น admin@blueledgers.com; record CODE_CONSIGN/NAME_CONSIGN ย�
 **Expected**
 
 Created toast → แถวปรากฏใน list → Deleted toast หลังลบ (วงจร CRUD ครบสำหรับ type Consignment)
+
+---
+
+## TC-LOC-040001 — แก้ไขชื่อและบันทึก
+
+> **As a** Admin user, **I want** to edit an existing Location record, **so that** its data stays accurate.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+TC-LOC-030001 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB
+
+**Steps**
+
+1. ค้นหา NAME ใน list
+2. คลิกแถวเพื่อเปิด detail
+3. กด Edit
+4. clear name แล้วใส่ NAME_UPDATED
+5. กด Save
+
+**Expected**
+
+Updated/success toast ปรากฏ (updated/success/สำเร็จ)
+
+---
+
+## TC-LOC-050001 — ลบรายการ
+
+> **As a** Admin user, **I want** to delete a Location record, **so that** the list reflects only valid entries.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+TC-LOC-200002 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB
+
+**Steps**
+
+1. ค้นหา NAME_UPDATED ใน list
+2. เปิด detail
+3. กด Edit
+4. กด Delete
+5. ยืนยัน Delete
+
+**Expected**
+
+Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
 
 ---
 
@@ -371,5 +326,50 @@ User ถูก redirect ออกจาก /config/location หรือ ปุ�
 
 ---
 
+## TC-LOC-200001 — บันทึกโดยไม่กรอก code/name ต้องแสดง error
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+> **As a** Admin user, **I want** the system to block invalid Location submissions, **so that** data quality is preserved.
+
+**Priority:** High · **Test Type:** Validation
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; on /config/location/new
+
+**Steps**
+
+1. เปิดฟอร์ม new
+2. กด Save โดยไม่กรอก code/name
+
+**Expected**
+
+URL ยังคงอยู่ที่ /new (ฟอร์ม block submit ด้วย client-side validation)
+
+---
+
+## TC-LOC-200002 — แก้ไข: clear code/name แล้วบันทึก ต้องแสดง error
+
+> **As a** Admin user, **I want** the system to block invalid Location submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+TC-LOC-040001 ผ่านแล้ว → record มี name = NAME_UPDATED
+
+**Steps**
+
+1. ค้นหา NAME_UPDATED ใน list
+2. เปิด detail
+3. กด Edit
+4. clear code + name
+5. กด Save
+
+**Expected**
+
+Save button ยังคง visible (form ไม่ submit; ยังอยู่ใน edit mode)
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git 2d72894</sub>

@@ -87,7 +87,7 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-TP-010005 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
+    "TC-TP-200001 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/tax-profile" },
@@ -107,7 +107,7 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-TP-010006 สร้างรายการใหม่และปรากฏในตาราง",
+    "TC-TP-030001 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com; tax profile ชื่อ NAME ยังไม่มีอยู่ใน DB" },
@@ -131,10 +131,10 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-TP-010007 แก้ไขชื่อและบันทึก",
+    "TC-TP-040001 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "TC-TP-010006 ผ่านแล้ว → tax profile ชื่อ NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-TP-030001 ผ่านแล้ว → tax profile ชื่อ NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด edit dialog\n3. clear name + กรอก NAME_UPDATED (ไม่แก้ rate)\n4. กด Save" },
         { type: "expected", description: "Updated/success toast ปรากฏ และแถว NAME_UPDATED ปรากฏใน list (rate คงเดิม)" },
         { type: "priority", description: "High" },
@@ -157,10 +157,10 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-TP-010013 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
+    "TC-TP-200002 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "TC-TP-010007 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED มีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-TP-040001 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด edit dialog\n3. clear name (rate ไม่แตะ)\n4. กด Save" },
         { type: "expected", description: "Error message ปรากฏใต้ name input (required validation block submit); ปิด dialog ด้วย Cancel" },
         { type: "priority", description: "Medium" },
@@ -179,10 +179,10 @@ test.describe("Tax Profile — Smoke & CRUD", () => {
   });
 
   test(
-    "TC-TP-010008 ลบรายการ",
+    "TC-TP-050001 ลบรายการ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-TP-010013 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED ยังคงมีอยู่ใน DB" },
+        { type: "preconditions", description: "TC-TP-200002 ผ่านแล้ว → tax profile ชื่อ NAME_UPDATED ยังคงมีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. กด delete บนแถว\n3. ยืนยัน Delete" },
         { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ) และ tax profile ถูกลบจาก DB" },
         { type: "priority", description: "High" },
