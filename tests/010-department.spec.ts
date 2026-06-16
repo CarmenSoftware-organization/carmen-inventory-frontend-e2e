@@ -464,4 +464,132 @@ test.describe("Department — Smoke & CRUD", () => {
       await expect(page).toHaveURL(/\/new/);
     },
   );
+
+  test(
+    "TC-DEP-010015 description สร้าง/แก้ไข + maxLength 256",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. สร้าง department พร้อม description\n2. reload เช็คค่า description\n3. ตรวจ maxLength: พิมพ์ description ยาว 300 ตัว\n4. ลบ record" },
+        { type: "expected", description: "description ถูก persist หลัง reload; ช่อง description ถูกจำกัดที่ 256 ตัวอักษร" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const code = `D15${UID.slice(-4).toUpperCase()}`;
+      const name = `DEP010015 ${UID}`;
+      const desc = `desc ${UID}`;
+
+      await h.gotoNew();
+      await h.codeInput().fill(code);
+      await h.nameInput().fill(name);
+      await h.descriptionInput().fill(desc);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await page.reload();
+      await page.waitForLoadState("networkidle");
+      await expect(h.descriptionInput()).toHaveValue(desc);
+
+      await h.editButton().click();
+      await h.descriptionInput().fill("x".repeat(300));
+      await expect(h.descriptionInput()).toHaveValue("x".repeat(256));
+
+      // cleanup
+      await h.list.goto();
+      await h.list.search(name);
+      await h.clickRowName(name);
+      await h.editButton().click();
+      await h.deleteButton().click();
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-DEP-010016 Cancel ขณะ form dirty ต้องเด้ง Discard dialog",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี record อยู่" },
+        { type: "steps", description: "1. สร้าง record\n2. เปิด detail กด Edit เปลี่ยน name (form dirty)\n3. กด Cancel\n4. ยืนยัน Discard\n5. reload เช็ค name เดิม" },
+        { type: "expected", description: "Discard dialog ปรากฏ; หลังยืนยันกลับ view mode และ name ยังเป็นค่าเดิม (ไม่ถูกบันทึก)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const code = `D16${UID.slice(-4).toUpperCase()}`;
+      const name = `DEP010016 ${UID}`;
+
+      await h.gotoNew();
+      await h.codeInput().fill(code);
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.editButton().click();
+      await h.nameInput().clear();
+      await h.nameInput().fill(`${name} DIRTY`);
+      await h.cancelButton().click();
+
+      const discardConfirm = page.getByRole("alertdialog").getByRole("button", { name: /^(Discard|ละทิ้ง|ทิ้ง)$/i });
+      await expect(discardConfirm).toBeVisible({ timeout: 5_000 });
+      await discardConfirm.click();
+
+      await page.reload();
+      await page.waitForLoadState("networkidle");
+      await expect(page.locator(`#${opts.nameInputId}`)).toHaveValue(name);
+
+      // cleanup
+      await h.editButton().click();
+      await h.deleteButton().click();
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  test(
+    "TC-DEP-010017 ยกเลิกการลบ record ต้องยังอยู่",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี record อยู่" },
+        { type: "steps", description: "1. สร้าง record\n2. เปิด detail กด Edit แล้วกด Delete\n3. ใน dialog กด Cancel\n4. กลับ list ค้นหา record" },
+        { type: "expected", description: "Delete dialog ปิดโดยไม่ลบ; record ยังปรากฏใน list" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Functional" },
+      ],
+    },
+    async ({ page }) => {
+      const h = new PageFormCrudHelper(page, opts);
+      const code = `D17${UID.slice(-4).toUpperCase()}`;
+      const name = `DEP010017 ${UID}`;
+
+      await h.gotoNew();
+      await h.codeInput().fill(code);
+      await h.nameInput().fill(name);
+      await h.saveButton().click();
+      await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+
+      await h.editButton().click();
+      await h.deleteButton().click();
+      const dialog = page.getByRole("alertdialog");
+      await expect(dialog).toBeVisible({ timeout: 5_000 });
+      await dialog.getByRole("button", { name: /^(Cancel|ยกเลิก)$/i }).click();
+      await expect(dialog).toBeHidden({ timeout: 5_000 });
+
+      await h.list.goto();
+      await h.list.search(name);
+      await expect(page.getByRole("cell", { name })).toBeVisible();
+
+      // cleanup (actually delete)
+      await h.clickRowName(name);
+      await h.editButton().click();
+      await h.deleteButton().click();
+      await h.deleteConfirmButton().click();
+      await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
 });
