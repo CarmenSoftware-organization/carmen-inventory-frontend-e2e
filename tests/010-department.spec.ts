@@ -137,6 +137,11 @@ test.describe("Department — Smoke & CRUD", () => {
     await expect(page).toHaveURL(/\/new/);
   });
 
+  // Ordered CRUD chain: create → edit → validate → delete, all operating on the
+  // same record. Serial mode keeps them in one worker (stable module-level UID)
+  // and skips the rest if one fails, instead of cascading into fresh workers
+  // (a worker restart after a failure recomputes the Date.now()-based UID).
+  test.describe.serial("CRUD chain — shares the TC-DEP-010006 record", () => {
   test(
     "TC-DEP-010006 สร้างรายการใหม่และปรากฏในตาราง",
     {
@@ -234,6 +239,7 @@ test.describe("Department — Smoke & CRUD", () => {
       timeout: 10_000,
     });
   });
+  }); // end CRUD serial chain
 
   addPageFormSecurityCases(test, {
     prefix: "DEP",
