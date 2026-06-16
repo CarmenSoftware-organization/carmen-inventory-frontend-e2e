@@ -5,7 +5,7 @@ _Generated from `tests/001-login.spec.ts` annotations. Edit annotations, not thi
 **Module:** Login & Logout
 **Spec:** `tests/001-login.spec.ts`
 **Default role:** any authenticated
-**Total test cases:** 34 (22 High / 9 Medium / 3 Low)
+**Total test cases:** 37 (24 High / 10 Medium / 3 Low)
 
 ## Test Cases at a Glance
 
@@ -17,7 +17,7 @@ _Generated from `tests/001-login.spec.ts` annotations. Edit annotations, not thi
 | TC-LOGIN-010004 | FC เข้าสู่ระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010005 | GM เข้าสู่ระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010006 | Owner เข้าสู่ระบบสำเร็จ | High | Smoke |
-| TC-LOGIN-010007 | TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department | High | Auth-guard |
+| TC-LOGIN-010007 _(skipped)_ | TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department | High | Auth-guard |
 | TC-LOGIN-010008 | Requestor ออกจากระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010009 | HOD ออกจากระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010010 | Purchase ออกจากระบบสำเร็จ | High | Smoke |
@@ -36,7 +36,7 @@ _Generated from `tests/001-login.spec.ts` annotations. Edit annotations, not thi
 | TC-LOGIN-010023 | ช่องรหัสผ่านถูก mask | Low | Functional |
 | TC-LOGIN-010024 | กด Enter เพื่อ submit form ได้ | Medium | Functional |
 | TC-LOGIN-010025 | เข้า route ที่ต้อง login โดยไม่ login ต้อง redirect ไปหน้า login | High | Auth-guard |
-| TC-LOGIN-010026 _(skipped)_ | user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard | Medium | Auth-guard |
+| TC-LOGIN-010026 | user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard | Medium | Auth-guard |
 | TC-LOGIN-010027 | อีเมลแบบ SQL injection ต้องถูก reject อย่างปลอดภัย | High | Security |
 | TC-LOGIN-010028 | อีเมลแบบ XSS ต้องถูก reject อย่างปลอดภัย | High | Security |
 | TC-LOGIN-010029 | login username ผิดต้องได้รับ HTTP 401 | High | Security |
@@ -45,6 +45,9 @@ _Generated from `tests/001-login.spec.ts` annotations. Edit annotations, not thi
 | TC-LOGIN-010032 | Budget เข้าสู่ระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010033 | StoreManager ออกจากระบบสำเร็จ | High | Smoke |
 | TC-LOGIN-010034 | Budget ออกจากระบบสำเร็จ | High | Smoke |
+| TC-LOGIN-010036 | next param แบบ external URL ต้องไม่ redirect ออกนอกเว็บ (open-redirect guard) | High | Security |
+| TC-LOGIN-010037 | session คงอยู่หลัง reload (refresh-token boot) | High | Functional |
+| TC-LOGIN-010040 | backend ล่มต้องแสดง error อย่างนุ่มนวลและคงอยู่ /login | Medium | Validation |
 
 ---
 
@@ -186,7 +189,7 @@ User owner@blueledgers.com มีอยู่จริงและ active; brows
 
 ---
 
-## TC-LOGIN-010007 — TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department
+## TC-LOGIN-010007 — TT (user ไม่มี department) login ต้องแสดง dialog แจ้งยังไม่กำหนด department _(skipped)_
 
 > **As an** unauthenticated user hitting a protected route, **I want** to be redirected to /login, **so that** protected screens stay protected.
 
@@ -608,7 +611,7 @@ Auth-guard redirect กลับไปที่ /login (ไม่อนุญา
 
 ---
 
-## TC-LOGIN-010026 — user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard _(skipped)_
+## TC-LOGIN-010026 — user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard
 
 > **As an** unauthenticated user hitting a protected route, **I want** to be redirected to /login, **so that** protected screens stay protected.
 
@@ -812,5 +815,73 @@ Session ถูกล้างและ redirect กลับมาที่ /log
 
 ---
 
+## TC-LOGIN-010036 — next param แบบ external URL ต้องไม่ redirect ออกนอกเว็บ (open-redirect guard)
 
-<sub>Last regenerated: 2026-05-07 · git 200baef</sub>
+> **As the** system, **I want** Login & Logout inputs hardened against common attacks, **so that** the application stays safe.
+
+**Priority:** High · **Test Type:** Security
+
+**Preconditions**
+
+User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out
+
+**Steps**
+
+1. เปิด /login?next=//evil.example.com
+2. login ด้วย requestor@blueledgers.com
+3. ตรวจสอบ origin/path ปลายทางหลัง login
+
+**Expected**
+
+resolveNextPath ปฏิเสธ next ที่เป็น external URL → redirect ไป /dashboard บน origin เดิม (ไม่หลุดไป evil.example.com)
+
+---
+
+## TC-LOGIN-010037 — session คงอยู่หลัง reload (refresh-token boot)
+
+> **As a** any authenticated user, **I want** this Login & Logout interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** High · **Test Type:** Functional
+
+**Preconditions**
+
+User requestor@blueledgers.com login สำเร็จและอยู่ที่ /dashboard; refresh token ถูกเก็บใน localStorage
+
+**Steps**
+
+1. login ด้วย requestor@blueledgers.com
+2. รอ /dashboard
+3. reload หน้า
+4. ตรวจสอบว่ายัง authenticated
+
+**Expected**
+
+หลัง reload boot ใช้ refresh token ออก access token ใหม่ → ยังอยู่ที่ /dashboard และ user menu ปรากฏ (ไม่เด้งไป /login)
+
+---
+
+## TC-LOGIN-010040 — backend ล่มต้องแสดง error อย่างนุ่มนวลและคงอยู่ /login
+
+> **As a** any authenticated user, **I want** the system to block invalid Login & Logout submissions, **so that** data quality is preserved.
+
+**Priority:** Medium · **Test Type:** Validation
+
+**Preconditions**
+
+browser logged out; อยู่ที่ /login; mock /api/auth/login ให้ fail (network error)
+
+**Steps**
+
+1. intercept POST **/api/auth/login แล้ว abort
+2. เปิด /login
+3. กรอก requestor@blueledgers.com + password
+4. กด Sign In
+
+**Expected**
+
+แสดง alert ข้อความ 'Auth server unavailable' (ไม่ crash / ไม่โชว์ raw stack) และคงอยู่ที่ /login
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git 618c6f6</sub>
