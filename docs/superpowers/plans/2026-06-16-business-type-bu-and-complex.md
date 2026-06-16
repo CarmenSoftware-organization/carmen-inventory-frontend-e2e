@@ -1,98 +1,101 @@
-import { expect } from "@playwright/test";
-import { createAuthTest } from "./fixtures/auth.fixture";
-import { DialogCrudHelper } from "./pages/dialog-crud.helper";
-import { addDialogSecurityCases } from "./helpers/security-cases";
+# Business Type — BLAVG precondition + complex coverage + doc_version fix — Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Pin active BU = `BLAVG` for the business-type spec, add an assert + 5 complex tests, and fix the frontend `doc_version` omission that breaks business-type edits.
+
+**Architecture:** Frontend fix first (`business-type-dialog.tsx` + type send `doc_version`, mirroring the unit/department fixes) so edits persist; then e2e changes in `tests/029-business-type.spec.ts` reusing `DialogCrudHelper`. New tests are self-contained (own unique `E2E BT0NN <UID>` name, cleanup-by-delete) and gate edit-navigation on the dialog closing (the toast-overlap lesson).
+
+**Tech Stack:** Playwright + TypeScript (e2e); React + react-hook-form (frontend, repo `../carmen-inventory-frontend-react`).
+
+**Design doc:** `docs/superpowers/specs/2026-06-16-business-type-bu-and-complex-design.md`
+
+**Verified facts:**
+- BT dialog fields: `#business-type-name` (required), `#business-type-is-active` (Radix switch). No code/description. Update = PATCH; payload omits `doc_version`; `BusinessType` type lacks it. **No discard-on-dirty dialog** (Cancel closes directly).
+- e2e helpers on `main`: `ensureActiveBu`/`getBusinessUnits`/`defaultBu` (`tests/helpers/bu.ts`), `BuSwitcherPage` (`trigger()`), `DialogCrudHelper` (`openAddDialog`, `clickRow`, `deleteRow`, `nameInput`, `activeSwitch`, `isActive`, `setActive`, `saveButton`, `cancelButton`, `dialog`, `errorMessage`, `deleteConfirmButton`, `.list.goto/search`). `BU_CODE="BLAVG"`.
+- BT spec uses module-level `NAME`/`NAME_UPDATED`; existing tests `TC-BT-010001..010004` (smoke), `200001`/`200002` (validation), `030001` (create), `040001` (edit), `050001` (delete), security via `addDialogSecurityCases(skipAuth:true)`. New IDs (`010005`, `040002/3/4`, `200003`, `050002`) fit existing sections → **no catalog change**.
+
+---
+
+## Task 1: Frontend — send `doc_version` on business-type update
+
+**Repo:** `/Users/samutpra/GitHub/carmensoftware-organize/carmen-inventory-frontend-react` (branch off `main`)
+**Files:** Modify `types/business-type.ts`, `routes/config/business-type/_components/business-type-dialog.tsx`
+
+- [ ] **Step 1: Branch**
+```bash
+cd /Users/samutpra/GitHub/carmensoftware-organize/carmen-inventory-frontend-react
+git checkout main && git pull --ff-only && git checkout -b fix/business-type-doc-version
+```
+
+- [ ] **Step 2: Add `doc_version` to the types**
+
+In `types/business-type.ts`, change to:
+```ts
+export interface BusinessType {
+  id: string;
+  /** Optimistic-concurrency token — backend requires it back on PATCH update. */
+  doc_version: number;
+  name: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CreateBusinessTypeDto {
+  name: string;
+  is_active: boolean;
+  /** Only sent on update for optimistic concurrency; absent on create. */
+  doc_version?: number;
+}
+```
+
+- [ ] **Step 3: Send `doc_version` in the update mutation**
+
+In `business-type-dialog.tsx`, the `isEdit` branch of `onSubmit`, change:
+```ts
+      updateBusinessType.mutate(
+        { id: businessType.id, ...payload },
+```
+to:
+```ts
+      updateBusinessType.mutate(
+        // doc_version round-trips the loaded record's version — backend requires
+        // it on PATCH for optimistic concurrency (omitting it → 400).
+        { id: businessType.id, doc_version: businessType.doc_version, ...payload },
+```
+
+- [ ] **Step 4: Verify** — `bunx tsc --noEmit` → clean (exit 0).
+
+- [ ] **Step 5: Commit**
+```bash
+git add types/business-type.ts routes/config/business-type/_components/business-type-dialog.tsx
+git commit -m "fix(business-type): send doc_version on update (PATCH requires it)"
+```
+
+---
+
+## Task 2: e2e — BU precondition + assert TC-BT-010005
+
+**Repo:** e2e (branch `test/business-type-bu-and-complex`, already checked out)
+**Files:** Modify `tests/029-business-type.spec.ts`
+
+- [ ] **Step 1: Add imports** (after the existing imports)
+```ts
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+```
 
-const test = createAuthTest("admin@blueledgers.com");
-const PATH = "/config/business-type";
-const UID = Date.now().toString(36);
-const NAME = `E2E BT ${UID}`;
-const NAME_UPDATED = `E2E BT Upd ${UID}`;
-
-const opts = {
-  listPath: PATH,
-  nameInputId: "business-type-name",
-  activeSwitchId: "business-type-is-active",
-};
-
-test.describe("Business Type — Smoke & CRUD", () => {
+- [ ] **Step 2: Add `beforeEach`** immediately after `test.describe("Business Type — Smoke & CRUD", () => {`:
+```ts
   test.beforeEach(async ({ page }) => {
     await ensureActiveBu(page, BU_CODE);
   });
+```
 
-  test(
-    "TC-BT-010001 หน้า list โหลดสำเร็จ",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture" },
-        { type: "steps", description: "1. ไปที่ /config/business-type" },
-        { type: "expected", description: "URL ตรงกับ /config/business-type; หน้า list โหลดสำเร็จโดยไม่ error" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "Smoke" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await expect(page).toHaveURL(new RegExp(PATH));
-  });
-
-  test(
-    "TC-BT-010002 ปุ่ม Add แสดง",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type" },
-        { type: "steps", description: "1. ไปที่ /config/business-type" },
-        { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "Smoke" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await expect(h.list.addButton()).toBeVisible();
-  });
-
-  test(
-    "TC-BT-010003 ช่องค้นหาใช้งานได้",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type" },
-        { type: "steps", description: "1. ไปที่ /config/business-type\n2. พิมพ์ 'test' ในช่องค้นหา" },
-        { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
-        { type: "priority", description: "Medium" },
-        { type: "testType", description: "Smoke" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await expect(h.list.searchInput()).toBeVisible();
-    await h.list.search("test");
-  });
-
-  test(
-    "TC-BT-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type" },
-        { type: "steps", description: "1. ไปที่ /config/business-type\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
-        { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
-        { type: "priority", description: "Medium" },
-        { type: "testType", description: "Functional" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await h.list.search(`__NOPE__${UID}`);
-    await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
-  });
-
+- [ ] **Step 3: Add the assert test** after the `TC-BT-010004` test:
+```ts
   test(
     "TC-BT-010005 active BU = BLAVG",
     {
@@ -113,123 +116,28 @@ test.describe("Business Type — Smoke & CRUD", () => {
       await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
     },
   );
+```
 
-  test(
-    "TC-BT-200001 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type" },
-        { type: "steps", description: "1. ไปที่ /config/business-type\n2. เปิด dialog Add\n3. กด Save โดยไม่กรอก name" },
-        { type: "expected", description: "Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "Validation" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await h.openAddDialog();
-    await h.saveButton().click();
-    await expect(h.errorMessage().first()).toBeVisible();
-    await h.cancelButton().click();
-  });
+- [ ] **Step 4: Run** (the e2e webServer spawns the frontend `bun dev` from the fix branch in Task 1, so edits work)
+```bash
+bun run test -- -g "TC-BT-010005"
+```
+Expected: PASS. Retry once on a transient cold "Auth server unavailable".
 
-  test(
-    "TC-BT-030001 สร้างรายการใหม่และปรากฏในตาราง",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
-        { type: "steps", description: "1. ไปที่ /config/business-type\n2. เปิด dialog Add\n3. กรอก name\n4. กด Save\n5. ค้นหาด้วย NAME" },
-        { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี NAME ปรากฏใน list" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "CRUD" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await h.openAddDialog();
-    await h.nameInput().fill(NAME);
-    await h.saveButton().click();
-    await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({
-      timeout: 10_000,
-    });
-    await h.list.search(NAME);
-    await expect(page.getByRole("cell", { name: NAME })).toBeVisible();
-  });
+- [ ] **Step 5: Commit**
+```bash
+git add tests/029-business-type.spec.ts
+git commit -m "test(business-type): lock active BU to BLAVG (precondition + assert TC-BT-010005)"
+```
 
-  test(
-    "TC-BT-040001 แก้ไขชื่อและบันทึก",
-    {
-      annotation: [
-        { type: "preconditions", description: "TC-BT-030001 ผ่านแล้ว → record NAME มีอยู่ใน DB" },
-        { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด edit dialog\n3. แก้ name เป็น NAME_UPDATED\n4. กด Save\n5. ค้นหาด้วย NAME_UPDATED" },
-        { type: "expected", description: "Updated/success toast ปรากฏ; แถวที่มี NAME_UPDATED ปรากฏใน list" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "CRUD" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await h.list.search(NAME);
-    await h.clickRow(NAME);
-    await expect(h.nameInput()).toBeEnabled({ timeout: 5_000 });
-    await h.nameInput().fill(NAME_UPDATED);
-    await h.saveButton().click();
-    await expect(page.getByText(/updated|success|สำเร็จ/i).first()).toBeVisible({
-      timeout: 10_000,
-    });
-    await h.list.search(NAME_UPDATED);
-    await expect(
-      page.getByRole("button", { name: NAME_UPDATED, exact: true }).first(),
-    ).toBeVisible({ timeout: 10_000 });
-  });
+---
 
-  test(
-    "TC-BT-200002 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
-    {
-      annotation: [
-        { type: "preconditions", description: "TC-BT-040001 ผ่านแล้ว → record มี name = NAME_UPDATED" },
-        { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. เปิด edit dialog\n3. clear name\n4. กด Save" },
-        { type: "expected", description: "Error message ปรากฏใน dialog (form block submit; ยังคงอยู่ใน edit mode)" },
-        { type: "priority", description: "Medium" },
-        { type: "testType", description: "Validation" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await h.list.search(NAME_UPDATED);
-    await h.clickRow(NAME_UPDATED);
-    await h.nameInput().clear();
-    await h.saveButton().click();
-    await expect(h.errorMessage().first()).toBeVisible();
-    await h.cancelButton().click();
-  });
+## Task 3: e2e — complex cases (is_active, edit-persist, edit-cancel, dup-name, delete-cancel)
 
-  test(
-    "TC-BT-050001 ลบรายการ",
-    {
-      annotation: [
-        { type: "preconditions", description: "TC-BT-200002 ผ่านแล้ว → record NAME_UPDATED ยังคงมีอยู่ใน DB" },
-        { type: "steps", description: "1. ค้นหา NAME_UPDATED ใน list\n2. กด Delete บนแถว\n3. ยืนยัน Delete ใน confirm dialog" },
-        { type: "expected", description: "Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "CRUD" },
-      ],
-    },
-    async ({ page }) => {
-    const h = new DialogCrudHelper(page, opts);
-    await h.list.goto();
-    await h.list.search(NAME_UPDATED);
-    await h.deleteRow(NAME_UPDATED);
-    await h.deleteConfirmButton().click();
-    await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({
-      timeout: 10_000,
-    });
-  });
+**Files:** Modify `tests/029-business-type.spec.ts`
 
+- [ ] **Step 1: Add the five tests** before the `addDialogSecurityCases(...)` call (inside the describe):
+```ts
   test(
     "TC-BT-040002 toggle is_active แล้ว persist",
     {
@@ -290,6 +198,8 @@ test.describe("Business Type — Smoke & CRUD", () => {
       await expect(h.nameInput()).toBeEnabled({ timeout: 5_000 });
       await h.nameInput().fill(renamed);
       await h.saveButton().click();
+      // dialog closes only on a committed update — reliable signal (the toast also
+      // matches the lingering create toast and could race the PATCH otherwise).
       await expect(h.dialog()).toBeHidden({ timeout: 10_000 });
 
       await h.list.goto();
@@ -415,11 +325,56 @@ test.describe("Business Type — Smoke & CRUD", () => {
       await expect(page.getByText(/deleted|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
     },
   );
+```
 
-  addDialogSecurityCases(test, {
-    prefix: "BT",
-    listPath: PATH,
-    makeHelper: (page) => new DialogCrudHelper(page, opts),
-    skipAuth: true, // TCS-BT00112 skipped
-  });
-});
+- [ ] **Step 2: Run**
+```bash
+bun run test -- -g "TC-BT-040002|TC-BT-040003|TC-BT-040004|TC-BT-200003|TC-BT-050002"
+```
+Expected: all PASS. **Notes:**
+- `TC-BT-040003`/`040002`/`040004` exercise edit — they pass only against the Task-1 fixed frontend (PATCH 200). If edit still 400s, the Task-1 fix isn't being served (check the dev server is on the fix branch).
+- `TC-BT-200003`: if the backend ACCEPTS a duplicate name (second create succeeds / dialog closes), STOP and report DONE_WITH_CONCERNS (do NOT loosen; delete both records); the controller will convert it to `test.fixme`.
+- Retry once on transient cold-auth flakes. Do NOT loosen real assertions.
+
+- [ ] **Step 3: Commit**
+```bash
+git add tests/029-business-type.spec.ts
+git commit -m "test(business-type): is_active persist, edit-persist guard, edit-cancel, dup-name, delete-cancel"
+```
+
+---
+
+## Task 4: Docs + audit + full regression
+
+**Files:** Regenerate `docs/user-stories/029-business-type.md`
+
+- [ ] **Step 1: Annotation completeness**
+```bash
+f=tests/029-business-type.spec.ts; pre=$(grep -c 'type: "preconditions"' "$f"); exp=$(grep -c 'type: "expected"' "$f"); echo "pre=$pre exp=$exp"; [ "$pre" = "$exp" ] && echo OK || echo MISMATCH
+```
+Expected: `OK`.
+
+- [ ] **Step 2: TC-ID audit** — `bun audit:tc-ids` → `0 errors` (new IDs reuse BT's registered sections 01/04/05/20).
+
+- [ ] **Step 3: Regenerate docs** — `bun docs:user-stories`; confirm new IDs:
+```bash
+grep -oE "TC-BT-(010005|040002|040003|040004|200003|050002)" docs/user-stories/029-business-type.md | sort -u | tr '\n' ' '; echo
+```
+Expected: all 6 listed.
+
+- [ ] **Step 4: Full spec run** — `bun run test -- 029-business-type.spec.ts` → all PASS (dup-name skipped only if backend accepts; the existing `TC-BT-040001` edit should now PASS thanks to the Task-1 fix). No failures.
+
+- [ ] **Step 5: Commit**
+```bash
+git add tests/029-business-type.spec.ts docs/user-stories/029-business-type.md
+git commit -m "docs(user-stories): regenerate for new business-type test cases"
+```
+
+---
+
+## Self-Review notes
+- **Spec coverage:** frontend doc_version fix (Task 1); BU precondition + `TC-BT-010005` (Task 2); complex cases — `040002` is_active, `040003` edit-persist guard, `040004` edit-cancel (replaces the spec's "discard dialog", since the BT dialog has no discard-on-dirty — it closes directly), `200003` dup-name, `050002` delete-cancel (Task 3); docs/audit (Task 4).
+- **Deviation from spec:** spec listed `TC-BT-040004` as a Discard-dialog test; the BT dialog has no discard confirmation, so `040004` is an **edit-cancel** test instead (same section 04, same intent: a canceled edit must not persist). Noted here.
+- **Self-containment:** each new test builds its own `E2E BT0NN <UID>` name and deletes it; no dependence on the existing `NAME`/`NAME_UPDATED` chain.
+- **Type/method consistency:** uses `DialogCrudHelper` methods exactly as defined; `getBusinessUnits/defaultBu/BuSwitcherPage.trigger` as in the unit spec; `doc_version` threaded through type + dialog in Task 1 before edit tests rely on it.
+- **Known risks (flagged in-task):** doc_version dependency on the deployed frontend; dup-name → fixme if backend accepts.
