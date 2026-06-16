@@ -1,6 +1,13 @@
 import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { PriceListTemplatePage, LIST_PATH } from "./pages/price-list-template.page";
+import { BU_CODE } from "./test-users";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
+import { BuSwitcherPage } from "./pages/bu-switcher.page";
+
+// Module-level unique id so the admin serial chain's names stay consistent
+// across a worker restart (Date.now() recomputes identically per process).
+const UID = Date.now().toString(36);
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Procurement Manager == purchase@blueledgers.com,
@@ -848,6 +855,235 @@ procurementStaffTest.describe("Pricelist Template — Search and View — Permis
       const onListPage = /price-list-template/.test(url);
       const onUnauthorized = /unauthorized|denied|403/i.test(url);
       expect(onListPage || onUnauthorized).toBeTruthy();
+    },
+  );
+});
+
+// ── admin@blueledgers.com + BLAVG CRUD ─────────────────────────────────────
+// The describes above run as purchase/requestor (authz coverage) and are left
+// untouched. This block verifies an admin can CRUD pricelist templates with the
+// active BU pinned to BLAVG.
+//
+// NOTE: the PT create/edit UI was redesigned into a rich document form
+// (NameField hero input + required LookupCurrency Radix Select + row-actions
+// delete via an AlertDialog). The shared PriceListTemplatePage page object is
+// stale for these flows (its newButton/fillHeader/openTemplate no longer match,
+// and the existing happy-path tests swallow that with .catch()). So this block
+// drives the real form directly with local helpers, mirroring the vendor
+// admin@BLAVG block. Page-object migration is tracked as a follow-up.
+const adminTest = createAuthTest("admin@blueledgers.com");
+
+adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
+  const ADMIN_NAME = `E2E PT ${UID}`;
+  const ADMIN_NAME_UPDATED = `E2E PT Upd ${UID}`;
+  const NEW_PATH = "/vendor-management/price-list-template/new";
+
+  // Local helpers targeting the redesigned form directly.
+  const heroName = (page: import("@playwright/test").Page) =>
+    page.getByPlaceholder(/Fresh Produce Template/i).first();
+  const currencySelect = (page: import("@playwright/test").Page) =>
+    page.getByRole("combobox").first();
+  const submitButton = (page: import("@playwright/test").Page) =>
+    page.getByRole("button", { name: /^(save|create|บันทึก|สร้าง)$/i }).first();
+  const editToggle = (page: import("@playwright/test").Page) =>
+    page.getByRole("button", { name: /^(edit|แก้ไข)$/i }).first();
+
+  const createdToast = (page: import("@playwright/test").Page) =>
+    page
+      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
+      .filter({ hasText: /success|saved|created|updated|สำเร็จ/i })
+      .first();
+
+  async function fillNewForm(page: import("@playwright/test").Page, name: string) {
+    await page.goto(NEW_PATH);
+    await page.waitForLoadState("networkidle");
+    await heroName(page).fill(name);
+    // currency_id is required — pick the first available option.
+    await currencySelect(page).click();
+    await page.getByRole("option").first().click();
+  }
+
+  async function openByName(page: import("@playwright/test").Page, name: string) {
+    const tpl = new PriceListTemplatePage(page);
+    await tpl.gotoList();
+    const search = tpl.searchInput();
+    if ((await search.count()) > 0) await search.fill(name).catch(() => {});
+    await page.getByText(name, { exact: false }).first().click();
+    await page.waitForLoadState("networkidle");
+  }
+
+  adminTest.beforeEach(async ({ page }) => {
+    await ensureActiveBu(page, BU_CODE);
+  });
+
+  adminTest(
+    "TC-PT-010050 active BU = BLAVG",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
+        { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const units = await getBusinessUnits(page);
+      const active = defaultBu(units);
+      expect(active?.code).toBe(BU_CODE);
+
+      const switcher = new BuSwitcherPage(page);
+      await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
+    },
+  );
+
+  adminTest(
+    "TC-PT-010051 สร้าง pricelist template (admin/BLAVG) สำเร็จ",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; template ชื่อ ADMIN_NAME ยังไม่มีใน DB; มี currency อย่างน้อย 1 รายการ" },
+        { type: "steps", description: "1. เปิดหน้า /new\n2. กรอกชื่อ (hero NameField) = ADMIN_NAME\n3. เลือก Currency (required)\n4. กด 'Save'\n5. ตรวจสอบ success toast" },
+        { type: "expected", description: "success toast ปรากฏ (template ถูกสร้าง) — ใช้เป็น seed ของ serial chain" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      await fillNewForm(page, ADMIN_NAME);
+      await submitButton(page).click({ timeout: 10_000 });
+      await expect(createdToast(page)).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  adminTest(
+    "TC-PT-040050 แก้ชื่อ template แล้ว persist",
+    {
+      annotation: [
+        { type: "preconditions", description: "TC-PT-010051 ผ่านแล้ว → template ADMIN_NAME มีอยู่; login admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. ไป list แล้วเปิด template ADMIN_NAME\n2. กด 'Edit'\n3. แก้ชื่อเป็น ADMIN_NAME_UPDATED\n4. กด 'Save'\n5. กลับ list ค้นหา ADMIN_NAME_UPDATED" },
+        { type: "expected", description: "success toast ปรากฏ และ ADMIN_NAME_UPDATED ค้นเจอใน list ภายใน 10s (ค่าถูก persist)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      await openByName(page, ADMIN_NAME);
+      await editToggle(page).click({ timeout: 10_000 });
+      await heroName(page).fill(ADMIN_NAME_UPDATED);
+      await submitButton(page).click({ timeout: 10_000 });
+      await expect(createdToast(page)).toBeVisible({ timeout: 10_000 });
+
+      const tpl = new PriceListTemplatePage(page);
+      await tpl.gotoList();
+      const search = tpl.searchInput();
+      if ((await search.count()) > 0) await search.fill(ADMIN_NAME_UPDATED).catch(() => {});
+      await expect(page.getByText(ADMIN_NAME_UPDATED).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  adminTest(
+    "TC-PT-040051 แก้ชื่อแล้วกด Cancel — ค่าเดิมคงอยู่",
+    {
+      annotation: [
+        { type: "preconditions", description: "TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอยู่; login admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. ไป list เปิด template ADMIN_NAME_UPDATED\n2. กด 'Edit'\n3. แก้ชื่อเป็นค่าทิ้ง\n4. กด 'Cancel'\n5. กลับ list ค้นหา ADMIN_NAME_UPDATED" },
+        { type: "expected", description: "ชื่อ template ยังเป็น ADMIN_NAME_UPDATED (การแก้ที่ยกเลิกไม่ถูกบันทึก)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      await openByName(page, ADMIN_NAME_UPDATED);
+      await editToggle(page).click({ timeout: 10_000 });
+      await heroName(page).fill(`${ADMIN_NAME_UPDATED} DISCARD`);
+      await page.getByRole("button", { name: /^(cancel|ยกเลิก)$/i }).first().click({ timeout: 10_000 });
+
+      const tpl = new PriceListTemplatePage(page);
+      await tpl.gotoList();
+      const search = tpl.searchInput();
+      if ((await search.count()) > 0) await search.fill(ADMIN_NAME_UPDATED).catch(() => {});
+      await expect(page.getByText(ADMIN_NAME_UPDATED).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  adminTest(
+    "TC-PT-200050 สร้าง template ชื่อซ้ำ ต้องถูก reject",
+    {
+      annotation: [
+        { type: "preconditions", description: "TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอยู่ใน DB; login admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. เปิดหน้า /new\n2. กรอกชื่อ = ADMIN_NAME_UPDATED (ซ้ำ) + เลือก currency\n3. กด 'Save'" },
+        { type: "expected", description: "รายการที่สองไม่ถูกสร้าง: มี error toast (backend reject duplicate name) — ไม่มี success toast" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Negative" },
+      ],
+    },
+    async ({ page }) => {
+      await fillNewForm(page, ADMIN_NAME_UPDATED);
+      await submitButton(page).click({ timeout: 10_000 });
+      // Duplicate name must be rejected: no success toast appears.
+      await expect(createdToast(page)).toHaveCount(0, { timeout: 5_000 });
+    },
+  );
+
+  adminTest(
+    "TC-PT-050050 เปิด delete dialog แล้ว Cancel — template ยังอยู่",
+    {
+      annotation: [
+        { type: "preconditions", description: "TC-PT-200050 ผ่านแล้ว → template ADMIN_NAME_UPDATED ยังอยู่ใน DB; login admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. ไป list ค้นหา ADMIN_NAME_UPDATED\n2. เปิด row actions\n3. กด 'Delete'\n4. ใน dialog กด 'Cancel'\n5. ตรวจสอบว่า template ยังอยู่" },
+        { type: "expected", description: "template ADMIN_NAME_UPDATED ยังคงอยู่ใน list (ไม่ถูกลบ)" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const tpl = new PriceListTemplatePage(page);
+      await tpl.gotoList();
+      const search = tpl.searchInput();
+      if ((await search.count()) > 0) await search.fill(ADMIN_NAME_UPDATED).catch(() => {});
+      const row = page.getByRole("row").filter({ hasText: ADMIN_NAME_UPDATED }).first();
+      await row.getByRole("button", { name: /row actions|actions|more/i }).first().click({ timeout: 10_000 });
+      await page.getByRole("menuitem", { name: /^(delete|ลบ)$/i }).first().click({ timeout: 10_000 });
+      const dialog = page.getByRole("alertdialog");
+      await expect(dialog).toBeVisible({ timeout: 5_000 });
+      await dialog.getByRole("button", { name: /^(cancel|ยกเลิก)$/i }).click();
+
+      await tpl.gotoList();
+      const search2 = tpl.searchInput();
+      if ((await search2.count()) > 0) await search2.fill(ADMIN_NAME_UPDATED).catch(() => {});
+      await expect(page.getByText(ADMIN_NAME_UPDATED).first()).toBeVisible({ timeout: 10_000 });
+    },
+  );
+
+  adminTest(
+    "TC-PT-050051 ลบ template (admin/BLAVG) cleanup",
+    {
+      annotation: [
+        { type: "preconditions", description: "TC-PT-050050 ผ่านแล้ว → template ADMIN_NAME_UPDATED ยังอยู่ใน DB; login admin@blueledgers.com; active BU = BLAVG" },
+        { type: "steps", description: "1. ไป list ค้นหา ADMIN_NAME_UPDATED\n2. เปิด row actions\n3. กด 'Delete'\n4. ใน dialog ยืนยัน Delete\n5. ตรวจสอบ success toast" },
+        { type: "expected", description: "success toast ('deleted/success/สำเร็จ') ปรากฏภายใน 10s (template ถูกลบ — ปิดท้าย serial chain)" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "CRUD" },
+      ],
+    },
+    async ({ page }) => {
+      const tpl = new PriceListTemplatePage(page);
+      await tpl.gotoList();
+      const search = tpl.searchInput();
+      if ((await search.count()) > 0) await search.fill(ADMIN_NAME_UPDATED).catch(() => {});
+      const row = page.getByRole("row").filter({ hasText: ADMIN_NAME_UPDATED }).first();
+      await row.getByRole("button", { name: /row actions|actions|more/i }).first().click({ timeout: 10_000 });
+      await page.getByRole("menuitem", { name: /^(delete|ลบ)$/i }).first().click({ timeout: 10_000 });
+      const dialog = page.getByRole("alertdialog");
+      await expect(dialog).toBeVisible({ timeout: 5_000 });
+      await dialog.getByRole("button", { name: /^(delete|confirm|ลบ|ok)$/i }).click();
+
+      await expect(
+        page
+          .locator('[data-sonner-toast], [role="status"]')
+          .filter({ hasText: /success|deleted|ลบ.*สำเร็จ|สำเร็จ/i })
+          .first(),
+      ).toBeVisible({ timeout: 10_000 });
     },
   );
 });

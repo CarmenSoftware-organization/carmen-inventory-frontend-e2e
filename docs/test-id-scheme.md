@@ -42,7 +42,7 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `101-product-category.spec.ts` | `CAT` | 01–15, 20–29, 90 | Multi-prefix collapse (CATEG/PRODU/RECIP) |
 | `150-vendor.spec.ts` | `VEN` | 01, 03–05, 10–19, 20 | CRUD + security |
 | `159-pl.spec.ts` | `PL` | 01–08, 90 | CRUD + sub-journeys + edge cases |
-| `160-pl-template.spec.ts` | `PT` | 01–06, 90 | CRUD + sub-journeys + edge cases |
+| `160-pl-template.spec.ts` | `PT` | 01–06, 20, 90 | CRUD + sub-journeys + edge cases |
 | `201-my-approvals.spec.ts` | `MA` | 01–06, 90 | CRUD + edge cases |
 | `301-pr.spec.ts` | `PR` | 01–09, 10–13, 20–22, 30–39, 40–49, 60–63, 90 | Module entry point + sub-journeys (05–08) |
 | `310-pr-template.spec.ts` | `PRT` | 01–11, 20–29, 90 | CRUD + validation |

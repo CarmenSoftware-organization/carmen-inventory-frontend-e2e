@@ -4,8 +4,8 @@ _Generated from `tests/160-pl-template.spec.ts` annotations. Edit annotations, n
 
 **Module:** Price List Template
 **Spec:** `tests/160-pl-template.spec.ts`
-**Default role:** Purchase
-**Total test cases:** 26 (17 High / 8 Medium / 1 Low)
+**Default role:** Admin
+**Total test cases:** 33 (22 High / 10 Medium / 1 Low)
 
 ## Test Cases at a Glance
 
@@ -15,6 +15,8 @@ _Generated from `tests/160-pl-template.spec.ts` annotations. Edit annotations, n
 | TC-PT-010002 | Create Pricelist Template - Empty Template Name | High | Negative |
 | TC-PT-010004 | Create Pricelist Template - No Permission | High | Negative |
 | TC-PT-010005 | Create Pricelist Template - Missing Description | High | Negative |
+| TC-PT-010050 | active BU = BLAVG | High | Smoke |
+| TC-PT-010051 | สร้าง pricelist template (admin/BLAVG) สำเร็จ | High | CRUD |
 | TC-PT-020001 | Add products to template - Happy Path | High | Happy Path |
 | TC-PT-020002 | Add products to template - Invalid Input (max exceeded) | High | Negative |
 | TC-PT-020003 | Add products to template - No Permission | High | Negative |
@@ -28,21 +30,26 @@ _Generated from `tests/160-pl-template.spec.ts` annotations. Edit annotations, n
 | TC-PT-040002 | Negative - Invalid Template Name | Medium | Negative |
 | TC-PT-040003 | Negative - No Permission to Clone | Medium | Negative |
 | TC-PT-040004 _(skipped)_ | Edge Case - Maximum Templates Reached | Low | Edge Case |
+| TC-PT-040050 | แก้ชื่อ template แล้ว persist | High | CRUD |
+| TC-PT-040051 | แก้ชื่อแล้วกด Cancel — ค่าเดิมคงอยู่ | Medium | CRUD |
 | TC-PT-050001 | Activate Template - Happy Path | High | Happy Path |
 | TC-PT-050003 | Activate Template - Invalid Input | Medium | Negative |
 | TC-PT-050004 | Deactivate Template - No Permission | High | Negative |
 | TC-PT-050005 | Template Status Change - Edge Case (rapid toggle) | Medium | Edge Case |
+| TC-PT-050050 | เปิด delete dialog แล้ว Cancel — template ยังอยู่ | Medium | CRUD |
+| TC-PT-050051 | ลบ template (admin/BLAVG) cleanup | High | CRUD |
 | TC-PT-060001 | Search and View Templates - Happy Path | High | Happy Path |
 | TC-PT-060002 | Search and View Templates - Negative - Invalid Search Term | High | Negative |
 | TC-PT-060003 | Search and View Templates - Negative - Insufficient Permission | High | Negative |
 | TC-PT-060004 | Search and View Templates - Edge Case - Filter by Product Count | Medium | Edge Case |
 | TC-PT-060005 | Search and View Templates - Edge Case - Sort by Name (Z-A) | Medium | Edge Case |
+| TC-PT-200050 | สร้าง template ชื่อซ้ำ ต้องถูก reject | High | Negative |
 
 ---
 
 ## TC-PT-010001 — Create Pricelist Template - Happy Path
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -67,7 +74,7 @@ Pricelist template สร้างสำเร็จ
 
 ## TC-PT-010002 — Create Pricelist Template - Empty Template Name
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -91,7 +98,7 @@ Login เป็น Procurement Manager และมีสิทธิ์เข�
 
 ## TC-PT-010004 — Create Pricelist Template - No Permission
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -113,7 +120,7 @@ Login เป็น Procurement Staff และมีสิทธิ์เข้�
 
 ## TC-PT-010005 — Create Pricelist Template - Missing Description
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -135,9 +142,55 @@ Login เป็น Procurement Manager และมีสิทธิ์เข�
 
 ---
 
+## TC-PT-010050 — active BU = BLAVG
+
+> **As a** Admin user, **I want** core Price List Template interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+
+**Steps**
+
+1. อ่าน profile API (/api/proxy/api/user/profile)
+2. หา business unit ที่ is_default
+3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher
+
+**Expected**
+
+default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น
+
+---
+
+## TC-PT-010051 — สร้าง pricelist template (admin/BLAVG) สำเร็จ
+
+> **As a** Admin user, **I want** to create a new Price List Template record, **so that** it becomes available for downstream operations.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG; template ชื่อ ADMIN_NAME ยังไม่มีใน DB; มี currency อย่างน้อย 1 รายการ
+
+**Steps**
+
+1. เปิดหน้า /new
+2. กรอกชื่อ (hero NameField) = ADMIN_NAME
+3. เลือก Currency (required)
+4. กด 'Save'
+5. ตรวจสอบ success toast
+
+**Expected**
+
+success toast ปรากฏ (template ถูกสร้าง) — ใช้เป็น seed ของ serial chain
+
+---
+
 ## TC-PT-020001 — Add products to template - Happy Path
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -163,7 +216,7 @@ product ที่เลือกถูกเพิ่มใน template สำ�
 
 ## TC-PT-020002 — Add products to template - Invalid Input (max exceeded)
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -189,7 +242,7 @@ Login เป็น Procurement Manager และมีสิทธิ์เข�
 
 ## TC-PT-020003 — Add products to template - No Permission
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -213,7 +266,7 @@ Login เป็น Procurement Staff และไม่มีสิทธิ์�
 
 ## TC-PT-020004 — Add products to template - Edge Case - Empty Selection
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -238,7 +291,7 @@ list ของ product ที่เลือกว่างเปล่าแล
 
 ## TC-PT-030001 — Edit template with valid data
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -272,7 +325,7 @@ template บันทึกสำเร็จ doc_version เพิ่มขึ�
 
 ## TC-PT-030002 — Edit template with invalid validity period
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -296,7 +349,7 @@ Login เป็น Procurement Manager และมีสิทธิ์แก�
 
 ## TC-PT-030003 — Edit template without product selection
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -319,7 +372,7 @@ Procurement Manager มีสิทธิ์แก้ไข template และ�
 
 ## TC-PT-030004 — Edit template with minimal changes
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -343,7 +396,7 @@ template บันทึกสำเร็จ doc_version เพิ่มขึ�
 
 ## TC-PT-030005 — Edit template with all fields in default state
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Edge Case
@@ -366,7 +419,7 @@ template ไม่มีการเปลี่ยนแปลง doc_version �
 
 ## TC-PT-040001 — Happy Path - Clone Existing Template
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Happy Path
@@ -391,7 +444,7 @@ template ใหม่สร้างสำเร็จพร้อม product, �
 
 ## TC-PT-040002 — Negative - Invalid Template Name
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -416,7 +469,7 @@ Login เป็น Procurement Manager; template library พร้อมใช�
 
 ## TC-PT-040003 — Negative - No Permission to Clone
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -439,7 +492,7 @@ Login เป็น Procurement Staff; template library พร้อมใช้�
 
 ## TC-PT-040004 — Edge Case - Maximum Templates Reached _(skipped)_
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Low · **Test Type:** Edge Case
@@ -462,9 +515,57 @@ Login เป็น Procurement Manager; template library พร้อมใช�
 
 ---
 
+## TC-PT-040050 — แก้ชื่อ template แล้ว persist
+
+> **As a** Admin user, **I want** to manage Price List Template records via CRUD, **so that** the data stays correct over time.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+TC-PT-010051 ผ่านแล้ว → template ADMIN_NAME มีอยู่; login admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. ไป list แล้วเปิด template ADMIN_NAME
+2. กด 'Edit'
+3. แก้ชื่อเป็น ADMIN_NAME_UPDATED
+4. กด 'Save'
+5. กลับ list ค้นหา ADMIN_NAME_UPDATED
+
+**Expected**
+
+success toast ปรากฏ และ ADMIN_NAME_UPDATED ค้นเจอใน list ภายใน 10s (ค่าถูก persist)
+
+---
+
+## TC-PT-040051 — แก้ชื่อแล้วกด Cancel — ค่าเดิมคงอยู่
+
+> **As a** Admin user, **I want** to manage Price List Template records via CRUD, **so that** the data stays correct over time.
+
+**Priority:** Medium · **Test Type:** CRUD
+
+**Preconditions**
+
+TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอยู่; login admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. ไป list เปิด template ADMIN_NAME_UPDATED
+2. กด 'Edit'
+3. แก้ชื่อเป็นค่าทิ้ง
+4. กด 'Cancel'
+5. กลับ list ค้นหา ADMIN_NAME_UPDATED
+
+**Expected**
+
+ชื่อ template ยังเป็น ADMIN_NAME_UPDATED (การแก้ที่ยกเลิกไม่ถูกบันทึก)
+
+---
+
 ## TC-PT-050001 — Activate Template - Happy Path
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -488,7 +589,7 @@ template ถูก activate และสถานะเปลี่ยนเป�
 
 ## TC-PT-050003 — Activate Template - Invalid Input
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
@@ -512,7 +613,7 @@ template อยู่ในสถานะ deactivated และผู้ใช�
 
 ## TC-PT-050004 — Deactivate Template - No Permission
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -536,7 +637,7 @@ template อยู่ในสถานะ active และผู้ใช้ไ
 
 ## TC-PT-050005 — Template Status Change - Edge Case (rapid toggle)
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -560,9 +661,57 @@ template สลับระหว่างสถานะ active และ deact
 
 ---
 
+## TC-PT-050050 — เปิด delete dialog แล้ว Cancel — template ยังอยู่
+
+> **As a** Admin user, **I want** to delete a Price List Template record, **so that** the list reflects only valid entries.
+
+**Priority:** Medium · **Test Type:** CRUD
+
+**Preconditions**
+
+TC-PT-200050 ผ่านแล้ว → template ADMIN_NAME_UPDATED ยังอยู่ใน DB; login admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. ไป list ค้นหา ADMIN_NAME_UPDATED
+2. เปิด row actions
+3. กด 'Delete'
+4. ใน dialog กด 'Cancel'
+5. ตรวจสอบว่า template ยังอยู่
+
+**Expected**
+
+template ADMIN_NAME_UPDATED ยังคงอยู่ใน list (ไม่ถูกลบ)
+
+---
+
+## TC-PT-050051 — ลบ template (admin/BLAVG) cleanup
+
+> **As a** Admin user, **I want** to delete a Price List Template record, **so that** the list reflects only valid entries.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+TC-PT-050050 ผ่านแล้ว → template ADMIN_NAME_UPDATED ยังอยู่ใน DB; login admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. ไป list ค้นหา ADMIN_NAME_UPDATED
+2. เปิด row actions
+3. กด 'Delete'
+4. ใน dialog ยืนยัน Delete
+5. ตรวจสอบ success toast
+
+**Expected**
+
+success toast ('deleted/success/สำเร็จ') ปรากฏภายใน 10s (template ถูกลบ — ปิดท้าย serial chain)
+
+---
+
 ## TC-PT-060001 — Search and View Templates - Happy Path
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Happy Path
@@ -587,7 +736,7 @@ Login เข้า Carmen Inventory พร้อมสิทธิ์ดู temp
 
 ## TC-PT-060002 — Search and View Templates - Negative - Invalid Search Term
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -610,7 +759,7 @@ Login เข้า Carmen Inventory พร้อมสิทธิ์ดู temp
 
 ## TC-PT-060003 — Search and View Templates - Negative - Insufficient Permission
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** High · **Test Type:** Negative
@@ -631,7 +780,7 @@ Login เข้า Carmen Inventory แต่ไม่มีสิทธิ์�
 
 ## TC-PT-060004 — Search and View Templates - Edge Case - Filter by Product Count
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -657,7 +806,7 @@ Login เข้า Carmen Inventory พร้อมสิทธิ์ดู temp
 
 ## TC-PT-060005 — Search and View Templates - Edge Case - Sort by Name (Z-A)
 
-> **As a** Purchase user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
@@ -679,5 +828,28 @@ Login เข้า Carmen Inventory พร้อมสิทธิ์ดู temp
 
 ---
 
+## TC-PT-200050 — สร้าง template ชื่อซ้ำ ต้องถูก reject
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+> **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Negative
+
+**Preconditions**
+
+TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอยู่ใน DB; login admin@blueledgers.com; active BU = BLAVG
+
+**Steps**
+
+1. เปิดหน้า /new
+2. กรอกชื่อ = ADMIN_NAME_UPDATED (ซ้ำ) + เลือก currency
+3. กด 'Save'
+
+**Expected**
+
+รายการที่สองไม่ถูกสร้าง: มี error toast (backend reject duplicate name) — ไม่มี success toast
+
+---
+
+
+<sub>Last regenerated: 2026-06-16 · git c4df948</sub>
