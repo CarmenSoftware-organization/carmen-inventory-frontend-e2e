@@ -9,6 +9,13 @@ export class LoginPage extends BasePage {
   /** Transient network error surfaced when the (remote) auth backend times out. */
   readonly serverUnavailableMessage = () =>
     this.page.getByText(/auth server unavailable|server.*unavailable/i);
+  readonly showPasswordToggle = () =>
+    this.page.getByRole("button", { name: /show password/i });
+  readonly hidePasswordToggle = () =>
+    this.page.getByRole("button", { name: /hide password/i });
+  /** Rate-limit countdown text shown after a 429 carrying retry_after. */
+  readonly countdownMessage = () =>
+    this.page.getByText(/too many login attempts.*try again in \d+\s*s/i);
 
   async goto() {
     await this.page.goto("/login");
