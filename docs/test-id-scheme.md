@@ -35,6 +35,8 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `040-currency.spec.ts` | `CUR` | 01, 03–05, 10, 20 | CRUD + security |
 | `041-exchange-rate.spec.ts` | `ER` | 01–02, 10 | List/Detail + security |
 | `042-tax-profile.spec.ts` | `TP` | 01, 03–05, 10, 20 | CRUD + security |
+| `043-certification.spec.ts` | `CERT` | 01, 03–05, 10, 20 | CRUD + security |
+| `044-eco.spec.ts` | `ECO` | 01, 03–05, 10, 20 | CRUD + security |
 | `079-delivery-point.spec.ts` | `DP` | 01, 03–05, 10–19, 20 | CRUD + security |
 | `080-location.spec.ts` | `LOC` | 01, 03–05, 10, 20 | CRUD + security |
 | `101-product-category.spec.ts` | `CAT` | 01–15, 20–29, 90 | Multi-prefix collapse (CATEG/PRODU/RECIP) |
