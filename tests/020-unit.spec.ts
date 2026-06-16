@@ -167,7 +167,11 @@ test.describe("Unit — Smoke", () => {
       await expect(h.nameInput()).toBeEnabled({ timeout: 5_000 });
       await h.nameInput().fill(renamed);
       await h.saveButton().click();
-      await expect(page.getByText(/updated|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
+      // Wait for the dialog to CLOSE — it closes only on a successful update
+      // (after the PUT commits). The /updated|success/ toast also matches the
+      // lingering create toast, so navigating on the toast alone can abort the
+      // in-flight PUT; the dialog-close is the reliable "update committed" signal.
+      await expect(h.dialog()).toBeHidden({ timeout: 10_000 });
 
       await h.list.goto();
       await h.list.search(renamed);
