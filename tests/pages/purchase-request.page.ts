@@ -324,16 +324,19 @@ export class PurchaseRequestPage extends BasePage {
     return this.page.getByRole("button", { name: /^split$/i }).first();
   }
 
-  // ── Confirmation dialog (rejection / return / cancel) ─────────────────
+  // ── Confirmation dialog (submit / approve / reject / return / cancel) ──
+  // The redesigned workflow action dialog (pr-action-dialog) is an AlertDialog
+  // (role="alertdialog"); other confirmations may use role="dialog".
+  actionDialog(): Locator {
+    return this.page.getByRole("alertdialog").or(this.page.getByRole("dialog")).first();
+  }
+
   reasonInput(): Locator {
-    return this.page
-      .getByRole("dialog")
-      .locator("textarea, input[type='text']")
-      .first();
+    return this.actionDialog().locator("textarea, input[type='text']").first();
   }
 
   confirmDialogButton(name: RegExp = /confirm|ok|yes/i): Locator {
-    return this.page.getByRole("dialog").getByRole("button", { name }).first();
+    return this.actionDialog().getByRole("button", { name }).first();
   }
 
   // ── Status / verification ─────────────────────────────────────────────

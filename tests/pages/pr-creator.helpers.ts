@@ -72,8 +72,15 @@ export async function submitDraftPR(page: Page, ref: string): Promise<void> {
     await page.waitForLoadState("networkidle");
   }
   await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
-  await pr.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
-  await pr.expectStatus("in.progress");
+  await pr.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 });
+  // Submit redirects to the list, so verify via the success toast (the submitted
+  // PR is no longer in the default "My Pending" draft view).
+  await expect(
+    page
+      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
+      .filter({ hasText: /submitted|success|สำเร็จ/i })
+      .first(),
+  ).toBeVisible({ timeout: 10_000 });
 }
 
 /**

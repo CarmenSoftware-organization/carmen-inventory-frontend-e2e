@@ -219,7 +219,7 @@ requestorTest.describe("7c — Resubmit", () => {
         return;
       }
       await submit.click({ timeout: 5_000 });
-      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 10_000 });
+      await expect(page.getByRole("alertdialog")).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -279,7 +279,7 @@ requestorTest.describe("7d — Edge cases", () => {
         return;
       }
       await submit.click({ timeout: 5_000 });
-      const cancel = page.getByRole("dialog").getByRole("button", { name: /cancel|no/i }).first();
+      const cancel = page.getByRole("alertdialog").getByRole("button", { name: /cancel|no/i }).first();
       if ((await cancel.count()) === 0) {
         requestorTest.skip(true, "Cancel button not present in submit dialog");
         return;

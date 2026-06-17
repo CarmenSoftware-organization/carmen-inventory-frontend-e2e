@@ -890,7 +890,7 @@ requestorTest.describe("Step 6 — Submit", () => {
         return;
       }
       await submit.click({ timeout: 5_000 });
-      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 10_000 });
+      await expect(page.getByRole("alertdialog")).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -916,7 +916,7 @@ requestorTest.describe("Step 6 — Submit", () => {
         return;
       }
       await submit.click({ timeout: 5_000 });
-      const cancel = page.getByRole("dialog").getByRole("button", { name: /cancel|no/i }).first();
+      const cancel = page.getByRole("alertdialog").getByRole("button", { name: /cancel|no/i }).first();
       if ((await cancel.count()) === 0) {
         requestorTest.skip(true, "Cancel button not present in submit dialog");
         return;
@@ -957,25 +957,18 @@ requestorTest.describe("Step 6 — Submit", () => {
     },
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
-      const created = await createDraftPR(page, { items: 0 });
-      await page.goto(`${LIST_PATH}/${created.ref}`);
-      await page.waitForLoadState("networkidle");
-      const submit = pr.submitButton();
-      if ((await submit.count()) === 0) {
-        requestorTest.skip(true, "Submit button not present — empty PR may have hidden it entirely");
+      // An empty PR (header only, no line items) cannot be saved in the redesign,
+      // so it can never reach the submit step. Assert Save is blocked: either the
+      // button is disabled, or clicking it does not create/redirect (stays on /new).
+      await pr.gotoNew();
+      await pr.fillHeader({ description: e2eDescription("TC-PR-050604 empty") });
+      const save = pr.saveDraftButton();
+      if (await save.isDisabled().catch(() => false)) {
+        await expect(save).toBeDisabled();
         return;
       }
-      const disabled = await submit.isDisabled().catch(() => false);
-      if (disabled) {
-        await expect(submit).toBeDisabled();
-        return;
-      }
-      await submit.click({ timeout: 5_000 }).catch(() => {});
-      // Close any dialog that may have opened
-      const cancel = page.getByRole("dialog").getByRole("button", { name: /cancel|no/i }).first();
-      if ((await cancel.count()) > 0) await cancel.click({ timeout: 5_000 }).catch(() => {});
-      // URL must remain on detail (status NOT moved to in-progress redirect)
-      await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
+      await save.click({ timeout: 5_000 }).catch(() => {});
+      await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 8_000 });
     },
   );
 });
@@ -1003,7 +996,7 @@ requestorTest.describe("Step 8 — Delete", () => {
         return;
       }
       await del.click({ timeout: 5_000 });
-      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 10_000 });
+      await expect(page.getByRole("alertdialog")).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -1029,7 +1022,7 @@ requestorTest.describe("Step 8 — Delete", () => {
         return;
       }
       await del.click({ timeout: 5_000 });
-      const cancel = page.getByRole("dialog").getByRole("button", { name: /cancel|no/i }).first();
+      const cancel = page.getByRole("alertdialog").getByRole("button", { name: /cancel|no/i }).first();
       if ((await cancel.count()) === 0) {
         requestorTest.skip(true, "Cancel button not present in delete dialog");
         return;
