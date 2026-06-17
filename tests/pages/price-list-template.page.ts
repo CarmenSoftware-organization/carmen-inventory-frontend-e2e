@@ -5,10 +5,15 @@ import { BasePage } from "./base.page";
 export const LIST_PATH = "/vendor-management/price-list-template";
 export const NEW_PATH = "/vendor-management/price-list-template/new";
 
+// Superset of header fields. The redesigned form only renders name (required),
+// currency (required), description, validity period and vendor instruction;
+// the remaining switch/reminder fields are kept for backward compatibility with
+// older tests and are no-ops when their controls are absent.
 export interface TemplateHeaderInput {
   name?: string;
   description?: string;
-  currency?: string;
+  /** "first" picks the first available currency option; a string matches by label/code. */
+  currency?: "first" | string;
   validityDays?: number | string;
   vendorInstructions?: string;
   allowMultiMOQ?: boolean;
@@ -19,6 +24,18 @@ export interface TemplateHeaderInput {
   escalationDays?: number | string;
 }
 
+/**
+ * Page object for the **redesigned** Pricelist Template module.
+ *
+ * The create/edit screen is a rich document form on `/price-list-template/new`
+ * (and `/:id`): a hero NameField, a required LookupCurrency Radix Select, an
+ * optional description Textarea, validity, and an inline product table. The list
+ * exposes an "Add Template" button, a SearchInput (fires onSearch on Enter), and
+ * per-row "Row actions" menus whose Delete opens a DeleteDialog (AlertDialog).
+ *
+ * (The previous tabbed/dialog-based clone / activate-deactivate / add-products
+ * affordances were removed in the redesign — those flows no longer exist here.)
+ */
 export class PriceListTemplatePage extends BasePage {
   // ── Navigation ────────────────────────────────────────────────────────
   async gotoList() {
@@ -38,7 +55,9 @@ export class PriceListTemplatePage extends BasePage {
 
   // ── List page ────────────────────────────────────────────────────────
   newButton(): Locator {
-    return this.page.getByRole("button", { name: /new (pricelist|price.?list).*template|create.*template|^new$|^create$/i }).first();
+    return this.page
+      .getByRole("button", { name: /add template|add price.?list template|^add$|^create$/i })
+      .first();
   }
 
   statusTab(name: RegExp | string): Locator {
@@ -58,23 +77,77 @@ export class PriceListTemplatePage extends BasePage {
     if ((await card.count()) > 0) {
       await card.click();
     } else {
-      const row = this.templateRow(text);
-      await row.click();
+      await this.templateRow(text).click();
     }
     await this.page.waitForLoadState("networkidle");
   }
 
+  /**
+   * Open the first template in the list by clicking its name button (the row
+   * itself is not clickable — navigation is wired to the name cell). Returns
+   * false if the list is empty so the caller can skip.
+   */
+  async openFirst(): Promise<boolean> {
+    await this.gotoList();
+    const firstName = this.page.getByRole("row").nth(1).getByRole("button").first();
+    if ((await firstName.count()) === 0) return false;
+    await firstName.click();
+    await this.page.waitForLoadState("networkidle");
+    return true;
+  }
+
+  /**
+   * Filter the list to `name` (SearchInput fires on Enter), then open it. Lands
+   * on the detail page in view mode.
+   */
+  async openByName(name: string) {
+    await this.gotoList();
+    const search = this.searchInput();
+    if ((await search.count()) > 0) {
+      await search.fill(name).catch(() => {});
+      await search.press("Enter").catch(() => {});
+    }
+    await this.page.getByText(name, { exact: false }).first().click();
+    await this.page.waitForLoadState("networkidle");
+  }
+
+  // ── Row actions (edit / delete) ──────────────────────────────────────
+  rowActionsTrigger(text: string): Locator {
+    return this.templateRow(text).getByRole("button", { name: /row actions|actions|more/i }).first();
+  }
+
+  /**
+   * Open a row's actions menu and click Delete, then either confirm or cancel in
+   * the DeleteDialog (AlertDialog). Caller must have the row visible (search first).
+   */
+  async deleteViaRowActions(text: string, opts: { confirm: boolean }) {
+    await this.rowActionsTrigger(text).click({ timeout: 10_000 });
+    await this.page.getByRole("menuitem", { name: /^(delete|ลบ)$/i }).first().click({ timeout: 10_000 });
+    const dialog = this.page.getByRole("alertdialog");
+    await expect(dialog).toBeVisible({ timeout: 5_000 });
+    const name = opts.confirm ? /^(delete|confirm|ลบ|ok)$/i : /^(cancel|ยกเลิก)$/i;
+    await dialog.getByRole("button", { name }).click();
+  }
+
   // ── Form (create / edit) ─────────────────────────────────────────────
   nameInput(): Locator {
-    return this.page.getByLabel(/template name|^name$/i).first();
+    // Redesigned hero NameField — targeted by its placeholder.
+    return this.page.getByPlaceholder(/Fresh Produce Template/i).first();
   }
 
   descriptionInput(): Locator {
-    return this.page.getByLabel(/^description$/i).first();
+    // Optional description Textarea (placeholder "Optional").
+    return this.page.getByPlaceholder(/^optional$/i).first();
   }
 
-  currencyTrigger(): Locator {
-    return this.page.getByLabel(/currency/i).first();
+  currencySelect(): Locator {
+    return this.page.getByRole("combobox").first();
+  }
+
+  /** Open the required currency Select and pick the first available option. */
+  async selectFirstCurrency() {
+    await this.currencySelect().click();
+    await this.page.getByRole("option").first().click();
   }
 
   validityDaysInput(): Locator {
@@ -85,39 +158,30 @@ export class PriceListTemplatePage extends BasePage {
     return this.page.getByLabel(/vendor instruction/i).first();
   }
 
-  allowMultiMoqSwitch(): Locator {
-    return this.page.getByRole("switch", { name: /multi.?moq/i }).first();
-  }
-
-  requireLeadTimeSwitch(): Locator {
-    return this.page.getByRole("switch", { name: /lead time/i }).first();
-  }
-
   maxItemsInput(): Locator {
     return this.page.getByLabel(/max items|maximum items/i).first();
   }
 
-  sendRemindersSwitch(): Locator {
-    return this.page.getByRole("switch", { name: /reminder/i }).first();
-  }
-
-  reminderDayCheckbox(days: number): Locator {
-    return this.page.getByRole("checkbox", { name: new RegExp(`${days}\\s*day`, "i") }).first();
-  }
-
-  escalationDaysInput(): Locator {
-    return this.page.getByLabel(/escalation.*day/i).first();
-  }
-
-  // override: also matches "Save Changes" button on edit screen
+  // matches the toolbar submit button ("Save" / "Create" / "Save Changes")
   saveButton(): Locator {
-    return this.page.getByRole("button", { name: /save changes|^save$|^create$/i }).first();
+    return this.page.getByRole("button", { name: /save changes|^save$|^create$|บันทึก|สร้าง/i }).first();
   }
 
   async fillHeader(data: TemplateHeaderInput) {
     if (data.name !== undefined) {
       const n = this.nameInput();
       if ((await n.count()) > 0) await n.fill(data.name);
+    }
+    if (data.currency !== undefined) {
+      const c = this.currencySelect();
+      if ((await c.count()) > 0) {
+        await c.click();
+        const option =
+          data.currency === "first"
+            ? this.page.getByRole("option").first()
+            : this.page.getByRole("option", { name: new RegExp(data.currency, "i") }).first();
+        await option.click().catch(() => {});
+      }
     }
     if (data.description !== undefined) {
       const d = this.descriptionInput();
@@ -135,91 +199,15 @@ export class PriceListTemplatePage extends BasePage {
       const m = this.maxItemsInput();
       if ((await m.count()) > 0) await m.fill(String(data.maxItemsPerSubmission));
     }
-    if (data.escalationDays !== undefined) {
-      const e = this.escalationDaysInput();
-      if ((await e.count()) > 0) await e.fill(String(data.escalationDays));
-    }
-    if (data.allowMultiMOQ !== undefined) {
-      const s = this.allowMultiMoqSwitch();
-      if ((await s.count()) > 0) {
-        const checked = (await s.getAttribute("aria-checked")) === "true";
-        if (checked !== data.allowMultiMOQ) await s.click();
-      }
-    }
-    if (data.requireLeadTime !== undefined) {
-      const s = this.requireLeadTimeSwitch();
-      if ((await s.count()) > 0) {
-        const checked = (await s.getAttribute("aria-checked")) === "true";
-        if (checked !== data.requireLeadTime) await s.click();
-      }
-    }
-    if (data.sendReminders !== undefined) {
-      const s = this.sendRemindersSwitch();
-      if ((await s.count()) > 0) {
-        const checked = (await s.getAttribute("aria-checked")) === "true";
-        if (checked !== data.sendReminders) await s.click();
-      }
-    }
-    if (data.reminderDays) {
-      for (const d of data.reminderDays) {
-        const cb = this.reminderDayCheckbox(d);
-        if ((await cb.count()) > 0) await cb.check({ force: true }).catch(() => {});
-      }
-    }
   }
 
-  // ── Products tab ─────────────────────────────────────────────────────
-  productsTab(): Locator {
-    return this.page.getByRole("tab", { name: /product/i }).first();
-  }
-
-  addProductsButton(): Locator {
-    return this.page.getByRole("button", { name: /add products?/i }).first();
-  }
-
-  productCheckbox(index: number): Locator {
-    return this.page.getByRole("checkbox").nth(index);
-  }
-
-  confirmSelectionButton(): Locator {
-    return this.page.getByRole("button", { name: /confirm selection/i }).first();
-  }
-
-  productListItem(text: string): Locator {
-    return this.page.getByRole("row").filter({ hasText: text }).first();
-  }
-
-  // ── Clone / activate / deactivate ────────────────────────────────────
-  cloneButton(): Locator {
-    return this.page.getByRole("button", { name: /clone template|^clone$/i }).first();
-  }
-
-  cloneNameInput(): Locator {
-    return this.page
-      .getByRole("dialog")
-      .getByLabel(/new template name|template name/i)
-      .first();
-  }
-
-  confirmCloneButton(): Locator {
-    return this.page.getByRole("dialog").getByRole("button", { name: /^clone$|confirm/i }).first();
-  }
-
-  activateButton(): Locator {
-    return this.page.getByRole("button", { name: /^activate$/i }).first();
-  }
-
-  deactivateButton(): Locator {
-    return this.page.getByRole("button", { name: /^deactivate$/i }).first();
-  }
-
-  detailsButton(): Locator {
-    return this.page.getByRole("button", { name: /^details$/i }).first();
-  }
-
-  // ── Filters / sorting ────────────────────────────────────────────────
+  // ── Filters / sorting (list edge cases) ──────────────────────────────
   filterByProductCount(): Locator {
     return this.page.getByRole("button", { name: /filter by product count/i }).first();
+  }
+
+  applyFilterButton(): Locator {
+    return this.page.getByRole("button", { name: /apply filters?/i }).first();
   }
 
   nameColumnHeader(): Locator {
@@ -231,7 +219,7 @@ export class PriceListTemplatePage extends BasePage {
     await expect(
       this.page
         .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-        .filter({ hasText: /success|saved|created|updated|cloned|activated|deactivated|สำเร็จ/i })
+        .filter({ hasText: /success|saved|created|updated|deleted|สำเร็จ/i })
         .first(),
     ).toBeVisible({ timeout: 10_000 });
   }
