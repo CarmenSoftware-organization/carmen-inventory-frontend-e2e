@@ -3,7 +3,8 @@ import { expect } from "@playwright/test";
 import { LoginPage } from "./login.page";
 import { PurchaseRequestPage, LIST_PATH } from "./purchase-request.page";
 import { createDraftPR, type CreatedPR } from "./pr-creator.helpers";
-import { TEST_PASSWORD } from "../test-users";
+import { TEST_PASSWORD, BU_CODE } from "../test-users";
+import { ensureActiveBu } from "../helpers/bu";
 
 export type { CreatedPR } from "./pr-creator.helpers";
 
@@ -26,6 +27,9 @@ export async function submitPRAsRequestor(
     await loginPage.goto();
     await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
     await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
+    // Fresh context (no storageState) → pin BU to BLAVG so the create form's
+    // BU-dependent location/product lookups have data.
+    await ensureActiveBu(page, BU_CODE);
 
     const created = await createDraftPR(page, {
       items: opts?.items ?? 1,
@@ -34,8 +38,15 @@ export async function submitPRAsRequestor(
 
     const pr = new PurchaseRequestPage(page);
     await pr.submitButton().click({ timeout: 5_000 });
-    await pr.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
-    await pr.expectStatus("in.progress");
+    await pr.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 });
+    // Submit redirects to the list — verify via the success toast (not a status
+    // badge, which isn't shown in the default "My Pending" draft view).
+    await expect(
+      page
+        .locator('[data-sonner-toast], [role="status"], [role="alert"]')
+        .filter({ hasText: /submitted|success|สำเร็จ/i })
+        .first(),
+    ).toBeVisible({ timeout: 10_000 });
     return created;
   } finally {
     await ctx.close();
