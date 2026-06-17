@@ -1,6 +1,9 @@
 import { test as baseTest, expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { PurchaseRequestPage, LIST_PATH, NEW_PATH, APPROVALS_PATH } from "./pages/purchase-request.page";
+import { BU_CODE } from "./test-users";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
+import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — each createAuthTest registers a per-role login fixture.
@@ -40,6 +43,31 @@ const VALID_REASON = "Items discontinued in catalogue";
 // TC-PR-900001 — Create PR (Requestor)
 // ─────────────────────────────────────────────────────────────────────────
 requestorTest.describe("PR — Create", () => {
+  // Transaction-module rollout: pin the creator session's active BU to BLAVG.
+  // Scoped to this describe (not the other roles' authz describes); inline
+  // ensureActiveBu rather than a describe-wide beforeEach so the existing create
+  // tests' navigation is untouched.
+  requestorTest(
+    "TC-PR-010050 active BU = BLAVG",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com ผ่าน auth fixture" },
+        { type: "steps", description: "1. เรียก ensureActiveBu(BLAVG)\n2. อ่าน profile API\n3. หา business unit ที่ is_default\n4. อ่าน label ของ BU switcher" },
+        { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      await ensureActiveBu(page, BU_CODE);
+      const units = await getBusinessUnits(page);
+      const active = defaultBu(units);
+      expect(active?.code).toBe(BU_CODE);
+      const switcher = new BuSwitcherPage(page);
+      await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
+    },
+  );
+
   requestorTest(
     "TC-PR-010001 Create a basic purchase request with default values",
     {
