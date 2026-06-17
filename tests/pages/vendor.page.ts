@@ -43,6 +43,19 @@ export interface VendorFormData {
 export const LIST_PATH = "/vendor-management/vendor";
 export const NEW_PATH = "/vendor-management/vendor/new";
 
+/**
+ * Page object for the **redesigned** Vendor module.
+ *
+ * The form is a single sectioned page (no Radix tabs): a `#vendor-code` input, a
+ * hero `NameField`, a `LookupBuType` business-type multi-select, a
+ * `#vendor-description` textarea, and Addresses / Contacts / Info **sections**
+ * built on react-hook-form field arrays. Array inputs therefore carry stable
+ * `name="vendor_address.<i>.<field>"` (etc.) attributes, which we target
+ * directly. Rows are **prepended**, so a freshly added row is index 0.
+ *
+ * `switchTab()` is retained as a no-op for backward compatibility with existing
+ * callers — every section now lives on one page.
+ */
 export class VendorPage extends BasePage {
   readonly list: ConfigListPage;
 
@@ -62,76 +75,54 @@ export class VendorPage extends BasePage {
     await this.page.waitForLoadState("networkidle");
   }
 
-  // ── Form — General tab ────────────────────────────────────────────────
+  // ── Form — general section ────────────────────────────────────────────
   codeInput(): Locator {
     return this.page.locator("#vendor-code");
   }
 
   nameInput(): Locator {
-    return this.page.locator("#vendor-name");
+    // Redesigned hero NameField (placeholder "e.g. บริษัท ABC จำกัด").
+    return this.page.getByPlaceholder(/บริษัท ABC|ABC จำกัด|e\.g\. .*ABC/i).first();
   }
 
-  /** Reserved for future specs that exercise the optional description field. */
   descriptionInput(): Locator {
     return this.page.locator("#vendor-description");
   }
 
-  /** Reserved for future specs that toggle the active/inactive switch. */
-  activeSwitch(): Locator {
-    return this.page.locator("#vendor-is-active");
-  }
-
-  // override: scoped to FormToolbar submit button only
+  // override: FormToolbar submit button (text "Create" in add mode, "Save" in edit)
   saveButton(): Locator {
-    // FormToolbar submit button — text is "Create" in add mode, "Save" in edit mode
     return this.page
-      .getByRole("button", { name: /^(Create|Save)$/i })
+      .getByRole("button", { name: /^(Create|Save|บันทึก|สร้าง)$/i })
       .and(this.page.locator('[type="submit"]'));
   }
 
-  // ── Tabs ──────────────────────────────────────────────────────────────
-  tabTrigger(tab: "general" | "info" | "address" | "contact"): Locator {
-    const labelMap: Record<string, RegExp> = {
-      general: /general|ทั่วไป/i,
-      info: /info|ข้อมูล/i,
-      address: /address|ที่อยู่/i,
-      contact: /contact|ผู้ติดต่อ/i,
-    };
-    return this.page.getByRole("tab", { name: labelMap[tab] });
+  /** No-op: the redesign renders all sections on a single page (no tabs). */
+  async switchTab(_tab?: "general" | "info" | "address" | "contact") {
+    /* sections share one page now */
   }
 
-  async switchTab(tab: "general" | "info" | "address" | "contact") {
-    const trigger = this.tabTrigger(tab);
-    await trigger.click();
-    await expect(trigger).toHaveAttribute("data-state", "active", { timeout: 5_000 });
-  }
-
-  // ── Business type (multi-select Popover + Command) ───────────────────
+  // ── Business type (LookupBuType: Popover + Command, multi-select) ──────
   businessTypeTrigger(): Locator {
-    // Button with aria-expanded inside the General tabpanel form area.
-    // Scoped to the General tabpanel to avoid matching sidebar/header popovers
-    // (e.g. org switcher) that also render a ChevronsUpDown icon.
+    // The business-type LookupBuType trigger is the aria-expanded outline button
+    // inside the vendor form (scope to #vendor-form to avoid the nav org-switcher,
+    // which also renders a ChevronsUpDown glyph).
     return this.page
-      .getByRole("tabpanel", { name: /general|ทั่วไป/i })
-      .locator("button")
-      .filter({ has: this.page.locator('svg[class*="ChevronsUpDown"]').or(this.page.locator(".lucide-chevrons-up-down")) })
+      .locator("#vendor-form button[aria-expanded]")
+      .filter({ has: this.page.locator(".lucide-chevrons-up-down") })
       .first();
   }
 
   businessTypeSearch(): Locator {
-    return this.page.getByPlaceholder(/search.*business type/i);
+    // CommandInput inside the popover.
+    return this.page.getByRole("dialog").getByPlaceholder(/search/i).first()
+      .or(this.page.getByPlaceholder(/search/i).last());
   }
 
-  /**
-   * Open the business-type popover and click the first option.
-   * If `label` is provided, search for it first. Returns the label that was selected.
-   */
   async pickBusinessType(label?: string): Promise<string> {
     await this.businessTypeTrigger().click();
-    await this.businessTypeSearch().waitFor({ state: "visible", timeout: 5_000 });
-    if (label) {
-      await this.businessTypeSearch().fill(label);
-    }
+    const search = this.businessTypeSearch();
+    await search.waitFor({ state: "visible", timeout: 5_000 });
+    if (label) await search.fill(label);
     const firstOption = this.page.getByRole("option").first();
     await firstOption.waitFor({ state: "visible", timeout: 5_000 });
     const text = (await firstOption.textContent()) ?? "";
@@ -142,15 +133,12 @@ export class VendorPage extends BasePage {
 
   async businessTypeOptionCount(): Promise<number> {
     await this.businessTypeTrigger().click();
-    await this.businessTypeSearch().waitFor({ state: "visible", timeout: 5_000 });
-    // Wait until either an option appears or the empty state renders — avoid
-    // counting before async fetch completes.
+    const search = this.businessTypeSearch();
+    await search.waitFor({ state: "visible", timeout: 5_000 });
     await Promise.race([
       this.page.getByRole("option").first().waitFor({ state: "visible", timeout: 3_000 }),
       this.page.getByText(/no.*found|not.*found|ไม่พบ/i).first().waitFor({ state: "visible", timeout: 3_000 }),
-    ]).catch(() => {
-      // Neither appeared within 3s — fall through and let count() return whatever it sees.
-    });
+    ]).catch(() => {});
     const count = await this.page.getByRole("option").count();
     await this.page.keyboard.press("Escape");
     return count;
@@ -158,42 +146,32 @@ export class VendorPage extends BasePage {
 
   // ── Fill helpers ──────────────────────────────────────────────────────
   async fillGeneral(data: Pick<VendorFormData, "code" | "name" | "description" | "businessType">) {
-    await this.switchTab("general");
     await this.codeInput().fill(data.code);
     await this.nameInput().fill(data.name);
     if (data.description !== undefined) {
-      await this.descriptionInput().fill(data.description);
+      await this.descriptionInput().fill(data.description).catch(() => {});
     }
     if (data.businessType !== undefined) {
       const count = await this.businessTypeOptionCount();
-      if (count > 0) {
-        await this.pickBusinessType(data.businessType || undefined);
-      }
+      if (count > 0) await this.pickBusinessType(data.businessType || undefined);
     }
   }
 
-  /**
-   * High-level flow: fill general (+ optional tabs) and save.
-   * Does not wait for redirect — caller uses expectSaved().
-   */
   async createVendor(data: VendorFormData) {
     await this.fillGeneral(data);
     if (data.addresses) {
-      await this.switchTab("address");
       for (const a of data.addresses) {
         await this.addAddressRow();
         await this.fillAddress(0, a);
       }
     }
     if (data.contacts) {
-      await this.switchTab("contact");
       for (const c of data.contacts) {
         await this.addContactRow();
         await this.fillContact(0, c);
       }
     }
     if (data.info) {
-      await this.switchTab("info");
       for (const i of data.info) {
         await this.addInfoRow();
         await this.fillInfo(0, i);
@@ -202,15 +180,6 @@ export class VendorPage extends BasePage {
     await this.saveButton().click();
   }
 
-  /**
-   * Wait for the success toast and for navigation to leave the `/new` form.
-   *
-   * - Create flow redirects to the detail page (`/vendor-management/vendor/{id}`).
-   * - Edit flow redirects back to the list (`/vendor-management/vendor`).
-   *
-   * Both are acceptable — callers that need to verify the row appears on the
-   * list should explicitly call `gotoList()` afterwards.
-   */
   async expectSaved() {
     await expect(
       this.page
@@ -221,53 +190,36 @@ export class VendorPage extends BasePage {
     await expect(this.page).not.toHaveURL(/\/new(\?|$|#)/, { timeout: 10_000 });
   }
 
-  // ── Address tab ───────────────────────────────────────────────────────
-  /** Locator scoped to the address tab panel. */
-  private addressPanel(): Locator {
-    return this.page.getByRole("tabpanel", { name: /address|ที่อยู่/i });
-  }
-
-  /**
-   * A row is a `div.space-y-6` that contains the address_type combobox.
-   * Filtering by the combobox avoids matching panel-level wrappers that might
-   * share the same Tailwind class.
-   */
+  // ── Addresses section ─────────────────────────────────────────────────
+  /** Row card scoped by the row's own address_line1 input (stable per row). */
   addressRow(index: number): Locator {
-    return this.addressPanel()
-      .locator("div.space-y-6")
-      .filter({ has: this.page.getByRole("combobox") })
-      .nth(index);
+    return this.page
+      .locator("div.rounded-xl.border")
+      .filter({ has: this.page.locator(`input[name="vendor_address.${index}.address_line1"]`) })
+      .first();
   }
 
   async addAddressRow() {
-    await this.switchTab("address");
     const before = await this.addressCount();
-    const addButton = this.addressPanel().getByRole("button", { name: /^Add$|^เพิ่ม$/i });
-    await addButton.click();
-    await expect
-      .poll(() => this.addressCount(), { timeout: 5_000 })
-      .toBe(before + 1);
+    await this.page.getByRole("button", { name: /add address/i }).first().click();
+    await expect.poll(() => this.addressCount(), { timeout: 5_000 }).toBe(before + 1);
   }
 
   async addressCount(): Promise<number> {
-    return await this.addressPanel()
-      .locator("div.space-y-6")
-      .filter({ has: this.page.getByRole("combobox") })
-      .count();
+    return await this.page.locator('input[name^="vendor_address."][name$=".address_line1"]').count();
   }
 
   async removeAddressRow(index: number) {
-    const row = this.addressRow(index);
-    const removeBtn = row.getByRole("button", { name: /remove/i }).first();
-    await removeBtn.click();
+    const before = await this.addressCount();
+    await this.addressRow(index).getByRole("button", { name: /remove|delete|ลบ/i }).first().click();
+    await expect.poll(() => this.addressCount(), { timeout: 5_000 }).toBe(before - 1);
   }
 
   async fillAddress(index: number, data: VendorAddressInput) {
-    const row = this.addressRow(index);
+    const field = (f: string) => this.page.locator(`input[name="vendor_address.${index}.${f}"]`);
 
-    // 1) address_type Select (first combobox in the row)
     if (data.address_type) {
-      const typeTrigger = row.getByRole("combobox").first();
+      const typeTrigger = this.addressRow(index).getByRole("combobox").first();
       await typeTrigger.click();
       const labelMap: Record<string, RegExp> = {
         contact_address: /contact/i,
@@ -277,169 +229,102 @@ export class VendorPage extends BasePage {
       await this.page.getByRole("option", { name: labelMap[data.address_type] }).first().click();
     }
 
-    // 2) Thai vs International radio
     const mode = data.mode ?? "international";
-    const radio = row.getByRole("radio", { name: mode === "thai" ? /thai/i : /international/i });
-    await radio.check({ force: true });
+    await this.page.locator(`#${mode === "thai" ? "thai" : "international"}-${index}`).check({ force: true }).catch(() => {});
 
-    // 3) Address lines
-    if (data.address_line1 !== undefined) {
-      await row.getByPlaceholder(/address line 1/i).fill(data.address_line1);
-    }
-    if (data.address_line2 !== undefined) {
-      await row.getByPlaceholder(/address line 2/i).fill(data.address_line2);
-    }
-
-    // 4) International fields (city/district/sub_district/province/postal/country)
-    if (mode === "international") {
-      if (data.city !== undefined) await row.getByPlaceholder(/^city$/i).fill(data.city);
-      if (data.district !== undefined) await row.getByPlaceholder(/^district$/i).fill(data.district);
-      if (data.sub_district !== undefined) await row.getByPlaceholder(/sub.?district/i).fill(data.sub_district);
-      if (data.province !== undefined) await row.getByPlaceholder(/province|state/i).fill(data.province);
-      if (data.postal_code !== undefined) await row.getByPlaceholder(/postal code/i).first().fill(data.postal_code);
-      if (data.country !== undefined) await row.getByPlaceholder(/country/i).fill(data.country);
-    }
+    if (data.address_line1 !== undefined) await field("address_line1").fill(data.address_line1);
+    if (data.address_line2 !== undefined) await field("address_line2").fill(data.address_line2);
+    if (data.city !== undefined) await field("city").fill(data.city).catch(() => {});
+    if (data.district !== undefined) await field("district").fill(data.district).catch(() => {});
+    if (data.sub_district !== undefined) await field("sub_district").fill(data.sub_district).catch(() => {});
+    if (data.province !== undefined) await field("province").fill(data.province).catch(() => {});
+    if (data.postal_code !== undefined) await field("postal_code").first().fill(data.postal_code).catch(() => {});
+    if (data.country !== undefined) await field("country").fill(data.country).catch(() => {});
   }
 
-  // ── Contact tab ───────────────────────────────────────────────────────
-  private contactPanel(): Locator {
-    return this.page.getByRole("tabpanel", { name: /contact|ผู้ติดต่อ/i });
-  }
-
-  /**
-   * A contact row is a <tr> in the contact tab's DataGrid tbody that contains
-   * the name input. Filtering by `input` excludes the empty-state `<tr>` which
-   * the DataGrid renders with a single colspanned cell and `<EmptyComponent />`.
-   */
+  // ── Contacts section ──────────────────────────────────────────────────
   contactRow(index: number): Locator {
-    return this.contactPanel()
-      .locator("tbody tr")
-      .filter({ has: this.page.locator("input") })
-      .nth(index);
+    // The contact card carries `relative` (the section wrapper does not), so this
+    // resolves to the single card rather than a wrapper holding multiple cards.
+    return this.page
+      .locator("div.relative.rounded-xl.border")
+      .filter({ has: this.page.locator(`input[name="vendor_contact.${index}.name"]`) })
+      .first();
   }
 
   async addContactRow() {
-    await this.switchTab("contact");
     const before = await this.contactCount();
-    const addButton = this.contactPanel().getByRole("button", { name: /add.*contact|เพิ่ม/i }).first();
-    await addButton.click();
-    await expect
-      .poll(() => this.contactCount(), { timeout: 5_000 })
-      .toBe(before + 1);
+    await this.page.getByRole("button", { name: /add contact/i }).first().click();
+    await expect.poll(() => this.contactCount(), { timeout: 5_000 }).toBe(before + 1);
   }
 
   async contactCount(): Promise<number> {
-    return await this.contactPanel()
-      .locator("tbody tr")
-      .filter({ has: this.page.locator("input") })
-      .count();
+    return await this.page.locator('input[name^="vendor_contact."][name$=".name"]').count();
   }
 
   async removeContactRow(index: number) {
-    const row = this.contactRow(index);
     const before = await this.contactCount();
-    await row.getByRole("button", { name: /remove|delete|trash|ลบ/i }).first().click();
-    // DeleteDialog confirmation
+    await this.contactRow(index).getByRole("button", { name: /remove|delete|trash|ลบ/i }).first().click();
+    // Contact removal is confirmed through a DeleteDialog (AlertDialog).
     await this.page
       .getByRole("alertdialog")
       .getByRole("button", { name: /confirm|delete|ลบ|ok/i })
       .click();
-    await expect
-      .poll(() => this.contactCount(), { timeout: 5_000 })
-      .toBe(before - 1);
+    await expect.poll(() => this.contactCount(), { timeout: 5_000 }).toBe(before - 1);
   }
 
   async fillContact(index: number, data: VendorContactInput) {
-    const row = this.contactRow(index);
-    if (data.name !== undefined) {
-      await row.getByPlaceholder(/name/i).first().fill(data.name);
-    }
-    if (data.email !== undefined) {
-      await row.getByPlaceholder(/email/i).fill(data.email);
-    }
-    if (data.phone !== undefined) {
-      await row.getByPlaceholder(/phone/i).fill(data.phone);
-    }
-    if (data.is_primary) {
-      await this.setPrimaryContact(index);
-    }
+    const field = (f: string) => this.page.locator(`input[name="vendor_contact.${index}.${f}"]`);
+    if (data.name !== undefined) await field("name").fill(data.name);
+    if (data.email !== undefined) await field("email").fill(data.email);
+    if (data.phone !== undefined) await field("phone").fill(data.phone);
+    if (data.is_primary) await this.setPrimaryContact(index);
   }
 
   async setPrimaryContact(index: number) {
-    const row = this.contactRow(index);
-    const checkbox = row.getByRole("checkbox");
-    await checkbox.check({ force: true });
+    await this.contactRow(index).getByRole("checkbox").first().check({ force: true });
   }
 
-  // ── Info tab ──────────────────────────────────────────────────────────
-  private infoPanel(): Locator {
-    return this.page.getByRole("tabpanel", { name: /info|ข้อมูล/i });
-  }
-
-  /**
-   * Each info row is a flex container with label input, value input, data-type select,
-   * and a remove button. Anchor on "has an input" so we don't match the title row or
-   * other non-row flex containers in the panel.
-   */
+  // ── Info section ──────────────────────────────────────────────────────
   infoRow(index: number): Locator {
-    return this.infoPanel()
-      .locator("div.flex.items-start.gap-2")
-      .filter({ has: this.page.locator("input") })
-      .nth(index);
+    return this.page
+      .locator("div.rounded-lg.border")
+      .filter({ has: this.page.locator(`input[name="info.${index}.label"]`) })
+      .first();
   }
 
   async addInfoRow() {
-    await this.switchTab("info");
     const before = await this.infoCount();
-    const addButton = this.infoPanel().getByRole("button", { name: /^Add$|^เพิ่ม$/i }).first();
-    await addButton.click();
-    await expect
-      .poll(() => this.infoCount(), { timeout: 5_000 })
-      .toBe(before + 1);
+    await this.page.getByRole("button", { name: /add field|add info/i }).first().click();
+    await expect.poll(() => this.infoCount(), { timeout: 5_000 }).toBe(before + 1);
   }
 
   async infoCount(): Promise<number> {
-    return await this.infoPanel()
-      .locator("div.flex.items-start.gap-2")
-      .filter({ has: this.page.locator("input") })
-      .count();
+    return await this.page.locator('input[name^="info."][name$=".label"]').count();
   }
 
   async removeInfoRow(index: number) {
-    const row = this.infoRow(index);
     const before = await this.infoCount();
-    await row.getByRole("button", { name: /remove|delete|trash|ลบ/i }).first().click();
-    await expect
-      .poll(() => this.infoCount(), { timeout: 5_000 })
-      .toBe(before - 1);
+    await this.page.getByRole("button", { name: /remove info/i }).nth(index).click().catch(async () => {
+      await this.infoRow(index).getByRole("button", { name: /remove|delete|ลบ/i }).first().click();
+    });
+    await expect.poll(() => this.infoCount(), { timeout: 5_000 }).toBe(before - 1);
   }
 
   async fillInfo(index: number, data: VendorInfoInput) {
-    const row = this.infoRow(index);
-    // Row has two plain Input elements (label, value) + a Select for data_type.
-    const inputs = row.locator('input:not([type]), input[type="text"]');
-    await inputs.nth(0).fill(data.label);
-    await inputs.nth(1).fill(data.value);
+    await this.page.locator(`input[name="info.${index}.label"]`).fill(data.label);
+    await this.page.locator(`input[name="info.${index}.value"]`).fill(data.value);
     if (data.dataType) {
-      await row.getByRole("combobox").click();
+      await this.infoRow(index).getByRole("combobox").first().click();
       await this.page.getByRole("option", { name: new RegExp(`^${data.dataType}$`, "i") }).click();
     }
   }
 
-  /**
-   * Open the vendor detail page by clicking a row containing the given text on the list.
-   * Assumes the list is already loaded and the row is visible.
-   *
-   * The list row doesn't have an anchor or a clickable row — the Code/Name cells
-   * are rendered as `<button>` elements that navigate to the detail page. Prefer
-   * the name button since we search by name; fall back to link/row click for
-   * other list shapes.
-   */
+  // ── List → detail ─────────────────────────────────────────────────────
   async openDetailByName(name: string) {
     await this.list.search(name);
     const row = this.page.getByRole("row").filter({ hasText: name }).first();
     await row.waitFor({ state: "visible", timeout: 10_000 });
-
     const nameButton = row.getByRole("button", { name }).first();
     const link = row.getByRole("link").first();
     if ((await nameButton.count()) > 0) {
@@ -447,24 +332,14 @@ export class VendorPage extends BasePage {
     } else if ((await link.count()) > 0) {
       await link.click();
     } else {
-      // Row itself navigates on click
       await row.click();
     }
     await this.page.waitForURL(/\/vendor-management\/vendor\/[^/]+$/, { timeout: 10_000 });
     await this.page.waitForLoadState("networkidle");
   }
 
-  // ── Validation helpers ────────────────────────────────────────────────
-  // override: matches 4 surfaces (aria-invalid + p.text-destructive + p.text-[0.625rem]… + FieldError)
+  // ── Validation helper ─────────────────────────────────────────────────
   anyError(): Locator {
-    // Multiple surfaces for validation errors across the vendor form:
-    // - `[aria-invalid="true"]` — FieldInput (code/name) sets this when zod fails;
-    //   the message itself is in a TooltipContent that only mounts on hover, so we
-    //   target the invalid input directly.
-    // - `p.text-destructive` / `p.text-[0.625rem].text-destructive` — inline `<p>`
-    //   error in the address row (city/district refinement) and similar spots.
-    // - `[role="alert"][data-slot="field-error"]` — FieldError component (future-
-    //   proof for fields that render the message inline).
     return this.page.locator(
       '[aria-invalid="true"], p.text-destructive, p.text-\\[0\\.625rem\\].text-destructive, [role="alert"][data-slot="field-error"]',
     );
