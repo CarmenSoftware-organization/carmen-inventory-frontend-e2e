@@ -57,14 +57,12 @@ export async function submitPRAsRequestor(
     const pr = new PurchaseRequestPage(page);
     await pr.submitButton().click({ timeout: 5_000 });
     await pr.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 });
-    // Submit redirects to the list — verify via the success toast (not a status
-    // badge, which isn't shown in the default "My Pending" draft view).
-    await expect(
-      page
-        .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-        .filter({ hasText: /submitted|success|สำเร็จ/i })
-        .first(),
-    ).toBeVisible({ timeout: 10_000 });
+    // A successful submit advances the PR to In Progress and redirects to the
+    // list. Wait for that redirect (NOT a toast — the create-success toast can
+    // still be on screen and would be a false positive) so the submit has truly
+    // persisted before withRoleContext closes this context. Closing too early
+    // aborts the in-flight submit and leaves the PR stuck in Draft.
+    await page.waitForURL(/\/procurement\/purchase-request(\?|$)/, { timeout: 15_000 });
     return created;
   });
 }

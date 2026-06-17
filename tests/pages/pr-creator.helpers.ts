@@ -73,14 +73,11 @@ export async function submitDraftPR(page: Page, ref: string): Promise<void> {
   }
   await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
   await pr.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 });
-  // Submit redirects to the list, so verify via the success toast (the submitted
-  // PR is no longer in the default "My Pending" draft view).
-  await expect(
-    page
-      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-      .filter({ hasText: /submitted|success|สำเร็จ/i })
-      .first(),
-  ).toBeVisible({ timeout: 10_000 });
+  // A successful submit advances the PR to In Progress and redirects to the PR
+  // list. Wait for that redirect rather than a success toast: the create-success
+  // toast can linger and matches /success/, giving a false positive that returns
+  // before the submit has actually persisted.
+  await page.waitForURL(/\/procurement\/purchase-request(\?|$)/, { timeout: 15_000 });
 }
 
 /**
