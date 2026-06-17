@@ -283,25 +283,20 @@ test.describe("Vendor — Create happy path", () => {
 });
 
 test.describe("Vendor — Tabs & dynamic arrays", () => {
-  test(
+  test.skip(
     "TC-VEN-030006 สลับ tab ทั้ง 4 tabs ได้",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
-        { type: "steps", description: "1. เปิด new form\n2. คลิกแต่ละ tab: general, info, address, contact" },
-        { type: "expected", description: "ทุก tab trigger แสดง data-state='active' หลังคลิก (Radix tab pattern)" },
+        { type: "steps", description: "(feature removed in redesign — see note)" },
+        { type: "expected", description: "N/A — แทนที่ด้วยการตรวจ section ทั้งหมดในหน้าเดียว" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
+        { type: "note", description: "REDESIGNED AWAY: the vendor form is now a single sectioned page (General/Addresses/Contacts/Info), not Radix tabs. There is no tab to switch — the array tests below already exercise each section on one page." },
       ],
     },
-    async ({ page }) => {
-    const vendor = new VendorPage(page);
-    await vendor.gotoNew();
-    for (const tab of ["general", "info", "address", "contact"] as const) {
-      await vendor.switchTab(tab);
-      await expect(vendor.tabTrigger(tab)).toHaveAttribute("data-state", "active");
-    }
-  });
+    async () => {},
+  );
 
   test(
     "TC-VEN-030007 เพิ่ม address row ได้หลาย row",
@@ -479,8 +474,13 @@ test.describe("Vendor — Validation", () => {
     await vendor.switchTab("general");
     await vendor.nameInput().fill(`${NAME} v19`);
     await vendor.saveButton().click();
-    await expect(vendor.anyError().first()).toBeVisible({ timeout: 5_000 });
-    await expect(page).toHaveURL(/\/new$/);
+    // Redesigned form shows required-field errors via hover tooltips (no
+    // aria-invalid / inline text), so assert the meaningful outcome: the missing
+    // code blocks submit — still on /new, no success toast.
+    await expect(page).toHaveURL(/\/new/, { timeout: 5_000 });
+    await expect(
+      page.locator('[data-sonner-toast], [role="status"]').filter({ hasText: /success|created|สำเร็จ/i }),
+    ).toHaveCount(0, { timeout: 3_000 });
   });
 
   test(
@@ -500,8 +500,11 @@ test.describe("Vendor — Validation", () => {
     await vendor.switchTab("general");
     await vendor.codeInput().fill(`V${UID.slice(0, 4)}`);
     await vendor.saveButton().click();
-    await expect(vendor.anyError().first()).toBeVisible({ timeout: 5_000 });
-    await expect(page).toHaveURL(/\/new$/);
+    // Missing name blocks submit (error shown via hover tooltip in the redesign).
+    await expect(page).toHaveURL(/\/new/, { timeout: 5_000 });
+    await expect(
+      page.locator('[data-sonner-toast], [role="status"]').filter({ hasText: /success|created|สำเร็จ/i }),
+    ).toHaveCount(0, { timeout: 3_000 });
   });
 
   test(
@@ -530,8 +533,8 @@ test.describe("Vendor — Validation", () => {
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
-        { type: "steps", description: "1. เปิด new form ที่ tab general\n2. พยายาม fill name 'N' ยาว 150 ตัวอักษร" },
-        { type: "expected", description: "ค่าใน name input ต้องไม่เกิน 100 ตัวอักษร (input maxLength enforcement)" },
+        { type: "steps", description: "1. เปิด new form\n2. กรอก code + business type ที่ถูกต้อง\n3. กรอก name ยาว 150 ตัวอักษร\n4. กด Save" },
+        { type: "expected", description: "zod name.max(100) บล็อก submit — ยังอยู่ที่ /new และไม่มี success toast" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Validation" },
       ],
@@ -539,41 +542,33 @@ test.describe("Vendor — Validation", () => {
     async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
-    await vendor.switchTab("general");
-    const long = "N".repeat(150);
-    await vendor.nameInput().fill(long);
-    const value = await vendor.nameInput().inputValue();
-    expect(value.length).toBeLessThanOrEqual(100);
+    // The redesigned hero NameField does not client-cap length, so the 100-char
+    // limit is enforced by zod on submit. Provide a valid code so the only
+    // blocker is the over-long name.
+    await vendor.codeInput().fill(`V${UID.slice(0, 4)}L`);
+    if ((await vendor.businessTypeOptionCount()) > 0) await vendor.pickBusinessType();
+    await vendor.nameInput().fill("N".repeat(150));
+    await vendor.saveButton().click();
+    await expect(page).toHaveURL(/\/new/, { timeout: 5_000 });
+    await expect(
+      page.locator('[data-sonner-toast], [role="status"]').filter({ hasText: /success|created|สำเร็จ/i }),
+    ).toHaveCount(0, { timeout: 3_000 });
   });
 
-  test(
+  test.skip(
     "TC-VEN-200005 address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement)",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
-        { type: "steps", description: "1. เปิด new form\n2. กรอก code + name + business type\n3. เพิ่ม address row ที่มี address_line1 อย่างเดียว (ไม่มี city/district)\n4. กด Save" },
-        { type: "expected", description: "Error indicator ปรากฏและ URL ยังคงอยู่ที่ /new (zod refinement บังคับต้องมี city หรือ district)" },
+        { type: "steps", description: "(refinement removed in redesign — see note)" },
+        { type: "expected", description: "N/A — address ที่มีแค่ line1 ถือว่า valid ในสคีมาใหม่" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Validation" },
+        { type: "note", description: "REDESIGNED AWAY: the redesigned vendor-form-schema no longer carries the city||district refinement on addresses (only email has a .refine). An address with just address_line1 is now valid, so there is nothing to assert. Skipped." },
       ],
     },
-    async ({
-    page,
-  }) => {
-    const vendor = new VendorPage(page);
-    await vendor.gotoNew();
-    await vendor.fillGeneral({ code: `${CODE.slice(0, 9)}R`, name: `${NAME} v23` });
-    if ((await vendor.businessTypeOptionCount()) > 0) await vendor.pickBusinessType();
-    await vendor.addAddressRow();
-    await vendor.fillAddress(0, {
-      address_type: "contact_address",
-      mode: "international",
-      address_line1: "Line 1 only",
-    });
-    await vendor.saveButton().click();
-    await expect(vendor.anyError().first()).toBeVisible({ timeout: 5_000 });
-    await expect(page).toHaveURL(/\/new$/);
-  });
+    async () => {},
+  );
 
   test(
     "TC-VEN-200006 contact email รูปแบบผิดต้องแสดง error",
