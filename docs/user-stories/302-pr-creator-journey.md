@@ -5,7 +5,7 @@ _Generated from `tests/302-pr-creator-journey.spec.ts` annotations. Edit annotat
 **Module:** Pr Creator Journey
 **Spec:** `tests/302-pr-creator-journey.spec.ts`
 **Default role:** Requestor
-**Total test cases:** 41 (17 High / 22 Medium / 2 Low)
+**Total test cases:** 42 (18 High / 22 Medium / 2 Low)
 
 ## Test Cases at a Glance
 
@@ -18,6 +18,7 @@ _Generated from `tests/302-pr-creator-journey.spec.ts` annotations. Edit annotat
 | TC-PR-050105 | Sort list by Date | Low | Functional |
 | TC-PR-050106 | Click row navigates to PR detail | High | Smoke |
 | TC-PR-050107 | New PR button opens create dialog | High | Smoke |
+| TC-PR-050150 | active BU = BLAVG | High | Smoke |
 | TC-PR-050201 | Open Create dialog → Blank → form loads | High | Smoke |
 | TC-PR-050202 | Default values populated on the new form | High | Functional |
 | TC-PR-050203 | Fill header fields | High | CRUD |
@@ -200,6 +201,29 @@ header คอลัมน์แสดง sort indicator และ list เรี
 **Expected**
 
 dialog สร้างใหม่เปิดขึ้น หรือ URL เปลี่ยนเป็น /new
+
+---
+
+## TC-PR-050150 — active BU = BLAVG
+
+> **As a** Requestor user, **I want** core Pr Creator Journey interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Login เป็น requestor@blueledgers.com ผ่าน auth fixture
+
+**Steps**
+
+1. เรียก ensureActiveBu(BLAVG)
+2. อ่าน profile API
+3. หา business unit ที่ is_default
+4. อ่าน label ของ BU switcher
+
+**Expected**
+
+default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น
 
 ---
 
@@ -937,4 +961,4 @@ PR ถูกสร้าง (detail URL พร้อม ref), แก้ไขแ
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+<sub>Last regenerated: 2026-06-17 · git d8d40ab</sub>

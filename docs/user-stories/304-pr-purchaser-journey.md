@@ -5,7 +5,7 @@ _Generated from `tests/304-pr-purchaser-journey.spec.ts` annotations. Edit annot
 **Module:** Pr Purchaser Journey
 **Spec:** `tests/304-pr-purchaser-journey.spec.ts`
 **Default role:** Purchase
-**Total test cases:** 25 (13 High / 10 Medium / 2 Low)
+**Total test cases:** 26 (14 High / 10 Medium / 2 Low)
 
 ## Test Cases at a Glance
 
@@ -16,6 +16,7 @@ _Generated from `tests/304-pr-purchaser-journey.spec.ts` annotations. Edit annot
 | TC-PR-070103 | All Stage dropdown filters by status | Medium | Functional |
 | TC-PR-070104 | Filter panel opens and applies | Medium | Functional |
 | TC-PR-070105 | Search by PR reference filters list | Low | Functional |
+| TC-PR-070150 | active BU = BLAVG | High | Smoke |
 | TC-PR-070201 | Detail loads with Items tab default | High | Smoke |
 | TC-PR-070202 | Switch to Workflow History tab | Medium | Functional |
 | TC-PR-070203 | No standalone Approve/Reject/Return buttons (BRD discrepancy) | High | Authorization |
@@ -141,6 +142,29 @@ URL ยังคงอยู่ที่หน้า PR list หลังจา�
 **Expected**
 
 URL ยังคงอยู่ที่หน้า PR list หลังจากพิมพ์ใน search input
+
+---
+
+## TC-PR-070150 — active BU = BLAVG
+
+> **As a** Purchase user, **I want** core Pr Purchaser Journey interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Login เป็น purchase@blueledgers.com ผ่าน auth fixture
+
+**Steps**
+
+1. เรียก ensureActiveBu(BLAVG)
+2. อ่าน profile API
+3. หา business unit ที่ is_default
+4. อ่าน label ของ BU switcher
+
+**Expected**
+
+default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น
 
 ---
 
@@ -585,4 +609,4 @@ URL ยังคงอยู่ที่ PR ref หลังจาก bulk appro
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+<sub>Last regenerated: 2026-06-17 · git d8d40ab</sub>

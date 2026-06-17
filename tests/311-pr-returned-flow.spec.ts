@@ -6,6 +6,9 @@ import {
   sendForReviewAsHOD,
   gotoPRDetail,
 } from "./pages/pr-approver.helpers";
+import { BU_CODE } from "./test-users";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
+import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 // Cross-persona spec — Creator's Step 7 (Returned PR flow). Runs alongside
 // 302/303/304. Source docs: docs/persona-doc/Purchase Request/Creator/
@@ -13,6 +16,29 @@ import {
 const requestorTest = createAuthTest("requestor@blueledgers.com");
 
 requestorTest.describe("7a — View Returned PR", () => {
+  // Transaction-module rollout: pin the creator session's active BU to BLAVG
+  // first so it persists (server-side) for the rest of the returned-PR flow.
+  requestorTest(
+    "TC-PR-080750 active BU = BLAVG",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com ผ่าน auth fixture" },
+        { type: "steps", description: "1. เรียก ensureActiveBu(BLAVG)\n2. อ่าน profile API\n3. หา business unit ที่ is_default\n4. อ่าน label ของ BU switcher" },
+        { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      await ensureActiveBu(page, BU_CODE);
+      const units = await getBusinessUnits(page);
+      const active = defaultBu(units);
+      expect(active?.code).toBe(BU_CODE);
+      const switcher = new BuSwitcherPage(page);
+      await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
+    },
+  );
+
   requestorTest(
     "TC-PR-080701 Returned PR appears in Creator's list with RETURNED status badge",
     {
