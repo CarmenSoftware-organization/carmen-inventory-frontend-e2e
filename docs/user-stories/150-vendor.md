@@ -22,7 +22,7 @@ _Generated from `tests/150-vendor.spec.ts` annotations. Edit annotations, not th
 | TC-VEN-030003 | สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ | High | CRUD |
 | TC-VEN-030004 | สร้าง vendor พร้อม address 1 รายการ | High | CRUD |
 | TC-VEN-030005 | สร้าง vendor พร้อม contact 1 รายการ (primary) | High | CRUD |
-| TC-VEN-030006 | สลับ tab ทั้ง 4 tabs ได้ | Medium | Functional |
+| TC-VEN-030006 _(skipped)_ | สลับ tab ทั้ง 4 tabs ได้ | Medium | Functional |
 | TC-VEN-030007 | เพิ่ม address row ได้หลาย row | Medium | Functional |
 | TC-VEN-030008 | ลบ address row ได้ | Medium | Functional |
 | TC-VEN-030009 | เพิ่ม contact row ได้หลาย row | Medium | Functional |
@@ -41,7 +41,7 @@ _Generated from `tests/150-vendor.spec.ts` annotations. Edit annotations, not th
 | TC-VEN-200002 | บันทึกโดยไม่กรอก name ต้องแสดง error | High | Validation |
 | TC-VEN-200003 | code เกิน 10 ตัวอักษรต้องถูก reject | Medium | Validation |
 | TC-VEN-200004 | name เกิน 100 ตัวอักษรต้องถูก reject | Medium | Validation |
-| TC-VEN-200005 | address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement) | Medium | Validation |
+| TC-VEN-200005 _(skipped)_ | address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement) | Medium | Validation |
 | TC-VEN-200006 | contact email รูปแบบผิดต้องแสดง error | Medium | Validation |
 | TC-VEN-200050 | สร้าง vendor code ซ้ำ ต้องถูก reject | High | Negative |
 
@@ -289,7 +289,7 @@ Save toast/feedback ปรากฏ และ vendor ที่มี contact ค
 
 ---
 
-## TC-VEN-030006 — สลับ tab ทั้ง 4 tabs ได้
+## TC-VEN-030006 — สลับ tab ทั้ง 4 tabs ได้ _(skipped)_
 
 > **As a** Admin user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -301,12 +301,13 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
 
 **Steps**
 
-1. เปิด new form
-2. คลิกแต่ละ tab: general, info, address, contact
+(feature removed in redesign — see note)
 
 **Expected**
 
-ทุก tab trigger แสดง data-state='active' หลังคลิก (Radix tab pattern)
+N/A — แทนที่ด้วยการตรวจ section ทั้งหมดในหน้าเดียว
+
+> _Note: REDESIGNED AWAY: the vendor form is now a single sectioned page (General/Addresses/Contacts/Info), not Radix tabs. There is no tab to switch — the array tests below already exercise each section on one page._
 
 ---
 
@@ -710,16 +711,18 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
 
 **Steps**
 
-1. เปิด new form ที่ tab general
-2. พยายาม fill name 'N' ยาว 150 ตัวอักษร
+1. เปิด new form
+2. กรอก code + business type ที่ถูกต้อง
+3. กรอก name ยาว 150 ตัวอักษร
+4. กด Save
 
 **Expected**
 
-ค่าใน name input ต้องไม่เกิน 100 ตัวอักษร (input maxLength enforcement)
+zod name.max(100) บล็อก submit — ยังอยู่ที่ /new และไม่มี success toast
 
 ---
 
-## TC-VEN-200005 — address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement)
+## TC-VEN-200005 — address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement) _(skipped)_
 
 > **As a** Admin user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
 
@@ -731,14 +734,13 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
 
 **Steps**
 
-1. เปิด new form
-2. กรอก code + name + business type
-3. เพิ่ม address row ที่มี address_line1 อย่างเดียว (ไม่มี city/district)
-4. กด Save
+(refinement removed in redesign — see note)
 
 **Expected**
 
-Error indicator ปรากฏและ URL ยังคงอยู่ที่ /new (zod refinement บังคับต้องมี city หรือ district)
+N/A — address ที่มีแค่ line1 ถือว่า valid ในสคีมาใหม่
+
+> _Note: REDESIGNED AWAY: the redesigned vendor-form-schema no longer carries the city||district refinement on addresses (only email has a .refine). An address with just address_line1 is now valid, so there is nothing to assert. Skipped._
 
 ---
 
@@ -790,4 +792,4 @@ TC-VEN-040050 ผ่านแล้ว → vendor ที่ ADMIN_CODE มีอ
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git 18bd4be</sub>
+<sub>Last regenerated: 2026-06-17 · git f822297</sub>
