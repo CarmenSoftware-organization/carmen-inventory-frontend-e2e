@@ -1,0 +1,36 @@
+[
+  {
+    "seq": 1,
+    "testId": "TC-MA-030001",
+    "title": "TC-MA-030001 Happy Path - Valid Reason",
+    "status": "Fail",
+    "duration": 30140,
+    "error": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+    "runDate": "2026-06-17T03:05:31.686Z",
+    "screenshot": "screenshots/TC-MA-030001.png",
+    "video": "videos/TC-MA-030001.webm",
+    "preconditions": "เอกสารมีสถานะ Pending Approval; ผู้ใช้ตรวจสอบเอกสารแล้วและพบปัญหาที่ขัดขวางการ approve; ผู้ใช้มี session ที่ active",
+    "steps": "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Reject'\n3. เลือก 'Budget not available' จาก quick-select options\n4. กรอกคำอธิบายโดยละเอียด: 'Rejected. Budget not available for this purchase.'\n5. กดปุ่ม 'Confirm Rejection'",
+    "expected": "สถานะเอกสารอัปเดตเป็น Rejected, บันทึกเหตุผลการ reject, แจ้งผู้ใช้ว่า reject สำเร็จ, ลบเอกสารออกจาก approval queue",
+    "priority": "High",
+    "testType": "Happy Path",
+    "note": ""
+  },
+  {
+    "seq": 2,
+    "testId": "TC-MA-030003",
+    "title": "TC-MA-030003 Edge Case - Custom Reason",
+    "status": "Fail",
+    "duration": 30123,
+    "error": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+    "runDate": "2026-06-17T03:06:02.221Z",
+    "screenshot": "screenshots/TC-MA-030003.png",
+    "video": "videos/TC-MA-030003.webm",
+    "preconditions": "เอกสารมีสถานะ Pending Approval; ผู้ใช้มี session ที่ active",
+    "steps": "1. ไปที่ /procurement/purchase-request\n2. กดปุ่ม 'Reject'\n3. เลือก 'Other (custom reason)' จาก quick-select options\n4. กรอกเหตุผลแบบกำหนดเอง: 'Incorrect PO number'\n5. กรอกคำอธิบายโดยละเอียด: 'Rejected. Incorrect PO number - please check PO-123456789.'\n6. กดปุ่ม 'Confirm Rejection'",
+    "expected": "สถานะเอกสารอัปเดตเป็น Rejected, บันทึกเหตุผลการ reject แบบกำหนดเอง, แจ้งผู้ใช้ว่า reject สำเร็จ, ลบเอกสารออกจาก approval queue",
+    "priority": "High",
+    "testType": "Edge Case",
+    "note": ""
+  }
+]

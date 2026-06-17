@@ -1,6 +1,9 @@
 import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { MyApprovalsPage, LIST_PATH } from "./pages/my-approvals.page";
+import { BU_CODE } from "./test-users";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
+import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Approver == hod@blueledgers.com (Department Manager).
@@ -28,6 +31,35 @@ const SKIP_NOTE_PERFORMANCE =
 // TC-MA-900001 — Unified Approval Queue (top-level page)
 // ═════════════════════════════════════════════════════════════════════════
 hodTest.describe("My Approvals — Queue", () => {
+  // Transaction-module rollout: pin the approver session's active BU to BLAVG so
+  // the approval queue is deterministic. Scoped to the Queue describe — the
+  // cross-module Reject/Approve-from-PR-detail describes drive other modules and
+  // are data-dependent, so we don't disturb them.
+  hodTest.beforeEach(async ({ page }) => {
+    await ensureActiveBu(page, BU_CODE);
+  });
+
+  hodTest(
+    "TC-MA-010050 active BU = BLAVG",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น hod@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
+        { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      const units = await getBusinessUnits(page);
+      const active = defaultBu(units);
+      expect(active?.code).toBe(BU_CODE);
+
+      const switcher = new BuSwitcherPage(page);
+      await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
+    },
+  );
+
   hodTest(
     "TC-MA-010001 Happy Path - View Unified Approval Queue",
     {
