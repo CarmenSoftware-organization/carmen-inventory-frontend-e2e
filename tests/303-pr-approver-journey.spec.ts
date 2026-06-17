@@ -391,7 +391,9 @@ hodTest.describe("Step 4 — Edit Mode + Bulk Actions", () => {
         return;
       }
       await pr.enterEditMode();
-      await expect(pr.saveDraftButton().or(pr.cancelFormButton())).toBeVisible({ timeout: 10_000 });
+      // Edit mode shows BOTH Save and Cancel — take .first() to avoid a
+      // strict-mode violation on the combined locator.
+      await expect(pr.saveDraftButton().or(pr.cancelFormButton()).first()).toBeVisible({ timeout: 10_000 });
     },
   );
 
