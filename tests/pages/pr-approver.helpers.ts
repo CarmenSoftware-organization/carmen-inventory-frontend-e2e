@@ -74,8 +74,10 @@ export async function submitPRAsRequestor(
 export async function bulkApprove(page: Page): Promise<void> {
   const pr = new PurchaseRequestPage(page);
   await pr.selectAllInEditMode();
+  // "Approve" only marks the selected items' decision (PENDING -> APPROVED) in
+  // the edit form — there is NO confirm dialog. Save persists the decision.
   await pr.bulkApproveInEditMode().click({ timeout: 5_000 });
-  await pr.confirmDialogButton(/confirm|approve|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+  await pr.saveEditMode();
 }
 
 /**
@@ -88,6 +90,8 @@ export async function bulkReject(page: Page, reason: string): Promise<void> {
   const input = pr.reasonInput();
   if ((await input.count()) > 0) await input.fill(reason);
   await pr.confirmDialogButton(/confirm|reject|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+  // Persist the decision (Reject marks the item; Save commits it).
+  await pr.saveEditMode();
 }
 
 /**
@@ -110,6 +114,8 @@ export async function bulkSendForReview(
     await page.getByRole("option", { name: new RegExp(stage, "i") }).first().click().catch(() => {});
   }
   await pr.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+  // Persist the decision (Send for Review marks the item; Save commits it).
+  await pr.saveEditMode();
 }
 
 /**

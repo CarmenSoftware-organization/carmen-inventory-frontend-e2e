@@ -388,6 +388,24 @@ export class PurchaseRequestPage extends BasePage {
     await this.cancelFormButton().click({ timeout: 5_000 }).catch(() => {});
   }
 
+  /**
+   * Persist edit-mode changes. In the redesigned PR detail, Save commits both
+   * field edits AND bulk item decisions (Approve/Reject/etc. only MARK the
+   * decision in the form — Save is what writes it). There is no confirm dialog;
+   * a "Purchase Request updated successfully" toast signals success.
+   */
+  async saveEditMode() {
+    const save = this.saveDraftButton();
+    if (!(await save.isVisible().catch(() => false))) return;
+    await save.click({ timeout: 5_000 }).catch(() => {});
+    await this.page
+      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
+      .filter({ hasText: /updated successfully|saved|success|สำเร็จ/i })
+      .first()
+      .waitFor({ state: "visible", timeout: 10_000 })
+      .catch(() => {});
+  }
+
   // ── Line item mutation ───────────────────────────────────────────────
   async removeLineItem(index: number) {
     const row = this.itemRow(index);
