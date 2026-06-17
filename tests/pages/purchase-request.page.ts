@@ -153,7 +153,8 @@ export class PurchaseRequestPage extends BasePage {
   }
 
   descriptionInput(): Locator {
-    return this.page.locator("#pr-description, [name='description'], textarea[aria-label*='description' i]").first();
+    // Scope to the textarea — [name='description'] also matches <meta name="description">.
+    return this.page.locator("textarea#pr-description").first();
   }
 
   justificationInput(): Locator {
@@ -188,34 +189,52 @@ export class PurchaseRequestPage extends BasePage {
     await this.page.getByRole("option", { name: labelMap[type] }).first().click();
   }
 
-  async fillHeader(data: PRHeaderInput) {
-    if (data.prType) await this.setPRType(data.prType);
-    if (data.deliveryDate !== undefined) {
-      const di = this.deliveryDateInput();
-      if ((await di.count()) > 0) await di.fill(data.deliveryDate);
+  /** Open a lookup trigger (button/combobox) and pick the first option. Capped
+   *  wait so a still-disabled cascading trigger doesn't eat the whole timeout. */
+  private async pickFirstInCombobox(trigger: Locator): Promise<boolean> {
+    if ((await trigger.count()) === 0) return false;
+    try {
+      await trigger.click({ timeout: 8_000 });
+    } catch {
+      return false;
     }
+    // Radix Select items are role="option"; LookupCombobox items are
+    // <button aria-pressed> inside the open popover. Options load async, so wait
+    // for either to appear before picking.
+    const radixOption = this.page.getByRole("option").first();
+    const lookupItem = this.page.locator("button[aria-pressed]:visible").first();
+    await Promise.race([
+      radixOption.waitFor({ state: "visible", timeout: 6_000 }).catch(() => {}),
+      lookupItem.waitFor({ state: "visible", timeout: 6_000 }).catch(() => {}),
+    ]);
+    if ((await radixOption.count()) > 0) {
+      await radixOption.click({ timeout: 5_000 });
+      return true;
+    }
+    if ((await lookupItem.count()) > 0) {
+      await lookupItem.click({ timeout: 5_000 });
+      return true;
+    }
+    await this.page.keyboard.press("Escape").catch(() => {});
+    return false;
+  }
+
+  /**
+   * Workflow Select on the /new general fields (required — "Add Item" is disabled
+   * until a workflow is chosen). On the blank create form it is the only/first
+   * combobox. Picks the first workflow option.
+   */
+  async selectFirstWorkflow(): Promise<boolean> {
+    const trigger = this.page.getByRole("combobox").first();
+    return await this.pickFirstInCombobox(trigger);
+  }
+
+  async fillHeader(data: PRHeaderInput) {
+    // Redesigned create form header is just: workflow (required) + description.
+    await this.selectFirstWorkflow().catch(() => {});
     if (data.description !== undefined) {
       const d = this.descriptionInput();
       if ((await d.count()) > 0) await d.fill(data.description);
-    }
-    if (data.justification !== undefined) {
-      const j = this.justificationInput();
-      if ((await j.count()) > 0) await j.fill(data.justification);
-    }
-    if (data.notes !== undefined) {
-      const n = this.notesInput();
-      if ((await n.count()) > 0) await n.fill(data.notes);
-    }
-    if (data.internalNotes !== undefined) {
-      const n = this.internalNotesInput();
-      if ((await n.count()) > 0) await n.fill(data.internalNotes);
-    }
-    if (data.hidePrice !== undefined) {
-      const t = this.hidePriceToggle();
-      if ((await t.count()) > 0) {
-        const checked = await t.getAttribute("aria-checked");
-        if ((checked === "true") !== data.hidePrice) await t.click();
-      }
     }
   }
 
@@ -228,49 +247,46 @@ export class PurchaseRequestPage extends BasePage {
     return this.page.getByRole("row").filter({ has: this.page.locator("input,button") }).nth(index);
   }
 
+  /** The row in the item datagrid for field-array index (rows are prepended → 0 = newest). */
+  itemRowByIndex(index: number): Locator {
+    return this.page
+      .locator("tr")
+      .filter({ has: this.page.locator(`input[name="items.${index}.requested_qty"]`) })
+      .first();
+  }
+
   async addLineItem(data: PRLineItemInput) {
+    // Redesigned editor: "Add Item" prepends a blank row (index 0) in an editable
+    // datagrid; product is gated on a location, so set location → product → qty.
     await this.addItemButton().click();
-    // The product / item editor may render in a slide-over or inline — try both
+    const qtyInput = this.page.locator('input[name="items.0.requested_qty"]');
+    await qtyInput.waitFor({ state: "visible", timeout: 10_000 });
+    const row = this.itemRowByIndex(0);
+
+    // The row cells are cascading "Select X" button triggers: location enables
+    // product, product enables unit. A valid item needs location, product, qty,
+    // unit and delivery point (currency auto-fills from the BU; delivery date
+    // defaults to tomorrow). Playwright's click auto-waits for each to enable.
+    // NOTE: "Select Location" is a wrapped two-step control (onActivate reveals an
+    // inner LookupUserLocation combobox); the single-click pick below does not yet
+    // complete it, so valid-item creation (createDraftPR / TC-PR-050209) remains
+    // blocked pending a Phase-2b fix with live inspection. Selecting a location
+    // also auto-fills the delivery point.
+    await this.pickFirstInCombobox(row.getByRole("button", { name: /select location/i }).first()).catch(() => {});
     if (data.product !== undefined) {
-      const productInput = this.page.getByLabel(/product|item/i).first();
-      if ((await productInput.count()) > 0) await productInput.fill(data.product);
-      const option = this.page.getByRole("option").filter({ hasText: data.product }).first();
-      if ((await option.count()) > 0) await option.click({ timeout: 5_000 }).catch(() => {});
-    }
-    if (data.description !== undefined) {
-      const d = this.page.getByLabel(/item description/i).first();
-      if ((await d.count()) > 0) await d.fill(data.description);
+      await this.pickFirstInCombobox(row.getByRole("button", { name: /select product/i }).first()).catch(() => {});
     }
     if (data.quantity !== undefined) {
-      const q = this.page.getByLabel(/^quantity$|^qty$/i).first();
-      if ((await q.count()) > 0) await q.fill(String(data.quantity));
+      await qtyInput.fill(String(data.quantity));
     }
-    if (data.uom !== undefined) {
-      const u = this.page.getByLabel(/uom|unit of measure/i).first();
-      if ((await u.count()) > 0) await u.fill(data.uom);
-    }
-    if (data.vendor !== undefined) {
-      const v = this.page.getByLabel(/vendor/i).first();
-      if ((await v.count()) > 0) await v.fill(data.vendor);
-    }
+    // Picking a product clears requested_unit_id — choose a unit.
+    await this.pickFirstInCombobox(row.getByRole("button", { name: /select unit/i }).first()).catch(() => {});
+    await this.pickFirstInCombobox(row.getByRole("button", { name: /select delivery point/i }).first()).catch(() => {});
     if (data.isFOC) {
-      const foc = this.page.getByRole("checkbox", { name: /foc/i }).first();
-      if ((await foc.count()) > 0) await foc.check({ force: true });
+      const foc = row.getByRole("checkbox", { name: /foc/i }).first();
+      if ((await foc.count()) > 0) await foc.check({ force: true }).catch(() => {});
     }
-    if (data.unitPrice !== undefined) {
-      const p = this.page.getByLabel(/unit price/i).first();
-      if ((await p.count()) > 0) await p.fill(String(data.unitPrice));
-    }
-    if (data.discount !== undefined) {
-      const d = this.page.getByLabel(/discount/i).first();
-      if ((await d.count()) > 0) await d.fill(String(data.discount));
-    }
-    if (data.taxRate !== undefined) {
-      const t = this.page.getByLabel(/tax rate|tax/i).first();
-      if ((await t.count()) > 0) await t.fill(String(data.taxRate));
-    }
-    const saveItem = this.page.getByRole("button", { name: /^save$|^add$|confirm/i }).last();
-    if ((await saveItem.count()) > 0) await saveItem.click({ timeout: 5_000 }).catch(() => {});
+    // No per-item Save in the inline datagrid — the row persists with the form.
   }
 
   // ── Form actions ──────────────────────────────────────────────────────
