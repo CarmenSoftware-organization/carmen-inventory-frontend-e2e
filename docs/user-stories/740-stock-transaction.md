@@ -1,6 +1,6 @@
-# Stock Transaction / Movement — Test Cases
+# Stock Transaction / Movement — User Stories
 
-_Test-case catalog (documentation only; no automated Playwright spec yet). Authored from the React app module at `routes/inventory-management/transaction`. Follows the TC-ID scheme in `docs/test-id-scheme.md`._
+_Authored from the test-case catalog `docs/test-cases/740-stock-transaction.md` (documentation only — no automated spec yet)._
 
 **Module:** Stock Transaction / Movement
 **Frontend route:** `routes/inventory-management/transaction`  •  **URL:** `/inventory-management/transaction`
@@ -38,6 +38,8 @@ _Test-case catalog (documentation only; no automated Playwright spec yet). Autho
 
 ---
 ## TC-STKT-010001 — หน้า Stock Transaction โหลดสำเร็จ
+> **As an** Inventory Controller, **I want** the Stock Transaction ledger to load reliably, **so that** I can review stock movement history.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; active BU = BLAVG; มีสิทธิ์เข้าถึง Inventory Management
@@ -48,6 +50,8 @@ URL ตรงกับ `/inventory-management/transaction`; หัวข้อ�
 
 ---
 ## TC-STKT-010002 — คอลัมน์ตาราง (Date/Type/Parent Doc No/Product/Location/Qty In/Qty Out/Items/Total) แสดงครบ
+> **As an** Inventory Controller, **I want** every ledger column shown, **so that** I can read each movement's full context in one row.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี transaction อย่างน้อย 1 รายการ
@@ -59,6 +63,8 @@ URL ตรงกับ `/inventory-management/transaction`; หัวข้อ�
 
 ---
 ## TC-STKT-010003 — badge ประเภทเอกสาร (SI/SO/GRN/SR/PR/PO/CN) แสดงสีถูกต้อง
+> **As an** Inventory Controller, **I want** document-type badges color-coded correctly, **so that** I can identify each movement's source document at a glance.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี transaction หลายประเภท
@@ -70,6 +76,8 @@ badge แสดงป้าย SI (info), SO (warning), GRN (success), SR (inver
 
 ---
 ## TC-STKT-010004 — ช่องค้นหาใช้งานได้
+> **As an** Inventory Controller, **I want** to search the ledger, **so that** I can locate movements by reference quickly.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี transaction อย่างน้อย 1 รายการ
@@ -81,6 +89,8 @@ badge แสดงป้าย SI (info), SO (warning), GRN (success), SR (inver
 
 ---
 ## TC-STKT-010005 — ค้นหาคำที่ไม่มีต้องแสดง empty state
+> **As an** Inventory Controller, **I want** a clear empty state when a search matches nothing, **so that** I know there are no matching movements.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; อยู่ที่หน้า transaction
@@ -92,6 +102,8 @@ badge แสดงป้าย SI (info), SO (warning), GRN (success), SR (inver
 
 ---
 ## TC-STKT-010006 — sort คอลัมน์ Date ใช้งานได้
+> **As an** Inventory Controller, **I want** to sort by date, **so that** I can review movements chronologically in either direction.
+
 **Priority:** Low · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี transaction หลายรายการต่างวันที่
@@ -103,6 +115,8 @@ badge แสดงป้าย SI (info), SO (warning), GRN (success), SR (inver
 
 ---
 ## TC-STKT-010007 — pagination เปลี่ยนหน้าได้ และ record count ตรง
+> **As an** Inventory Controller, **I want** working pagination with an accurate record count, **so that** I can navigate large ledgers confidently.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี transaction มากกว่า 1 หน้า (>10 รายการ)
@@ -114,6 +128,8 @@ badge แสดงป้าย SI (info), SO (warning), GRN (success), SR (inver
 
 ---
 ## TC-STKT-010050 — active BU = BLAVG
+> **As an** Inventory Controller, **I want** the active business unit to be BLAVG, **so that** I only see transactions scoped to my business unit.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; ระบบ ensureActiveBu ตั้ง active BU = BLAVG
@@ -125,6 +141,8 @@ Active business unit คือ BLAVG; transaction ที่แสดงเป็
 
 ---
 ## TC-STKT-010060 — summary cards (Total Transactions/Inbound/Outbound/Net Change) แสดง
+> **As an** Inventory Controller, **I want** summary cards for transactions, inbound, outbound, and net change, **so that** I can grasp aggregate stock flow at a glance.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี transaction อย่างน้อย 1 รายการ
@@ -136,6 +154,8 @@ Active business unit คือ BLAVG; transaction ที่แสดงเป็
 
 ---
 ## TC-STKT-010061 — summary Net Change แสดงโทนสีตามค่าบวก/ลบ
+> **As an** Inventory Controller, **I want** Net Change color-coded by sign, **so that** I can immediately tell whether stock grew or shrank.
+
 **Priority:** Low · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี transaction inbound/outbound
@@ -147,6 +167,8 @@ Active business unit คือ BLAVG; transaction ที่แสดงเป็
 
 ---
 ## TC-STKT-020001 — date range preset (Today/7d/30d/This Month) กรองข้อมูลได้
+> **As an** Inventory Controller, **I want** date-range presets, **so that** I can filter movements to a relevant window in one click.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี transaction หลายช่วงวันที่
@@ -158,6 +180,8 @@ Active business unit คือ BLAVG; transaction ที่แสดงเป็
 
 ---
 ## TC-STKT-020002 — กด preset ซ้ำเพื่อยกเลิกการกรองได้
+> **As an** Inventory Controller, **I want** to toggle a date preset off by clicking it again, **so that** I can clear the range filter quickly.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; เลือก preset date range ไว้แล้ว
@@ -168,6 +192,8 @@ Active business unit คือ BLAVG; transaction ที่แสดงเป็
 
 ---
 ## TC-STKT-020003 — filter Location (single-select) ใช้งานได้
+> **As an** Inventory Controller, **I want** to filter by location, **so that** I can focus on movements at a single store or warehouse.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี transaction หลาย location
@@ -179,6 +205,8 @@ Active business unit คือ BLAVG; transaction ที่แสดงเป็
 
 ---
 ## TC-STKT-020004 — filter Category (single-select) ใช้งานได้
+> **As an** Inventory Controller, **I want** to filter by product category, **so that** I can analyze movements for a category of goods.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี transaction หลาย category
@@ -190,6 +218,8 @@ Active business unit คือ BLAVG; transaction ที่แสดงเป็
 
 ---
 ## TC-STKT-020005 — Reference Type pills (GRN/SR/SI/SO/PC) multi-select ใช้งานได้
+> **As an** Inventory Controller, **I want** to multi-select reference-type pills, **so that** I can combine several document sources in one view.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี transaction หลายประเภทเอกสาร
@@ -201,6 +231,8 @@ Active business unit คือ BLAVG; transaction ที่แสดงเป็
 
 ---
 ## TC-STKT-020006 — active filter bar และ Clear All ทำงาน
+> **As an** Inventory Controller, **I want** active filters as removable chips with Clear All, **so that** I can manage and reset filters easily.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; ตั้ง filter date range, location และ ref type ไว้
@@ -212,6 +244,8 @@ chip ที่กด X ถูกลบทีละตัว; กด Clear All �
 
 ---
 ## TC-STKT-020007 — mobile filter sheet เปิด/ปิด และมี badge นับ filter
+> **As an** Inventory Controller on mobile, **I want** a filter bottom sheet with an active-filter count badge, **so that** I can filter comfortably on a small screen.
+
 **Priority:** Low · **Test Type:** Edge Case
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; ใช้งานบน viewport mobile
@@ -224,6 +258,8 @@ bottom sheet แสดง date range, location/category และ ref type pills
 
 ---
 ## TC-STKT-030001 — Qty In/Qty Out สอดคล้องกับประเภทเอกสาร (in→เขียว, out→แดง)
+> **As an** Inventory Controller, **I want** Qty In/Out colored by direction, **so that** I can read inbound vs outbound movement instantly.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี transaction ทั้งฝั่ง inbound และ outbound
@@ -235,6 +271,8 @@ Qty In แสดงตัวเลขสีเขียว (ค่า 0 แส�
 
 ---
 ## TC-STKT-030002 — summary inbound/outbound สอดคล้องกับ filter ที่เลือก
+> **As an** Inventory Controller, **I want** summary totals to reflect the active filter, **so that** the aggregates always match the data I'm viewing.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี transaction หลายประเภท
@@ -247,6 +285,8 @@ Qty In แสดงตัวเลขสีเขียว (ค่า 0 แส�
 
 ---
 ## TC-STKT-100001 — ผู้ใช้ไม่มีสิทธิ์เข้าถึง Transaction ต้องถูกบล็อก
+> **As a** security stakeholder, **I want** users without Inventory Management permission blocked, **so that** ledger data stays protected.
+
 **Priority:** High · **Test Type:** Authorization
 **Preconditions**
 เข้าสู่ระบบเป็นผู้ใช้ที่ไม่มีสิทธิ์ Inventory Management
@@ -257,6 +297,8 @@ Qty In แสดงตัวเลขสีเขียว (ค่า 0 แส�
 
 ---
 ## TC-STKT-100002 — ผู้ที่ไม่ได้ login เข้าหน้าตรง ๆ ต้องถูก redirect ไป /login
+> **As a** security stakeholder, **I want** unauthenticated direct access redirected to login, **so that** only authenticated users reach the ledger.
+
 **Priority:** High · **Test Type:** Auth-guard
 **Preconditions**
 ยังไม่ได้เข้าสู่ระบบ (ไม่มี session)
@@ -267,6 +309,8 @@ Qty In แสดงตัวเลขสีเขียว (ค่า 0 แส�
 
 ---
 ## TC-STKT-900001 — error state แสดงปุ่ม Retry และโหลดข้อมูลใหม่ได้
+> **As an** Inventory Controller, **I want** an error state with a Retry button, **so that** I can recover from a transient API failure without leaving the page.
+
 **Priority:** Low · **Test Type:** Edge Case
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; จำลองสถานการณ์ API เรียกข้อมูล transaction ล้มเหลว
