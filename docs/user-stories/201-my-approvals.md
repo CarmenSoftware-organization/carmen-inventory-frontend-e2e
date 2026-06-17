@@ -5,7 +5,7 @@ _Generated from `tests/201-my-approvals.spec.ts` annotations. Edit annotations, 
 **Module:** My Approvals
 **Spec:** `tests/201-my-approvals.spec.ts`
 **Default role:** HOD
-**Total test cases:** 19 (16 High / 3 Medium / 0 Low)
+**Total test cases:** 20 (17 High / 3 Medium / 0 Low)
 
 ## Test Cases at a Glance
 
@@ -15,6 +15,7 @@ _Generated from `tests/201-my-approvals.spec.ts` annotations. Edit annotations, 
 | TC-MA-010002 | Negative - No Pending Approvals | Medium | Negative |
 | TC-MA-010003 _(skipped)_ | Edge Case - Large Number of Documents | High | Edge Case |
 | TC-MA-010004 | Negative - Insufficient Permission | High | Negative |
+| TC-MA-010050 | active BU = BLAVG | High | Smoke |
 | TC-MA-020001 _(skipped)_ | Happy Path: Approve Document with Valid Credentials | High | Happy Path |
 | TC-MA-020002 _(skipped)_ | Negative: Insufficient Approval Authority | High | Negative |
 | TC-MA-020003 _(skipped)_ | Edge Case: Multiple Approvals in Queue | Medium | Edge Case |
@@ -122,6 +123,28 @@ Login เข้าระบบแล้วแต่ไม่มีการต�
 **Expected**
 
 ผู้ใช้เห็นข้อความ error หรือถูก redirect ไปยังหน้า permission denied
+
+---
+
+## TC-MA-010050 — active BU = BLAVG
+
+> **As a** HOD user, **I want** core My Approvals interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Login เป็น hod@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+
+**Steps**
+
+1. อ่าน profile API (/api/proxy/api/user/profile)
+2. หา business unit ที่ is_default
+3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher
+
+**Expected**
+
+default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น
 
 ---
 
@@ -539,4 +562,4 @@ Login เข้าระบบแล้วแต่ไม่มีการต�
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+<sub>Last regenerated: 2026-06-17 · git 9e1e29f</sub>
