@@ -13,9 +13,9 @@ _Generated from `tests/101-product-category.spec.ts` annotations. Edit annotatio
 | --- | --- | --- | --- |
 | TC-CAT-010001 | View all categories | High | Happy Path |
 | TC-CAT-010002 | No permission to view categories | High | Negative |
-| TC-CAT-010003 | Expand and collapse category levels | High | Happy Path |
-| TC-CAT-010004 | Category hierarchy with very long names | Medium | Edge Case |
-| TC-CAT-010005 | Multiple levels of categories | High | Happy Path |
+| TC-CAT-010003 _(skipped)_ | Expand and collapse category levels | High | Happy Path |
+| TC-CAT-010004 _(skipped)_ | Category hierarchy with very long names | Medium | Edge Case |
+| TC-CAT-010005 _(skipped)_ | Multiple levels of categories | High | Happy Path |
 | TC-CAT-010050 | active BU = BLAVG | High | Smoke |
 | TC-CAT-020001 | Happy Path - Create Root Category | High | Happy Path |
 | TC-CAT-020002 | Negative - No Permission to Create Category | High | Negative |
@@ -141,7 +141,7 @@ category ทั้งหมดแสดงถูกต้องและสา�
 
 ---
 
-## TC-CAT-010003 — Expand and collapse category levels
+## TC-CAT-010003 — Expand and collapse category levels _(skipped)_
 
 > **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -170,7 +170,7 @@ category ทั้งหมดแสดงถูกต้องและสา�
 
 ---
 
-## TC-CAT-010004 — Category hierarchy with very long names
+## TC-CAT-010004 — Category hierarchy with very long names _(skipped)_
 
 > **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -193,7 +193,7 @@ category ทั้งหมดแสดงถูกต้องและสา�
 
 ---
 
-## TC-CAT-010005 — Multiple levels of categories
+## TC-CAT-010005 — Multiple levels of categories _(skipped)_
 
 > **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -2028,4 +2028,4 @@ ingredient ของ recipe มี category
 ---
 
 
-<sub>Last regenerated: 2026-06-17 · git 95c5278</sub>
+<sub>Last regenerated: 2026-06-17 · git 7f09f54</sub>
