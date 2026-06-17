@@ -5,7 +5,7 @@ _Generated from `tests/160-pl-template.spec.ts` annotations. Edit annotations, n
 **Module:** Price List Template
 **Spec:** `tests/160-pl-template.spec.ts`
 **Default role:** Admin
-**Total test cases:** 33 (22 High / 10 Medium / 1 Low)
+**Total test cases:** 33 (17 High / 16 Medium / 0 Low)
 
 ## Test Cases at a Glance
 
@@ -17,25 +17,25 @@ _Generated from `tests/160-pl-template.spec.ts` annotations. Edit annotations, n
 | TC-PT-010005 | Create Pricelist Template - Missing Description | High | Negative |
 | TC-PT-010050 | active BU = BLAVG | High | Smoke |
 | TC-PT-010051 | สร้าง pricelist template (admin/BLAVG) สำเร็จ | High | CRUD |
-| TC-PT-020001 | Add products to template - Happy Path | High | Happy Path |
-| TC-PT-020002 | Add products to template - Invalid Input (max exceeded) | High | Negative |
-| TC-PT-020003 | Add products to template - No Permission | High | Negative |
-| TC-PT-020004 | Add products to template - Edge Case - Empty Selection | Medium | Edge Case |
+| TC-PT-020001 _(skipped)_ | Add products to template - Happy Path | Medium | Happy Path |
+| TC-PT-020002 _(skipped)_ | Add products to template - Invalid Input (max exceeded) | Medium | Negative |
+| TC-PT-020003 _(skipped)_ | Add products to template - No Permission | Medium | Negative |
+| TC-PT-020004 _(skipped)_ | Add products to template - Edge Case - Empty Selection | Medium | Edge Case |
 | TC-PT-030001 | Edit template with valid data | High | Happy Path |
 | TC-PT-030002 | Edit template with invalid validity period | High | Negative |
 | TC-PT-030003 | Edit template without product selection | High | Negative |
 | TC-PT-030004 | Edit template with minimal changes | High | Happy Path |
 | TC-PT-030005 | Edit template with all fields in default state | High | Edge Case |
-| TC-PT-040001 | Happy Path - Clone Existing Template | Medium | Happy Path |
-| TC-PT-040002 | Negative - Invalid Template Name | Medium | Negative |
-| TC-PT-040003 | Negative - No Permission to Clone | Medium | Negative |
-| TC-PT-040004 _(skipped)_ | Edge Case - Maximum Templates Reached | Low | Edge Case |
+| TC-PT-040001 _(skipped)_ | Happy Path - Clone Existing Template | Medium | Happy Path |
+| TC-PT-040002 _(skipped)_ | Negative - Invalid Template Name | Medium | Negative |
+| TC-PT-040003 _(skipped)_ | Negative - No Permission to Clone | Medium | Negative |
+| TC-PT-040004 _(skipped)_ | Edge Case - Maximum Templates Reached | Medium | Edge Case |
 | TC-PT-040050 | แก้ชื่อ template แล้ว persist | High | CRUD |
 | TC-PT-040051 | แก้ชื่อแล้วกด Cancel — ค่าเดิมคงอยู่ | Medium | CRUD |
-| TC-PT-050001 | Activate Template - Happy Path | High | Happy Path |
-| TC-PT-050003 | Activate Template - Invalid Input | Medium | Negative |
-| TC-PT-050004 | Deactivate Template - No Permission | High | Negative |
-| TC-PT-050005 | Template Status Change - Edge Case (rapid toggle) | Medium | Edge Case |
+| TC-PT-050001 _(skipped)_ | Activate Template - Happy Path | Medium | Happy Path |
+| TC-PT-050003 _(skipped)_ | Activate Template - Invalid Input | Medium | Negative |
+| TC-PT-050004 _(skipped)_ | Deactivate Template - No Permission | Medium | Negative |
+| TC-PT-050005 _(skipped)_ | Template Status Change - Edge Case (rapid toggle) | Medium | Edge Case |
 | TC-PT-050050 | เปิด delete dialog แล้ว Cancel — template ยังอยู่ | Medium | CRUD |
 | TC-PT-050051 | ลบ template (admin/BLAVG) cleanup | High | CRUD |
 | TC-PT-060001 | Search and View Templates - Happy Path | High | Happy Path |
@@ -188,83 +188,76 @@ success toast ปรากฏ (template ถูกสร้าง) — ใช้�
 
 ---
 
-## TC-PT-020001 — Add products to template - Happy Path
+## TC-PT-020001 — Add products to template - Happy Path _(skipped)_
 
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** High · **Test Type:** Happy Path
+**Priority:** Medium · **Test Type:** Happy Path
 
 **Preconditions**
 
-Login เป็น Procurement Manager; มีสิทธิ์เข้าถึง product template; มี product อย่างน้อย 10 รายการ
+Login เป็น Procurement Manager/Staff; มี template ในระบบ
 
 **Steps**
 
-1. ไปที่ /vendor-management/price-list-template
-2. เปิด template ที่มีอยู่
-3. คลิกปุ่ม 'Add Products'
-4. เลือก 10 product จาก product list
-5. คลิกปุ่ม 'Confirm Selection'
-6. ตรวจสอบว่า product ที่เลือกแสดงอยู่ใน template
+(feature removed in redesign — see note)
 
 **Expected**
 
-product ที่เลือกถูกเพิ่มใน template สำเร็จ
+ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)
+
+> _Note: REDESIGNED AWAY: old 'Add Products' dialog (checkbox picker + Confirm Selection) removed; products are managed inline in the template form's product table now. Skipped pending a rewrite against the inline flow._
 
 ---
 
-## TC-PT-020002 — Add products to template - Invalid Input (max exceeded)
+## TC-PT-020002 — Add products to template - Invalid Input (max exceeded) _(skipped)_
 
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** High · **Test Type:** Negative
+**Priority:** Medium · **Test Type:** Negative
 
 **Preconditions**
 
-Login เป็น Procurement Manager และมีสิทธิ์เข้าถึง product template
+Login เป็น Procurement Manager/Staff; มี template ในระบบ
 
 **Steps**
 
-1. ไปที่ /vendor-management/price-list-template
-2. เปิด template ที่มีอยู่
-3. คลิกปุ่ม 'Add Products'
-4. เลือก 500 product จาก product list
-5. คลิกปุ่ม 'Confirm Selection'
-6. ตรวจสอบว่าแสดงข้อความ error
+(feature removed in redesign — see note)
 
 **Expected**
 
-แสดงข้อความ error แจ้งว่าจำนวน product สูงสุดต่อ template เกินกำหนด
+ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)
+
+> _Note: REDESIGNED AWAY: old 'Add Products' dialog (checkbox picker + Confirm Selection) removed; products are managed inline in the template form's product table now. Skipped pending a rewrite against the inline flow._
 
 ---
 
-## TC-PT-020003 — Add products to template - No Permission
+## TC-PT-020003 — Add products to template - No Permission _(skipped)_
 
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** High · **Test Type:** Negative
+**Priority:** Medium · **Test Type:** Negative
 
 **Preconditions**
 
-Login เป็น Procurement Staff และไม่มีสิทธิ์เข้าถึง product template
+Login เป็น Procurement Manager/Staff; มี template ในระบบ
 
 **Steps**
 
-1. ไปที่ /vendor-management/price-list-template
-2. คลิกปุ่ม 'Add Products'
-3. รอ 5 วินาที
-4. ตรวจสอบว่าปุ่ม 'Add Products' ถูก disabled
+(feature removed in redesign — see note)
 
 **Expected**
 
-ผู้ใช้ไม่สามารถเพิ่ม product ใน template ได้
+ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)
+
+> _Note: REDESIGNED AWAY: old 'Add Products' dialog (checkbox picker + Confirm Selection) removed; products are managed inline in the template form's product table now. Skipped pending a rewrite against the inline flow._
 
 ---
 
-## TC-PT-020004 — Add products to template - Edge Case - Empty Selection
+## TC-PT-020004 — Add products to template - Edge Case - Empty Selection _(skipped)_
 
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -273,19 +266,17 @@ Login เป็น Procurement Staff และไม่มีสิทธิ์�
 
 **Preconditions**
 
-Login เป็น Procurement Manager และมีสิทธิ์เข้าถึง product template
+Login เป็น Procurement Manager/Staff; มี template ในระบบ
 
 **Steps**
 
-1. ไปที่ /vendor-management/price-list-template
-2. เปิด template ที่มีอยู่
-3. คลิกปุ่ม 'Add Products'
-4. รอ 5 วินาที
-5. ตรวจสอบว่า list ของ product ที่เลือกว่างเปล่า
+(feature removed in redesign — see note)
 
 **Expected**
 
-list ของ product ที่เลือกว่างเปล่าและไม่มี product ถูกเพิ่มใน template
+ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)
+
+> _Note: REDESIGNED AWAY: old 'Add Products' dialog (checkbox picker + Confirm Selection) removed; products are managed inline in the template form's product table now. Skipped pending a rewrite against the inline flow._
 
 ---
 
@@ -417,7 +408,7 @@ template ไม่มีการเปลี่ยนแปลง doc_version �
 
 ---
 
-## TC-PT-040001 — Happy Path - Clone Existing Template
+## TC-PT-040001 — Happy Path - Clone Existing Template _(skipped)_
 
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -426,23 +417,21 @@ template ไม่มีการเปลี่ยนแปลง doc_version �
 
 **Preconditions**
 
-Login เป็น Procurement Manager; template library พร้อมใช้งาน
+Login เป็น Procurement Manager/Staff; มี template ในระบบ
 
 **Steps**
 
-1. ไปที่ /vendor-management/price-list-template
-2. คลิก 'Details' ของ template ที่มีอยู่
-3. คลิก 'Clone Template'
-4. กรอก 'New Template Name' ด้วย 'Copy of Original Name'
-5. คลิก 'Clone'
+(feature removed in redesign — see note)
 
 **Expected**
 
-template ใหม่สร้างสำเร็จพร้อม product, การตั้งค่า และ metadata ทั้งหมด แสดงข้อความสำเร็จ
+ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)
+
+> _Note: REDESIGNED AWAY: the Clone/Duplicate Template action no longer exists in the redesigned UI (the Copy glyph in the detail toolbar is a decorative entity badge). Skipped pending product decision._
 
 ---
 
-## TC-PT-040002 — Negative - Invalid Template Name
+## TC-PT-040002 — Negative - Invalid Template Name _(skipped)_
 
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -451,23 +440,21 @@ template ใหม่สร้างสำเร็จพร้อม product, �
 
 **Preconditions**
 
-Login เป็น Procurement Manager; template library พร้อมใช้งาน; ผู้ใช้กรอกชื่อที่ไม่ถูกต้อง
+Login เป็น Procurement Manager/Staff; มี template ในระบบ
 
 **Steps**
 
-1. ไปที่ /vendor-management/price-list-template
-2. คลิก 'Details' ของ template ที่มีอยู่
-3. คลิก 'Clone Template'
-4. กรอก 'New Template Name' ด้วยชื่อที่ไม่ถูกต้อง (เช่น มีแต่ space หรือ special character)
-5. คลิก 'Clone'
+(feature removed in redesign — see note)
 
 **Expected**
 
-ระบบแสดงข้อความ error สำหรับชื่อที่ไม่ถูกต้องและไม่สร้าง template
+ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)
+
+> _Note: REDESIGNED AWAY: the Clone/Duplicate Template action no longer exists in the redesigned UI (the Copy glyph in the detail toolbar is a decorative entity badge). Skipped pending product decision._
 
 ---
 
-## TC-PT-040003 — Negative - No Permission to Clone
+## TC-PT-040003 — Negative - No Permission to Clone _(skipped)_
 
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -476,17 +463,17 @@ Login เป็น Procurement Manager; template library พร้อมใช�
 
 **Preconditions**
 
-Login เป็น Procurement Staff; template library พร้อมใช้งาน
+Login เป็น Procurement Manager/Staff; มี template ในระบบ
 
 **Steps**
 
-1. ไปที่ /vendor-management/price-list-template
-2. คลิก 'Details' ของ template ที่มีอยู่
-3. พยายามคลิก 'Clone Template'
+(feature removed in redesign — see note)
 
 **Expected**
 
-ระบบแสดงข้อความ error หรือปฏิเสธการเข้าถึง action 'Clone Template'
+ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)
+
+> _Note: REDESIGNED AWAY: the Clone/Duplicate Template action no longer exists in the redesigned UI (the Copy glyph in the detail toolbar is a decorative entity badge). Skipped pending product decision._
 
 ---
 
@@ -495,23 +482,21 @@ Login เป็น Procurement Staff; template library พร้อมใช้�
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** Low · **Test Type:** Edge Case
+**Priority:** Medium · **Test Type:** Edge Case
 
 **Preconditions**
 
-Login เป็น Procurement Manager; template library พร้อมใช้งาน; สร้าง template ครบจำนวนสูงสุดที่อนุญาตแล้ว
+Login เป็น Procurement Manager/Staff; มี template ในระบบ
 
 **Steps**
 
-1. ไปที่ /vendor-management/price-list-template
-2. คลิก 'Details' ของ template ที่มีอยู่
-3. คลิก 'Clone Template'
+(feature removed in redesign — see note)
 
 **Expected**
 
-ระบบแสดงข้อความ error แจ้งว่าถึงจำนวน template สูงสุดแล้วและไม่สามารถ clone ได้
+ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)
 
-> _Note: Backend / quota limit. Cannot reliably exhaust template quota in E2E. Verify with API/integration tests instead._
+> _Note: REDESIGNED AWAY: the Clone/Duplicate Template action no longer exists in the redesigned UI (the Copy glyph in the detail toolbar is a decorative entity badge). Skipped pending product decision._
 
 ---
 
@@ -563,31 +548,30 @@ TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอ�
 
 ---
 
-## TC-PT-050001 — Activate Template - Happy Path
+## TC-PT-050001 — Activate Template - Happy Path _(skipped)_
 
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** High · **Test Type:** Happy Path
+**Priority:** Medium · **Test Type:** Happy Path
 
 **Preconditions**
 
-template อยู่ในสถานะ deactivated และผู้ใช้มีสิทธิ์ activate template
+Login เป็น Procurement Manager/Staff; มี template ในระบบ
 
 **Steps**
 
-1. ไปที่ /vendor-management/price-list-template
-2. หา template ที่ถูก deactivated
-3. คลิกปุ่ม 'Activate'
-4. ยืนยันการ activate
+(feature removed in redesign — see note)
 
 **Expected**
 
-template ถูก activate และสถานะเปลี่ยนเป็น active
+ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)
+
+> _Note: REDESIGNED AWAY: dedicated Activate/Deactivate buttons removed; template status is now a field on the edit form. Skipped pending a rewrite against status-via-form._
 
 ---
 
-## TC-PT-050003 — Activate Template - Invalid Input
+## TC-PT-050003 — Activate Template - Invalid Input _(skipped)_
 
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -596,46 +580,44 @@ template ถูก activate และสถานะเปลี่ยนเป�
 
 **Preconditions**
 
-template อยู่ในสถานะ deactivated และผู้ใช้มีสิทธิ์ activate template
+Login เป็น Procurement Manager/Staff; มี template ในระบบ
 
 **Steps**
 
-1. ไปที่ /vendor-management/price-list-template
-2. หา template ที่ถูก deactivated
-3. คลิกปุ่ม 'Activate'
-4. กรอกข้อมูลที่ไม่ถูกต้อง
+(feature removed in redesign — see note)
 
 **Expected**
 
-ระบบแสดงข้อความ error แจ้ง input ที่ไม่ถูกต้อง
+ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)
+
+> _Note: REDESIGNED AWAY: dedicated Activate/Deactivate buttons removed; template status is now a field on the edit form. Skipped pending a rewrite against status-via-form._
 
 ---
 
-## TC-PT-050004 — Deactivate Template - No Permission
+## TC-PT-050004 — Deactivate Template - No Permission _(skipped)_
 
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** High · **Test Type:** Negative
+**Priority:** Medium · **Test Type:** Negative
 
 **Preconditions**
 
-template อยู่ในสถานะ active และผู้ใช้ไม่มีสิทธิ์ deactivate template
+Login เป็น Procurement Manager/Staff; มี template ในระบบ
 
 **Steps**
 
-1. ไปที่ /vendor-management/price-list-template
-2. หา template ที่ active
-3. คลิกปุ่ม 'Deactivate'
-4. ยืนยันการพยายาม deactivate
+(feature removed in redesign — see note)
 
 **Expected**
 
-ระบบแสดงข้อความ error แจ้งว่าสิทธิ์ไม่เพียงพอ
+ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)
+
+> _Note: REDESIGNED AWAY: dedicated Activate/Deactivate buttons removed; template status is now a field on the edit form. Skipped pending a rewrite against status-via-form._
 
 ---
 
-## TC-PT-050005 — Template Status Change - Edge Case (rapid toggle)
+## TC-PT-050005 — Template Status Change - Edge Case (rapid toggle) _(skipped)_
 
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -644,20 +626,17 @@ template อยู่ในสถานะ active และผู้ใช้ไ
 
 **Preconditions**
 
-template อยู่ในสถานะ active และผู้ใช้มีสิทธิ์ deactivate template
+Login เป็น Procurement Manager/Staff; มี template ในระบบ
 
 **Steps**
 
-1. ไปที่ /vendor-management/price-list-template
-2. หา template ที่ active
-3. คลิกปุ่ม 'Deactivate'
-4. ยืนยันการ deactivate
-5. re-activate template ทันที
-6. ยืนยันการ re-activate
+(feature removed in redesign — see note)
 
 **Expected**
 
-template สลับระหว่างสถานะ active และ deactivated ได้สำเร็จ
+ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)
+
+> _Note: REDESIGNED AWAY: dedicated Activate/Deactivate buttons removed; template status is now a field on the edit form. Skipped pending a rewrite against status-via-form._
 
 ---
 
@@ -852,4 +831,4 @@ TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอ�
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git c4df948</sub>
+<sub>Last regenerated: 2026-06-17 · git 8810550</sub>

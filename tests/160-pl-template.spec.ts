@@ -43,11 +43,13 @@ procurementManagerTest.describe("Pricelist Template — Create", () => {
     },
     async ({ page }) => {
       const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      await tpl.newButton().click({ timeout: 5_000 }).catch(() => {});
-      await tpl.fillHeader({ name: VALID_NAME, description: VALID_DESCRIPTION });
-      await tpl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await tpl.expectSavedToast().catch(() => {});
+      await tpl.gotoNew();
+      // unique name avoids the backend's name-uniqueness rejection across reruns
+      await tpl.nameInput().fill(`${VALID_NAME} ${Date.now().toString(36)}`);
+      await tpl.selectFirstCurrency(); // currency is required
+      await tpl.descriptionInput().fill(VALID_DESCRIPTION).catch(() => {});
+      await tpl.saveButton().click({ timeout: 10_000 });
+      await tpl.expectSavedToast();
     },
   );
 
@@ -136,162 +138,67 @@ procurementStaffTest.describe("Pricelist Template — Create — Permission deni
 
 // ─────────────────────────────────────────────────────────────────────────
 // TC-PT-900002 — Add products to template
+// REDESIGNED AWAY: old 'Add Products' dialog (checkbox picker + Confirm Selection) removed; products are managed inline in the template form's product table now. Skipped pending a rewrite against the inline flow.
 // ─────────────────────────────────────────────────────────────────────────
 procurementManagerTest.describe("Pricelist Template — Add products", () => {
-  procurementManagerTest(
+  procurementManagerTest.skip(
     "TC-PT-020001 Add products to template - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น Procurement Manager; มีสิทธิ์เข้าถึง product template; มี product อย่างน้อย 10 รายการ" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list-template\n2. เปิด template ที่มีอยู่\n3. คลิกปุ่ม 'Add Products'\n4. เลือก 10 product จาก product list\n5. คลิกปุ่ม 'Confirm Selection'\n6. ตรวจสอบว่า product ที่เลือกแสดงอยู่ใน template",
-        },
-        { type: "expected", description: "product ที่เลือกถูกเพิ่มใน template สำเร็จ" },
-        { type: "priority", description: "High" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager/Staff; มี template ในระบบ" },
+        { type: "steps", description: "(feature removed in redesign — see note)" },
+        { type: "expected", description: "ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)" },
+        { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
+        { type: "note", description: "REDESIGNED AWAY: old 'Add Products' dialog (checkbox picker + Confirm Selection) removed; products are managed inline in the template form's product table now. Skipped pending a rewrite against the inline flow." },
       ],
     },
-    async ({ page }) => {
-      const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const firstRow = page.getByRole("row").nth(1);
-      if ((await firstRow.count()) === 0) {
-        procurementManagerTest.skip(true, "No template available to add products to");
-        return;
-      }
-      await firstRow.click();
-      const productsTab = tpl.productsTab();
-      if ((await productsTab.count()) > 0) await productsTab.click().catch(() => {});
-      const addBtn = tpl.addProductsButton();
-      if ((await addBtn.count()) === 0) {
-        procurementManagerTest.skip(true, "Add Products UI not exposed");
-        return;
-      }
-      await addBtn.click().catch(() => {});
-      const checkboxes = page.getByRole("checkbox");
-      const total = await checkboxes.count();
-      for (let i = 1; i <= Math.min(10, total - 1); i++) {
-        await checkboxes.nth(i).check({ force: true }).catch(() => {});
-      }
-      await tpl.confirmSelectionButton().click({ timeout: 5_000 }).catch(() => {});
-      await tpl.expectSavedToast().catch(() => {});
-    },
+    async () => {},
   );
-
-  procurementManagerTest(
+  procurementManagerTest.skip(
     "TC-PT-020002 Add products to template - Invalid Input (max exceeded)",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น Procurement Manager และมีสิทธิ์เข้าถึง product template" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list-template\n2. เปิด template ที่มีอยู่\n3. คลิกปุ่ม 'Add Products'\n4. เลือก 500 product จาก product list\n5. คลิกปุ่ม 'Confirm Selection'\n6. ตรวจสอบว่าแสดงข้อความ error",
-        },
-        { type: "expected", description: "แสดงข้อความ error แจ้งว่าจำนวน product สูงสุดต่อ template เกินกำหนด" },
-        { type: "priority", description: "High" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager/Staff; มี template ในระบบ" },
+        { type: "steps", description: "(feature removed in redesign — see note)" },
+        { type: "expected", description: "ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)" },
+        { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
+        { type: "note", description: "REDESIGNED AWAY: old 'Add Products' dialog (checkbox picker + Confirm Selection) removed; products are managed inline in the template form's product table now. Skipped pending a rewrite against the inline flow." },
       ],
     },
-    async ({ page }) => {
-      const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const firstRow = page.getByRole("row").nth(1);
-      if ((await firstRow.count()) === 0) {
-        procurementManagerTest.skip(true, "No template available");
-        return;
-      }
-      await firstRow.click();
-      const addBtn = tpl.addProductsButton();
-      if ((await addBtn.count()) === 0) {
-        procurementManagerTest.skip(true, "Add Products UI not exposed");
-        return;
-      }
-      await addBtn.click().catch(() => {});
-      const checkboxes = page.getByRole("checkbox");
-      const total = await checkboxes.count();
-      // Try selecting all available — count likely well below 500 in test env
-      for (let i = 1; i < total; i++) {
-        await checkboxes.nth(i).check({ force: true }).catch(() => {});
-      }
-      await tpl.confirmSelectionButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(tpl.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
-    },
+    async () => {},
   );
-
-  procurementManagerTest(
+  procurementManagerTest.skip(
     "TC-PT-020004 Add products to template - Edge Case - Empty Selection",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น Procurement Manager และมีสิทธิ์เข้าถึง product template" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list-template\n2. เปิด template ที่มีอยู่\n3. คลิกปุ่ม 'Add Products'\n4. รอ 5 วินาที\n5. ตรวจสอบว่า list ของ product ที่เลือกว่างเปล่า",
-        },
-        { type: "expected", description: "list ของ product ที่เลือกว่างเปล่าและไม่มี product ถูกเพิ่มใน template" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager/Staff; มี template ในระบบ" },
+        { type: "steps", description: "(feature removed in redesign — see note)" },
+        { type: "expected", description: "ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
+        { type: "note", description: "REDESIGNED AWAY: old 'Add Products' dialog (checkbox picker + Confirm Selection) removed; products are managed inline in the template form's product table now. Skipped pending a rewrite against the inline flow." },
       ],
     },
-    async ({ page }) => {
-      const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const firstRow = page.getByRole("row").nth(1);
-      if ((await firstRow.count()) === 0) return;
-      await firstRow.click();
-      const addBtn = tpl.addProductsButton();
-      if ((await addBtn.count()) === 0) return;
-      await addBtn.click().catch(() => {});
-      // Confirm without selecting anything
-      const confirm = tpl.confirmSelectionButton();
-      // Either button is disabled (correct) or yields no-selection error
-      if ((await confirm.count()) === 0) {
-        expect(true).toBe(true);
-      } else {
-        const isDisabled = await confirm.isDisabled().catch(() => false);
-        if (isDisabled) {
-          expect(isDisabled).toBe(true);
-        } else {
-          await confirm.click().catch(() => {});
-        }
-      }
-    },
+    async () => {},
   );
 });
 
 procurementStaffTest.describe("Pricelist Template — Add products — Permission denial", () => {
-  procurementStaffTest(
+  procurementStaffTest.skip(
     "TC-PT-020003 Add products to template - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น Procurement Staff และไม่มีสิทธิ์เข้าถึง product template" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list-template\n2. คลิกปุ่ม 'Add Products'\n3. รอ 5 วินาที\n4. ตรวจสอบว่าปุ่ม 'Add Products' ถูก disabled",
-        },
-        { type: "expected", description: "ผู้ใช้ไม่สามารถเพิ่ม product ใน template ได้" },
-        { type: "priority", description: "High" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager/Staff; มี template ในระบบ" },
+        { type: "steps", description: "(feature removed in redesign — see note)" },
+        { type: "expected", description: "ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)" },
+        { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
+        { type: "note", description: "REDESIGNED AWAY: old 'Add Products' dialog (checkbox picker + Confirm Selection) removed; products are managed inline in the template form's product table now. Skipped pending a rewrite against the inline flow." },
       ],
     },
-    async ({ page }) => {
-      const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const firstRow = page.getByRole("row").nth(1);
-      if ((await firstRow.count()) === 0) return;
-      await firstRow.click();
-      const addBtn = tpl.addProductsButton();
-      // Either button is hidden or disabled (both are correct outcomes)
-      if ((await addBtn.count()) === 0) {
-        expect(true).toBe(true);
-      } else {
-        await expect(addBtn).toBeDisabled({ timeout: 5_000 }).catch(() => {});
-      }
-    },
+    async () => {},
   );
 });
 
@@ -316,28 +223,15 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
     },
     async ({ page }) => {
       const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const firstRow = page.getByRole("row").nth(1);
-      if ((await firstRow.count()) === 0) {
+      if (!(await tpl.openFirst())) {
         procurementManagerTest.skip(true, "No template available to edit");
         return;
       }
-      await firstRow.click();
-      await tpl.editButton().click({ timeout: 5_000 }).catch(() => {});
-      await tpl.fillHeader({
-        name: "E2E edited",
-        description: "edited by E2E",
-        validityDays: 30,
-        vendorInstructions: "Please respond promptly",
-        allowMultiMOQ: true,
-        requireLeadTime: true,
-        maxItemsPerSubmission: 100,
-        sendReminders: true,
-        reminderDays: [14, 7],
-        escalationDays: 3,
-      });
-      await tpl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await tpl.expectSavedToast().catch(() => {});
+      await tpl.editButton().click({ timeout: 10_000 });
+      // unique name avoids name-uniqueness rejection across reruns
+      await tpl.nameInput().fill(`E2E edited ${Date.now().toString(36)}`);
+      await tpl.saveButton().click({ timeout: 10_000 });
+      await tpl.expectSavedToast();
     },
   );
 
@@ -460,86 +354,44 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
 // TC-PT-900004 — Clone template
 // ─────────────────────────────────────────────────────────────────────────
 procurementManagerTest.describe("Pricelist Template — Clone", () => {
-  procurementManagerTest(
+  procurementManagerTest.skip(
     "TC-PT-040001 Happy Path - Clone Existing Template",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น Procurement Manager; template library พร้อมใช้งาน" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'Details' ของ template ที่มีอยู่\n3. คลิก 'Clone Template'\n4. กรอก 'New Template Name' ด้วย 'Copy of Original Name'\n5. คลิก 'Clone'",
-        },
-        { type: "expected", description: "template ใหม่สร้างสำเร็จพร้อม product, การตั้งค่า และ metadata ทั้งหมด แสดงข้อความสำเร็จ" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager/Staff; มี template ในระบบ" },
+        { type: "steps", description: "(feature removed in redesign — see note)" },
+        { type: "expected", description: "ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
+        { type: "note", description: "REDESIGNED AWAY: the Clone/Duplicate Template action no longer exists in the redesigned UI (the Copy glyph in the detail toolbar is a decorative entity badge). Skipped pending product decision." },
       ],
     },
-    async ({ page }) => {
-      const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const firstRow = page.getByRole("row").nth(1);
-      if ((await firstRow.count()) === 0) {
-        procurementManagerTest.skip(true, "No template available to clone");
-        return;
-      }
-      await firstRow.click();
-      const clone = tpl.cloneButton();
-      if ((await clone.count()) === 0) {
-        procurementManagerTest.skip(true, "Clone UI not exposed");
-        return;
-      }
-      await clone.click().catch(() => {});
-      await tpl.cloneNameInput().fill("Copy of Original Name").catch(() => {});
-      await tpl.confirmCloneButton().click({ timeout: 5_000 }).catch(() => {});
-      await tpl.expectSavedToast().catch(() => {});
-    },
+    async () => {},
   );
-
-  procurementManagerTest(
+  procurementManagerTest.skip(
     "TC-PT-040002 Negative - Invalid Template Name",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น Procurement Manager; template library พร้อมใช้งาน; ผู้ใช้กรอกชื่อที่ไม่ถูกต้อง" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'Details' ของ template ที่มีอยู่\n3. คลิก 'Clone Template'\n4. กรอก 'New Template Name' ด้วยชื่อที่ไม่ถูกต้อง (เช่น มีแต่ space หรือ special character)\n5. คลิก 'Clone'",
-        },
-        { type: "expected", description: "ระบบแสดงข้อความ error สำหรับชื่อที่ไม่ถูกต้องและไม่สร้าง template" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager/Staff; มี template ในระบบ" },
+        { type: "steps", description: "(feature removed in redesign — see note)" },
+        { type: "expected", description: "ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
+        { type: "note", description: "REDESIGNED AWAY: the Clone/Duplicate Template action no longer exists in the redesigned UI (the Copy glyph in the detail toolbar is a decorative entity badge). Skipped pending product decision." },
       ],
     },
-    async ({ page }) => {
-      const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const firstRow = page.getByRole("row").nth(1);
-      if ((await firstRow.count()) === 0) return;
-      await firstRow.click();
-      const clone = tpl.cloneButton();
-      if ((await clone.count()) === 0) return;
-      await clone.click().catch(() => {});
-      await tpl.cloneNameInput().fill(INVALID_NAME).catch(() => {});
-      await tpl.confirmCloneButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(tpl.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
-    },
+    async () => {},
   );
-
   procurementManagerTest.skip(
     "TC-PT-040004 Edge Case - Maximum Templates Reached",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น Procurement Manager; template library พร้อมใช้งาน; สร้าง template ครบจำนวนสูงสุดที่อนุญาตแล้ว" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'Details' ของ template ที่มีอยู่\n3. คลิก 'Clone Template'",
-        },
-        { type: "expected", description: "ระบบแสดงข้อความ error แจ้งว่าถึงจำนวน template สูงสุดแล้วและไม่สามารถ clone ได้" },
-        { type: "priority", description: "Low" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager/Staff; มี template ในระบบ" },
+        { type: "steps", description: "(feature removed in redesign — see note)" },
+        { type: "expected", description: "ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)" },
+        { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
-        { type: "note", description: "Backend / quota limit. Cannot reliably exhaust template quota in E2E. Verify with API/integration tests instead." },
+        { type: "note", description: "REDESIGNED AWAY: the Clone/Duplicate Template action no longer exists in the redesigned UI (the Copy glyph in the detail toolbar is a decorative entity badge). Skipped pending product decision." },
       ],
     },
     async () => {},
@@ -547,35 +399,19 @@ procurementManagerTest.describe("Pricelist Template — Clone", () => {
 });
 
 procurementStaffTest.describe("Pricelist Template — Clone — Permission denial", () => {
-  procurementStaffTest(
+  procurementStaffTest.skip(
     "TC-PT-040003 Negative - No Permission to Clone",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น Procurement Staff; template library พร้อมใช้งาน" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'Details' ของ template ที่มีอยู่\n3. พยายามคลิก 'Clone Template'",
-        },
-        { type: "expected", description: "ระบบแสดงข้อความ error หรือปฏิเสธการเข้าถึง action 'Clone Template'" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager/Staff; มี template ในระบบ" },
+        { type: "steps", description: "(feature removed in redesign — see note)" },
+        { type: "expected", description: "ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
+        { type: "note", description: "REDESIGNED AWAY: the Clone/Duplicate Template action no longer exists in the redesigned UI (the Copy glyph in the detail toolbar is a decorative entity badge). Skipped pending product decision." },
       ],
     },
-    async ({ page }) => {
-      const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const firstRow = page.getByRole("row").nth(1);
-      if ((await firstRow.count()) === 0) return;
-      await firstRow.click();
-      const clone = tpl.cloneButton();
-      // Either button is hidden or click yields permission error
-      if ((await clone.count()) === 0) {
-        expect(true).toBe(true);
-      } else {
-        await clone.click().catch(() => {});
-      }
-    },
+    async () => {},
   );
 });
 
@@ -583,130 +419,64 @@ procurementStaffTest.describe("Pricelist Template — Clone — Permission denia
 // TC-PT-900005 — Activate / Deactivate template
 // ─────────────────────────────────────────────────────────────────────────
 procurementManagerTest.describe("Pricelist Template — Activate / Deactivate", () => {
-  procurementManagerTest(
+  procurementManagerTest.skip(
     "TC-PT-050001 Activate Template - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "template อยู่ในสถานะ deactivated และผู้ใช้มีสิทธิ์ activate template" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list-template\n2. หา template ที่ถูก deactivated\n3. คลิกปุ่ม 'Activate'\n4. ยืนยันการ activate",
-        },
-        { type: "expected", description: "template ถูก activate และสถานะเปลี่ยนเป็น active" },
-        { type: "priority", description: "High" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager/Staff; มี template ในระบบ" },
+        { type: "steps", description: "(feature removed in redesign — see note)" },
+        { type: "expected", description: "ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)" },
+        { type: "priority", description: "Medium" },
         { type: "testType", description: "Happy Path" },
+        { type: "note", description: "REDESIGNED AWAY: dedicated Activate/Deactivate buttons removed; template status is now a field on the edit form. Skipped pending a rewrite against status-via-form." },
       ],
     },
-    async ({ page }) => {
-      const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const inactiveTab = tpl.statusTab(/inactive|deactivated/i);
-      if ((await inactiveTab.count()) > 0) await inactiveTab.click().catch(() => {});
-      const row = page.getByRole("row").nth(1);
-      if ((await row.count()) === 0) {
-        procurementManagerTest.skip(true, "No deactivated template available");
-        return;
-      }
-      await row.click();
-      await tpl.activateButton().click({ timeout: 5_000 }).catch(() => {});
-      await tpl.expectSavedToast().catch(() => {});
-    },
+    async () => {},
   );
-
-  procurementManagerTest(
+  procurementManagerTest.skip(
     "TC-PT-050003 Activate Template - Invalid Input",
     {
       annotation: [
-        { type: "preconditions", description: "template อยู่ในสถานะ deactivated และผู้ใช้มีสิทธิ์ activate template" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list-template\n2. หา template ที่ถูก deactivated\n3. คลิกปุ่ม 'Activate'\n4. กรอกข้อมูลที่ไม่ถูกต้อง",
-        },
-        { type: "expected", description: "ระบบแสดงข้อความ error แจ้ง input ที่ไม่ถูกต้อง" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager/Staff; มี template ในระบบ" },
+        { type: "steps", description: "(feature removed in redesign — see note)" },
+        { type: "expected", description: "ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
+        { type: "note", description: "REDESIGNED AWAY: dedicated Activate/Deactivate buttons removed; template status is now a field on the edit form. Skipped pending a rewrite against status-via-form." },
       ],
     },
-    async ({ page }) => {
-      const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const row = page.getByRole("row").nth(1);
-      if ((await row.count()) === 0) return;
-      await row.click();
-      const activate = tpl.activateButton();
-      if ((await activate.count()) === 0) return;
-      await activate.click().catch(() => {});
-      // Activation may not require input — best-effort check for any error
-    },
+    async () => {},
   );
-
-  procurementManagerTest(
+  procurementManagerTest.skip(
     "TC-PT-050005 Template Status Change - Edge Case (rapid toggle)",
     {
       annotation: [
-        { type: "preconditions", description: "template อยู่ในสถานะ active และผู้ใช้มีสิทธิ์ deactivate template" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list-template\n2. หา template ที่ active\n3. คลิกปุ่ม 'Deactivate'\n4. ยืนยันการ deactivate\n5. re-activate template ทันที\n6. ยืนยันการ re-activate",
-        },
-        { type: "expected", description: "template สลับระหว่างสถานะ active และ deactivated ได้สำเร็จ" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager/Staff; มี template ในระบบ" },
+        { type: "steps", description: "(feature removed in redesign — see note)" },
+        { type: "expected", description: "ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Edge Case" },
+        { type: "note", description: "REDESIGNED AWAY: dedicated Activate/Deactivate buttons removed; template status is now a field on the edit form. Skipped pending a rewrite against status-via-form." },
       ],
     },
-    async ({ page }) => {
-      const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const row = page.getByRole("row").nth(1);
-      if ((await row.count()) === 0) {
-        procurementManagerTest.skip(true, "No active template available");
-        return;
-      }
-      await row.click();
-      const deactivate = tpl.deactivateButton();
-      if ((await deactivate.count()) === 0) {
-        procurementManagerTest.skip(true, "Deactivate UI not exposed");
-        return;
-      }
-      await deactivate.click().catch(() => {});
-      await tpl.activateButton().click({ timeout: 5_000 }).catch(() => {});
-    },
+    async () => {},
   );
 });
 
 procurementStaffTest.describe("Pricelist Template — Activate / Deactivate — Permission denial", () => {
-  procurementStaffTest(
+  procurementStaffTest.skip(
     "TC-PT-050004 Deactivate Template - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "template อยู่ในสถานะ active และผู้ใช้ไม่มีสิทธิ์ deactivate template" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list-template\n2. หา template ที่ active\n3. คลิกปุ่ม 'Deactivate'\n4. ยืนยันการพยายาม deactivate",
-        },
-        { type: "expected", description: "ระบบแสดงข้อความ error แจ้งว่าสิทธิ์ไม่เพียงพอ" },
-        { type: "priority", description: "High" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager/Staff; มี template ในระบบ" },
+        { type: "steps", description: "(feature removed in redesign — see note)" },
+        { type: "expected", description: "ครอบคลุมโดยการ rewrite ในอนาคต (feature ถูก redesign)" },
+        { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
+        { type: "note", description: "REDESIGNED AWAY: dedicated Activate/Deactivate buttons removed; template status is now a field on the edit form. Skipped pending a rewrite against status-via-form." },
       ],
     },
-    async ({ page }) => {
-      const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const row = page.getByRole("row").nth(1);
-      if ((await row.count()) === 0) return;
-      await row.click();
-      const deactivate = tpl.deactivateButton();
-      // Either button is hidden (correct) or click yields permission error
-      if ((await deactivate.count()) === 0) {
-        expect(true).toBe(true);
-      } else {
-        await deactivate.click().catch(() => {});
-      }
-    },
+    async () => {},
   );
 });
 
@@ -731,18 +501,11 @@ procurementManagerTest.describe("Pricelist Template — Search and View", () => 
     },
     async ({ page }) => {
       const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const allTab = tpl.statusTab(/^all$/i);
-      if ((await allTab.count()) > 0) await allTab.click().catch(() => {});
-      const search = tpl.searchInput();
-      if ((await search.count()) > 0) await search.fill("example");
-      const firstResult = page.getByRole("row").nth(1);
-      if ((await firstResult.count()) === 0) {
-        procurementManagerTest.skip(true, "No template matched 'example'");
+      if (!(await tpl.openFirst())) {
+        procurementManagerTest.skip(true, "No template available to view");
         return;
       }
-      await firstResult.click();
-      await expect(page).toHaveURL(/price-list-template\/[^/]+$/, { timeout: 10_000 }).catch(() => {});
+      await expect(page).toHaveURL(/price-list-template\/[^/]+$/, { timeout: 10_000 });
     },
   );
 
@@ -765,11 +528,12 @@ procurementManagerTest.describe("Pricelist Template — Search and View", () => 
       const tpl = new PriceListTemplatePage(page);
       await tpl.gotoList();
       const search = tpl.searchInput();
-      if ((await search.count()) > 0) await search.fill("__NONEXISTENT_E2E__");
-      // Best-effort: empty-state placeholder
+      await expect(search).toBeVisible({ timeout: 10_000 });
+      await search.fill("__NONEXISTENT_E2E__");
+      await search.press("Enter"); // SearchInput fires onSearch on Enter
       await expect(
-        page.getByText(/no.*match|no.*found|no.*templates|empty|ไม่พบ/i).first(),
-      ).toBeVisible({ timeout: 10_000 }).catch(() => {});
+        page.getByText(/no.*match|no.*found|no.*data|empty|ไม่พบ/i).first(),
+      ).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -862,55 +626,20 @@ procurementStaffTest.describe("Pricelist Template — Search and View — Permis
 // ── admin@blueledgers.com + BLAVG CRUD ─────────────────────────────────────
 // The describes above run as purchase/requestor (authz coverage) and are left
 // untouched. This block verifies an admin can CRUD pricelist templates with the
-// active BU pinned to BLAVG.
-//
-// NOTE: the PT create/edit UI was redesigned into a rich document form
-// (NameField hero input + required LookupCurrency Radix Select + row-actions
-// delete via an AlertDialog). The shared PriceListTemplatePage page object is
-// stale for these flows (its newButton/fillHeader/openTemplate no longer match,
-// and the existing happy-path tests swallow that with .catch()). So this block
-// drives the real form directly with local helpers, mirroring the vendor
-// admin@BLAVG block. Page-object migration is tracked as a follow-up.
+// active BU pinned to BLAVG, driving the redesigned form through the migrated
+// PriceListTemplatePage page object.
 const adminTest = createAuthTest("admin@blueledgers.com");
 
 adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
   const ADMIN_NAME = `E2E PT ${UID}`;
   const ADMIN_NAME_UPDATED = `E2E PT Upd ${UID}`;
-  const NEW_PATH = "/vendor-management/price-list-template/new";
 
-  // Local helpers targeting the redesigned form directly.
-  const heroName = (page: import("@playwright/test").Page) =>
-    page.getByPlaceholder(/Fresh Produce Template/i).first();
-  const currencySelect = (page: import("@playwright/test").Page) =>
-    page.getByRole("combobox").first();
-  const submitButton = (page: import("@playwright/test").Page) =>
-    page.getByRole("button", { name: /^(save|create|บันทึก|สร้าง)$/i }).first();
-  const editToggle = (page: import("@playwright/test").Page) =>
-    page.getByRole("button", { name: /^(edit|แก้ไข)$/i }).first();
-
-  const createdToast = (page: import("@playwright/test").Page) =>
+  // success/created/updated/deleted toast (used for both presence and absence checks)
+  const successToast = (page: import("@playwright/test").Page) =>
     page
       .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-      .filter({ hasText: /success|saved|created|updated|สำเร็จ/i })
+      .filter({ hasText: /success|saved|created|updated|deleted|สำเร็จ/i })
       .first();
-
-  async function fillNewForm(page: import("@playwright/test").Page, name: string) {
-    await page.goto(NEW_PATH);
-    await page.waitForLoadState("networkidle");
-    await heroName(page).fill(name);
-    // currency_id is required — pick the first available option.
-    await currencySelect(page).click();
-    await page.getByRole("option").first().click();
-  }
-
-  async function openByName(page: import("@playwright/test").Page, name: string) {
-    const tpl = new PriceListTemplatePage(page);
-    await tpl.gotoList();
-    const search = tpl.searchInput();
-    if ((await search.count()) > 0) await search.fill(name).catch(() => {});
-    await page.getByText(name, { exact: false }).first().click();
-    await page.waitForLoadState("networkidle");
-  }
 
   adminTest.beforeEach(async ({ page }) => {
     await ensureActiveBu(page, BU_CODE);
@@ -949,9 +678,12 @@ adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
       ],
     },
     async ({ page }) => {
-      await fillNewForm(page, ADMIN_NAME);
-      await submitButton(page).click({ timeout: 10_000 });
-      await expect(createdToast(page)).toBeVisible({ timeout: 10_000 });
+      const tpl = new PriceListTemplatePage(page);
+      await tpl.gotoNew();
+      await tpl.nameInput().fill(ADMIN_NAME);
+      await tpl.selectFirstCurrency();
+      await tpl.saveButton().click({ timeout: 10_000 });
+      await tpl.expectSavedToast();
     },
   );
 
@@ -967,16 +699,19 @@ adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
       ],
     },
     async ({ page }) => {
-      await openByName(page, ADMIN_NAME);
-      await editToggle(page).click({ timeout: 10_000 });
-      await heroName(page).fill(ADMIN_NAME_UPDATED);
-      await submitButton(page).click({ timeout: 10_000 });
-      await expect(createdToast(page)).toBeVisible({ timeout: 10_000 });
-
       const tpl = new PriceListTemplatePage(page);
+      await tpl.openByName(ADMIN_NAME);
+      await tpl.editButton().click({ timeout: 10_000 });
+      await tpl.nameInput().fill(ADMIN_NAME_UPDATED);
+      await tpl.saveButton().click({ timeout: 10_000 });
+      await tpl.expectSavedToast();
+
       await tpl.gotoList();
       const search = tpl.searchInput();
-      if ((await search.count()) > 0) await search.fill(ADMIN_NAME_UPDATED).catch(() => {});
+      if ((await search.count()) > 0) {
+        await search.fill(ADMIN_NAME_UPDATED).catch(() => {});
+        await search.press("Enter").catch(() => {});
+      }
       await expect(page.getByText(ADMIN_NAME_UPDATED).first()).toBeVisible({ timeout: 10_000 });
     },
   );
@@ -993,15 +728,18 @@ adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
       ],
     },
     async ({ page }) => {
-      await openByName(page, ADMIN_NAME_UPDATED);
-      await editToggle(page).click({ timeout: 10_000 });
-      await heroName(page).fill(`${ADMIN_NAME_UPDATED} DISCARD`);
-      await page.getByRole("button", { name: /^(cancel|ยกเลิก)$/i }).first().click({ timeout: 10_000 });
-
       const tpl = new PriceListTemplatePage(page);
+      await tpl.openByName(ADMIN_NAME_UPDATED);
+      await tpl.editButton().click({ timeout: 10_000 });
+      await tpl.nameInput().fill(`${ADMIN_NAME_UPDATED} DISCARD`);
+      await tpl.cancelButton().click({ timeout: 10_000 });
+
       await tpl.gotoList();
       const search = tpl.searchInput();
-      if ((await search.count()) > 0) await search.fill(ADMIN_NAME_UPDATED).catch(() => {});
+      if ((await search.count()) > 0) {
+        await search.fill(ADMIN_NAME_UPDATED).catch(() => {});
+        await search.press("Enter").catch(() => {});
+      }
       await expect(page.getByText(ADMIN_NAME_UPDATED).first()).toBeVisible({ timeout: 10_000 });
     },
   );
@@ -1018,10 +756,13 @@ adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
       ],
     },
     async ({ page }) => {
-      await fillNewForm(page, ADMIN_NAME_UPDATED);
-      await submitButton(page).click({ timeout: 10_000 });
+      const tpl = new PriceListTemplatePage(page);
+      await tpl.gotoNew();
+      await tpl.nameInput().fill(ADMIN_NAME_UPDATED);
+      await tpl.selectFirstCurrency();
+      await tpl.saveButton().click({ timeout: 10_000 });
       // Duplicate name must be rejected: no success toast appears.
-      await expect(createdToast(page)).toHaveCount(0, { timeout: 5_000 });
+      await expect(successToast(page)).toHaveCount(0, { timeout: 5_000 });
     },
   );
 
@@ -1040,17 +781,18 @@ adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
       const tpl = new PriceListTemplatePage(page);
       await tpl.gotoList();
       const search = tpl.searchInput();
-      if ((await search.count()) > 0) await search.fill(ADMIN_NAME_UPDATED).catch(() => {});
-      const row = page.getByRole("row").filter({ hasText: ADMIN_NAME_UPDATED }).first();
-      await row.getByRole("button", { name: /row actions|actions|more/i }).first().click({ timeout: 10_000 });
-      await page.getByRole("menuitem", { name: /^(delete|ลบ)$/i }).first().click({ timeout: 10_000 });
-      const dialog = page.getByRole("alertdialog");
-      await expect(dialog).toBeVisible({ timeout: 5_000 });
-      await dialog.getByRole("button", { name: /^(cancel|ยกเลิก)$/i }).click();
+      if ((await search.count()) > 0) {
+        await search.fill(ADMIN_NAME_UPDATED).catch(() => {});
+        await search.press("Enter").catch(() => {});
+      }
+      await tpl.deleteViaRowActions(ADMIN_NAME_UPDATED, { confirm: false });
 
       await tpl.gotoList();
       const search2 = tpl.searchInput();
-      if ((await search2.count()) > 0) await search2.fill(ADMIN_NAME_UPDATED).catch(() => {});
+      if ((await search2.count()) > 0) {
+        await search2.fill(ADMIN_NAME_UPDATED).catch(() => {});
+        await search2.press("Enter").catch(() => {});
+      }
       await expect(page.getByText(ADMIN_NAME_UPDATED).first()).toBeVisible({ timeout: 10_000 });
     },
   );
@@ -1070,20 +812,12 @@ adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
       const tpl = new PriceListTemplatePage(page);
       await tpl.gotoList();
       const search = tpl.searchInput();
-      if ((await search.count()) > 0) await search.fill(ADMIN_NAME_UPDATED).catch(() => {});
-      const row = page.getByRole("row").filter({ hasText: ADMIN_NAME_UPDATED }).first();
-      await row.getByRole("button", { name: /row actions|actions|more/i }).first().click({ timeout: 10_000 });
-      await page.getByRole("menuitem", { name: /^(delete|ลบ)$/i }).first().click({ timeout: 10_000 });
-      const dialog = page.getByRole("alertdialog");
-      await expect(dialog).toBeVisible({ timeout: 5_000 });
-      await dialog.getByRole("button", { name: /^(delete|confirm|ลบ|ok)$/i }).click();
-
-      await expect(
-        page
-          .locator('[data-sonner-toast], [role="status"]')
-          .filter({ hasText: /success|deleted|ลบ.*สำเร็จ|สำเร็จ/i })
-          .first(),
-      ).toBeVisible({ timeout: 10_000 });
+      if ((await search.count()) > 0) {
+        await search.fill(ADMIN_NAME_UPDATED).catch(() => {});
+        await search.press("Enter").catch(() => {});
+      }
+      await tpl.deleteViaRowActions(ADMIN_NAME_UPDATED, { confirm: true });
+      await tpl.expectSavedToast();
     },
   );
 });
