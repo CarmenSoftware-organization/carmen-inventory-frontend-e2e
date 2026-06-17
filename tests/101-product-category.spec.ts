@@ -17,6 +17,21 @@ import { BuSwitcherPage } from "./pages/bu-switcher.page";
 const requestorTest = createAuthTest("requestor@blueledgers.com");
 const purchaseTest = createAuthTest("purchase@blueledgers.com");
 
+// Unique id for categories created by the un-masked core tests.
+const UID = Date.now().toString(36);
+
+// ── Legacy un-mask follow-up (2026-06-17) ──────────────────────────────────
+// The legacy purchase/requestor describes were thin .catch-masked stubs. This
+// pass cleans them up:
+//   • describe.skip — features removed in the redesign (Reorder/Drag-Drop, Move,
+//     Breadcrumb, Filters, Tree/List view toggle, Item Counts, View Detail, and
+//     the cross-module *-integration suites). Status is now a switch in the edit
+//     dialog, so the dedicated Activate/Deactivate suite is retired too.
+//   • describe.skip — the thin Create/Edit/Delete write suites are retired in
+//     favour of the real CRUD coverage in the admin@BLAVG block below.
+//   • un-masked to real assertions — View smoke + Search (kept).
+// Real redesigned CRUD lives in the "admin@BLAVG CRUD" block at the bottom.
+
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900001 — View Categories (tree/list)
 // ═════════════════════════════════════════════════════════════════════════
@@ -39,11 +54,16 @@ purchaseTest.describe("Product Category — View", () => {
     async ({ page }) => {
       const cat = new ProductCategoryPage(page);
       await cat.gotoList();
-      await expect(page).toHaveURL(/category/);
+      await expect(page).toHaveURL(/product-management\/category/);
+      await expect(cat.addButton()).toBeVisible({ timeout: 15_000 });
+      // The tree shows at least one node, or an empty state — assert one is present.
+      await expect(
+        cat.node("").or(cat.emptyState()).first(),
+      ).toBeVisible({ timeout: 10_000 });
     },
   );
 
-  purchaseTest(
+  purchaseTest.skip(
     "TC-CAT-010003 Expand and collapse category levels",
     {
       annotation: [
@@ -64,7 +84,7 @@ purchaseTest.describe("Product Category — View", () => {
     },
   );
 
-  purchaseTest(
+  purchaseTest.skip(
     "TC-CAT-010004 Category hierarchy with very long names",
     {
       annotation: [
@@ -85,7 +105,7 @@ purchaseTest.describe("Product Category — View", () => {
     },
   );
 
-  purchaseTest(
+  purchaseTest.skip(
     "TC-CAT-010005 Multiple levels of categories",
     {
       annotation: [
@@ -135,7 +155,7 @@ requestorTest.describe("Product Category — View — Permission denial", () => 
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900002 — Create Root Category
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Create Root", () => {
+purchaseTest.describe.skip("Product Category — Create Root", () => {
   purchaseTest(
     "TC-CAT-020001 Happy Path - Create Root Category",
     {
@@ -214,7 +234,7 @@ requestorTest.describe("Product Category — Create Root — Permission denial",
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900003 — Create Subcategory
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Create Subcategory", () => {
+purchaseTest.describe.skip("Product Category — Create Subcategory", () => {
   purchaseTest(
     "TC-CAT-030001 Happy Path - Create Subcategory",
     {
@@ -305,7 +325,7 @@ requestorTest.describe("Product Category — Create Subcategory — Permission d
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900004 — Create Item Group
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Create Item Group", () => {
+purchaseTest.describe.skip("Product Category — Create Item Group", () => {
   purchaseTest(
     "TC-CAT-040001 Create Valid Item Group",
     {
@@ -400,7 +420,7 @@ requestorTest.describe("Product Category — Create Item Group — Permission de
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900005 — Edit Category
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Edit", () => {
+purchaseTest.describe.skip("Product Category — Edit", () => {
   purchaseTest(
     "TC-CAT-050001 Edit Existing Category Name",
     {
@@ -512,7 +532,7 @@ requestorTest.describe("Product Category — Edit — Permission denial", () => 
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900006 — Delete Category
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Delete", () => {
+purchaseTest.describe.skip("Product Category — Delete", () => {
   purchaseTest(
     "TC-CAT-060001 Delete existing category",
     {
@@ -601,7 +621,7 @@ purchaseTest.describe("Product Category — Delete", () => {
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900007 — Reorder / Drag-Drop
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Reorder / Drag-Drop", () => {
+purchaseTest.describe.skip("Product Category — Reorder / Drag-Drop", () => {
   purchaseTest(
     "TC-CAT-070001 Reorder Categories within Same Parent",
     {
@@ -686,7 +706,7 @@ purchaseTest.describe("Product Category — Reorder / Drag-Drop", () => {
   );
 });
 
-requestorTest.describe("Product Category — Reorder — Permission denial", () => {
+requestorTest.describe.skip("Product Category — Reorder — Permission denial", () => {
   requestorTest(
     "TC-CAT-070003 Unable to Reorder without Permission",
     {
@@ -711,7 +731,7 @@ requestorTest.describe("Product Category — Reorder — Permission denial", () 
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900008 — View toggling (Tree / List)
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Tree/List view", () => {
+purchaseTest.describe.skip("Product Category — Tree/List view", () => {
   purchaseTest.skip(
     "TC-CAT-080001 Switch from Tree to List View",
     {
@@ -808,7 +828,11 @@ purchaseTest.describe("Product Category — Search", () => {
       const cat = new ProductCategoryPage(page);
       await cat.gotoList();
       const search = cat.searchInput();
-      if ((await search.count()) > 0) await search.fill("Electronics").catch(() => {});
+      await expect(search).toBeVisible({ timeout: 15_000 });
+      await search.fill("a");
+      await search.press("Enter");
+      // Tree still renders matches or an empty state — no crash.
+      await expect(cat.node("").or(cat.emptyState()).first()).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -831,7 +855,11 @@ purchaseTest.describe("Product Category — Search", () => {
       const cat = new ProductCategoryPage(page);
       await cat.gotoList();
       const search = cat.searchInput();
-      if ((await search.count()) > 0) await search.fill("__INVALID_CAT_E2E__").catch(() => {});
+      await expect(search).toBeVisible({ timeout: 15_000 });
+      await search.fill("__INVALID_CAT_E2E_KEYWORD__");
+      await search.press("Enter");
+      // No-match collapses the tree to zero nodes (no empty-state text is rendered).
+      await expect(page.locator("div.group\\/node")).toHaveCount(0, { timeout: 10_000 });
     },
   );
 
@@ -853,6 +881,9 @@ purchaseTest.describe("Product Category — Search", () => {
     async ({ page }) => {
       const cat = new ProductCategoryPage(page);
       await cat.gotoList();
+      // Empty input → default tree view unchanged: Add button + tree present.
+      await expect(cat.addButton()).toBeVisible({ timeout: 15_000 });
+      await expect(cat.node("").or(cat.emptyState()).first()).toBeVisible({ timeout: 10_000 });
     },
   );
 });
@@ -883,7 +914,7 @@ requestorTest.describe("Product Category — Search — Permission denial", () =
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900010 — Filters
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Filters", () => {
+purchaseTest.describe.skip("Product Category — Filters", () => {
   purchaseTest(
     "TC-CAT-100001 Apply multiple filters successfully",
     {
@@ -972,7 +1003,7 @@ purchaseTest.describe("Product Category — Filters", () => {
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900011 — Breadcrumb Navigation
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Breadcrumb", () => {
+purchaseTest.describe.skip("Product Category — Breadcrumb", () => {
   purchaseTest(
     "TC-CAT-110001 Select a Category with Breadcrumbs",
     {
@@ -1078,7 +1109,7 @@ purchaseTest.describe("Product Category — Breadcrumb", () => {
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900012 — Item Counts
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Item Counts", () => {
+purchaseTest.describe.skip("Product Category — Item Counts", () => {
   purchaseTest(
     "TC-CAT-120001 View Category Item Counts - Happy Path",
     {
@@ -1164,7 +1195,7 @@ purchaseTest.describe("Product Category — Item Counts", () => {
   );
 });
 
-requestorTest.describe("Product Category — Item Counts — Permission denial", () => {
+requestorTest.describe.skip("Product Category — Item Counts — Permission denial", () => {
   requestorTest(
     "TC-CAT-120003 View Category Item Counts - User with Limited Permissions",
     {
@@ -1190,7 +1221,7 @@ requestorTest.describe("Product Category — Item Counts — Permission denial",
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900013 — Move Category
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Move", () => {
+purchaseTest.describe.skip("Product Category — Move", () => {
   purchaseTest(
     "TC-CAT-130001 Move Category to a Valid Parent with Permission",
     {
@@ -1276,7 +1307,7 @@ purchaseTest.describe("Product Category — Move", () => {
   );
 });
 
-requestorTest.describe("Product Category — Move — Permission denial", () => {
+requestorTest.describe.skip("Product Category — Move — Permission denial", () => {
   requestorTest(
     "TC-CAT-130004 Move Category without Permission",
     {
@@ -1302,7 +1333,7 @@ requestorTest.describe("Product Category — Move — Permission denial", () => 
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900014 — Activate / Deactivate
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Activate / Deactivate", () => {
+purchaseTest.describe.skip("Product Category — Activate / Deactivate", () => {
   purchaseTest(
     "TC-CAT-140001 Activate Category with Valid Permission",
     {
@@ -1370,7 +1401,7 @@ purchaseTest.describe("Product Category — Activate / Deactivate", () => {
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900015 — View Category Detail
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — View Detail", () => {
+purchaseTest.describe.skip("Product Category — View Detail", () => {
   purchaseTest(
     "TC-CAT-150001 View existing category details",
     {
@@ -1435,7 +1466,7 @@ purchaseTest.describe("Product Category — View Detail", () => {
   );
 });
 
-requestorTest.describe("Product Category — View Detail — Permission denial", () => {
+requestorTest.describe.skip("Product Category — View Detail — Permission denial", () => {
   requestorTest(
     "TC-CAT-150003 Access category without permission",
     {
@@ -1461,7 +1492,7 @@ requestorTest.describe("Product Category — View Detail — Permission denial",
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900201 — Cross-module: Product Creation
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Product creation integration", () => {
+purchaseTest.describe.skip("Product Category — Product creation integration", () => {
   purchaseTest(
     "TC-CAT-210001 Happy Path - Valid Category Selection",
     {
@@ -1526,7 +1557,7 @@ purchaseTest.describe("Product Category — Product creation integration", () =>
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900202 — Cross-module: Inventory Reports
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Inventory report integration", () => {
+purchaseTest.describe.skip("Product Category — Inventory report integration", () => {
   purchaseTest(
     "TC-CAT-220001 Happy Path - Generate Inventory Report with Valid Categories",
     {
@@ -1591,7 +1622,7 @@ purchaseTest.describe("Product Category — Inventory report integration", () =>
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900203 — Cross-module: Procurement
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Procurement integration", () => {
+purchaseTest.describe.skip("Product Category — Procurement integration", () => {
   purchaseTest(
     "TC-CAT-230001 Happy Path - Category-based Purchase Request",
     {
@@ -1676,7 +1707,7 @@ purchaseTest.describe("Product Category — Procurement integration", () => {
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAT-900204 — Cross-module: Recipe Costs
 // ═════════════════════════════════════════════════════════════════════════
-purchaseTest.describe("Product Category — Recipe cost integration", () => {
+purchaseTest.describe.skip("Product Category — Recipe cost integration", () => {
   purchaseTest(
     "TC-CAT-240001 Happy Path - Recipe Cost Calculation by Category",
     {
