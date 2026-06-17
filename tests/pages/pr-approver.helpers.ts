@@ -1,11 +1,40 @@
-import type { Browser, Page } from "@playwright/test";
+import type { Browser, BrowserContext, Page } from "@playwright/test";
 import { expect } from "@playwright/test";
-import { LoginPage } from "./login.page";
 import { PurchaseRequestPage, LIST_PATH } from "./purchase-request.page";
 import { createDraftPR, type CreatedPR } from "./pr-creator.helpers";
-import { TEST_PASSWORD } from "../test-users";
+import { BU_CODE } from "../test-users";
+import { authFile } from "../fixtures/auth.paths";
+import { ensureActiveBu } from "../helpers/bu";
 
 export type { CreatedPR } from "./pr-creator.helpers";
+
+/**
+ * Opens an auxiliary BrowserContext pre-authenticated as `email` from the
+ * persisted storageState (.auth/<email>.json, written by auth.setup.ts) and
+ * runs `fn` with a fresh page in that context. The context is always closed.
+ *
+ * Using storageState (instead of a fresh UI login via loginWithRetry) avoids
+ * a hard hang observed when a second context tried to log in through the UI
+ * while the calling test already held its own authenticated context. It is
+ * also much faster — no login round-trip — and the BU is pinned to BLAVG once
+ * the app has booted so the PR form's BU-dependent lookups have data.
+ */
+async function withRoleContext<T>(
+  browser: Browser,
+  email: string,
+  fn: (page: Page) => Promise<T>,
+): Promise<T> {
+  const ctx: BrowserContext = await browser.newContext({
+    storageState: authFile(email),
+  });
+  try {
+    const page = await ctx.newPage();
+    await ensureActiveBu(page, BU_CODE);
+    return await fn(page);
+  } finally {
+    await ctx.close();
+  }
+}
 
 /**
  * Cross-context fixture: opens a fresh browser context, logs in as the
@@ -19,14 +48,7 @@ export async function submitPRAsRequestor(
   browser: Browser,
   opts?: { items?: number; description?: string },
 ): Promise<CreatedPR> {
-  const ctx = await browser.newContext();
-  try {
-    const page = await ctx.newPage();
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
-    await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
-
+  return withRoleContext(browser, "requestor@blueledgers.com", async (page) => {
     const created = await createDraftPR(page, {
       items: opts?.items ?? 1,
       description: opts?.description ?? "approver-fixture",
@@ -34,12 +56,15 @@ export async function submitPRAsRequestor(
 
     const pr = new PurchaseRequestPage(page);
     await pr.submitButton().click({ timeout: 5_000 });
-    await pr.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
-    await pr.expectStatus("in.progress");
+    await pr.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 });
+    // A successful submit advances the PR to In Progress and redirects to the
+    // list. Wait for that redirect (NOT a toast — the create-success toast can
+    // still be on screen and would be a false positive) so the submit has truly
+    // persisted before withRoleContext closes this context. Closing too early
+    // aborts the in-flight submit and leaves the PR stuck in Draft.
+    await page.waitForURL(/\/procurement\/purchase-request(\?|$)/, { timeout: 15_000 });
     return created;
-  } finally {
-    await ctx.close();
-  }
+  });
 }
 
 /**
@@ -94,13 +119,7 @@ export async function bulkSendForReview(
  * cleanly. Used by Purchaser tests to seed PRs at the Purchase stage.
  */
 export async function approveAsHOD(browser: Browser, ref: string): Promise<void> {
-  const ctx = await browser.newContext();
-  try {
-    const page = await ctx.newPage();
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.loginWithRetry("hod@blueledgers.com", TEST_PASSWORD);
-    await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
+  await withRoleContext(browser, "hod@blueledgers.com", async (page) => {
     await gotoPRDetail(page, ref);
     const pr = new PurchaseRequestPage(page);
     if ((await pr.editModeButton().count()) === 0) {
@@ -109,9 +128,7 @@ export async function approveAsHOD(browser: Browser, ref: string): Promise<void>
     await pr.enterEditMode();
     await bulkApprove(page);
     await page.waitForLoadState("networkidle").catch(() => {});
-  } finally {
-    await ctx.close();
-  }
+  });
 }
 
 /**
@@ -126,13 +143,7 @@ export async function sendForReviewAsHOD(
   ref: string,
   reason: string = "Please revise — returned for review",
 ): Promise<void> {
-  const ctx = await browser.newContext();
-  try {
-    const page = await ctx.newPage();
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.loginWithRetry("hod@blueledgers.com", TEST_PASSWORD);
-    await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
+  await withRoleContext(browser, "hod@blueledgers.com", async (page) => {
     await gotoPRDetail(page, ref);
     const pr = new PurchaseRequestPage(page);
     if ((await pr.editModeButton().count()) === 0) {
@@ -141,9 +152,7 @@ export async function sendForReviewAsHOD(
     await pr.enterEditMode();
     await bulkSendForReview(page, reason, "Requestor");
     await page.waitForLoadState("networkidle").catch(() => {});
-  } finally {
-    await ctx.close();
-  }
+  });
 }
 
 /**

@@ -16,15 +16,26 @@ export class MyApprovalsPage extends BasePage {
   }
 
   // ── List page ────────────────────────────────────────────────────────
+  // Redesigned dashboard: the summary counts are clickable cards rendered as
+  // <button> elements ("Total Pending 22"), not <Badge> components.
   pendingCountBadge(): Locator {
-    return this.page
-      .locator("[data-slot='badge'], [class*='badge']")
-      .filter({ hasText: /pending|count/i })
-      .first();
+    return this.page.getByRole("button", { name: /total pending/i }).first();
   }
 
+  // "Showing 1–N of TOTAL" pagination label — the authoritative total count.
+  paginationTotal(): Locator {
+    return this.page.getByText(/showing\s+\d+.*of\s+\d+/i).first();
+  }
+
+  // A list row. `text` may be the human PR reference ("PR2026...") shown as the
+  // row's link text, OR the detail UUID embedded in that link's href (which is
+  // what createDraftPR returns). Match either.
   documentRow(text: string): Locator {
-    return this.page.getByRole("row").filter({ hasText: text }).first();
+    return this.page
+      .locator("tr")
+      .filter({ has: this.page.locator(`a[href*="${text}"]`) })
+      .or(this.page.getByRole("row").filter({ hasText: text }))
+      .first();
   }
 
   // override: also matches "no pending"/"no approval" empty text

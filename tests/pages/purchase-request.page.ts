@@ -373,7 +373,15 @@ export class PurchaseRequestPage extends BasePage {
 
   async enterEditMode() {
     await this.editModeButton().click();
-    await this.page.waitForLoadState("networkidle").catch(() => {});
+    // Wait for the edit-mode action bar (Save/Cancel) to appear rather than for
+    // networkidle — the detail page polls notifications, so the network never
+    // goes idle and waitForLoadState("networkidle") would eat the whole test
+    // budget and time out.
+    await this.saveDraftButton()
+      .or(this.cancelFormButton())
+      .first()
+      .waitFor({ state: "visible", timeout: 10_000 })
+      .catch(() => {});
   }
 
   async cancelEditMode() {
@@ -441,43 +449,50 @@ export class PurchaseRequestPage extends BasePage {
     ).toBeVisible({ timeout: 10_000 });
   }
 
-  // ── Edit-mode bulk toolbar (Approver actions) ─────────────────────────────────────────────────
-  // The live UI exposes Approve / Reject / Send for Review / Split only as
-  // bulk-toolbar actions in Edit Mode (BRD discrepancy: no per-row buttons).
-  // The toolbar appears after at least one row is selected via Select All
-  // or per-row checkboxes.
+  // ── Edit-mode bulk actions (Approver actions) ────────────────────────
+  // The live UI exposes Approve / Reject / Send for Review / Split only after
+  // rows are selected in Edit Mode (BRD discrepancy: no per-row buttons). They
+  // render as top-level <button>s — there is NO [role=toolbar] wrapper.
+  // Selecting rows is a two-step interaction: clicking the "Select all"
+  // checkbox opens a "Select Items" dialog where you choose the scope.
   bulkActionToolbar(): Locator {
     return this.page
-      .locator("[data-slot='toolbar'], [role='toolbar']")
-      .filter({ has: this.page.getByRole("button", { name: /approve|reject|review|split/i }) })
+      .getByRole("button", { name: /^approve$|^reject$|send for review|^split$/i })
       .first();
   }
 
   selectAllCheckboxInEditMode(): Locator {
-    return this.page
-      .getByRole("checkbox", { name: /select all|^all$/i })
-      .first();
+    return this.page.getByRole("checkbox", { name: /select all/i }).first();
   }
 
   async selectAllInEditMode() {
+    // Idempotent: if the bulk actions are already showing, rows are selected.
+    if (await this.bulkActionToolbar().isVisible().catch(() => false)) return;
     const cb = this.selectAllCheckboxInEditMode();
-    if ((await cb.count()) > 0) await cb.check({ force: true });
+    if ((await cb.count()) === 0) return;
+    await cb.click();
+    // Clicking "Select all" opens a "Select Items" dialog; choose "All items".
+    const dialog = this.page.getByRole("dialog", { name: /select items/i });
+    if (await dialog.isVisible({ timeout: 3_000 }).catch(() => false)) {
+      await dialog.getByRole("button", { name: /all items/i }).first().click().catch(() => {});
+      await dialog.waitFor({ state: "hidden", timeout: 5_000 }).catch(() => {});
+    }
   }
 
   bulkApproveInEditMode(): Locator {
-    return this.bulkActionToolbar().getByRole("button", { name: /^approve$|purchase approve/i }).first();
+    return this.page.getByRole("button", { name: /^approve$/i }).first();
   }
 
   bulkRejectInEditMode(): Locator {
-    return this.bulkActionToolbar().getByRole("button", { name: /^reject$/i }).first();
+    return this.page.getByRole("button", { name: /^reject$/i }).first();
   }
 
   bulkSendForReviewInEditMode(): Locator {
-    return this.bulkActionToolbar().getByRole("button", { name: /send for review|return for revision/i }).first();
+    return this.page.getByRole("button", { name: /send for review/i }).first();
   }
 
   bulkSplitInEditMode(): Locator {
-    return this.bulkActionToolbar().getByRole("button", { name: /^split$/i }).first();
+    return this.page.getByRole("button", { name: /^split$/i }).first();
   }
 
   // ── Edit-mode editable fields (Approver Edit Mode per FR-PR-011A) ─────
