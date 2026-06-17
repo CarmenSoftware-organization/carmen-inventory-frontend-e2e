@@ -9,6 +9,9 @@ import {
   bulkSendForReview,
   gotoPRDetail,
 } from "./pages/pr-approver.helpers";
+import { BU_CODE } from "./test-users";
+import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
+import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 // Persona-journey spec — Approver (HOD primary, FC for scope contrast).
 // Runs alongside 301-pr.spec.ts (per-action) and 302-pr-creator-journey.spec.ts.
@@ -21,6 +24,29 @@ const REVIEW_REASON = "Please verify quantity";
 const REVIEW_STAGE = "Purchase";
 
 hodTest.describe("Step 1 — My Approval Dashboard", () => {
+  // Transaction-module rollout: pin the approver session's active BU to BLAVG
+  // first so it persists (server-side) for the rest of the journey.
+  hodTest(
+    "TC-PR-060150 active BU = BLAVG",
+    {
+      annotation: [
+        { type: "preconditions", description: "Login เป็น hod@blueledgers.com ผ่าน auth fixture" },
+        { type: "steps", description: "1. เรียก ensureActiveBu(BLAVG)\n2. อ่าน profile API\n3. หา business unit ที่ is_default\n4. อ่าน label ของ BU switcher" },
+        { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น" },
+        { type: "priority", description: "High" },
+        { type: "testType", description: "Smoke" },
+      ],
+    },
+    async ({ page }) => {
+      await ensureActiveBu(page, BU_CODE);
+      const units = await getBusinessUnits(page);
+      const active = defaultBu(units);
+      expect(active?.code).toBe(BU_CODE);
+      const switcher = new BuSwitcherPage(page);
+      await expect(switcher.trigger()).toContainText(active!.name, { timeout: 15_000 });
+    },
+  );
+
   hodTest(
     "TC-PR-060101 Dashboard loads with Total Pending count visible",
     {

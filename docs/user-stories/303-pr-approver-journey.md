@@ -5,7 +5,7 @@ _Generated from `tests/303-pr-approver-journey.spec.ts` annotations. Edit annota
 **Module:** Pr Approver Journey
 **Spec:** `tests/303-pr-approver-journey.spec.ts`
 **Default role:** FC
-**Total test cases:** 27 (15 High / 10 Medium / 2 Low)
+**Total test cases:** 28 (16 High / 10 Medium / 2 Low)
 
 ## Test Cases at a Glance
 
@@ -15,6 +15,7 @@ _Generated from `tests/303-pr-approver-journey.spec.ts` annotations. Edit annota
 | TC-PR-060102 | Click pending PR row navigates to PR detail | High | Smoke |
 | TC-PR-060103 | Pending count matches actual list row count | Medium | Functional |
 | TC-PR-060104 | Filter tabs render and filter when present | Medium | Functional |
+| TC-PR-060150 | active BU = BLAVG | High | Smoke |
 | TC-PR-060201 | My Pending tab shows PRs at HOD stage | High | Smoke |
 | TC-PR-060202 | All Documents tab broadens scope | Medium | Functional |
 | TC-PR-060203 | All Stage dropdown filters by status | Medium | Functional |
@@ -121,6 +122,29 @@ URL นำทางไปยัง /procurement/purchase-request/<ref>
 **Expected**
 
 tab PR ถูกเลือก (ข้ามหาก dashboard ไม่มี tabs)
+
+---
+
+## TC-PR-060150 — active BU = BLAVG
+
+> **As a** FC user, **I want** core Pr Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Login เป็น hod@blueledgers.com ผ่าน auth fixture
+
+**Steps**
+
+1. เรียก ensureActiveBu(BLAVG)
+2. อ่าน profile API
+3. หา business unit ที่ is_default
+4. อ่าน label ของ BU switcher
+
+**Expected**
+
+default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น
 
 ---
 
@@ -622,4 +646,4 @@ URL ยังคงอยู่ที่ ref ของ PR หลัง bulk appr
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+<sub>Last regenerated: 2026-06-17 · git d8d40ab</sub>

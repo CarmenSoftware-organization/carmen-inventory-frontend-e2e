@@ -5,7 +5,7 @@ _Generated from `tests/311-pr-returned-flow.spec.ts` annotations. Edit annotatio
 **Module:** Pr Returned Flow
 **Spec:** `tests/311-pr-returned-flow.spec.ts`
 **Default role:** Requestor
-**Total test cases:** 11 (8 High / 3 Medium / 0 Low)
+**Total test cases:** 12 (9 High / 3 Medium / 0 Low)
 
 ## Test Cases at a Glance
 
@@ -21,6 +21,7 @@ _Generated from `tests/311-pr-returned-flow.spec.ts` annotations. Edit annotatio
 | TC-PR-080708 | Confirm submit → status moves Returned → In Progress | High | CRUD |
 | TC-PR-080709 | Cancel submit on Returned PR → URL stays on detail (still Returned) | Medium | Functional |
 | TC-PR-080710 | Delete Returned PR is allowed for Creator | Medium | Authorization |
+| TC-PR-080750 | active BU = BLAVG | High | Smoke |
 | TC-PR-080902 | Full returned-flow: HOD returns → Creator views reason → edits qty → resubmits → status In Progress | High | Smoke |
 
 ---
@@ -239,6 +240,29 @@ dialog ปิด; URL ยังคงอยู่ที่หน้า PR detail
 
 ---
 
+## TC-PR-080750 — active BU = BLAVG
+
+> **As a** Requestor user, **I want** core Pr Returned Flow interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Login เป็น requestor@blueledgers.com ผ่าน auth fixture
+
+**Steps**
+
+1. เรียก ensureActiveBu(BLAVG)
+2. อ่าน profile API
+3. หา business unit ที่ is_default
+4. อ่าน label ของ BU switcher
+
+**Expected**
+
+default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น
+
+---
+
 ## TC-PR-080902 — Full returned-flow: HOD returns → Creator views reason → edits qty → resubmits → status In Progress
 
 > **As a** HOD user, **I want** core Pr Returned Flow interactions to work, **so that** day-to-day usage stays smooth.
@@ -266,4 +290,4 @@ Status badge เปลี่ยนเป็น In Progress หลังจาก
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+<sub>Last regenerated: 2026-06-17 · git d8d40ab</sub>
