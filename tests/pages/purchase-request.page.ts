@@ -49,7 +49,8 @@ export class PurchaseRequestPage extends BasePage {
 
   // ── List page ────────────────────────────────────────────────────────
   newButton(): Locator {
-    return this.page.getByRole("button", { name: /new purchase request|create purchase request|create new|new pr|^new$|^create$/i }).first();
+    // Redesigned list toolbar button is "Add Request".
+    return this.page.getByRole("button", { name: /add request|new purchase request|create purchase request|^add$|^new$|^create$/i }).first();
   }
 
   bulkActionsTrigger(): Locator {
@@ -69,18 +70,24 @@ export class PurchaseRequestPage extends BasePage {
   }
 
   async openPR(refOrText: string) {
+    // The list renders as a table OR cards depending on viewMode/build. Find the
+    // container holding the ref text and click its name link/button, falling back
+    // to the container itself; navigation goes to /purchase-request/<id>.
     const row = this.prRow(refOrText);
-    await row.waitFor({ state: "visible", timeout: 10_000 });
-    const link = row.getByRole("link").first();
+    const card = this.page
+      .locator("[data-slot='card'], article")
+      .filter({ hasText: refOrText })
+      .first();
+    const target = (await row.count()) > 0 ? row : card;
+    await target.waitFor({ state: "visible", timeout: 10_000 });
+    const link = target.getByRole("link").first();
+    const button = target.getByRole("button", { name: new RegExp(refOrText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i") }).first();
     if ((await link.count()) > 0) {
       await link.click();
+    } else if ((await button.count()) > 0) {
+      await button.click();
     } else {
-      const button = row.getByRole("button").first();
-      if ((await button.count()) > 0) {
-        await button.click();
-      } else {
-        await row.click();
-      }
+      await target.click();
     }
     await this.page.waitForLoadState("networkidle");
   }
@@ -89,6 +96,7 @@ export class PurchaseRequestPage extends BasePage {
   async searchFor(text: string) {
     const input = this.searchInput();
     await input.fill(text);
+    await input.press("Enter"); // SearchInput fires onSearch on Enter
     await this.page.waitForLoadState("networkidle").catch(() => {});
   }
 
@@ -115,12 +123,13 @@ export class PurchaseRequestPage extends BasePage {
     await this.page.waitForLoadState("networkidle").catch(() => {});
   }
 
+  // Redesigned list uses viewMode <Button>s, not Radix tabs.
   tabMyPending(): Locator {
-    return this.page.getByRole("tab", { name: /my pending|my pr/i }).first();
+    return this.page.getByRole("button", { name: /my pending|my pr/i }).first();
   }
 
   tabAllDocuments(): Locator {
-    return this.page.getByRole("tab", { name: /all documents|^all$/i }).first();
+    return this.page.getByRole("button", { name: /all documents?|^all$/i }).first();
   }
 
   // ── Create dialog (list "Create Purchase Request" entry) ──────────────

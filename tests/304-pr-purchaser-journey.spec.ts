@@ -60,9 +60,10 @@ purchaseTest.describe("Step 1 — PR List (Purchaser View)", () => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
       await expect(page).toHaveURL(new RegExp(LIST_PATH));
+      // Redesigned list uses a viewMode <Button> toggle (no aria-selected).
       const tab = pr.tabMyPending();
       if ((await tab.count()) === 0) return;
-      await expect(tab).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 });
+      await expect(tab).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -82,11 +83,12 @@ purchaseTest.describe("Step 1 — PR List (Purchaser View)", () => {
       await pr.gotoList();
       const tab = pr.tabAllDocuments();
       if ((await tab.count()) === 0) {
-        purchaseTest.skip(true, "All Documents tab not present in this build");
+        purchaseTest.skip(true, "All Documents toggle not present in this build");
         return;
       }
       await tab.click();
-      await expect(tab).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 });
+      // viewMode <Button> toggle has no aria-selected — assert we stayed on the list.
+      await expect(page).toHaveURL(new RegExp(LIST_PATH), { timeout: 5_000 });
     },
   );
 
