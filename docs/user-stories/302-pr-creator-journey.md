@@ -74,7 +74,7 @@ Login เป็น Requestor (requestor@blueledgers.com)
 
 **Expected**
 
-URL เป็น /procurement/purchase-request, My Pending tab มี aria-selected=true, ตารางหรือ empty-state แสดงผล
+URL เป็น /procurement/purchase-request, ปุ่ม viewMode 'My Pending' แสดง (เป็น view เริ่มต้น), ตารางหรือ empty-state แสดงผล
 
 ---
 
@@ -961,4 +961,4 @@ PR ถูกสร้าง (detail URL พร้อม ref), แก้ไขแ
 ---
 
 
-<sub>Last regenerated: 2026-06-17 · git d8d40ab</sub>
+<sub>Last regenerated: 2026-06-17 · git 7110d34</sub>

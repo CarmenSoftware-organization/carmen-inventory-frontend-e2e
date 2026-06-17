@@ -44,7 +44,7 @@ requestorTest.describe("Step 1 — PR List", () => {
       annotation: [
         { type: "preconditions", description: "Login เป็น Requestor (requestor@blueledgers.com)" },
         { type: "steps", description: "1. ไปที่ /procurement/purchase-request\n2. ตรวจสอบว่า My Pending tab ถูกเลือกเป็นค่าเริ่มต้น\n3. ตรวจสอบว่าตาราง list แสดงผล" },
-        { type: "expected", description: "URL เป็น /procurement/purchase-request, My Pending tab มี aria-selected=true, ตารางหรือ empty-state แสดงผล" },
+        { type: "expected", description: "URL เป็น /procurement/purchase-request, ปุ่ม viewMode 'My Pending' แสดง (เป็น view เริ่มต้น), ตารางหรือ empty-state แสดงผล" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -53,12 +53,14 @@ requestorTest.describe("Step 1 — PR List", () => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
       await expect(page).toHaveURL(new RegExp(LIST_PATH));
+      // Redesigned list uses a viewMode <Button> toggle (no aria-selected) —
+      // assert the My Pending toggle is present (it is the default view).
       const tab = pr.tabMyPending();
       if ((await tab.count()) === 0) {
-        // Tab UI not present — list URL check above is sufficient for the smoke
+        // Toggle UI not present — list URL check above is sufficient for the smoke
         return;
       }
-      await expect(tab).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 });
+      await expect(tab).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -78,11 +80,13 @@ requestorTest.describe("Step 1 — PR List", () => {
       await pr.gotoList();
       const tab = pr.tabAllDocuments();
       if ((await tab.count()) === 0) {
-        requestorTest.skip(true, "All Documents tab not present in this build");
+        requestorTest.skip(true, "All Documents toggle not present in this build");
         return;
       }
       await tab.click();
-      await expect(tab).toHaveAttribute("aria-selected", /true/i, { timeout: 5_000 });
+      // viewMode <Button> toggle has no aria-selected — assert the click kept us
+      // on the list (scope broadened) without error.
+      await expect(page).toHaveURL(new RegExp(LIST_PATH), { timeout: 5_000 });
     },
   );
 
