@@ -5,7 +5,7 @@ _Generated from `tests/310-pr-template.spec.ts` annotations. Edit annotations, n
 **Module:** Purchase Request Template
 **Spec:** `tests/310-pr-template.spec.ts`
 **Default role:** Purchase
-**Total test cases:** 60 (31 High / 27 Medium / 2 Low)
+**Total test cases:** 61 (32 High / 27 Medium / 2 Low)
 
 ## Test Cases at a Glance
 
@@ -15,6 +15,7 @@ _Generated from `tests/310-pr-template.spec.ts` annotations. Edit annotations, n
 | TC-PRT-010002 | Negative - No Permission to Create Template | High | Negative |
 | TC-PRT-010003 | Edge Case - Create Template without Assigned Department | High | Edge Case |
 | TC-PRT-010004 | Negative - Empty Fields for Template | High | Negative |
+| TC-PRT-010050 | active BU = BLAVG | High | Smoke |
 | TC-PRT-020001 | View template with valid permissions | High | Happy Path |
 | TC-PRT-020003 | View non-existent template | High | Negative |
 | TC-PRT-020004 | View template with no budget allocations | Medium | Edge Case |
@@ -167,6 +168,29 @@ Purchase request template ถูกสร้างและบันทึกส
 **Expected**
 
 ระบบแสดงข้อความแสดงข้อผิดพลาดสำหรับ required fields ที่ยังไม่ได้กรอก
+
+---
+
+## TC-PRT-010050 — active BU = BLAVG
+
+> **As a** Purchase user, **I want** core Purchase Request Template interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
+**Preconditions**
+
+Login เป็น purchase@blueledgers.com ผ่าน auth fixture
+
+**Steps**
+
+1. เรียก ensureActiveBu(BLAVG)
+2. อ่าน profile API
+3. หา business unit ที่ is_default
+4. อ่าน label ของ BU switcher
+
+**Expected**
+
+default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น
 
 ---
 
@@ -1502,4 +1526,4 @@ Server ตอบกลับด้วย timeout error เมื่อพยา�
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git cdf6b8d</sub>
+<sub>Last regenerated: 2026-06-17 · git 6d25a0a</sub>
