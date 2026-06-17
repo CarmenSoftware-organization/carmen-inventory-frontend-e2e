@@ -1,80 +1,112 @@
 import type { Page, Locator } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { BasePage } from "./base.page";
 
 export const LIST_PATH = "/product-management/category";
 
+/**
+ * Page object for the **redesigned** Product Category module.
+ *
+ * The module is a tree of category → subcategory → item-group nodes. A single
+ * "Add Category" button opens a dialog to create a root category; each tree node
+ * exposes **hover-only** actions — Add child (Plus), Edit (Pencil), Delete
+ * (Trash) — by `aria-label`. The dialog (CategoryDialog → CategoryForm) has
+ * `#code`, `#name`, and a required Tax Profile select (LookupTaxProfile, a Radix
+ * Select). Delete is confirmed through a DeleteDialog (AlertDialog). Search
+ * filters the tree client-side (SearchInput fires onSearch on Enter).
+ */
 export class ProductCategoryPage extends BasePage {
   async gotoList() {
     await this.page.goto(LIST_PATH);
     await this.page.waitForLoadState("networkidle");
   }
 
-  // ── List page / tree ─────────────────────────────────────────────────
-  newCategoryButton(): Locator {
-    return this.page.getByRole("button", { name: /new category|^new$|^create$/i }).first();
+  // ── List / tree ───────────────────────────────────────────────────────
+  addButton(): Locator {
+    return this.page.getByRole("button", { name: /add category|^add$/i }).first();
   }
 
-  newSubcategoryButton(): Locator {
-    return this.page.getByRole("button", { name: /new subcategory/i }).first();
+  /** A tree node row (carries the Tailwind `group/node` class), found by text. */
+  node(text: string): Locator {
+    return this.page.locator("div.group\\/node").filter({ hasText: text }).first();
   }
 
-  newItemGroupButton(): Locator {
-    return this.page.getByRole("button", { name: /new item group/i }).first();
-  }
-
-  searchIcon(): Locator {
-    return this.page.getByRole("button", { name: /^search$/i }).first();
-  }
-
-  // override: also matches the "category name" placeholder
   searchInput(): Locator {
-    return this.page.getByPlaceholder(/search|category name/i).first();
+    return this.page.getByPlaceholder(/search/i).first();
   }
 
-  treeViewButton(): Locator {
-    return this.page.getByRole("button", { name: /^tree$/i }).first();
-  }
-
-  listViewButton(): Locator {
-    return this.page.getByRole("button", { name: /^list$/i }).first();
-  }
-
-  categoryNode(text: string): Locator {
-    return this.page
-      .locator("[role='treeitem'], [data-slot='tree-item'], li, button")
-      .filter({ hasText: text })
-      .first();
-  }
-
-  breadcrumbTrail(): Locator {
-    return this.page.locator("[role='navigation'][aria-label*='breadcrumb' i], nav, ol").filter({ hasText: /\//i }).first();
-  }
-
-  // override: also matches "no categor*" empty text
   emptyState(): Locator {
-    return this.page.getByText(/no.*categor|no.*data|empty|ไม่พบ/i).first();
+    return this.page.getByText(/no.*categor|no.*data|no.*found|empty|ไม่พบ/i).first();
   }
 
-  // ── Category form ────────────────────────────────────────────────────
-  categoryNameInput(): Locator {
-    return this.page.getByLabel(/category name|item group name/i).first();
+  async expandAll() {
+    await this.page.getByRole("button", { name: /expand all/i }).first().click().catch(() => {});
   }
 
-  parentSubcategoryTrigger(): Locator {
-    return this.page.getByLabel(/parent subcategory|parent/i).first();
+  // ── Node hover actions ────────────────────────────────────────────────
+  /** Reveal a node's hover actions, then click the named one. */
+  private async nodeAction(text: string, name: RegExp) {
+    const row = this.node(text);
+    await row.scrollIntoViewIfNeeded();
+    await row.hover();
+    await row.getByRole("button", { name }).first().click({ timeout: 10_000 });
   }
 
-  moveButton(): Locator {
-    return this.page.getByRole("button", { name: /^move$/i }).first();
+  async addChildOf(text: string) {
+    await this.nodeAction(text, /add child/i);
   }
 
-  activateButton(): Locator {
-    return this.page.getByRole("button", { name: /^activate$/i }).first();
+  async editNode(text: string) {
+    await this.nodeAction(text, /^edit$|แก้ไข/i);
   }
 
-  // ── Confirmation dialog ──────────────────────────────────────────────
-  confirmDialogButton(name: RegExp = /confirm|delete|yes|move|ok/i): Locator {
-    return this.page.getByRole("dialog").getByRole("button", { name }).first();
+  /** Open a node's delete confirm and either confirm or cancel. */
+  async deleteNode(text: string, opts: { confirm: boolean }) {
+    await this.nodeAction(text, /^delete$|ลบ/i);
+    const dialog = this.page.getByRole("alertdialog");
+    await expect(dialog).toBeVisible({ timeout: 5_000 });
+    const name = opts.confirm ? /^(delete|confirm|ลบ|ok)$/i : /^(cancel|ยกเลิก)$/i;
+    await dialog.getByRole("button", { name }).click();
   }
 
+  // ── Dialog form ───────────────────────────────────────────────────────
+  dialog(): Locator {
+    return this.page.getByRole("dialog");
+  }
+
+  codeInput(): Locator {
+    return this.dialog().locator("#code");
+  }
+
+  nameInput(): Locator {
+    return this.dialog().locator("#name");
+  }
+
+  /** Open the required Tax Profile select and pick the first option. */
+  async selectFirstTaxProfile() {
+    const trigger = this.dialog().getByRole("combobox").first();
+    await trigger.click();
+    await this.page.getByRole("option").first().click();
+  }
+
+  saveButton(): Locator {
+    return this.dialog().getByRole("button", { name: /^(create|save|บันทึก|สร้าง)$/i }).first();
+  }
+
+  /** Fill the add/edit dialog and submit. */
+  async fillAndSave(data: { code?: string; name?: string; pickTaxProfile?: boolean }) {
+    if (data.code !== undefined) await this.codeInput().fill(data.code);
+    if (data.name !== undefined) await this.nameInput().fill(data.name);
+    if (data.pickTaxProfile) await this.selectFirstTaxProfile();
+    await this.saveButton().click({ timeout: 10_000 });
+  }
+
+  async expectSavedToast() {
+    await expect(
+      this.page
+        .locator('[data-sonner-toast], [role="status"], [role="alert"]')
+        .filter({ hasText: /success|created|updated|deleted|saved|สำเร็จ/i })
+        .first(),
+    ).toBeVisible({ timeout: 10_000 });
+  }
 }

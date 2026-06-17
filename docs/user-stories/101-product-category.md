@@ -45,8 +45,8 @@ _Generated from `tests/101-product-category.spec.ts` annotations. Edit annotatio
 | TC-CAT-070003 | Unable to Reorder without Permission | High | Negative |
 | TC-CAT-070004 | Attempt to Drag Category Outside of Current Parent | High | Edge Case |
 | TC-CAT-070005 | Drag Category with No Siblings | High | Edge Case |
-| TC-CAT-080001 | Switch from Tree to List View | High | Happy Path |
-| TC-CAT-080002 | Switch from List to Tree View | High | Happy Path |
+| TC-CAT-080001 _(skipped)_ | Switch from Tree to List View | High | Happy Path |
+| TC-CAT-080002 _(skipped)_ | Switch from List to Tree View | High | Happy Path |
 | TC-CAT-080003 | Negative: Switch View with No Categories | High | Negative |
 | TC-CAT-080004 | Edge Case: Switch Views Multiple Times | Medium | Edge Case |
 | TC-CAT-090001 | Happy Path - Search for Existing Category | High | Happy Path |
@@ -908,7 +908,7 @@ category A ยังคงอยู่ที่ตำแหน่งเดิม
 
 ---
 
-## TC-CAT-080001 — Switch from Tree to List View
+## TC-CAT-080001 — Switch from Tree to List View _(skipped)_
 
 > **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -921,17 +921,17 @@ category A ยังคงอยู่ที่ตำแหน่งเดิม
 
 **Steps**
 
-1. ไปที่ /product-management/category
-2. คลิกตัวเลือก view 'List'
-3. ตรวจสอบว่า category แสดงในรูปแบบ flat list
+(view toggle removed in redesign — see note)
 
 **Expected**
 
-category แสดงในรูปแบบ flat list
+N/A — ไม่มี Tree/List toggle แล้ว
+
+> _Note: REDESIGNED AWAY: the Tree/List view toggle no longer exists; the module is tree-only with expand/collapse. Skipped._
 
 ---
 
-## TC-CAT-080002 — Switch from List to Tree View
+## TC-CAT-080002 — Switch from List to Tree View _(skipped)_
 
 > **As a** Admin user, **I want** this Product Category behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -944,13 +944,13 @@ category แสดงในรูปแบบ flat list
 
 **Steps**
 
-1. ไปที่ /product-management/category
-2. คลิกตัวเลือก view 'Tree'
-3. ตรวจสอบว่า category แสดงในรูปแบบ tree แบบลำดับชั้น
+(view toggle removed in redesign — see note)
 
 **Expected**
 
-category แสดงในรูปแบบ tree แบบลำดับชั้น
+N/A — ไม่มี Tree/List toggle แล้ว
+
+> _Note: REDESIGNED AWAY: Tree/List view toggle removed (tree-only now). Skipped._
 
 ---
 
@@ -2028,4 +2028,4 @@ ingredient ของ recipe มี category
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git 45c46c7</sub>
+<sub>Last regenerated: 2026-06-17 · git 95c5278</sub>

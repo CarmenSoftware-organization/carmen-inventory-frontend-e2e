@@ -153,7 +153,7 @@ purchaseTest.describe("Product Category — Create Root", () => {
     async ({ page }) => {
       const cat = new ProductCategoryPage(page);
       await cat.gotoList();
-      await cat.newCategoryButton().click({ timeout: 5_000 }).catch(() => {});
+      await cat.addButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
 
@@ -175,8 +175,8 @@ purchaseTest.describe("Product Category — Create Root", () => {
     async ({ page }) => {
       const cat = new ProductCategoryPage(page);
       await cat.gotoList();
-      await cat.newCategoryButton().click({ timeout: 5_000 }).catch(() => {});
-      const name = cat.categoryNameInput();
+      await cat.addButton().click({ timeout: 5_000 }).catch(() => {});
+      const name = cat.nameInput();
       if ((await name.count()) > 0) await name.fill("a".repeat(101)).catch(() => {});
       await cat.saveButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(cat.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
@@ -202,7 +202,7 @@ requestorTest.describe("Product Category — Create Root — Permission denial",
     async ({ page }) => {
       const cat = new ProductCategoryPage(page);
       await cat.gotoList();
-      const btn = cat.newCategoryButton();
+      const btn = cat.addButton();
       // Either button is hidden (correct) or disabled
       if ((await btn.count()) === 0) {
         expect(true).toBe(true);
@@ -388,7 +388,7 @@ requestorTest.describe("Product Category — Create Item Group — Permission de
     async ({ page }) => {
       const cat = new ProductCategoryPage(page);
       await cat.gotoList();
-      const btn = cat.newItemGroupButton();
+      const btn = cat.addButton();
       // Either button is hidden (correct) or disabled
       if ((await btn.count()) === 0) {
         expect(true).toBe(true);
@@ -712,50 +712,34 @@ requestorTest.describe("Product Category — Reorder — Permission denial", () 
 // TC-CAT-900008 — View toggling (Tree / List)
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Product Category — Tree/List view", () => {
-  purchaseTest(
+  purchaseTest.skip(
     "TC-CAT-080001 Switch from Tree to List View",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้กำลังดูหน้า Categories ที่มี category อยู่" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /product-management/category\n2. คลิกตัวเลือก view 'List'\n3. ตรวจสอบว่า category แสดงในรูปแบบ flat list",
-        },
-        { type: "expected", description: "category แสดงในรูปแบบ flat list" },
+        { type: "steps", description: "(view toggle removed in redesign — see note)" },
+        { type: "expected", description: "N/A — ไม่มี Tree/List toggle แล้ว" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
+        { type: "note", description: "REDESIGNED AWAY: the Tree/List view toggle no longer exists; the module is tree-only with expand/collapse. Skipped." },
       ],
     },
-    async ({ page }) => {
-      const cat = new ProductCategoryPage(page);
-      await cat.gotoList();
-      const list = cat.listViewButton();
-      if ((await list.count()) > 0) await list.click().catch(() => {});
-    },
+    async () => {},
   );
 
-  purchaseTest(
+  purchaseTest.skip(
     "TC-CAT-080002 Switch from List to Tree View",
     {
       annotation: [
         { type: "preconditions", description: "ผู้ใช้กำลังดูหน้า Categories ที่มี category อยู่ใน List view" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /product-management/category\n2. คลิกตัวเลือก view 'Tree'\n3. ตรวจสอบว่า category แสดงในรูปแบบ tree แบบลำดับชั้น",
-        },
-        { type: "expected", description: "category แสดงในรูปแบบ tree แบบลำดับชั้น" },
+        { type: "steps", description: "(view toggle removed in redesign — see note)" },
+        { type: "expected", description: "N/A — ไม่มี Tree/List toggle แล้ว" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Happy Path" },
+        { type: "note", description: "REDESIGNED AWAY: Tree/List view toggle removed (tree-only now). Skipped." },
       ],
     },
-    async ({ page }) => {
-      const cat = new ProductCategoryPage(page);
-      await cat.gotoList();
-      const tree = cat.treeViewButton();
-      if ((await tree.count()) > 0) await tree.click().catch(() => {});
-    },
+    async () => {},
   );
 
   purchaseTest(
