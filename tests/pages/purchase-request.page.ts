@@ -192,9 +192,10 @@ export class PurchaseRequestPage extends BasePage {
   /** Open a lookup trigger (button/combobox) and pick the first option. Capped
    *  wait so a still-disabled cascading trigger doesn't eat the whole timeout. */
   private async pickFirstInCombobox(trigger: Locator): Promise<boolean> {
-    if ((await trigger.count()) === 0) return false;
+    // No early count-check: cascading triggers mount/enable after the prior
+    // selection re-renders, so let click() auto-wait for it (then catch absence).
     try {
-      await trigger.click({ timeout: 8_000 });
+      await trigger.click({ timeout: 10_000 });
     } catch {
       return false;
     }
@@ -254,24 +255,24 @@ export class PurchaseRequestPage extends BasePage {
     await this.addItemButton().click();
     const qtyInput = this.page.locator('input[name="items.0.requested_qty"]').first();
     await qtyInput.waitFor({ state: "visible", timeout: 10_000 });
+    // Scope the cascading "Select X" triggers to the single editable row (the <tr>
+    // holding this row's qty input) so re-renders don't shift targeting. The
+    // cascade enables in order (location → product → unit); a valid item needs
+    // location, product, qty, unit (auto-set from product) + delivery point
+    // (currency auto-fills from the BU, delivery date defaults to tomorrow).
+    const row = this.page.locator('tr:has(input[name="items.0.requested_qty"])').first();
 
-    // Cascading "Select X" button triggers (page-level .first() targets the newest
-    // prepended row): location enables product → product enables unit. A valid item
-    // needs location, product, qty, unit + delivery point (currency auto-fills from
-    // the BU; selecting a location auto-fills delivery point; delivery date defaults
-    // to tomorrow). Playwright's click auto-waits for each to enable.
-    await this.pickFirstInCombobox(this.page.getByRole("button", { name: /select location/i }).first()).catch(() => {});
+    await this.pickFirstInCombobox(row.getByRole("button", { name: /select location/i }).first()).catch(() => {});
     if (data.product !== undefined) {
-      await this.pickFirstInCombobox(this.page.getByRole("button", { name: /select product/i }).first()).catch(() => {});
+      await this.pickFirstInCombobox(row.getByRole("button", { name: /select product/i }).first()).catch(() => {});
     }
     if (data.quantity !== undefined) {
       await qtyInput.fill(String(data.quantity));
     }
-    // Picking a product clears requested_unit_id — choose a unit.
-    await this.pickFirstInCombobox(this.page.getByRole("button", { name: /select unit/i }).first()).catch(() => {});
-    await this.pickFirstInCombobox(this.page.getByRole("button", { name: /select delivery point/i }).first()).catch(() => {});
+    await this.pickFirstInCombobox(row.getByRole("button", { name: /select unit/i }).first()).catch(() => {});
+    await this.pickFirstInCombobox(row.getByRole("button", { name: /select delivery point/i }).first()).catch(() => {});
     if (data.isFOC) {
-      const foc = this.page.getByRole("checkbox", { name: /foc/i }).first();
+      const foc = row.getByRole("checkbox", { name: /foc/i }).first();
       if ((await foc.count()) > 0) await foc.check({ force: true }).catch(() => {});
     }
     // No per-item Save in the inline datagrid — the row persists with the form.
