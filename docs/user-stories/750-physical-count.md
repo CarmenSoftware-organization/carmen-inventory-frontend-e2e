@@ -1,6 +1,6 @@
-# Physical Count — Test Cases
+# Physical Count — User Stories
 
-_Test-case catalog (documentation only; no automated Playwright spec yet). Authored from the React app module at `routes/inventory-management/physical-count`. Follows the TC-ID scheme in `docs/test-id-scheme.md`._
+_Authored from the test-case catalog `docs/test-cases/750-physical-count.md` (documentation only — no automated spec yet)._
 
 **Module:** Physical Count
 **Frontend route:** `routes/inventory-management/physical-count`  •  **URL:** `/inventory-management/physical-count`
@@ -49,6 +49,8 @@ _Test-case catalog (documentation only; no automated Playwright spec yet). Autho
 
 ---
 ## TC-PCNT-010001 — หน้า Physical Count โหลดสำเร็จ
+> **As a** Store Manager, **I want** the Physical Count page to load reliably, **so that** I can begin or monitor counting per location.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG; มี period ที่ active
@@ -59,6 +61,8 @@ URL ตรงกับ `/inventory-management/physical-count`; หัวข้�
 
 ---
 ## TC-PCNT-010002 — period selector แสดงงวดปัจจุบัน/ก่อนหน้า
+> **As a** Store Manager, **I want** to see and pick the current or previous period, **so that** I count against the correct accounting window.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มีงวด (period) อย่างน้อย 1 งวด
@@ -70,6 +74,8 @@ URL ตรงกับ `/inventory-management/physical-count`; หัวข้�
 
 ---
 ## TC-PCNT-010003 — KPI tiles (All/In Progress/Not Started/Complete) แสดงและกรองได้
+> **As a** Store Manager, **I want** clickable KPI tiles by status, **so that** I can focus on locations at a particular counting stage.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี location หลายสถานะ
@@ -81,6 +87,8 @@ URL ตรงกับ `/inventory-management/physical-count`; หัวข้�
 
 ---
 ## TC-PCNT-010004 — ช่องค้นหา location (name/code) ใช้งานได้
+> **As a** Store Manager, **I want** to search locations by name or code, **so that** I can jump to a specific location fast.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี location หลายรายการ
@@ -92,6 +100,8 @@ URL ตรงกับ `/inventory-management/physical-count`; หัวข้�
 
 ---
 ## TC-PCNT-010005 — ค้นหา location ที่ไม่มีต้องแสดง empty state
+> **As a** Store Manager, **I want** a clear empty state when a location search matches nothing, **so that** I know the result is genuinely empty.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า physical-count
@@ -102,6 +112,8 @@ URL ตรงกับ `/inventory-management/physical-count`; หัวข้�
 
 ---
 ## TC-PCNT-010006 — checkbox Include Not Count ปรับรายการ location ได้
+> **As a** Store Manager, **I want** to include not-count locations on demand, **so that** I can see the full location set when needed.
+
 **Priority:** Low · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี location ทั้งที่ countable และ not count
@@ -113,6 +125,8 @@ URL ตรงกับ `/inventory-management/physical-count`; หัวข้�
 
 ---
 ## TC-PCNT-010007 — location card แสดง progress และปุ่มตามสถานะ
+> **As a** Store Manager, **I want** each location card to show progress and a status-appropriate action, **so that** I know what to do next per location.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี location หลายสถานะ
@@ -124,6 +138,8 @@ Not started แสดงปุ่ม "Start"; In progress แสดงปุ่�
 
 ---
 ## TC-PCNT-010008 — status hero card แสดง progress รวมและเปอร์เซ็นต์
+> **As a** Store Manager, **I want** a hero card with overall progress, **so that** I can gauge how far the whole count has advanced.
+
 **Priority:** Low · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; ใช้งานบน desktop
@@ -135,6 +151,8 @@ Not started แสดงปุ่ม "Start"; In progress แสดงปุ่�
 
 ---
 ## TC-PCNT-010050 — active BU = BLAVG
+> **As a** Store Manager, **I want** the active business unit to be BLAVG, **so that** I only see locations and count sessions scoped to my business unit.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; ระบบ ensureActiveBu ตั้ง active BU = BLAVG
@@ -146,6 +164,8 @@ Active business unit คือ BLAVG; location และ count session ที่
 
 ---
 ## TC-PCNT-030001 — เปิดหน้า new count session สำเร็จ
+> **As a** Store Manager, **I want** to open the new count session form, **so that** I can set up a count for a department.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG
@@ -156,6 +176,8 @@ Active business unit คือ BLAVG; location และ count session ที่
 
 ---
 ## TC-PCNT-030002 — สร้าง count session (department + period) สำเร็จ
+> **As a** Store Manager, **I want** to create a count session with department and period, **so that** counting can begin against the right scope.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG; มี department และ period ให้เลือก
@@ -169,6 +191,8 @@ Active business unit คือ BLAVG; location และ count session ที่
 
 ---
 ## TC-PCNT-030003 — กด Cancel ขณะฟอร์ม dirty แสดง discard dialog
+> **As a** Store Manager, **I want** a discard warning when I cancel a dirty form, **so that** I don't lose unsaved changes accidentally.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า new และแก้ไขฟอร์มแล้ว
@@ -181,6 +205,8 @@ Active business unit คือ BLAVG; location และ count session ที่
 
 ---
 ## TC-PCNT-030050 — สร้าง count session (store manager/BLAVG) สำเร็จ
+> **As a** Store Manager, **I want** to create a count session under BU BLAVG, **so that** the session is scoped to the correct business unit.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG
@@ -193,6 +219,8 @@ count session ถูกสร้างภายใต้ BU BLAVG; toast createS
 
 ---
 ## TC-PCNT-040001 — แก้ไข count session ที่บันทึกแล้ว save สำเร็จ
+> **As a** Store Manager, **I want** to edit a saved count session, **so that** I can correct the department or period before counting.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี count session ที่บันทึกแล้ว
@@ -205,6 +233,8 @@ count session ถูกสร้างภายใต้ BU BLAVG; toast createS
 
 ---
 ## TC-PCNT-050001 — ลบ count session สำเร็จ (delete dialog)
+> **As a** Store Manager, **I want** to delete a count session with confirmation, **so that** I can remove sessions created in error.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี count session ที่บันทึกแล้ว
@@ -217,6 +247,8 @@ count session ถูกสร้างภายใต้ BU BLAVG; toast createS
 
 ---
 ## TC-PCNT-060001 — เริ่มนับ (Start) จาก location card นำไปหน้า entry
+> **As a** Store Manager, **I want** to start counting from a location card, **so that** I can move straight into entering counts.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี location สถานะ Not started
@@ -228,6 +260,8 @@ count session ถูกสร้างภายใต้ BU BLAVG; toast createS
 
 ---
 ## TC-PCNT-060002 — กรอก actual count ของ item แล้ว Save for Resume สำเร็จ
+> **As a** Store Manager, **I want** to save partial counts for resume, **so that** I can pause and continue counting later without losing data.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า entry และมี item ให้นับ
@@ -239,6 +273,8 @@ count session ถูกสร้างภายใต้ BU BLAVG; toast createS
 
 ---
 ## TC-PCNT-060003 — filter pills (All/Counted/Uncounted) ในหน้า entry ใช้งานได้
+> **As a** Store Manager, **I want** to filter entry items by counted status, **so that** I can quickly find what still needs counting.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า entry ที่มีทั้ง item นับแล้วและยังไม่นับ
@@ -249,6 +285,8 @@ count session ถูกสร้างภายใต้ BU BLAVG; toast createS
 
 ---
 ## TC-PCNT-060004 — เพิ่ม note และแนบรูป evidence ให้ item ได้
+> **As a** Store Manager, **I want** to attach notes and photo evidence to an item, **so that** I can document discrepancies during the count.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า entry
@@ -261,6 +299,8 @@ note และ thumbnail รูปถูกบันทึกและแสด�
 
 ---
 ## TC-PCNT-060005 — ใช้ calculator แปลงหน่วยเพื่อหา total count
+> **As a** Store Manager, **I want** a unit-conversion calculator, **so that** I can total mixed-unit quantities accurately into the base unit.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า entry ที่ item มีหลายหน่วย
@@ -273,6 +313,8 @@ calculator คำนวณ total เป็นหน่วยฐานและ�
 
 ---
 ## TC-PCNT-060006 — Set empty to zero กับ item ที่ยังไม่นับ
+> **As a** Store Manager, **I want** to set all uncounted items to zero at once, **so that** I can finalize a count where remaining items have no stock.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า entry ที่ยังมี item ยังไม่นับ (uncounted > 0)
@@ -283,6 +325,8 @@ item ที่ยังไม่นับถูกตั้งค่าเป็
 
 ---
 ## TC-PCNT-060007 — Resume การนับที่ค้างไว้กลับมานับต่อได้
+> **As a** Store Manager, **I want** to resume an in-progress count, **so that** I can continue from where I left off.
+
 **Priority:** Medium · **Test Type:** Alternate Flow
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี location สถานะ In progress ที่บันทึกค้างไว้
@@ -294,6 +338,8 @@ item ที่ยังไม่นับถูกตั้งค่าเป็
 
 ---
 ## TC-PCNT-070001 — Submit for Review เมื่อนับครบทุก item นำไปหน้า review
+> **As a** Store Manager, **I want** to submit for review when all items are counted, **so that** variances can be assessed before finalizing.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; นับ item ครบทุกรายการในหน้า entry (uncounted = 0)
@@ -304,6 +350,8 @@ item ที่ยังไม่นับถูกตั้งค่าเป็
 
 ---
 ## TC-PCNT-070002 — หน้า review แสดง stat tiles (Matches/Variances/Overages/Shortages)
+> **As a** Store Manager, **I want** review stat tiles, **so that** I can see the variance breakdown at a glance.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; เปิดหน้า review ของ count session
@@ -315,6 +363,8 @@ item ที่ยังไม่นับถูกตั้งค่าเป็
 
 ---
 ## TC-PCNT-070003 — variance grid แสดง system/actual/variance ถูกต้อง
+> **As a** Store Manager, **I want** an accurate variance grid, **so that** I can verify each discrepancy before finalizing.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; เปิดหน้า review ที่มีรายการ variance
@@ -326,6 +376,8 @@ System = on_hand_qty, Actual = actual_qty, Variance = diff_qty (ค่าบว�
 
 ---
 ## TC-PCNT-070004 — Submit physical count (finalize) เปลี่ยนสถานะเป็น completed
+> **As a** Store Manager, **I want** to finalize the physical count, **so that** the session is locked and marked completed.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า review หลังตรวจ variance แล้ว
@@ -336,6 +388,8 @@ System = on_hand_qty, Actual = actual_qty, Variance = diff_qty (ค่าบว�
 
 ---
 ## TC-PCNT-080001 — import ผลนับจากไฟล์ Excel/CSV ได้
+> **As a** Store Manager, **I want** to import count results from a file, **so that** I can bulk-load counts gathered offline.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า entry; มีไฟล์ที่มีคอลัมน์ id/product_sku/actual_qty
@@ -348,6 +402,8 @@ System = on_hand_qty, Actual = actual_qty, Variance = diff_qty (ค่าบว�
 
 ---
 ## TC-PCNT-080002 — export รายการ item เป็นไฟล์ Excel ได้
+> **As a** Store Manager, **I want** to export the item list to Excel, **so that** counters can record results offline.
+
 **Priority:** Low · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า entry ที่มี item
@@ -358,6 +414,8 @@ System = on_hand_qty, Actual = actual_qty, Variance = diff_qty (ค่าบว�
 
 ---
 ## TC-PCNT-100001 — ผู้ใช้ไม่มีสิทธิ์เข้าถึง Physical Count ต้องถูกบล็อก
+> **As a** security stakeholder, **I want** users without Inventory Management permission blocked, **so that** count data stays protected.
+
 **Priority:** High · **Test Type:** Authorization
 **Preconditions**
 เข้าสู่ระบบเป็นผู้ใช้ที่ไม่มีสิทธิ์ Inventory Management
@@ -368,6 +426,8 @@ System = on_hand_qty, Actual = actual_qty, Variance = diff_qty (ค่าบว�
 
 ---
 ## TC-PCNT-100002 — ผู้ที่ไม่ได้ login เข้าหน้าตรง ๆ ต้องถูก redirect ไป /login
+> **As a** security stakeholder, **I want** unauthenticated direct access redirected to login, **so that** only authenticated users reach the module.
+
 **Priority:** High · **Test Type:** Auth-guard
 **Preconditions**
 ยังไม่ได้เข้าสู่ระบบ (ไม่มี session)
@@ -378,6 +438,8 @@ System = on_hand_qty, Actual = actual_qty, Variance = diff_qty (ค่าบว�
 
 ---
 ## TC-PCNT-200001 — บันทึก count session โดยไม่เลือก department ต้องแสดง error
+> **As a** Store Manager, **I want** a required-department error on save, **so that** every count session is tied to a department.
+
 **Priority:** High · **Test Type:** Validation
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า new
@@ -389,6 +451,8 @@ System = on_hand_qty, Actual = actual_qty, Variance = diff_qty (ค่าบว�
 
 ---
 ## TC-PCNT-200002 — actual count ติดลบต้องไม่ถูกรับ (min 0)
+> **As a** Store Manager, **I want** negative counts rejected, **so that** counted quantities are always non-negative.
+
 **Priority:** Medium · **Test Type:** Validation
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า entry
@@ -399,6 +463,8 @@ System = on_hand_qty, Actual = actual_qty, Variance = diff_qty (ค่าบว�
 
 ---
 ## TC-PCNT-900001 — import ไฟล์ที่คอลัมน์ไม่ครบต้องแสดง error
+> **As a** Store Manager, **I want** an error when an import file is missing required columns, **so that** I don't load malformed data.
+
 **Priority:** Low · **Test Type:** Edge Case
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า entry; มีไฟล์ที่ขาดคอลัมน์ที่จำเป็น

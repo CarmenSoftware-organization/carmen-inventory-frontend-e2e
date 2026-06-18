@@ -1,6 +1,6 @@
-# Inventory Adjustment — Test Cases
+# Inventory Adjustment — User Stories
 
-_Test-case catalog (documentation only; no automated Playwright spec yet). Authored from the React app module at `routes/inventory-management/inventory-adjustment`. Follows the TC-ID scheme in `docs/test-id-scheme.md`._
+_Authored from the test-case catalog `docs/test-cases/730-inventory-adjustment.md` (documentation only — no automated spec yet)._
 
 **Module:** Inventory Adjustment
 **Frontend route:** `routes/inventory-management/inventory-adjustment`  •  **URL:** `/inventory-management/inventory-adjustment`
@@ -46,6 +46,8 @@ _Test-case catalog (documentation only; no automated Playwright spec yet). Autho
 
 ---
 ## TC-IADJ-010001 — หน้า list Inventory Adjustment โหลดสำเร็จ
+> **As an** Inventory Controller, **I want** the Inventory Adjustment list page to load reliably, **so that** I can review existing stock adjustments at a glance.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; active BU = BLAVG; มีสิทธิ์เข้าถึง Inventory Management
@@ -56,6 +58,8 @@ URL ตรงกับ `/inventory-management/inventory-adjustment`; หัว�
 
 ---
 ## TC-IADJ-010002 — ปุ่ม Stock In / Stock Out แสดงบน toolbar
+> **As an** Inventory Controller, **I want** the Stock In and Stock Out actions surfaced on the toolbar, **so that** I can start the correct adjustment type quickly.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; อยู่ที่หน้า list (desktop)
@@ -67,6 +71,8 @@ URL ตรงกับ `/inventory-management/inventory-adjustment`; หัว�
 
 ---
 ## TC-IADJ-010003 — คอลัมน์ตาราง (Adjustment/Date/Type/Location/Reason/Items/Total/Status) แสดงครบ
+> **As an** Inventory Controller, **I want** every adjustment column shown in the list, **so that** I can scan key facts without opening each document.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี adjustment อย่างน้อย 1 รายการ; อยู่ใน List View
@@ -78,6 +84,8 @@ URL ตรงกับ `/inventory-management/inventory-adjustment`; หัว�
 
 ---
 ## TC-IADJ-010004 — ช่องค้นหาใช้งานได้
+> **As an** Inventory Controller, **I want** to search adjustments by document number, **so that** I can find a specific document fast.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี adjustment อย่างน้อย 1 รายการ
@@ -89,6 +97,8 @@ URL ตรงกับ `/inventory-management/inventory-adjustment`; หัว�
 
 ---
 ## TC-IADJ-010005 — ค้นหาคำที่ไม่มีต้องแสดง empty state
+> **As an** Inventory Controller, **I want** a clear empty state when a search matches nothing, **so that** I know the result is genuinely empty rather than still loading.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; อยู่ที่หน้า list
@@ -100,6 +110,8 @@ URL ตรงกับ `/inventory-management/inventory-adjustment`; หัว�
 
 ---
 ## TC-IADJ-010006 — filter Type (Stock In / Stock Out) ใช้งานได้
+> **As an** Inventory Controller, **I want** to filter by adjustment type, **so that** I can focus on stock-in or stock-out documents only.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มีเอกสารทั้ง stock-in และ stock-out
@@ -111,6 +123,8 @@ URL ตรงกับ `/inventory-management/inventory-adjustment`; หัว�
 
 ---
 ## TC-IADJ-010007 — filter Status (draft/in_progress/completed/voided) ใช้งานได้
+> **As an** Inventory Controller, **I want** to filter by document status, **so that** I can isolate documents at a given stage of their lifecycle.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มีเอกสารหลายสถานะ
@@ -122,6 +136,8 @@ URL ตรงกับ `/inventory-management/inventory-adjustment`; หัว�
 
 ---
 ## TC-IADJ-010008 — active filter bar และ Clear All ทำงาน
+> **As an** Inventory Controller, **I want** active filters shown as removable pills with a Clear All control, **so that** I can manage and reset my filters easily.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; ได้ตั้ง filter Type และ Status ไว้
@@ -134,6 +150,8 @@ URL ตรงกับ `/inventory-management/inventory-adjustment`; หัว�
 
 ---
 ## TC-IADJ-010009 — สลับ List View / Grid View บน desktop ได้
+> **As an** Inventory Controller, **I want** to switch between list and grid views, **so that** I can use the layout that suits the task.
+
 **Priority:** Low · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; ใช้งานบนหน้าจอ desktop
@@ -145,6 +163,8 @@ URL ตรงกับ `/inventory-management/inventory-adjustment`; หัว�
 
 ---
 ## TC-IADJ-010050 — active BU = BLAVG
+> **As an** Inventory Controller, **I want** the active business unit to be BLAVG, **so that** I only see adjustment data scoped to my business unit.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; ระบบ ensureActiveBu ตั้ง active BU = BLAVG
@@ -156,6 +176,8 @@ Active business unit คือ BLAVG; ข้อมูล adjustment ที่แ
 
 ---
 ## TC-IADJ-020001 — คลิกแถวเปิดหน้า detail (view mode) สำเร็จ
+> **As an** Inventory Controller, **I want** to open an adjustment's detail by clicking its row, **so that** I can review the full document.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี adjustment อย่างน้อย 1 รายการ
@@ -167,6 +189,8 @@ Active business unit คือ BLAVG; ข้อมูล adjustment ที่แ
 
 ---
 ## TC-IADJ-020002 — หน้า detail แสดง Document Info และ Summary ครบ
+> **As an** Inventory Controller, **I want** the detail page to present Document Info and Summary completely, **so that** I understand the posting impact before acting.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; เปิดเอกสาร adjustment ในโหมด view
@@ -178,6 +202,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-030001 — เปิดหน้า new Stock In สำเร็จ
+> **As an** Inventory Controller, **I want** to open the new Stock In form, **so that** I can record incoming stock adjustments.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; active BU = BLAVG
@@ -189,6 +215,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-030002 — สร้าง Stock In (location/reason/date + 1 item) สำเร็จ
+> **As an** Inventory Controller, **I want** to create a Stock In adjustment with a complete header and item, **so that** stock increases are captured correctly.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; active BU = BLAVG; มี location ประเภท inventory และ adjustment type (stock-in) ที่ active
@@ -202,6 +230,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-030003 — สร้าง Stock Out (location/reason/date + 1 item) สำเร็จ
+> **As an** Inventory Controller, **I want** to create a Stock Out adjustment, **so that** stock reductions are captured correctly.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; active BU = BLAVG; มี adjustment type (stock-out) ที่ active และมีสต็อกพอ
@@ -215,6 +245,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-030004 — เพิ่ม line item ได้หลายรายการ
+> **As an** Inventory Controller, **I want** to add multiple line items, **so that** I can adjust several products in one document.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; อยู่ในหน้า new และเลือก location แล้ว
@@ -226,6 +258,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-030005 — ลบ line item ได้ (Remove dialog)
+> **As an** Inventory Controller, **I want** a confirmation dialog before removing a line item, **so that** I do not delete rows by accident.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; ในฟอร์มมี line item อย่างน้อย 2 รายการ
@@ -237,6 +271,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-030006 — Stock In auto-fill cost per unit จากต้นทุนเฉลี่ย
+> **As an** Inventory Controller, **I want** Stock In cost-per-unit auto-filled from average cost, **so that** valuation stays consistent without manual entry.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; เปิดหน้า new Stock In และเลือก location แล้ว
@@ -248,6 +284,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-030050 — สร้าง Inventory Adjustment (controller/BLAVG) สำเร็จ
+> **As an** Inventory Controller, **I want** to create an adjustment under BU BLAVG, **so that** the document is scoped to the correct business unit.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; active BU = BLAVG
@@ -260,6 +298,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-040001 — แก้ description ของ adjustment ที่เป็น draft แล้ว save สำเร็จ
+> **As an** Inventory Controller, **I want** to edit a draft adjustment's description and save, **so that** I can correct or annotate the document before it is finalized.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี adjustment สถานะ Draft
@@ -273,6 +313,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-040050 — แก้ไข adjustment แล้ว persist หลัง reload
+> **As an** Inventory Controller, **I want** my edits to persist after reload, **so that** I can trust changes were saved to the backend.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; active BU = BLAVG; มี adjustment สถานะ Draft
@@ -284,6 +326,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-050001 — ลบ adjustment ที่เป็น draft สำเร็จ
+> **As an** Inventory Controller, **I want** to delete a draft adjustment, **so that** I can remove documents created in error.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี adjustment สถานะ Draft (ไม่ใช่ voided/completed)
@@ -296,6 +340,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-060001 — Void adjustment (ใส่เหตุผล) แล้วเอกสารกลายเป็น read-only
+> **As an** Inventory Controller, **I want** to void an adjustment with a reason, **so that** the document is cancelled while retaining its audit trail.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี adjustment ที่ยังไม่ voided/completed
@@ -308,6 +354,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-100001 — ผู้ใช้ไม่มีสิทธิ์เข้าถึง Inventory Adjustment ต้องถูกบล็อก
+> **As a** security stakeholder, **I want** users without Inventory Management permission blocked, **so that** adjustment data stays protected.
+
 **Priority:** High · **Test Type:** Authorization
 **Preconditions**
 เข้าสู่ระบบเป็นผู้ใช้ที่ไม่มีสิทธิ์ Inventory Management
@@ -318,6 +366,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-100002 — ผู้ที่ไม่ได้ login เข้าหน้าตรง ๆ ต้องถูก redirect ไป /login
+> **As a** security stakeholder, **I want** unauthenticated direct access redirected to login, **so that** only authenticated users reach the module.
+
 **Priority:** High · **Test Type:** Auth-guard
 **Preconditions**
 ยังไม่ได้เข้าสู่ระบบ (ไม่มี session)
@@ -328,6 +378,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-200001 — บันทึกโดยไม่เลือก location ต้องแสดง error
+> **As an** Inventory Controller, **I want** a required-location error on save, **so that** every adjustment is tied to a valid location.
+
 **Priority:** High · **Test Type:** Validation
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; อยู่ในหน้า new
@@ -339,6 +391,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-200002 — บันทึกโดยไม่เลือก reason (adjustment type) ต้องแสดง error
+> **As an** Inventory Controller, **I want** a required-reason error on save, **so that** every adjustment is classified by an adjustment type.
+
 **Priority:** High · **Test Type:** Validation
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; อยู่ในหน้า new
@@ -350,6 +404,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-200003 — บันทึกโดยไม่มี line item ต้องแสดง error
+> **As an** Inventory Controller, **I want** an at-least-one-item error on save, **so that** empty adjustments cannot be posted.
+
 **Priority:** High · **Test Type:** Validation
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; อยู่ในหน้า new
@@ -362,6 +418,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-200004 — qty น้อยกว่า 1 ต้องแสดง error
+> **As an** Inventory Controller, **I want** a minimum-quantity error, **so that** line items always carry a meaningful quantity.
+
 **Priority:** Medium · **Test Type:** Validation
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; ในฟอร์มมี line item 1 รายการที่เลือก product แล้ว
@@ -373,6 +431,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-200005 — date นอกช่วง period ปัจจุบันต้องแสดง error
+> **As an** Inventory Controller, **I want** a period-range error on out-of-period dates, **so that** adjustments are posted only within the open period.
+
 **Priority:** Medium · **Test Type:** Validation
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี period ปัจจุบันที่กำหนด start/end
@@ -385,6 +445,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-300001 — Export รายการ adjustment เป็นไฟล์สำเร็จ
+> **As an** Inventory Controller, **I want** to export the adjustment list to a file, **so that** I can share or analyze the data offline.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; มี adjustment อย่างน้อย 1 รายการ
@@ -396,6 +458,8 @@ Document Info แสดง Date, Reason, Location, Description; Summary แส�
 
 ---
 ## TC-IADJ-900001 — mobile แสดงแบบ card list และ infinite scroll
+> **As an** Inventory Controller on mobile, **I want** a card list with infinite scroll, **so that** I can browse adjustments comfortably on a small screen.
+
 **Priority:** Low · **Test Type:** Edge Case
 **Preconditions**
 เข้าสู่ระบบเป็น Inventory Controller; ใช้งานบน viewport ขนาด mobile; มี adjustment จำนวนมาก

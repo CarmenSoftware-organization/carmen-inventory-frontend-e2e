@@ -1,6 +1,6 @@
-# Spot Check — Test Cases
+# Spot Check — User Stories
 
-_Test-case catalog (documentation only; no automated Playwright spec yet). Authored from the React app module at `routes/inventory-management/spot-check`. Follows the TC-ID scheme in `docs/test-id-scheme.md`._
+_Authored from the test-case catalog `docs/test-cases/760-spot-check.md` (documentation only — no automated spec yet)._
 
 **Module:** Spot Check
 **Frontend route:** `routes/inventory-management/spot-check`  •  **URL:** `/inventory-management/spot-check`
@@ -48,6 +48,8 @@ _Test-case catalog (documentation only; no automated Playwright spec yet). Autho
 
 ---
 ## TC-SPC-010001 — หน้า Spot Check โหลดสำเร็จ
+> **As a** Store Manager, **I want** the Spot Check page to load reliably, **so that** I can launch targeted counts per location.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG; มีสิทธิ์เข้าถึง Inventory Management
@@ -58,6 +60,8 @@ URL ตรงกับ `/inventory-management/spot-check`; หัวข้อห
 
 ---
 ## TC-SPC-010002 — สลับ view Locations / History ได้
+> **As a** Store Manager, **I want** to switch between the Locations and History views, **so that** I can both start new checks and review past ones.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า spot-check
@@ -69,6 +73,8 @@ URL ตรงกับ `/inventory-management/spot-check`; หัวข้อห
 
 ---
 ## TC-SPC-010003 — KPI tiles (All/Resume/Not Started) แสดงและกรองได้
+> **As a** Store Manager, **I want** clickable KPI tiles by status, **so that** I can focus on locations that need attention.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี location หลายสถานะ
@@ -80,6 +86,8 @@ URL ตรงกับ `/inventory-management/spot-check`; หัวข้อห
 
 ---
 ## TC-SPC-010004 — ช่องค้นหา location (name/code) ใช้งานได้
+> **As a** Store Manager, **I want** to search locations by name or code, **so that** I can jump to a specific location fast.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี location หลายรายการ
@@ -91,6 +99,8 @@ URL ตรงกับ `/inventory-management/spot-check`; หัวข้อห
 
 ---
 ## TC-SPC-010005 — ค้นหา location ที่ไม่มีต้องแสดง empty state
+> **As a** Store Manager, **I want** a clear empty state when a location search matches nothing, **so that** I know the result is genuinely empty.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า spot-check
@@ -101,6 +111,8 @@ URL ตรงกับ `/inventory-management/spot-check`; หัวข้อห
 
 ---
 ## TC-SPC-010006 — checkbox Include Not Count ปรับรายการ location ได้
+> **As a** Store Manager, **I want** to include not-countable locations on demand, **so that** I can see the full location set when needed.
+
 **Priority:** Low · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี location ทั้ง countable และ not countable
@@ -112,6 +124,8 @@ URL ตรงกับ `/inventory-management/spot-check`; หัวข้อห
 
 ---
 ## TC-SPC-010007 — location card แสดง resume info และ method badge
+> **As a** Store Manager, **I want** resume info and method on each in-progress card, **so that** I can pick up a spot check with full context.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี location ที่มี spot check in-progress
@@ -123,6 +137,8 @@ card แสดงเลข spot check, status badge (dot pulsing สำหรั
 
 ---
 ## TC-SPC-010008 — History tab ค้นหา/filter (location/status/method) ได้
+> **As a** Store Manager, **I want** to search and filter the spot-check history, **so that** I can audit past checks by location, status, or method.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี spot check ที่ผ่านมาแล้ว
@@ -135,6 +151,8 @@ card แสดงเลข spot check, status badge (dot pulsing สำหรั
 
 ---
 ## TC-SPC-010050 — active BU = BLAVG
+> **As a** Store Manager, **I want** the active business unit to be BLAVG, **so that** I only see locations and spot checks scoped to my business unit.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; ระบบ ensureActiveBu ตั้ง active BU = BLAVG
@@ -146,6 +164,8 @@ Active business unit คือ BLAVG; location และ spot check ที่แ
 
 ---
 ## TC-SPC-030001 — เปิดหน้า new spot check (location-based) สำเร็จ
+> **As a** Store Manager, **I want** to open the new spot check form scoped to a location, **so that** I can configure a check for that location.
+
 **Priority:** High · **Test Type:** Smoke
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี location สถานะ Not started
@@ -157,6 +177,8 @@ Active business unit คือ BLAVG; location และ spot check ที่แ
 
 ---
 ## TC-SPC-030002 — สร้าง spot check วิธี Random (items) สำเร็จ
+> **As a** Store Manager, **I want** to create a Random spot check by item count, **so that** the system samples products for me to count.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG; อยู่ในหน้า new spot check
@@ -169,6 +191,8 @@ Active business unit คือ BLAVG; location และ spot check ที่แ
 
 ---
 ## TC-SPC-030003 — สร้าง spot check วิธี High Value (items + min value) สำเร็จ
+> **As a** Store Manager, **I want** to create a High Value spot check, **so that** the system samples high-value products above a threshold.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG; อยู่ในหน้า new spot check
@@ -181,6 +205,8 @@ Active business unit คือ BLAVG; location และ spot check ที่แ
 
 ---
 ## TC-SPC-030004 — สร้าง spot check วิธี Manual (เลือก product) สำเร็จ
+> **As a** Store Manager, **I want** to create a Manual spot check by hand-picking products, **so that** I can target specific items of concern.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG; อยู่ในหน้า new spot check
@@ -193,6 +219,8 @@ Active business unit คือ BLAVG; location และ spot check ที่แ
 
 ---
 ## TC-SPC-030005 — method picker สลับ Random/High Value/Manual ปรับ field ตามวิธี
+> **As a** Store Manager, **I want** the form fields to adapt to the chosen method, **so that** I only see inputs relevant to that method.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า new spot check
@@ -204,6 +232,8 @@ Random/High Value แสดงช่อง Items (High Value เพิ่ม Min
 
 ---
 ## TC-SPC-030006 — product transfer (Manual) ย้าย product ระหว่างสองฝั่งได้
+> **As a** Store Manager, **I want** to move products between available and selected panes, **so that** I can curate the Manual check set precisely.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; เลือก method Manual ในหน้า new
@@ -215,6 +245,8 @@ product ย้ายระหว่างสองฝั่งได้; ตั�
 
 ---
 ## TC-SPC-030050 — สร้าง spot check (store manager/BLAVG) สำเร็จ
+> **As a** Store Manager, **I want** to create a spot check under BU BLAVG, **so that** the check is scoped to the correct business unit.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG
@@ -227,6 +259,8 @@ spot check ถูกสร้างภายใต้ BU BLAVG; toast สร้�
 
 ---
 ## TC-SPC-040001 — แก้ไข spot check ที่บันทึกแล้ว save สำเร็จ
+> **As a** Store Manager, **I want** to edit a saved spot check, **so that** I can adjust its description or parameters before counting.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี spot check ที่บันทึกแล้ว (ยังไม่ completed)
@@ -239,6 +273,8 @@ spot check ถูกสร้างภายใต้ BU BLAVG; toast สร้�
 
 ---
 ## TC-SPC-050001 — ลบ spot check สำเร็จ (delete)
+> **As a** Store Manager, **I want** to delete a spot check, **so that** I can remove checks created in error.
+
 **Priority:** High · **Test Type:** CRUD
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี spot check ที่บันทึกแล้ว
@@ -250,6 +286,8 @@ spot check ถูกสร้างภายใต้ BU BLAVG; toast สร้�
 
 ---
 ## TC-SPC-060001 — กรอก count ของ item แล้ว Save for Resume สำเร็จ
+> **As a** Store Manager, **I want** to save partial spot-check counts for resume, **so that** I can pause and continue later without losing data.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า entry ที่มี item ให้นับ
@@ -261,6 +299,8 @@ spot check ถูกสร้างภายใต้ BU BLAVG; toast สร้�
 
 ---
 ## TC-SPC-060002 — filter pills (All/Counted/Uncounted) ในหน้า entry ใช้งานได้
+> **As a** Store Manager, **I want** to filter entry items by counted status, **so that** I can quickly find what still needs counting.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า entry ที่มีทั้ง item นับแล้วและยังไม่นับ
@@ -271,6 +311,8 @@ spot check ถูกสร้างภายใต้ BU BLAVG; toast สร้�
 
 ---
 ## TC-SPC-060003 — เพิ่ม note/evidence และใช้ calculator ที่ item ได้
+> **As a** Store Manager, **I want** notes/evidence and a unit calculator per item, **so that** I can document and total counts accurately.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า entry
@@ -282,6 +324,8 @@ note และรูปถูกบันทึกแสดงใต้ item; ca
 
 ---
 ## TC-SPC-060004 — Set empty to zero กับ item ที่ยังไม่นับ
+> **As a** Store Manager, **I want** to set uncounted items to zero at once, **so that** I can finalize when remaining items have no stock.
+
 **Priority:** Medium · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า entry ที่ยังมี item ยังไม่นับ (uncounted > 0)
@@ -292,6 +336,8 @@ item ที่ยังไม่นับถูกตั้งเป็น 0 แ
 
 ---
 ## TC-SPC-060005 — Resume spot check ที่ค้างไว้กลับมานับต่อได้
+> **As a** Store Manager, **I want** to resume an in-progress spot check, **so that** I can continue from where I left off.
+
 **Priority:** Medium · **Test Type:** Alternate Flow
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี location ที่มี spot check in-progress
@@ -303,6 +349,8 @@ item ที่ยังไม่นับถูกตั้งเป็น 0 แ
 
 ---
 ## TC-SPC-060006 — Reset spot check (confirm dialog) ล้างค่าที่นับ
+> **As a** Store Manager, **I want** to reset a spot check with confirmation, **so that** I can restart counting after clearing prior entries.
+
 **Priority:** Medium · **Test Type:** Alternate Flow
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; มี location ที่มี spot check in-progress
@@ -314,6 +362,8 @@ item ที่ยังไม่นับถูกตั้งเป็น 0 แ
 
 ---
 ## TC-SPC-070001 — Submit for Review เมื่อนับครบนำไปหน้า review
+> **As a** Store Manager, **I want** to submit for review when counting is complete, **so that** variances can be assessed before finalizing.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; นับ item ครบทุกรายการในหน้า entry (uncounted = 0)
@@ -324,6 +374,8 @@ item ที่ยังไม่นับถูกตั้งเป็น 0 แ
 
 ---
 ## TC-SPC-070002 — หน้า review แสดง stat tiles และ variance grid
+> **As a** Store Manager, **I want** review stat tiles and a variance grid, **so that** I can verify discrepancies before finalizing.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; เปิดหน้า review ของ spot check
@@ -335,6 +387,8 @@ item ที่ยังไม่นับถูกตั้งเป็น 0 แ
 
 ---
 ## TC-SPC-070003 — Submit spot check (finalize) เปลี่ยนสถานะเป็น completed
+> **As a** Store Manager, **I want** to finalize the spot check, **so that** the document is locked and marked completed.
+
 **Priority:** High · **Test Type:** Functional
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า review หลังตรวจ variance แล้ว
@@ -345,6 +399,8 @@ item ที่ยังไม่นับถูกตั้งเป็น 0 แ
 
 ---
 ## TC-SPC-100001 — ผู้ใช้ไม่มีสิทธิ์เข้าถึง Spot Check ต้องถูกบล็อก
+> **As a** security stakeholder, **I want** users without Inventory Management permission blocked, **so that** spot-check data stays protected.
+
 **Priority:** High · **Test Type:** Authorization
 **Preconditions**
 เข้าสู่ระบบเป็นผู้ใช้ที่ไม่มีสิทธิ์ Inventory Management
@@ -355,6 +411,8 @@ item ที่ยังไม่นับถูกตั้งเป็น 0 แ
 
 ---
 ## TC-SPC-100002 — ผู้ที่ไม่ได้ login เข้าหน้าตรง ๆ ต้องถูก redirect ไป /login
+> **As a** security stakeholder, **I want** unauthenticated direct access redirected to login, **so that** only authenticated users reach the module.
+
 **Priority:** High · **Test Type:** Auth-guard
 **Preconditions**
 ยังไม่ได้เข้าสู่ระบบ (ไม่มี session)
@@ -365,6 +423,8 @@ item ที่ยังไม่นับถูกตั้งเป็น 0 แ
 
 ---
 ## TC-SPC-200001 — สร้างโดยไม่กรอก items (Random) ต้องแสดง error
+> **As a** Store Manager, **I want** a required-items error for Random, **so that** a sample size is always specified.
+
 **Priority:** High · **Test Type:** Validation
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า new spot check เลือก method Random
@@ -376,6 +436,8 @@ item ที่ยังไม่นับถูกตั้งเป็น 0 แ
 
 ---
 ## TC-SPC-200002 — Manual โดยไม่เลือก product ต้องแสดง error
+> **As a** Store Manager, **I want** a select-at-least-one-product error for Manual, **so that** an empty Manual check cannot be created.
+
 **Priority:** High · **Test Type:** Validation
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า new spot check เลือก method Manual
@@ -387,6 +449,8 @@ item ที่ยังไม่นับถูกตั้งเป็น 0 แ
 
 ---
 ## TC-SPC-200003 — High Value min value ติดลบต้องแสดง error
+> **As a** Store Manager, **I want** a non-negative min-value error for High Value, **so that** the value threshold is always valid.
+
 **Priority:** Medium · **Test Type:** Validation
 **Preconditions**
 เข้าสู่ระบบเป็น Store Manager; อยู่ในหน้า new spot check เลือก method High Value
