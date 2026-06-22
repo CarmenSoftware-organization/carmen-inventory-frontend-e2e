@@ -5,7 +5,7 @@ _Generated from `tests/150-vendor.spec.ts` annotations. Edit annotations, not th
 **Module:** Vendor
 **Spec:** `tests/150-vendor.spec.ts`
 **Default role:** Admin
-**Total test cases:** 33 (15 High / 18 Medium / 0 Low)
+**Total test cases:** 31 (15 High / 16 Medium / 0 Low)
 
 ## Test Cases at a Glance
 
@@ -22,7 +22,6 @@ _Generated from `tests/150-vendor.spec.ts` annotations. Edit annotations, not th
 | TC-VEN-030003 | สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ | High | CRUD |
 | TC-VEN-030004 | สร้าง vendor พร้อม address 1 รายการ | High | CRUD |
 | TC-VEN-030005 | สร้าง vendor พร้อม contact 1 รายการ (primary) | High | CRUD |
-| TC-VEN-030006 _(skipped)_ | สลับ tab ทั้ง 4 tabs ได้ | Medium | Functional |
 | TC-VEN-030007 | เพิ่ม address row ได้หลาย row | Medium | Functional |
 | TC-VEN-030008 | ลบ address row ได้ | Medium | Functional |
 | TC-VEN-030009 | เพิ่ม contact row ได้หลาย row | Medium | Functional |
@@ -41,7 +40,6 @@ _Generated from `tests/150-vendor.spec.ts` annotations. Edit annotations, not th
 | TC-VEN-200002 | บันทึกโดยไม่กรอก name ต้องแสดง error | High | Validation |
 | TC-VEN-200003 | code เกิน 10 ตัวอักษรต้องถูก reject | Medium | Validation |
 | TC-VEN-200004 | name เกิน 100 ตัวอักษรต้องถูก reject | Medium | Validation |
-| TC-VEN-200005 _(skipped)_ | address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement) | Medium | Validation |
 | TC-VEN-200006 | contact email รูปแบบผิดต้องแสดง error | Medium | Validation |
 | TC-VEN-200050 | สร้าง vendor code ซ้ำ ต้องถูก reject | High | Negative |
 
@@ -201,17 +199,18 @@ URL ตรงกับ /vendor-management/vendor/new; code input, name input แ
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new; backend ต้องมีข้อมูล business types อย่างน้อย 1 รายการ (ถ้าไม่มีจะ skip)
+Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new; backend มีข้อมูล business types อย่างน้อย 1 รายการ
 
 **Steps**
 
 1. เปิด new form
-2. เปิด business type dropdown
-3. เลือก option แรก
+2. ตรวจว่ามี business type option อย่างน้อย 1 รายการ
+3. เปิด business type dropdown
+4. เลือก option แรก
 
 **Expected**
 
-Trigger ของ business type แสดง label ของรายการที่เลือกภายใน 5s
+มี option ให้เลือก (count > 0) และ trigger ของ business type แสดง label ของรายการที่เลือกภายใน 5s
 
 ---
 
@@ -286,28 +285,6 @@ Logged in as purchase@blueledgers.com; vendor CODE+'C' ยังไม่มี�
 **Expected**
 
 Save toast/feedback ปรากฏ และ vendor ที่มี contact ค้นเจอใน list ภายใน 10s
-
----
-
-## TC-VEN-030006 — สลับ tab ทั้ง 4 tabs ได้ _(skipped)_
-
-> **As a** Admin user, **I want** this Vendor interaction to behave as expected, **so that** the workflow stays predictable.
-
-**Priority:** Medium · **Test Type:** Functional
-
-**Preconditions**
-
-Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
-
-**Steps**
-
-(feature removed in redesign — see note)
-
-**Expected**
-
-N/A — แทนที่ด้วยการตรวจ section ทั้งหมดในหน้าเดียว
-
-> _Note: REDESIGNED AWAY: the vendor form is now a single sectioned page (General/Addresses/Contacts/Info), not Radix tabs. There is no tab to switch — the array tests below already exercise each section on one page._
 
 ---
 
@@ -722,28 +699,6 @@ zod name.max(100) บล็อก submit — ยังอยู่ที่ /new
 
 ---
 
-## TC-VEN-200005 — address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement) _(skipped)_
-
-> **As a** Admin user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
-
-**Priority:** Medium · **Test Type:** Validation
-
-**Preconditions**
-
-Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
-
-**Steps**
-
-(refinement removed in redesign — see note)
-
-**Expected**
-
-N/A — address ที่มีแค่ line1 ถือว่า valid ในสคีมาใหม่
-
-> _Note: REDESIGNED AWAY: the redesigned vendor-form-schema no longer carries the city||district refinement on addresses (only email has a .refine). An address with just address_line1 is now valid, so there is nothing to assert. Skipped._
-
----
-
 ## TC-VEN-200006 — contact email รูปแบบผิดต้องแสดง error
 
 > **As a** Admin user, **I want** the system to block invalid Vendor submissions, **so that** data quality is preserved.
@@ -792,4 +747,4 @@ TC-VEN-040050 ผ่านแล้ว → vendor ที่ ADMIN_CODE มีอ
 ---
 
 
-<sub>Last regenerated: 2026-06-17 · git f822297</sub>
+<sub>Last regenerated: 2026-06-22 · git 3288056</sub>

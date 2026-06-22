@@ -154,9 +154,9 @@ test.describe("Vendor — Create happy path", () => {
     "TC-VEN-030002 เลือก business type จาก dropdown ได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new; backend ต้องมีข้อมูล business types อย่างน้อย 1 รายการ (ถ้าไม่มีจะ skip)" },
-        { type: "steps", description: "1. เปิด new form\n2. เปิด business type dropdown\n3. เลือก option แรก" },
-        { type: "expected", description: "Trigger ของ business type แสดง label ของรายการที่เลือกภายใน 5s" },
+        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new; backend มีข้อมูล business types อย่างน้อย 1 รายการ" },
+        { type: "steps", description: "1. เปิด new form\n2. ตรวจว่ามี business type option อย่างน้อย 1 รายการ\n3. เปิด business type dropdown\n4. เลือก option แรก" },
+        { type: "expected", description: "มี option ให้เลือก (count > 0) และ trigger ของ business type แสดง label ของรายการที่เลือกภายใน 5s" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -165,10 +165,7 @@ test.describe("Vendor — Create happy path", () => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     const count = await vendor.businessTypeOptionCount();
-    if (count === 0) {
-      test.skip(true, "No business types seeded in backend — skipping TC-VEN-030002.");
-      return;
-    }
+    expect(count).toBeGreaterThan(0);
     const label = await vendor.pickBusinessType();
     expect(label.length).toBeGreaterThan(0);
     // Verify the selected badge appears on the trigger
@@ -283,21 +280,6 @@ test.describe("Vendor — Create happy path", () => {
 });
 
 test.describe("Vendor — Tabs & dynamic arrays", () => {
-  test.skip(
-    "TC-VEN-030006 สลับ tab ทั้ง 4 tabs ได้",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
-        { type: "steps", description: "(feature removed in redesign — see note)" },
-        { type: "expected", description: "N/A — แทนที่ด้วยการตรวจ section ทั้งหมดในหน้าเดียว" },
-        { type: "priority", description: "Medium" },
-        { type: "testType", description: "Functional" },
-        { type: "note", description: "REDESIGNED AWAY: the vendor form is now a single sectioned page (General/Addresses/Contacts/Info), not Radix tabs. There is no tab to switch — the array tests below already exercise each section on one page." },
-      ],
-    },
-    async () => {},
-  );
-
   test(
     "TC-VEN-030007 เพิ่ม address row ได้หลาย row",
     {
@@ -554,21 +536,6 @@ test.describe("Vendor — Validation", () => {
       page.locator('[data-sonner-toast], [role="status"]').filter({ hasText: /success|created|สำเร็จ/i }),
     ).toHaveCount(0, { timeout: 3_000 });
   });
-
-  test.skip(
-    "TC-VEN-200005 address ที่ไม่มีทั้ง city และ district ต้อง fail (refinement)",
-    {
-      annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
-        { type: "steps", description: "(refinement removed in redesign — see note)" },
-        { type: "expected", description: "N/A — address ที่มีแค่ line1 ถือว่า valid ในสคีมาใหม่" },
-        { type: "priority", description: "Medium" },
-        { type: "testType", description: "Validation" },
-        { type: "note", description: "REDESIGNED AWAY: the redesigned vendor-form-schema no longer carries the city||district refinement on addresses (only email has a .refine). An address with just address_line1 is now valid, so there is nothing to assert. Skipped." },
-      ],
-    },
-    async () => {},
-  );
 
   test(
     "TC-VEN-200006 contact email รูปแบบผิดต้องแสดง error",
