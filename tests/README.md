@@ -290,7 +290,7 @@ Script: `scripts/sync-test-results.ts` รันด้วย `bun e2e:sync`
 1. **Google Cloud Console** → สร้าง project → enable **Google Sheets API**
 2. **IAM → Service Accounts** → สร้าง service account → download JSON key
 3. **Open Spreadsheet** → Share → เพิ่ม service account email (`xxx@xxx.iam.gserviceaccount.com`) ด้วยสิทธิ์ **Editor**
-4. ตั้ง env vars ใน `.env`:
+4. ตั้ง env vars ใน `.env.local`:
    ```env
    GOOGLE_SHEETS_SA_KEY_PATH=/Users/you/secrets/sa-key.json
    GOOGLE_SHEETS_SPREADSHEET_ID=1eLuXtc-UxkgCCgImw2SI2XAX32LlPT3UHfxIpzmFoLc
