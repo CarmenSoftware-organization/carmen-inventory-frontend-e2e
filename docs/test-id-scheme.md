@@ -40,6 +40,8 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `079-delivery-point.spec.ts` | `DP` | 01, 03–05, 10–19, 20 | CRUD + security |
 | `080-location.spec.ts` | `LOC` | 01, 03–05, 10, 20 | CRUD + security |
 | `101-product-category.spec.ts` | `CAT` | 01–15, 20–29, 90 | Multi-prefix collapse (CATEG/PRODU/RECIP) |
+| `121-recipe-equipment-category.spec.ts` | `RECC` | 01, 03–05, 10, 20, 90 | CRUD + security (graduated draft — runtime-unverified) |
+| `131-equipment-category.spec.ts` | `EQPC` | 01, 03–05, 10, 20, 90 | CRUD + security (graduated draft — runtime-unverified) |
 | `150-vendor.spec.ts` | `VEN` | 01, 03–05, 10–19, 20 | CRUD + security |
 | `159-pl.spec.ts` | `PL` | 01–08, 90 | CRUD + sub-journeys + edge cases |
 | `160-pl-template.spec.ts` | `PT` | 01–06, 20, 90 | CRUD + sub-journeys + edge cases |
@@ -65,9 +67,7 @@ These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/
 | `test-cases/110-op-category.md` | `OPCAT` | Operation Plan | 01–05, 10, 20 |
 | `test-cases/111-cuisine.md` | `CUIS` | Operation Plan | 01–05, 10, 20 |
 | `test-cases/120-recipe.md` | `RCP` | Operation Plan | 01–05, 20, 40–44, 90 |
-| `test-cases/121-recipe-equipment-category.md` | `RECC` | Operation Plan | 01, 03–05, 10, 20 |
 | `test-cases/130-equipment.md` | `EQP` | Operation Plan | 01–05, 10, 20 |
-| `test-cases/131-equipment-category.md` | `EQPC` | Operation Plan | 01, 03–05, 10, 20 |
 | `test-cases/710-wastage-reporting.md` | `WAST` | Store Operation | 01–05, 10–19, 20, 90 |
 | `test-cases/711-stock-replenishment.md` | `SRPL` | Store Operation | 01, 10–19, 30, 90 |
 | `test-cases/730-inventory-adjustment.md` | `IADJ` | Inventory Management | 01–05, 10–19, 20, 30, 40, 90 |
