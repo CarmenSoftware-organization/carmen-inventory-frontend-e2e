@@ -6,7 +6,7 @@ Each file follows the TC-ID scheme in [`../test-id-scheme.md`](../test-id-scheme
 
 > **Relationship to `docs/user-stories/`:** that folder holds the **generated** stakeholder views of modules that already have automated specs (login, config master-data, vendor, PR/PO/GRN/CN/SR suites, etc.). This folder (`docs/test-cases/`) holds **hand-authored catalogs for modules that do not yet have a spec** — i.e. the coverage gap, including the entire Platform / System-Admin module. To graduate any catalog into an automated spec, register its prefix in `../test-id-scheme.md` first (the audit gate scans specs only, so these catalogs do not affect CI today).
 
-**Totals:** 30 catalogs · 636 documented test cases.
+**Totals:** 32 catalogs · 674 documented test cases.
 
 ## Platform / System Admin (the "platform module")
 
@@ -63,6 +63,14 @@ _(Store Requisition is already covered by the automated `701-sr` spec.)_
 
 _(Product Category is already covered by the automated `101-product-category` spec.)_
 
+## Vendor Management
+
+| Doc | Module | Prefix | URL | TCs |
+| --- | --- | --- | --- | --- |
+| [1002-external-price-list.md](1002-external-price-list.md) | External Price List (public vendor portal) | `EPL` | `/external/pl/:url_token` | 22 |
+
+_(Vendor, Price List, Price List Template, and Request-for-Pricing/Campaign are already covered by the automated `150-vendor` / `159-pl` / `160-pl-template` / `1001-campaign` specs. This catalog covers the **external vendor-facing** side of the price-list request, which has no spec.)_
+
 ## Cross-cutting
 
 | Doc | Module | Prefix | URL | TCs |
@@ -71,6 +79,7 @@ _(Product Category is already covered by the automated `101-product-category` sp
 | [1201-profile.md](1201-profile.md) | Profile & Settings | `PROF` | `/profile` | 18 |
 | [1202-report.md](1202-report.md) | Report | `RPT` | `/report` | 16 |
 | [1203-notifications.md](1203-notifications.md) | Notifications | `NTFY` | `/notifications` | 14 |
+| [1204-section-landing.md](1204-section-landing.md) | Section landing pages & 404 | `LAND` | section `/…` landings + Not-Found | 16 |
 
 ## Already covered by automated specs
 
