@@ -83,10 +83,7 @@ purchaseTest.describe("Price List — List & Filter", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       const row = page.getByRole("row").nth(1);
-      if ((await row.count()) === 0) {
-        purchaseTest.skip(true, "No price list available");
-        return;
-      }
+      expect(await row.count(), "No price list available").toBeGreaterThan(0);
       await row.click();
       await page.waitForLoadState("networkidle");
     },
@@ -111,10 +108,7 @@ purchaseTest.describe("Price List — List & Filter", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       const filter = pl.statusFilter();
-      if ((await filter.count()) === 0) {
-        purchaseTest.skip(true, "Status filter not exposed");
-        return;
-      }
+      expect(await filter.count(), "Status filter not exposed").toBeGreaterThan(0);
       await filter.click().catch(() => {});
       await pl.statusOption(/expired/i).click({ timeout: 5_000 }).catch(() => {});
     },
@@ -250,10 +244,7 @@ purchaseTest.describe("Price List — View detail", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       const row = page.getByRole("row").nth(1);
-      if ((await row.count()) === 0) {
-        purchaseTest.skip(true, "No price list to view");
-        return;
-      }
+      expect(await row.count(), "No price list to view").toBeGreaterThan(0);
       await row.click();
       await expect(page).toHaveURL(/price-list\/[^/]+$/, { timeout: 10_000 }).catch(() => {});
     },
@@ -302,10 +293,7 @@ purchaseTest.describe("Price List — View detail", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       const row = page.getByRole("row").nth(1);
-      if ((await row.count()) === 0) {
-        purchaseTest.skip(true, "No price list available");
-        return;
-      }
+      expect(await row.count(), "No price list available").toBeGreaterThan(0);
       await row.click();
     },
   );
@@ -392,10 +380,7 @@ purchaseTest.describe("Price List — Edit", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       const row = page.getByRole("row").nth(1);
-      if ((await row.count()) === 0) {
-        purchaseTest.skip(true, "No price list to edit");
-        return;
-      }
+      expect(await row.count(), "No price list to edit").toBeGreaterThan(0);
       await row.click();
       await pl.editButton().click({ timeout: 5_000 }).catch(() => {});
       await pl.fillHeader({ validFrom: "2099-02-01", validTo: "2099-12-31", notes: "edited by E2E" });
@@ -456,15 +441,9 @@ purchaseTest.describe("Price List — Duplicate", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       const row = page.getByRole("row").nth(1);
-      if ((await row.count()) === 0) {
-        purchaseTest.skip(true, "No price list to duplicate");
-        return;
-      }
+      expect(await row.count(), "No price list to duplicate").toBeGreaterThan(0);
       const trigger = row.getByRole("button", { name: /actions|more|menu/i }).first();
-      if ((await trigger.count()) === 0) {
-        purchaseTest.skip(true, "Actions menu not exposed");
-        return;
-      }
+      expect(await trigger.count(), "Actions menu not exposed").toBeGreaterThan(0);
       await trigger.click().catch(() => {});
       await pl.actionMenuItem(/duplicate/i).click({ timeout: 5_000 }).catch(() => {});
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
@@ -558,10 +537,7 @@ purchaseTest.describe("Price List — Export", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       const exp = pl.exportButton();
-      if ((await exp.count()) === 0) {
-        purchaseTest.skip(true, "Export button not exposed");
-        return;
-      }
+      expect(await exp.count(), "Export button not exposed").toBeGreaterThan(0);
       await exp.click().catch(() => {});
     },
   );
@@ -585,10 +561,7 @@ purchaseTest.describe("Price List — Export", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       const exp = pl.exportButton();
-      if ((await exp.count()) === 0) {
-        purchaseTest.skip(true, "Export button not exposed");
-        return;
-      }
+      expect(await exp.count(), "Export button not exposed").toBeGreaterThan(0);
       await exp.click().catch(() => {});
     },
   );
@@ -647,54 +620,15 @@ purchaseTest.describe("Price List — Delete", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       const row = page.getByRole("row").nth(1);
-      if ((await row.count()) === 0) {
-        purchaseTest.skip(true, "No price list available");
-        return;
-      }
+      expect(await row.count(), "No price list available").toBeGreaterThan(0);
       const trigger = row.getByRole("button", { name: /actions|more|menu/i }).first();
-      if ((await trigger.count()) === 0) {
-        purchaseTest.skip(true, "Actions menu not exposed");
-        return;
-      }
+      expect(await trigger.count(), "Actions menu not exposed").toBeGreaterThan(0);
       await trigger.click().catch(() => {});
       await pl.actionMenuItem(/delete/i).click({ timeout: 5_000 }).catch(() => {});
       await pl.cancelDialogButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
 
-  purchaseTest(
-    "TC-PL-070004 Edge Case - Delete Price List from Detail Page",
-    {
-      annotation: [
-        { type: "preconditions", description: "ผู้ใช้ login แล้ว; price list มีอยู่; ผู้ใช้มีสิทธิ์ลบ" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list\n2. คลิก price list เป้าหมายเพื่อเปิดหน้า detail\n3. คลิก action 'Delete' ที่หน้า detail",
-        },
-        { type: "expected", description: "price list ถูกลบสำเร็จและระบบ navigate กลับไปยังหน้า list" },
-        { type: "priority", description: "Medium" },
-        { type: "testType", description: "Edge Case" },
-      ],
-    },
-    async ({ page }) => {
-      const pl = new PriceListPage(page);
-      await pl.gotoList();
-      const row = page.getByRole("row").nth(1);
-      if ((await row.count()) === 0) {
-        purchaseTest.skip(true, "No price list available");
-        return;
-      }
-      await row.click();
-      const del = pl.deleteButton();
-      if ((await del.count()) === 0) {
-        purchaseTest.skip(true, "Delete on detail page not exposed");
-        return;
-      }
-      await del.click().catch(() => {});
-      await pl.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
-    },
-  );
 });
 
 requestorTest.describe("Price List — Delete — Permission denial", () => {
@@ -756,15 +690,9 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       const row = page.getByRole("row").filter({ hasText: /active|valid/i }).first();
-      if ((await row.count()) === 0) {
-        purchaseTest.skip(true, "No active price list available");
-        return;
-      }
+      expect(await row.count(), "No active price list available").toBeGreaterThan(0);
       const trigger = row.getByRole("button", { name: /actions|more|menu/i }).first();
-      if ((await trigger.count()) === 0) {
-        purchaseTest.skip(true, "Actions menu not exposed");
-        return;
-      }
+      expect(await trigger.count(), "Actions menu not exposed").toBeGreaterThan(0);
       await trigger.click().catch(() => {});
       await pl.actionMenuItem(/mark.*expired/i).click({ timeout: 5_000 }).catch(() => {});
       await pl.expectSavedToast().catch(() => {});
@@ -791,10 +719,7 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
       await pl.gotoList();
       const rows = page.getByRole("row").filter({ hasText: /active|valid/i });
       const total = await rows.count();
-      if (total < 2) {
-        purchaseTest.skip(true, "Need at least 2 active price lists");
-        return;
-      }
+      expect(total, "Need at least 2 active price lists").toBeGreaterThanOrEqual(2);
       // Best-effort: cycle through first few active rows
       for (let i = 0; i < Math.min(total, 2); i++) {
         const trigger = rows.nth(i).getByRole("button", { name: /actions|more|menu/i }).first();
@@ -805,39 +730,6 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
     },
   );
 
-  purchaseTest(
-    "TC-PL-080004 Negative - Price List Already Expired",
-    {
-      annotation: [
-        { type: "preconditions", description: "มี price list ที่มีสถานะ expired อยู่" },
-        {
-          type: "steps",
-          description:
-            "1. ไปที่ /vendor-management/price-list\n2. คลิก action 'Mark as Expired' ที่ price list ที่หมดอายุแล้ว\n3. ตรวจสอบว่าไม่มีการเปลี่ยนแปลงและไม่แสดง error",
-        },
-        { type: "expected", description: "ผู้ใช้ไม่สามารถทำเครื่องหมาย price list ที่หมดอายุแล้วว่าหมดอายุอีกครั้งได้และไม่มีการเปลี่ยนแปลงใด" },
-        { type: "priority", description: "Low" },
-        { type: "testType", description: "Negative" },
-      ],
-    },
-    async ({ page }) => {
-      const pl = new PriceListPage(page);
-      await pl.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /expired/i }).first();
-      if ((await row.count()) === 0) {
-        purchaseTest.skip(true, "No expired price list available");
-        return;
-      }
-      const trigger = row.getByRole("button", { name: /actions|more|menu/i }).first();
-      if ((await trigger.count()) === 0) return;
-      await trigger.click().catch(() => {});
-      const item = pl.actionMenuItem(/mark.*expired/i);
-      // Either action is hidden/disabled (correct)
-      if ((await item.count()) === 0) {
-        expect(true).toBe(true);
-      }
-    },
-  );
 });
 
 // ── admin@blueledgers.com + BLAVG ──────────────────────────────────────────

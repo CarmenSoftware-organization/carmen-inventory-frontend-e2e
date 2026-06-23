@@ -201,6 +201,58 @@ export class PriceListTemplatePage extends BasePage {
     }
   }
 
+  // ── Inline product table (redesigned add-products flow) ─────────────
+  // The old "Add Products" dialog (checkbox picker + Confirm Selection) was
+  // replaced by an inline product table on the create/edit form: an
+  // "Add product" button appends a row (product lookup + unit + qty + note),
+  // and each row carries a "Remove tier" (X) button. The table is shown only
+  // when the form is editable (create / edit mode), never in read-only view.
+  addProductButton(): Locator {
+    // rendered both in the section header and inside the empty-state card
+    return this.page.getByRole("button", { name: /add product/i }).first();
+  }
+
+  productsEmptyState(): Locator {
+    return this.page.getByText(/no products yet/i).first();
+  }
+
+  /** Per-row remove (X) button; its presence proves an inline product row exists. */
+  removeProductRowButton(): Locator {
+    return this.page.getByRole("button", { name: /remove tier/i });
+  }
+
+  // ── Status (redesigned activate / deactivate flow) ──────────────────
+  // Dedicated Activate/Deactivate buttons were removed; the template status is
+  // now a Select in the form's summary <aside>, rendered only in create/edit
+  // mode. The global layout uses <nav> for navigation, so on this page the
+  // <aside> is unique and holds exactly one combobox — the status control.
+  statusSelect(): Locator {
+    return this.page.locator("aside").getByRole("combobox").first();
+  }
+
+  async selectStatus(label: "Active" | "Inactive" | "Draft") {
+    await this.statusSelect().click();
+    await this.page
+      .getByRole("option", { name: new RegExp(`^${label}$`, "i") })
+      .first()
+      .click();
+  }
+
+  // ── Clone (removed in redesign) ─────────────────────────────────────
+  // The Clone/Duplicate action no longer exists; only a decorative "Copy"
+  // glyph badge (a <span>, not a button) remains in the detail toolbar.
+  cloneButton(): Locator {
+    return this.page.getByRole("button", { name: /clone|duplicate/i });
+  }
+
+  cloneMenuItem(): Locator {
+    return this.page.getByRole("menuitem", { name: /clone|duplicate/i });
+  }
+
+  rowActionsButton(): Locator {
+    return this.page.getByRole("button", { name: /row actions/i }).first();
+  }
+
   // ── Filters / sorting (list edge cases) ──────────────────────────────
   filterByProductCount(): Locator {
     return this.page.getByRole("button", { name: /filter by product count/i }).first();
