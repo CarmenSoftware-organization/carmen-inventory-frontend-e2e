@@ -182,6 +182,8 @@ export function addPageFormSecurityCases(
     attachNoXssDialogGuard(page);
     const h = makeHelper(page);
     await h.gotoNew();
+    // fakeCode is process-stable (prefix + shortUid), not per-call fresh; fine here —
+    // the code value is irrelevant to the XSS assertion and unique per entity type.
     await h.codeInput().fill(fakeCode("X"));
     await h.nameInput().fill(XSS_PAYLOAD);
     await h.saveButton().click();
