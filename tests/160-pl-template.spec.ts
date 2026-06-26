@@ -4,10 +4,10 @@ import { PriceListTemplatePage, LIST_PATH } from "./pages/price-list-template.pa
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { uid, fakeName } from "./helpers/test-data";
 
 // Module-level unique id so the admin serial chain's names stay consistent
-// across a worker restart (Date.now() recomputes identically per process).
-const UID = Date.now().toString(36);
+// across a worker restart (factory `uid` provides the same per-process semantics).
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Procurement Manager == purchase@blueledgers.com,
@@ -45,7 +45,7 @@ procurementManagerTest.describe("Pricelist Template — Create", () => {
       const tpl = new PriceListTemplatePage(page);
       await tpl.gotoNew();
       // unique name avoids the backend's name-uniqueness rejection across reruns
-      await tpl.nameInput().fill(`${VALID_NAME} ${Date.now().toString(36)}`);
+      await tpl.nameInput().fill(`${VALID_NAME} ${uid}`);
       await tpl.selectFirstCurrency(); // currency is required
       await tpl.descriptionInput().fill(VALID_DESCRIPTION).catch(() => {});
       await tpl.saveButton().click({ timeout: 10_000 });
@@ -191,7 +191,7 @@ procurementManagerTest.describe("Pricelist Template — Add products", () => {
     async ({ page }) => {
       const tpl = new PriceListTemplatePage(page);
       await tpl.gotoNew();
-      await tpl.nameInput().fill(`PT invalid row ${Date.now().toString(36)}`);
+      await tpl.nameInput().fill(`PT invalid row ${uid}`);
       await tpl.selectFirstCurrency();
       await tpl.addProductButton().click({ timeout: 10_000 });
       await expect(tpl.removeProductRowButton().first()).toBeVisible({ timeout: 10_000 });
@@ -283,7 +283,7 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
       }
       await tpl.editButton().click({ timeout: 10_000 });
       // unique name avoids name-uniqueness rejection across reruns
-      await tpl.nameInput().fill(`E2E edited ${Date.now().toString(36)}`);
+      await tpl.nameInput().fill(`E2E edited ${uid}`);
       await tpl.saveButton().click({ timeout: 10_000 });
       await tpl.expectSavedToast();
     },
@@ -550,7 +550,7 @@ procurementManagerTest.describe("Pricelist Template — Activate / Deactivate", 
     async ({ page }) => {
       const tpl = new PriceListTemplatePage(page);
       await tpl.gotoNew();
-      await tpl.nameInput().fill(`PT active ${Date.now().toString(36)}`);
+      await tpl.nameInput().fill(`PT active ${uid}`);
       await tpl.selectFirstCurrency();
       await tpl.selectStatus("Active");
       await tpl.saveButton().click({ timeout: 10_000 });
@@ -603,7 +603,7 @@ procurementManagerTest.describe("Pricelist Template — Activate / Deactivate", 
     async ({ page }) => {
       const tpl = new PriceListTemplatePage(page);
       await tpl.gotoNew();
-      await tpl.nameInput().fill(`PT toggle ${Date.now().toString(36)}`);
+      await tpl.nameInput().fill(`PT toggle ${uid}`);
       await tpl.selectFirstCurrency();
       await tpl.selectStatus("Active");
       await tpl.selectStatus("Inactive");
@@ -793,8 +793,8 @@ procurementStaffTest.describe("Pricelist Template — Search and View — Permis
 const adminTest = createAuthTest("admin@blueledgers.com");
 
 adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
-  const ADMIN_NAME = `E2E PT ${UID}`;
-  const ADMIN_NAME_UPDATED = `E2E PT Upd ${UID}`;
+  const ADMIN_NAME = fakeName({ tag: "PT" });
+  const ADMIN_NAME_UPDATED = fakeName({ tag: "PT Upd" });
 
   // success/created/updated/deleted toast (used for both presence and absence checks)
   const successToast = (page: import("@playwright/test").Page) =>
