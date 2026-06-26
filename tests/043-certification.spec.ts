@@ -6,13 +6,11 @@ import { addDialogSecurityCases } from "./helpers/security-cases";
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { uid, fakeCode, fakeName, buildEntity } from "./helpers/test-data";
 
 const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/certification";
-const UID = Date.now().toString(36);
-const CODE = `EC${UID.slice(-4).toUpperCase()}`;
-const NAME = `E2E CERT ${UID}`;
-const NAME_UPDATED = `E2E CERT Upd ${UID}`;
+const { code: CODE, name: NAME, nameUpdated: NAME_UPDATED } = buildEntity({ codePrefix: "EC", tag: "CERT" });
 
 // Security cases only exercise name/list/dialog — reuse the proven shared
 // helper there (code field is irrelevant to those cases). Our own tests use
@@ -107,7 +105,7 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     async ({ page }) => {
       const cert = new CertificationPage(page);
       await cert.list.goto();
-      await cert.list.search(`__NOPE__${UID}`);
+      await cert.list.search(`__NOPE__${uid}`);
       await expect(cert.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
     },
   );
@@ -261,8 +259,8 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const cert = new CertificationPage(page);
-      const code = `EC42${UID.slice(-2).toUpperCase()}`;
-      const name = `E2E CERT042 ${UID}`;
+      const code = fakeCode("EC42");
+      const name = fakeName({ tag: "CERT042" });
       await cert.list.goto();
       await cert.createCertification(code, name, { active: false });
 
@@ -292,9 +290,9 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const cert = new CertificationPage(page);
-      const code = `EC43${UID.slice(-2).toUpperCase()}`;
-      const name = `E2E CERT043 ${UID}`;
-      const renamed = `E2E CERT043 Upd ${UID}`;
+      const code = fakeCode("EC43");
+      const name = fakeName({ tag: "CERT043" });
+      const renamed = fakeName({ tag: "CERT043 Upd" });
       await cert.list.goto();
       await cert.createCertification(code, name);
 
@@ -333,8 +331,8 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const cert = new CertificationPage(page);
-      const code = `EC44${UID.slice(-2).toUpperCase()}`;
-      const name = `E2E CERT044 ${UID}`;
+      const code = fakeCode("EC44");
+      const name = fakeName({ tag: "CERT044" });
       await cert.list.goto();
       await cert.createCertification(code, name);
 
@@ -372,9 +370,9 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const cert = new CertificationPage(page);
-      const code = `EC20${UID.slice(-2).toUpperCase()}`;
-      const name = `E2E CERT200 ${UID}`;
-      const name2 = `E2E CERT200 Dup ${UID}`;
+      const code = fakeCode("EC20");
+      const name = fakeName({ tag: "CERT200" });
+      const name2 = fakeName({ tag: "CERT200 Dup" });
       await cert.list.goto();
       await cert.createCertification(code, name);
 
@@ -416,8 +414,8 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const cert = new CertificationPage(page);
-      const code = `EC50${UID.slice(-2).toUpperCase()}`;
-      const name = `E2E CERT050 ${UID}`;
+      const code = fakeCode("EC50");
+      const name = fakeName({ tag: "CERT050" });
       await cert.list.goto();
       await cert.createCertification(code, name);
 
