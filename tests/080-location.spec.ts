@@ -5,17 +5,15 @@ import { addPageFormSecurityCases } from "./helpers/security-cases";
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { uid, fakeCode, fakeName, buildEntity } from "./helpers/test-data";
 
 const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/location";
-const UID = Date.now().toString(36);
-const CODE = `E2E${UID.slice(-4).toUpperCase()}`;
-const NAME = `E2E LOC ${UID}`;
-const NAME_UPDATED = `E2E LOC Upd ${UID}`;
-const CODE_DIRECT = `E2ED${UID.slice(-4).toUpperCase()}`;
-const NAME_DIRECT = `E2E LOC Direct ${UID}`;
-const CODE_CONSIGN = `E2EC${UID.slice(-4).toUpperCase()}`;
-const NAME_CONSIGN = `E2E LOC Consign ${UID}`;
+const { code: CODE, name: NAME, nameUpdated: NAME_UPDATED } = buildEntity({ codePrefix: "E2E", tag: "LOC" });
+const CODE_DIRECT = fakeCode("E2ED");
+const NAME_DIRECT = fakeName({ tag: "LOC Direct" });
+const CODE_CONSIGN = fakeCode("E2EC");
+const NAME_CONSIGN = fakeName({ tag: "LOC Consign" });
 
 const opts = {
   listPath: PATH,
@@ -142,7 +140,7 @@ test.describe("Location — Smoke & CRUD", () => {
     async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
-    await h.list.search(`__NOPE__${UID}`);
+    await h.list.search(`__NOPE__${uid}`);
     await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
@@ -368,8 +366,8 @@ test.describe("Location — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const c2 = `E2EB${UID.slice(-3).toUpperCase()}`;
-      const name = `E2E LOC042 ${UID}`;
+      const c2 = fakeCode("E2EB");
+      const name = fakeName({ tag: "LOC042" });
       await createLOC(h, page, c2, name, false);
 
       await h.list.goto();
@@ -394,9 +392,9 @@ test.describe("Location — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const c3 = `E2EC${UID.slice(-3).toUpperCase()}`;
-      const name3 = `E2E LOC043 ${UID}`;
-      const renamed3 = `E2E LOC043 Upd ${UID}`;
+      const c3 = fakeCode("E2EC");
+      const name3 = fakeName({ tag: "LOC043" });
+      const renamed3 = fakeName({ tag: "LOC043 Upd" });
       await createLOC(h, page, c3, name3);
 
       await h.list.goto();
@@ -435,8 +433,8 @@ test.describe("Location — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const c4 = `E2ED${UID.slice(-3).toUpperCase()}`;
-      const name4 = `E2E LOC044 ${UID}`;
+      const c4 = fakeCode("E2ED");
+      const name4 = fakeName({ tag: "LOC044" });
       await createLOC(h, page, c4, name4);
 
       await h.list.goto();
@@ -472,14 +470,14 @@ test.describe("Location — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const cdup = `E2EF${UID.slice(-3).toUpperCase()}`;
-      const name = `E2E LOC200 ${UID}`;
+      const cdup = fakeCode("E2EF");
+      const name = fakeName({ tag: "LOC200" });
       await createLOC(h, page, cdup, name);
 
       // attempt duplicate code with a different name; do NOT assert success toast
       await h.gotoNew();
       await h.codeInput().fill(cdup);
-      await h.nameInput().fill(`E2E LOC200b ${UID}`);
+      await h.nameInput().fill(fakeName({ tag: "LOC200b" }));
       const locationTypeGroup = page.getByRole("group").filter({ hasText: "Location Type" });
       await locationTypeGroup.getByRole("combobox").first().click();
       await page.getByRole("option", { name: "Inventory" }).click();
@@ -508,8 +506,8 @@ test.describe("Location — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const c5 = `E2EG${UID.slice(-3).toUpperCase()}`;
-      const name5 = `E2E LOC050 ${UID}`;
+      const c5 = fakeCode("E2EG");
+      const name5 = fakeName({ tag: "LOC050" });
       await createLOC(h, page, c5, name5);
 
       await h.list.goto();
