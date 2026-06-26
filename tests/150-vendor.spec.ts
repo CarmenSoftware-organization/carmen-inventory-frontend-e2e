@@ -4,13 +4,14 @@ import { VendorPage } from "./pages/vendor.page";
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { uid, buildEntity } from "./helpers/test-data";
 
 const test = createAuthTest("purchase@blueledgers.com");
 
-const UID = Date.now().toString(36);
-const CODE = `V${UID.slice(-6).toUpperCase()}`;
-const NAME = `E2E VEN ${UID}`;
-const NAME_UPDATED = `E2E VEN Upd ${UID}`;
+const { code: CODE, name: NAME, nameUpdated: NAME_UPDATED } = buildEntity({
+  codePrefix: "V",
+  tag: "VEN",
+});
 
 test.describe("Vendor — List smoke", () => {
   test(
@@ -80,7 +81,7 @@ test.describe("Vendor — List smoke", () => {
     async ({ page }) => {
     const vendor = new VendorPage(page);
     await vendor.list.goto();
-    await vendor.list.search(`__NOPE__${UID}`);
+    await vendor.list.search(`__NOPE__${uid}`);
     await expect(vendor.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
@@ -480,7 +481,7 @@ test.describe("Vendor — Validation", () => {
     const vendor = new VendorPage(page);
     await vendor.gotoNew();
     await vendor.switchTab("general");
-    await vendor.codeInput().fill(`V${UID.slice(0, 4)}`);
+    await vendor.codeInput().fill(`V${uid.slice(0, 4)}`);
     await vendor.saveButton().click();
     // Missing name blocks submit (error shown via hover tooltip in the redesign).
     await expect(page).toHaveURL(/\/new/, { timeout: 5_000 });
@@ -527,7 +528,7 @@ test.describe("Vendor — Validation", () => {
     // The redesigned hero NameField does not client-cap length, so the 100-char
     // limit is enforced by zod on submit. Provide a valid code so the only
     // blocker is the over-long name.
-    await vendor.codeInput().fill(`V${UID.slice(0, 4)}L`);
+    await vendor.codeInput().fill(`V${uid.slice(0, 4)}L`);
     if ((await vendor.businessTypeOptionCount()) > 0) await vendor.pickBusinessType();
     await vendor.nameInput().fill("N".repeat(150));
     await vendor.saveButton().click();
@@ -673,7 +674,8 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
   });
 });
 
-// Mop-up: best-effort cleanup of any vendors this run created via UID prefix.
+// Mop-up: best-effort cleanup of any vendors this run created, matched by the
+// run-scoped NAME prefix.
 // Uses the same row-actions dropdown pattern as TC-VEN-050002. Silent on failure —
 // the suite's actual assertions already ran; this is hygiene, not a check.
 test.afterAll(async ({ browser }) => {
@@ -718,9 +720,8 @@ test.afterAll(async ({ browser }) => {
 const adminTest = createAuthTest("admin@blueledgers.com");
 
 adminTest.describe.serial("Vendor — admin@BLAVG CRUD", () => {
-  const ADMIN_CODE = `VA${UID.slice(-5).toUpperCase()}`;
-  const ADMIN_NAME = `E2E VA ${UID}`;
-  const ADMIN_NAME_UPDATED = `E2E VA Upd ${UID}`;
+  const { code: ADMIN_CODE, name: ADMIN_NAME, nameUpdated: ADMIN_NAME_UPDATED } =
+    buildEntity({ codePrefix: "VA", tag: "VA" });
 
   // The React vendor form is a single sectioned page (no Radix tabs), so the
   // tab-based VendorPage helpers (switchTab/fillGeneral) don't apply here.
