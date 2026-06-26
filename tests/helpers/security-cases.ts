@@ -2,6 +2,7 @@ import { expect, type Page } from "@playwright/test";
 import { ConfigListPage } from "../pages/config-list.page";
 import type { DialogCrudHelper } from "../pages/dialog-crud.helper";
 import type { PageFormCrudHelper } from "../pages/page-form-crud.helper";
+import { fakeCode } from "./test-data";
 
 export const XSS_PAYLOAD = "<script>alert('xss-e2e')</script>";
 export const SQL_PAYLOAD = "'; DROP TABLE users; --";
@@ -181,7 +182,7 @@ export function addPageFormSecurityCases(
     attachNoXssDialogGuard(page);
     const h = makeHelper(page);
     await h.gotoNew();
-    await h.codeInput().fill(`X${Date.now().toString(36).slice(-4)}`);
+    await h.codeInput().fill(fakeCode("X"));
     await h.nameInput().fill(XSS_PAYLOAD);
     await h.saveButton().click();
     await page.waitForTimeout(500);
