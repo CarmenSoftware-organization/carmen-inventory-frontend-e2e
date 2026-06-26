@@ -17,6 +17,7 @@ import {
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { uid, fakeName } from "./helpers/test-data";
 
 const test = createAuthTest("admin@blueledgers.com");
 
@@ -25,10 +26,9 @@ test.beforeEach(async ({ page }) => {
   await ensureActiveBu(page, BU_CODE);
 });
 
-const UID = Date.now().toString(36);
-const DP_NAME = `E2E DP ${UID}`;
-const DP_NAME_INACTIVE = `E2E DP Inactive ${UID}`;
-const DP_NAME_UPDATED = `E2E DP Upd ${UID}`;
+const DP_NAME = fakeName({ tag: "DP" });
+const DP_NAME_INACTIVE = fakeName({ tag: "DP Inactive" });
+const DP_NAME_UPDATED = fakeName({ tag: "DP Upd" });
 
 test.describe("จุดส่งของ — BU", () => {
   test(
@@ -200,7 +200,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
     async ({ page }) => {
     const list = new DeliveryPointListPage(page);
     await list.goto();
-    await list.search(`__NOPE__${UID}`);
+    await list.search(`__NOPE__${uid}`);
     await expect(list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
@@ -917,10 +917,10 @@ test.describe("จุดส่งของ — สร้าง", () => {
     const dialog = new DeliveryPointDialog(page);
     await list.goto();
     await list.addButton().click();
-    await dialog.nameInput().fill(`should-not-save-${UID}`);
+    await dialog.nameInput().fill(`should-not-save-${uid}`);
     await dialog.cancelButton().click();
     await expect(dialog.dialog()).not.toBeVisible();
-    await list.search(`should-not-save-${UID}`);
+    await list.search(`should-not-save-${uid}`);
     await expect(list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 

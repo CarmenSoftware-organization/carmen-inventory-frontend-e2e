@@ -6,10 +6,10 @@ import { addDialogSecurityCases } from "./helpers/security-cases";
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { uid, fakeName } from "./helpers/test-data";
 
 const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/unit";
-const UID = Date.now().toString(36);
 
 const opts = {
   listPath: PATH,
@@ -89,7 +89,7 @@ test.describe("Unit — Smoke", () => {
     async ({ page }) => {
     const list = new ConfigListPage(page, PATH);
     await list.goto();
-    await list.search(`__NOPE__${Date.now()}`);
+    await list.search(`__NOPE__${uid}`);
     await expect(list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
@@ -127,7 +127,7 @@ test.describe("Unit — Smoke", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E UN006 ${UID}`;
+      const name = fakeName({ tag: "UN006" });
       await h.list.goto();
       await h.openAddDialog();
       await h.nameInput().fill(name);
@@ -154,8 +154,8 @@ test.describe("Unit — Smoke", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E UN007 ${UID}`;
-      const renamed = `E2E UN007 Upd ${UID}`;
+      const name = fakeName({ tag: "UN007" });
+      const renamed = fakeName({ tag: "UN007 Upd" });
       await h.list.goto();
       await h.openAddDialog();
       await h.nameInput().fill(name);
@@ -196,7 +196,7 @@ test.describe("Unit — Smoke", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E UN008 ${UID}`;
+      const name = fakeName({ tag: "UN008" });
       await h.list.goto();
       await h.openAddDialog();
       await h.nameInput().fill(name);
@@ -249,7 +249,7 @@ test.describe("Unit — Smoke", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E UN010 ${UID}`;
+      const name = fakeName({ tag: "UN010" });
       await h.list.goto();
       await h.openAddDialog();
       await h.nameInput().fill(name);
@@ -286,8 +286,8 @@ test.describe("Unit — Smoke", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E UN011 ${UID}`;
-      const desc = `desc ${UID}`;
+      const name = fakeName({ tag: "UN011" });
+      const desc = `desc ${uid}`;
       await h.list.goto();
       await h.openAddDialog();
       await h.nameInput().fill(name);
@@ -327,7 +327,7 @@ test.describe("Unit — Smoke", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E UN012 ${UID}`;
+      const name = fakeName({ tag: "UN012" });
       await h.list.goto();
       await h.openAddDialog();
       await h.nameInput().fill(name);
@@ -362,7 +362,7 @@ test.describe("Unit — Smoke", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E UN013 ${UID}`;
+      const name = fakeName({ tag: "UN013" });
       await h.list.goto();
       await h.openAddDialog();
       await h.nameInput().fill(name);

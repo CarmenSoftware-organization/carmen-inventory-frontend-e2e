@@ -5,13 +5,11 @@ import { addDialogSecurityCases } from "./helpers/security-cases";
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { uid, fakeCode, fakeName, buildEntity } from "./helpers/test-data";
 
 const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/adjustment-type";
-const UID = Date.now().toString(36);
-const CODE = `E2EA${UID.slice(-4).toUpperCase()}`;
-const NAME = `E2E AT ${UID}`;
-const NAME_UPDATED = `E2E AT Upd ${UID}`;
+const { code: CODE, name: NAME, nameUpdated: NAME_UPDATED } = buildEntity({ codePrefix: "E2EA", tag: "AT" });
 
 const opts = {
   listPath: PATH,
@@ -120,7 +118,7 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     async ({ page }) => {
     const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
-    await h.list.search(`__NOPE__${UID}`);
+    await h.list.search(`__NOPE__${uid}`);
     await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
@@ -273,8 +271,8 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const code = `E2EB${UID.slice(-3).toUpperCase()}`;
-      const name = `E2E AT042 ${UID}`;
+      const code = fakeCode("E2EB");
+      const name = fakeName({ tag: "AT042" });
       await h.list.goto();
       await createAT(h, page, code, name, false);
 
@@ -304,9 +302,9 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const code = `E2EC${UID.slice(-3).toUpperCase()}`;
-      const name = `E2E AT043 ${UID}`;
-      const renamed = `E2E AT043 Upd ${UID}`;
+      const code = fakeCode("E2EC");
+      const name = fakeName({ tag: "AT043" });
+      const renamed = fakeName({ tag: "AT043 Upd" });
       await h.list.goto();
       await createAT(h, page, code, name);
 
@@ -340,8 +338,8 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const code = `E2ED${UID.slice(-3).toUpperCase()}`;
-      const name = `E2E AT044 ${UID}`;
+      const code = fakeCode("E2ED");
+      const name = fakeName({ tag: "AT044" });
       await h.list.goto();
       await createAT(h, page, code, name);
 
@@ -379,13 +377,13 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const code = `E2EF${UID.slice(-3).toUpperCase()}`;
+      const code = fakeCode("E2EF");
       await h.list.goto();
-      await createAT(h, page, code, `E2E AT200 ${UID}`);
+      await createAT(h, page, code, fakeName({ tag: "AT200" }));
 
       await h.openAddDialog();
       await page.locator("#adjustment-type-code").fill(code);
-      await h.nameInput().fill(`E2E AT200b ${UID}`);
+      await h.nameInput().fill(fakeName({ tag: "AT200b" }));
       await selectType(h, page);
       await h.saveButton().click();
       await expect(h.dialog()).toBeVisible({ timeout: 10_000 });
@@ -412,9 +410,9 @@ test.describe("Adjustment Type — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const code = `E2EG${UID.slice(-3).toUpperCase()}`;
+      const code = fakeCode("E2EG");
       await h.list.goto();
-      await createAT(h, page, code, `E2E AT050 ${UID}`);
+      await createAT(h, page, code, fakeName({ tag: "AT050" }));
 
       await h.list.goto();
       await h.list.search(code);

@@ -5,12 +5,12 @@ import { addDialogSecurityCases } from "./helpers/security-cases";
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { uid, fakeName } from "./helpers/test-data";
 
 const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/credit-term";
-const UID = Date.now().toString(36);
-const NAME = `E2E CT ${UID}`;
-const NAME_UPDATED = `E2E CT Upd ${UID}`;
+const NAME = fakeName({ tag: "CT" });
+const NAME_UPDATED = fakeName({ tag: "CT Upd" });
 
 const opts = {
   listPath: PATH,
@@ -110,7 +110,7 @@ test.describe("Credit Term — Smoke & CRUD", () => {
     async ({ page }) => {
     const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
-    await h.list.search(`__NOPE__${UID}`);
+    await h.list.search(`__NOPE__${uid}`);
     await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
@@ -245,7 +245,7 @@ test.describe("Credit Term — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E CT042 ${UID}`;
+      const name = fakeName({ tag: "CT042" });
       await h.list.goto();
       await h.openAddDialog();
       await h.nameInput().fill(name);
@@ -281,8 +281,8 @@ test.describe("Credit Term — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E CT043 ${UID}`;
-      const renamed = `E2E CT043 Upd ${UID}`;
+      const name = fakeName({ tag: "CT043" });
+      const renamed = fakeName({ tag: "CT043 Upd" });
       await h.list.goto();
       await h.openAddDialog();
       await h.nameInput().fill(name);
@@ -321,7 +321,7 @@ test.describe("Credit Term — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E CT044 ${UID}`;
+      const name = fakeName({ tag: "CT044" });
       await h.list.goto();
       await h.openAddDialog();
       await h.nameInput().fill(name);
@@ -364,7 +364,7 @@ test.describe("Credit Term — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E CT200 ${UID}`;
+      const name = fakeName({ tag: "CT200" });
       await h.list.goto();
       await h.openAddDialog();
       await h.nameInput().fill(name);
@@ -403,7 +403,7 @@ test.describe("Credit Term — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E CT050 ${UID}`;
+      const name = fakeName({ tag: "CT050" });
       await h.list.goto();
       await h.openAddDialog();
       await h.nameInput().fill(name);

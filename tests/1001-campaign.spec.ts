@@ -4,6 +4,7 @@ import { CampaignPage, LIST_PATH } from "./pages/campaign.page";
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { fakeName } from "./helpers/test-data";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Procurement Staff/Manager == purchase@blueledgers.com.
@@ -142,7 +143,7 @@ purchaseTest.describe("Campaign — Create wizard", () => {
       await cam.gotoList();
       await cam.newCampaignButton().click({ timeout: 5_000 }).catch(() => {});
       const name = cam.campaignNameInput();
-      if ((await name.count()) > 0) await name.fill(`E2E Campaign ${Date.now()}`).catch(() => {});
+      if ((await name.count()) > 0) await name.fill(fakeName({ tag: "Campaign" })).catch(() => {});
       const desc = cam.campaignDescriptionInput();
       if ((await desc.count()) > 0) await desc.fill("E2E test campaign").catch(() => {});
     },
