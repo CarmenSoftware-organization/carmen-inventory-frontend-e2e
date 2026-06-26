@@ -5,12 +5,12 @@ import { addDialogSecurityCases } from "./helpers/security-cases";
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { uid, fakeName } from "./helpers/test-data";
 
 const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/currency";
-const UID = Date.now().toString(36);
-const NAME = `E2E CUR ${UID}`;
-const NAME_UPDATED = `E2E CUR Upd ${UID}`;
+const NAME = fakeName({ tag: "CUR" });
+const NAME_UPDATED = fakeName({ tag: "CUR Upd" });
 
 const opts = {
   listPath: PATH,
@@ -112,7 +112,7 @@ test.describe("Currency — Smoke & CRUD", () => {
     async ({ page }) => {
     const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
-    await h.list.search(`__NOPE__${UID}`);
+    await h.list.search(`__NOPE__${uid}`);
     await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
@@ -277,7 +277,7 @@ test.describe("Currency — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E CUR042 ${UID}`;
+      const name = fakeName({ tag: "CUR042" });
       await h.list.goto();
       await h.openAddDialog();
       await selectIso(h, page, "AED");
@@ -312,8 +312,8 @@ test.describe("Currency — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E CUR043 ${UID}`;
-      const renamed = `E2E CUR043 Upd ${UID}`;
+      const name = fakeName({ tag: "CUR043" });
+      const renamed = fakeName({ tag: "CUR043 Upd" });
       await h.list.goto();
       await h.openAddDialog();
       await selectIso(h, page, "BHD");
@@ -351,7 +351,7 @@ test.describe("Currency — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E CUR044 ${UID}`;
+      const name = fakeName({ tag: "CUR044" });
       await h.list.goto();
       await h.openAddDialog();
       await selectIso(h, page, "SGD");
@@ -394,7 +394,7 @@ test.describe("Currency — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E CUR200 ${UID}`;
+      const name = fakeName({ tag: "CUR200" });
       await h.list.goto();
       await h.openAddDialog();
       await selectIso(h, page, "OMR");
@@ -431,7 +431,7 @@ test.describe("Currency — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new DialogCrudHelper(page, opts);
-      const name = `E2E CUR050 ${UID}`;
+      const name = fakeName({ tag: "CUR050" });
       await h.list.goto();
       await h.openAddDialog();
       await selectIso(h, page, "KWD");
