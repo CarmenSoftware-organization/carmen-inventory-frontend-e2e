@@ -4,6 +4,7 @@ import { ProductCategoryPage, LIST_PATH } from "./pages/product-category.page";
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { fakeCode, fakeName } from "./helpers/test-data";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Product Manager / System Administrator == purchase@blueledgers.com.
@@ -456,10 +457,9 @@ requestorTest.describe("Product Category — Search — Permission denial", () =
 // is left unmodified.
 const adminTest = createAuthTest("admin@blueledgers.com");
 
-const CAT_UID = Date.now().toString(36);
-const CAT_CODE = `E2E${CAT_UID}`.slice(0, 10); // form caps code at 10 chars
-const CAT_NAME = `E2E CAT ${CAT_UID}`;
-const CAT_NAME_UPDATED = `E2E CAT Upd ${CAT_UID}`;
+const CAT_CODE = fakeCode("E2E");
+const CAT_NAME = fakeName({ tag: "CAT" });
+const CAT_NAME_UPDATED = fakeName({ tag: "CAT Upd" });
 
 // ── local locators (match the redesigned product-category UI) ──────────────
 const addCategoryButton = (page: import("@playwright/test").Page) =>
@@ -649,13 +649,12 @@ adminTest.describe.serial("Product Category — admin@BLAVG CRUD", () => {
 // parent's Tax Profile (see getDefaultValues), so only the root needs an explicit
 // Tax Profile pick. Nested rows only render in the DOM when their ancestors are
 // expanded, so each step clicks "Expand" to reveal the tree before acting.
-const SUB_UID = `${CAT_UID}s`;
-const ROOT_CODE = `E2R${SUB_UID}`.slice(0, 10);
-const ROOT_NAME = `E2E ROOT ${SUB_UID}`;
-const SUB_CODE = `E2S${SUB_UID}`.slice(0, 10);
-const SUB_NAME = `E2E SUB ${SUB_UID}`;
-const IG_CODE = `E2G${SUB_UID}`.slice(0, 10);
-const IG_NAME = `E2E IG ${SUB_UID}`;
+const ROOT_CODE = fakeCode("E2R");
+const ROOT_NAME = fakeName({ tag: "ROOT" });
+const SUB_CODE = fakeCode("E2S");
+const SUB_NAME = fakeName({ tag: "SUB" });
+const IG_CODE = fakeCode("E2G");
+const IG_NAME = fakeName({ tag: "IG" });
 
 const expandAllButton = (page: import("@playwright/test").Page) =>
   page.getByRole("button", { name: /^(expand|ขยาย)$/i }).first();
