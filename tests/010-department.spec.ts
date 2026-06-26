@@ -6,13 +6,14 @@ import { addPageFormSecurityCases } from "./helpers/security-cases";
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { uid, fakeCode, fakeName, fakeDescription, buildEntity } from "./helpers/test-data";
 
 const test = createAuthTest("admin@blueledgers.com");
 const PATH = "/config/department";
-const UID = Date.now().toString(36);
-const CODE = `E2E${UID.slice(-4).toUpperCase()}`;
-const NAME = `E2E DEP ${UID}`;
-const NAME_UPDATED = `E2E DEP Upd ${UID}`;
+const { code: CODE, name: NAME, nameUpdated: NAME_UPDATED } = buildEntity({
+  codePrefix: "E2E",
+  tag: "DEP",
+});
 
 const opts = {
   listPath: PATH,
@@ -116,7 +117,7 @@ test.describe("Department — Smoke & CRUD", () => {
     async ({ page }) => {
     const h = new PageFormCrudHelper(page, opts);
     await h.list.goto();
-    await h.list.search(`__NOPE__${UID}`);
+    await h.list.search(`__NOPE__${uid}`);
     await expect(h.list.emptyState().first()).toBeVisible({ timeout: 10_000 });
   });
 
@@ -140,9 +141,9 @@ test.describe("Department — Smoke & CRUD", () => {
   });
 
   // Ordered CRUD chain: create → edit → validate → delete, all operating on the
-  // same record. Serial mode keeps them in one worker (stable module-level UID)
-  // and skips the rest if one fails, instead of cascading into fresh workers
-  // (a worker restart after a failure recomputes the Date.now()-based UID).
+  // same record. Serial mode keeps them in one worker (stable module-level uid
+  // from the faker factory) and skips the rest if one fails, instead of cascading
+  // into fresh workers (a worker restart re-imports test-data and recomputes uid).
   test.describe.serial("CRUD chain — shares the TC-DEP-030001 record", () => {
   test(
     "TC-DEP-030001 สร้างรายการใหม่และปรากฏในตาราง",
@@ -263,9 +264,9 @@ test.describe("Department — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const code = `D10${UID.slice(-4).toUpperCase()}`;
-      const name = `DEP010010 ${UID}`;
-      const renamed = `DEP010010 Upd ${UID}`;
+      const code = fakeCode("D10");
+      const name = fakeName({ tag: "DEP010010" });
+      const renamed = fakeName({ tag: "DEP010010 Upd" });
 
       // create
       await h.gotoNew();
@@ -323,8 +324,8 @@ test.describe("Department — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const code = `D12${UID.slice(-4).toUpperCase()}`;
-      const name = `DEP010012 ${UID}`;
+      const code = fakeCode("D12");
+      const name = fakeName({ tag: "DEP010012" });
 
       await h.gotoNew();
       await h.codeInput().fill(code);
@@ -357,8 +358,8 @@ test.describe("Department — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const code = `D11${UID.slice(-4).toUpperCase()}`;
-      const name = `DEP010011 ${UID}`;
+      const code = fakeCode("D11");
+      const name = fakeName({ tag: "DEP010011" });
 
       await h.gotoNew();
       await h.codeInput().fill(code);
@@ -397,8 +398,8 @@ test.describe("Department — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const code = `D14${UID.slice(-4).toUpperCase()}`;
-      const name = `DEP010014 ${UID}`;
+      const code = fakeCode("D14");
+      const name = fakeName({ tag: "DEP010014" });
 
       await h.gotoNew();
       await h.codeInput().fill(code);
@@ -456,12 +457,12 @@ test.describe("Department — Smoke & CRUD", () => {
       const h = new PageFormCrudHelper(page, opts);
 
       await h.gotoNew();
-      await h.nameInput().fill(`DEP010021 ${UID}`);
+      await h.nameInput().fill(fakeName({ tag: "DEP010021" }));
       await h.saveButton().click();
       await expect(page).toHaveURL(/\/new/);
 
       await h.gotoNew();
-      await h.codeInput().fill(`D21${UID.slice(-4).toUpperCase()}`);
+      await h.codeInput().fill(fakeCode("D21"));
       await h.saveButton().click();
       await expect(page).toHaveURL(/\/new/);
     },
@@ -480,9 +481,9 @@ test.describe("Department — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const code = `D15${UID.slice(-4).toUpperCase()}`;
-      const name = `DEP010015 ${UID}`;
-      const desc = `desc ${UID}`;
+      const code = fakeCode("D15");
+      const name = fakeName({ tag: "DEP010015" });
+      const desc = fakeDescription();
 
       await h.gotoNew();
       await h.codeInput().fill(code);
@@ -523,8 +524,8 @@ test.describe("Department — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const code = `D16${UID.slice(-4).toUpperCase()}`;
-      const name = `DEP010016 ${UID}`;
+      const code = fakeCode("D16");
+      const name = fakeName({ tag: "DEP010016" });
 
       await h.gotoNew();
       await h.codeInput().fill(code);
@@ -566,8 +567,8 @@ test.describe("Department — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const code = `D17${UID.slice(-4).toUpperCase()}`;
-      const name = `DEP010017 ${UID}`;
+      const code = fakeCode("D17");
+      const name = fakeName({ tag: "DEP010017" });
 
       await h.gotoNew();
       await h.codeInput().fill(code);
@@ -609,8 +610,8 @@ test.describe("Department — Smoke & CRUD", () => {
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
       const members = new DepartmentMembersHelper(page);
-      const code = `D19${UID.slice(-4).toUpperCase()}`;
-      const name = `DEP010019 ${UID}`;
+      const code = fakeCode("D19");
+      const name = fakeName({ tag: "DEP010019" });
 
       await h.gotoNew();
       await h.codeInput().fill(code);
@@ -669,8 +670,8 @@ test.describe("Department — Smoke & CRUD", () => {
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
       const members = new DepartmentMembersHelper(page);
-      const code = `D20${UID.slice(-4).toUpperCase()}`;
-      const name = `DEP010020 ${UID}`;
+      const code = fakeCode("D20");
+      const name = fakeName({ tag: "DEP010020" });
 
       await h.gotoNew();
       await h.codeInput().fill(code);
