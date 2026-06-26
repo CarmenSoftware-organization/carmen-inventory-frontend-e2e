@@ -4,6 +4,7 @@ import { PriceListPage, LIST_PATH } from "./pages/price-list.page";
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { uid } from "./helpers/test-data";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Vendor Mgmt access == purchase@blueledgers.com.
@@ -161,7 +162,7 @@ purchaseTest.describe("Price List — Create", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       await pl.addNewButton().click({ timeout: 5_000 }).catch(() => {});
-      await pl.fillHeader({ number: `PL-E2E-${Date.now()}`, validFrom: "2099-01-01" });
+      await pl.fillHeader({ number: `PL-E2E-${uid}`, validFrom: "2099-01-01" });
       await pl.addLineItem({ product: "Test Product", moq: 10, unitPrice: 100, leadTime: 7 });
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
       await pl.expectSavedToast().catch(() => {});
@@ -187,7 +188,7 @@ purchaseTest.describe("Price List — Create", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       await pl.addNewButton().click({ timeout: 5_000 }).catch(() => {});
-      await pl.fillHeader({ number: `PL-NOVEN-${Date.now()}`, validFrom: "2099-01-01" });
+      await pl.fillHeader({ number: `PL-NOVEN-${uid}`, validFrom: "2099-01-01" });
       await pl.addLineItem({ product: "Test Product", unitPrice: 100 });
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(pl.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
@@ -213,7 +214,7 @@ purchaseTest.describe("Price List — Create", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       await pl.addNewButton().click({ timeout: 5_000 }).catch(() => {});
-      await pl.fillHeader({ number: `PL-NOPR-${Date.now()}`, validFrom: "2099-01-01" });
+      await pl.fillHeader({ number: `PL-NOPR-${uid}`, validFrom: "2099-01-01" });
       await pl.addLineItem({ product: "Test Product", moq: 10 });
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(pl.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
