@@ -392,7 +392,7 @@ test.describe("Location — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const c3 = fakeCode("E2EC");
+      const c3 = fakeCode("E2EH");
       const name3 = fakeName({ tag: "LOC043" });
       const renamed3 = fakeName({ tag: "LOC043 Upd" });
       await createLOC(h, page, c3, name3);
@@ -433,7 +433,7 @@ test.describe("Location — Smoke & CRUD", () => {
     },
     async ({ page }) => {
       const h = new PageFormCrudHelper(page, opts);
-      const c4 = fakeCode("E2ED");
+      const c4 = fakeCode("E2EI");
       const name4 = fakeName({ tag: "LOC044" });
       await createLOC(h, page, c4, name4);
 
