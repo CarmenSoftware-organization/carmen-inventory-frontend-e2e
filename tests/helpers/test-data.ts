@@ -3,10 +3,9 @@ import { faker, fakerTH } from "@faker-js/faker";
 /**
  * Run-scoped unique token. Evaluated once per worker process at import time —
  * identical semantics to the previous per-spec `const UID = Date.now().toString(36)`.
- * Keeps names/codes unique ACROSS runs (a re-run gets a fresh Date.now()) and
- * stable WITHIN a run, including after a Playwright worker restart (the module
- * re-imports and recomputes). Faker is intentionally NOT seeded; uniqueness
- * comes from this suffix, not from faker.
+ * Stable within a worker process; recomputed fresh (new value) when the worker
+ * restarts and the module re-imports. Keeps names/codes unique across runs.
+ * Faker is intentionally NOT seeded; uniqueness comes from this suffix, not from faker.
  */
 export const uid = Date.now().toString(36);
 
@@ -21,13 +20,13 @@ function fakerFor(locale: Locale = "en") {
   return locale === "th" ? fakerTH : faker;
 }
 
-export interface NameOptions {
+interface NameOptions {
   /** Per-test label kept for traceability (e.g. a TC tag). */
   tag?: string;
   locale?: Locale;
 }
 
-export interface EntityOptions {
+interface EntityOptions {
   /**
    * Code prefix; keep <= 6 chars so `${prefix}${shortUid()}` stays within the
    * 10-char code maxLength enforced by config forms.
