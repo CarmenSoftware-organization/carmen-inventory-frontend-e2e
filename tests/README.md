@@ -175,11 +175,11 @@ import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { DialogCrudHelper } from "./pages/dialog-crud.helper";
 import { addDialogSecurityCases } from "./helpers/security-cases";
+import { buildEntity } from "./helpers/test-data";
 
 const test = createAuthTest("purchase@blueledgers.com");
 const PATH = "/config/my-module";
-const UID = Date.now().toString(36);
-const NAME = `E2E MM ${UID}`;
+const { name: NAME } = buildEntity({ tag: "MM" });
 
 const opts = {
   listPath: PATH,
@@ -370,7 +370,7 @@ HTML report อยู่ที่ `playwright-report/` (เปิดผ่าน
 
 ## Best Practices
 
-- **ใช้ unique name ต่อ test:** `Date.now().toString(36)` หรือ worker index ลด collision เวลา parallel
+- **ใช้ unique name ต่อ test:** สร้างข้อมูลผ่าน `tests/helpers/test-data.ts` (`buildEntity` / `fakeCode` / `fakeName` / `fakeDescription`) — ห่อ faker + UID suffix (`Date.now().toString(36)`) ให้ได้ชื่อสมจริงและ unique ข้ามรอบรันในที่เดียว
 - **ตั้ง timeout เผื่อ network:** `{ timeout: 10_000 }` ใน `expect().toBeVisible()`
 - **อย่า mock backend:** e2e เรียก API จริง — ถ้าต้อง isolate ใช้ unit test แทน
 - **Cleanup test data:** สร้าง fixture cleanup ที่ลบรายการที่สร้างไว้ตอน teardown
