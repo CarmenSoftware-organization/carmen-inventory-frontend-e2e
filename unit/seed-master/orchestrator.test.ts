@@ -84,6 +84,22 @@ describe("seedEntity", () => {
     expect(results[0].status).toBe("created");
     expect(client.posts).toHaveLength(0);
   });
+
+  it("records failed when POST throws (network error) and continues to the next item", async () => {
+    let calls = 0;
+    const client: ApiClient & { posts: any[] } = {
+      posts: [],
+      get: async () => ({ status: 200, ok: true, body: { data: [] } }),
+      post: async () => { calls++; throw new Error("fetch failed"); },
+    };
+    const results = await seedEntity({
+      client, entity: "currency", listPath: "/c", createPath: "/c",
+      items: [{ code: "A" }, { code: "B" }], keyOf: (x: any) => x.code, dryRun: false,
+    });
+    expect(results.map((r) => r.status)).toEqual(["failed", "failed"]);
+    expect(results[0].error).toContain("fetch failed");
+    expect(calls).toBe(2);
+  });
 });
 
 describe("runSeed item-group linking", () => {

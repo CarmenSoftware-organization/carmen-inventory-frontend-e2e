@@ -67,12 +67,16 @@ export async function seedEntity(opts: SeedEntityOpts): Promise<SeedResult[]> {
       existing.add(key);
       continue;
     }
-    const res = await client.post(createPath, item);
-    if (res.ok) {
-      results.push({ entity, key, status: "created" });
-      existing.add(key);
-    } else {
-      results.push({ entity, key, status: "failed", error: `${res.status} ${JSON.stringify(res.body)}` });
+    try {
+      const res = await client.post(createPath, item);
+      if (res.ok) {
+        results.push({ entity, key, status: "created" });
+        existing.add(key);
+      } else {
+        results.push({ entity, key, status: "failed", error: `${res.status} ${JSON.stringify(res.body)}` });
+      }
+    } catch (err) {
+      results.push({ entity, key, status: "failed", error: err instanceof Error ? err.message : String(err) });
     }
   }
   return results;

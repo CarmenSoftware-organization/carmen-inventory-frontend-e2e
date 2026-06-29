@@ -17,6 +17,13 @@ export interface CliArgs {
   verbose: boolean;
 }
 
+function parseEntityList(v: string, flag: string): EntityName[] {
+  const names = v.split(",").map((s) => s.trim()).filter(Boolean);
+  const invalid = names.filter((n) => !ALL_ENTITIES.includes(n as EntityName));
+  if (invalid.length > 0) throw new Error(`Unknown entity for ${flag}: ${invalid.join(", ")}`);
+  return names as EntityName[];
+}
+
 export function parseArgs(argv: string[]): CliArgs {
   const args: CliArgs = { file: "avg", limit: 50, dryRun: false, yes: false, verbose: false };
   for (let i = 0; i < argv.length; i++) {
@@ -48,13 +55,13 @@ export function parseArgs(argv: string[]): CliArgs {
       case "--only": {
         const v = argv[++i];
         if (v === undefined) throw new Error("Missing value for --only");
-        args.only = v.split(",").map((s) => s.trim()) as EntityName[];
+        args.only = parseEntityList(v, "--only");
         break;
       }
       case "--skip": {
         const v = argv[++i];
         if (v === undefined) throw new Error("Missing value for --skip");
-        args.skip = v.split(",").map((s) => s.trim()) as EntityName[];
+        args.skip = parseEntityList(v, "--skip");
         break;
       }
       default: throw new Error(`Unknown argument: ${a}`);

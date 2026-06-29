@@ -19,6 +19,9 @@ describe("parseArgs", () => {
   it("throws on --limit with no value", () => {
     expect(() => parseArgs(["--limit"])).toThrow(/Missing value for --limit/);
   });
+  it("throws on an unknown entity name in --only", () => {
+    expect(() => parseArgs(["--only", "prodcut"])).toThrow(/Unknown entity for --only: prodcut/);
+  });
 });
 
 describe("resolveEnabled", () => {
