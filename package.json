@@ -37,7 +37,8 @@
     "migrate:tc-sheet": "bun run scripts/migrate-tc-ids/sync-sheet.ts",
     "wiki:seed": "bun run tests/wiki-screenshots/seed-manifest.ts",
     "wiki:coverage": "bun run tests/wiki-screenshots/coverage.ts",
-    "wiki:capture": "playwright test --project=wiki-screenshots"
+    "wiki:capture": "playwright test --project=wiki-screenshots",
+    "seed:master": "bun run scripts/seed-master/index.ts"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.5.0",
