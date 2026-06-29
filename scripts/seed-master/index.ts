@@ -25,11 +25,38 @@ export function parseArgs(argv: string[]): CliArgs {
       case "--dry-run": args.dryRun = true; break;
       case "--yes": args.yes = true; break;
       case "--verbose": args.verbose = true; break;
-      case "--file": args.file = argv[++i]; break;
-      case "--bu": args.bu = argv[++i]; break;
-      case "--limit": args.limit = Number(argv[++i]); break;
-      case "--only": args.only = argv[++i].split(",").map((s) => s.trim()) as EntityName[]; break;
-      case "--skip": args.skip = argv[++i].split(",").map((s) => s.trim()) as EntityName[]; break;
+      case "--file": {
+        const v = argv[++i];
+        if (v === undefined) throw new Error("Missing value for --file");
+        args.file = v;
+        break;
+      }
+      case "--bu": {
+        const v = argv[++i];
+        if (v === undefined) throw new Error("Missing value for --bu");
+        args.bu = v;
+        break;
+      }
+      case "--limit": {
+        const v = argv[++i];
+        if (v === undefined) throw new Error("Missing value for --limit");
+        args.limit = Number(v);
+        if (!Number.isFinite(args.limit) || args.limit < 0)
+          throw new Error("--limit requires a non-negative number");
+        break;
+      }
+      case "--only": {
+        const v = argv[++i];
+        if (v === undefined) throw new Error("Missing value for --only");
+        args.only = v.split(",").map((s) => s.trim()) as EntityName[];
+        break;
+      }
+      case "--skip": {
+        const v = argv[++i];
+        if (v === undefined) throw new Error("Missing value for --skip");
+        args.skip = v.split(",").map((s) => s.trim()) as EntityName[];
+        break;
+      }
       default: throw new Error(`Unknown argument: ${a}`);
     }
   }
@@ -78,6 +105,7 @@ async function main(): Promise<void> {
   }
 
   const wbPath = resolveWorkbookPath(args.file);
+  const enabled = resolveEnabled(args);
   console.log([
     "=== Master seed ===",
     `target:  ${cfg.backendUrl}`,
@@ -85,7 +113,7 @@ async function main(): Promise<void> {
     `file:    ${wbPath}`,
     `mode:    ${args.dryRun ? "DRY-RUN (no writes)" : "LIVE"}`,
     `limit:   ${args.limit}`,
-    `entities: ${[...resolveEnabled(args)].join(", ")}`,
+    `entities: ${[...enabled].join(", ")}`,
   ].join("\n"));
 
   const rows = extractRows(readWorkbookFile(wbPath));
@@ -94,7 +122,7 @@ async function main(): Promise<void> {
   const results = await runSeed(cfg, client, rows, {
     limit: args.limit,
     dryRun: args.dryRun,
-    enabled: resolveEnabled(args),
+    enabled,
   });
 
   console.log(printSummary(results));

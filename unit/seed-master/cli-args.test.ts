@@ -13,6 +13,12 @@ describe("parseArgs", () => {
   it("throws on unknown flag", () => {
     expect(() => parseArgs(["--nope"])).toThrow(/Unknown argument: --nope/);
   });
+  it("throws on non-numeric --limit", () => {
+    expect(() => parseArgs(["--limit", "abc"])).toThrow(/--limit requires a non-negative number/);
+  });
+  it("throws on --limit with no value", () => {
+    expect(() => parseArgs(["--limit"])).toThrow(/Missing value for --limit/);
+  });
 });
 
 describe("resolveEnabled", () => {
@@ -26,6 +32,9 @@ describe("resolveEnabled", () => {
     const set = resolveEnabled(parseArgs(["--skip", "product,vendor"]));
     expect(set.has("product")).toBe(false);
     expect(set.has("currency")).toBe(true);
+  });
+  it("--skip removes exactly the listed entities", () => {
+    expect(resolveEnabled(parseArgs(["--skip", "product,vendor"])).size).toBe(7);
   });
 });
 
