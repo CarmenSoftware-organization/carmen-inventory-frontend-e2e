@@ -78,30 +78,6 @@ export async function seedEntity(opts: SeedEntityOpts): Promise<SeedResult[]> {
   return results;
 }
 
-/** Post a batch of items directly, without skip-existing check. Used for linked entities. */
-async function postBatch(
-  client: ApiClient,
-  entity: string,
-  createPath: string,
-  items: any[],
-  keyOf: KeyOf,
-  dryRun: boolean,
-  out: SeedResult[],
-): Promise<void> {
-  for (const item of items) {
-    const key = String(keyOf(item));
-    if (dryRun) {
-      out.push({ entity, key, status: "created" });
-      continue;
-    }
-    const res = await client.post(createPath, item);
-    if (res.ok) {
-      out.push({ entity, key, status: "created" });
-    } else {
-      out.push({ entity, key, status: "failed", error: `${res.status} ${JSON.stringify(res.body)}` });
-    }
-  }
-}
 
 interface RunOptions {
   limit: number;
@@ -141,23 +117,19 @@ export async function runSeed(
   }
   if (on("item-group")) {
     const tree = buildItemGroupTree(rows.itemGroup);
+    out.push(...await seedEntity({ client, entity: "category", listPath: ENDPOINTS.productCategories(bu), createPath: ENDPOINTS.productCategories(bu), items: tree.categories, keyOf: (x) => x.code, dryRun }));
 
-    // Seed categories directly (POST) — linking relies on fetchKeyToId after each level
-    await postBatch(client, "category", ENDPOINTS.productCategories(bu), tree.categories, (x) => x.code, dryRun, out);
-
-    // Fetch category IDs, build and POST sub-categories with parent linkage
     const catIdByCode = await fetchKeyToId(client, ENDPOINTS.productCategories(bu), (r) => r.code);
     const subItems = tree.subcategories
       .filter((s) => catIdByCode.has(s.parentCategoryCode))
       .map((s) => ({ code: s.code, name: s.name, is_active: true, product_category_id: catIdByCode.get(s.parentCategoryCode)!, cascade_deviation: false }));
-    await postBatch(client, "sub-category", ENDPOINTS.productSubCategories(bu), subItems, (x) => x.code, dryRun, out);
+    out.push(...await seedEntity({ client, entity: "sub-category", listPath: ENDPOINTS.productSubCategories(bu), createPath: ENDPOINTS.productSubCategories(bu), items: subItems, keyOf: (x) => x.code, dryRun }));
 
-    // Fetch sub-category IDs, build and POST item-groups with parent linkage
     const subIdByCode = await fetchKeyToId(client, ENDPOINTS.productSubCategories(bu), (r) => r.code);
     const igItems = tree.itemGroups
       .filter((g) => subIdByCode.has(g.parentSubCategoryCode))
       .map((g) => ({ code: g.code, name: g.name, is_active: true, product_subcategory_id: subIdByCode.get(g.parentSubCategoryCode)!, cascade_deviation: false }));
-    await postBatch(client, "item-group", ENDPOINTS.productItemGroups(bu), igItems, (x) => x.code, dryRun, out);
+    out.push(...await seedEntity({ client, entity: "item-group", listPath: ENDPOINTS.productItemGroups(bu), createPath: ENDPOINTS.productItemGroups(bu), items: igItems, keyOf: (x) => x.code, dryRun }));
   }
   if (on("vendor")) {
     const items = rows.vendor.slice(0, limit).map(mapVendor);
