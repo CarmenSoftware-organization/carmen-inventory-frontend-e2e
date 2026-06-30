@@ -136,8 +136,10 @@ export class PriceListTemplatePage extends BasePage {
   }
 
   descriptionInput(): Locator {
-    // Optional description Textarea (placeholder "Optional").
-    return this.page.getByPlaceholder(/^optional$/i).first();
+    // Optional description Textarea. Targeted by its react-hook-form
+    // register name (i18n-independent) rather than the localized "Optional"
+    // placeholder, which changes with the active locale.
+    return this.page.locator('textarea[name="description"]').first();
   }
 
   currencySelect(): Locator {
@@ -151,15 +153,18 @@ export class PriceListTemplatePage extends BasePage {
   }
 
   validityDaysInput(): Locator {
-    return this.page.getByLabel(/validity.*period|validity.*days/i).first();
+    // Redesign replaced the labeled "validity period" input with a
+    // <PltValidityStepper>: −/+ buttons around a number input (role
+    // "spinbutton"). It is the only spinbutton on a fresh create form
+    // (the product table — which adds qty spinbuttons — starts empty).
+    return this.page.getByRole("spinbutton").first();
   }
 
   vendorInstructionsInput(): Locator {
-    return this.page.getByLabel(/vendor instruction/i).first();
-  }
-
-  maxItemsInput(): Locator {
-    return this.page.getByLabel(/max items|maximum items/i).first();
+    // Vendor-instruction Textarea, targeted by its react-hook-form register
+    // name (the old label-based lookup broke — it is now a placeholder-only
+    // Textarea inside the "Instructions to vendor" card).
+    return this.page.locator('textarea[name="vendor_instruction"]').first();
   }
 
   // matches the toolbar submit button ("Save" / "Create" / "Save Changes")
@@ -195,10 +200,8 @@ export class PriceListTemplatePage extends BasePage {
       const v = this.vendorInstructionsInput();
       if ((await v.count()) > 0) await v.fill(data.vendorInstructions);
     }
-    if (data.maxItemsPerSubmission !== undefined) {
-      const m = this.maxItemsInput();
-      if ((await m.count()) > 0) await m.fill(String(data.maxItemsPerSubmission));
-    }
+    // maxItemsPerSubmission: the redesign removed this field — no-op, kept on
+    // the interface only for backward compatibility with older callers.
   }
 
   // ── Inline product table (redesigned add-products flow) ─────────────
