@@ -151,8 +151,11 @@ export interface ItemGroupTree {
 }
 
 interface VendorInfoItem { label: string; value: string; data_type: string; }
+// Mirrors backend enum_vendor_address_type — keep in sync so an invalid literal
+// (e.g. the old "main") fails at compile time instead of a runtime 400.
+type VendorAddressType = "contact_address" | "mailing_address" | "register_address";
 interface VendorAddressPayload {
-  address_type: string;
+  address_type: VendorAddressType;
   address_line1: string;
   address_line2: string;
   city: string;

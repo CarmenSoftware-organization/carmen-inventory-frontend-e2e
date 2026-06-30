@@ -15,7 +15,7 @@ describe("mapVendor", () => {
     expect(dto.business_type).toEqual([]);
     expect(dto.info).toEqual([]);
     expect(dto.vendor_address.add).toEqual([{
-      address_type: "main", address_line1: "414", address_line2: "Phaholyothin Rd",
+      address_type: "contact_address", address_line1: "414", address_line2: "Phaholyothin Rd",
       city: "Bangkok", district: "", sub_district: "", province: "Bangkok",
       postal_code: "10400", country: "THAILAND",
     }]);

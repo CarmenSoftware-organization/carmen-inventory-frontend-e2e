@@ -17,7 +17,10 @@ export function mapVendor(row: Row): CreateVendorDto {
     vendor_address: {
       add: line1
         ? [{
-            address_type: "main",
+            // Backend enum_vendor_address_type = contact_address | mailing_address
+            // | register_address; "main" was rejected with a 400. contact_address
+            // is what the backend's own vendor seed data uses as the primary entry.
+            address_type: "contact_address",
             address_line1: line1,
             address_line2: toStr(row["address_line2"]),
             city: toStr(row["city"]),
