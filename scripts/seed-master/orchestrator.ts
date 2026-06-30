@@ -72,6 +72,13 @@ export async function seedEntity(opts: SeedEntityOpts): Promise<SeedResult[]> {
       if (res.ok) {
         results.push({ entity, key, status: "created" });
         existing.add(key);
+      } else if (res.status === 409) {
+        // The record already exists on the backend but was hidden from the list
+        // endpoint (e.g. a soft-deleted row that still holds the unique
+        // constraint), so fetchExistingKeys missed it. The seed contract is
+        // idempotent "ensure-exists", so a 409 conflict is a skip, not a failure.
+        results.push({ entity, key, status: "skipped" });
+        existing.add(key);
       } else {
         results.push({ entity, key, status: "failed", error: `${res.status} ${JSON.stringify(res.body)}` });
       }

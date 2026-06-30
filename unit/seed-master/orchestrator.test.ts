@@ -75,6 +75,24 @@ describe("seedEntity", () => {
     expect(results[0].error).toContain("400");
   });
 
+  it("treats a 409 conflict (already exists) as an idempotent skip, not a failure", async () => {
+    // A record can exist on the backend (holding the unique constraint) yet be
+    // hidden from the list endpoint — e.g. a soft-deleted row. fetchExistingKeys
+    // then misses it and the POST legitimately conflicts. The seed goal ("ensure
+    // this exists") is already met, so a 409 must not be a hard failure.
+    let calls = 0;
+    const client = fakeClient({
+      post: () => { calls++; return { status: 409, ok: false, body: { message: "Location already exists" } }; },
+    });
+    const results = await seedEntity({
+      client, entity: "store-location", listPath: "/loc", createPath: "/loc",
+      items: [{ code: "2AG03" }, { code: "2FO03" }], keyOf: (x: any) => x.code, dryRun: false,
+    });
+    expect(results.map((r) => r.status)).toEqual(["skipped", "skipped"]);
+    expect(results.every((r) => r.error === undefined)).toBe(true);
+    expect(calls).toBe(2);
+  });
+
   it("dry-run marks created without POSTing", async () => {
     const client = fakeClient({});
     const results = await seedEntity({
