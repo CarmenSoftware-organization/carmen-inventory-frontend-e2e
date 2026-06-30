@@ -55,6 +55,7 @@ bun run seed:master --bu BLAVG --yes    # non-localhost (dev/uat) target — --y
 |------|--------|
 | `--dry-run` | Preview only — no writes (always read-only). |
 | `--bu <code>` | Override `SEED_BU_CODE`. |
+| `--host <url>` | Override the backend server URL (`SEED_BACKEND_URL` / `config.json` `BACKEND_URL`), e.g. `--host http://localhost:4000`. |
 | `--file <avg\|fifo\|path>` | Workbook to read (default `avg`). `avg`/`fifo` resolve to the bundled `sample_seed_data/Preconfig_CARMEN_*.xlsx`; anything else is treated as a path. |
 | `--limit <n>` | Cap rows seeded for **Product** and **Vendor** (default `50`). Must be a non-negative number. |
 | `--only <a,b>` | Seed only the listed entities. |
@@ -70,6 +71,7 @@ Valid entity names for `--only`/`--skip` (an unknown name is rejected):
 bun run seed:master --file fifo --limit 20    # FIFO workbook, 20 product/vendor rows
 bun run seed:master --only currency,unit      # just these two
 bun run seed:master --skip product,vendor     # everything except the big lists
+bun run seed:master --host http://localhost:4000   # override backend server URL
 ```
 
 ## Behaviour

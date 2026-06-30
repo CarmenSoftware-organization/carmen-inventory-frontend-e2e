@@ -7,8 +7,14 @@ describe("parseArgs", () => {
     expect(parseArgs([])).toEqual({ file: "avg", limit: 50, dryRun: false, yes: false, verbose: false });
   });
   it("parses all flags", () => {
-    const a = parseArgs(["--file", "fifo", "--bu", "BLAVG", "--limit", "10", "--only", "currency,unit", "--dry-run", "--yes", "--verbose"]);
-    expect(a).toEqual({ file: "fifo", bu: "BLAVG", limit: 10, only: ["currency", "unit"], dryRun: true, yes: true, verbose: true });
+    const a = parseArgs(["--file", "fifo", "--bu", "BLAVG", "--host", "https://dev.example.com:4001", "--limit", "10", "--only", "currency,unit", "--dry-run", "--yes", "--verbose"]);
+    expect(a).toEqual({ file: "fifo", bu: "BLAVG", host: "https://dev.example.com:4001", limit: 10, only: ["currency", "unit"], dryRun: true, yes: true, verbose: true });
+  });
+  it("parses --host on its own", () => {
+    expect(parseArgs(["--host", "http://localhost:4000"]).host).toBe("http://localhost:4000");
+  });
+  it("throws on --host with no value", () => {
+    expect(() => parseArgs(["--host"])).toThrow(/Missing value for --host/);
   });
   it("throws on unknown flag", () => {
     expect(() => parseArgs(["--nope"])).toThrow(/Unknown argument: --nope/);

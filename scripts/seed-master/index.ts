@@ -9,6 +9,7 @@ import { runSeed } from "./orchestrator";
 export interface CliArgs {
   file: string;
   bu?: string;
+  host?: string;
   limit: number;
   only?: EntityName[];
   skip?: EntityName[];
@@ -42,6 +43,12 @@ export function parseArgs(argv: string[]): CliArgs {
         const v = argv[++i];
         if (v === undefined) throw new Error("Missing value for --bu");
         args.bu = v;
+        break;
+      }
+      case "--host": {
+        const v = argv[++i];
+        if (v === undefined) throw new Error("Missing value for --host");
+        args.host = v;
         break;
       }
       case "--limit": {
@@ -104,7 +111,11 @@ export function printSummary(results: SeedResult[]): string {
 
 async function main(): Promise<void> {
   const args = parseArgs(process.argv.slice(2));
-  const cfg = resolveConfig({ ...process.env, ...(args.bu ? { SEED_BU_CODE: args.bu } : {}) });
+  const cfg = resolveConfig({
+    ...process.env,
+    ...(args.bu ? { SEED_BU_CODE: args.bu } : {}),
+    ...(args.host ? { SEED_BACKEND_URL: args.host } : {}),
+  });
 
   if (!args.dryRun && !isLocalHost(cfg.backendUrl) && !args.yes) {
     console.error(`Refusing to seed non-localhost target ${cfg.backendUrl} without --yes.`);
