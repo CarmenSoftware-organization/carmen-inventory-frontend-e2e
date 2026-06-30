@@ -47,7 +47,9 @@ procurementManagerTest.describe("Pricelist Template — Create", () => {
       // unique name avoids the backend's name-uniqueness rejection across reruns
       await tpl.nameInput().fill(`${VALID_NAME} ${uid}`);
       await tpl.selectFirstCurrency(); // currency is required
-      await tpl.descriptionInput().fill(VALID_DESCRIPTION).catch(() => {});
+      // descriptionInput is now a robust textarea[name="description"] selector
+      // (verified live end-to-end) — no longer needs the .catch() mask.
+      await tpl.descriptionInput().fill(VALID_DESCRIPTION);
       await tpl.saveButton().click({ timeout: 10_000 });
       await tpl.expectSavedToast();
     },
