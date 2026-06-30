@@ -346,7 +346,7 @@ Login เป็น Procurement Manager และมีสิทธิ์แก�
 
 **Expected**
 
-ระบบแสดงข้อความ error สำหรับ validity period ที่ไม่ถูกต้องและ template ไม่ถูกบันทึก
+validity 0 ถูก reject โดย native min=1 constraint (rangeUnderflow): submit ถูกบล็อก ไม่มี success toast (template ไม่ถูกบันทึก)
 
 ---
 
@@ -862,4 +862,4 @@ TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอ�
 ---
 
 
-<sub>Last regenerated: 2026-06-30 · git d0f9a7a</sub>
+<sub>Last regenerated: 2026-06-30 · git bae8c09</sub>

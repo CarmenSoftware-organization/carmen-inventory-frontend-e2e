@@ -306,24 +306,26 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
           description:
             "1. ไปที่ /vendor-management/price-list-template/[id]\n2. คลิก 'Edit'\n3. กรอก validity period เป็น 0 วัน\n4. คลิก 'Save Changes'",
         },
-        { type: "expected", description: "ระบบแสดงข้อความ error สำหรับ validity period ที่ไม่ถูกต้องและ template ไม่ถูกบันทึก" },
+        { type: "expected", description: "validity 0 ถูก reject โดย native min=1 constraint (rangeUnderflow): submit ถูกบล็อก ไม่มี success toast (template ไม่ถูกบันทึก)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
     },
     async ({ page }) => {
       const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      const firstRow = page.getByRole("row").nth(1);
-      if ((await firstRow.count()) === 0) {
+      // openFirst() clicks the row's name button — a bare row click does not
+      // navigate in the redesigned data grid.
+      if (!(await tpl.openFirst())) {
         procurementManagerTest.skip(true, "No template available");
         return;
       }
-      await firstRow.click();
-      await tpl.editButton().click({ timeout: 5_000 }).catch(() => {});
+      await tpl.editButton().click({ timeout: 10_000 });
       await tpl.fillHeader({ validityDays: 0 });
-      await tpl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(tpl.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await tpl.saveButton().click({ timeout: 10_000 });
+      // The validity_period input carries a native min=1; entering 0 makes it
+      // rangeUnderflow-invalid, so the submit is blocked and no success toast
+      // appears. (Native constraint validation, not an anyError() element.)
+      await expect(tpl.successToast()).toHaveCount(0, { timeout: 3_000 });
     },
   );
 
