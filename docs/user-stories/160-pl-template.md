@@ -5,7 +5,7 @@ _Generated from `tests/160-pl-template.spec.ts` annotations. Edit annotations, n
 **Module:** Price List Template
 **Spec:** `tests/160-pl-template.spec.ts`
 **Default role:** Admin
-**Total test cases:** 33 (22 High / 11 Medium / 0 Low)
+**Total test cases:** 33 (21 High / 12 Medium / 0 Low)
 
 ## Test Cases at a Glance
 
@@ -14,7 +14,7 @@ _Generated from `tests/160-pl-template.spec.ts` annotations. Edit annotations, n
 | TC-PT-010001 | Create Pricelist Template - Happy Path | High | Happy Path |
 | TC-PT-010002 | Create Pricelist Template - Empty Template Name | High | Negative |
 | TC-PT-010004 | Create Pricelist Template - No Permission | High | Negative |
-| TC-PT-010005 | Create Pricelist Template - Missing Description | High | Negative |
+| TC-PT-010005 | Create Pricelist Template - Without Description (optional) | Medium | Alternate Flow |
 | TC-PT-010050 | active BU = BLAVG | High | Smoke |
 | TC-PT-010051 | สร้าง pricelist template (admin/BLAVG) สำเร็จ | High | CRUD |
 | TC-PT-020001 | Add products to template - Happy Path | High | Happy Path |
@@ -92,7 +92,7 @@ Login เป็น Procurement Manager และมีสิทธิ์เข�
 
 **Expected**
 
-แสดงข้อความ error สำหรับชื่อ template ว่างเปล่า
+การสร้างถูกบล็อก (name เป็น required): ฟอร์มคงอยู่ที่ /new และไม่มี success toast
 
 ---
 
@@ -118,27 +118,30 @@ Login เป็น Procurement Staff และมีสิทธิ์เข้�
 
 ---
 
-## TC-PT-010005 — Create Pricelist Template - Missing Description
+## TC-PT-010005 — Create Pricelist Template - Without Description (optional)
 
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
-**Priority:** High · **Test Type:** Negative
+**Priority:** Medium · **Test Type:** Alternate Flow
 
 **Preconditions**
 
-Login เป็น Procurement Manager และมีสิทธิ์เข้าถึง Pricelist Templates
+Login เป็น Procurement Manager และมีสิทธิ์เข้าถึง Pricelist Templates; มี currency อย่างน้อย 1 รายการ
 
 **Steps**
 
-1. ไปที่ /vendor-management/price-list-template
-2. คลิก 'New Pricelist Template'
-3. กรอก 'Template Name' ด้วย 'Office Supplies'
-4. คลิก 'Save'
+1. ไปที่ /vendor-management/price-list-template/new
+2. กรอก 'Template Name'
+3. เลือก Currency (required)
+4. เว้นช่อง Description ว่างไว้
+5. คลิก 'Save'
 
 **Expected**
 
-แสดงข้อความ error สำหรับ description ที่ขาดหายไป
+template ถูกสร้างสำเร็จโดยไม่ต้องกรอก description (description เป็น optional ใน redesigned schema) — แสดง success toast
+
+> _Note: Redesign made description optional (z.string(), no min); the old 'missing description → error' expectation is obsolete. Verified live: creating without a description succeeds._
 
 ---
 
@@ -859,4 +862,4 @@ TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอ�
 ---
 
 
-<sub>Last regenerated: 2026-06-23 · git 8333f36</sub>
+<sub>Last regenerated: 2026-06-30 · git d0f9a7a</sub>

@@ -270,12 +270,14 @@ export class PriceListTemplatePage extends BasePage {
   }
 
   // ── Verification ─────────────────────────────────────────────────────
+  /** Success/created/updated/deleted toast — for both presence and absence checks. */
+  successToast(): Locator {
+    return this.page
+      .locator('[data-sonner-toast], [role="status"], [role="alert"]')
+      .filter({ hasText: /success|saved|created|updated|deleted|สำเร็จ/i });
+  }
+
   async expectSavedToast() {
-    await expect(
-      this.page
-        .locator('[data-sonner-toast], [role="status"], [role="alert"]')
-        .filter({ hasText: /success|saved|created|updated|deleted|สำเร็จ/i })
-        .first(),
-    ).toBeVisible({ timeout: 10_000 });
+    await expect(this.successToast().first()).toBeVisible({ timeout: 10_000 });
   }
 }

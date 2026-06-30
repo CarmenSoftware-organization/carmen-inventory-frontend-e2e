@@ -65,43 +65,48 @@ procurementManagerTest.describe("Pricelist Template — Create", () => {
           description:
             "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'New Pricelist Template'\n3. กรอก 'Description' ด้วย 'Office supplies pricelist for 2023'\n4. คลิก 'Save'",
         },
-        { type: "expected", description: "แสดงข้อความ error สำหรับชื่อ template ว่างเปล่า" },
+        { type: "expected", description: "การสร้างถูกบล็อก (name เป็น required): ฟอร์มคงอยู่ที่ /new และไม่มี success toast" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
     },
     async ({ page }) => {
       const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      await tpl.newButton().click({ timeout: 5_000 }).catch(() => {});
+      await tpl.gotoNew();
       await tpl.fillHeader({ description: VALID_DESCRIPTION });
-      await tpl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(tpl.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await tpl.saveButton().click({ timeout: 10_000 });
+      // name is required (zod min(1)); the invalid submit is blocked — the form
+      // stays on /new and no success toast appears. (The redesigned NameField
+      // shows the error inline, which anyError() does not match — verified live.)
+      await expect(page).toHaveURL(/price-list-template\/new$/, { timeout: 5_000 });
+      await expect(tpl.successToast()).toHaveCount(0, { timeout: 3_000 });
     },
   );
 
   procurementManagerTest(
-    "TC-PT-010005 Create Pricelist Template - Missing Description",
+    "TC-PT-010005 Create Pricelist Template - Without Description (optional)",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น Procurement Manager และมีสิทธิ์เข้าถึง Pricelist Templates" },
+        { type: "preconditions", description: "Login เป็น Procurement Manager และมีสิทธิ์เข้าถึง Pricelist Templates; มี currency อย่างน้อย 1 รายการ" },
         {
           type: "steps",
           description:
-            "1. ไปที่ /vendor-management/price-list-template\n2. คลิก 'New Pricelist Template'\n3. กรอก 'Template Name' ด้วย 'Office Supplies'\n4. คลิก 'Save'",
+            "1. ไปที่ /vendor-management/price-list-template/new\n2. กรอก 'Template Name'\n3. เลือก Currency (required)\n4. เว้นช่อง Description ว่างไว้\n5. คลิก 'Save'",
         },
-        { type: "expected", description: "แสดงข้อความ error สำหรับ description ที่ขาดหายไป" },
-        { type: "priority", description: "High" },
-        { type: "testType", description: "Negative" },
+        { type: "expected", description: "template ถูกสร้างสำเร็จโดยไม่ต้องกรอก description (description เป็น optional ใน redesigned schema) — แสดง success toast" },
+        { type: "priority", description: "Medium" },
+        { type: "testType", description: "Alternate Flow" },
+        { type: "note", description: "Redesign made description optional (z.string(), no min); the old 'missing description → error' expectation is obsolete. Verified live: creating without a description succeeds." },
       ],
     },
     async ({ page }) => {
       const tpl = new PriceListTemplatePage(page);
-      await tpl.gotoList();
-      await tpl.newButton().click({ timeout: 5_000 }).catch(() => {});
-      await tpl.fillHeader({ name: VALID_NAME });
-      await tpl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(tpl.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await tpl.gotoNew();
+      await tpl.nameInput().fill(`${VALID_NAME} nodesc ${uid}`);
+      await tpl.selectFirstCurrency(); // currency is required
+      // description intentionally left blank — it is optional
+      await tpl.saveButton().click({ timeout: 10_000 });
+      await tpl.expectSavedToast();
     },
   );
 });
