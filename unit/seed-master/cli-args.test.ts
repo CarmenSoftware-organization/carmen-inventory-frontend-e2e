@@ -1,6 +1,7 @@
 // unit/seed-master/cli-args.test.ts
 import { describe, it, expect } from "vitest";
-import { parseArgs, resolveEnabled, resolveWorkbookPath } from "../../scripts/seed-master/index";
+import { parseArgs, resolveEnabled, resolveWorkbookPath, helpText } from "../../scripts/seed-master/index";
+import { ALL_ENTITIES } from "../../scripts/seed-master/types";
 
 describe("parseArgs", () => {
   it("uses sane defaults", () => {
@@ -27,6 +28,25 @@ describe("parseArgs", () => {
   });
   it("throws on an unknown entity name in --only", () => {
     expect(() => parseArgs(["--only", "prodcut"])).toThrow(/Unknown entity for --only: prodcut/);
+  });
+  it("sets help for --help and -h", () => {
+    expect(parseArgs(["--help"]).help).toBe(true);
+    expect(parseArgs(["-h"]).help).toBe(true);
+  });
+  it("does not set help when the flag is absent", () => {
+    expect(parseArgs([]).help).toBeUndefined();
+  });
+});
+
+describe("helpText", () => {
+  it("documents usage, every flag, and all entities", () => {
+    const text = helpText();
+    expect(text).toContain("bun run seed:master");
+    for (const flag of ["--dry-run", "--bu", "--host", "--file", "--limit", "--only", "--skip", "--yes", "--verbose", "-h, --help"]) {
+      expect(text).toContain(flag);
+    }
+    for (const entity of ALL_ENTITIES) expect(text).toContain(entity);
+    expect(text).toContain("Exit codes:");
   });
 });
 

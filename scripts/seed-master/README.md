@@ -62,6 +62,7 @@ bun run seed:master --bu BLAVG --yes    # non-localhost (dev/uat) target — --y
 | `--skip <a,b>` | Seed everything except the listed entities. |
 | `--yes` | Required to seed a non-localhost target. |
 | `--verbose` | More verbose logging. |
+| `-h`, `--help` | Print usage (flags, entities, env vars, examples, exit codes) and exit `0`. |
 
 Valid entity names for `--only`/`--skip` (an unknown name is rejected):
 `currency`, `unit`, `tax-profile`, `delivery-point`, `department`,
@@ -103,6 +104,9 @@ bun run seed:master --host http://localhost:4000   # override backend server URL
 | `2` | Refused to seed a non-localhost target without `--yes`. |
 
 ## Troubleshooting
+
+On a usage or config error (unknown flag, missing value, missing `SEED_*` var) the
+CLI prints the error message followed by the full `--help` output and exits `1`.
 
 - **`Missing required config: ...`** — set the listed `SEED_*` vars in
   `.env.local` (or pass `--bu`).

@@ -1,5 +1,5 @@
 // scripts/seed-master/index.ts
-import type { EntityName, SeedResult } from "./types";
+import type { EntityName, SeedResult, SeedConfig } from "./types";
 import { ALL_ENTITIES } from "./types";
 import { resolveConfig, isLocalHost } from "./config";
 import { readWorkbookFile, extractRows } from "./parser";
@@ -16,6 +16,7 @@ export interface CliArgs {
   dryRun: boolean;
   yes: boolean;
   verbose: boolean;
+  help?: boolean;
 }
 
 function parseEntityList(v: string, flag: string): EntityName[] {
@@ -30,6 +31,8 @@ export function parseArgs(argv: string[]): CliArgs {
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     switch (a) {
+      case "-h":
+      case "--help": args.help = true; break;
       case "--dry-run": args.dryRun = true; break;
       case "--yes": args.yes = true; break;
       case "--verbose": args.verbose = true; break;
@@ -77,6 +80,55 @@ export function parseArgs(argv: string[]): CliArgs {
   return args;
 }
 
+export function helpText(): string {
+  return [
+    "seed-master — seed a sample subset of Preconfig master data into an existing BU",
+    "via the backend REST API (idempotent: existing records are skipped).",
+    "",
+    "Usage:",
+    "  bun run seed:master [flags]",
+    "",
+    "Flags:",
+    "  --dry-run               Preview only — log in, read existing records, write nothing.",
+    "  --bu <code>             BU code to seed into (overrides SEED_BU_CODE).",
+    "  --host <url>            Backend URL (overrides SEED_BACKEND_URL / config.json BACKEND_URL).",
+    "  --file <avg|fifo|path>  Workbook to read (default: avg). avg/fifo resolve to the bundled",
+    "                          sample_seed_data/Preconfig_CARMEN_*.xlsx; anything else is a path.",
+    "  --limit <n>             Cap rows seeded for Product and Vendor (default: 50). Non-negative.",
+    "  --only <a,b,...>        Seed only the listed entities (comma-separated).",
+    "  --skip <a,b,...>        Seed everything except the listed entities.",
+    "  --yes                   Required to seed a non-localhost target.",
+    "  --verbose               More verbose logging.",
+    "  -h, --help              Show this help and exit.",
+    "",
+    "Entities (for --only / --skip), seeded in FK order:",
+    "  " + ALL_ENTITIES.join(", "),
+    "",
+    "Config (env, e.g. in .env.local):",
+    "  SEED_BU_CODE            BU code (required unless --bu is passed).",
+    "  SEED_EMAIL              Login email (required).",
+    "  SEED_PASSWORD           Login password (required).",
+    "  SEED_BACKEND_URL        Backend URL (optional; falls back to config.json BACKEND_URL).",
+    "  SEED_X_APP_ID           X-App-Id header (optional; falls back to config.json X_APP_ID).",
+    "  SEED_CONFIG_PATH        Frontend config.json path",
+    "                          (default: ../carmen-inventory-frontend-react/dist/config.json).",
+    "",
+    "Examples:",
+    "  bun run seed:master --dry-run                     # preview, no writes",
+    "  bun run seed:master --bu BLAVG                    # localhost target",
+    "  bun run seed:master --bu BLAVG --yes              # non-localhost (dev/uat) target",
+    "  bun run seed:master --file fifo --limit 20        # FIFO workbook, 20 product/vendor rows",
+    "  bun run seed:master --only currency,unit          # just these two",
+    "  bun run seed:master --skip product,vendor         # everything except the big lists",
+    "  bun run seed:master --host http://localhost:4000  # override backend URL",
+    "",
+    "Exit codes:",
+    "  0  Completed with no failed rows (also dry-run / --help).",
+    "  1  One or more rows failed, or an unexpected error was thrown.",
+    "  2  Refused to seed a non-localhost target without --yes.",
+  ].join("\n");
+}
+
 export function resolveEnabled(args: CliArgs): Set<EntityName> {
   let set = new Set<EntityName>(ALL_ENTITIES);
   if (args.only) set = new Set(args.only);
@@ -109,13 +161,37 @@ export function printSummary(results: SeedResult[]): string {
   return lines.join("\n");
 }
 
+/** Print a usage/config error followed by the full help, then exit 1. */
+function usageError(e: unknown): never {
+  console.error(e instanceof Error ? e.message : String(e));
+  console.error("");
+  console.error(helpText());
+  process.exit(1);
+}
+
 async function main(): Promise<void> {
-  const args = parseArgs(process.argv.slice(2));
-  const cfg = resolveConfig({
-    ...process.env,
-    ...(args.bu ? { SEED_BU_CODE: args.bu } : {}),
-    ...(args.host ? { SEED_BACKEND_URL: args.host } : {}),
-  });
+  let args: CliArgs;
+  try {
+    args = parseArgs(process.argv.slice(2));
+  } catch (e) {
+    usageError(e);
+  }
+
+  if (args.help) {
+    console.log(helpText());
+    process.exit(0);
+  }
+
+  let cfg: SeedConfig;
+  try {
+    cfg = resolveConfig({
+      ...process.env,
+      ...(args.bu ? { SEED_BU_CODE: args.bu } : {}),
+      ...(args.host ? { SEED_BACKEND_URL: args.host } : {}),
+    });
+  } catch (e) {
+    usageError(e);
+  }
 
   if (!args.dryRun && !isLocalHost(cfg.backendUrl) && !args.yes) {
     console.error(`Refusing to seed non-localhost target ${cfg.backendUrl} without --yes.`);
@@ -151,7 +227,8 @@ async function main(): Promise<void> {
 // Run only when invoked directly (not when imported by unit tests).
 if (import.meta.main) {
   main().catch((e) => {
-    console.error(e);
+    console.error(e instanceof Error ? e.message : String(e));
+    console.error("\nRun 'bun run seed:master --help' for usage.");
     process.exit(1);
   });
 }
