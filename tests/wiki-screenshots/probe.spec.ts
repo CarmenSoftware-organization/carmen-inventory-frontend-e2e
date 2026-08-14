@@ -21,12 +21,18 @@ const PER_PAGE_TIMEOUT_MS = 30_000;
  */
 async function classify(page: Page): Promise<{ outcome: ScreenOutcome; reason?: string }> {
   const probes: Array<[ScreenOutcome, RegExp]> = [
-    ["denied", /permission denied|forbidden|not authorized|403/i],
-    ["not-found", /not found|404/i],
+    // Bare numeric codes are word-bounded: an unanchored /403/ or /404/ also
+    // matches inside ordinary document numbers (PO-2024045, REQ-40412), which
+    // would misclassify a perfectly reachable page as denied/not-found.
+    ["denied", /permission denied|forbidden|not authorized|\b403\b/i],
+    ["not-found", /not found|\b404\b/i],
     ["error", /something went wrong|unexpected error/i],
   ];
   for (const [outcome, pattern] of probes) {
-    const hit = page.getByText(pattern).first();
+    // Visible candidates only: an earlier DOM match that is a hidden sr-only
+    // node or a rendered-but-hidden toast container must not short-circuit
+    // the check ahead of the real, visible banner.
+    const hit = page.getByText(pattern).filter({ visible: true }).first();
     if (await hit.isVisible().catch(() => false)) {
       const reason = (await hit.textContent().catch(() => null))?.trim().slice(0, 120);
       return { outcome, reason: reason || outcome };
@@ -77,17 +83,25 @@ test("probe every route as every role", async ({ browser }) => {
       baseURL: BASE_URL,
       viewport: VIEWPORT,
     });
-    await setEnLocale(context, BASE_URL);
-    const page = await context.newPage();
-    for (const spec of shots) {
-      results.push(await probeOne(page, spec, user.role));
+    try {
+      await setEnLocale(context, BASE_URL);
+      const page = await context.newPage();
+      for (const spec of shots) {
+        results.push(await probeOne(page, spec, user.role));
+      }
+    } finally {
+      // Always close, even if setEnLocale/newPage/a probe throws, so a
+      // mid-run failure never leaks the browser context.
+      await context.close();
     }
-    await context.close();
     const okCount = results.filter((r) => r.role === user.role && r.outcome === "ok").length;
     console.log(`${user.role}: ${okCount}/${shots.length} reachable`);
+    // Persist after every role, not just at the end: if a later role's
+    // context setup throws, the earlier roles' ~20 minutes of observations
+    // are still on disk instead of discarded with nothing to show for it.
+    saveRoleMatrix(ROLE_MATRIX_PATH, results);
   }
 
-  saveRoleMatrix(ROLE_MATRIX_PATH, results);
   console.log(`Wrote ${ROLE_MATRIX_PATH} (${results.length} observations)`);
 
   // A totally empty matrix means auth broke, not that the app has no pages.
