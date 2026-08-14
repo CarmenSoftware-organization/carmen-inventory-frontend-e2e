@@ -1,4 +1,4 @@
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect, type Locator, type Page } from "@playwright/test";
 import { join } from "node:path";
 import { SHOTS } from "./manifest";
 import { TEST_USERS } from "../test-users";
@@ -14,6 +14,39 @@ const BASE_URL = process.env.E2E_BASE_URL ?? "http://localhost:3000";
 const SEED_IDS = join(process.cwd(), "tests/wiki-screenshots/seed-ids.json");
 const VIEWPORT = { width: 1440, height: 1600 };
 const PER_PAGE_TIMEOUT_MS = 30_000;
+
+/**
+ * True when a visible text match must NOT be trusted as a page-level
+ * outcome. Two cases, both confirmed against the real app's DOM:
+ *
+ * 1. It lives inside sonner's toast container (`[data-sonner-toaster]`).
+ *    Sonner mounts this only while a toast is active, and this app routes
+ *    many non-permission API failures through it (see `api-error-toaster.tsx`
+ *    — everything except 401/403, which already have their own dedicated UI).
+ *    A toast reports one failed sub-request, not whether the page rendered.
+ *
+ * 2. Its nearest `[role="alert"]` ancestor has sibling elements. Verified
+ *    live on three routes: the genuine "Permission Denied" block
+ *    (`/config/extra-cost` as Requestor) and a genuine "X not found" block
+ *    (`/config/department/:id` as Requestor) both use `AccessDeniedBlock`,
+ *    which always renders as the SOLE child of its container (0 siblings) —
+ *    it replaces the page's content outright. By contrast, the dashboard's
+ *    "Failed to load saved widgets: business unit not found" is a `role
+ *    ="alert"` `<p>` sitting next to a heading and an "+ Add" control inside
+ *    `<section>` (1+ siblings): a widget-level load-error notice that
+ *    coexists with an otherwise fully-rendered page, not a page failure.
+ *    When no `[role="alert"]` ancestor exists at all, this check does not
+ *    apply and the match is trusted as before.
+ */
+async function isSuppressedHit(hit: Locator): Promise<boolean> {
+  return hit.evaluate((el) => {
+    if (el.closest("[data-sonner-toaster]")) return true;
+    const alertRoot = el.closest('[role="alert"]');
+    if (!alertRoot) return false;
+    const parent = alertRoot.parentElement;
+    return !!parent && parent.children.length > 1;
+  });
+}
 
 /**
  * Classify what a role actually got. Order matters: a denied page can also
@@ -34,6 +67,7 @@ async function classify(page: Page): Promise<{ outcome: ScreenOutcome; reason?: 
     // the check ahead of the real, visible banner.
     const hit = page.getByText(pattern).filter({ visible: true }).first();
     if (await hit.isVisible().catch(() => false)) {
+      if (await isSuppressedHit(hit).catch(() => false)) continue;
       const reason = (await hit.textContent().catch(() => null))?.trim().slice(0, 120);
       return { outcome, reason: reason || outcome };
     }
