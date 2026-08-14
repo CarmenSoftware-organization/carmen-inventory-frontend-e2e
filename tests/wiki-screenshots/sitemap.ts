@@ -166,6 +166,16 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute
 .shot{aspect-ratio:16/10;overflow:hidden;background:var(--bg);border-bottom:1px solid var(--line)}
 .shot img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
 .no-shot{display:grid;place-items:center;height:100%;color:var(--muted);font-size:12px}
+.shot img,a.b.var{cursor:zoom-in}
+/* Lightbox: opens fit-to-screen, a second click on the image switches to
+   100% so fine print is readable; the image is then scrollable. */
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;place-items:center;z-index:10;padding:28px}
+#lb.on{display:grid}
+#lb img{max-width:100%;max-height:100%;object-fit:contain;cursor:zoom-in;box-shadow:0 8px 40px rgba(0,0,0,.6)}
+#lb.full{place-items:start;overflow:auto;padding:0}
+#lb.full img{max-width:none;max-height:none;cursor:zoom-out;box-shadow:none}
+#lb .cap{position:fixed;top:10px;left:14px;right:14px;color:#fff;font:12px ui-monospace,SFMono-Regular,monospace;text-shadow:0 1px 4px #000;pointer-events:none}
+#lb .hint{position:fixed;bottom:10px;left:14px;color:#bbb;font-size:11px;text-shadow:0 1px 4px #000;pointer-events:none}
 .meta{padding:8px 10px 4px}
 .meta code{font-size:11px;word-break:break-all;display:block}
 .slug{color:var(--muted);font-size:11px}
@@ -185,7 +195,44 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute
 <div style="margin-top:8px"><input id="q" type="search" placeholder="filter by route or role..."></div>
 </header>
 ${body}
+<div id="lb"><div class="cap"></div><img alt=""><div class="hint">click image to zoom 1:1 · click outside or Esc to close</div></div>
 <script>
+const lb = document.getElementById("lb");
+const lbImg = lb.querySelector("img");
+const lbCap = lb.querySelector(".cap");
+
+function openLightbox(src, label) {
+  lbImg.src = src;
+  lbImg.alt = label;
+  lbCap.textContent = label;
+  lb.classList.add("on");
+  lb.classList.remove("full");
+}
+function closeLightbox() {
+  lb.classList.remove("on", "full");
+  lbImg.removeAttribute("src");
+}
+
+document.addEventListener("click", (e) => {
+  const thumb = e.target.closest(".shot img");
+  if (thumb) { openLightbox(thumb.getAttribute("src"), thumb.getAttribute("alt")); return; }
+  // Role-variant badges link to their own PNG; open them in the same viewer
+  // rather than navigating away from the sitemap.
+  const variant = e.target.closest("a.b.var");
+  if (variant) {
+    e.preventDefault();
+    const route = variant.closest(".card").dataset.route;
+    openLightbox(variant.getAttribute("href"), route + "  —  " + variant.textContent.trim());
+  }
+});
+
+lb.addEventListener("click", (e) => {
+  // Clicking the image toggles fit-to-screen vs 1:1; anywhere else closes.
+  if (e.target === lbImg) { lb.classList.toggle("full"); lb.scrollTop = 0; return; }
+  closeLightbox();
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
+
 document.getElementById("q").addEventListener("input", (e) => {
   const q = e.target.value.toLowerCase();
   for (const card of document.querySelectorAll(".card")) {
