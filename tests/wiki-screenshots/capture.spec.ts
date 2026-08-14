@@ -41,6 +41,13 @@ async function captureOne(page: Page, spec: ShotSpec, out: string): Promise<void
   await page
     .waitForFunction(() => document.querySelectorAll(".animate-pulse").length === 0, { timeout: 8_000 })
     .catch(() => {});
+  // Dismiss a blocking permission/error alertdialog (e.g. a 403 on a secondary
+  // sub-resource) so the underlying page is captured, not the modal.
+  const blockedNotice = page.getByText(/permission denied|something went wrong/i).first();
+  if (await blockedNotice.isVisible().catch(() => false)) {
+    await page.getByRole("button", { name: /^(close|ok|got it|dismiss)$/i }).first().click({ timeout: 2_000 }).catch(() => {});
+    await page.waitForTimeout(400);
+  }
   mkdirSync(dirname(out), { recursive: true });
   await page.screenshot({ path: out, fullPage: false, animations: "disabled", timeout: 20_000 });
 }
