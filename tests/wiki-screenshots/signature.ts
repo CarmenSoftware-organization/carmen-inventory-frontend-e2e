@@ -21,10 +21,14 @@ function equalLists(a: string[], b: string[]): boolean {
  * dataset instead of with the UI.
  */
 export async function pageSignature(page: Page): Promise<PageSignature> {
+  // Explicit short timeout: textContent() waits for the element to attach, and
+  // a page with neither h1 nor h2 would otherwise block for the full 30s
+  // default action timeout before the .catch() fallback fires. At ~1,098
+  // probe calls that turns a cheap pass into a slow one.
   const headingText = await page
     .locator("h1, h2")
     .first()
-    .textContent()
+    .textContent({ timeout: 2_000 })
     .catch(() => null);
   const actions = await page
     .locator("button:not(table button)")

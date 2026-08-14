@@ -55,6 +55,15 @@ export default defineConfig({
       // would only bloat test-results/. Opt out of the global video: "on".
       use: { ...devices["Desktop Chrome"], video: "off" },
     },
+    {
+      name: "wiki-probe",
+      testMatch: /wiki-screenshots\/probe\.spec\.ts$/,
+      dependencies: ["setup"],
+      fullyParallel: false,
+      // Batch job over ~1,100 page visits with no TC ID: screenshots and video
+      // would be pure noise, and the whole point of this pass is to be cheap.
+      use: { ...devices["Desktop Chrome"], video: "off", screenshot: "off" },
+    },
   ],
   webServer: START_FRONTEND
     ? {
