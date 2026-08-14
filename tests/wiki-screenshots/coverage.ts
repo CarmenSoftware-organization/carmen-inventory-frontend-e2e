@@ -4,6 +4,7 @@ import type { ShotSpec } from "./types";
 import { discoverFrontendRoutes } from "./route-discovery";
 import { SHOTS } from "./manifest";
 import { loadSeedOverlay, applySeedOverlay } from "./seed-overlay";
+import { loadRoleMatrix, ROLE_MATRIX_PATH, baselineFor, rolesToCapture } from "./role-matrix";
 
 export type CoverageStatus =
   | "covered"
@@ -58,7 +59,10 @@ export function computeCoverage(
 }
 
 /** Render the coverage rows as a Markdown report. Pure. */
-export function renderReport(rows: CoverageRow[]): string {
+export function renderReport(
+  rows: CoverageRow[],
+  rolesByRoute: Record<string, string> = {},
+): string {
   const counts: Record<string, number> = {};
   for (const r of rows) counts[r.status] = (counts[r.status] ?? 0) + 1;
   const summary = (["covered", "missing", "needs-seed", "skipped", "stale"] as const)
@@ -72,14 +76,14 @@ export function renderReport(rows: CoverageRow[]): string {
     "",
     `**Routes: ${rows.filter((r) => r.status !== "stale").length}** (manifest-only/stale: ${rows.filter((r) => r.status === "stale").length}) — ${summary}`,
     "",
-    "| Route | Status | Module | Slug | Note |",
-    "|-------|--------|--------|------|------|",
+    "| Route | Status | Module | Slug | Roles | Note |",
+    "|-------|--------|--------|------|-------|------|",
   ];
   const body = rows
     .sort((a, b) => a.route.localeCompare(b.route))
     .map(
       (r) =>
-        `| \`${r.route}\` | ${r.status} | ${r.module ?? ""} | ${r.slug ?? ""} | ${r.reason ?? ""} |`,
+        `| \`${r.route}\` | ${r.status} | ${r.module ?? ""} | ${r.slug ?? ""} | ${rolesByRoute[r.route] ?? ""} | ${r.reason ?? ""} |`,
     );
   return [...header, ...body, ""].join("\n");
 }
@@ -104,7 +108,25 @@ function main(): void {
   // Discovered seedIds (gitignored, env-specific) count toward coverage just
   // like hand-set ones, so a route auto-seeded this run isn't reported needs-seed.
   const shots = applySeedOverlay(SHOTS, loadSeedOverlay(seedIdsPath));
-  const md = renderReport(computeCoverage(routes, shots, skipped));
+
+  // The role matrix is optional here: coverage still works before the first
+  // probe run, it just cannot show the Roles column.
+  const rolesByRoute: Record<string, string> = {};
+  try {
+    const matrix = loadRoleMatrix(ROLE_MATRIX_PATH);
+    for (const route of new Set(matrix.map((r) => r.route))) {
+      const base = baselineFor(matrix, route);
+      if (!base) {
+        rolesByRoute[route] = "none";
+        continue;
+      }
+      const extra = rolesToCapture(matrix, route);
+      rolesByRoute[route] = extra.length ? `${base.role} +${extra.length}` : base.role;
+    }
+  } catch {
+    console.warn("No role-matrix.json yet — Roles column will be empty. Run: bun run wiki:probe");
+  }
+  const md = renderReport(computeCoverage(routes, shots, skipped), rolesByRoute);
 
   const out = join(specsDir, "screenshot-coverage.md");
   mkdirSync(dirname(out), { recursive: true });
