@@ -1,11 +1,11 @@
-import { test, expect, type Locator, type Page } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 import { join } from "node:path";
 import { SHOTS } from "./manifest";
 import { TEST_USERS } from "../test-users";
 import { authFile } from "../fixtures/auth.paths";
 import { setEnLocale } from "./locale";
 import { loadSeedOverlay, applySeedOverlay } from "./seed-overlay";
-import { pageSignature } from "./signature";
+import { contentRoot, decideOutcome, pageSignature, readHeadings } from "./signature";
 import { saveRoleMatrix, ROLE_MATRIX_PATH } from "./role-matrix";
 import { resolvePath } from "./shot-path";
 import type { ProbeResult, ScreenOutcome, ShotSpec } from "./types";
@@ -16,63 +16,32 @@ const VIEWPORT = { width: 1440, height: 1600 };
 const PER_PAGE_TIMEOUT_MS = 30_000;
 
 /**
- * True when a visible text match must NOT be trusted as a page-level
- * outcome. Two cases, both confirmed against the real app's DOM:
+ * Read the two signals `decideOutcome` needs, both scoped to the content
+ * region so the app shell never votes on whether the page rendered.
  *
- * 1. It lives inside sonner's toast container (`[data-sonner-toaster]`).
- *    Sonner mounts this only while a toast is active, and this app routes
- *    many non-permission API failures through it (see `api-error-toaster.tsx`
- *    — everything except 401/403, which already have their own dedicated UI).
- *    A toast reports one failed sub-request, not whether the page rendered.
+ * `innerText` (not `textContent`) is used on purpose: it is layout-aware, so a
+ * hidden sr-only node or a rendered-but-empty toast container yields "" and
+ * drops out instead of short-circuiting the check ahead of a real banner.
  *
- * 2. Its nearest `[role="alert"]` ancestor has sibling elements. Verified
- *    live on three routes: the genuine "Permission Denied" block
- *    (`/config/extra-cost` as Requestor) and a genuine "X not found" block
- *    (`/config/department/:id` as Requestor) both use `AccessDeniedBlock`,
- *    which always renders as the SOLE child of its container (0 siblings) —
- *    it replaces the page's content outright. By contrast, the dashboard's
- *    "Failed to load saved widgets: business unit not found" is a `role
- *    ="alert"` `<p>` sitting next to a heading and an "+ Add" control inside
- *    `<section>` (1+ siblings): a widget-level load-error notice that
- *    coexists with an otherwise fully-rendered page, not a page failure.
- *    When no `[role="alert"]` ancestor exists at all, this check does not
- *    apply and the match is trusted as before.
- */
-async function isSuppressedHit(hit: Locator): Promise<boolean> {
-  return hit.evaluate((el) => {
-    if (el.closest("[data-sonner-toaster]")) return true;
-    const alertRoot = el.closest('[role="alert"]');
-    if (!alertRoot) return false;
-    const parent = alertRoot.parentElement;
-    return !!parent && parent.children.length > 1;
-  });
-}
-
-/**
- * Classify what a role actually got. Order matters: a denied page can also
- * render an empty table, so permission is checked before anything else.
+ * The `[data-sonner-toaster]` exclusion is a defensive guard, not an observed
+ * hit — a real 1,098-observation run matched it zero times, because `<Toaster/>`
+ * mounts in `routes/app-root.tsx`, outside `#main-content`. It is kept for the
+ * `body` fallback path (routes rendered outside the shell), where a toast
+ * reporting one failed sub-request would otherwise be read as the page's own
+ * outcome.
  */
 async function classify(page: Page): Promise<{ outcome: ScreenOutcome; reason?: string }> {
-  const probes: Array<[ScreenOutcome, RegExp]> = [
-    // Bare numeric codes are word-bounded: an unanchored /403/ or /404/ also
-    // matches inside ordinary document numbers (PO-2024045, REQ-40412), which
-    // would misclassify a perfectly reachable page as denied/not-found.
-    ["denied", /permission denied|forbidden|not authorized|\b403\b/i],
-    ["not-found", /not found|\b404\b/i],
-    ["error", /something went wrong|unexpected error/i],
-  ];
-  for (const [outcome, pattern] of probes) {
-    // Visible candidates only: an earlier DOM match that is a hidden sr-only
-    // node or a rendered-but-hidden toast container must not short-circuit
-    // the check ahead of the real, visible banner.
-    const hit = page.getByText(pattern).filter({ visible: true }).first();
-    if (await hit.isVisible().catch(() => false)) {
-      if (await isSuppressedHit(hit).catch(() => false)) continue;
-      const reason = (await hit.textContent().catch(() => null))?.trim().slice(0, 120);
-      return { outcome, reason: reason || outcome };
-    }
-  }
-  return { outcome: "ok" };
+  const root = await contentRoot(page);
+  const headings = await readHeadings(root);
+  const alerts = await root
+    .locator('[role="alert"]')
+    .evaluateAll((els) =>
+      els
+        .filter((el) => !el.closest("[data-sonner-toaster]"))
+        .map((el) => (el as HTMLElement).innerText),
+    )
+    .catch(() => [] as string[]);
+  return decideOutcome(headings, alerts);
 }
 
 /** Visit one route as the current role and record what happened. Never throws. */
@@ -95,6 +64,15 @@ async function probeOne(page: Page, spec: ShotSpec, role: string): Promise<Probe
       })
       .catch(() => {});
 
+    // A bounce to /login means the storageState is stale or the auth guard
+    // rejected us — NOT that the page renders this way. Without this the
+    // probe records "ok" plus the login page's signature, the "0 results
+    // means auth broke" guard never fires, and capture would then shoot the
+    // login page over the canonical unsuffixed wiki paths.
+    if (/\/login\b/.test(new URL(page.url()).pathname)) {
+      return { ...base, outcome: "error", reason: "redirected to login (stale auth state)" };
+    }
+
     const { outcome, reason } = await classify(page);
     if (outcome !== "ok") return { ...base, outcome, reason };
     return { ...base, outcome: "ok", signature: await pageSignature(page) };
@@ -103,10 +81,32 @@ async function probeOne(page: Page, spec: ShotSpec, role: string): Promise<Probe
   }
 }
 
+/**
+ * One spec per route.
+ *
+ * The manifest lists the 12 dialog-based config modules twice — once as a list
+ * page, once with `interaction: "add-dialog"` — but both entries navigate to
+ * the same URL, and the probe never opens the dialog. Without this the matrix
+ * gets two identical observations per role for those routes (~108 wasted page
+ * visits), which then makes `rolesToCapture()` return duplicate roles, capture
+ * plan every job twice and self-collide, coverage double-count, and the
+ * sitemap render every badge twice. First spec per path wins.
+ */
+function dedupeByRoute(shots: ShotSpec[]): ShotSpec[] {
+  const seen = new Set<string>();
+  const unique: ShotSpec[] = [];
+  for (const spec of shots) {
+    if (seen.has(spec.path)) continue;
+    seen.add(spec.path);
+    unique.push(spec);
+  }
+  return unique;
+}
+
 test("probe every route as every role", async ({ browser }) => {
   test.setTimeout(0); // batch job; per-page timeouts still apply
 
-  const shots = applySeedOverlay(SHOTS, loadSeedOverlay(SEED_IDS));
+  const shots = dedupeByRoute(applySeedOverlay(SHOTS, loadSeedOverlay(SEED_IDS)));
   const results: ProbeResult[] = [];
 
   // One context per role, not per page: creating a context is far more
