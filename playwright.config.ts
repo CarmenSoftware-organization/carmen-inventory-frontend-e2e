@@ -60,6 +60,10 @@ export default defineConfig({
       testMatch: /wiki-screenshots\/probe\.spec\.ts$/,
       dependencies: ["setup"],
       fullyParallel: false,
+      // No retries even on CI: this is a single ~25-minute pass whose only
+      // assertion ("some role reached some page") is not retry-fixable, so the
+      // inherited `CI ? 2 : 0` would just burn 50 more minutes to fail again.
+      retries: 0,
       // Batch job over ~1,100 page visits with no TC ID: screenshots and video
       // would be pure noise, and the whole point of this pass is to be cheap.
       use: { ...devices["Desktop Chrome"], video: "off", screenshot: "off" },

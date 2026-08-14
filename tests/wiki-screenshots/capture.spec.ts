@@ -2,7 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { SHOTS } from "./manifest";
-import type { ShotSpec } from "./types";
+import type { ProbeResult, ShotSpec } from "./types";
 import { TEST_USERS } from "../test-users";
 import { authFile } from "../fixtures/auth.paths";
 import { setEnLocale } from "./locale";
@@ -25,6 +25,9 @@ const HARD_TIMEOUT_MS = 60_000;
 
 /** One planned screenshot: a spec shot as a specific role, to a specific file. */
 type CaptureJob = { spec: ShotSpec; role: string; out: string };
+
+/** Skip reason recorded when the matrix says nobody reached a route. */
+const UNREACHABLE = "no role could reach this page";
 
 function emailForRole(role: string): string {
   const user = TEST_USERS.find((u) => u.role === role);
@@ -64,18 +67,53 @@ async function captureOne(page: Page, spec: ShotSpec, out: string): Promise<void
 }
 
 /**
+ * Log what the matrix on disk actually contains.
+ *
+ * `loadRoleMatrix` only tells present from absent, so a probe killed after 4
+ * of 9 roles leaves valid JSON that capture would happily consume — treating
+ * the 5 missing roles as unable to reach anything and quietly shooting fewer
+ * screens. A warning is enough; thresholds here would be guesswork, and a
+ * deliberately partial matrix is a legitimate way to shoot one module.
+ */
+function reportMatrixShape(matrix: ProbeResult[], shots: ShotSpec[]): void {
+  const roles = new Set(matrix.map((r) => r.role));
+  const routes = new Set(matrix.map((r) => r.route));
+  console.log(
+    `Role matrix: ${matrix.length} observations · ${roles.size}/${TEST_USERS.length} roles · ${routes.size} routes`,
+  );
+
+  const missingRoles = TEST_USERS.map((u) => u.role).filter((r) => !roles.has(r));
+  if (missingRoles.length) {
+    console.warn(
+      `WARNING: role-matrix.json is INCOMPLETE — no observations for ${missingRoles.join(", ")}. ` +
+        `Those roles are treated as unable to reach every page. Re-run "bun run wiki:probe".`,
+    );
+  }
+
+  const uncovered = [...new Set(shots.map((s) => s.path))].filter((p) => !routes.has(p));
+  if (uncovered.length) {
+    const shown = uncovered.slice(0, 10).join(", ");
+    console.warn(
+      `WARNING: ${uncovered.length} manifest route(s) absent from role-matrix.json (stale matrix?): ` +
+        `${shown}${uncovered.length > 10 ? ", …" : ""}`,
+    );
+  }
+}
+
+/**
  * Turn the probe matrix into a capture plan: the baseline role for every
  * reachable route, plus each role whose screen genuinely differs.
  */
 function planJobs(shots: ShotSpec[], skipped: Record<string, string>): CaptureJob[] {
   const matrix = loadRoleMatrix(ROLE_MATRIX_PATH);
+  reportMatrixShape(matrix, shots);
   const jobs: CaptureJob[] = [];
   const claimed = new Map<string, string>(); // output file -> first route that claimed it
 
   for (const spec of shots) {
     const base = baselineFor(matrix, spec.path);
     if (!base) {
-      skipped[spec.path] = "no role could reach this page";
+      skipped[spec.path] = UNREACHABLE;
       continue;
     }
     for (const role of [base.role, ...rolesToCapture(matrix, spec.path)]) {
@@ -128,6 +166,26 @@ test("capture wiki screenshots", async ({ browser }) => {
   const jobs = overrideState
     ? planSingleUserJobs(shootable, skipped)
     : planJobs(shootable, skipped);
+
+  // A route-level skip is a PROBE conclusion, and the probe can be wrong: a
+  // dashboard widget notice once made /dashboard classify unreachable for all
+  // nine roles. Treating that as a benign skip means capture drops the page,
+  // the final assertion still passes green, and nobody finds out. Print the
+  // list every run so an operator can spot an obviously-wrong 9-of-9 denial.
+  // Deliberately a warning, not a failure — a threshold here would be guesswork.
+  const unreachableRoutes = Object.entries(skipped)
+    .filter(([, reason]) => reason === UNREACHABLE)
+    .map(([route]) => route);
+  if (unreachableRoutes.length) {
+    console.warn(
+      `\n===== UNREACHABLE ROUTES (${unreachableRoutes.length}) =====\n` +
+        `No role reached these, so nothing was captured for them. Review the list:\n` +
+        `a page every role is denied is usually real, but a page NO role can open\n` +
+        `is often a probe misclassification, not an RBAC rule.\n` +
+        unreachableRoutes.map((r) => `  ${r}`).join("\n") +
+        `\n===== end unreachable routes =====\n`,
+    );
+  }
 
   let failures = 0; // jobs that threw during capture, not route/collision-level skips
 

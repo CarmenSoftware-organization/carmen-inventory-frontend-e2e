@@ -21,6 +21,29 @@ export type CoverageRow = {
   reason?: string;
 };
 
+/**
+ * Strip capture's role suffix from a skip key.
+ *
+ * `capture.spec.ts` records per-job failures as `"<route> [<role>]"` so one
+ * role's failure does not mark the whole route skipped. Coverage reports per
+ * route, so without this a failed capture — the BASELINE role's included —
+ * silently vanishes from the report and the route shows as "covered" while no
+ * PNG exists. Pure.
+ */
+export function routeOfSkipKey(key: string): string {
+  return key.replace(/ \[[^\]]+\]$/, "");
+}
+
+/** Collapse role-scoped skip keys onto their route; first reason per route wins. */
+function skipsByRoute(skipped: Record<string, string>): Map<string, string> {
+  const byRoute = new Map<string, string>();
+  for (const [key, reason] of Object.entries(skipped)) {
+    const route = routeOfSkipKey(key);
+    if (!byRoute.has(route)) byRoute.set(route, reason);
+  }
+  return byRoute;
+}
+
 /** Diff the manifest against the real route list. Pure. */
 export function computeCoverage(
   routes: string[],
@@ -28,19 +51,20 @@ export function computeCoverage(
   skipped: Record<string, string> = {},
 ): CoverageRow[] {
   const shotByPath = new Map(shots.map((s) => [s.path, s]));
+  const skipReason = skipsByRoute(skipped);
   const rows: CoverageRow[] = [];
 
   for (const route of routes) {
     const shot = shotByPath.get(route);
     if (shot && route.includes(":") && !shot.seedId) {
       rows.push({ route, status: "needs-seed", module: shot.module, slug: shot.slug });
-    } else if (skipped[route]) {
+    } else if (skipReason.has(route)) {
       rows.push({
         route,
         status: "skipped",
         module: shot?.module,
         slug: shot?.slug,
-        reason: skipped[route],
+        reason: skipReason.get(route),
       });
     } else if (!shot) {
       rows.push({ route, status: "missing" });
@@ -124,10 +148,9 @@ function main(): void {
       rolesByRoute[route] = extra.length ? `${base.role} +${extra.length}` : base.role;
     }
   } catch (err) {
-    const detail = existsSync(ROLE_MATRIX_PATH)
-      ? `role-matrix.json is present but unreadable: ${(err as Error).message}`
-      : "No role-matrix.json yet — run: bun run wiki:probe";
-    console.warn(`${detail} Roles column will be empty.`);
+    // loadRoleMatrix already discriminates missing from malformed and says
+    // what to do about it, so just relay its message.
+    console.warn(`${(err as Error).message} Roles column will be empty.`);
   }
   const md = renderReport(computeCoverage(routes, shots, skipped), rolesByRoute);
 
