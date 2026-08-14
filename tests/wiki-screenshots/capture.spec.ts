@@ -53,6 +53,15 @@ async function captureOne(page: Page, spec: ShotSpec, out: string): Promise<void
     await page.getByRole("button", { name: /^(close|ok|got it|dismiss)$/i }).first().click({ timeout: 2_000 }).catch(() => {});
     await page.waitForTimeout(400);
   }
+  // Clear transient chrome before shooting: Escape closes any popover or
+  // dropdown left open (the notification bell's popover has been caught in
+  // shots), and parking the pointer in a dead corner prevents a hover tooltip
+  // from rendering over the page. Both run BEFORE the add-dialog branch so the
+  // Escape cannot close a dialog we deliberately opened.
+  await page.keyboard.press("Escape").catch(() => {});
+  await page.mouse.move(2, 2).catch(() => {});
+  await page.waitForTimeout(250);
+
   // Open the module's add dialog when the spec asks for it. Every config module
   // built on DialogCrudHelper opens it the same way, so no per-module recipe.
   if (spec.interaction === "add-dialog") {
@@ -205,10 +214,30 @@ test("capture wiki screenshots", async ({ browser }) => {
     });
     await setEnLocale(context, BASE_URL);
     await context.addInitScript(() => {
+      // An init script runs before <head> exists, so appending straight to
+      // document.documentElement silently did nothing — the animation-disabling
+      // rule below had never actually applied. Wait for a mount point.
+      const inject = (): void => {
+        if (document.getElementById("wiki-capture-style")) return;
+        const el = document.createElement("style");
+        el.id = "wiki-capture-style";
+        el.textContent = style.textContent;
+        (document.head ?? document.documentElement).appendChild(el);
+      };
       const style = document.createElement("style");
-      style.innerHTML =
-        "*{transition:none!important;animation:none!important;caret-color:transparent!important}";
-      document.documentElement.appendChild(style);
+      style.textContent =
+        "*{transition:none!important;animation:none!important;caret-color:transparent!important}" +
+        // Floating chrome must never land in a documentation screenshot.
+        // Radix layers (popover/tooltip/dropdown) can be left open by a stray
+        // interaction, and the app also slides in an unread-notifications
+        // banner — a `fixed top-4 right-4` element carrying role="alert" — on
+        // its own once notification data arrives, i.e. after any dismissal we
+        // could perform. Hide the layers rather than race them. Dialogs live on
+        // data-slot="dialog-*", so the add-dialog shots are unaffected.
+        '[data-slot="popover-content"],[data-slot="tooltip-content"],[data-slot="dropdown-menu-content"],' +
+        'div[class*="fixed"][class*="top-4"][class*="right-4"]{display:none!important}';
+      if (document.head) inject();
+      else document.addEventListener("DOMContentLoaded", inject, { once: true });
     });
 
     // Fresh page per job + a hard timeout: if a page wedges (heavy grids,
