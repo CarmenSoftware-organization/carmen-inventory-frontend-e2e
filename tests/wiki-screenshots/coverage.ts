@@ -123,8 +123,11 @@ function main(): void {
       const extra = rolesToCapture(matrix, route);
       rolesByRoute[route] = extra.length ? `${base.role} +${extra.length}` : base.role;
     }
-  } catch {
-    console.warn("No role-matrix.json yet — Roles column will be empty. Run: bun run wiki:probe");
+  } catch (err) {
+    const detail = existsSync(ROLE_MATRIX_PATH)
+      ? `role-matrix.json is present but unreadable: ${(err as Error).message}`
+      : "No role-matrix.json yet — run: bun run wiki:probe";
+    console.warn(`${detail} Roles column will be empty.`);
   }
   const md = renderReport(computeCoverage(routes, shots, skipped), rolesByRoute);
 
