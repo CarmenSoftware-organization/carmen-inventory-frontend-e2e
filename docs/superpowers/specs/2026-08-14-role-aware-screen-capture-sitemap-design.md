@@ -214,16 +214,22 @@ render เป็น `../carmen-wiki/sitemap.html` ไฟล์เดียว:
 ## Testing
 
 ตาม working preference ของโปรเจกต์นี้ จะ **ไม่** เขียน `*.spec.ts` / `*.test.ts` เพิ่ม
-ยกเว้นไฟล์เดียว:
+ยกเว้น 2 ไฟล์ที่ครอบคลุม pure decision logic ทั้งหมดของ pipeline:
 
-- `unit/wiki-screenshots/signature.test.ts` — unit test ของ `signature.ts`
+- `unit/wiki-screenshots/signature.test.ts` — `sameScreen()`
+- `unit/wiki-screenshots/role-matrix.test.ts` — `baselineFor()`, `rolesToCapture()`, `outputFile()`
 
-เหตุผลที่ยกเว้นไฟล์นี้: `sameScreen()` เป็น pure function ที่ถ้า heuristic ผิด ระบบจะพัง
-แบบเงียบ ๆ ไปทางใดทางหนึ่ง (ถ่าย 1,098 รูป หรือถ่ายขาดโดยไม่มีใครรู้) และมันเป็นจุดเดียว
-ในระบบที่ตัดสินเรื่องนี้ repo มี precedent อยู่แล้วที่ `unit/run-env.test.ts`
+เหตุผลที่ยกเว้นสองไฟล์นี้: ทั้งหมดเป็น pure function ที่ตัดสินว่า **ถ่ายอะไร เป็นของ role ไหน
+ลงไฟล์ชื่ออะไร** ถ้าผิดระบบจะพังแบบเงียบ ๆ ไปทางใดทางหนึ่ง — ถ่าย 1,098 รูป, ถ่ายขาดโดย
+ไม่มีใครรู้, หรือเขียนทับรูปเดิมจนเอกสาร wiki พัง ซึ่งไม่มี type checker หรือการรันจริงรอบเดียว
+ที่จับได้ repo มี precedent อยู่แล้วที่ `unit/run-env.test.ts` และ `unit/wiki-screenshots/`
 
-เคสที่ต้องคลุม: signature เหมือนกันทุกฟิลด์, heading ต่าง, actions ต่าง, columns ต่าง,
-`hasRows` ต่างอย่างเดียว, array ที่เรียงต่างลำดับแต่สมาชิกเหมือนกัน
+เคสที่ต้องคลุมของ `sameScreen()`: signature เหมือนกันทุกฟิลด์, heading ต่าง, actions ต่าง,
+columns ต่าง, `hasRows` ต่างอย่างเดียว, array ที่เรียงต่างลำดับแต่สมาชิกเหมือนกัน
+
+เคสที่ต้องคลุมของ `role-matrix.ts`: Admin เป็น baseline ตามปกติ, fallback เมื่อ Admin ถูกปฏิเสธ,
+ไม่มี role ไหนเข้าได้เลย, baseline ไม่ถูกนับซ้ำใน `rolesToCapture`, และ `outputFile` ต้องคืน
+path เดิมที่ไม่มี suffix ให้ baseline role
 
 `sameScreen()` เขียน default ให้ก่อน แล้วปรับ heuristic ทีหลังเมื่อเห็นผล probe จริง
 default: ต่างเมื่อ `heading`, `actions` หรือ `columns` ต่าง; `hasRows` อย่างเดียวไม่นับว่าต่าง
@@ -245,13 +251,16 @@ default: ต่างเมื่อ `heading`, `actions` หรือ `columns`
 | `manifest.ts` | แก้ — เพิ่ม dialog spec ของโมดูล config |
 | `capture.spec.ts` | แก้ — อ่าน matrix, ตั้งชื่อไฟล์ตาม role, รองรับ `interaction` |
 | `coverage.ts` | แก้เล็กน้อย — นับมิติ role |
+| `shot-path.ts` | ใหม่ — แปลง (spec, role) เป็น URL และ path ไฟล์ output |
 | `route-discovery.ts` | ไม่แตะ |
 
 นอกโฟลเดอร์:
 
-- `playwright.config.ts` — เพิ่ม project `wiki-probe`, ให้ `chromium` ignore `probe.spec.ts` ด้วย
+- `playwright.config.ts` — เพิ่ม project `wiki-probe` (`chromium` ignore โฟลเดอร์
+  `wiki-screenshots/` อยู่แล้วที่บรรทัด 44 ไฟล์ใหม่จึงปลอดภัยโดยอัตโนมัติ)
 - `package.json` — เพิ่ม `wiki:probe`, `wiki:sitemap`
-- `unit/wiki-screenshots/signature.test.ts` — ใหม่
+- `.gitignore` — เพิ่ม `tests/wiki-screenshots/role-matrix.json` (env-specific เหมือน `seed-ids.json`)
+- `unit/wiki-screenshots/signature.test.ts`, `unit/wiki-screenshots/role-matrix.test.ts` — ใหม่
 
 Code comment ในไฟล์โค้ดเขียนเป็นภาษาอังกฤษตาม convention ของ repo นี้
 
