@@ -8,7 +8,11 @@ export type ShotSpec = {
   slug: string;
   /** Test-user role to capture as. Defaults to "Admin". */
   role?: string;
-  /** Value substituted into the first :seg of `path` for detail routes. */
+  /**
+   * Value substituted into EVERY ":seg" of `path` for detail routes. Routes in
+   * this manifest carry at most one dynamic segment, so one id suffices; a route
+   * needing two distinct ids would need this field to become a map, not a string.
+   */
   seedId?: string;
   /** CSS selector awaited before the screenshot; defaults to networkidle only. */
   waitFor?: string;
