@@ -38,6 +38,7 @@ async function captureOne(page: Page, spec: ShotSpec, out: string): Promise<void
   // websocket/polling open so "networkidle" never fires — don't block on it.
   await page.waitForLoadState("networkidle", { timeout: 6_000 }).catch(() => {});
   if (spec.waitFor) await page.waitForSelector(spec.waitFor, { timeout: 15_000 });
+  // Let lazy content settle: wait for Tailwind skeleton placeholders to clear.
   await page
     .waitForFunction(() => document.querySelectorAll(".animate-pulse").length === 0, { timeout: 8_000 })
     .catch(() => {});
@@ -71,7 +72,9 @@ function planJobs(shots: ShotSpec[], skipped: Record<string, string>): CaptureJo
       const out = outputFile(ASSETS_DIR, spec, role, base.role);
       const owner = claimed.get(out);
       if (owner) {
-        skipped[spec.path] = `output path collides with ${owner} (${out})`;
+        // Role-scoped key: a collision on one role must not mark the whole
+        // route as skipped when another role's job for it still ran.
+        skipped[`${spec.path} [${role}]`] = `output path collides with ${owner} (${out})`;
         continue;
       }
       claimed.set(out, spec.path);
@@ -89,7 +92,7 @@ function planSingleUserJobs(shots: ShotSpec[], skipped: Record<string, string>):
     const out = outputFile(ASSETS_DIR, spec, "override", "override");
     const owner = claimed.get(out);
     if (owner) {
-      skipped[spec.path] = `output path collides with ${owner} (${out})`;
+      skipped[`${spec.path} [override]`] = `output path collides with ${owner} (${out})`;
       continue;
     }
     claimed.set(out, spec.path);
@@ -115,6 +118,8 @@ test("capture wiki screenshots", async ({ browser }) => {
   const jobs = overrideState
     ? planSingleUserJobs(shootable, skipped)
     : planJobs(shootable, skipped);
+
+  let failures = 0; // jobs that threw during capture, not route/collision-level skips
 
   // Group by role so each browser context is built once.
   const byRole = new Map<string, CaptureJob[]>();
@@ -152,6 +157,7 @@ test("capture wiki screenshots", async ({ browser }) => {
         ]);
       } catch (err) {
         skipped[`${job.spec.path} [${job.role}]`] = (err as Error).message.split("\n")[0];
+        failures++;
       } finally {
         if (timer) clearTimeout(timer);
         await Promise.race([page.close(), new Promise((res) => setTimeout(res, 5_000))]).catch(() => {});
@@ -161,7 +167,7 @@ test("capture wiki screenshots", async ({ browser }) => {
   }
 
   writeFileSync(RESULTS, JSON.stringify(skipped, null, 2));
-  console.log(`Captured ${jobs.length - Object.keys(skipped).length} screens; skipped ${Object.keys(skipped).length}.`);
+  console.log(`Captured ${jobs.length - failures} screens; skipped ${Object.keys(skipped).length}.`);
 
   // Expected/benign skips: missing seedId, output collision, a page nobody can
   // reach, or a known heavy page that timed out. Anything else fails loudly.
