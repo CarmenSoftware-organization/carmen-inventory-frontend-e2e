@@ -16,3 +16,4 @@ playwright/.cache/
 tests/wiki-screenshots/last-run.json
 tests/wiki-screenshots/seed-ids.json
 tests/wiki-screenshots/role-matrix.json
+tests/wiki-screenshots/role-matrix.json.tmp
