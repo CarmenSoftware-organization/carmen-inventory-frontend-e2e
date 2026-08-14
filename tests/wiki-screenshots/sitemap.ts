@@ -1,10 +1,13 @@
-import { existsSync, writeFileSync } from "node:fs";
-import { join, relative } from "node:path";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { dirname, relative } from "node:path";
 import { discoverFrontendRoutes } from "./route-discovery";
 import { loadRoleMatrix, ROLE_MATRIX_PATH, baselineFor } from "./role-matrix";
 import { outputFile } from "./shot-path";
 import { SHOTS } from "./manifest";
 import type { ProbeResult, ShotSpec } from "./types";
+
+/** A role that could not see the page, with the text the page actually showed. */
+export type RoleNote = { role: string; reason?: string };
 
 /** One card on the sitemap: a route plus every image that exists for it. */
 export type SitemapEntry = {
@@ -15,8 +18,8 @@ export type SitemapEntry = {
   /** Path relative to the HTML file, or undefined when nothing was captured. */
   baselineImage?: string;
   variants: Array<{ role: string; image: string }>;
-  denied: string[];
-  unavailable: string[];
+  denied: RoleNote[];
+  unavailable: RoleNote[];
 };
 
 /**
@@ -56,10 +59,15 @@ export function buildEntries(
       baselineRole: base?.role,
       baselineImage,
       variants,
-      denied: forRoute.filter((r) => r.outcome === "denied").map((r) => r.role),
+      // Carry the reason, not just the role: "Permission Denied" and "no
+      // seedId" are answers to completely different questions, and the badge
+      // alone cannot tell them apart.
+      denied: forRoute
+        .filter((r) => r.outcome === "denied")
+        .map((r) => ({ role: r.role, reason: r.reason })),
       unavailable: forRoute
         .filter((r) => r.outcome === "not-found" || r.outcome === "error")
-        .map((r) => r.role),
+        .map((r) => ({ role: r.role, reason: r.reason })),
     };
   });
 }
@@ -73,21 +81,48 @@ function sectionOf(route: string): string {
   return route.split("/").filter(Boolean)[0] ?? "root";
 }
 
+/**
+ * "Permission Denied — HOD, FC, GM" per distinct reason.
+ *
+ * Grouping keeps the card compact: on an RBAC-blocked page eight of the nine
+ * roles usually report the exact same sentence. Every reason is page-sourced
+ * text, so it goes through `esc()`.
+ */
+function renderReasons(notes: RoleNote[]): string {
+  const byReason = new Map<string, string[]>();
+  for (const n of notes) {
+    if (!n.reason) continue;
+    byReason.set(n.reason, [...(byReason.get(n.reason) ?? []), n.role]);
+  }
+  if (byReason.size === 0) return "";
+  const items = [...byReason.entries()]
+    .map(([reason, roles]) => `<li>${esc(reason)} — ${esc(roles.join(", "))}</li>`)
+    .join("");
+  return `<ul class="reasons">${items}</ul>`;
+}
+
 function renderCard(e: SitemapEntry): string {
   const thumb = e.baselineImage
     ? `<img src="${esc(e.baselineImage)}" alt="${esc(e.route)}" loading="lazy">`
     : `<div class="no-shot">no screenshot</div>`;
+  const badge = (cls: string, n: RoleNote, mark: string): string =>
+    `<span class="b ${cls}"${n.reason ? ` title="${esc(n.reason)}"` : ""}>${esc(n.role)} ${mark}</span>`;
   const badges = [
     e.baselineRole ? `<span class="b base">${esc(e.baselineRole)}</span>` : "",
     ...e.variants.map((v) => `<a class="b var" href="${esc(v.image)}">${esc(v.role)} ⊕</a>`),
-    ...e.denied.map((r) => `<span class="b denied">${esc(r)} ⊘</span>`),
-    ...e.unavailable.map((r) => `<span class="b na">${esc(r)} —</span>`),
+    ...e.denied.map((n) => badge("denied", n, "⊘")),
+    ...e.unavailable.map((n) => badge("na", n, "—")),
   ].join("");
-  const roles = [e.baselineRole ?? "", ...e.variants.map((v) => v.role), ...e.denied].join(" ");
+  const roles = [
+    e.baselineRole ?? "",
+    ...e.variants.map((v) => v.role),
+    ...e.denied.map((n) => n.role),
+  ].join(" ");
   return `<article class="card" data-route="${esc(e.route)}" data-roles="${esc(roles)}">
   <div class="shot">${thumb}</div>
   <div class="meta"><code>${esc(e.route)}</code><span class="slug">${esc(e.module)} · ${esc(e.slug)}</span></div>
   <div class="badges">${badges}</div>
+  ${renderReasons([...e.denied, ...e.unavailable])}
 </article>`;
 }
 
@@ -140,6 +175,8 @@ h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute
 .var{background:#16a34a;color:#fff;border-color:#16a34a}
 .denied{color:#b91c1c;border-color:#b91c1c}
 .na{color:var(--muted)}
+.reasons{margin:0;padding:0 10px 10px 24px;color:var(--muted);font-size:10px;line-height:1.45}
+.reasons li{margin:0;word-break:break-word}
 .hidden{display:none}
 </style></head><body>
 <header>
@@ -168,18 +205,29 @@ function main(): void {
   const assetsDir =
     process.env.WIKI_ASSETS_DIR ?? "../carmen-wiki/assets/screenshots/inventory";
   const outPath = process.env.WIKI_SITEMAP_PATH ?? "../carmen-wiki/sitemap.html";
-  const htmlDir = join(outPath, "..");
+  const htmlDir = dirname(outPath);
   const matrix = loadRoleMatrix(ROLE_MATRIX_PATH);
 
   // Routes present in the router but absent from the manifest still deserve a
-  // card — otherwise a new page would be invisible in the sitemap.
+  // card — otherwise a new page would be invisible in the sitemap. Optional on
+  // purpose: pass 3 must not throw, and the frontend checkout may simply not be
+  // there (ENOENT) when someone renders the sitemap from the matrix alone.
   const frontendDir = process.env.E2E_FRONTEND_DIR ?? "../carmen-inventory-frontend-react";
   const known = new Set(SHOTS.map((s) => s.path));
-  const extra: ShotSpec[] = discoverFrontendRoutes(frontendDir)
-    .filter((r) => !known.has(r))
-    .map((r) => ({ path: r, module: r.split("/").filter(Boolean)[0] ?? "root", slug: "unmapped" }));
+  let extra: ShotSpec[] = [];
+  try {
+    extra = discoverFrontendRoutes(frontendDir)
+      .filter((r) => !known.has(r))
+      .map((r) => ({ path: r, module: r.split("/").filter(Boolean)[0] ?? "root", slug: "unmapped" }));
+  } catch (err) {
+    console.warn(
+      `Route discovery skipped (${(err as Error).message}). ` +
+        `Sitemap will show manifest routes only — set E2E_FRONTEND_DIR to include unmapped ones.`,
+    );
+  }
 
   const entries = buildEntries([...SHOTS, ...extra], matrix, assetsDir, htmlDir, existsSync);
+  mkdirSync(htmlDir, { recursive: true });
   writeFileSync(outPath, renderSitemap(entries));
   console.log(`Wrote ${outPath} (${entries.length} screens)`);
 }
