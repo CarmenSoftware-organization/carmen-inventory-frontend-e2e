@@ -10,6 +10,7 @@ import { loadSeedOverlay, applySeedOverlay } from "./seed-overlay";
 import { ensureCaptureState } from "./capture-user";
 import { loadRoleMatrix, ROLE_MATRIX_PATH, baselineFor, rolesToCapture } from "./role-matrix";
 import { resolvePath, outputFile } from "./shot-path";
+import { ConfigListPage } from "../pages/config-list.page";
 
 const ASSETS_DIR =
   process.env.WIKI_ASSETS_DIR ?? "../carmen-wiki/assets/screenshots/inventory";
@@ -48,6 +49,15 @@ async function captureOne(page: Page, spec: ShotSpec, out: string): Promise<void
   if (await blockedNotice.isVisible().catch(() => false)) {
     await page.getByRole("button", { name: /^(close|ok|got it|dismiss)$/i }).first().click({ timeout: 2_000 }).catch(() => {});
     await page.waitForTimeout(400);
+  }
+  // Open the module's add dialog when the spec asks for it. Every config module
+  // built on DialogCrudHelper opens it the same way, so no per-module recipe.
+  if (spec.interaction === "add-dialog") {
+    const list = new ConfigListPage(page, spec.path);
+    await list.addButton().click({ timeout: 10_000 });
+    await page.locator('[data-slot="dialog-content"]').waitFor({ state: "visible", timeout: 10_000 });
+    // Let the dialog's open animation finish before shooting.
+    await page.waitForTimeout(300);
   }
   mkdirSync(dirname(out), { recursive: true });
   await page.screenshot({ path: out, fullPage: false, animations: "disabled", timeout: 20_000 });

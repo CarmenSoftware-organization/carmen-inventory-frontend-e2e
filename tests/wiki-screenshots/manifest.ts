@@ -154,4 +154,18 @@ export const SHOTS: ShotSpec[] = [
   // TODO: set seedId
   { path: "/vendor-management/vendor/:id", module: "vendor", slug: "detail" },
   { path: "/vendor-management/vendor/new", module: "vendor", slug: "new" },
+  // Dialog-based config modules: the create form has no route of its own, so
+  // capture it by opening the list page's Add dialog.
+  { path: "/config/adjustment-type", module: "adjustment-type", slug: "index", interaction: "add-dialog" },
+  { path: "/config/business-type", module: "business-type", slug: "index", interaction: "add-dialog" },
+  { path: "/config/certification", module: "certification", slug: "index", interaction: "add-dialog" },
+  { path: "/config/credit-note-reason", module: "credit-note-reason", slug: "index", interaction: "add-dialog" },
+  { path: "/config/credit-term", module: "credit-term", slug: "index", interaction: "add-dialog" },
+  { path: "/config/currency", module: "currency", slug: "index", interaction: "add-dialog" },
+  { path: "/config/delivery-point", module: "delivery-point", slug: "index", interaction: "add-dialog" },
+  { path: "/config/eco", module: "eco", slug: "index", interaction: "add-dialog" },
+  { path: "/config/exchange-rate", module: "exchange-rate", slug: "index", interaction: "add-dialog" },
+  { path: "/config/extra-cost", module: "extra-cost", slug: "index", interaction: "add-dialog" },
+  { path: "/config/tax-profile", module: "tax-profile", slug: "index", interaction: "add-dialog" },
+  { path: "/config/unit", module: "unit", slug: "index", interaction: "add-dialog" },
 ];
