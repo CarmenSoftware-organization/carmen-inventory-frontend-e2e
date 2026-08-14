@@ -37,6 +37,7 @@
     "migrate:tc-sheet": "bun run scripts/migrate-tc-ids/sync-sheet.ts",
     "wiki:seed": "bun run tests/wiki-screenshots/seed-manifest.ts",
     "wiki:coverage": "bun run tests/wiki-screenshots/coverage.ts",
+    "wiki:sitemap": "bun run tests/wiki-screenshots/sitemap.ts",
     "wiki:probe": "playwright test --project=wiki-probe",
     "wiki:capture": "playwright test --project=wiki-screenshots",
     "seed:master": "bun run scripts/seed-master/index.ts"
