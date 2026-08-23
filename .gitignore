@@ -17,3 +17,10 @@ tests/wiki-screenshots/last-run.json
 tests/wiki-screenshots/seed-ids.json
 tests/wiki-screenshots/role-matrix.json
 tests/wiki-screenshots/role-matrix.json.tmp
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+graft/
+
+# .claude/settings.json IS committed — it carries the shared hooks and status line.
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
