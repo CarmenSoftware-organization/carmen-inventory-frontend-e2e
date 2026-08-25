@@ -80,6 +80,46 @@ bun only auto-loads `.env` / `.env.local`, never a custom name. `scripts/run-env
 
 `tests/scripts/` ships two scripts: `run-module.sh` (takes a module name, or opens an interactive `select` menu when none is given) and `run-all.sh` (runs every numeric-prefixed spec). Both auto-discover modules from `tests/[0-9]*-*.spec.ts` — no list to maintain. Any `playwright test` flag can be appended (`--headed`, `--ui`, `-g <pattern>`, `--workers=100%` for the parallel batch mode in `run-all.sh`).
 
+## Screen sitemap capture (`create:sitemap:screen`)
+
+`scripts/capture-screens.ts` crawls the app as each test user and writes a
+browsable sitemap of full-page screenshots:
+
+```bash
+bun run create:sitemap:screen                       # all 9 TEST_USERS, sequential
+bun run create:sitemap:screen -- --user admin,hod   # by role or email local part
+bun run create:sitemap:screen -- --concurrency 3    # N users at a time
+bun run create:sitemap:screen -- --max-pages 20     # cap per user (default 300)
+```
+
+Output lands in `runs/screens/<datetime>/` (gitignored) — `index.html` (one card
+per user), `manifest.json`, and `<user>/sitemap.html` + `<user>/images/*.png`.
+`runs/screens/latest` symlinks the newest run. Each user's sitemap is written as
+soon as that user finishes, so a crash on role 7 still leaves roles 1-6 on disk.
+
+How it differs from `tests/wiki-screenshots/`: that pipeline shoots a **curated
+manifest** of routes discovered from the frontend's router source, role-aware via
+a probe matrix. This one **crawls** — it follows the links each role actually
+sees, so the per-user sitemaps double as evidence of what that role can reach.
+Both are kept; neither replaces the other.
+
+Two app-specific behaviours the crawler depends on:
+
+- **The module launcher.** This SPA does not put its navigation in the DOM up
+  front: the sidebar lists only the pages of the module you are already inside,
+  and the 11 module roots live behind the "Modules" popover. `collectLinks()`
+  opens it (after the screenshot, so it never covers the image) — without that
+  the crawl finds three links from `/dashboard` and stops.
+- **Redirects are recorded, not re-shot.** A route the role cannot open bounces
+  back to a page already captured; that entry is marked `redirected` instead of
+  saving a second copy of the destination under the blocked route's name, which
+  would read as "this role can reach it".
+
+Auth is a fresh UI login per user (`LoginPage.loginWithRetry`) in its own browser
+context — no dependency on the `setup` project or `.auth/*.json`. The pure URL
+rules live in `scripts/lib/screen-crawl.ts` and are unit-tested in
+`unit/screen-crawl.test.ts`.
+
 ## CSV reporter
 
 `tests/reporters/tc-csv-reporter.ts` is registered in `playwright.config.ts` and writes one CSV per spec file into `tests/results/` keyed by the `TC-XXX` IDs parsed from test titles. The regex `\b(TCS?-[A-Z]{0,4}\d{2,})\b` extracts them — keep titles in the `TC-<area><NNNNN> <description>` shape or the row won't be recorded. The repo ships seed CSVs covering the known TC IDs; the reporter updates Status + Test Date on each run.
