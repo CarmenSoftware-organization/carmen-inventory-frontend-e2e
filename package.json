@@ -40,7 +40,8 @@
     "wiki:sitemap": "bun run tests/wiki-screenshots/sitemap.ts",
     "wiki:probe": "playwright test --project=wiki-probe",
     "wiki:capture": "playwright test --project=wiki-screenshots",
-    "seed:master": "bun run scripts/seed-master/index.ts"
+    "seed:master": "bun run scripts/seed-master/index.ts",
+    "create:sitemap:screen": "bun run scripts/capture-screens.ts"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.5.0",

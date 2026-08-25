@@ -4,6 +4,9 @@ playwright-report/
 test-results/
 screenshots/
 videos/
+
+# create:sitemap:screen output (regenerable, can be GBs of PNGs)
+runs/
 blob-report/
 playwright/.cache/
 .env
