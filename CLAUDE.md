@@ -103,7 +103,7 @@ a probe matrix. This one **crawls** — it follows the links each role actually
 sees, so the per-user sitemaps double as evidence of what that role can reach.
 Both are kept; neither replaces the other.
 
-Two app-specific behaviours the crawler depends on:
+Three app-specific behaviours the crawler depends on:
 
 - **The module launcher.** This SPA does not put its navigation in the DOM up
   front: the sidebar lists only the pages of the module you are already inside,
@@ -114,6 +114,19 @@ Two app-specific behaviours the crawler depends on:
   back to a page already captured; that entry is marked `redirected` instead of
   saving a second copy of the destination under the blocked route's name, which
   would read as "this role can reach it".
+- **List rows are opened by button, not link.** A record opens from a
+  link-styled `<button>` whose text is its code ("CAD", "P055", "draft-1425") —
+  no `<a href>` is involved, so link-following alone never reaches a detail
+  screen. `captureFirstRowDetail()` clicks that one button on the first row of
+  every list (never the row itself, which also holds a checkbox and row
+  actions). Master and transaction modules navigate to `/<module>/<record>/
+  <uuid>`, and the new URL is queued so the normal loop shoots it as a `:id`
+  route; config modules open a dialog and leave the URL alone, so it is shot
+  here and filed under `<route>#detail`. That dialog is the module's **edit**
+  form — pressing Escape rather than Save is what keeps the crawl read-only.
+
+A full crawl as `admin` captures 123 screens in ~5 min (14 detail dialogs, 23
+detail pages, ~12 MB).
 
 Auth is a fresh UI login per user (`LoginPage.loginWithRetry`) in its own browser
 context — no dependency on the `setup` project or `.auth/*.json`. The pure URL

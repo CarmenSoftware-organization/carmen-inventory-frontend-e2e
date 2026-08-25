@@ -275,6 +275,97 @@ async function collectLinks(page: Page): Promise<string[]> {
   }
 }
 
+/**
+ * Open the first row's record on a list page and capture it.
+ *
+ * List rows carry no `<a href>` at all — a record opens from a link-styled
+ * `<button>` whose text is the record's code ("CAD", "P055", "draft-1425"), so
+ * no amount of link-following reaches a detail screen. The button is targeted
+ * precisely rather than clicking the row: a row also holds a checkbox and, in
+ * some modules, row actions, and this crawler must stay read-only.
+ *
+ * Two shapes exist, and both are captured:
+ * - Master/transaction modules navigate to `/<module>/<record>/<uuid>`. The new
+ *   URL is queued, so it is shot by the normal crawl loop, named from its
+ *   ":id" route, and crawled onwards into whatever the detail page links to.
+ * - Config modules open a dialog and leave the URL untouched. Nothing would
+ *   ever queue it, so it is shot here and filed under "<route>#detail".
+ *
+ * Runs after collectLinks(), because a click that navigates would otherwise
+ * take the page away before its links had been read.
+ */
+async function captureFirstRowDetail(
+  page: Page,
+  target: CrawlTarget,
+  userDir: string,
+  queue: CrawlTarget[],
+  seen: Set<string>,
+  log: (line: string) => void,
+): Promise<ManifestEntry | null> {
+  const opener = page
+    .locator("table tbody tr")
+    .first()
+    .locator("button.text-primary")
+    .first();
+
+  if ((await opener.count().catch(() => 0)) === 0) return null;
+
+  const routeLabel = target.route.replace(BASE_URL, "") || "/";
+  const urlBefore = page.url();
+  const record = (await opener.innerText().catch(() => "")).trim().slice(0, 40);
+
+  try {
+    await opener.click({ timeout: 5_000 });
+  } catch {
+    return null; // Not an opener after all — a disabled or detached button.
+  }
+
+  // The click either navigates or mounts a dialog; wait for whichever happens.
+  const deadline = Date.now() + 5_000;
+  let dialogOpen = false;
+  while (Date.now() < deadline) {
+    if (page.url() !== urlBefore) break;
+    if ((await page.getByRole("dialog").count().catch(() => 0)) > 0) {
+      dialogOpen = true;
+      break;
+    }
+    await new Promise((r) => setTimeout(r, 100));
+  }
+
+  if (page.url() !== urlBefore) {
+    await waitForNetworkQuiet(page);
+    const added = enqueueUnseen(queue, seen, [page.url()], BASE_URL);
+    if (added.length > 0) {
+      log(`  + ${routeLabel}  (queued detail of "${record}")`);
+    }
+    return null; // The crawl loop captures it like any other route.
+  }
+
+  if (!dialogOpen) return null;
+
+  await waitForNetworkQuiet(page);
+  const fileName = `${safeName(routeLabel)}--detail.png`;
+  try {
+    await page.screenshot({ path: join(userDir, IMAGE_SUBDIR, fileName), fullPage: true });
+    log(`  ✓ ${routeLabel} (detail of "${record}")`);
+    return {
+      label: `${routeLabel} (detail)`,
+      route: `${target.route}#detail`,
+      file: `${IMAGE_SUBDIR}/${fileName}`,
+      status: "ok",
+    };
+  } catch (err) {
+    const reason = err instanceof Error ? err.message : String(err);
+    log(`  ✗ ${routeLabel} (detail)  (${reason.split("\n")[0]})`);
+    return { label: `${routeLabel} (detail)`, route: `${target.route}#detail`, file: null,
+      status: "failed", reason };
+  } finally {
+    // Leave the page closed so the next iteration starts from a clean state
+    // even if it lands on the same route via a different href.
+    await page.keyboard.press("Escape").catch(() => {});
+  }
+}
+
 /** Log in, crawl every reachable screen, and write that user's sitemap. */
 async function captureUser(
   browser: Browser,
@@ -348,6 +439,9 @@ async function captureUser(
       if (capture.status === "failed" || capture.status === "redirected") continue;
 
       enqueueUnseen(queue, seen, await collectLinks(page), BASE_URL);
+
+      const detail = await captureFirstRowDetail(page, target, userDir, queue, seen, log);
+      if (detail) result.captures.push(detail);
     }
   } finally {
     await context.close().catch(() => {});
