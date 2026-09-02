@@ -2,7 +2,7 @@
   "name": "carmen-inventory-frontend-e2e",
   "version": "0.1.0",
   "private": true,
-  "description": "Playwright end-to-end tests for carmen-inventory-frontend",
+  "description": "Playwright end-to-end tests for carmen-inventory-frontend-react",
   "scripts": {
     "test": "playwright test",
     "test:ui": "playwright test --ui",
