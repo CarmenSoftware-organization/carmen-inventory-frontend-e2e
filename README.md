@@ -2,7 +2,7 @@
 
 Playwright end-to-end test suite for the [**carmen-inventory-frontend-react**](https://github.com/CarmenSoftware-organization/carmen-inventory-frontend-react) Vite SPA.
 
-The frontend lives in a sibling directory (`../carmen-inventory-frontend-react`). This repo contains only tests, page objects, fixtures, and a CSV-to-Google-Sheets reporter — no application code. (The suite is frontend-agnostic; point `E2E_FRONTEND_DIR` at the legacy Next.js app `../carmen-inventory-frontend` to run against it instead — see below.)
+The frontend lives in a sibling directory (`../carmen-inventory-frontend-react`). This repo contains only tests, page objects, fixtures, and a CSV-to-Google-Sheets reporter — no application code.
 
 ## Quickstart
 
@@ -112,12 +112,3 @@ is required; set `VITE_DEV_PROXY_TARGET=<backend-url>` only if you blank out
 `002-spa-smoke.spec.ts` (TC-SPA-01xxxx) is a cross-section smoke moved here from
 the SPA repo — it asserts SPA-specific behavior (auth-guard redirect, real dashboard
 instead of the migration placeholder).
-
-### Running against the legacy Next.js app
-
-The suite is frontend-agnostic. To run against the original Next app
-(`../carmen-inventory-frontend`, App Router) instead:
-
-```bash
-E2E_FRONTEND_DIR=../carmen-inventory-frontend bun e2e
-```

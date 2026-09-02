@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Purpose
 
-Standalone Playwright end-to-end test suite for the **carmen-inventory-frontend-react** Vite SPA (sibling directory: `../carmen-inventory-frontend-react`). This repo contains no application code — only tests, page objects, and fixtures that drive the frontend over HTTP. The suite is frontend-agnostic; the legacy Next.js app (`../carmen-inventory-frontend`, App Router) can still be targeted via `E2E_FRONTEND_DIR`.
+Standalone Playwright end-to-end test suite for the **carmen-inventory-frontend-react** Vite SPA (sibling directory: `../carmen-inventory-frontend-react`). This repo contains no application code — only tests, page objects, and fixtures that drive the frontend over HTTP. The suite is frontend-agnostic: `E2E_FRONTEND_DIR` points it at a frontend checkout under any path.
 
 ## Running tests
 
@@ -24,7 +24,7 @@ bun run report                  # open last HTML report
 
 ## How the runner starts the frontend
 
-`playwright.config.ts` spawns `bun dev` in `../carmen-inventory-frontend-react` (Vite, serves on `:3000`) via Playwright's `webServer`. To test against an already running instance (e.g. staging) set `E2E_NO_WEBSERVER=1` and override `E2E_BASE_URL`. To point at a frontend at a different path — e.g. the legacy Next app `../carmen-inventory-frontend` — set `E2E_FRONTEND_DIR`; Playwright resolves the `cwd` option relative to the config file, so relative paths are evaluated from this repo root. See `.env.example`.
+`playwright.config.ts` spawns `bun dev` in `../carmen-inventory-frontend-react` (Vite, serves on `:3000`) via Playwright's `webServer`. To test against an already running instance (e.g. staging) set `E2E_NO_WEBSERVER=1` and override `E2E_BASE_URL`. To point at a frontend checkout under a different path set `E2E_FRONTEND_DIR`; Playwright resolves the `cwd` option relative to the config file, so relative paths are evaluated from this repo root. See `.env.example`.
 
 ## Running against a named environment (`.env.uat`, etc.)
 
@@ -44,7 +44,7 @@ bun only auto-loads `.env` / `.env.local`, never a custom name. `scripts/run-env
 - **Login flows** must use `loginWithRetry` — the backend returns 429 after 3 wrong-password attempts on the same email, and the retry helper backs off when it detects the rate-limit message.
 - **Selectors** prefer `getByRole` / semantic queries. The frontend uses Radix primitives with `data-slot="..."` attributes (e.g. `data-slot="dropdown-menu-trigger"`, `data-slot="avatar"`) — use these when a role query is ambiguous, as seen in `DashboardPage.userMenuTrigger`.
 - **Test data**: build unique records via `tests/helpers/test-data.ts` (`buildEntity` / `fakeCode` / `fakeName` / `fakeDescription`), not hand-rolled strings. It wraps `@faker-js/faker` with the run-scoped UID suffix (`Date.now().toString(36)`) so names look realistic yet stay unique across runs; codes keep the ASCII `PREFIX+4` format (`≤ 10` chars). Faker is **not** seeded. `010-department.spec.ts` is the reference consumer; rolling the convention out to the remaining CRUD specs (and `helpers/security-cases.ts`) is a follow-up.
-- **Language**: test titles are Thai to match the product UX and the existing suite in `../carmen-inventory-frontend/e2e/`.
+- **Language**: test titles are Thai to match the product UX.
 - **Test annotations**: every `test(...)` should ship the full 5-field annotation set so the JSON reporter (and downstream Google Sheet) gets populated metadata. Use the 3-arg form `test("TC-XXNN title", { annotation: [...] }, async ({ page }) => { ... })`. Reference: `tests/001-login.spec.ts:49-86`. Required types (case-insensitive — see `tests/reporters/tc-json-reporter.ts:97-127`):
   - `preconditions` — system/user state required before the test runs (login state, prior test dependencies for `serial` suites, existing records).
   - `steps` — numbered, newline-separated user actions starting with `1.`.
@@ -146,9 +146,9 @@ rules live in `scripts/lib/screen-crawl.ts` and are unit-tested in
 
 Tab names are hard-coded in `SYNC_TARGETS` inside the script (e.g. `login-results.csv` → tab "Login"). New CSVs need a matching entry there. The shell runners in `tests/scripts/` call `bun e2e:sync` after every playwright invocation; the call is wrapped in `|| true` so missing credentials don't fail the run.
 
-## Relationship to `carmen-inventory-frontend/e2e/`
+## Origin: the legacy Next.js app's in-tree `e2e/` suite
 
-Mirrored from the frontend repo's in-tree `e2e/` suite — specs, page objects, fixtures, helpers, reporter, shell scripts, seed CSVs, and the Google Sheets sync script. Known path substitutions applied on port (reapply when syncing new changes):
+This suite was mirrored from that app's in-tree `e2e/` directory — specs, page objects, fixtures, helpers, reporter, shell scripts, seed CSVs, and the Google Sheets sync script. **That repo no longer exists, so there is nothing left to sync from**; the substitutions below are kept only to explain why paths here differ from the ones the ported files assume:
 
 - `testDir` is `./tests` (not `./e2e`).
 - CSV reporter `outputDir` is `tests/results` (not `e2e/results`).
