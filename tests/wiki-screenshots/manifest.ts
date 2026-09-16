@@ -122,7 +122,7 @@ export const SHOTS: ShotSpec[] = [
   // TODO: set seedId
   { path: "/system-admin/notification-template/:id", module: "notification-template", slug: "detail" },
   { path: "/system-admin/notification-template/new", module: "notification-template", slug: "new" },
-  { path: "/system-admin/period", module: "period", slug: "index" },
+  { path: "/system-admin/inventory-period", module: "inventory-period", slug: "index" },
   { path: "/system-admin/query-dataset", module: "query-dataset", slug: "index" },
   { path: "/system-admin/role", module: "role", slug: "index" },
   // TODO: set seedId
