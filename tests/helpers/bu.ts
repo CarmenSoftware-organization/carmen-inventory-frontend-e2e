@@ -57,13 +57,27 @@ export async function getBusinessUnits(page: Page): Promise<BusinessUnit[]> {
   const profileUrl = `${backendUrl}/${realPath}`;
 
   // Register intercept BEFORE navigation to avoid races.
-  const responsePromise = page.waitForResponse(
-    (r) => r.url().split("?")[0] === profileUrl && r.request().method() === "GET",
-    { timeout: 20_000 },
-  );
-  await page.goto("/dashboard");
+  const isProfile = (r: { url(): string; request(): { method(): string } }) =>
+    r.url().split("?")[0] === profileUrl && r.request().method() === "GET";
 
-  const response = await responsePromise;
+  // A plain goto is not enough on its own: when the SPA already holds a fresh
+  // profile in its client cache it renders /dashboard without asking the network
+  // again, and the intercept then waits 20s for a request that never happens —
+  // which surfaces as tests failing in beforeEach with `waiting for event
+  // "response"` rather than on anything they assert. A reload re-mounts the app
+  // and makes it fetch again, so retry that way once before giving up.
+  const capture = async (navigate: () => Promise<unknown>) => {
+    const responsePromise = page.waitForResponse(isProfile, { timeout: 20_000 });
+    await navigate();
+    return await responsePromise;
+  };
+
+  let response;
+  try {
+    response = await capture(() => page.goto("/dashboard"));
+  } catch {
+    response = await capture(() => page.reload());
+  }
   if (!response.ok()) {
     throw new Error(
       `Profile fetch failed: ${response.status()} ${response.statusText()} (${profileUrl})`,

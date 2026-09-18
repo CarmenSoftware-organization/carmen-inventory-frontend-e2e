@@ -41,12 +41,19 @@ export class PurchaseOrderPage extends BasePage {
     return this.page.getByRole("button", { name: /new po|create purchase order|^create$/i }).first();
   }
 
+  // The create picker is a dialog of plain <button> cards (po-create-dialog.tsx),
+  // not a dropdown menu — "Blank PO" / "From PR" / "From Price List", each of which
+  // navigates to its own route (/new, /from-pr, /from-price-list).
   createFromPRMenuItem(): Locator {
-    return this.page.getByRole("menuitem", { name: /create from purchase request/i }).first();
+    return this.page.getByRole("button", { name: /from pr|create from purchase request/i }).first();
   }
 
   manualPOMenuItem(): Locator {
-    return this.page.getByRole("menuitem", { name: /manual po|blank po/i }).first();
+    return this.page.getByRole("button", { name: /blank po|manual po/i }).first();
+  }
+
+  createFromPriceListButton(): Locator {
+    return this.page.getByRole("button", { name: /from price list/i }).first();
   }
 
   poRow(text: string): Locator {
@@ -254,12 +261,13 @@ export class PurchaseOrderPage extends BasePage {
   }
 
   // ── Create PO wizards (Step 2) ───────────────────────────────────────
+  // Same dialog as createFromPRMenuItem above: <button> cards, not menu items.
   fromPriceListMenuItem(): Locator {
-    return this.page.getByRole("menuitem", { name: /from price list|price list/i }).first();
+    return this.page.getByRole("button", { name: /from price list|price list/i }).first();
   }
 
   fromPRMenuItem(): Locator {
-    return this.page.getByRole("menuitem", { name: /from pr|from purchase request|create from purchase request/i }).first();
+    return this.page.getByRole("button", { name: /from pr|from purchase request|create from purchase request/i }).first();
   }
 
   priceListWizardSubmit(): Locator {

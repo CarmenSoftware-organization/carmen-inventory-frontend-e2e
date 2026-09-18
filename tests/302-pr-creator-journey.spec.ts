@@ -506,7 +506,10 @@ requestorTest.describe("Step 3 — Create from Template", () => {
         return;
       }
       await pr.selectFirstTemplate();
-      await expect(page).toHaveURL(/template_id=/, { timeout: 10_000 });
+      // The wizard hands the chosen items to /new through router state, not a
+      // query string — the URL is a plain /new (from-template-content.tsx:54).
+      await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
+      await expect(pr.itemRowByIndex(0)).toBeVisible({ timeout: 10_000 });
     },
   );
 

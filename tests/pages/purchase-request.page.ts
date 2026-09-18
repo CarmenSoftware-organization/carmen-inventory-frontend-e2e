@@ -449,23 +449,37 @@ export class PurchaseRequestPage extends BasePage {
     return this.page.getByRole("button", { name: /from template|use template|template/i }).first();
   }
 
-  // NOTE: dialog vs listbox shape is speculative — adjust once Step 3 UI is confirmed.
+  // ── Create-from-template (its own page, not a dialog) ─────────────────
+  // Picking "From Template" in the create dialog navigates to
+  // /procurement/purchase-request/from-template (pr-create-dialog.tsx), a two-step
+  // wizard: pick a template card → set quantities → Next, which lands on /new with
+  // the form pre-filled. Nothing here is a dialog or a listbox.
   templatePicker(): Locator {
-    return this.page.getByRole("dialog").or(this.page.getByRole("listbox")).first();
+    return this.page.getByRole("heading", { name: /select template/i }).first();
+  }
+
+  templateCards(): Locator {
+    return this.page.getByRole("button").filter({ hasText: /item\(s\)/i });
   }
 
   templatePickerEmpty(): Locator {
-    return this.templatePicker().getByText(/no templates|empty|none available/i).first();
+    return this.page.getByText(/no templates|empty|none available/i).first();
   }
 
+  /** Step 2 of the wizard: the quantity step for the chosen template. */
+  templateQtyNextButton(): Locator {
+    return this.page.getByRole("button", { name: /^next$/i }).first();
+  }
+
+  /**
+   * Walks the whole wizard: first template card → quantity step → Next, leaving
+   * the browser on /new with the template's items loaded.
+   */
   async selectFirstTemplate() {
-    const options = this.templatePicker().getByRole("option");
-    const links = this.templatePicker().getByRole("link");
-    if ((await options.count()) > 0) {
-      await options.first().click();
-    } else if ((await links.count()) > 0) {
-      await links.first().click();
-    }
+    await this.templateCards().first().click();
+    await this.templateQtyNextButton().waitFor({ state: "visible", timeout: 10_000 });
+    await this.templateQtyNextButton().click();
+    await this.page.waitForURL(/purchase-request\/new/, { timeout: 10_000 });
     await this.page.waitForLoadState("networkidle").catch(() => {});
   }
 

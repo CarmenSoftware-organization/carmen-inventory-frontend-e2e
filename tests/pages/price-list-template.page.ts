@@ -212,7 +212,10 @@ export class PriceListTemplatePage extends BasePage {
   // when the form is editable (create / edit mode), never in read-only view.
   addProductButton(): Locator {
     // rendered both in the section header and inside the empty-state card
-    return this.page.getByRole("button", { name: /add product/i }).first();
+    // The button says "Add Item" (plt-item-fields.tsx uses the shared tc("addItem")
+    // label, not the module's own "Add Product" string) — accept both so a label
+    // swap back does not break this.
+    return this.page.getByRole("button", { name: /add item|add product/i }).first();
   }
 
   productsEmptyState(): Locator {
