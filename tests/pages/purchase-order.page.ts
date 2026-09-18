@@ -203,28 +203,135 @@ export class PurchaseOrderPage extends BasePage {
     return this.page.getByRole("button", { name: /add item|add line item|^add$/i }).first();
   }
 
+  /** Header combobox: the workflow gates everything else on the form. */
+  workflowTrigger(): Locator {
+    return this.page.getByRole("combobox").filter({ hasText: /select workflow/i }).first();
+  }
+
+  async selectFirstWorkflow() {
+    const trigger = this.workflowTrigger();
+    if ((await trigger.count()) === 0) return; // already chosen
+    await trigger.click();
+    await this.page.getByRole("option").first().click();
+  }
+
+  /** Vendor is picked from a dialog of <button> cards ("A001 <name>"), not a select. */
+  async selectFirstVendor() {
+    const trigger = this.page.getByRole("button", { name: /select vendor/i }).first();
+    if ((await trigger.count()) === 0) return; // already chosen
+    await trigger.click();
+    const card = this.page.getByRole("dialog").getByRole("button").filter({ hasText: /^[A-Z]\d{3}/ }).first();
+    await card.waitFor({ state: "visible", timeout: 10_000 });
+    await card.click();
+  }
+
+  /**
+   * Pick a delivery date. The header field is a date-picker <button> ("Select
+   * date"), not a text input — the old `deliveryDateInput().fill()` silently did
+   * nothing inside its .catch(), and Save then refused with "Some details are
+   * missing" pointing at this field.
+   */
+  async selectDeliveryDate() {
+    const trigger = this.page.getByRole("button", { name: /select date/i }).first();
+    if ((await trigger.count()) === 0) return; // already set
+    await trigger.click({ timeout: 10_000 });
+    const dialog = this.page.getByRole("dialog").last();
+    await dialog.waitFor({ state: "visible", timeout: 5_000 }).catch(() => {});
+    // Any selectable day works; take the last enabled one so the date lands in the
+    // future rather than on a past day the picker disables. `:not([disabled])` has
+    // to be part of the CSS — Locator.filter({hasNot}) tests descendants, not the
+    // element itself, so it never excluded the disabled days.
+    const day = dialog.locator('button:not([disabled])').filter({ hasText: /^\d{1,2}$/ }).last();
+    await day.waitFor({ state: "visible", timeout: 5_000 });
+    await day.click({ timeout: 10_000 });
+    await dialog.waitFor({ state: "hidden", timeout: 5_000 }).catch(() => {});
+  }
+
+  /**
+   * Add one line item to a PO being created or edited.
+   *
+   * Two gates sit in front of this, and both fail silently if skipped:
+   *  1. "Add Item" checks `workflow_id` first (po-item-fields.tsx:123) — with no
+   *     workflow it opens a "Select a workflow first" dialog and adds no row at all.
+   *  2. The row's product lookup is scoped to the chosen vendor.
+   * The old implementation did neither and guessed at `getByLabel(/product/i)`
+   * with every step wrapped in .catch(), so it added nothing, left Save disabled,
+   * and the PO was never created — which is what made the PO journeys time out.
+   */
   async addItemToPO(data: POLineItemInput) {
-    await this.addItemButton().click({ timeout: 5_000 }).catch(() => {});
+    await this.selectFirstWorkflow();
+    await this.selectFirstVendor();
+    await this.selectDeliveryDate();
+    await this.addItemButton().click({ timeout: 10_000 });
+
+    // Rows are prepended, so the row being filled is the first body row. Wait for
+    // the row's own location trigger rather than for the <tr>: right after the
+    // click the first body row is still the "No Items Yet" placeholder, and a
+    // lookup scoped to it finds no triggers at all — which used to return quietly
+    // and leave every later step on an unfilled row.
+    const row = this.page.locator("tbody tr").first();
+    await row
+      .getByRole("button", { name: /select location/i })
+      .first()
+      .waitFor({ state: "visible", timeout: 10_000 });
+
+    await this.pickFromRowTrigger(row, /select location/i);
     if (data.product !== undefined) {
-      const productInput = this.page.getByLabel(/product|item/i).first();
-      if ((await productInput.count()) > 0) await productInput.fill(data.product);
-      const option = this.page.getByRole("option").filter({ hasText: data.product }).first();
-      if ((await option.count()) > 0) await option.click({ timeout: 5_000 }).catch(() => {});
+      await this.pickFromRowTrigger(row, /select product/i);
     }
     if (data.quantity !== undefined) {
-      const q = this.page.getByLabel(/^quantity$|^qty$/i).first();
-      if ((await q.count()) > 0) await q.fill(String(data.quantity));
-    }
-    if (data.uom !== undefined) {
-      const u = this.page.getByLabel(/uom|unit of measure/i).first();
-      if ((await u.count()) > 0) await u.fill(data.uom);
+      await row.locator('input[name$=".order_qty"]').first().fill(String(data.quantity));
     }
     if (data.unitPrice !== undefined) {
-      const p = this.page.getByLabel(/unit price/i).first();
-      if ((await p.count()) > 0) await p.fill(String(data.unitPrice));
+      const price = row.locator('input[name$=".price"]').first();
+      if ((await price.count()) > 0) await price.fill(String(data.unitPrice));
     }
-    const saveItem = this.page.getByRole("button", { name: /^save$|^add$|confirm/i }).last();
-    if ((await saveItem.count()) > 0) await saveItem.click({ timeout: 5_000 }).catch(() => {});
+  }
+
+  /**
+   * Click a "Select X" trigger inside a row and take the first option offered.
+   *
+   * Every wait here is bounded on purpose. The triggers unlock in sequence —
+   * "Select Product" ships `disabled` until a location is chosen — and Playwright's
+   * default `actionTimeout` is 0, so clicking a still-disabled trigger waits for it
+   * to become actionable *forever* rather than failing. That is what hung the PO
+   * journeys for the full test timeout with no error to point at.
+   */
+  private async pickFromRowTrigger(row: Locator, name: RegExp) {
+    const trigger = row.getByRole("button", { name }).first();
+    if ((await trigger.count()) === 0) {
+      throw new Error(`addItemToPO: no "${name}" trigger in the item row — the row layout changed`);
+    }
+    // Wait for the cascade to unlock this step instead of blocking on the click.
+    await expect(trigger).toBeEnabled({ timeout: 10_000 });
+    await trigger.click({ timeout: 10_000 });
+    // The picker is either a dialog of <button> cards (location, product) or a
+    // plain listbox. Branch on what actually opened instead of unioning the two:
+    // an .or() locator resolves against both roles and can settle on something
+    // that is not the row we mean to pick.
+    // .last(): the app keeps a hidden Command Palette dialog mounted, so
+    // getByRole("dialog") matches more than one node and any strict-mode call on it
+    // throws — which silently sent this down the listbox branch and left the row
+    // unfilled. The picker that just opened is the last one in the DOM.
+    const dialog = this.page.getByRole("dialog").last();
+    // waitFor, not isVisible: isVisible() answers immediately, so right after the
+    // click it reports false while the picker is still opening and the code falls
+    // through to the listbox branch that will never match.
+    const dialogOpened = await dialog
+      .waitFor({ state: "visible", timeout: 5_000 })
+      .then(() => true)
+      .catch(() => false);
+    if (dialogOpened) {
+      const card = dialog.getByRole("button").filter({ hasText: /\S/ }).first();
+      await card.waitFor({ state: "visible", timeout: 10_000 });
+      await card.click({ timeout: 10_000 });
+      await dialog.waitFor({ state: "hidden", timeout: 10_000 }).catch(() => {});
+    } else {
+      const option = this.page.getByRole("option").first();
+      await option.waitFor({ state: "visible", timeout: 10_000 });
+      await option.click({ timeout: 10_000 });
+    }
+    await this.page.waitForTimeout(300);
   }
 
   // ── Edit mode ────────────────────────────────────────────────────────

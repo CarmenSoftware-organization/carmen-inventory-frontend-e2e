@@ -15,12 +15,6 @@ const SEND_BACK_REASON = "Please verify pricing";
 const REJECT_REASON = "Vendor pricing exceeds budget";
 
 fcTest.describe("Step 1 — My Approval", () => {
-  // Every test in this block provisions its own PO through the UI
-  // (submitPOAsPurchaser opens a second browser context and walks the whole
-  // create → submit flow), which costs well over Playwright's 30s default — the
-  // block then times out during setup instead of on what it asserts. Same
-  // reasoning as the PR journey specs.
-  fcTest.describe.configure({ timeout: 90_000 });
   fcTest(
     "TC-PO-070101 My Approval dashboard loads with Total Pending count visible",
     {
@@ -96,8 +90,6 @@ fcTest.describe("Step 1 — My Approval", () => {
 });
 
 fcTest.describe("Step 2 — PO Detail (FC view)", () => {
-  // Provisions its own PO per test — see the note on the first block above.
-  fcTest.describe.configure({ timeout: 90_000 });
   fcTest(
     "TC-PO-070201 PO Detail loads in IN PROGRESS view (FC perspective)",
     {
@@ -175,10 +167,7 @@ fcTest.describe("Step 2 — PO Detail (FC view)", () => {
   );
 });
 
-fcTest.describe("Step 3 — Approval Actions", () => {
-  // Provisions its own PO per test — see the note on the first block above.
-  fcTest.describe.configure({ timeout: 90_000 });
-  // ─ Item-level marking (4 TCs) ───────────────────────────────────────
+fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level marking (4 TCs) ───────────────────────────────────────
   fcTest(
     "TC-PO-070301 Edit mode → select item → Approve toolbar appears",
     {
@@ -598,8 +587,6 @@ fcTest.describe("Step 3 — Approval Actions", () => {
 });
 
 fcTest.describe.serial("Golden Journey", () => {
-  // Provisions its own PO per test — see the note on the first block above.
-  fcTest.describe.configure({ timeout: 90_000 });
   fcTest(
     "TC-PO-070901 Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → Sent",
     {
