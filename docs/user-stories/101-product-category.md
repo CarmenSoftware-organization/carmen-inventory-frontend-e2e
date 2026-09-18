@@ -580,4 +580,4 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; root จาก TC-C
 ---
 
 
-<sub>Last regenerated: 2026-09-18 · git ed7d6a8</sub>
+<sub>Last regenerated: 2026-09-18 · git c6d77eb</sub>

@@ -142,6 +142,25 @@ TC-VEN-030005 และ TC-VEN-030011 ล้มที่ locator นี้
 ดูรายละเอียดในหัวข้อ A-1 — `certification-dialog.tsx` ยังส่ง payload แบบ flat
 เทสต์ที่เป็น write 9 ตัวถูกตั้ง `test.fixme` ไว้ ไม่ได้แก้ให้ผ่าน
 
+### D-3 — product-category: backend ปฏิเสธการสร้าง item group (400)
+
+`POST /api/config/{bu}/product-item-groups` ตอบ 400 พร้อมข้อความ
+
+```
+Unknown argument `is_used_in_purchase_order`. Available options are marked with ?.
+```
+
+เป็น Prisma error — มี field ที่ไม่มีอยู่ใน model ถูกส่งเข้าไปใน query ฝั่ง frontend
+ไม่ได้ส่ง field นี้: `category-form-schema.ts` มีแต่ `is_used_in_recipe` และ grep
+ทั้ง repo ไม่พบ `is_used_in_purchase_order` เลย ต้นตอจึงอยู่ที่ backend ที่เติม
+field นี้เองก่อนส่งต่อให้ Prisma
+
+การสร้าง category (ชั้น 1) และ subcategory (ชั้น 2) ผ่านปกติ ทั้งคู่ตอบ 201 —
+มีเฉพาะ item group (ชั้น 3) ที่พัง ตรวจกับ backend :4000 เมื่อ 2026-09-19
+
+กระทบ TC-CAT-040051 (สร้าง) และ TC-CAT-050051 (ลบ ซึ่งไม่มีของให้ลบ) — ตั้ง
+`fixme` ทั้งคู่ ปลดพร้อมกันเมื่อ backend แก้
+
 ### D-2 — vendor: ติ๊ก Primary บน contact card แล้วสถานะไม่เปลี่ยน
 
 `vendor-contact.tsx:139` อ่านค่าด้วย `form.getValues("vendor_contact.N")` ซึ่งเป็น

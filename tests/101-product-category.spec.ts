@@ -746,7 +746,18 @@ adminTest.describe.serial("Product Category — admin@BLAVG subtree CRUD", () =>
     },
   );
 
-  adminTest(
+  // BLOCKED: backend ปฏิเสธการสร้าง item group ด้วย 400 —
+  // POST /api/config/{bu}/product-item-groups ตอบ
+  // "Unknown argument `is_used_in_purchase_order`. Available options are marked with ?."
+  // ซึ่งเป็น Prisma error: มี field ที่ไม่มีอยู่ใน model ถูกส่งเข้าไปใน query
+  //
+  // ฝั่ง frontend ไม่ได้ส่ง field นี้ — category-form-schema.ts มีแต่
+  // `is_used_in_recipe` และ grep ทั้ง repo ไม่พบ `is_used_in_purchase_order` เลย
+  // ต้นตอจึงอยู่ที่ backend ที่เติม field นี้เองก่อนส่งต่อให้ Prisma
+  //
+  // การสร้าง category (ชั้น 1) และ subcategory (ชั้น 2) ผ่านปกติ ทั้งคู่ตอบ 201 —
+  // มีเฉพาะ item group (ชั้น 3) ที่พัง ตรวจกับ backend :4000 เมื่อ 2026-09-19
+  adminTest.fixme(
     "TC-CAT-040051 สร้าง item group ใต้ subcategory ผ่านปุ่ม Add child",
     {
       annotation: [
@@ -779,7 +790,9 @@ adminTest.describe.serial("Product Category — admin@BLAVG subtree CRUD", () =>
     },
   );
 
-  adminTest(
+  // BLOCKED: ต่อเนื่องจาก TC-CAT-040051 — ไม่มี item group ให้ลบ เพราะสร้างไม่ได้
+  // (backend 400 `is_used_in_purchase_order`) ปลด fixme พร้อมกันเมื่อ backend แก้
+  adminTest.fixme(
     "TC-CAT-050051 ลบ item group สำเร็จ",
     {
       annotation: [
