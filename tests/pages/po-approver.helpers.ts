@@ -91,12 +91,25 @@ export async function submitPOAsPurchaser(
       throw new Error(`submitPOAsPurchaser: could not extract PO ref from URL: ${url}`);
     }
 
-    // Optionally submit for approval if a Submit button is present.
+    // Submit for approval. This used to swallow every step in .catch(), so a
+    // failed submit left a Draft PO behind and callers only found out much later
+    // as "Approve button not found" — the approver has nothing to approve until
+    // the PO leaves Draft. Prove the transition instead: the Submit button is
+    // gone once the status moves on.
     const submit = po.submitButton();
     if ((await submit.count()) > 0) {
-      await submit.click({ timeout: 5_000 }).catch(() => {});
-      await po.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
-      await page.waitForLoadState("networkidle").catch(() => {});
+      await submit.click({ timeout: 10_000 });
+      const confirm = po.confirmDialogButton(/confirm|submit|ok|yes/i);
+      if (await confirm.isVisible({ timeout: 3_000 }).catch(() => false)) {
+        await confirm.click({ timeout: 10_000 });
+      }
+      await submit
+        .waitFor({ state: "detached", timeout: 15_000 })
+        .catch(async () => {
+          throw new Error(
+            `submitPOAsPurchaser: PO ${ref} still shows a Submit button — it never left Draft`,
+          );
+        });
     }
 
     return { ref, url };

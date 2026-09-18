@@ -257,15 +257,30 @@ probe สร้าง record จริงแล้ววัดได้ว่า
 แก้โดยกลับไปที่ list แล้วเปิด record ที่เพิ่งสร้าง ซึ่งเป็นทางเดียวที่ได้โหมด view
 — ผล: 17 ผ่าน/5 ล้ม → **22/0**
 
-### PO: helper ทำงานเดี่ยวได้ แต่ค้างเมื่ออยู่ในเทสต์
+### PO: cross-context hang — แก้แล้ว และเจอชั้นถัดไป
 
-`submitPOAsPurchaser` สร้าง PO สำเร็จใน **6.7 วินาที** เมื่อเรียกจากเทสต์เปล่า
-แต่เมื่อเรียกจากเทสต์ที่มี authenticated context อยู่แล้ว (`createAuthTest` +
-`ensureActiveBu`) กลับค้างจนครบ 180 วินาที โดย `ensureActiveBu` เองใช้แค่ 1.3 วินาที
-— เวลาที่เหลือหายไปในตัว helper ทั้งหมด
+`submitPOAsPurchaser` สร้าง PO สำเร็จใน 6.7 วินาทีเมื่อเรียกจากเทสต์เปล่า แต่ค้าง
+จนครบ timeout เมื่อเรียกจากเทสต์ที่มี authenticated context อยู่แล้ว ซึ่งเป็นกรณี
+ของทุกเทสต์ใน 402/403 เพราะทั้งคู่ใช้ `createAuthTest`
 
-อาการนี้ตรงกับ cross-context hang ที่เคยเจอและแก้ไปแล้วในสเปกฝั่ง PR (storageState
-ซ้อนกับ context ที่สอง) ยังไม่ได้สืบต่อว่าจุดเดียวกันหรือไม่ — เป็นงานถัดไป
+ต้นเหตุคือ context ที่สองพยายาม login ผ่าน UI ขณะที่ context แรกถืออยู่ — ปัญหา
+เดียวกันนี้เคยเจอและแก้ไปแล้วฝั่ง PR โดย `pr-approver.helpers.ts` เขียนกำกับไว้ว่า
+"Using storageState … avoids a hard hang observed when a second context tried to
+log in through the UI while the calling test already held its own authenticated
+context" แต่ฝั่ง PO ยังไม่ได้รับการแก้
+
+ย้ายทั้ง `submitPOAsPurchaser` และ `approveAsFC` ไปใช้ `withRoleContext()` ที่บูต
+จาก `.auth/<email>.json` แบบเดียวกัน — ผล: 29 ผ่าน/40 ล้ม → **34/19**
+
+ชั้นถัดไปที่โผล่ขึ้นมาหลังจากนั้น (เพราะความล้มเหลวไม่ถูกกลืนอีกแล้ว):
+
+1. **ขั้น submit ถูก `.catch()` กลืนทุกบรรทัด** PO จึงค้างเป็น Draft และผู้เรียก
+   ไปรู้ตัวตอน "Approve button not found" — แก้ให้พิสูจน์การเปลี่ยนสถานะด้วยการรอ
+   ให้ปุ่ม Submit หายไป และโยน error ที่บอกตรง ๆ ว่า PO ไม่เคยออกจาก Draft
+2. **FC ไม่ใช่ approver ของ PO ที่ helper สร้าง** — เปิด PO ที่ submit แล้วในฐานะ
+   `fc@blueledgers.com` ไม่พบทั้งปุ่ม Edit และ Approve แปลว่า workflow ที่ helper
+   เลือก (ตัวแรกในรายการ, "General PO") ไม่ได้ส่ง PO เข้าคิวของ FC เรื่องนี้ต้อง
+   รู้ว่าworkflow ไหนมี FC เป็นผู้อนุมัติก่อน จึงจะ seed ให้ถูก — ยังไม่ได้แก้
 
 ## รอบที่สอง (2026-09-19) — pl-template + product-category
 
