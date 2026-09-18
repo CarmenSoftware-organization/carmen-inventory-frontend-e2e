@@ -209,28 +209,34 @@ route ใหม่ใน config ที่ยังไม่มีทั้ง sp
 
 ## ผล probe (2026-09-19) — สามสาเหตุที่ค้างคา
 
-### currency: ฟิลด์ code ไม่ใช่ input อีกแล้ว
+### currency: อัตราแลกเปลี่ยนต้องเป็นบวก แต่ auto-fill มาเป็น 0 — แก้แล้ว
 
-`currency-dialog.tsx:77-91` เปลี่ยน code เป็น `<LookupCurrencyIso>` (ตัวเลือกรหัส
-สกุลเงินมาตรฐาน ISO ผ่าน Controller) จึง **ไม่มี `#currency-code`** ให้กรอก และ
-schema บังคับ `code`, `name`, `symbol` ครบสามตัว (`currency-form-schema.ts:7-11`)
-ส่วน `exchange_rate` ก็ติดป้าย required ในฟอร์ม
+เทสต์รู้จัก `LookupCurrencyIso` อยู่แล้วและเลือก ISO code ได้ปกติ ปัญหาอยู่ถัดจาก
+นั้น: การเลือก code เติม symbol ให้ (`Rp`) แต่ปล่อยอัตราแลกเปลี่ยนไว้ที่ **0**
+ขณะที่ schema บังคับ `.positive()` (`currency-form-schema.ts:13-15`) — แอปตั้งใจ
+ไม่มีค่าเริ่มต้นให้ ("ไม่มีค่าเริ่มต้นที่ถูกได้ — ต้องมาจากคนกรอกหรือจากแหล่งอัตราจริง")
 
-probe ยืนยัน: ฟิลด์ที่มีจริงในไดอะล็อกคือ
-`["search", "currency-name", "currency-symbol", "currency-exchange-rate", "currency-description"]`
-และกด Save แล้ว **ไม่มี network request ออกไปเลย** — zod บล็อกตั้งแต่ฝั่ง frontend
-ไม่ใช่ backend ปฏิเสธ (ต่างจาก certification) เทสต์จึงรอ toast ที่ไม่มีวันมา
-กระทบ 8 เทสต์ที่ล้มทั้งสาย เพราะ create เป็นต้นทางของ chain
+ผลคือกด Save แล้ว zod บล็อกตั้งแต่ฝั่ง frontend **ไม่มี request ออกไปเลย** และไม่มี
+error ปรากฏในที่ที่เทสต์มองหา เทสต์จึงรอ toast ที่ไม่มีวันมา แล้ว chain แตกทั้งสาย
 
-### department: create ไม่พาไปหน้า detail
+แก้โดยเติม `fillExchangeRate()` หลังเลือก ISO code — ผล: 9 ผ่าน/8 ล้ม → **17/0**
+
+(บันทึกไว้เพื่อความถูกต้อง: probe รอบแรกของเรื่องนี้สรุปผิดว่าเทสต์กรอก
+`#currency-code` ที่ไม่มีอยู่ ความจริงคือ probe เองต่างหากที่กรอก ส่วนเทสต์จริง
+ใช้ popover ถูกต้องมาตั้งแต่ต้น)
+
+### department: create ไม่พาไปหน้า detail — แก้แล้ว
 
 probe สร้าง record จริงแล้ววัดได้ว่า toast ขึ้นตามปกติ แต่ URL ยังเป็น
 `/config/department/new` ทั้งก่อนและหลัง reload และ `[data-slot="field-plain-text"]`
 มี **0 ตัว** — หน้าที่ค้างอยู่คือฟอร์มโหมด add ไม่ใช่ detail โหมด view
 
-นี่อธิบายว่าทำไม `viewValueFor` ใช้ได้กับ TC-DEP-040002 (เปิด record จาก list)
-แต่ไม่ได้กับ TC-DEP-030002 / TC-DEP-040003 ซึ่งเข้าหน้าจากการ create — เทสต์สองตัว
-หลังต้องกลับไป list แล้วเปิด record ที่เพิ่งสร้างก่อน จึงจะมีโหมด view ให้อ่าน
+เทสต์สี่ตัวสมมติว่า `page.reload()` หลัง save จะพาไปหน้า detail จึงได้ฟอร์มเปล่า
+กลับมาแทน: `viewValueFor` หา plain text ไม่เจอ, switch อ่านได้ค่า default `true`
+แทนค่าที่เพิ่งบันทึก, และ TC-DEP-050002 ค้างเพราะหน้า `/new` ไม่มีปุ่ม Edit ให้กด
+
+แก้โดยกลับไปที่ list แล้วเปิด record ที่เพิ่งสร้าง ซึ่งเป็นทางเดียวที่ได้โหมด view
+— ผล: 17 ผ่าน/5 ล้ม → **22/0**
 
 ### PO: helper ทำงานเดี่ยวได้ แต่ค้างเมื่ออยู่ในเทสต์
 

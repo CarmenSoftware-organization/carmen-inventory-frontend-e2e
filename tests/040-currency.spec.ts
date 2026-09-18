@@ -18,6 +18,21 @@ const opts = {
   activeSwitchId: "currency-is-active",
 };
 
+/**
+ * Give the required exchange rate a positive value.
+ *
+ * Picking an ISO code fills the symbol but leaves the rate at 0, and the schema
+ * requires a positive number (currency-form-schema.ts:13-15) — the app has no
+ * sensible default for a rate on purpose. Leaving it at 0 makes Save a no-op:
+ * zod blocks it, no request goes out, and the create toast never arrives.
+ */
+const fillExchangeRate = async (page: import("@playwright/test").Page, rate = "1.5") => {
+  const input = page.locator("#currency-exchange-rate");
+  if ((await input.count()) === 0) return;
+  if (await input.isDisabled().catch(() => false)) return;
+  await input.fill(rate);
+};
+
 test.describe("Currency — Smoke & CRUD", () => {
   test.beforeEach(async ({ page }) => {
     await ensureActiveBu(page, BU_CODE);
@@ -151,9 +166,9 @@ test.describe("Currency — Smoke & CRUD", () => {
     const h = new DialogCrudHelper(page, opts);
     await h.list.goto();
     await h.openAddDialog();
-    // Code is a LookupCurrencyIso (Popover + cmdk) — open it, search "USD",
-    // and click the matching item. Selecting it auto-fills symbol &
-    // exchange_rate (both disabled).
+    // Code is a LookupCurrencyIso (Popover + cmdk) — open it, search the ISO
+    // code, and click the matching item. That fills the symbol but leaves the
+    // exchange rate at 0, which the schema rejects — see fillExchangeRate.
     await h.dialog()
       .getByRole("button", { expanded: false })
       .first()
@@ -166,6 +181,7 @@ test.describe("Currency — Smoke & CRUD", () => {
     const idrOption = page.locator('button[data-value^="IDR "]').first();
     await idrOption.waitFor({ state: "visible", timeout: 5_000 });
     await idrOption.click();
+    await fillExchangeRate(page);
     await h.nameInput().fill(NAME);
     await h.saveButton().click();
     await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({
@@ -248,9 +264,9 @@ test.describe("Currency — Smoke & CRUD", () => {
     });
   });
 
-  // Currency create requires selecting an ISO code via the LookupCurrencyIso
-  // popover (Popover + cmdk) before name; selecting it auto-fills symbol &
-  // exchange_rate (both disabled). Helper mirrors TC-CUR-030001's flow.
+  // Currency create needs an ISO code picked from the LookupCurrencyIso popover
+  // (Popover + cmdk) before the name, plus a positive exchange rate — see
+  // fillExchangeRate.
   const selectIso = async (h: DialogCrudHelper, page: import("@playwright/test").Page, code: string) => {
     await h.dialog()
       .getByRole("button", { expanded: false })
@@ -262,7 +278,9 @@ test.describe("Currency — Smoke & CRUD", () => {
     const option = page.locator(`button[data-value^="${code} "]`).first();
     await option.waitFor({ state: "visible", timeout: 5_000 });
     await option.click();
+    await fillExchangeRate(page);
   };
+
 
   test(
     "TC-CUR-040002 toggle is_active แล้ว persist",

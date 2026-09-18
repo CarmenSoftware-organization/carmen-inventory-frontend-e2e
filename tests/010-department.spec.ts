@@ -410,14 +410,15 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.saveButton().click();
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
-      await page.reload();
-      await page.waitForLoadState("networkidle");
-      await expect(h.activeSwitch()!).toHaveAttribute("aria-checked", "false");
-
-      // cleanup
+      // Re-open from the list, not reload: a save leaves the browser on /new, so
+      // reloading just re-renders the blank create form whose switch is back at
+      // its default (true) — which is what this assertion used to read.
       await h.list.goto();
       await h.list.search(name);
       await h.clickRowName(name);
+      await expect(h.activeSwitch()!).toHaveAttribute("aria-checked", "false");
+
+      // cleanup
       await h.editButton().click();
       await h.deleteButton().click();
       await h.deleteConfirmButton().click();
@@ -494,9 +495,13 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.saveButton().click();
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
-      // reload → view mode: description is plain text, not a textarea
-      await page.reload();
-      await page.waitForLoadState("networkidle");
+      // Saving does NOT navigate to the record — the app stays on /new (verified
+      // 2026-09-19), so there is nothing to reload into a view. Open the record
+      // from the list instead; that is the only path that yields view mode, where
+      // the description is plain text rather than a textarea.
+      await h.list.goto();
+      await h.list.search(name);
+      await h.clickRowName(name);
       await expect(h.viewValueFor(opts.descriptionInputId)).toHaveText(desc);
 
       await h.editButton().click();
@@ -545,9 +550,11 @@ test.describe("Department — Smoke & CRUD", () => {
       await expect(discardConfirm).toBeVisible({ timeout: 5_000 });
       await discardConfirm.click();
 
-      // reload → view mode: the discarded edit must not have persisted
-      await page.reload();
-      await page.waitForLoadState("networkidle");
+      // Re-open from the list rather than reloading: the form stays on its own URL
+      // after a save, so a reload lands on the same editable form, not a view.
+      await h.list.goto();
+      await h.list.search(name);
+      await h.clickRowName(name);
       await expect(h.viewValueFor(opts.nameInputId)).toHaveText(name);
 
       // cleanup
@@ -580,6 +587,12 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.saveButton().click();
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
+      // The create form does not navigate to the record on save, and it carries no
+      // Edit/Delete affordance — open the record from the list before exercising
+      // the delete dialog.
+      await h.list.goto();
+      await h.list.search(name);
+      await h.clickRowName(name);
       await h.editButton().click();
       await h.deleteButton().click();
       const dialog = page.getByRole("alertdialog");
