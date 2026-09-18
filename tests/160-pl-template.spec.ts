@@ -172,7 +172,9 @@ procurementManagerTest.describe("Pricelist Template — Add products", () => {
       const tpl = new PriceListTemplatePage(page);
       await tpl.gotoNew();
       await expect(tpl.productsEmptyState()).toBeVisible({ timeout: 10_000 });
-      await tpl.addProductButton().click({ timeout: 10_000 });
+      // Products are ticked in the lookup tree; there is no "add row" button any
+      // more (plt-item-fields.tsx renders <TreeProductLookup> in edit mode).
+      await tpl.pickFirstProduct();
       // a product row now exists: its "Remove tier" control is visible…
       await expect(tpl.removeProductRowButton().first()).toBeVisible({ timeout: 10_000 });
       // …and the empty state is gone.
@@ -200,7 +202,7 @@ procurementManagerTest.describe("Pricelist Template — Add products", () => {
       await tpl.gotoNew();
       await tpl.nameInput().fill(`PT invalid row ${uid}`);
       await tpl.selectFirstCurrency();
-      await tpl.addProductButton().click({ timeout: 10_000 });
+      await tpl.pickFirstProduct();
       await expect(tpl.removeProductRowButton().first()).toBeVisible({ timeout: 10_000 });
       // save with the product/unit left unselected → schema rejects the detail
       await tpl.saveButton().click({ timeout: 10_000 });
@@ -226,7 +228,7 @@ procurementManagerTest.describe("Pricelist Template — Add products", () => {
     async ({ page }) => {
       const tpl = new PriceListTemplatePage(page);
       await tpl.gotoNew();
-      await tpl.addProductButton().click({ timeout: 10_000 });
+      await tpl.pickFirstProduct();
       await expect(tpl.removeProductRowButton().first()).toBeVisible({ timeout: 10_000 });
       await tpl.removeProductRowButton().first().click({ timeout: 10_000 });
       await expect(tpl.productsEmptyState()).toBeVisible({ timeout: 10_000 });
@@ -257,8 +259,9 @@ procurementStaffTest.describe("Pricelist Template — Add products — Permissio
         expect(true).toBe(true);
         return;
       }
-      // Staff lands on a read-only detail: no inline "Add product" affordance.
-      await expect(tpl.addProductButton()).toHaveCount(0, { timeout: 5_000 });
+      // Staff lands on a read-only detail: the lookup tree that adds products is
+      // rendered only in create/edit mode, so its search box must be absent.
+      await expect(tpl.productLookupSearch()).toHaveCount(0, { timeout: 5_000 });
     },
   );
 });

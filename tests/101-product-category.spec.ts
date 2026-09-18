@@ -517,6 +517,11 @@ async function hoverRow(page: import("@playwright/test").Page, text: string) {
 }
 
 adminTest.describe.serial("Product Category — admin@BLAVG CRUD", () => {
+  // Each test walks a dialog-based create (open → fill → pick tax profile → save →
+  // toast → node appears in the tree) whose own waits already add up to ~50s in the
+  // worst case — dialog 10s + option 10s + toast 15s + tree row 15s — so the block
+  // blows Playwright's 30s default before any of those waits can fail on its own.
+  adminTest.describe.configure({ timeout: 90_000 });
   adminTest.beforeEach(async ({ page }) => {
     await ensureActiveBu(page, BU_CODE);
   });
@@ -660,6 +665,8 @@ const expandAllButton = (page: import("@playwright/test").Page) =>
   page.getByRole("button", { name: /^(expand|ขยาย)$/i }).first();
 
 adminTest.describe.serial("Product Category — admin@BLAVG subtree CRUD", () => {
+  // Same dialog-based create as the block above — see that note.
+  adminTest.describe.configure({ timeout: 90_000 });
   adminTest.beforeEach(async ({ page }) => {
     await ensureActiveBu(page, BU_CODE);
   });

@@ -204,27 +204,52 @@ export class PriceListTemplatePage extends BasePage {
     // the interface only for backward compatibility with older callers.
   }
 
-  // ── Inline product table (redesigned add-products flow) ─────────────
-  // The old "Add Products" dialog (checkbox picker + Confirm Selection) was
-  // replaced by an inline product table on the create/edit form: an
-  // "Add product" button appends a row (product lookup + unit + qty + note),
-  // and each row carries a "Remove tier" (X) button. The table is shown only
-  // when the form is editable (create / edit mode), never in read-only view.
-  addProductButton(): Locator {
-    // rendered both in the section header and inside the empty-state card
-    // The button says "Add Item" (plt-item-fields.tsx uses the shared tc("addItem")
-    // label, not the module's own "Add Product" string) — accept both so a label
-    // swap back does not break this.
-    return this.page.getByRole("button", { name: /add item|add product/i }).first();
+  // ── Product selection (tree lookup, no add-row button) ──────────────
+  // Two redesigns happened here. The original "Add Products" dialog (checkbox
+  // picker + Confirm Selection) became an inline table with an "Add product"
+  // button; that button is gone too. In create/edit mode the form now renders
+  // <TreeProductLookup> (components/share/tree-product-lookup.tsx) on the left
+  // — a searchable tree of category → product with a checkbox per node — and the
+  // chosen products appear as cards on the right (plt-item-fields.tsx:155-180).
+  // There is no "empty row" to create any more: a row exists only because a
+  // product was ticked.
+  //
+  // The "Add Item" button still exists, but only in the *view* mode empty state
+  // (plt-item-fields.tsx:146), where it is a shortcut into edit mode — not the
+  // control that adds a row.
+  productLookupSearch(): Locator {
+    return this.page.getByPlaceholder(/search by code or name/i).first();
+  }
+
+  /** Checkboxes inside the lookup tree: group nodes and leaf products alike. */
+  productLookupCheckboxes(): Locator {
+    return this.page.getByRole("checkbox");
+  }
+
+  /**
+   * Tick the first selectable product in the lookup tree. Groups are collapsed
+   * initially, so expand the first one when no leaf checkbox is on screen yet.
+   */
+  async pickFirstProduct() {
+    const expander = this.page.getByRole("button", { name: /expand|collapse/i }).first();
+    if ((await this.productLookupCheckboxes().count()) <= 1 && (await expander.count()) > 0) {
+      await expander.click();
+    }
+    await this.productLookupCheckboxes().last().click();
+  }
+
+  /** Cards for the products already added to the template. */
+  productCards(): Locator {
+    return this.page.getByRole("button", { name: /remove product|remove tier/i });
   }
 
   productsEmptyState(): Locator {
-    return this.page.getByText(/no products yet/i).first();
+    return this.page.getByText(/no products yet|no items/i).first();
   }
 
-  /** Per-row remove (X) button; its presence proves an inline product row exists. */
+  /** Per-row remove (X) button; its presence proves a product row exists. */
   removeProductRowButton(): Locator {
-    return this.page.getByRole("button", { name: /remove tier/i });
+    return this.page.getByRole("button", { name: /remove tier|remove product/i });
   }
 
   // ── Status (redesigned activate / deactivate flow) ──────────────────
