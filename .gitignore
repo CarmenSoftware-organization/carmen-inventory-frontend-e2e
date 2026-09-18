@@ -27,3 +27,6 @@ graft/
 # .claude/settings.json IS committed — it carries the shared hooks and status line.
 .claude/settings.local.json
 .claude/scheduled_tasks.lock
+
+# vitest coverage output
+coverage/
