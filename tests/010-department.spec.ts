@@ -287,10 +287,12 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.saveButton().click();
       await expect(page.getByText(/updated|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
-      // reload: the persisted value must survive a fresh fetch
+      // reload: the persisted value must survive a fresh fetch. Reloading drops the
+      // form back to view mode, which renders the value as plain text instead of an
+      // input — so read it through viewValueFor, not `#<id>`.
       await page.reload();
       await page.waitForLoadState("networkidle");
-      await expect(page.locator(`#${opts.nameInputId}`)).toHaveValue(renamed);
+      await expect(h.viewValueFor(opts.nameInputId)).toHaveText(renamed);
 
       // list reflects the rename
       await h.list.goto();
@@ -492,9 +494,10 @@ test.describe("Department — Smoke & CRUD", () => {
       await h.saveButton().click();
       await expect(page.getByText(/created|success|สำเร็จ/i).first()).toBeVisible({ timeout: 10_000 });
 
+      // reload → view mode: description is plain text, not a textarea
       await page.reload();
       await page.waitForLoadState("networkidle");
-      await expect(h.descriptionInput()).toHaveValue(desc);
+      await expect(h.viewValueFor(opts.descriptionInputId)).toHaveText(desc);
 
       await h.editButton().click();
       await h.descriptionInput().fill("x".repeat(300));
@@ -542,9 +545,10 @@ test.describe("Department — Smoke & CRUD", () => {
       await expect(discardConfirm).toBeVisible({ timeout: 5_000 });
       await discardConfirm.click();
 
+      // reload → view mode: the discarded edit must not have persisted
       await page.reload();
       await page.waitForLoadState("networkidle");
-      await expect(page.locator(`#${opts.nameInputId}`)).toHaveValue(name);
+      await expect(h.viewValueFor(opts.nameInputId)).toHaveText(name);
 
       // cleanup
       await h.editButton().click();

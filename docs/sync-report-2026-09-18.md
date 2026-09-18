@@ -69,6 +69,27 @@ recipe-category
 
 **หมวด: (B) แอปเปลี่ยน behavior — ต้องปรับ page objects**
 
+### B-3 — "Create from Template" เปลี่ยนจาก dialog เป็นหน้าเต็ม
+
+`pr-create-dialog.tsx:58` — ปุ่ม From Template ทำ
+`go("/procurement/purchase-request/from-template")` ไปหน้าใหม่ที่มี template card
+เป็น `<button>` และ wizard 2 ขั้น (เลือก template → `qty-step.tsx`) ส่วนเทสต์
+Step 3 ยังรอ `getByRole("dialog").or(getByRole("listbox"))` ตาม NOTE เดิมใน
+`purchase-request.page.ts:452` ที่เขียนไว้ว่า "speculative — adjust once Step 3 UI
+is confirmed" ตอนนี้ยืนยันแล้วว่าเป็นหน้า ไม่ใช่ dialog กระทบ TC-PR-050301..050304
+
+### B-4 — test timeout 30s ไม่พออีกต่อไป
+
+cascade ที่ยาวขึ้นทำให้การสร้าง PR หนึ่งใบผ่าน UI ใช้เวลา **~32 วินาที** (วัด
+2026-09-18) ซึ่งเกิน default ของ Playwright ไปเล็กน้อย เทสต์ทั้งบล็อกจึงหมดเวลา
+ตั้งแต่ขั้นเตรียมข้อมูล ไม่ใช่ที่ assertion ของตัวเอง — ตั้ง
+`describe.configure({ timeout: 90_000 })` ให้ทุก describe ที่สร้าง PR เอง
+
+### B-5 — `pr-description` เปลี่ยนจาก `<textarea>` เป็น `<input>`
+
+`pr-general-fields.tsx:65` render `<Input id="pr-description">` แต่ page object
+หาด้วย `textarea#pr-description` — แก้ให้ match ที่ id อย่างเดียว
+
 ### A-1 — route ย้ายโมดูล (31 tests)
 
 | spec | path ใน spec | path จริงในแอป | ผล |
@@ -91,6 +112,58 @@ recipe-category
 | create toast ไม่ขึ้น → chain แตกทั้งสาย | `040-currency` | 5 |
 | checkbox คลิกแล้วสถานะไม่เปลี่ยน | `150-vendor` | 2 |
 | contact card locator ไม่พบ | `150-vendor` | 2 |
+
+### A-3 — vendor: contact card หาไม่เจอ (ยังไม่สรุปสาเหตุ)
+
+`tests/pages/vendor.page.ts:250` หา contact card ด้วย
+`div.relative.rounded-xl.border` + filter ด้วย `input[name="vendor_contact.0.name"]`
+TC-VEN-030005 และ TC-VEN-030011 ล้มที่ locator นี้
+
+ตรวจ `vendor-contact.tsx` แล้วพบว่าคลาสทั้งสามยังอยู่ครบบน card จริง สาเหตุจึง
+**ยังไม่ยืนยัน** — อาจเป็น input ที่ไม่ถูก render (การ์ดมี `isView` ของตัวเอง:
+`isView = isDisabled && !isSubmitting`) หรือปุ่ม "add contact" ที่ไม่ทำงาน
+ต้อง probe หน้าจริงก่อนแก้
+
+อาการอื่นในไฟล์เดียวกัน: ตัวเลือก status filter (`option` ชื่อ active/inactive/all)
+ไม่ปรากฏ และแถวของ vendor ที่เพิ่งสร้างหาไม่พบ
+
+### A-4 — ปุ่ม/คอนโทรลที่หายไปจาก UI (pl-template, campaign)
+
+| locator ที่รอ | spec | fails |
+|---|---|---|
+| `button` ชื่อ `/add product/i` | `160-pl-template` | 3 |
+| `aside` > `combobox` | `160-pl-template` | 1 |
+| `button` ชื่อ `/add request\|create new campaign\|^add$/i` | `1001-campaign` | 1 |
+
+ยังไม่ยืนยันว่าเป็นการเปลี่ยนชื่อปุ่ม ย้ายตำแหน่ง หรือถอดออก — ต้อง probe UI จริง
+
+### D-1 — certification: backend ปฏิเสธทุก write (400 metadata field is required)
+
+ดูรายละเอียดในหัวข้อ A-1 — `certification-dialog.tsx` ยังส่ง payload แบบ flat
+เทสต์ที่เป็น write 9 ตัวถูกตั้ง `test.fixme` ไว้ ไม่ได้แก้ให้ผ่าน
+
+### D-2 — vendor: ติ๊ก Primary บน contact card แล้วสถานะไม่เปลี่ยน
+
+`vendor-contact.tsx:139` อ่านค่าด้วย `form.getValues("vendor_contact.N")` ซึ่งเป็น
+snapshot ที่ไม่ subscribe การเปลี่ยนแปลง การ์ดจึงไม่ re-render เมื่อ
+`handleSetPrimary` เรียก `form.setValue(...)` — ค่าใน form เปลี่ยนจริงแต่ checkbox
+ยังค้างที่ `aria-checked="false"` ผู้ใช้จริงเจออาการเดียวกัน (คลิกแล้วไม่ติ๊ก)
+ทางแก้ฝั่งแอปคือใช้ `useWatch`/`Controller` แทน `getValues`
+
+กระทบ TC-VEN-030005 และ TC-VEN-030011 — ตั้ง `test.fixme` ไว้ทั้งคู่
+
+### C-2 — `ensureActiveBu` รอ response ที่ SPA อาจไม่ยิงซ้ำ
+
+`tests/helpers/bu.ts:60` อ่าน business unit ด้วยการดัก
+`GET {backend}/api/user/profile` แล้ว `goto("/dashboard")` โดยสมมติว่า SPA ยิง
+request นี้ทุกครั้งที่โหลด dashboard เมื่อรันหลายรอบติดกันใน session เดียว
+ชั้น cache ฝั่ง SPA ทำให้ไม่มี request ใหม่ → `waitForResponse` timeout ที่ 20s
+และเทสต์ล้มที่ `beforeEach` ไม่ใช่ที่ assertion ของตัวเอง
+
+พบครั้งแรก 2026-09-18 ตอนรัน `010-department` ซ้ำ: TC-DEP-040003, 050002,
+040004, 040005 ล้มด้วย `waiting for event "response"` ทั้งที่รอบ baseline
+ก่อนหน้าผ่าน ต้องทำให้ helper ทนกรณีไม่มี request ใหม่ (อ่านค่าจาก UI หรือ
+force reload ก่อนดัก)
 
 ### C-1 — เทสต์ที่ข้ามตัวเองเพราะไม่มีข้อมูล
 

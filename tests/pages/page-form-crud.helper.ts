@@ -87,6 +87,20 @@ export class PageFormCrudHelper {
     return this.page.getByRole("button", { name: /^(Cancel|ยกเลิก)$/i });
   }
 
+  /**
+   * ค่าที่ฟอร์มแสดงในโหมด view (ผูกกับ id ของ input ตัวเดียวกันผ่าน label[for]).
+   *
+   * หน้ารายละเอียดกลับเป็นโหมด view ทุกครั้งที่โหลดใหม่ — `hooks/use-entity-form.ts`
+   * ตั้ง `mode = "view"` และโหมดนั้นไม่ render input เลย ค่าออกมาเป็น
+   * `<span data-slot="field-plain-text">` แทน การ assert ค่าหลัง reload จึงต้องอ่าน
+   * จากตรงนี้ ไม่ใช่จาก `#<id>` ซึ่งยังไม่มีอยู่จนกว่าจะกด Edit
+   */
+  viewValueFor(inputId: string): Locator {
+    return this.page
+      .locator(`[data-slot="field"]:has(label[for="${inputId}"]) [data-slot="field-plain-text"]`)
+      .first();
+  }
+
   editButton(): Locator {
     return this.page.getByRole("button", { name: /^(Edit|แก้ไข)$/i });
   }

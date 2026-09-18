@@ -153,8 +153,10 @@ export class PurchaseRequestPage extends BasePage {
   }
 
   descriptionInput(): Locator {
-    // Scope to the textarea — [name='description'] also matches <meta name="description">.
-    return this.page.locator("textarea#pr-description").first();
+    // Match on the id, not the tag: [name='description'] would also hit
+    // <meta name="description">, and the field is an <input> now —
+    // pr-general-fields.tsx renders <Input id="pr-description">, not a textarea.
+    return this.page.locator("#pr-description").first();
   }
 
   justificationInput(): Locator {
@@ -251,22 +253,32 @@ export class PurchaseRequestPage extends BasePage {
 
   async addLineItem(data: PRLineItemInput) {
     // Redesigned editor: "Add Item" prepends a blank row (index 0) in an editable
-    // datagrid; product is gated on a location, so set location → product → qty.
+    // datagrid. The cascade enables in order (location → product → unit); a valid
+    // item needs location, product, qty, unit (auto-set from product) + delivery
+    // point (currency auto-fills from the BU, delivery date defaults to tomorrow).
+    //
+    // The qty cell is NOT an input until a product is chosen — requested-cell.tsx
+    // renders <QtyUnitPlain> while `!productId` ("กรอกจำนวนก่อนเลือกสินค้าไม่มี
+    // ความหมาย"). So the new row is anchored on its "Select Location" button,
+    // not on the qty input, which only exists from step 2 onwards.
     await this.addItemButton().click();
-    const qtyInput = this.page.locator('input[name="items.0.requested_qty"]').first();
-    await qtyInput.waitFor({ state: "visible", timeout: 10_000 });
-    // Scope the cascading "Select X" triggers to the single editable row (the <tr>
-    // holding this row's qty input) so re-renders don't shift targeting. The
-    // cascade enables in order (location → product → unit); a valid item needs
-    // location, product, qty, unit (auto-set from product) + delivery point
-    // (currency auto-fills from the BU, delivery date defaults to tomorrow).
-    const row = this.page.locator('tr:has(input[name="items.0.requested_qty"])').first();
+    // Anchor on position, not on content: every cascade step replaces the trigger
+    // it just used ("Select Location" becomes the chosen location's name), so a
+    // content-based row filter goes stale after the first pick. New rows are
+    // prepended, so the row being edited is always the first body row; the
+    // second body row is the comment box, not another item.
+    const row = this.page.locator("tbody tr").first();
+    await row.waitFor({ state: "visible", timeout: 10_000 });
 
-    await this.pickFirstInCombobox(row.getByRole("button", { name: /select location/i }).first()).catch(() => {});
+    await this.pickFirstInCombobox(row.getByRole("button", { name: /select location/i }).first());
     if (data.product !== undefined) {
-      await this.pickFirstInCombobox(row.getByRole("button", { name: /select product/i }).first()).catch(() => {});
+      await this.pickFirstInCombobox(row.getByRole("button", { name: /select product/i }).first());
     }
     if (data.quantity !== undefined) {
+      // Only reachable once a product is set; scoped to this row so a re-render
+      // of the grid cannot retarget it at a sibling row.
+      const qtyInput = row.locator('input[name^="items."][name$=".requested_qty"]').first();
+      await qtyInput.waitFor({ state: "visible", timeout: 10_000 });
       await qtyInput.fill(String(data.quantity));
     }
     await this.pickFirstInCombobox(row.getByRole("button", { name: /select unit/i }).first()).catch(() => {});
