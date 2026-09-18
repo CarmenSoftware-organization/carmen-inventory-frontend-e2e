@@ -465,8 +465,12 @@ const CAT_NAME_UPDATED = fakeName({ tag: "CAT Upd" });
 const addCategoryButton = (page: import("@playwright/test").Page) =>
   page.getByRole("button", { name: /add category|เพิ่มหมวดหมู่/i }).first();
 
+// .last(): the app keeps a hidden Command Palette dialog mounted at all times, so
+// getByRole("dialog") matches more than one node. Any strict-mode action scoped to
+// it (fill, click) then never resolves — and because Playwright's default
+// actionTimeout is 0, the test hangs for its whole timeout instead of failing.
 const categoryDialog = (page: import("@playwright/test").Page) =>
-  page.getByRole("dialog");
+  page.getByRole("dialog").last();
 
 const codeInput = (page: import("@playwright/test").Page) =>
   categoryDialog(page).locator("#code");
@@ -482,6 +486,20 @@ const createButton = (page: import("@playwright/test").Page) =>
 
 const saveButton = (page: import("@playwright/test").Page) =>
   categoryDialog(page).getByRole("button", { name: /^(save|บันทึก)$/i }).first();
+
+/**
+ * Fill the code field only if the app still lets a human type one.
+ *
+ * The dialog now ships `#code` as `disabled` with placeholder "Auto-generated" —
+ * the backend assigns the code. Calling .fill() on it waits for the field to
+ * become editable, and since Playwright's default actionTimeout is 0 that wait
+ * never ends: the test burns its entire timeout here rather than failing.
+ */
+const fillCodeIfEditable = async (page: import("@playwright/test").Page, code: string) => {
+  const input = codeInput(page);
+  if (await input.isDisabled().catch(() => true)) return;
+  await input.fill(code, { timeout: 10_000 });
+};
 
 // A tree row, matched by visible text (code Badge + name live in the same row button).
 const treeRow = (page: import("@playwright/test").Page, text: string) =>
@@ -517,11 +535,6 @@ async function hoverRow(page: import("@playwright/test").Page, text: string) {
 }
 
 adminTest.describe.serial("Product Category — admin@BLAVG CRUD", () => {
-  // Each test walks a dialog-based create (open → fill → pick tax profile → save →
-  // toast → node appears in the tree) whose own waits already add up to ~50s in the
-  // worst case — dialog 10s + option 10s + toast 15s + tree row 15s — so the block
-  // blows Playwright's 30s default before any of those waits can fail on its own.
-  adminTest.describe.configure({ timeout: 90_000 });
   adminTest.beforeEach(async ({ page }) => {
     await ensureActiveBu(page, BU_CODE);
   });
@@ -568,7 +581,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG CRUD", () => {
 
       await addCategoryButton(page).click();
       await categoryDialog(page).waitFor({ state: "visible", timeout: 10_000 });
-      await codeInput(page).fill(CAT_CODE);
+      await fillCodeIfEditable(page, CAT_CODE);
       await nameInput(page).fill(CAT_NAME);
       await selectFirstTaxProfile(page);
       await createButton(page).click();
@@ -665,8 +678,6 @@ const expandAllButton = (page: import("@playwright/test").Page) =>
   page.getByRole("button", { name: /^(expand|ขยาย)$/i }).first();
 
 adminTest.describe.serial("Product Category — admin@BLAVG subtree CRUD", () => {
-  // Same dialog-based create as the block above — see that note.
-  adminTest.describe.configure({ timeout: 90_000 });
   adminTest.beforeEach(async ({ page }) => {
     await ensureActiveBu(page, BU_CODE);
   });
@@ -692,7 +703,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG subtree CRUD", () =>
 
       await addCategoryButton(page).click();
       await categoryDialog(page).waitFor({ state: "visible", timeout: 10_000 });
-      await codeInput(page).fill(ROOT_CODE);
+      await fillCodeIfEditable(page, ROOT_CODE);
       await nameInput(page).fill(ROOT_NAME);
       await selectFirstTaxProfile(page);
       await createButton(page).click();
@@ -725,7 +736,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG subtree CRUD", () =>
       await hoverRow(page, ROOT_NAME);
       await addChildAction(page).first().click();
       await categoryDialog(page).waitFor({ state: "visible", timeout: 10_000 });
-      await codeInput(page).fill(SUB_CODE);
+      await fillCodeIfEditable(page, SUB_CODE);
       await nameInput(page).fill(SUB_NAME);
       await createButton(page).click();
 
@@ -758,7 +769,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG subtree CRUD", () =>
       await hoverRow(page, SUB_NAME);
       await addChildAction(page).first().click();
       await categoryDialog(page).waitFor({ state: "visible", timeout: 10_000 });
-      await codeInput(page).fill(IG_CODE);
+      await fillCodeIfEditable(page, IG_CODE);
       await nameInput(page).fill(IG_NAME);
       await createButton(page).click();
 
