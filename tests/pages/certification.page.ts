@@ -4,7 +4,7 @@ import { BasePage } from "./base.page";
 
 /**
  * Dedicated page object for the **certification** config module
- * (`/config/certification`).
+ * (`/vendor-management/certification`).
  *
  * This module intentionally does NOT use the shared `DialogCrudHelper`: it has
  * a `code` field that is the unique key (search / clickRow / delete all key on
@@ -15,7 +15,7 @@ import { BasePage } from "./base.page";
  * The dialog/row locators below are modelled on the proven ones in
  * `DialogCrudHelper` (which works against this exact `ConfigListTemplate`).
  */
-const PATH = "/config/certification";
+const PATH = "/vendor-management/certification";
 
 class _BasePageImpl extends BasePage {}
 

@@ -516,4 +516,4 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery poi
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git 876a09e</sub>
+<sub>Last regenerated: 2026-09-18 · git 7da2484</sub>

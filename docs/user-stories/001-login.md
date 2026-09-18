@@ -1026,4 +1026,4 @@ User requestor@blueledgers.com login สำเร็จและมี refresh t
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git 69f97e7</sub>
+<sub>Last regenerated: 2026-09-18 · git 7da2484</sub>

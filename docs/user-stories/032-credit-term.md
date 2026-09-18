@@ -454,4 +454,4 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git fcb39e4</sub>
+<sub>Last regenerated: 2026-09-18 · git 7da2484</sub>
