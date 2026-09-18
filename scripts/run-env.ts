@@ -55,7 +55,8 @@ export function parseEnvFile(content: string): Record<string, string> {
   return out;
 }
 
-function main(argv: string[]): number {
+/** Exported for unit tests; the CLI guard below is the only production caller. */
+export function main(argv: string[]): number {
   let envName = "uat";
   let passthrough = argv;
   // First positional (non-flag) arg selects the env file; the rest go to playwright.

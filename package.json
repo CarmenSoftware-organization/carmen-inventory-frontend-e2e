@@ -41,12 +41,14 @@
     "wiki:probe": "playwright test --project=wiki-probe",
     "wiki:capture": "playwright test --project=wiki-screenshots",
     "seed:master": "bun run scripts/seed-master/index.ts",
-    "create:sitemap:screen": "bun run scripts/capture-screens.ts"
+    "create:sitemap:screen": "bun run scripts/capture-screens.ts",
+    "test:unit:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.5.0",
     "@playwright/test": "^1.61.0",
     "@types/node": "^20.19.43",
+    "@vitest/coverage-v8": "4.1.9",
     "googleapis": "^171.4.0",
     "lefthook": "^2.1.9",
     "typescript": "^5.9.3",
