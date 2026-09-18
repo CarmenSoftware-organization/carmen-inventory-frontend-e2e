@@ -1,14 +1,45 @@
-import type { Browser, Page } from "@playwright/test";
+import type { Browser, BrowserContext, Page } from "@playwright/test";
 import { expect } from "@playwright/test";
-import { LoginPage } from "./login.page";
 import { PurchaseOrderPage, LIST_PATH } from "./purchase-order.page";
-import { TEST_PASSWORD } from "../test-users";
+import { BU_CODE } from "../test-users";
+import { authFile } from "../fixtures/auth.paths";
+import { ensureActiveBu } from "../helpers/bu";
 
 const FUTURE_DATE = "2099-12-31";
 
 export interface CreatedPO {
   ref: string;
   url: string;
+}
+
+/**
+ * Opens an auxiliary BrowserContext pre-authenticated as `email` from the
+ * persisted storageState (.auth/<email>.json, written by auth.setup.ts) and runs
+ * `fn` with a fresh page in that context. The context is always closed.
+ *
+ * Booting from storageState instead of logging in through the UI is what keeps
+ * this usable from inside a test: a second context that tries a UI login while
+ * the calling test already holds its own authenticated context hangs hard — the
+ * PO journeys burned their whole timeout on exactly that, with no error to point
+ * at. The same fix already lives in pr-approver.helpers.ts. It is also far
+ * faster, and pinning the BU to BLAVG here gives the PO form's BU-dependent
+ * lookups (workflow, vendor, location) data to work with.
+ */
+async function withRoleContext<T>(
+  browser: Browser,
+  email: string,
+  fn: (page: Page) => Promise<T>,
+): Promise<T> {
+  const ctx: BrowserContext = await browser.newContext({
+    storageState: authFile(email),
+  });
+  try {
+    const page = await ctx.newPage();
+    await ensureActiveBu(page, BU_CODE);
+    return await fn(page);
+  } finally {
+    await ctx.close();
+  }
 }
 
 /**
@@ -24,14 +55,7 @@ export async function submitPOAsPurchaser(
   browser: Browser,
   opts?: { description?: string; vendor?: string },
 ): Promise<CreatedPO> {
-  const ctx = await browser.newContext();
-  try {
-    const page = await ctx.newPage();
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.loginWithRetry("purchase@blueledgers.com", TEST_PASSWORD);
-    await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
-
+  return await withRoleContext(browser, "purchase@blueledgers.com", async (page) => {
     const po = new PurchaseOrderPage(page);
     await po.gotoNew();
     await expect(page).toHaveURL(/purchase-order\/new/, { timeout: 10_000 });
@@ -76,9 +100,7 @@ export async function submitPOAsPurchaser(
     }
 
     return { ref, url };
-  } finally {
-    await ctx.close();
-  }
+  });
 }
 
 /**
@@ -88,13 +110,7 @@ export async function submitPOAsPurchaser(
  * cleanly. Used by Step 5 post-approval setup.
  */
 export async function approveAsFC(browser: Browser, ref: string): Promise<void> {
-  const ctx = await browser.newContext();
-  try {
-    const page = await ctx.newPage();
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.loginWithRetry("fc@blueledgers.com", TEST_PASSWORD);
-    await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
+  await withRoleContext(browser, "fc@blueledgers.com", async (page) => {
     await gotoPODetail(page, ref);
     const po = new PurchaseOrderPage(page);
     if ((await po.editModeButton().count()) > 0) {
@@ -107,9 +123,7 @@ export async function approveAsFC(browser: Browser, ref: string): Promise<void> 
     await approve.click({ timeout: 5_000 });
     await po.confirmDialogButton(/confirm|approve|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
     await page.waitForLoadState("networkidle").catch(() => {});
-  } finally {
-    await ctx.close();
-  }
+  });
 }
 
 /**
