@@ -31,12 +31,6 @@ export default defineConfig({
         "scripts/generate-user-stories.ts", // one-shot doc generator, no exported seams
         "scripts/rename-test-ids.ts", // one-shot migration CLI
         "scripts/migrate-tc-ids/apply.ts", // one-shot migration CLI
-        // One-shot too, and its buildMap() no longer runs at all: 9 of the 33
-        // SPEC_CONFIG entries name spec files that have since been renamed or
-        // deleted, so readFileSync throws on the first missing one. The pure
-        // proposeMapping() it exports is still unit-tested in
-        // scripts/migrate-tc-ids/__tests__/propose.test.ts.
-        "scripts/migrate-tc-ids/propose.ts",
         "scripts/migrate-tc-ids/sync-sheet.ts", // googleapis client
         "tests/helpers/security-cases.ts", // Playwright test bodies (registration is tested in unit/security-cases.test.ts)
         "tests/wiki-screenshots/capture-user.ts", // browser

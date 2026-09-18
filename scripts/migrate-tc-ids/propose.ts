@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 export interface MapEntry {
@@ -18,6 +18,8 @@ export interface MigrationMap {
   version: 1;
   generatedAt: string;
   modules: Record<string, ModuleEntry>;
+  /** SPEC_CONFIG entries whose spec file no longer exists; empty when in sync. */
+  missing: string[];
 }
 
 type SectionMap = Record<string, Record<string, string>>;
@@ -55,27 +57,27 @@ export const SPEC_CONFIG: Array<{
   { specFile: "tests/079-delivery-point.spec.ts", newPrefix: "DP", oldPrefixes: ["DP"], sectionMap: { DP: { "001": "01" } } },
   { specFile: "tests/080-location.spec.ts", newPrefix: "LOC", oldPrefixes: ["LOC"], sectionMap: { LOC: { "001": "01" } } },
   { specFile: "tests/150-vendor.spec.ts", newPrefix: "VEN", oldPrefixes: ["VEN"], sectionMap: { VEN: { "001": "01" } } },
-  { specFile: "tests/602-credit-note-reason.spec.ts", newPrefix: "CNR", oldPrefixes: ["CNR"], sectionMap: { CNR: { "001": "01" } } },
+  { specFile: "tests/602-cn-reason.spec.ts", newPrefix: "CNR", oldPrefixes: ["CNR"], sectionMap: { CNR: { "001": "01" } } },
 
   // Multi-section CRUD modules (sections 001..NNN; 100+ -> placeholder)
   { specFile: "tests/1001-campaign.spec.ts", newPrefix: "CAM", oldPrefixes: ["CAM"], sectionMap: { CAM: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05",
       "006": "06", "007": "07", "008": "08", "009": "09", "010": "10",
     } } },
-  { specFile: "tests/159-price-list.spec.ts", newPrefix: "PL", oldPrefixes: ["PL"], sectionMap: { PL: {
+  { specFile: "tests/159-pl.spec.ts", newPrefix: "PL", oldPrefixes: ["PL"], sectionMap: { PL: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06", "007": "07", "008": "08",
     } } },
-  { specFile: "tests/160-price-list-template.spec.ts", newPrefix: "PT", oldPrefixes: ["PT"], sectionMap: { PT: {
+  { specFile: "tests/160-pl-template.spec.ts", newPrefix: "PT", oldPrefixes: ["PT"], sectionMap: { PT: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06",
     } } },
   { specFile: "tests/201-my-approvals.spec.ts", newPrefix: "MA", oldPrefixes: ["MA"], sectionMap: { MA: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06",
     } } },
-  { specFile: "tests/501-good-received-note.spec.ts", newPrefix: "GRN", oldPrefixes: ["GRN"], sectionMap: { GRN: {
+  { specFile: "tests/501-grn.spec.ts", newPrefix: "GRN", oldPrefixes: ["GRN"], sectionMap: { GRN: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06", "007": "07", "008": "08", "009": "09",
       "010": "10", "011": "11", "012": "12", "013": "13", "014": "14", "015": "15", "016": "16", "017": "17", "018": "18",
     } } },
-  { specFile: "tests/701-store-requisition.spec.ts", newPrefix: "SR", oldPrefixes: ["SR"], sectionMap: { SR: {
+  { specFile: "tests/701-sr.spec.ts", newPrefix: "SR", oldPrefixes: ["SR"], sectionMap: { SR: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06",
       "007": "07", "008": "08", "009": "09", "010": "10", "011": "11", "012": "12",
     } } },
@@ -87,7 +89,7 @@ export const SPEC_CONFIG: Array<{
   { specFile: "tests/900-period-end.spec.ts", newPrefix: "PE", oldPrefixes: ["PE"], sectionMap: { PE: {
       "001": "01", "002": "02", "003": "03", "004": "04",
     } } },
-  { specFile: "tests/301-purchase-request.spec.ts", newPrefix: "PR", oldPrefixes: ["PR"], sectionMap: { PR: {
+  { specFile: "tests/301-pr.spec.ts", newPrefix: "PR", oldPrefixes: ["PR"], sectionMap: { PR: {
       "001": "01", "002": "02", "003": "03", "004": "04",
       "005": "05", "006": "06", "007": "07", "008": "08", "009": "09",
       "010": "40", "011": "41", "012": "42", "013": "43", "014": "44", "015": "45", "016": "46", "017": "47", "018": "48", "019": "49",
@@ -96,15 +98,15 @@ export const SPEC_CONFIG: Array<{
       // 201-202 auto → 21-22 (Validation)
       // 301-303 auto → 11-13 (Security)
     } } },
-  { specFile: "tests/310-purchase-request-template.spec.ts", newPrefix: "PRT", oldPrefixes: ["PRT"], sectionMap: { PRT: {
+  { specFile: "tests/310-pr-template.spec.ts", newPrefix: "PRT", oldPrefixes: ["PRT"], sectionMap: { PRT: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06",
       "007": "07", "008": "08", "009": "09", "010": "10", "011": "11",
     } } },
-  { specFile: "tests/401-purchase-order.spec.ts", newPrefix: "PO", oldPrefixes: ["PO"], sectionMap: { PO: {
+  { specFile: "tests/401-po.spec.ts", newPrefix: "PO", oldPrefixes: ["PO"], sectionMap: { PO: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06",
       "020": "20",
     } } },
-  { specFile: "tests/601-credit-note.spec.ts", newPrefix: "CN", oldPrefixes: ["CN"], sectionMap: { CN: {
+  { specFile: "tests/601-cn.spec.ts", newPrefix: "CN", oldPrefixes: ["CN"], sectionMap: { CN: {
       "001": "01", "002": "02", "003": "03", "004": "04", "005": "05", "006": "06",
       "007": "07", "008": "08", "009": "09", "010": "10", "011": "11",
       "210": "50", "211": "51", "212": "52", "213": "53", "214": "54",
@@ -311,12 +313,32 @@ export function proposeMapping(
   };
 }
 
+/**
+ * Build the migration map from every spec SPEC_CONFIG names.
+ *
+ * A spec listed here but absent from disk is SKIPPED with a warning rather
+ * than throwing: specs get renamed (the whole 3xx-7xx block went from
+ * `301-purchase-request.spec.ts` to `301-pr.spec.ts`), and one stale entry
+ * should not take the other 32 modules down with it. `missing` is returned so
+ * a caller — or the test suite — can assert the config is still in sync.
+ */
 export function buildMap(): MigrationMap {
   const modules: MigrationMap["modules"] = {};
+  const missing: string[] = [];
   const TC_RE = /\bTC-?[A-Z]{1,5}-?\d{2,}\b/g;
   const V2_STRICT = /^TC-[A-Z]{2,5}-\d{6}$/;
   for (const cfg of SPEC_CONFIG) {
-    const src = readFileSync(resolve(process.cwd(), cfg.specFile), "utf8");
+    const specPath = resolve(process.cwd(), cfg.specFile);
+    if (!existsSync(specPath)) {
+      missing.push(cfg.specFile);
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[propose] skipping ${cfg.specFile} (${cfg.newPrefix}): file not found — ` +
+          `it was renamed or deleted; update SPEC_CONFIG.`,
+      );
+      continue;
+    }
+    const src = readFileSync(specPath, "utf8");
     const ids = Array.from(new Set(src.match(TC_RE) ?? []))
       .filter((id) => !V2_STRICT.test(id)); // skip already-migrated v2 IDs
     // Sort prefixes longest-first to avoid shorter prefix shadowing longer one
@@ -330,7 +352,7 @@ export function buildMap(): MigrationMap {
     modules[cfg.newPrefix] ??= { newPrefix: cfg.newPrefix, specs: [] };
     modules[cfg.newPrefix].specs.push({ specFile: cfg.specFile, entries });
   }
-  return { version: 1, generatedAt: new Date().toISOString(), modules };
+  return { version: 1, generatedAt: new Date().toISOString(), modules, missing };
 }
 
 if (import.meta.main) {
