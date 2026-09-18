@@ -181,20 +181,28 @@ procurementManagerTest.describe("Pricelist Template — Add products", () => {
       await expect(page.getByText(/no products yet/i)).toHaveCount(0, { timeout: 10_000 });
     },
   );
-  procurementManagerTest(
-    "TC-PT-020002 Add products to template - Invalid Input (empty product row)",
+  // BLOCKED: เคสนี้ทดสอบ "แถวเปล่า" ซึ่งสร้างไม่ได้อีกแล้ว — ฟอร์มเปลี่ยนมาใช้
+  // TreeProductLookup แถวจึงเกิดได้ทางเดียวคือมีสินค้าถูกติ๊ก
+  // (plt-item-fields.tsx:155-180) สถานะ "ข้อมูลไม่ครบ" ที่เหลือคือบันทึกโดยไม่มี
+  // สินค้าเลย แต่ลองแล้วแอป **ยอมบันทึก** ไม่มี validation error ใด ๆ ปรากฏ
+  // (ตรวจ 2026-09-19) จึงไม่มีอะไรให้ assert ตามเจตนาเดิมของเคส
+  //
+  // ต้องตัดสินใจฝั่ง product ก่อนว่า template ที่ไม่มีสินค้าเลยควรบันทึกได้หรือไม่
+  // ถ้าไม่ควร นี่คือบั๊ก; ถ้าควร ให้ลบเคสนี้ทิ้งแล้วเขียนเคสใหม่ที่ตรงกับกฎจริง
+  procurementManagerTest.fixme(
+    "TC-PT-020002 Add products to template - Invalid Input (ไม่มีสินค้าเลย)",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น Procurement Manager; มี currency อย่างน้อย 1 รายการ" },
         {
           type: "steps",
           description:
-            "1. ไปที่ /vendor-management/price-list-template/new\n2. กรอกชื่อ template + เลือก currency\n3. คลิก 'Add product' เพื่อเพิ่ม row เปล่า (ยังไม่เลือก product/unit)\n4. คลิก 'Save'",
+            "1. ไปที่ /vendor-management/price-list-template/new\n2. กรอกชื่อ template + เลือก currency\n3. ไม่ติ๊กสินค้าใด ๆ จาก lookup tree\n4. คลิก 'Save'",
         },
-        { type: "expected", description: "ระบบแสดง validation error (product/unit ต้องไม่ว่าง) และ template ไม่ถูกบันทึก" },
+        { type: "expected", description: "ระบบแสดง validation error (ต้องมีสินค้าอย่างน้อย 1 รายการ) และ template ไม่ถูกบันทึก" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
-        { type: "note", description: "Each inline detail requires product_id + unit_id (plt-form-schema); saving an unfilled row is rejected by client-side validation." },
+        { type: "note", description: "เดิมเคสนี้ทดสอบ 'แถวเปล่า' ซึ่งสร้างไม่ได้อีกแล้ว — ฟอร์มเปลี่ยนมาใช้ TreeProductLookup แถวจึงเกิดได้ทางเดียวคือมีสินค้าถูกติ๊ก (ดู plt-item-fields.tsx:155-180) สถานะ 'ข้อมูลไม่ครบ' ที่ยังทดสอบได้จริงคือบันทึกโดยไม่มีสินค้าเลย" },
       ],
     },
     async ({ page }) => {
@@ -202,9 +210,7 @@ procurementManagerTest.describe("Pricelist Template — Add products", () => {
       await tpl.gotoNew();
       await tpl.nameInput().fill(`PT invalid row ${uid}`);
       await tpl.selectFirstCurrency();
-      await tpl.pickFirstProduct();
-      await expect(tpl.removeProductRowButton().first()).toBeVisible({ timeout: 10_000 });
-      // save with the product/unit left unselected → schema rejects the detail
+      // ไม่ติ๊กสินค้า — schema ต้องการอย่างน้อยหนึ่งรายการ
       await tpl.saveButton().click({ timeout: 10_000 });
       await expect(tpl.anyError().first()).toBeVisible({ timeout: 10_000 });
     },
@@ -230,7 +236,9 @@ procurementManagerTest.describe("Pricelist Template — Add products", () => {
       await tpl.gotoNew();
       await tpl.pickFirstProduct();
       await expect(tpl.removeProductRowButton().first()).toBeVisible({ timeout: 10_000 });
-      await tpl.removeProductRowButton().first().click({ timeout: 10_000 });
+      // Removing raises a confirmation dialog — the row survives until it is
+      // confirmed, so clicking the X alone leaves the empty state hidden.
+      await tpl.removeFirstProduct();
       await expect(tpl.productsEmptyState()).toBeVisible({ timeout: 10_000 });
     },
   );

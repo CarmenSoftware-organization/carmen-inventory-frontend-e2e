@@ -18,7 +18,7 @@ _Generated from `tests/160-pl-template.spec.ts` annotations. Edit annotations, n
 | TC-PT-010050 | active BU = BLAVG | High | Smoke |
 | TC-PT-010051 | สร้าง pricelist template (admin/BLAVG) สำเร็จ | High | CRUD |
 | TC-PT-020001 | Add products to template - Happy Path | High | Happy Path |
-| TC-PT-020002 | Add products to template - Invalid Input (empty product row) | High | Negative |
+| TC-PT-020002 | Add products to template - Invalid Input (ไม่มีสินค้าเลย) | High | Negative |
 | TC-PT-020003 | Add products to template - No Permission | High | Negative |
 | TC-PT-020004 | Add products to template - Edge Case - Remove restores empty state | Medium | Edge Case |
 | TC-PT-030001 | Edit template with valid data | High | Happy Path |
@@ -216,7 +216,7 @@ Login เป็น Procurement Manager; เปิดฟอร์มสร้า�
 
 ---
 
-## TC-PT-020002 — Add products to template - Invalid Input (empty product row)
+## TC-PT-020002 — Add products to template - Invalid Input (ไม่มีสินค้าเลย)
 
 > **As a** Admin user, **I want** this Price List Template behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
@@ -231,14 +231,14 @@ Login เป็น Procurement Manager; มี currency อย่างน้อ
 
 1. ไปที่ /vendor-management/price-list-template/new
 2. กรอกชื่อ template + เลือก currency
-3. คลิก 'Add product' เพื่อเพิ่ม row เปล่า (ยังไม่เลือก product/unit)
+3. ไม่ติ๊กสินค้าใด ๆ จาก lookup tree
 4. คลิก 'Save'
 
 **Expected**
 
-ระบบแสดง validation error (product/unit ต้องไม่ว่าง) และ template ไม่ถูกบันทึก
+ระบบแสดง validation error (ต้องมีสินค้าอย่างน้อย 1 รายการ) และ template ไม่ถูกบันทึก
 
-> _Note: Each inline detail requires product_id + unit_id (plt-form-schema); saving an unfilled row is rejected by client-side validation._
+> _Note: เดิมเคสนี้ทดสอบ 'แถวเปล่า' ซึ่งสร้างไม่ได้อีกแล้ว — ฟอร์มเปลี่ยนมาใช้ TreeProductLookup แถวจึงเกิดได้ทางเดียวคือมีสินค้าถูกติ๊ก (ดู plt-item-fields.tsx:155-180) สถานะ 'ข้อมูลไม่ครบ' ที่ยังทดสอบได้จริงคือบันทึกโดยไม่มีสินค้าเลย_
 
 ---
 
@@ -862,4 +862,4 @@ TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอ�
 ---
 
 
-<sub>Last regenerated: 2026-09-18 · git 7da2484</sub>
+<sub>Last regenerated: 2026-09-18 · git ed7d6a8</sub>
