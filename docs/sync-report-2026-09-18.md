@@ -207,6 +207,41 @@ assertion ตรง ๆ ส่วนที่เหลือครอบ action 
 route ใหม่ใน config ที่ยังไม่มีทั้ง spec และ catalog: `config/account-mapping`,
 `config/chart-of-accounts`, `config/shelf`
 
+## ผล probe (2026-09-19) — สามสาเหตุที่ค้างคา
+
+### currency: ฟิลด์ code ไม่ใช่ input อีกแล้ว
+
+`currency-dialog.tsx:77-91` เปลี่ยน code เป็น `<LookupCurrencyIso>` (ตัวเลือกรหัส
+สกุลเงินมาตรฐาน ISO ผ่าน Controller) จึง **ไม่มี `#currency-code`** ให้กรอก และ
+schema บังคับ `code`, `name`, `symbol` ครบสามตัว (`currency-form-schema.ts:7-11`)
+ส่วน `exchange_rate` ก็ติดป้าย required ในฟอร์ม
+
+probe ยืนยัน: ฟิลด์ที่มีจริงในไดอะล็อกคือ
+`["search", "currency-name", "currency-symbol", "currency-exchange-rate", "currency-description"]`
+และกด Save แล้ว **ไม่มี network request ออกไปเลย** — zod บล็อกตั้งแต่ฝั่ง frontend
+ไม่ใช่ backend ปฏิเสธ (ต่างจาก certification) เทสต์จึงรอ toast ที่ไม่มีวันมา
+กระทบ 8 เทสต์ที่ล้มทั้งสาย เพราะ create เป็นต้นทางของ chain
+
+### department: create ไม่พาไปหน้า detail
+
+probe สร้าง record จริงแล้ววัดได้ว่า toast ขึ้นตามปกติ แต่ URL ยังเป็น
+`/config/department/new` ทั้งก่อนและหลัง reload และ `[data-slot="field-plain-text"]`
+มี **0 ตัว** — หน้าที่ค้างอยู่คือฟอร์มโหมด add ไม่ใช่ detail โหมด view
+
+นี่อธิบายว่าทำไม `viewValueFor` ใช้ได้กับ TC-DEP-040002 (เปิด record จาก list)
+แต่ไม่ได้กับ TC-DEP-030002 / TC-DEP-040003 ซึ่งเข้าหน้าจากการ create — เทสต์สองตัว
+หลังต้องกลับไป list แล้วเปิด record ที่เพิ่งสร้างก่อน จึงจะมีโหมด view ให้อ่าน
+
+### PO: helper ทำงานเดี่ยวได้ แต่ค้างเมื่ออยู่ในเทสต์
+
+`submitPOAsPurchaser` สร้าง PO สำเร็จใน **6.7 วินาที** เมื่อเรียกจากเทสต์เปล่า
+แต่เมื่อเรียกจากเทสต์ที่มี authenticated context อยู่แล้ว (`createAuthTest` +
+`ensureActiveBu`) กลับค้างจนครบ 180 วินาที โดย `ensureActiveBu` เองใช้แค่ 1.3 วินาที
+— เวลาที่เหลือหายไปในตัว helper ทั้งหมด
+
+อาการนี้ตรงกับ cross-context hang ที่เคยเจอและแก้ไปแล้วในสเปกฝั่ง PR (storageState
+ซ้อนกับ context ที่สอง) ยังไม่ได้สืบต่อว่าจุดเดียวกันหรือไม่ — เป็นงานถัดไป
+
 ## ลำดับการแก้ที่เสนอ
 
 | ลำดับ | งาน | คืนเทสต์ | ต้นทุน |
