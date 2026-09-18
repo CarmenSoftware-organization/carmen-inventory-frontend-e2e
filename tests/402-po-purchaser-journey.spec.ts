@@ -129,6 +129,12 @@ purchaseTest.describe("Step 1 — PO List", () => {
 });
 
 purchaseTest.describe("Step 2 — Create PO", () => {
+  // Every test in this block provisions its own PO through the UI
+  // (submitPOAsPurchaser opens a second browser context and walks the whole
+  // create → submit flow), which costs well over Playwright's 30s default — the
+  // block then times out during setup instead of on what it asserts. Same
+  // reasoning as the PR journey specs.
+  purchaseTest.describe.configure({ timeout: 90_000 });
   // ─ Blank method (4 TCs) ─────────────────────────────────────────────
   purchaseTest(
     "TC-PO-060201 Open Create dropdown → Blank → form loads",
@@ -518,6 +524,8 @@ purchaseTest.describe("Step 2 — Create PO", () => {
 });
 
 purchaseTest.describe("Step 3 — PO Detail", () => {
+  // Provisions its own PO per test — see the note on the first block above.
+  purchaseTest.describe.configure({ timeout: 90_000 });
   purchaseTest(
     "TC-PO-060301 Detail loads (DRAFT) with header + items table",
     {
@@ -616,6 +624,8 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
 });
 
 purchaseTest.describe("Step 4 — Edit Mode", () => {
+  // Provisions its own PO per test — see the note on the first block above.
+  purchaseTest.describe.configure({ timeout: 90_000 });
   purchaseTest(
     "TC-PO-060401 Click Edit on DRAFT → edit mode active (Save/Cancel visible)",
     {
@@ -777,6 +787,8 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
 });
 
 purchaseTest.describe("Step 5 — Post-approval", () => {
+  // Provisions its own PO per test — see the note on the first block above.
+  purchaseTest.describe.configure({ timeout: 90_000 });
   purchaseTest(
     "TC-PO-060501 Approved PO has Send to Vendor + Close buttons (seeded via approveAsFC)",
     {
@@ -902,6 +914,8 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
 });
 
 purchaseTest.describe.serial("Golden Journey", () => {
+  // Provisions its own PO per test — see the note on the first block above.
+  purchaseTest.describe.configure({ timeout: 90_000 });
   purchaseTest(
     "TC-PO-060901 Full Purchaser flow: Create blank → Save Draft → Submit → FC approves → Send to Vendor",
     {

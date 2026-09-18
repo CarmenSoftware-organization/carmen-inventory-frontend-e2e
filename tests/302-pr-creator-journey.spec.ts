@@ -739,7 +739,13 @@ requestorTest.describe("Step 5 — Edit Draft", () => {
         return;
       }
       await pr.enterEditMode();
-      await expect(pr.saveDraftButton().or(pr.cancelFormButton())).toBeVisible({ timeout: 10_000 });
+      // .first() on the union, not on each side: `a.first().or(b.first())` still
+      // resolves to both matches (edit mode shows Cancel *and* Save), which trips
+      // strict mode. The assertion only needs one of them to prove the form is
+      // editable.
+      await expect(pr.saveDraftButton().or(pr.cancelFormButton()).first()).toBeVisible({
+        timeout: 10_000,
+      });
     },
   );
 

@@ -331,7 +331,10 @@ export class PurchaseOrderPage extends BasePage {
       .locator("footer, [data-slot='footer']")
       .getByRole("button", { name: /approve po|approve.*purchase order|^approve$/i })
       .first()
-      .or(this.page.getByRole("button", { name: /approve po|approve.*purchase order/i }).last());
+      // .first() on the union too: `a.first().or(b.last())` still resolves to both
+      // sides when each matches something, which trips strict mode on click/assert.
+      .or(this.page.getByRole("button", { name: /approve po|approve.*purchase order/i }).last())
+      .first();
   }
 
   documentSendBackButton(): Locator {

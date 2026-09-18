@@ -396,8 +396,22 @@ export class PurchaseRequestPage extends BasePage {
       .catch(() => {});
   }
 
+  /**
+   * Leave edit mode. When the form is dirty, Cancel does not exit on its own —
+   * it raises the shared "Discard changes?" AlertDialog (components/ui/
+   * discard-dialog.tsx) and the form stays in edit mode until that is confirmed.
+   * A caller that only clicks Cancel is therefore still in edit mode afterwards,
+   * with the dialog covering the page.
+   */
   async cancelEditMode() {
-    await this.cancelFormButton().click({ timeout: 5_000 }).catch(() => {});
+    await this.cancelFormButton().click({ timeout: 5_000 });
+    const discard = this.page
+      .getByRole("alertdialog")
+      .getByRole("button", { name: /^(discard|ละทิ้ง|ทิ้ง)$/i })
+      .first();
+    if (await discard.isVisible({ timeout: 2_000 }).catch(() => false)) {
+      await discard.click();
+    }
   }
 
   /**
