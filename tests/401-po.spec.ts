@@ -131,7 +131,7 @@ requestorTest.describe("PO — Create from PR — Permission denial", () => {
           type: "steps",
           description: "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม dropdown 'New PO'\n3. เลือก 'Create from Purchase Requests'",
         },
-        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ" },
+        { type: "expected", description: "ปุ่ม New Purchase Order แสดงแต่ถูก disable และการเปิด /purchase-order/new ตรง ๆ ได้หน้า RESTRICTED — Permission Denied" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -139,13 +139,20 @@ requestorTest.describe("PO — Create from PR — Permission denial", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const btn = po.newPODropdown();
-      // Either button is hidden (correct) or click yields permission error
-      if ((await btn.count()) === 0) {
-        expect(true).toBe(true);
-      } else {
-        await btn.click().catch(() => {});
-      }
+
+      // The app keeps the button in the toolbar but disables it for roles that
+      // cannot create a PO — it never hides it. The old body asserted nothing
+      // (`expect(true).toBe(true)` on one branch, a swallowed click on the
+      // other) and only "passed" because the locator matched no element at all.
+      // Clicking a disabled button is also the actionTimeout=0 hang.
+      await expect(po.newPODropdown()).toBeVisible({ timeout: 10_000 });
+      await expect(po.newPODropdown()).toBeDisabled({ timeout: 10_000 });
+
+      // ...and the route itself is guarded, not just the button.
+      await page.goto("/procurement/purchase-order/new");
+      await expect(
+        page.getByText(/permission denied|restricted/i).first(),
+      ).toBeVisible({ timeout: 10_000 });
     },
   );
 });
@@ -271,7 +278,7 @@ requestorTest.describe("PO — Create manual — Permission denial", () => {
           description:
             "1. ไปที่ /procurement/purchase-order\n2. กด 'Create Purchase Order' แล้วกดปุ่ม 'Manual PO'",
         },
-        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ" },
+        { type: "expected", description: "ปุ่ม New Purchase Order แสดงแต่ถูก disable และการเปิด /purchase-order/new ตรง ๆ ได้หน้า RESTRICTED — Permission Denied" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -279,13 +286,20 @@ requestorTest.describe("PO — Create manual — Permission denial", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const btn = po.newPODropdown();
-      // Either button is hidden (correct) or click yields permission error
-      if ((await btn.count()) === 0) {
-        expect(true).toBe(true);
-      } else {
-        await btn.click().catch(() => {});
-      }
+
+      // The app keeps the button in the toolbar but disables it for roles that
+      // cannot create a PO — it never hides it. The old body asserted nothing
+      // (`expect(true).toBe(true)` on one branch, a swallowed click on the
+      // other) and only "passed" because the locator matched no element at all.
+      // Clicking a disabled button is also the actionTimeout=0 hang.
+      await expect(po.newPODropdown()).toBeVisible({ timeout: 10_000 });
+      await expect(po.newPODropdown()).toBeDisabled({ timeout: 10_000 });
+
+      // ...and the route itself is guarded, not just the button.
+      await page.goto("/procurement/purchase-order/new");
+      await expect(
+        page.getByText(/permission denied|restricted/i).first(),
+      ).toBeVisible({ timeout: 10_000 });
     },
   );
 });

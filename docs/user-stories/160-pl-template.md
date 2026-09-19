@@ -862,4 +862,4 @@ TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอ�
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 4de147e</sub>
+<sub>Last regenerated: 2026-09-19 · git 76a2530</sub>

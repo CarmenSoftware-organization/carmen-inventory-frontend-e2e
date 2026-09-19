@@ -427,11 +427,21 @@ export class PurchaseOrderPage extends BasePage {
     if ((await cb.count()) > 0) await cb.check({ force: true });
   }
 
+  /**
+   * The approver's bulk-action bar above the item table. There is no
+   * `data-slot="toolbar"` or `role="toolbar"` anywhere in this app — the bar is a
+   * plain flex `div` — so the old locator matched nothing and every item-level
+   * approval test skipped itself with "UI may differ". Anchor on the only thing
+   * that identifies it: it is the innermost element holding all three verdict
+   * buttons. It renders only in edit mode, for an approver, with rows selected.
+   */
   itemActionToolbar(): Locator {
     return this.page
-      .locator("[data-slot='toolbar'], [role='toolbar']")
-      .filter({ has: this.page.getByRole("button", { name: /approve|review|reject/i }) })
-      .first();
+      .locator("div")
+      .filter({ has: this.page.getByRole("button", { name: /^approve$/i }) })
+      .filter({ has: this.page.getByRole("button", { name: /^review$/i }) })
+      .filter({ has: this.page.getByRole("button", { name: /^reject$/i }) })
+      .last();
   }
 
   markItemApproveButton(): Locator {
@@ -446,39 +456,45 @@ export class PurchaseOrderPage extends BasePage {
     return this.itemActionToolbar().getByRole("button", { name: /^reject$/i }).first();
   }
 
+  /**
+   * Per-item verdict marker. It is not a text badge: the row renders a coloured
+   * glyph in a tooltip trigger whose only readable text is its `aria-label`
+   * ("APPROVED" / "REVIEW" / "REJECTED"), so a hasText filter never matched.
+   */
   itemBadge(index: number, status?: string): Locator {
     const row = this.page.getByRole("row").nth(index + 1);
     const re = status ? new RegExp(status, "i") : /approved|review|rejected/i;
-    return row.locator("[data-slot='status'], [data-slot='badge'], [class*='badge']").filter({ hasText: re }).first();
+    return row
+      .getByLabel(re)
+      .first()
+      .or(row.locator("[data-slot='status'], [data-slot='badge'], [class*='badge']").filter({ hasText: re }).first())
+      .first();
   }
 
-  // Document-level footer buttons — scoped to footer / dialog area to avoid
-  // collision with item-level Approve/Reject buttons.
+  // Document-level action buttons. These used to be scoped to `footer,
+  // [data-slot='footer']` — but the action bar is `SummaryFooterBar`
+  // (components/ui/summary-bar.tsx), a plain <div> with no footer element and no
+  // data-slot, so that scope matched nothing and the `.or()` fallbacks only
+  // accepted "Approve PO"-style names the app never renders.
+  //
+  // Taking `.last()` is what separates them from the item-level verdict buttons
+  // of the same name: the bulk bar sits above the table, the summary bar below
+  // it, and the bulk bar disappears anyway once a verdict is applied (the item
+  // handlers call table.resetRowSelection()).
   documentApproveButton(): Locator {
     return this.page
-      .locator("footer, [data-slot='footer']")
       .getByRole("button", { name: /approve po|approve.*purchase order|^approve$/i })
-      .first()
-      // .first() on the union too: `a.first().or(b.last())` still resolves to both
-      // sides when each matches something, which trips strict mode on click/assert.
-      .or(this.page.getByRole("button", { name: /approve po|approve.*purchase order/i }).last())
-      .first();
+      .last();
   }
 
   documentSendBackButton(): Locator {
     return this.page
-      .locator("footer, [data-slot='footer']")
       .getByRole("button", { name: /send back|return for|^send$/i })
-      .first()
-      .or(this.page.getByRole("button", { name: /send back|return for/i }).last());
+      .last();
   }
 
   documentRejectButton(): Locator {
-    return this.page
-      .locator("footer, [data-slot='footer']")
-      .getByRole("button", { name: /reject po|^reject$/i })
-      .first()
-      .or(this.page.getByRole("button", { name: /reject po/i }).last());
+    return this.page.getByRole("button", { name: /reject po|^reject$/i }).last();
   }
 
   commentButton(): Locator {

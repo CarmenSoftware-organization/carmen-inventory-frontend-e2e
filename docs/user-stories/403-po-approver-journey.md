@@ -448,4 +448,4 @@ status badge เปลี่ยนเป็น APPROVED/SENT หลังกา�
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 4de147e</sub>
+<sub>Last regenerated: 2026-09-19 · git 76a2530</sub>
