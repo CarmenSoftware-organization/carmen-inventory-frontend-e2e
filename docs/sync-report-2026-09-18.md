@@ -329,3 +329,105 @@ context" แต่ฝั่ง PO ยังไม่ได้รับการ�
 | 5 | cluster ย่อย A-2 (pl-template, delivery-point, currency, vendor) | ~22 | กลาง |
 | 6 | ถอด `.catch(() => {})` ที่ครอบ assertion 87 จุด | 0 (แต่เปิดโปง failure จริง) | สูง |
 | 7 | ทบทวน skip 310 จุด | — | สูง |
+
+---
+
+## รอบ 2026-09-19 — ปุ่มยืนยันที่ไม่เคยถูกกด และ PO ชั้นที่ 4
+
+### E-1 — `getByRole("dialog")` ไม่แมตช์ popup ยืนยันของแอปเลย (กระทบ 10 page object)
+
+popup ยืนยันทุกจุดในแอปเป็น Radix **AlertDialog** ซึ่ง render `role="alertdialog"`
+ไม่ใช่ `role="dialog"` ทำให้ `confirmDialogButton()` ที่นิยามเหมือนกันใน 10 ไฟล์ชี้ไป
+ที่ **ศูนย์ element** และเพราะ call site เกือบทุกจุด (~60 แห่งใน 10 สเปก) ห่อด้วย
+`.catch(() => {})` ขั้นตอน "ยืนยัน" จึงผ่านโดยไม่ได้กดอะไรเลย
+
+วัดได้จาก probe: หลังกด Submit → `role="dialog"` นับได้ **0**, `role="alertdialog"`
+นับได้ **1** ข้อความ "Submit Purchase Order — This will submit the PO for processing."
+
+แก้เป็น `locator('[role="dialog"], [role="alertdialog"]').last()` — `.last()` จำเป็น
+เพราะ Command Palette ถูก mount ค้างไว้ตลอดและนับเป็น dialog ด้วย
+
+ไฟล์ที่แก้: `purchase-order`, `campaign`, `period-end`, `store-requisition`,
+`my-approvals`, `price-list`, `pr-template`, `credit-note`, `grn` (+ `purchase-request`
+ทำถูกอยู่แล้วด้วย `.or()`)
+
+### E-2 — PO submit สำเร็จแต่ใบยังเป็น Draft (race ตอนปิด context)
+
+หลังแก้ E-1 การกดยืนยันทำงาน แต่ใบบางส่วนยังเป็น draft หลักฐานจาก backend:
+`last_action = {state: "submitted", at: null}` คู่กับ `po_status = "draft"` — คือระบบ
+รับเจตนาแต่ workflow ไม่เดิน
+
+สาเหตุ: หลังยืนยัน แอปเด้งกลับหน้า list ทันที ปุ่ม Submit จึง detach **ก่อน** ที่
+`PATCH .../submit` จะตอบ แล้ว `withRoleContext` ปิด BrowserContext ใน `finally`
+ตัด request ที่ยังค้างกลางทาง — การเช็ค "ปุ่มหายแล้ว" จึงไม่ใช่หลักฐาน
+
+แก้เป็นรอ response ของ `PATCH .../submit` ตรง ๆ แล้วตรวจ `res.ok()`
+
+### E-3 — การอนุมัติ PO ไม่ใช่ปุ่มเดียว (สาเหตุจริงของ PO ชั้นที่ 4)
+
+`po-footer-action.tsx:129` แสดงปุ่ม Approve ระดับเอกสารเมื่อ
+`role === "approve"` **และ** `computePoAction(itemStatuses) === "approved"` เท่านั้น
+และ `constant/purchase-order.ts:45` คืน `"none"` ทันทีถ้ามีรายการไหนสถานะเป็น `""`
+ซึ่งใบที่เพิ่ง submit เป็นแบบนั้นทุกใบ
+
+ลำดับจริงที่ผู้อนุมัติต้องทำ: เปิด detail → **Edit** → ติ๊กแถวรายการ → กด **Approve
+ของตาราง** → ปุ่ม Approve ใน summary bar ถึงจะโผล่ → กด → ยืนยันใน alertdialog
+
+helper เดิมหาปุ่ม Approve ทันทีหลัง Edit จึงไม่มีวันเจอ
+
+**คำถามที่ค้างจากเซสชันก่อน ("workflow ไหนที่ fc@ เป็น approver") ตอบแล้วโดยการวัด
+ไม่ใช่การเดา** — `GET /api/config/BLAVG/workflows` บอกว่า workflow ชนิด
+`purchase_order` ที่ใช้งานได้คือ **General PO** (`89d8924a`) มี
+`purchase@blueledgers.com` ที่ stage Create Request และ `fc@blueledgers.com` ที่
+stage approve แรก ส่วน probe บนฟอร์มยืนยันว่า dropdown มีตัวเลือกเดียวคือ "General PO"
+— helper เลือกถูกมาตลอด ปัญหาอยู่ที่ลำดับการอนุมัติล้วน ๆ
+
+### E-4 — FC อนุมัติแล้วใบยังไม่ approved (ต้องผ่าน GM ด้วย)
+
+workflow General PO คือ Create Request → FC → GM → Completed ลำพัง FC ใบจึงไปหยุดที่
+GM และไม่มีปุ่ม Send to Vendor / Close ให้ Step 5 ทดสอบ เพิ่ม `approveAsGM()` และ
+`seedApprovedPO()` (submit + FC + GM) ยืนยันกับ backend แล้วว่า `po_status = approved`
+และ `workflow_history` เดินครบสี่ขั้น
+
+### E-5 — locator ที่ไม่เคยแมตช์อะไรเลย (เทสต์ "ผ่าน"/"skip" โดยไม่ได้ตรวจอะไร)
+
+| locator | เคยเป็น | จริง ๆ แล้ว |
+|---|---|---|
+| `newPODropdown()` | `/new po\|create purchase order\|^create$/i` | ปุ่มชื่อ **"New Purchase Order"** — `new po` ไม่แมตช์ (หลัง "New P" เป็น "u") |
+| status badge (19 จุด) | `[data-slot='badge'], [class*='badge']` | สถานะเป็น `<span data-slot="status">` |
+| `itemActionToolbar()` | `[data-slot='toolbar'], [role='toolbar']` | แอปไม่มีทั้งสองอย่าง แถบตัดสินเป็น flex div ธรรมดา |
+| `itemBadge()` | badge ที่มีข้อความ | เป็น `<span aria-label="APPROVED">` ที่มีแต่ไอคอน ไม่มี text |
+| `documentApproveButton()` | scope ไปที่ `footer, [data-slot='footer']` | `SummaryFooterBar` เป็น `<div>` เปล่า ไม่มี footer เลย |
+
+### E-6 — เทสต์ permission ที่ไม่ได้ทดสอบ permission
+
+`TC-PO-010002` / `TC-PO-020002` เขียนเป็น `if (count === 0) expect(true).toBe(true)`
+ไม่งั้น `click().catch(() => {})` — ไม่ assert อะไรทั้งสองทาง และ "ผ่าน" มาตลอดเพราะ
+locator ไม่เจอปุ่ม (E-5)
+
+วัดพฤติกรรมจริงของแอป: ปุ่ม New Purchase Order **แสดงแต่ถูก disable** สำหรับ
+requestor และการเปิด `/procurement/purchase-order/new` ตรง ๆ ได้หน้า
+**RESTRICTED — Permission Denied** แอปทำถูก เทสต์ต่างหากที่ไม่ได้ตรวจ — เขียนใหม่ให้
+assert ทั้งสองอย่าง
+
+### E-7 — `ensureActiveBu` ค้างกับบัญชีที่ไม่มี BU ตั้ง is_default
+
+บัญชี `gm@blueledgers.com` คืน business_unit สองรายการที่ `is_default = false` ทั้งคู่
+`ensureActiveBu` เช็ค `target.is_default` จึงเข้าทาง switch ทั้งที่ frontend ถือว่า
+`units[0]` (= BLAVG) active อยู่แล้ว แล้วไปค้างที่ `switcher.itemByName(...).click()`
+ซึ่งไม่มี timeout (`actionTimeout: 0`) กินเวลาจนหมด budget ของเทสต์
+
+แก้ให้เทียบกับ `defaultBu(units)?.code` ซึ่งเป็นกฎเดียวกับที่ `useProfile` ใช้ และใส่
+timeout ให้ทุก click
+
+### ผลเชิงตัวเลข (401 + 402 + 403)
+
+| รอบ | ผ่าน | ล้ม | ข้าม |
+|---|---|---|---|
+| ก่อนหน้า (v6) | 34 | 19 | — |
+| v9 — หลังแก้ E-1..E-4 | 44 | 13 | 63 |
+| v10 — หลังแก้ E-5 (บางส่วน) | 49 | 17 | 54 |
+
+**หมายเหตุสำคัญ:** ตัวเลข "ล้ม" ที่เพิ่มขึ้นใน v10 ไม่ใช่การถอยหลัง — เป็นผลจากการที่
+locator เริ่มแมตช์ของจริง เทสต์ที่เคย "ผ่าน" หรือ "skip" โดยไม่ได้ตรวจอะไรจึงเริ่ม
+ตรวจจริงและล้มอย่างซื่อสัตย์ ตัวเลขที่ควรดูคือ "ผ่านโดยได้ตรวจจริง" ซึ่งเพิ่มจาก 34 → 49
