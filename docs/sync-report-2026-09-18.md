@@ -506,3 +506,65 @@ refresh แล้วลองใหม่ก็ชนชื่อซ้ำเห
 `TC-PO-050001` Cancel PO, `TC-PO-060205`/`060210` wizard จาก price list และจาก PR
 (ต้องมี price list และ PR ที่อนุมัติแล้วใน BU ถึงจะเดินต่อได้), `TC-PO-060504`
 Close PO → VOIDED
+
+---
+
+## F — ถอด `.catch(() => {})` ที่ครอบ assertion ทั้ง 87 จุด
+
+`.catch(() => {})` ที่ครอบ `await expect(...)` ทำให้ assertion ล้มแล้วเงียบ — เทสต์
+"ผ่าน" โดยไม่ได้พิสูจน์อะไร มีอยู่ **87 จุดใน 13 สเปก** สองกลุ่มใหญ่คือ
+`anyError()` `toBeVisible` (~45 จุด เทสต์ validation) และ `toBeDisabled` (~25 จุด
+เทสต์ permission) — คือกลุ่มที่ "ควรพิสูจน์อะไรบางอย่าง" ทั้งคู่
+
+(นี่คือคนละเรื่องกับ `.catch()` ที่ครอบ **action** ซึ่งยังเหลืออีก ~433 จุด)
+
+### ผลหลังถอด
+
+| spec | ก่อนถอด | ทันทีหลังถอด | หลัง triage |
+|---|---|---|---|
+| `401-po` | — | +2 | 2 ตัวตั้ง fixme |
+| `1001-campaign` | 1 | 5 | **3** |
+| `159-pl` | 2 | 9 | 9 (ต้องยกเครื่องแยก) |
+| `310-pr-template` | 0 | 2 | **0** |
+| `201-my-approvals` | 0 | 1 | **0** |
+| `701-sr` | 0 | 2 | **1** |
+| `160-pl-template` | 0 | 2 | 2 |
+| `720-stock-issue` / `900-period-end` | 0 | 2 | fixme (finding) |
+
+**สิ่งที่โผล่ออกมาไม่ใช่ "แอปพัง" เป็นส่วนใหญ่ แต่เป็น locator ที่ไม่เคยแมตช์อะไรเลย**
+— ตัวเดียวกับที่เจอมาทั้งวัน:
+
+| locator | เคยหา | ปุ่มจริง |
+|---|---|---|
+| `PriceListPage.addNewButton` | `/add new\|new price.?list/` | **"Add Price List"** |
+| `CampaignPage.newCampaignButton` | `/create new campaign\|new campaign/` | **"New Price Request"** |
+
+พอปุ่มสร้างไม่เคยถูกกด ฟอร์มก็ไม่เคยเปิด `anyError()` จึงไปวัดบนหน้า list ที่ไม่มี
+error อยู่แล้ว — **ไม่ใช่ว่า validation ไม่ทำงาน** ตรวจตรง ๆ แล้ว: กด Create บน
+ฟอร์ม price list เปล่า ๆ ได้ `aria-invalid="true"` 3 จุด และ URL ไม่เปลี่ยน
+
+`anyError()` ปรับจาก `p.text-destructive` เป็น `.text-destructive` ด้วย — ฟอร์มไม่ได้
+render ข้อความ error เป็น `<p>` แล้ว (นับได้ 0 เทียบกับ 8 เมื่อใช้คลาสอย่างเดียว)
+
+### D-5 — เทสต์ permission ที่ assert guard ซึ่งโมดูลไม่มี
+
+`TC-PL-060002`, `TC-CAM-090002`, `TC-SI-050002` ตั้ง fixme: ปุ่ม Export/Print มีอยู่จริง
+และ **enabled** สำหรับ `requestor@blueledgers.com` โมดูล vendor-management ไม่มี gate
+ฝั่ง client เลย — ต่างจาก PO ที่ `purchase-order-new.route.tsx` ห่อด้วย
+`CreateWorkflowGate(WORKFLOW_TYPE.PO)` แล้วตอบ "RESTRICTED — Permission Denied"
+ส่วน `price-list-new.route.tsx` มี 5 บรรทัดและไม่มี guard ใด ๆ ตรวจแล้วว่า requestor
+เปิดฟอร์ม `/vendor-management/price-list/new` ได้ตรง ๆ
+
+จะถูกหรือผิดเป็น**การตัดสินใจเชิงผลิตภัณฑ์** (price list ไม่ใช่เอกสารที่เดินตาม
+workflow เหมือน PO) — เทสต์ไม่ควรเดาแทน จึงบันทึกไว้แล้วรอคำตอบ
+
+### เทสต์ที่ไม่เคยทำสิ่งที่ชื่อมันบอก
+
+ตั้ง fixme พร้อมเหตุผล ไม่ใช่ลบทิ้งและไม่ใช่ทำให้ผ่าน:
+
+- `TC-PO-010004` "Invalid Vendor Assignment" — ไม่เคยกำหนด vendor เลยสักครั้ง และ UI
+  เลือก vendor จาก dialog การ์ดของ vendor ที่มีอยู่ ใส่ค่าที่ไม่มีจริงไม่ได้
+- `TC-PO-030002` "Missing Vendor Email" — กด Send to Vendor บนใบ **Draft** ซึ่งไม่มี
+  ปุ่มนั้น
+- `TC-PE-010005` "Closed Current Period" — assert ว่าปุ่มปิดงวดถูก disable "เมื่องวด
+  ปิดแล้ว" แต่ไม่ได้ทำให้งวดปิดก่อน ถ้างวดยังเปิด ปุ่มที่ใช้งานได้คือพฤติกรรมที่ถูกต้อง
