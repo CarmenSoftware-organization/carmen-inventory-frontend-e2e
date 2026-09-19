@@ -1,6 +1,7 @@
 import { test as baseTest, expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { PurchaseOrderPage, LIST_PATH } from "./pages/purchase-order.page";
+import { seedApprovedPO, gotoPODetail } from "./pages/po-approver.helpers";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Purchasing Staff/Manager == purchase@blueledgers.com.
@@ -43,22 +44,26 @@ purchaseTest.describe("PO — Create from PR", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      await po.newPODropdown().click({ timeout: 5_000 }).catch(() => {});
+      await po.newPODropdown().click({ timeout: 10_000 });
       const fromPR = po.createFromPRMenuItem();
-      if ((await fromPR.count()) === 0) {
-        purchaseTest.skip(true, "Create from PR menu not exposed");
+      await expect(fromPR).toBeVisible({ timeout: 10_000 });
+      await fromPR.click({ timeout: 10_000 });
+      await expect(page).toHaveURL(/purchase-order\/from-pr/, { timeout: 15_000 });
+
+      // Count data rows, not every <tr>: the wizard renders a header row even
+      // when it has nothing to offer, so `getByRole("row").nth(1)` looked like
+      // data and the test walked on into a page with no PR to select. This BU
+      // currently holds no purchase requests at all (verified against
+      // /api/BLAVG/purchase-requests), so state the gap instead of failing on it.
+      const prRows = page.locator("tbody tr").filter({ hasText: /PR\d{6,}/ });
+      const available = await prRows.count();
+      if (available === 0) {
+        purchaseTest.skip(true, "No approved PR available to build a PO from");
         return;
       }
-      await fromPR.click().catch(() => {});
-      const firstPR = page.getByRole("row").nth(1);
-      if ((await firstPR.count()) === 0) {
-        purchaseTest.skip(true, "No approved PR available");
-        return;
-      }
-      // Bounded: a <tr> is not clickable in this app, and with actionTimeout at 0
-      // an un-timed click waits for it to become actionable until the test dies.
-      await firstPR.click({ timeout: 10_000 }).catch(() => {});
-      await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
+
+      await prRows.first().getByRole("button").first().click({ timeout: 10_000 });
+      await po.saveButton().click({ timeout: 10_000 });
       await po.expectSavedToast();
     },
   );
@@ -340,18 +345,30 @@ purchaseTest.describe("PO — Send to Vendor", () => {
         { type: "testType", description: "Happy Path" },
       ],
     },
-    async ({ page }) => {
+    async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      await po.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
-      if ((await draftRow.count()) === 0) {
-        purchaseTest.skip(true, "No draft PO available");
-        return;
-      }
-      await draftRow.click();
-      await po.sendToVendorButton().click({ timeout: 5_000 }).catch(() => {});
-      await po.confirmDialogButton(/^send$|confirm/i).click({ timeout: 5_000 }).catch(() => {});
-      await po.expectSavedToast();
+      // Seed a genuinely Approved PO: "Send to vendor" only exists once the
+      // document is approved, so the old body — which opened a *Draft* row and
+      // pressed a button that is not there — could never have worked. Both the
+      // click and the toast check were swallowed, so it read as a pass.
+      purchaseTest.setTimeout(180_000);
+      const created = await seedApprovedPO(browser, { description: "[E2E-PO] TC-PO-030001" });
+      await gotoPODetail(page, created.ref);
+
+      await expect(po.sendToVendorButton()).toBeVisible({ timeout: 15_000 });
+      await po.sendToVendorButton().click({ timeout: 10_000 });
+
+      // The action opens a compose dialog (sender profile, template, To, CC,
+      // subject, body) rather than a yes/no confirm. Assert that it opens and is
+      // bound to this PO.
+      const dialog = page.locator('[role="dialog"], [role="alertdialog"]').last();
+      await expect(dialog).toBeVisible({ timeout: 10_000 });
+      await expect(dialog).toContainText(/send purchase order to vendor/i);
+      await expect(dialog.getByRole("button", { name: /^send$/i })).toBeVisible();
+
+      // Deliberately not pressing Send: "To" comes up empty because this vendor
+      // has no email on file, and completing the flow would dispatch a real
+      // message. Finishing it needs a vendor fixture that carries an address.
     },
   );
 
@@ -586,7 +603,15 @@ requestorTest.describe("PO — Change Order — Permission denial", () => {
 // TC-PO-900005 — Cancel PO
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PO — Cancel", () => {
-  purchaseTest(
+  // No such action exists any more — do not restore the silent version.
+  // An Approved PO offers Close / Send to vendor / More (Comment, Activity,
+  // Print); a Draft offers Edit / Delete / Submit. Nothing anywhere is called
+  // "Cancel Purchase Order" or "Void", so `cancelPOButton()` matches zero
+  // elements. The old body also opened the record by clicking a <tr>, which is
+  // not clickable here. It only ever "passed" because every step, including the
+  // toast assertion, sat inside .catch(() => {}). Re-point this at Close (or at
+  // Delete for a Draft) once the intended replacement is decided.
+  purchaseTest.fixme(
     "TC-PO-050001 Happy Path - Cancel Active Purchase Order",
     {
       annotation: [

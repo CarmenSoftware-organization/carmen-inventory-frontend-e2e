@@ -393,8 +393,9 @@ purchaseTest.describe("Price List — Edit", () => {
       await pl.gotoList();
       const row = page.getByRole("row").nth(1);
       expect(await row.count(), "No price list to edit").toBeGreaterThan(0);
-      await row.click();
-      await pl.editButton().click({ timeout: 5_000 }).catch(() => {});
+      // A <tr> is not clickable — open the record from its own button.
+      await row.getByRole("button").first().click({ timeout: 10_000 });
+      await pl.editButton().click({ timeout: 10_000 });
       await pl.fillHeader({ validFrom: "2099-02-01", validTo: "2099-12-31", notes: "edited by E2E" });
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
       await pl.expectSavedToast();
@@ -426,8 +427,9 @@ purchaseTest.describe("Price List — Edit", () => {
       await pl.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
-      await pl.editButton().click({ timeout: 5_000 }).catch(() => {});
+      // A <tr> is not clickable — open the record from its own button.
+      await row.getByRole("button").first().click({ timeout: 10_000 });
+      await pl.editButton().click({ timeout: 10_000 });
       await pl.fillHeader({ validFrom: "not-a-date", validTo: "also-bad" });
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(pl.anyError().first()).toBeVisible({ timeout: 5_000 });
@@ -439,7 +441,14 @@ purchaseTest.describe("Price List — Edit", () => {
 // TC-PL-900005 — Duplicate
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Price List — Duplicate", () => {
-  purchaseTest(
+  // Feature is gone from the UI — do not restore the silent version.
+  // Neither the row-actions menu (Activity / Delete only) nor the detail page
+  // (Edit / Delete / Activity) offers Duplicate or Mark-as-Expired any more, and
+  // no such wording appears on either screen. These only ever "passed" because
+  // both the action click and the toast assertion sat inside .catch(() => {}).
+  // Re-point them at whatever replaces the feature, or drop them — but do not let
+  // them assert nothing again.
+  purchaseTest.fixme(
     "TC-PL-050001 Happy Path - Duplicate Price List",
     {
       annotation: [
@@ -697,7 +706,14 @@ requestorTest.describe("Price List — Delete — Permission denial", () => {
 // TC-PL-900008 — Mark as Expired
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Price List — Mark as Expired", () => {
-  purchaseTest(
+  // Feature is gone from the UI — do not restore the silent version.
+  // Neither the row-actions menu (Activity / Delete only) nor the detail page
+  // (Edit / Delete / Activity) offers Duplicate or Mark-as-Expired any more, and
+  // no such wording appears on either screen. These only ever "passed" because
+  // both the action click and the toast assertion sat inside .catch(() => {}).
+  // Re-point them at whatever replaces the feature, or drop them — but do not let
+  // them assert nothing again.
+  purchaseTest.fixme(
     "TC-PL-080001 Happy Path - Mark Price List as Expired",
     {
       annotation: [
