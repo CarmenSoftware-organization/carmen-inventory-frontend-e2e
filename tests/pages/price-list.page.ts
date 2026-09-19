@@ -50,8 +50,26 @@ export class PriceListPage extends BasePage {
     return this.page.getByRole("button", { name: /^search$/i }).first();
   }
 
+  /**
+   * Status is no longer a combobox in the toolbar — the list has a single
+   * "Filter" button whose popover offers Status / Currency / Vendor / Effective
+   * Period (plus Clear and "Save current filters as view"). The old locator found
+   * nothing, so the filter tests never filtered anything.
+   */
+  filterButton(): Locator {
+    return this.page.getByRole("button", { name: /^filter$/i }).first();
+  }
+
+  /** Open the filter popover and reveal the Status entry. */
   statusFilter(): Locator {
-    return this.page.getByRole("combobox", { name: /status/i }).first();
+    return this.page.getByText(/^status$/i).last();
+  }
+
+  async openStatusFilter(): Promise<void> {
+    await this.filterButton().click({ timeout: 10_000 });
+    const status = this.statusFilter();
+    await status.waitFor({ state: "visible", timeout: 10_000 });
+    await status.click({ timeout: 10_000 });
   }
 
   statusOption(name: RegExp | string): Locator {
