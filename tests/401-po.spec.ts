@@ -59,7 +59,7 @@ purchaseTest.describe("PO — Create from PR", () => {
       // an un-timed click waits for it to become actionable until the test dies.
       await firstPR.click({ timeout: 10_000 }).catch(() => {});
       await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await po.expectSavedToast().catch(() => {});
+      await po.expectSavedToast();
     },
   );
 
@@ -190,11 +190,17 @@ purchaseTest.describe("PO — Create manual", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      await po.newPODropdown().click({ timeout: 5_000 }).catch(() => {});
+      await po.newPODropdown().click({ timeout: 10_000 });
       const manual = po.manualPOMenuItem();
-      if ((await manual.count()) > 0) await manual.click().catch(() => {});
-      await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await po.expectSavedToast().catch(() => {});
+      if ((await manual.count()) > 0) await manual.click({ timeout: 10_000 });
+      // "with Valid Data" — but the body used to fill nothing at all and then
+      // press Save, so the form was rejected and the toast never came. Both the
+      // click and the toast check were swallowed, so it read as a pass.
+      // addItemToPO drives the whole cascade: workflow, vendor, delivery date,
+      // then the line item.
+      await po.addItemToPO({ product: "Test Item", quantity: 1, uom: "ea", unitPrice: 100 });
+      await po.saveButton().click({ timeout: 10_000 });
+      await po.expectSavedToast();
     },
   );
 
@@ -345,7 +351,7 @@ purchaseTest.describe("PO — Send to Vendor", () => {
       await draftRow.click();
       await po.sendToVendorButton().click({ timeout: 5_000 }).catch(() => {});
       await po.confirmDialogButton(/^send$|confirm/i).click({ timeout: 5_000 }).catch(() => {});
-      await po.expectSavedToast().catch(() => {});
+      await po.expectSavedToast();
     },
   );
 
@@ -475,7 +481,7 @@ purchaseTest.describe("PO — Change Order", () => {
       await change.click().catch(() => {});
       await po.reasonInput().fill("Updated specifications").catch(() => {});
       await po.confirmDialogButton(/submit|confirm/i).click({ timeout: 5_000 }).catch(() => {});
-      await po.expectSavedToast().catch(() => {});
+      await po.expectSavedToast();
     },
   );
 
@@ -607,7 +613,7 @@ purchaseTest.describe("PO — Cancel", () => {
       await po.cancelPOButton().click({ timeout: 5_000 }).catch(() => {});
       await po.reasonInput().fill("Order no longer needed").catch(() => {});
       await po.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
-      await po.expectSavedToast().catch(() => {});
+      await po.expectSavedToast();
     },
   );
 

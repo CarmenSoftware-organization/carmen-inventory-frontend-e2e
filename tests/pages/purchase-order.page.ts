@@ -283,6 +283,10 @@ export class PurchaseOrderPage extends BasePage {
    * and the PO was never created — which is what made the PO journeys time out.
    */
   async addItemToPO(data: POLineItemInput) {
+    // Same reason as PriceListPage.fillHeader: the steps below decide what to do
+    // from an immediate `count()`, so a form that has not rendered yet makes all
+    // of them no-op. Wait for the item table's own control first.
+    await this.addItemButton().waitFor({ state: "visible", timeout: 15_000 });
     await this.selectFirstWorkflow();
     await this.selectFirstVendor();
     await this.selectDeliveryDate();

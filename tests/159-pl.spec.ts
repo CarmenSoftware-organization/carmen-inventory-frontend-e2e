@@ -167,11 +167,14 @@ purchaseTest.describe("Price List — Create", () => {
     async ({ page }) => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
-      await pl.addNewButton().click({ timeout: 5_000 }).catch(() => {});
-      await pl.fillHeader({ number: `PL-E2E-${uid}`, validFrom: "2099-01-01" });
+      await pl.addNewButton().click({ timeout: 10_000 });
+      // Both dates are required — passing only validFrom left Effective To unset,
+      // so the save was blocked and no toast ever appeared. The swallowed click
+      // and swallowed toast assertion hid that from view.
+      await pl.fillHeader({ number: `PL-E2E-${uid}`, validFrom: "x", validTo: "x" });
       await pl.addLineItem({ product: "Test Product", moq: 10, unitPrice: 100, leadTime: 7 });
-      await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await pl.expectSavedToast().catch(() => {});
+      await pl.saveButton().click({ timeout: 10_000 });
+      await pl.expectSavedToast();
     },
   );
 
@@ -394,7 +397,7 @@ purchaseTest.describe("Price List — Edit", () => {
       await pl.editButton().click({ timeout: 5_000 }).catch(() => {});
       await pl.fillHeader({ validFrom: "2099-02-01", validTo: "2099-12-31", notes: "edited by E2E" });
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await pl.expectSavedToast().catch(() => {});
+      await pl.expectSavedToast();
     },
   );
 
@@ -461,7 +464,7 @@ purchaseTest.describe("Price List — Duplicate", () => {
       await trigger.click().catch(() => {});
       await pl.actionMenuItem(/duplicate/i).click({ timeout: 5_000 }).catch(() => {});
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await pl.expectSavedToast().catch(() => {});
+      await pl.expectSavedToast();
     },
   );
 
@@ -718,7 +721,7 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
       expect(await trigger.count(), "Actions menu not exposed").toBeGreaterThan(0);
       await trigger.click().catch(() => {});
       await pl.actionMenuItem(/mark.*expired/i).click({ timeout: 5_000 }).catch(() => {});
-      await pl.expectSavedToast().catch(() => {});
+      await pl.expectSavedToast();
     },
   );
 
