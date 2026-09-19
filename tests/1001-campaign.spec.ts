@@ -5,6 +5,7 @@ import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
 import { fakeName } from "./helpers/test-data";
+import { openRecordFromRow } from "./helpers/list-row";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Procurement Staff/Manager == purchase@blueledgers.com.
@@ -247,7 +248,7 @@ purchaseTest.describe("Campaign — Detail", () => {
         purchaseTest.skip(true, "No active campaign available");
         return;
       }
-      await activeRow.click();
+      await openRecordFromRow(activeRow);
     },
   );
 
@@ -271,7 +272,7 @@ purchaseTest.describe("Campaign — Detail", () => {
       await cam.gotoList();
       const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
     },
   );
 
@@ -295,7 +296,7 @@ purchaseTest.describe("Campaign — Detail", () => {
       await cam.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
     },
   );
 
@@ -371,7 +372,7 @@ purchaseTest.describe("Campaign — Edit", () => {
       await cam.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       await cam.editButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -440,7 +441,7 @@ requestorTest.describe("Campaign — Edit — Permission denial", () => {
       await cam.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const edit = cam.editButton();
       // Either button is hidden (correct) or disabled
       if ((await edit.count()) === 0) {
@@ -476,7 +477,7 @@ purchaseTest.describe("Campaign — Duplicate", () => {
       await cam.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       await cam.duplicateButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -545,7 +546,7 @@ requestorTest.describe("Campaign — Duplicate — Permission denial", () => {
       await cam.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const dup = cam.duplicateButton();
       // Either button is hidden (correct) or disabled
       if ((await dup.count()) === 0) {
@@ -581,7 +582,7 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
       await cam.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const tab = cam.vendorsTab();
       if ((await tab.count()) > 0) await tab.click().catch(() => {});
       await cam.sendReminderButton().click({ timeout: 5_000 }).catch(() => {});
@@ -650,7 +651,7 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
       await cam.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const tab = cam.vendorsTab();
       if ((await tab.count()) > 0) await tab.click().catch(() => {});
       await cam.sendReminderButton().click({ timeout: 5_000 }).catch(() => {});
@@ -707,7 +708,7 @@ purchaseTest.describe("Campaign — Mark as Expired", () => {
       await cam.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const dropdown = cam.actionsDropdown();
       if ((await dropdown.count()) > 0) await dropdown.click().catch(() => {});
       await cam.actionMenuItem(/mark.*expired/i).click({ timeout: 5_000 }).catch(() => {});
@@ -734,7 +735,7 @@ purchaseTest.describe("Campaign — Mark as Expired", () => {
       await cam.gotoList();
       const expiredRow = page.getByRole("row").filter({ hasText: /expired/i }).first();
       if ((await expiredRow.count()) === 0) return;
-      await expiredRow.click();
+      await openRecordFromRow(expiredRow);
     },
   );
 
@@ -807,7 +808,7 @@ purchaseTest.describe("Campaign — Delete", () => {
       await cam.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const dropdown = cam.actionsDropdown();
       if ((await dropdown.count()) > 0) await dropdown.click().catch(() => {});
       await cam.actionMenuItem(/^delete$/i).click({ timeout: 5_000 }).catch(() => {});
@@ -879,7 +880,7 @@ requestorTest.describe("Campaign — Delete — Permission denial", () => {
       await cam.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const dropdown = cam.actionsDropdown();
       // Either dropdown is hidden (correct) or delete is disabled
       if ((await dropdown.count()) === 0) {

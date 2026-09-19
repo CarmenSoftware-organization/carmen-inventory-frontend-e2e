@@ -1,6 +1,7 @@
 import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { GRNPage, LIST_PATH } from "./pages/grn.page";
+import { openRecordFromRow } from "./helpers/list-row";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Receiving/Procurement Staff == purchase@blueledgers.com.
@@ -573,7 +574,7 @@ purchaseTest.describe("GRN — Edit Header", () => {
         purchaseTest.skip(true, "No draft GRN");
         return;
       }
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await grn.editButton().click({ timeout: 5_000 }).catch(() => {});
       const inv = grn.invoiceNumberInput();
       if ((await inv.count()) > 0) await inv.fill("INV-EDITED").catch(() => {});
@@ -601,7 +602,7 @@ purchaseTest.describe("GRN — Edit Header", () => {
       await grn.gotoList();
       const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await grn.editButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -626,7 +627,7 @@ purchaseTest.describe("GRN — Edit Header", () => {
       await grn.gotoList();
       const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await grn.editButton().click({ timeout: 5_000 }).catch(() => {});
       const inv = grn.invoiceNumberInput();
       if ((await inv.count()) > 0) await inv.fill("").catch(() => {});
@@ -655,7 +656,7 @@ purchaseTest.describe("GRN — Edit Header", () => {
       await grn.gotoList();
       const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await grn.editButton().click({ timeout: 5_000 }).catch(() => {});
       const date = grn.receivedDateInput();
       if ((await date.count()) > 0) await date.fill("2099-12-31").catch(() => {});
@@ -685,7 +686,7 @@ requestorTest.describe("GRN — Edit Header — Permission denial", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const edit = grn.editButton();
       // Either button is hidden (correct) or disabled
       if ((await edit.count()) === 0) {
@@ -724,7 +725,7 @@ purchaseTest.describe("GRN — Add Line Item", () => {
         purchaseTest.skip(true, "No draft GRN");
         return;
       }
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       const items = grn.itemsTab();
       if ((await items.count()) > 0) await items.click().catch(() => {});
       await grn.addItemButton().click({ timeout: 5_000 }).catch(() => {});
@@ -751,7 +752,7 @@ purchaseTest.describe("GRN — Add Line Item", () => {
       await grn.gotoList();
       const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       const items = grn.itemsTab();
       if ((await items.count()) > 0) await items.click().catch(() => {});
       await grn.addItemButton().click({ timeout: 5_000 }).catch(() => {});
@@ -780,7 +781,7 @@ purchaseTest.describe("GRN — Add Line Item", () => {
       await grn.gotoList();
       const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       const items = grn.itemsTab();
       if ((await items.count()) > 0) await items.click().catch(() => {});
       await grn.addItemButton().click({ timeout: 5_000 }).catch(() => {});
@@ -811,7 +812,7 @@ requestorTest.describe("GRN — Add Line Item — Permission denial", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const add = grn.addItemButton();
       // Either button is hidden (correct) or disabled
       if ((await add.count()) === 0) {
@@ -847,7 +848,7 @@ purchaseTest.describe("GRN — Edit Line Item", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const items = grn.itemsTab();
       if ((await items.count()) > 0) await items.click().catch(() => {});
     },
@@ -873,7 +874,7 @@ purchaseTest.describe("GRN — Edit Line Item", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
     },
   );
 
@@ -918,7 +919,7 @@ purchaseTest.describe("GRN — Edit Line Item", () => {
       await grn.gotoList();
       const receivedRow = page.getByRole("row").filter({ hasText: /received/i }).first();
       if ((await receivedRow.count()) === 0) return;
-      await receivedRow.click();
+      await openRecordFromRow(receivedRow);
       const edit = grn.editButton();
       // Either button is hidden (correct) or disabled
       if ((await edit.count()) === 0) {
@@ -977,7 +978,7 @@ purchaseTest.describe("GRN — Delete Line Item", () => {
       await grn.gotoList();
       const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
     },
   );
 
@@ -1001,7 +1002,7 @@ purchaseTest.describe("GRN — Delete Line Item", () => {
       await grn.gotoList();
       const receivedRow = page.getByRole("row").filter({ hasText: /received/i }).first();
       if ((await receivedRow.count()) === 0) return;
-      await receivedRow.click();
+      await openRecordFromRow(receivedRow);
     },
   );
 
@@ -1025,7 +1026,7 @@ purchaseTest.describe("GRN — Delete Line Item", () => {
       await grn.gotoList();
       const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
     },
   );
 });
@@ -1077,7 +1078,7 @@ purchaseTest.describe("GRN — Extra Costs", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const extra = grn.addExtraCostsButton();
       if ((await extra.count()) === 0) {
         purchaseTest.skip(true, "Add Extra Costs UI not exposed");
@@ -1107,7 +1108,7 @@ purchaseTest.describe("GRN — Extra Costs", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
     },
   );
 });
@@ -1132,7 +1133,7 @@ requestorTest.describe("GRN — Extra Costs — Permission denial", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const extra = grn.addExtraCostsButton();
       // Either button is hidden (correct) or disabled
       if ((await extra.count()) === 0) {
@@ -1171,7 +1172,7 @@ purchaseTest.describe("GRN — Commit", () => {
         purchaseTest.skip(true, "No received GRN to commit");
         return;
       }
-      await receivedRow.click();
+      await openRecordFromRow(receivedRow);
       await grn.commitButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -1196,7 +1197,7 @@ purchaseTest.describe("GRN — Commit", () => {
       await grn.gotoList();
       const receivedRow = page.getByRole("row").filter({ hasText: /received/i }).first();
       if ((await receivedRow.count()) === 0) return;
-      await receivedRow.click();
+      await openRecordFromRow(receivedRow);
       await grn.commitButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(grn.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
@@ -1245,7 +1246,7 @@ requestorTest.describe("GRN — Commit — Permission denial", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const commit = grn.commitButton();
       // Either button is hidden (correct) or disabled
       if ((await commit.count()) === 0) {
@@ -1281,7 +1282,7 @@ purchaseTest.describe("GRN — Void", () => {
       await grn.gotoList();
       const receivedRow = page.getByRole("row").filter({ hasText: /received/i }).first();
       if ((await receivedRow.count()) === 0) return;
-      await receivedRow.click();
+      await openRecordFromRow(receivedRow);
       await grn.voidButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -1306,7 +1307,7 @@ purchaseTest.describe("GRN — Void", () => {
       await grn.gotoList();
       const committedRow = page.getByRole("row").filter({ hasText: /committed/i }).first();
       if ((await committedRow.count()) === 0) return;
-      await committedRow.click();
+      await openRecordFromRow(committedRow);
       await grn.voidButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -1354,7 +1355,7 @@ requestorTest.describe("GRN — Void — Permission denial", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const voidBtn = grn.voidButton();
       // Either button is hidden (correct) or disabled
       if ((await voidBtn.count()) === 0) {
@@ -1390,7 +1391,7 @@ purchaseTest.describe("GRN — Financial Summary", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const tab = grn.financialSummaryTab();
       if ((await tab.count()) > 0) await tab.click().catch(() => {});
     },
@@ -1460,7 +1461,7 @@ requestorTest.describe("GRN — Financial Summary — Permission denial", () => 
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const tab = grn.financialSummaryTab();
       // Either tab is hidden (correct) or disabled
       if ((await tab.count()) === 0) {
@@ -1494,7 +1495,7 @@ purchaseTest.describe("GRN — Stock Movements", () => {
       await grn.gotoList();
       const committedRow = page.getByRole("row").filter({ hasText: /committed/i }).first();
       if ((await committedRow.count()) === 0) return;
-      await committedRow.click();
+      await openRecordFromRow(committedRow);
       const tab = grn.stockMovementsTab();
       if ((await tab.count()) > 0) await tab.click().catch(() => {});
     },
@@ -1520,7 +1521,7 @@ purchaseTest.describe("GRN — Stock Movements", () => {
       await grn.gotoList();
       const draftRow = page.getByRole("row").filter({ hasText: /draft|received/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
     },
   );
 });
@@ -1572,7 +1573,7 @@ purchaseTest.describe("GRN — Comments", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const tab = grn.commentsTab();
       if ((await tab.count()) > 0) await tab.click().catch(() => {});
       const input = grn.commentInput();
@@ -1601,7 +1602,7 @@ purchaseTest.describe("GRN — Comments", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const tab = grn.commentsTab();
       if ((await tab.count()) > 0) await tab.click().catch(() => {});
       await grn.addCommentButton().click({ timeout: 5_000 }).catch(() => {});
@@ -1629,7 +1630,7 @@ purchaseTest.describe("GRN — Comments", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const tab = grn.commentsTab();
       if ((await tab.count()) > 0) await tab.click().catch(() => {});
       const input = grn.commentInput();
@@ -1658,7 +1659,7 @@ purchaseTest.describe("GRN — Comments", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
     },
   );
 });
@@ -1710,7 +1711,7 @@ purchaseTest.describe("GRN — Attachments", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const tab = grn.commentsTab();
       if ((await tab.count()) > 0) await tab.click().catch(() => {});
       const upload = grn.uploadAttachmentsButton();
@@ -1803,7 +1804,7 @@ requestorTest.describe("GRN — Attachments — Permission denial", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const upload = grn.uploadAttachmentsButton();
       // Either button is hidden (correct) or disabled
       if ((await upload.count()) === 0) {
@@ -1839,7 +1840,7 @@ purchaseTest.describe("GRN — Activity Log", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const tab = grn.activityLogTab();
       if ((await tab.count()) > 0) await tab.click().catch(() => {});
     },
@@ -1909,7 +1910,7 @@ requestorTest.describe("GRN — Activity Log — Permission denial", () => {
       await grn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const tab = grn.activityLogTab();
       // Either tab is hidden (correct) or disabled
       if ((await tab.count()) === 0) {

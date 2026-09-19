@@ -1,24 +1,8 @@
-import { expect, type Locator } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { StoreRequisitionPage, LIST_PATH } from "./pages/store-requisition.page";
+import { openRecordFromRow } from "./helpers/list-row";
 
-/**
- * Open the record a list row points at.
- *
- * A `<tr>` in this app is not clickable — the record opens from a link (or a
- * link-styled `<button>`) inside the row whose text is the document number. The
- * old `row.click()` therefore waited for a `<tr>` to become "actionable", and
- * with actionTimeout at 0 that burned the whole test timeout with nothing to
- * point at. Bounded on purpose.
- */
-async function openRecordFromRow(row: Locator): Promise<void> {
-  const link = row.getByRole("link").first();
-  if ((await link.count()) > 0) {
-    await link.click({ timeout: 10_000 });
-    return;
-  }
-  await row.getByRole("button").first().click({ timeout: 10_000 });
-}
 
 
 // ─────────────────────────────────────────────────────────────────────────

@@ -5,6 +5,7 @@ import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
 import { uid, fakeName } from "./helpers/test-data";
+import { openRecordFromRow } from "./helpers/list-row";
 
 // Module-level unique id so the admin serial chain's names stay consistent
 // across a worker restart (factory `uid` provides the same per-process semantics).
@@ -363,7 +364,7 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
         procurementManagerTest.skip(true, "No template available");
         return;
       }
-      await firstRow.click();
+      await openRecordFromRow(firstRow);
       await tpl.editButton().click({ timeout: 5_000 }).catch(() => {});
       await tpl.saveButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(tpl.anyError().first()).toBeVisible({ timeout: 5_000 });
@@ -390,7 +391,7 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
       await tpl.gotoList();
       const firstRow = page.getByRole("row").nth(1);
       if ((await firstRow.count()) === 0) return;
-      await firstRow.click();
+      await openRecordFromRow(firstRow);
       await tpl.editButton().click({ timeout: 5_000 }).catch(() => {});
       await tpl.fillHeader({ validityDays: 1 });
       await tpl.saveButton().click({ timeout: 5_000 }).catch(() => {});
@@ -417,7 +418,7 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
       await tpl.gotoList();
       const firstRow = page.getByRole("row").nth(1);
       if ((await firstRow.count()) === 0) return;
-      await firstRow.click();
+      await openRecordFromRow(firstRow);
       await tpl.editButton().click({ timeout: 5_000 }).catch(() => {});
       await tpl.saveButton().click({ timeout: 5_000 }).catch(() => {});
     },

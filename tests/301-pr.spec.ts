@@ -4,6 +4,7 @@ import { PurchaseRequestPage, LIST_PATH, NEW_PATH, APPROVALS_PATH } from "./page
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+import { openRecordFromRow } from "./helpers/list-row";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — each createAuthTest registers a per-role login fixture.
@@ -224,7 +225,7 @@ requestorTest.describe("PR — Edit", () => {
         requestorTest.skip(true, "No draft PR available for editing in this environment");
         return;
       }
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await pr.editButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.fillHeader({ deliveryDate: FUTURE_DATE, notes: "edited by E2E" });
       await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
@@ -255,7 +256,7 @@ requestorTest.describe("PR — Edit", () => {
         requestorTest.skip(true, "No returned PR available in this environment");
         return;
       }
-      await returnedRow.click();
+      await openRecordFromRow(returnedRow);
       await expect(pr.editButton()).toBeDisabled({ timeout: 5_000 });
     },
   );
@@ -307,7 +308,7 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
         requestorTest.skip(true, "No draft PR available for submission in this environment");
         return;
       }
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.expectSavedToast();
     },
@@ -442,7 +443,7 @@ requestorTest.describe("PR — View — Requestor", () => {
         requestorTest.skip(true, "No pending PR available in this environment");
         return;
       }
-      await pendingRow.click();
+      await openRecordFromRow(pendingRow);
       await expect(pr.statusBadge()).toBeVisible({ timeout: 10_000 });
     },
   );
@@ -496,7 +497,7 @@ hodTest.describe("PR — View — Approver perspective", () => {
         hodTest.skip(true, "No fully-approved PR available in this environment");
         return;
       }
-      await approvedRow.click();
+      await openRecordFromRow(approvedRow);
       await expect(pr.statusBadge()).toBeVisible({ timeout: 10_000 });
     },
   );
@@ -525,7 +526,7 @@ hodTest.describe("PR — View — Approver perspective", () => {
         hodTest.skip(true, "No PR available in this environment");
         return;
       }
-      await anyRow.click();
+      await openRecordFromRow(anyRow);
       await expect(page.getByText(/attachment/i).first()).toBeVisible({ timeout: 10_000 });
     },
   );
@@ -558,7 +559,7 @@ hodTest.describe("PR — Approve", () => {
         hodTest.skip(true, "No PR pending approval for HOD in this environment");
         return;
       }
-      await pendingRow.click();
+      await openRecordFromRow(pendingRow);
       await pr.approveButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.confirmDialogButton(/approve|confirm|ok/i).click({ timeout: 5_000 }).catch(() => {});
       await pr.expectSavedToast();
@@ -588,7 +589,7 @@ hodTest.describe("PR — Approve", () => {
         hodTest.skip(true, "No pending PR for HOD-only approval");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.approveButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
     },
@@ -617,7 +618,7 @@ hodTest.describe("PR — Approve", () => {
         hodTest.skip(true, "No pending PR with multi-stage approval available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.approveButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -647,7 +648,7 @@ fcTest.describe("PR — Approve — FC permission denial", () => {
         fcTest.skip(true, "No PR available in this environment");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       const approve = pr.approveButton();
       // Either button is hidden (correct) or click yields permission error
       if ((await approve.count()) === 0) {
@@ -687,7 +688,7 @@ hodTest.describe("PR — Reject", () => {
         hodTest.skip(true, "No pending PR available to reject");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(VALID_REASON).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
@@ -718,7 +719,7 @@ hodTest.describe("PR — Reject", () => {
         hodTest.skip(true, "No pending PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(SHORT_REASON).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
@@ -749,7 +750,7 @@ hodTest.describe("PR — Reject", () => {
         hodTest.skip(true, "No pending PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
@@ -781,7 +782,7 @@ fcTest.describe("PR — Reject — Permission denial", () => {
         fcTest.skip(true, "No PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       const reject = pr.rejectButton();
       if ((await reject.count()) === 0) {
         expect(true).toBe(true);
@@ -817,7 +818,7 @@ gmTest.describe("PR — Reject — High-value GM scope", () => {
         gmTest.skip(true, "No high-value pending PR for GM");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(VALID_REASON).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
@@ -933,7 +934,7 @@ requestorTest.describe("PR — Cancel — Requestor", () => {
         requestorTest.skip(true, "No active PR available to cancel");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.cancelPRButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill("Incorrect item description").catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
@@ -960,7 +961,7 @@ requestorTest.describe("PR — Cancel — Requestor", () => {
         requestorTest.skip(true, "No completed PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       const cancel = pr.cancelPRButton();
       // Cancel should be disabled or absent for completed PRs
       if ((await cancel.count()) === 0) {
@@ -992,7 +993,7 @@ fcTest.describe("PR — Cancel — Permission denial", () => {
         fcTest.skip(true, "No PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       const cancel = pr.cancelPRButton();
       if ((await cancel.count()) === 0) {
         expect(true).toBe(true);
@@ -1028,7 +1029,7 @@ hodTest.describe("PR — Cancel — Department manager", () => {
         hodTest.skip(true, "No pending-approval PR available for cancellation");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.cancelPRButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill("Change in requirement").catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
@@ -1063,7 +1064,7 @@ requestorTest.describe("PR — Attachments", () => {
         requestorTest.skip(true, "No PR available for attachment upload");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       const tab = page.getByRole("tab", { name: /attachment/i }).first();
       if ((await tab.count()) > 0) await tab.click().catch(() => {});
       const addBtn = page.getByRole("button", { name: /add attachment|upload/i }).first();
@@ -1137,7 +1138,7 @@ hodTest.describe("PR — Attachments — Permission denial", () => {
       await pr.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const addBtn = page.getByRole("button", { name: /add attachment/i }).first();
       // Either button is hidden (correct) or click yields permission error
       if ((await addBtn.count()) === 0) {
@@ -1173,7 +1174,7 @@ requestorTest.describe("PR — Comments", () => {
       await pr.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const addComment = page.getByRole("button", { name: /add comment|post comment|comment/i }).first();
       if ((await addComment.count()) === 0) {
         requestorTest.skip(true, "Comment UI not available");
@@ -1206,7 +1207,7 @@ requestorTest.describe("PR — Comments", () => {
       await pr.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const addComment = page.getByRole("button", { name: /add comment|comment/i }).first();
       if ((await addComment.count()) === 0) {
         requestorTest.skip(true, "Comment UI not available");
@@ -1239,7 +1240,7 @@ fcTest.describe("PR — Comments — Permission denial", () => {
       await pr.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const addComment = page.getByRole("button", { name: /add comment/i }).first();
       // Either button is hidden (correct) or click yields permission error
       if ((await addComment.count()) === 0) {
@@ -1278,7 +1279,7 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
         purchaseTest.skip(true, "No approved PR available to convert to PO");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.convertToPOButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.expectSavedToast();
     },
@@ -1307,7 +1308,7 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
         purchaseTest.skip(true, "No approved PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.convertToPOButton().click({ timeout: 5_000 }).catch(() => {});
       const vendor = page.getByLabel(/vendor/i).first();
       if ((await vendor.count()) > 0) await vendor.fill("INVALID_VENDOR_XYZ");
@@ -1336,7 +1337,7 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
         purchaseTest.skip(true, "No approved PR with missing delivery date");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.convertToPOButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -1359,7 +1360,7 @@ requestorTest.describe("PR — Convert to PO — Permission denial", () => {
       await pr.gotoList();
       const row = page.getByRole("row").filter({ hasText: /^approved$/i }).first();
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const convert = pr.convertToPOButton();
       // Either button is hidden (correct) or click yields permission error
       if ((await convert.count()) === 0) {
@@ -1763,7 +1764,7 @@ hodTest.describe("PR — Approve detail review", () => {
         hodTest.skip(true, "No pending PR for approval review");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.approveButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
     },
@@ -1792,7 +1793,7 @@ hodTest.describe("PR — Approve detail review", () => {
         hodTest.skip(true, "No pending PR for return-for-revision");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.sendBackButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill("Please update vendor and resubmit").catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
@@ -1822,7 +1823,7 @@ hodTest.describe("PR — Approve detail review", () => {
         hodTest.skip(true, "No PR with hidden prices to approve");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.approveButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
     },
@@ -1851,7 +1852,7 @@ hodTest.describe("PR — Approve detail review", () => {
         hodTest.skip(true, "No high-override PR to approve");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.approveButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
     },
@@ -1885,7 +1886,7 @@ purchaseTest.describe("PR — Edit pricing", () => {
         purchaseTest.skip(true, "No in-progress PR available for pricing edit");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.editButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
     },
@@ -1914,7 +1915,7 @@ purchaseTest.describe("PR — Edit pricing", () => {
         purchaseTest.skip(true, "No PR available for pricing edit");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.editButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -1942,7 +1943,7 @@ purchaseTest.describe("PR — Edit pricing", () => {
         purchaseTest.skip(true, "No PR available for pricing edit");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.editButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -1975,7 +1976,7 @@ hodTest.describe("PR — Return for revision", () => {
         hodTest.skip(true, "No pending PR available to return");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.sendBackButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill("Please revise vendor").catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
@@ -2005,7 +2006,7 @@ hodTest.describe("PR — Return for revision", () => {
         hodTest.skip(true, "No pending PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.sendBackButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
@@ -2035,7 +2036,7 @@ hodTest.describe("PR — Return for revision", () => {
         hodTest.skip(true, "No pending PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.sendBackButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill("ten char re").catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
@@ -2064,7 +2065,7 @@ fcTest.describe("PR — Return for revision — Permission denial", () => {
       await pr.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const sendBack = pr.sendBackButton();
       // Either button is hidden (correct) or click yields permission error
       if ((await sendBack.count()) === 0) {
@@ -2103,7 +2104,7 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
         purchaseTest.skip(true, "No PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
@@ -2132,7 +2133,7 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
         purchaseTest.skip(true, "No PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
@@ -2161,7 +2162,7 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
         purchaseTest.skip(true, "No high-value PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -2188,7 +2189,7 @@ requestorTest.describe("PR — Submit after vendor allocation — Permission den
       await pr.gotoList();
       const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const submit = pr.submitButton();
       // Either button is hidden (correct) or click yields permission error
       if ((await submit.count()) === 0) {
@@ -2227,7 +2228,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
         purchaseTest.skip(true, "No PR available to reject");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill("Items discontinued").catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
@@ -2257,7 +2258,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
         purchaseTest.skip(true, "No PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(SHORT_REASON).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
@@ -2288,7 +2289,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
         purchaseTest.skip(true, "No PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
@@ -2318,7 +2319,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
         purchaseTest.skip(true, "No previously-rejected PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       const reject = pr.rejectButton();
       // Either button is hidden (correct) or click yields error
       if ((await reject.count()) === 0) {
@@ -2351,7 +2352,7 @@ requestorTest.describe("PR — Reject by Purchase Staff — Permission denial", 
       await pr.gotoList();
       const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const reject = pr.rejectButton();
       // Either button is hidden (correct) or click yields permission error
       if ((await reject.count()) === 0) {
@@ -2569,7 +2570,7 @@ fcTest.describe("PR — Budget allocation", () => {
         fcTest.skip(true, "No PR available for budget allocation");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       const editBudget = page.getByRole("button", { name: /edit budget/i }).first();
       if ((await editBudget.count()) === 0) {
         fcTest.skip(true, "Budget UI not exposed");
@@ -2602,7 +2603,7 @@ fcTest.describe("PR — Budget allocation", () => {
         fcTest.skip(true, "No PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
     },
   );
 
@@ -2629,7 +2630,7 @@ fcTest.describe("PR — Budget allocation", () => {
         fcTest.skip(true, "No PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
     },
   );
 
@@ -2656,7 +2657,7 @@ fcTest.describe("PR — Budget allocation", () => {
         fcTest.skip(true, "No PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
     },
   );
 });
@@ -2682,7 +2683,7 @@ purchaseTest.describe("PR — Budget allocation — Permission denial", () => {
       await pr.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const editBudget = page.getByRole("button", { name: /edit budget/i }).first();
       // Either button is hidden (correct) or click yields permission error
       if ((await editBudget.count()) === 0) {
@@ -2721,7 +2722,7 @@ hodTest.describe("PR — Split", () => {
         hodTest.skip(true, "No pending PR available to split");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       await pr.splitButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -2746,7 +2747,7 @@ hodTest.describe("PR — Split", () => {
       await pr.gotoApprovals();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const split = pr.splitButton();
       // Either button is disabled (correct) or absent
       if ((await split.count()) === 0) {
@@ -2780,7 +2781,7 @@ hodTest.describe("PR — Split", () => {
         hodTest.skip(true, "No fully-approved PR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
     },
   );
 
@@ -2804,7 +2805,7 @@ hodTest.describe("PR — Split", () => {
       await pr.gotoApprovals();
       const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       await pr.splitButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(SHORT_REASON).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});

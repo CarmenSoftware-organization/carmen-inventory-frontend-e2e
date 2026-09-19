@@ -2,6 +2,7 @@ import { test as baseTest, expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { PurchaseOrderPage, LIST_PATH } from "./pages/purchase-order.page";
 import { seedApprovedPO, gotoPODetail } from "./pages/po-approver.helpers";
+import { openRecordFromRow } from "./helpers/list-row";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Purchasing Staff/Manager == purchase@blueledgers.com.
@@ -396,7 +397,7 @@ purchaseTest.describe("PO — Send to Vendor", () => {
       await po.gotoList();
       const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await po.sendToVendorButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
@@ -422,7 +423,7 @@ purchaseTest.describe("PO — Send to Vendor", () => {
       await po.gotoList();
       const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await po.sendToVendorButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -450,7 +451,7 @@ purchaseTest.describe("PO — Send to Vendor", () => {
         purchaseTest.skip(true, "No rejected PO available");
         return;
       }
-      await rejectedRow.click();
+      await openRecordFromRow(rejectedRow);
       const send = po.sendToVendorButton();
       // Either button is hidden/disabled (correct) or click yields error
       if ((await send.count()) === 0) {
@@ -489,7 +490,7 @@ purchaseTest.describe("PO — Change Order", () => {
         purchaseTest.skip(true, "No approved PO available");
         return;
       }
-      await approvedRow.click();
+      await openRecordFromRow(approvedRow);
       const change = po.requestChangeOrderButton();
       if ((await change.count()) === 0) {
         purchaseTest.skip(true, "Change Order UI not exposed");
@@ -522,7 +523,7 @@ purchaseTest.describe("PO — Change Order", () => {
       await po.gotoList();
       const approvedRow = page.getByRole("row").filter({ hasText: /^approved$/i }).first();
       if ((await approvedRow.count()) === 0) return;
-      await approvedRow.click();
+      await openRecordFromRow(approvedRow);
       const change = po.requestChangeOrderButton();
       if ((await change.count()) === 0) return;
       await change.click().catch(() => {});
@@ -554,7 +555,7 @@ purchaseTest.describe("PO — Change Order", () => {
         purchaseTest.skip(true, "No sent PO available");
         return;
       }
-      await sentRow.click();
+      await openRecordFromRow(sentRow);
       const change = po.requestChangeOrderButton();
       // Either button is hidden/disabled (correct) or click yields error
       if ((await change.count()) === 0) {
@@ -587,7 +588,7 @@ requestorTest.describe("PO — Change Order — Permission denial", () => {
       await po.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const change = po.requestChangeOrderButton();
       // Either button is hidden (correct) or click yields permission error
       if ((await change.count()) === 0) {
@@ -634,7 +635,7 @@ purchaseTest.describe("PO — Cancel", () => {
         purchaseTest.skip(true, "No active PO available");
         return;
       }
-      await activeRow.click();
+      await openRecordFromRow(activeRow);
       await po.cancelPOButton().click({ timeout: 5_000 }).catch(() => {});
       await po.reasonInput().fill("Order no longer needed").catch(() => {});
       await po.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
@@ -665,7 +666,7 @@ purchaseTest.describe("PO — Cancel", () => {
         purchaseTest.skip(true, "No completed PO available");
         return;
       }
-      await completedRow.click();
+      await openRecordFromRow(completedRow);
       const cancel = po.cancelPOButton();
       // Either button is hidden/disabled (correct) or click yields error
       if ((await cancel.count()) === 0) {
@@ -696,7 +697,7 @@ purchaseTest.describe("PO — Cancel", () => {
       await po.gotoList();
       const sentRow = page.getByRole("row").filter({ hasText: /sent|shipped/i }).first();
       if ((await sentRow.count()) === 0) return;
-      await sentRow.click();
+      await openRecordFromRow(sentRow);
       await po.cancelPOButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -848,7 +849,7 @@ purchaseTest.describe("PO — QR Code", () => {
         purchaseTest.skip(true, "No PO available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       const qr = po.qrCodeImage();
       if ((await qr.count()) === 0) {
         purchaseTest.skip(true, "QR Code section not exposed");
@@ -901,7 +902,7 @@ purchaseTest.describe("PO — QR Code", () => {
       await po.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       await page.reload();
       await page.waitForLoadState("networkidle");
     },
