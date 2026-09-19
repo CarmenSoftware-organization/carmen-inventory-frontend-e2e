@@ -299,8 +299,18 @@ export class PurchaseOrderPage extends BasePage {
       .first()
       .waitFor({ state: "visible", timeout: 10_000 });
 
-    const locationTrigger = row.getByRole("button", { name: /select location/i });
-    if ((await locationTrigger.count()) > 0) {
+    // waitFor, not count(): the wait above can settle on the (disabled) "Select
+    // Product" button, and at that instant the row's location trigger may not be
+    // rendered yet. Reading count() there skipped the location pick on a brand-new
+    // PO, and "Select Product" — which the cascade only enables once a location is
+    // chosen — then never became enabled.
+    const hasLocationTrigger = await row
+      .getByRole("button", { name: /select location/i })
+      .first()
+      .waitFor({ state: "visible", timeout: 5_000 })
+      .then(() => true)
+      .catch(() => false);
+    if (hasLocationTrigger) {
       await this.pickFromRowTrigger(row, /select location/i);
     }
     if (data.product !== undefined) {
