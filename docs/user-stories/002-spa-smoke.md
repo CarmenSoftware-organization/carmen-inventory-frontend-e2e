@@ -141,4 +141,4 @@ Login เป็น admin ผ่าน auth fixture
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git a4954cd</sub>
+<sub>Last regenerated: 2026-09-19 · git 3fd766b</sub>

@@ -397,7 +397,7 @@ Reject dialog เปิดอยู่
 
 **Expected**
 
-text ของ status badge ตรงกับ /rejected/i หลังการยืนยัน
+text ของ status badge ตรงกับ /rejected/i หลังการยืนยัน (ปัจจุบันการยืนยันไม่ยิง request ใด ๆ — บั๊กแอป)
 
 ---
 
@@ -449,4 +449,4 @@ PATCH .../approve ของ FC ตอบ ok และหลัง GM อนุ�
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git a4954cd</sub>
+<sub>Last regenerated: 2026-09-19 · git 3fd766b</sub>

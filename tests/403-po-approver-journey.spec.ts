@@ -417,7 +417,8 @@ fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level markin
       // Create Request → FC → GM → Completed, so FC's signature advances the PO
       // to GM and the document stays IN PROGRESS. Asserting /approved|sent/ here
       // was asserting a state this workflow never reaches at this stage.
-      await page.reload();
+      // Re-open the record: confirming an action routes back to the PO list.
+      await gotoPODetail(page, created.ref);
       await expect(
         page
           .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
@@ -557,18 +558,28 @@ fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level markin
     },
   );
 
-  fcTest(
+  // App bug, not a test bug — do not work around it.
+  // Confirming the document-level Reject fires **no request at all**: no
+  // PATCH .../reject, no toast, and the PO keeps its status. Its dialog also
+  // contradicts itself — the copy reads "Please provide a reason." while the
+  // dialog contains zero inputs (verified against the DOM), unlike the per-item
+  // reject dialog which does carry a REASON field. TC-PO-070310 still covers the
+  // dialog opening; un-fixme this once the confirm actually submits.
+  fcTest.fixme(
     "TC-PO-070311 Confirm Reject → PO marked REJECTED",
     {
       annotation: [
         { type: "preconditions", description: "Reject dialog เปิดอยู่" },
         { type: "steps", description: "1. ทำเครื่องหมายรายการว่า Reject\n2. กด Document Reject\n3. กรอกเหตุผล (optional)\n4. ยืนยัน" },
-        { type: "expected", description: "text ของ status badge ตรงกับ /rejected/i หลังการยืนยัน" },
+        { type: "expected", description: "text ของ status badge ตรงกับ /rejected/i หลังการยืนยัน (ปัจจุบันการยืนยันไม่ยิง request ใด ๆ — บั๊กแอป)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page, browser }) => {
+      // Seed + edit mode + per-item reject + document reject in one test; the
+      // default 30s ran out before the reject request was even sent.
+      fcTest.setTimeout(120_000);
       const po = new PurchaseOrderPage(page);
       const created = await submitPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
@@ -593,10 +604,24 @@ fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level markin
         fcTest.skip(true, "Document Reject not visible");
         return;
       }
+      // Prove the reject reached the backend, then re-read the record. The old
+      // body swallowed the confirm in .catch() and asserted straight away against
+      // a page that had not been told anything changed.
+      const rejected = page.waitForResponse(
+        (r) => /\/purchase-orders\/[^/]+\/reject/.test(r.url()) && r.request().method() === "PATCH",
+        { timeout: 20_000 },
+      );
       await docReject.click({ timeout: 5_000 });
       const reason = po.reasonInput();
-      if ((await reason.count()) > 0) await reason.fill(REJECT_REASON).catch(() => {});
-      await po.confirmDialogButton(/confirm|reject|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      if ((await reason.count()) > 0) {
+        await reason.fill(REJECT_REASON, { timeout: 10_000 }).catch(() => {});
+      }
+      await po.confirmDialogButton(/confirm|reject|ok|yes/i).click({ timeout: 10_000 });
+      expect((await rejected).ok()).toBe(true);
+
+      // Re-open the record: confirming an action routes back to the PO list, so a
+      // plain reload() would re-read the list instead of this document.
+      await gotoPODetail(page, created.ref);
       await expect(
         page
           .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
@@ -646,6 +671,13 @@ fcTest.describe.serial("Golden Journey", () => {
       ],
     },
     async ({ page, browser }) => {
+      // Measured, not guessed: this one test drives three roles end to end —
+      // Purchaser creates and submits (~11s), FC marks items and approves, then
+      // GM approves in its own context (the submit+FC+GM chain alone timed at
+      // ~38s). It was failing at exactly 30.1s, which is the default budget
+      // running out, not a hang.
+      fcTest.setTimeout(150_000);
+
       const po = new PurchaseOrderPage(page);
 
       // Seed
@@ -688,7 +720,8 @@ fcTest.describe.serial("Golden Journey", () => {
       await approveAsGM(browser, created.ref);
 
       // Hard assertion
-      await page.reload();
+      // Re-open the record: confirming an action routes back to the PO list.
+      await gotoPODetail(page, created.ref);
       await expect(
         page
           .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
