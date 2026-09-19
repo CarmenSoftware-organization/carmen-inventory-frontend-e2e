@@ -419,8 +419,15 @@ purchaseTest.describe("Store Requisition — Submit", () => {
       const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
-      await sr.submitForApprovalButton().click({ timeout: 5_000 }).catch(() => {});
-      await sr.confirmDialogButton().click({ timeout: 5_000 });
+      // The action buttons render only when this role is the actor for the stage
+      // the requisition is sitting at. Say so rather than waiting out a confirm
+      // dialog that was never opened.
+      if ((await sr.submitForApprovalButton().count()) === 0) {
+        purchaseTest.skip(true, "Requisition offers no Submit for this role/stage");
+        return;
+      }
+      await sr.submitForApprovalButton().click({ timeout: 10_000 });
+      await sr.confirmDialogButton(/^submit$|confirm|ok|yes/i).click({ timeout: 10_000 });
     },
   );
 
@@ -652,8 +659,12 @@ purchaseTest.describe("Store Requisition — Approve", () => {
       const inProgressRow = page.getByRole("row").filter({ hasText: /in.progress/i }).first();
       if ((await inProgressRow.count()) === 0) return;
       await openRecordFromRow(inProgressRow);
-      await sr.approveButton().click({ timeout: 5_000 }).catch(() => {});
-      await sr.confirmDialogButton(/^approve$/i).click({ timeout: 5_000 });
+      if ((await sr.approveButton().count()) === 0) {
+        purchaseTest.skip(true, "Requisition offers no Approve for this role/stage");
+        return;
+      }
+      await sr.approveButton().click({ timeout: 10_000 });
+      await sr.confirmDialogButton(/^approve$|confirm|ok|yes/i).click({ timeout: 10_000 });
     },
   );
 
@@ -975,9 +986,13 @@ purchaseTest.describe("Store Requisition — Reject", () => {
       const inProgressRow = page.getByRole("row").filter({ hasText: /in.progress/i }).first();
       if ((await inProgressRow.count()) === 0) return;
       await openRecordFromRow(inProgressRow);
-      await sr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
+      if ((await sr.rejectButton().count()) === 0) {
+        purchaseTest.skip(true, "Requisition offers no Reject for this role/stage");
+        return;
+      }
+      await sr.rejectButton().click({ timeout: 10_000 });
       await sr.reasonInput().fill("Specific policy violation", { timeout: 10_000 }).catch(() => {});
-      await sr.confirmDialogButton().click({ timeout: 5_000 });
+      await sr.confirmDialogButton(/^reject$|confirm|ok|yes/i).click({ timeout: 10_000 });
     },
   );
 

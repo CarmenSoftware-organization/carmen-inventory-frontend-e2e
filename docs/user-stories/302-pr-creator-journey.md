@@ -961,4 +961,4 @@ PR ถูกสร้าง (detail URL พร้อม ref), แก้ไขแ
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 142fc51</sub>
+<sub>Last regenerated: 2026-09-19 · git 720230d</sub>
