@@ -261,7 +261,19 @@ export class PurchaseRequestPage extends BasePage {
     // renders <QtyUnitPlain> while `!productId` ("กรอกจำนวนก่อนเลือกสินค้าไม่มี
     // ความหมาย"). So the new row is anchored on its "Select Location" button,
     // not on the qty input, which only exists from step 2 onwards.
-    await this.addItemButton().click();
+    // A workflow must be chosen before the item row is any use: the product list
+    // comes from `products-location-workflow/{location}/{workflow}`, so without
+    // one the product picker opens **empty** and the whole cascade stalls. Tests
+    // that only wanted to add a line never selected it, and the failure showed up
+    // three steps later as a missing qty input.
+    // Use the same locator selectFirstWorkflow() uses — the first combobox on the
+    // form. A `filter({ hasText: /select workflow/i })` looks more precise but
+    // matches nothing here, even though the control's own text reads exactly
+    // that. Selecting before Add Item keeps `.first()` unambiguous: the item row
+    // adds comboboxes of its own.
+    await this.selectFirstWorkflow().catch(() => {});
+
+    await this.addItemButton().click({ timeout: 10_000 });
     // Anchor on position, not on content: every cascade step replaces the trigger
     // it just used ("Select Location" becomes the chosen location's name), so a
     // content-based row filter goes stale after the first pick. New rows are
@@ -270,9 +282,17 @@ export class PurchaseRequestPage extends BasePage {
     const row = this.page.locator("tbody tr").first();
     await row.waitFor({ state: "visible", timeout: 10_000 });
 
-    await this.pickFirstInCombobox(row.getByRole("button", { name: /select location/i }).first());
+    // Report which gate failed. These two used to drop the boolean on the floor,
+    // so a location or product that could not be picked only surfaced later as
+    // "qty input never became visible" — which points at the wrong step entirely
+    // (qty simply does not exist until a product is set).
+    if (!(await this.pickFirstInCombobox(row.getByRole("button", { name: /select location/i }).first()))) {
+      throw new Error("addLineItem: could not pick a location — the row's Select Location trigger was absent or its list was empty");
+    }
     if (data.product !== undefined) {
-      await this.pickFirstInCombobox(row.getByRole("button", { name: /select product/i }).first());
+      if (!(await this.pickFirstInCombobox(row.getByRole("button", { name: /select product/i }).first()))) {
+        throw new Error("addLineItem: could not pick a product — check that a location was set first (product is gated on it)");
+      }
     }
     if (data.quantity !== undefined) {
       // Only reachable once a product is set; scoped to this row so a re-render

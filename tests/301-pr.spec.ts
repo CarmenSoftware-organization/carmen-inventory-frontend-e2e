@@ -97,7 +97,7 @@ requestorTest.describe("PR — Create", () => {
       });
       await pr.addLineItem({ product: "Test Item", description: "E2E item", quantity: 1, uom: "ea", unitPrice: 100 });
       await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.expectSavedToast().catch(() => {});
+      await pr.expectSavedToast();
     },
   );
 
@@ -123,7 +123,7 @@ requestorTest.describe("PR — Create", () => {
       await pr.fillHeader({ prType: "general", deliveryDate: FUTURE_DATE });
       await pr.addLineItem({ product: "FOC Item", quantity: 5, uom: "ea", isFOC: true });
       await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.expectSavedToast().catch(() => {});
+      await pr.expectSavedToast();
     },
   );
 
@@ -228,7 +228,7 @@ requestorTest.describe("PR — Edit", () => {
       await pr.editButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.fillHeader({ deliveryDate: FUTURE_DATE, notes: "edited by E2E" });
       await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.expectSavedToast().catch(() => {});
+      await pr.expectSavedToast();
     },
   );
 
@@ -309,7 +309,7 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
       }
       await draftRow.click();
       await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.expectSavedToast().catch(() => {});
+      await pr.expectSavedToast();
     },
   );
 
@@ -561,7 +561,7 @@ hodTest.describe("PR — Approve", () => {
       await pendingRow.click();
       await pr.approveButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.confirmDialogButton(/approve|confirm|ok/i).click({ timeout: 5_000 }).catch(() => {});
-      await pr.expectSavedToast().catch(() => {});
+      await pr.expectSavedToast();
     },
   );
 
@@ -691,7 +691,7 @@ hodTest.describe("PR — Reject", () => {
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(VALID_REASON).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.expectSavedToast().catch(() => {});
+      await pr.expectSavedToast();
     },
   );
 
@@ -937,7 +937,7 @@ requestorTest.describe("PR — Cancel — Requestor", () => {
       await pr.cancelPRButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill("Incorrect item description").catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.expectSavedToast().catch(() => {});
+      await pr.expectSavedToast();
     },
   );
 
@@ -1280,7 +1280,7 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
       }
       await row.click();
       await pr.convertToPOButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.expectSavedToast().catch(() => {});
+      await pr.expectSavedToast();
     },
   );
 
@@ -1573,7 +1573,7 @@ requestorTest.describe("PR — Pricing visibility", () => {
       await pr.fillHeader({ deliveryDate: FUTURE_DATE, description: "Visible price PR", justification: "E2E test" });
       await pr.addLineItem({ product: "Test Product", quantity: 5, uom: "ea", vendor: "Test Vendor", unitPrice: 100, discount: 5, taxRate: 7 });
       await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.expectSavedToast().catch(() => {});
+      await pr.expectSavedToast();
     },
   );
 
