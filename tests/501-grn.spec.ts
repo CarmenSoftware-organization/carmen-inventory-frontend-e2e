@@ -1196,9 +1196,19 @@ purchaseTest.describe("GRN — Commit", () => {
       const grn = new GRNPage(page);
       await grn.gotoList();
       const receivedRow = page.locator("tbody").getByRole("row").filter({ hasText: /received/i }).first();
-      if ((await receivedRow.count()) === 0) return;
+      if ((await receivedRow.count()) === 0) {
+        // A bare `return` here reported a pass while doing nothing. Note also that
+        // this filter used to match the <thead> row, because the table has a
+        // "Received By" column — scoping to tbody is what made the gap visible.
+        purchaseTest.skip(true, "No received GRN in this environment to commit");
+        return;
+      }
       await openRecordFromRow(receivedRow);
-      await grn.commitButton().click({ timeout: 5_000 }).catch(() => {});
+      if ((await grn.commitButton().count()) === 0) {
+        purchaseTest.skip(true, "GRN offers no Commit for this role/state");
+        return;
+      }
+      await grn.commitButton().click({ timeout: 10_000 });
       await expect(grn.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );

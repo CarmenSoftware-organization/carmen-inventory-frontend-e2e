@@ -252,15 +252,14 @@ purchaseTest.describe("Step 2 — Create PO", () => {  // ─ Blank method (4 TC
         purchaseTest.skip(true, "From Price List menu item not present");
         return;
       }
-      await item.click();
-      // Wizard either opens a dialog or navigates; assert one or the other occurred
-      await expect(
-        page
-          .locator('[role="dialog"], [role="alertdialog"]')
-          .last()
-          .or(page.getByText(/select vendor|step 1/i).first())
-          .first(),
-      ).toBeVisible({ timeout: 10_000 });
+      await item.click({ timeout: 10_000 });
+      // The wizard is a full page, not a dialog, and its first step is labelled
+      // "Order & Vendor" — neither "Select Vendor" nor "step 1" appears anywhere,
+      // so the old union assertion could not match. Assert the route and the
+      // step rail the page actually renders.
+      await expect(page).toHaveURL(/purchase-order\/from-price-list/, { timeout: 15_000 });
+      await expect(page.getByText(/order & vendor/i).first()).toBeVisible({ timeout: 10_000 });
+      await expect(page.getByText(/select items/i).first()).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -886,7 +885,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
   );
 
   purchaseTest(
-    "TC-PO-060504 Close PO without items received → VOIDED",
+    "TC-PO-060504 Close PO without items received → CLOSED",
     {
       annotation: [
         { type: "preconditions", description: "มี Approved/SENT PO ที่ยังไม่มีรายการที่รับ" },
@@ -906,12 +905,20 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
         purchaseTest.skip(true, "Close button not present on this Approved PO");
         return;
       }
-      await close.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|close|void|yes/i).click({ timeout: 5_000 });
+      await close.click({ timeout: 10_000 });
+      // "Close Purchase Order — …Please provide a reason." with an optional REASON
+      // box; the button is labelled Close.
+      await po.confirmDialogButton(/^close$|confirm|yes/i).click({ timeout: 10_000 });
+
+      // The document ends up **CLOSED**, not VOIDED — this build has no voided
+      // state for a PO at all (PO_STATUS has closed/completed; the old assertion
+      // waited for a badge the app never renders). Re-open the record because
+      // confirming routes back to the list.
+      await gotoPODetail(page, created.ref);
       await expect(
         page
           .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
-          .filter({ hasText: /voided|cancelled/i })
+          .filter({ hasText: /closed/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });
     },

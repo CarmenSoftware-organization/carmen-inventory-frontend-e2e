@@ -170,8 +170,13 @@ export class PurchaseOrderPage extends BasePage {
 
   // ── Confirmation dialog ──────────────────────────────────────────────
   reasonInput(): Locator {
+    // Both roles: confirmation popups here are Radix AlertDialog, which
+    // getByRole("dialog") never matches — the reason box then stayed unfilled and
+    // the dialog's own confirm button stayed disabled. `.last()` skips the
+    // always-mounted Command Palette.
     return this.page
-      .getByRole("dialog")
+      .locator('[role="dialog"], [role="alertdialog"]')
+      .last()
       .locator("textarea, input[type='text']")
       .first();
   }

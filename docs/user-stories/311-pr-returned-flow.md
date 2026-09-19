@@ -290,4 +290,4 @@ Status badge เปลี่ยนเป็น In Progress หลังจาก
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 3f5c531</sub>
+<sub>Last regenerated: 2026-09-19 · git 7cbdd97</sub>

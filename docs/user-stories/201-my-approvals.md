@@ -562,4 +562,4 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 3f5c531</sub>
+<sub>Last regenerated: 2026-09-19 · git 7cbdd97</sub>
