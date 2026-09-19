@@ -604,3 +604,62 @@ combobox ไม่ใช่ button และในแถวมีสองอั
 - `TC-PL-080003` เปลี่ยนจาก `expect` เป็น `skip` พร้อมเหตุผล: BU นี้มีแต่ price list
   สถานะ DRAFT และไม่มีอะไรในชุดเทสต์ที่เลื่อนสถานะเป็น active — เป็นช่องว่างของ
   fixture ไม่ใช่แอปพัง ควรอ่านว่า "ไม่ได้ทดสอบ" ไม่ใช่ "ผ่าน"
+
+## H — ถอด `.catch(() => {})` ที่ครอบ **action**
+
+ต่อจากหัวข้อ F (ที่ครอบ assertion 87 จุด) รอบนี้จัดการกลุ่มที่ครอบ action ซึ่งซ่อน
+"คลิกที่ล้มเหลว" แทนที่จะซ่อน "การตรวจที่ล้มเหลว"
+
+### H-1 — `expectSavedToast()` คือ assertion ที่หลุดตะแกรงรอบก่อน (18 จุด)
+
+รอบ F ผมกวาดด้วย regex ที่จับเฉพาะบรรทัดขึ้นต้น `await expect(` จึงพลาด
+`expectSavedToast()` ซึ่งเป็น assertion ล้วน ๆ ที่ห่อ `.catch()` ไว้ทุก call site
+
+พอถอดออก **8 ใน 9 จุดแรก (159-pl + 401-po) กลายเป็นล้มทันที** และทั้งหมดคือเทสต์
+happy path — ที่แย่ที่สุดที่จะมี vacuous pass สาเหตุเรียงจากผิวไปลึก:
+
+1. **เทสต์ไม่เคยกรอกข้อมูลครบ** `TC-PO-020001` ชื่อ "with Valid Data" แต่ body กด
+   Save ทันทีโดยไม่กรอกอะไรเลย ส่วน `TC-PL-020001` ส่งแต่ `validFrom` ทั้งที่ทั้งสอง
+   วันที่เป็น required
+2. **page object no-op เงียบเมื่อฟอร์มยังไม่ render** ทุก field ตัดสินด้วย
+   `count() > 0` ซึ่งตอบทันที บนหน้าที่ยังโหลดไม่เสร็จจึงข้ามทุกช่อง แล้วไปล้มตอน
+   save โดยไม่มีเบาะแส — เพิ่ม `waitFor` ที่ต้นทางของ `fillHeader` และ `addItemToPO`
+3. **Unit ในแถวรายการของ price list เป็น required และแอปเงียบมาก** ไม่มี
+   `aria-invalid` มีแค่ `*` ที่ label กด Create แล้ว **ไม่ยิง request ไม่มี toast ไม่มี
+   error** ค้างอยู่หน้าเดิม — อ่านดูเหมือน Save พังสนิท ตัว control ยิ่งหายาก เพราะ
+   ขึ้นว่า "Select Unit" ตอนแถวยังว่าง แต่กลายเป็น **ค่าว่าง** ทันทีที่เลือกสินค้า
+   จึงต้องจับด้วยตำแหน่งในแถว ไม่ใช่ข้อความ
+
+### H-2 — `row.click()` ซ้ำกัน **143 จุดใน 7 สเปก**
+
+`<tr>` ไม่ใช่สิ่งที่คลิกได้ในแอปนี้เลยสักหน้า — ทุก list เปิดเอกสารจากลิงก์หรือปุ่มที่
+ทำหน้าที่เป็นลิงก์ซึ่งมีเลขที่เอกสารเป็นข้อความ (CLAUDE.md บันทึกไว้อยู่แล้ว)
+`row.click()` จึงรอให้ `<tr>` actionable และเพราะ `actionTimeout` เป็น 0 มันรอตลอดไป
+
+ย้ายไปเป็น `tests/helpers/list-row.ts` → `openRecordFromRow()` ตัวเดียว มี timeout
+และ **โยน error** เมื่อแถวไม่มีทั้งลิงก์และปุ่ม
+
+ผลรวม 9 สเปกหลังแก้: **339 ผ่าน / 13 ล้ม** (`401-po`, `601-cn`, `720-stock-issue`,
+`201-my-approvals` เขียวสนิท)
+
+### H-3 — PR: product list ว่างเพราะยังไม่ได้เลือก workflow
+
+`addLineItem` ทิ้งค่า boolean ที่ `pickFirstInCombobox` คืนมา การเลือก location หรือ
+product ที่ล้มจึงไปโผล่อีกสามขั้นถัดไปเป็น "qty input ไม่ visible" ซึ่งชี้ผิดจุดสนิท
+(qty ไม่มีตัวตนจนกว่าจะเลือกสินค้า) พอเปลี่ยนให้โยน error ที่บอกขั้นจริง ก็เห็นว่า
+**รายการสินค้าว่าง** เพราะมาจาก `products-location-workflow/{location}/{workflow}`
+เทสต์ที่แค่จะเพิ่มรายการจึงไม่เคยเลือก workflow แล้วตันทั้งสาย
+
+หมายเหตุ locator: `getByRole("combobox").filter({ hasText: /select workflow/i })`
+ได้ **0** ทั้งที่ข้อความบนคอนโทรลเป็น "Select Workflow" เป๊ะ — ใช้ combobox ตัวแรก
+แทน (เลือกก่อนกด Add Item จึงไม่กำกวม)
+
+### เทสต์ที่ premise หายไป — ตั้ง fixme พร้อมเหตุผล
+
+- `TC-PL-050001` (Duplicate) และ `TC-PL-080001` (Mark as Expired) — **ฟีเจอร์หายจาก
+  UI แล้ว** เมนูในแถวมีแค่ Activity/Delete หน้า detail มีแค่ Edit/Delete/Activity
+- `TC-PO-050001` (Cancel Active PO) — ไม่มี action ชื่อ Cancel Purchase Order หรือ
+  Void อยู่ที่ไหนแล้ว ใบ Approved มี Close / Send to vendor / More
+- `TC-PO-030001` เขียนใหม่ให้ seed ใบ Approved จริง แล้ว assert ว่า dialog เขียนอีเมล
+  เปิดและผูกกับ PO ใบนั้น — **ตั้งใจไม่กด Send** เพราะช่อง To ว่าง (vendor รายนี้ไม่มี
+  อีเมลในระบบ) และการกดจริงจะส่งอีเมลออกไปจริง
