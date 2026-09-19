@@ -244,9 +244,11 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
         return;
       }
       await openRecordFromRow(pendingRow);
-      await ma.rejectButton().click({ timeout: 5_000 }).catch(() => {});
+      // Approve/Reject live in edit mode only — the view page has just Edit/More.
+      await ma.enterEditMode();
+      await ma.rejectButton().click({ timeout: 10_000 });
       await ma.reasonInput().fill("Rejected. Budget not available for this purchase.", { timeout: 10_000 }).catch(() => {});
-      await ma.confirmDialogButton().click({ timeout: 5_000 });
+      await ma.confirmDialogButton(/^reject$|confirm|ok|yes/i).click({ timeout: 10_000 });
     },
   );
 
@@ -271,8 +273,10 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
       const pendingRow = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await pendingRow.count()) === 0) return;
       await openRecordFromRow(pendingRow);
-      await ma.rejectButton().click({ timeout: 5_000 }).catch(() => {});
-      await ma.confirmDialogButton().click({ timeout: 5_000 });
+      // Approve/Reject live in edit mode only — the view page has just Edit/More.
+      await ma.enterEditMode();
+      await ma.rejectButton().click({ timeout: 10_000 });
+      await ma.confirmDialogButton(/^reject$|confirm|ok|yes/i).click({ timeout: 10_000 });
       await expect(ma.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
@@ -298,9 +302,11 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
       const pendingRow = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await pendingRow.count()) === 0) return;
       await openRecordFromRow(pendingRow);
-      await ma.rejectButton().click({ timeout: 5_000 }).catch(() => {});
+      // Approve/Reject live in edit mode only — the view page has just Edit/More.
+      await ma.enterEditMode();
+      await ma.rejectButton().click({ timeout: 10_000 });
       await ma.reasonInput().fill("Rejected. Incorrect PO number - please check PO-123456789.", { timeout: 10_000 }).catch(() => {});
-      await ma.confirmDialogButton().click({ timeout: 5_000 });
+      await ma.confirmDialogButton(/^reject$|confirm|ok|yes/i).click({ timeout: 10_000 });
     },
   );
 });
