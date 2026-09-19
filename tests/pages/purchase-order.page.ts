@@ -164,8 +164,20 @@ export class PurchaseOrderPage extends BasePage {
       .first();
   }
 
+  /**
+   * Confirmations in this app are Radix **AlertDialog** — `role="alertdialog"`,
+   * which `getByRole("dialog")` does NOT match. This resolved to nothing, and
+   * since almost every call site wraps the click in `.catch(() => {})`, the step
+   * silently did nothing: PO Submit left the record in Draft while reporting
+   * success. Match both roles, and take `.last()` so the always-mounted Command
+   * Palette (also a dialog) never wins.
+   */
   confirmDialogButton(name: RegExp = /confirm|ok|yes/i): Locator {
-    return this.page.getByRole("dialog").getByRole("button", { name }).first();
+    return this.page
+      .locator('[role="dialog"], [role="alertdialog"]')
+      .last()
+      .getByRole("button", { name })
+      .first();
   }
 
   // ── Dashboard ────────────────────────────────────────────────────────
@@ -340,8 +352,11 @@ export class PurchaseOrderPage extends BasePage {
   }
 
   async enterEditMode() {
-    await this.editModeButton().click();
-    await this.page.waitForLoadState("networkidle").catch(() => {});
+    // Bounded on purpose: actionTimeout defaults to 0 in this config, so an
+    // un-timed click on a button that never becomes actionable waits forever and
+    // the test burns its whole budget with nothing to point at.
+    await this.editModeButton().click({ timeout: 10_000 });
+    await this.page.waitForLoadState("networkidle", { timeout: 15_000 }).catch(() => {});
   }
 
   async cancelEditMode() {

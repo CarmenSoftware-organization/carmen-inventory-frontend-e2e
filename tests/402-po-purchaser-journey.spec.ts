@@ -3,7 +3,7 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { PurchaseOrderPage, LIST_PATH } from "./pages/purchase-order.page";
 import {
   submitPOAsPurchaser,
-  approveAsFC,
+  seedApprovedPO,
   gotoPODetail,
 } from "./pages/po-approver.helpers";
 
@@ -777,10 +777,10 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
 
 purchaseTest.describe("Step 5 — Post-approval", () => {
   purchaseTest(
-    "TC-PO-060501 Approved PO has Send to Vendor + Close buttons (seeded via approveAsFC)",
+    "TC-PO-060501 Approved PO has Send to Vendor + Close buttons (seeded via seedApprovedPO)",
     {
       annotation: [
-        { type: "preconditions", description: "มี PO ที่ approved (seeded ผ่าน submitPOAsPurchaser + approveAsFC)" },
+        { type: "preconditions", description: "มี PO ที่ approved (seeded ผ่าน seedApprovedPO: submit + FC + GM)" },
         { type: "steps", description: "1. Seed Approved PO\n2. เปิดหน้า detail\n3. ตรวจสอบ action toolbar" },
         { type: "expected", description: "ปุ่ม Send to Vendor visible ความ visible ของปุ่ม Close เป็นรอง (ไม่ assert hard ถ้าไม่มี)" },
         { type: "priority", description: "High" },
@@ -789,8 +789,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
-      await approveAsFC(browser, created.ref);
+      const created = await seedApprovedPO(browser);
       await gotoPODetail(page, created.ref);
       const send = po.sendToVendorButton();
       if ((await send.count()) === 0) {
@@ -814,8 +813,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
-      await approveAsFC(browser, created.ref);
+      const created = await seedApprovedPO(browser);
       await gotoPODetail(page, created.ref);
       const send = po.sendToVendorButton();
       if ((await send.count()) === 0) {
@@ -880,8 +878,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
-      await approveAsFC(browser, created.ref);
+      const created = await seedApprovedPO(browser);
       await gotoPODetail(page, created.ref);
       const close = po.closePOButton();
       if ((await close.count()) === 0) {
@@ -915,17 +912,16 @@ purchaseTest.describe.serial("Golden Journey", () => {
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
 
-      // Step 1-3: Create and submit (helper does it all)
-      const created = await submitPOAsPurchaser(browser, { description: "[E2E-POP] TC-PO-060901 golden" });
-
-      // Step 4: FC approves via cross-context
-      await approveAsFC(browser, created.ref);
+      // Step 1-4: create, submit, and walk BOTH approve stages. General PO is
+      // Create Request -> FC -> GM -> Completed, so FC alone leaves the PO at GM
+      // and Send to Vendor never appears.
+      const created = await seedApprovedPO(browser, { description: "[E2E-POP] TC-PO-060901 golden" });
 
       // Step 5: Reload as Purchaser and verify Approved state has Send button
       await gotoPODetail(page, created.ref);
       const send = po.sendToVendorButton();
       if ((await send.count()) === 0) {
-        purchaseTest.skip(true, "Send to Vendor button not present after FC approval");
+        purchaseTest.skip(true, "Send to Vendor button not present after full approval");
         return;
       }
 

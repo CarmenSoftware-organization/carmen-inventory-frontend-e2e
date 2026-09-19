@@ -176,8 +176,20 @@ export class GRNPage extends BasePage {
   }
 
   // ── Confirmation dialog ──────────────────────────────────────────────
+  /**
+   * Confirmations in this app are Radix **AlertDialog** — `role="alertdialog"`,
+   * which `getByRole("dialog")` does NOT match. This resolved to nothing, and
+   * since almost every call site wraps the click in `.catch(() => {})`, the step
+   * silently did nothing: PO Submit left the record in Draft while reporting
+   * success. Match both roles, and take `.last()` so the always-mounted Command
+   * Palette (also a dialog) never wins.
+   */
   confirmDialogButton(name: RegExp = /confirm|delete|ok|yes/i): Locator {
-    return this.page.getByRole("dialog").getByRole("button", { name }).first();
+    return this.page
+      .locator('[role="dialog"], [role="alertdialog"]')
+      .last()
+      .getByRole("button", { name })
+      .first();
   }
 
   // ── Verification ─────────────────────────────────────────────────────

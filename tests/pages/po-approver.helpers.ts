@@ -91,25 +91,35 @@ export async function submitPOAsPurchaser(
       throw new Error(`submitPOAsPurchaser: could not extract PO ref from URL: ${url}`);
     }
 
-    // Submit for approval. This used to swallow every step in .catch(), so a
-    // failed submit left a Draft PO behind and callers only found out much later
-    // as "Approve button not found" — the approver has nothing to approve until
-    // the PO leaves Draft. Prove the transition instead: the Submit button is
-    // gone once the status moves on.
+    // Submit for approval. Two things made this look like it worked while the PO
+    // stayed in Draft:
+    //   1. the confirmation is a Radix AlertDialog, which `getByRole("dialog")`
+    //      never matched, so nothing ever confirmed (see confirmDialogButton);
+    //   2. once it did confirm, the app optimistically routes back to the list,
+    //      so the Submit button detaches *before* the PATCH lands — and
+    //      withRoleContext then closes the context, aborting the request
+    //      in flight. The record kept `last_action.state = "submitted"` with a
+    //      null timestamp and `po_status = draft`.
+    // Waiting on the response itself is the only proof that holds: the workflow
+    // moves to the first approve stage (FC) only when this PATCH completes.
     const submit = po.submitButton();
-    if ((await submit.count()) > 0) {
-      await submit.click({ timeout: 10_000 });
-      const confirm = po.confirmDialogButton(/confirm|submit|ok|yes/i);
-      if (await confirm.isVisible({ timeout: 3_000 }).catch(() => false)) {
-        await confirm.click({ timeout: 10_000 });
-      }
-      await submit
-        .waitFor({ state: "detached", timeout: 15_000 })
-        .catch(async () => {
-          throw new Error(
-            `submitPOAsPurchaser: PO ${ref} still shows a Submit button — it never left Draft`,
-          );
-        });
+    await submit.waitFor({ state: "visible", timeout: 20_000 });
+
+    const submitted = page.waitForResponse(
+      (r) => /\/purchase-orders\/[^/]+\/submit/.test(r.url()) && r.request().method() === "PATCH",
+      { timeout: 30_000 },
+    );
+    await submit.click({ timeout: 10_000 });
+    await po.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 10_000 });
+
+    const res = await submitted.catch(() => null);
+    if (!res) {
+      throw new Error(`submitPOAsPurchaser: PO ${ref} — no PATCH .../submit was ever sent`);
+    }
+    if (!res.ok()) {
+      throw new Error(
+        `submitPOAsPurchaser: PO ${ref} submit failed — ${res.status()} ${(await res.text().catch(() => "")).slice(0, 200)}`,
+      );
     }
 
     return { ref, url };
@@ -117,25 +127,98 @@ export async function submitPOAsPurchaser(
 }
 
 /**
- * Cross-context helper: opens a fresh BrowserContext, logs in as FC,
- * navigates to the PO at ref, enters Edit Mode, and clicks Approve to
- * advance the PO from In Progress to Approved status. Closes the context
- * cleanly. Used by Step 5 post-approval setup.
+ * Cross-context helper: opens a fresh BrowserContext as FC and walks the PO from
+ * In Progress to Approved.
+ *
+ * Approving a PO is not one button. `po-footer-action.tsx` only renders the
+ * footer Approve when `role === "approve"` **and** `computePoAction(itemStatuses)`
+ * is `"approved"` — and a freshly submitted PO has every item at `""`, which
+ * that function maps to `"none"`. So the approver must first mark the lines:
+ * enter Edit mode, select the item rows (the bulk bar needs `isEditMode` *and* a
+ * selection), press the item-table Approve, and only then does the footer offer
+ * Approve. The old helper looked for Approve straight after Edit, found nothing,
+ * and blamed the workflow.
+ *
+ * FC is the right approver here: the backend's General PO workflow lists
+ * `purchase@blueledgers.com` on Create Request and `fc@blueledgers.com` on the
+ * first approve stage, and the PO form only ever offers that one workflow.
  */
 export async function approveAsFC(browser: Browser, ref: string): Promise<void> {
-  await withRoleContext(browser, "fc@blueledgers.com", async (page) => {
+  await approveAsRole(browser, "fc@blueledgers.com", ref);
+}
+
+/**
+ * The GM leg. FC's approval only moves the PO to the next approve stage — the
+ * General PO workflow is Create Request → FC → GM → Completed — so a PO is not
+ * actually Approved (and has no Send to Vendor / Close) until GM signs too.
+ */
+export async function approveAsGM(browser: Browser, ref: string): Promise<void> {
+  await approveAsRole(browser, "gm@blueledgers.com", ref);
+}
+
+/** Submit as Purchaser, then walk both approve stages, leaving an Approved PO. */
+export async function seedApprovedPO(
+  browser: Browser,
+  opts?: { description?: string; vendor?: string },
+): Promise<CreatedPO> {
+  const created = await submitPOAsPurchaser(browser, opts);
+  await approveAsFC(browser, created.ref);
+  await approveAsGM(browser, created.ref);
+  return created;
+}
+
+async function approveAsRole(browser: Browser, email: string, ref: string): Promise<void> {
+  await withRoleContext(browser, email, async (page) => {
     await gotoPODetail(page, ref);
     const po = new PurchaseOrderPage(page);
-    if ((await po.editModeButton().count()) > 0) {
-      await po.enterEditMode();
+
+    // Edit is the approver's gate: it renders only once the backend hands this
+    // user role="approve" on this PO. If it never shows, the PO is not at FC's
+    // stage and there is nothing to approve — say so instead of timing out.
+    await po
+      .editModeButton()
+      .waitFor({ state: "visible", timeout: 20_000 })
+      .catch(() => {
+        throw new Error(
+          `approveAsRole(${email}): PO ${ref} never offered Edit — it is not sitting at this role's approve stage`,
+        );
+      });
+    await po.enterEditMode();
+
+    const rowCheckboxes = page.locator("tbody").getByRole("checkbox");
+    await rowCheckboxes.first().waitFor({ state: "visible", timeout: 10_000 });
+    const rows = await rowCheckboxes.count();
+    for (let i = 0; i < rows; i++) {
+      await rowCheckboxes.nth(i).click({ timeout: 5_000 });
     }
+
+    // Item-table Approve — marks every selected line approved in the form state.
+    const itemApprove = page.getByRole("button", { name: /^approve$/i }).first();
+    await itemApprove.waitFor({ state: "visible", timeout: 10_000 });
+    await itemApprove.click({ timeout: 5_000 });
+
+    // Footer Approve only appears now that no line is left pending.
     const approve = po.approveButton();
-    if ((await approve.count()) === 0) {
-      throw new Error(`approveAsFC: Approve button not found on PO ${ref}`);
-    }
+    await approve.waitFor({ state: "visible", timeout: 10_000 }).catch(() => {
+      throw new Error(
+        `approveAsRole(${email}): PO ${ref} — items were marked approved but the footer Approve never appeared`,
+      );
+    });
+
+    const approved = page.waitForResponse(
+      (r) => /\/purchase-orders\/[^/]+\/approve/.test(r.url()) && r.request().method() === "PATCH",
+      { timeout: 30_000 },
+    );
     await approve.click({ timeout: 5_000 });
-    await po.confirmDialogButton(/confirm|approve|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
-    await page.waitForLoadState("networkidle").catch(() => {});
+    await po.confirmDialogButton(/confirm|approve|ok|yes/i).click({ timeout: 10_000 });
+
+    const res = await approved.catch(() => null);
+    if (!res) throw new Error(`approveAsRole(${email}): PO ${ref} — no PATCH .../approve was ever sent`);
+    if (!res.ok()) {
+      throw new Error(
+        `approveAsRole(${email}): PO ${ref} approve failed — ${res.status()} ${(await res.text().catch(() => "")).slice(0, 200)}`,
+      );
+    }
   });
 }
 
@@ -144,5 +227,5 @@ export async function approveAsFC(browser: Browser, ref: string): Promise<void> 
  */
 export async function gotoPODetail(page: Page, ref: string): Promise<void> {
   await page.goto(`${LIST_PATH}/${ref}`);
-  await page.waitForLoadState("networkidle");
+  await page.waitForLoadState("networkidle", { timeout: 20_000 }).catch(() => {});
 }

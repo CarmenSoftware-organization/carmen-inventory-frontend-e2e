@@ -105,14 +105,19 @@ export async function ensureActiveBu(page: Page, code: string): Promise<void> {
         `Available: ${units.map((b) => b.code).join(", ") || "(none)"}`,
     );
   }
-  if (target.is_default) return; // already active — fast path
+  // Compare against defaultBu(), not target.is_default: some accounts (gm@) come
+  // back with NO business unit flagged is_default at all, and the frontend then
+  // falls back to units[0] — which is what defaultBu() mirrors. Testing the flag
+  // alone made those accounts take the switch path for a BU that was already
+  // active, and the switcher click then hung the whole test (actionTimeout is 0).
+  if (defaultBu(units)?.code === code) return; // already active — fast path
 
   // NOTE: switching persists server-side and is account-global. Under workers:1 the
   // admin account's default BU stays changed for subsequent specs in the run.
   // Page is already on /dashboard from the getBusinessUnits call above.
   const switcher = new BuSwitcherPage(page);
   await switcher.open();
-  await switcher.itemByName(buLabel(target)).click();
+  await switcher.itemByName(buLabel(target)).click({ timeout: 10_000 });
   // Frontend toast is `Switched to ${bu.name}` (name only) — match on name, not the full label.
   await switcher.waitForToast(new RegExp(`Switched to ${escapeRegExp(target.name)}`, "i"));
 
