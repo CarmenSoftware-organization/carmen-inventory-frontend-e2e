@@ -5,7 +5,7 @@ import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
 import { fakeName } from "./helpers/test-data";
-import { openRecordFromRow } from "./helpers/list-row";
+import { openRecordFromRow, recordRows } from "./helpers/list-row";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Procurement Staff/Manager == purchase@blueledgers.com.
@@ -243,7 +243,7 @@ purchaseTest.describe("Campaign — Detail", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const activeRow = page.locator("tbody").getByRole("row").filter({ hasText: /active/i }).first();
+      const activeRow = recordRows(page).filter({ hasText: /active/i }).first();
       if ((await activeRow.count()) === 0) {
         purchaseTest.skip(true, "No active campaign available");
         return;
@@ -270,7 +270,7 @@ purchaseTest.describe("Campaign — Detail", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = recordRows(page).filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
     },
@@ -294,7 +294,7 @@ purchaseTest.describe("Campaign — Detail", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const row = page.getByRole("row").nth(1);
+      const row = recordRows(page).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
     },
@@ -341,7 +341,7 @@ requestorTest.describe("Campaign — Detail — Permission denial", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const row = page.getByRole("row").nth(1);
+      const row = recordRows(page).first();
       if ((await row.count()) === 0) return;
       await row.click().catch(() => {});
     },
@@ -370,7 +370,7 @@ purchaseTest.describe("Campaign — Edit", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const row = page.getByRole("row").nth(1);
+      const row = recordRows(page).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
       await cam.editButton().click({ timeout: 5_000 }).catch(() => {});
@@ -439,7 +439,7 @@ requestorTest.describe("Campaign — Edit — Permission denial", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const row = page.getByRole("row").nth(1);
+      const row = recordRows(page).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
       const edit = cam.editButton();
@@ -475,7 +475,7 @@ purchaseTest.describe("Campaign — Duplicate", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const row = page.getByRole("row").nth(1);
+      const row = recordRows(page).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
       await cam.duplicateButton().click({ timeout: 5_000 }).catch(() => {});
@@ -544,7 +544,7 @@ requestorTest.describe("Campaign — Duplicate — Permission denial", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const row = page.getByRole("row").nth(1);
+      const row = recordRows(page).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
       const dup = cam.duplicateButton();
@@ -580,7 +580,7 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const row = page.getByRole("row").nth(1);
+      const row = recordRows(page).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
       const tab = cam.vendorsTab();
@@ -654,7 +654,7 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const row = page.getByRole("row").nth(1);
+      const row = recordRows(page).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
       const tab = cam.vendorsTab();
@@ -711,7 +711,7 @@ purchaseTest.describe("Campaign — Mark as Expired", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const row = page.getByRole("row").nth(1);
+      const row = recordRows(page).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
       const dropdown = cam.actionsDropdown();
@@ -738,7 +738,7 @@ purchaseTest.describe("Campaign — Mark as Expired", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const expiredRow = page.locator("tbody").getByRole("row").filter({ hasText: /expired/i }).first();
+      const expiredRow = recordRows(page).filter({ hasText: /expired/i }).first();
       if ((await expiredRow.count()) === 0) return;
       await openRecordFromRow(expiredRow);
     },
@@ -793,7 +793,17 @@ requestorTest.describe("Campaign — Mark as Expired — Permission denial", () 
 // TC-CAM-900008 (was TC-RP-008) — Delete Campaign
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Campaign — Delete", () => {
-  purchaseTest(
+  // Works, but destroys the file's shared fixture — needs its own seeded record
+  // before it can be re-enabled.
+  // The Delete button on the detail page is real and this test drives it
+  // correctly (it was previously a no-op: the body opened an actions dropdown
+  // that does not exist, and both the click and the confirm were swallowed).
+  // Turning it on deletes the BU's only Request-for-Pricing record, and the eight
+  // tests after it — detail, edit, duplicate, send reminder, mark expired and the
+  // permission cases — then find an empty list. There is no create flow to seed
+  // from either: TC-CAM-020001 fills name and description and never saves.
+  // Un-fixme once this test creates the campaign it deletes.
+  purchaseTest.fixme(
     "TC-CAM-080001 Happy Path - Delete Campaign",
     {
       annotation: [
@@ -811,7 +821,7 @@ purchaseTest.describe("Campaign — Delete", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const row = page.getByRole("row").nth(1);
+      const row = recordRows(page).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
       // Delete is a plain button on the detail toolbar (Edit / Delete / Activity /
@@ -886,7 +896,7 @@ requestorTest.describe("Campaign — Delete — Permission denial", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const row = page.getByRole("row").nth(1);
+      const row = recordRows(page).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
       const dropdown = cam.actionsDropdown();

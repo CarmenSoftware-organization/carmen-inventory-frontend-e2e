@@ -1,4 +1,16 @@
-import type { Locator } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
+
+/**
+ * The rows of a list that actually hold a record.
+ *
+ * An empty table still renders one `<tr>` ("No data found"), so a bare
+ * `tbody tr` count never reaches zero and a guard written as
+ * `if (rows.count() === 0) skip` walks straight on into a page with nothing on
+ * it. Real rows always carry the record's own link or link-styled button.
+ */
+export function recordRows(page: Page): Locator {
+  return page.locator("tbody tr:has(a), tbody tr:has(button)");
+}
 
 /**
  * Open the record a list row points at.

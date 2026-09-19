@@ -646,4 +646,4 @@ URL ยังคงอยู่ที่ ref ของ PR หลัง bulk appr
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 7cbdd97</sub>
+<sub>Last regenerated: 2026-09-19 · git 873aac8</sub>

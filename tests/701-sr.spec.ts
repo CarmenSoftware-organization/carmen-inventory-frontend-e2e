@@ -107,7 +107,15 @@ purchaseTest.describe("Store Requisition — Create", () => {
 });
 
 requestorTest.describe("Store Requisition — Create — Permission denial", () => {
-  requestorTest(
+  // App finding, not a test bug — see D-5 in docs/sync-report-2026-09-18.md.
+  // "New Store Requisition" is present and **enabled** for requestor@, and that
+  // role opens /store-operation/store-requisition/new directly with no
+  // RESTRICTED page — this module has no client-side role gate, unlike Purchase
+  // Order whose /new route is wrapped in CreateWorkflowGate. The old body proved
+  // nothing either way (`expect(true).toBe(true)` on one branch). Whether store
+  // requisitions should be gated is a product decision; assert the answer once it
+  // is made.
+  requestorTest.fixme(
     "TC-SR-010002 Negative - User Not Assigned to Department",
     {
       annotation: [
