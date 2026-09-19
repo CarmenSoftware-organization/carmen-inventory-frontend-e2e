@@ -1,6 +1,7 @@
 import { test as baseTest, expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { PurchaseOrderPage, LIST_PATH } from "./pages/purchase-order.page";
+import { recordRows } from "./helpers/list-row";
 import {
   submitPOAsPurchaser,
   createDraftPOAsPurchaser,
@@ -431,19 +432,27 @@ purchaseTest.describe("Step 2 — Create PO", () => {  // ─ Blank method (4 TC
         purchaseTest.skip(true, "From PR menu item not present");
         return;
       }
-      await item.click();
-      const prRow = page.getByRole("row").or(page.getByRole("checkbox")).nth(1);
-      if ((await prRow.count()) === 0) {
+      await item.click({ timeout: 10_000 });
+
+      // Count real PR rows. `getByRole("row").or(getByRole("checkbox")).nth(1)`
+      // is a union that resolves against both roles at once and happily settles on
+      // the header row or a stray checkbox, so it never reported "no data" even
+      // when the wizard had none — the test then pressed Next with nothing
+      // selected and waited out its timeout. This BU holds no purchase requests
+      // at all (verified against /api/BLAVG/purchase-requests).
+      const prRows = recordRows(page).filter({ hasText: /PR\d{6,}/ });
+      if ((await prRows.count()) === 0) {
         purchaseTest.skip(true, "No approved PR available in wizard step 1");
         return;
       }
-      await prRow.click({ timeout: 5_000 }).catch(() => {});
+      await prRows.first().getByRole("checkbox").first().check({ force: true, timeout: 10_000 });
+
       const next = page.getByRole("button", { name: /next|continue|review/i }).first();
       if ((await next.count()) === 0) {
         purchaseTest.skip(true, "Next button not present in From PR wizard");
         return;
       }
-      await next.click({ timeout: 5_000 });
+      await next.click({ timeout: 10_000 });
       await expect(page.getByText(/review|grouped|vendor|step 2/i).first()).toBeVisible({ timeout: 10_000 });
     },
   );

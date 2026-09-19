@@ -118,6 +118,11 @@ requestorTest.describe("PR — Create", () => {
       ],
     },
     async ({ page }) => {
+      // Measured, not guessed: creating a PR drives the whole item cascade
+      // (workflow, location, product, qty, unit, delivery point) and then a
+      // submit with its confirm dialog — timed at ~30s, which is exactly the
+      // default budget. It was failing at 30.1s, i.e. running out, not hanging.
+      requestorTest.setTimeout(120_000);
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
       await pr.openCreateDialog();
@@ -1626,6 +1631,11 @@ requestorTest.describe("PR — Pricing visibility", () => {
       ],
     },
     async ({ page }) => {
+      // Measured, not guessed: creating a PR drives the whole item cascade
+      // (workflow, location, product, qty, unit, delivery point) and then a
+      // submit with its confirm dialog — timed at ~30s, which is exactly the
+      // default budget. It was failing at 30.1s, i.e. running out, not hanging.
+      requestorTest.setTimeout(120_000);
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
       await pr.openCreateDialog();
