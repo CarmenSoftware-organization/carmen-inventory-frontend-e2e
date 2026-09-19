@@ -238,7 +238,7 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
     async ({ page }) => {
       const ma = new MyApprovalsPage(page);
       await ma.gotoPRList();
-      const pendingRow = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const pendingRow = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await pendingRow.count()) === 0) {
         hodTest.skip(true, "No pending PR to reject");
         return;
@@ -270,7 +270,7 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
     async ({ page }) => {
       const ma = new MyApprovalsPage(page);
       await ma.gotoPRList();
-      const pendingRow = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const pendingRow = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await pendingRow.count()) === 0) return;
       await openRecordFromRow(pendingRow);
       // Approve/Reject live in edit mode only — the view page has just Edit/More.
@@ -299,7 +299,7 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
     async ({ page }) => {
       const ma = new MyApprovalsPage(page);
       await ma.gotoPRList();
-      const pendingRow = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const pendingRow = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await pendingRow.count()) === 0) return;
       await openRecordFromRow(pendingRow);
       // Approve/Reject live in edit mode only — the view page has just Edit/More.
@@ -330,7 +330,7 @@ requestorTest.describe("My Approvals — Reject — Permission denial", () => {
     async ({ page }) => {
       const ma = new MyApprovalsPage(page);
       await ma.gotoPRList();
-      const pendingRow = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const pendingRow = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await pendingRow.count()) === 0) return;
       await openRecordFromRow(pendingRow);
       const reject = ma.rejectButton();

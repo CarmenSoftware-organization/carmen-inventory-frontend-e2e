@@ -395,7 +395,7 @@ purchaseTest.describe("PO — Send to Vendor", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
       await po.sendToVendorButton().click({ timeout: 5_000 }).catch(() => {});
@@ -421,7 +421,7 @@ purchaseTest.describe("PO — Send to Vendor", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
       await po.sendToVendorButton().click({ timeout: 5_000 }).catch(() => {});
@@ -446,7 +446,7 @@ purchaseTest.describe("PO — Send to Vendor", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const rejectedRow = page.getByRole("row").filter({ hasText: /rejected/i }).first();
+      const rejectedRow = page.locator("tbody").getByRole("row").filter({ hasText: /rejected/i }).first();
       if ((await rejectedRow.count()) === 0) {
         purchaseTest.skip(true, "No rejected PO available");
         return;
@@ -485,7 +485,7 @@ purchaseTest.describe("PO — Change Order", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const approvedRow = page.getByRole("row").filter({ hasText: /^approved$/i }).first();
+      const approvedRow = page.locator("tbody").getByRole("row").filter({ hasText: /^approved$/i }).first();
       if ((await approvedRow.count()) === 0) {
         purchaseTest.skip(true, "No approved PO available");
         return;
@@ -521,7 +521,7 @@ purchaseTest.describe("PO — Change Order", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const approvedRow = page.getByRole("row").filter({ hasText: /^approved$/i }).first();
+      const approvedRow = page.locator("tbody").getByRole("row").filter({ hasText: /^approved$/i }).first();
       if ((await approvedRow.count()) === 0) return;
       await openRecordFromRow(approvedRow);
       const change = po.requestChangeOrderButton();
@@ -550,7 +550,7 @@ purchaseTest.describe("PO — Change Order", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const sentRow = page.getByRole("row").filter({ hasText: /^sent$/i }).first();
+      const sentRow = page.locator("tbody").getByRole("row").filter({ hasText: /^sent$/i }).first();
       if ((await sentRow.count()) === 0) {
         purchaseTest.skip(true, "No sent PO available");
         return;
@@ -630,7 +630,7 @@ purchaseTest.describe("PO — Cancel", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const activeRow = page.getByRole("row").filter({ hasText: /draft|sent|approved/i }).first();
+      const activeRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft|sent|approved/i }).first();
       if ((await activeRow.count()) === 0) {
         purchaseTest.skip(true, "No active PO available");
         return;
@@ -661,7 +661,7 @@ purchaseTest.describe("PO — Cancel", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const completedRow = page.getByRole("row").filter({ hasText: /completed/i }).first();
+      const completedRow = page.locator("tbody").getByRole("row").filter({ hasText: /completed/i }).first();
       if ((await completedRow.count()) === 0) {
         purchaseTest.skip(true, "No completed PO available");
         return;
@@ -695,7 +695,7 @@ purchaseTest.describe("PO — Cancel", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const sentRow = page.getByRole("row").filter({ hasText: /sent|shipped/i }).first();
+      const sentRow = page.locator("tbody").getByRole("row").filter({ hasText: /sent|shipped/i }).first();
       if ((await sentRow.count()) === 0) return;
       await openRecordFromRow(sentRow);
       await po.cancelPOButton().click({ timeout: 5_000 }).catch(() => {});

@@ -502,7 +502,7 @@ purchaseTest.describe("Stock Issue — Print", () => {
     async ({ page }) => {
       const si = new StockIssuePage(page);
       await si.gotoList();
-      const cancelledRow = page.getByRole("row").filter({ hasText: /cancel/i }).first();
+      const cancelledRow = page.locator("tbody").getByRole("row").filter({ hasText: /cancel/i }).first();
       if ((await cancelledRow.count()) === 0) return;
       await openRecordFromRow(cancelledRow);
     },
@@ -572,7 +572,7 @@ purchaseTest.describe("Stock Issue — Expense Allocation", () => {
     async ({ page }) => {
       const si = new StockIssuePage(page);
       await si.gotoList();
-      const completedRow = page.getByRole("row").filter({ hasText: /complete/i }).first();
+      const completedRow = page.locator("tbody").getByRole("row").filter({ hasText: /complete/i }).first();
       if ((await completedRow.count()) === 0) return;
       await openRecordFromRow(completedRow);
       await si.viewExpenseAllocationButton().click({ timeout: 5_000 }).catch(() => {});

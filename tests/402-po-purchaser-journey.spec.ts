@@ -608,7 +608,7 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
       // Find a row with SENT or COMPLETED status
-      const sentRow = page.getByRole("row").filter({ hasText: /sent|completed/i }).first();
+      const sentRow = page.locator("tbody").getByRole("row").filter({ hasText: /sent|completed/i }).first();
       if ((await sentRow.count()) === 0) {
         purchaseTest.skip(true, "No SENT/COMPLETED PO available for read-only check");
         return;
@@ -862,7 +862,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const sentRow = page.getByRole("row").filter({ hasText: /sent/i }).first();
+      const sentRow = page.locator("tbody").getByRole("row").filter({ hasText: /sent/i }).first();
       if ((await sentRow.count()) === 0) {
         purchaseTest.skip(true, "No SENT PO available for Close test");
         return;

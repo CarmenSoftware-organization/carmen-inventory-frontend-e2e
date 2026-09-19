@@ -243,7 +243,7 @@ purchaseTest.describe("Campaign — Detail", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const activeRow = page.getByRole("row").filter({ hasText: /active/i }).first();
+      const activeRow = page.locator("tbody").getByRole("row").filter({ hasText: /active/i }).first();
       if ((await activeRow.count()) === 0) {
         purchaseTest.skip(true, "No active campaign available");
         return;
@@ -270,7 +270,7 @@ purchaseTest.describe("Campaign — Detail", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
     },
@@ -738,7 +738,7 @@ purchaseTest.describe("Campaign — Mark as Expired", () => {
     async ({ page }) => {
       const cam = new CampaignPage(page);
       await cam.gotoList();
-      const expiredRow = page.getByRole("row").filter({ hasText: /expired/i }).first();
+      const expiredRow = page.locator("tbody").getByRole("row").filter({ hasText: /expired/i }).first();
       if ((await expiredRow.count()) === 0) return;
       await openRecordFromRow(expiredRow);
     },

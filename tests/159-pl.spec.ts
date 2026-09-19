@@ -731,7 +731,7 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
     async ({ page }) => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /active|valid/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /active|valid/i }).first();
       expect(await row.count(), "No active price list available").toBeGreaterThan(0);
       const trigger = row.getByRole("button", { name: /actions|more|menu/i }).first();
       expect(await trigger.count(), "Actions menu not exposed").toBeGreaterThan(0);
@@ -759,7 +759,7 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
     async ({ page }) => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
-      const rows = page.getByRole("row").filter({ hasText: /active|valid/i });
+      const rows = page.locator("tbody").getByRole("row").filter({ hasText: /active|valid/i });
       const total = await rows.count();
       if (total < 2) {
         // A fixture gap, not a product failure: this BU's price lists are all

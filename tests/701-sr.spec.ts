@@ -158,7 +158,7 @@ purchaseTest.describe("Store Requisition — Add Items", () => {
     async ({ page }) => {
       const sr = new StoreRequisitionPage(page);
       await sr.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
       await sr.addItemButton().click({ timeout: 5_000 }).catch(() => {});
@@ -416,7 +416,7 @@ purchaseTest.describe("Store Requisition — Submit", () => {
     async ({ page }) => {
       const sr = new StoreRequisitionPage(page);
       await sr.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
       // The action buttons render only when this role is the actor for the stage
@@ -656,7 +656,7 @@ purchaseTest.describe("Store Requisition — Approve", () => {
     async ({ page }) => {
       const sr = new StoreRequisitionPage(page);
       await sr.gotoList();
-      const inProgressRow = page.getByRole("row").filter({ hasText: /in.progress/i }).first();
+      const inProgressRow = page.locator("tbody").getByRole("row").filter({ hasText: /in.progress/i }).first();
       if ((await inProgressRow.count()) === 0) return;
       await openRecordFromRow(inProgressRow);
       if ((await sr.approveButton().count()) === 0) {
@@ -983,7 +983,7 @@ purchaseTest.describe("Store Requisition — Reject", () => {
     async ({ page }) => {
       const sr = new StoreRequisitionPage(page);
       await sr.gotoList();
-      const inProgressRow = page.getByRole("row").filter({ hasText: /in.progress/i }).first();
+      const inProgressRow = page.locator("tbody").getByRole("row").filter({ hasText: /in.progress/i }).first();
       if ((await inProgressRow.count()) === 0) return;
       await openRecordFromRow(inProgressRow);
       if ((await sr.rejectButton().count()) === 0) {
@@ -1082,7 +1082,7 @@ purchaseTest.describe("Store Requisition — Issuance", () => {
     async ({ page }) => {
       const sr = new StoreRequisitionPage(page);
       await sr.gotoList();
-      const readyRow = page.getByRole("row").filter({ hasText: /ready.*issuance/i }).first();
+      const readyRow = page.locator("tbody").getByRole("row").filter({ hasText: /ready.*issuance/i }).first();
       if ((await readyRow.count()) === 0) return;
       await openRecordFromRow(readyRow);
       await sr.recordIssuanceButton().click({ timeout: 5_000 }).catch(() => {});

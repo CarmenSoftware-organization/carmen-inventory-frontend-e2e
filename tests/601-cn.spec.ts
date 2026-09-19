@@ -400,7 +400,7 @@ purchaseTest.describe("Credit Note — Edit", () => {
     async ({ page }) => {
       const cn = new CreditNotePage(page);
       await cn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) {
         purchaseTest.skip(true, "No draft CN to edit");
         return;
@@ -433,7 +433,7 @@ purchaseTest.describe("Credit Note — Edit", () => {
     async ({ page }) => {
       const cn = new CreditNotePage(page);
       await cn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
       await cn.editButton().click({ timeout: 5_000 }).catch(() => {});
@@ -521,7 +521,7 @@ purchaseTest.describe("Credit Note — Items & Lots", () => {
     async ({ page }) => {
       const cn = new CreditNotePage(page);
       await cn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
       await cn.addItemButton().click({ timeout: 5_000 }).catch(() => {});
@@ -883,7 +883,7 @@ purchaseTest.describe("Credit Note — Commit", () => {
     async ({ page }) => {
       const cn = new CreditNotePage(page);
       await cn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) {
         purchaseTest.skip(true, "No draft CN to commit");
         return;
@@ -911,7 +911,7 @@ purchaseTest.describe("Credit Note — Commit", () => {
     async ({ page }) => {
       const cn = new CreditNotePage(page);
       await cn.gotoList();
-      const committedRow = page.getByRole("row").filter({ hasText: /committed/i }).first();
+      const committedRow = page.locator("tbody").getByRole("row").filter({ hasText: /committed/i }).first();
       if ((await committedRow.count()) === 0) return;
       await openRecordFromRow(committedRow);
       const commit = cn.commitButton();
@@ -1022,7 +1022,7 @@ purchaseTest.describe("Credit Note — Void Committed", () => {
     async ({ page }) => {
       const cn = new CreditNotePage(page);
       await cn.gotoList();
-      const committedRow = page.getByRole("row").filter({ hasText: /committed/i }).first();
+      const committedRow = page.locator("tbody").getByRole("row").filter({ hasText: /committed/i }).first();
       if ((await committedRow.count()) === 0) return;
       await openRecordFromRow(committedRow);
       await cn.voidButton().click({ timeout: 5_000 }).catch(() => {});

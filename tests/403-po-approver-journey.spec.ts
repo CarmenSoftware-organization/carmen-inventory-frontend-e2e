@@ -79,7 +79,7 @@ fcTest.describe("Step 1 — My Approval", () => {
         await page.goto("/procurement/purchase-requests/my-approvals");
       });
       await page.waitForLoadState("networkidle").catch(() => {});
-      const row = page.getByRole("row").filter({ hasText: created.ref }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: created.ref }).first();
       if ((await row.count()) === 0) {
         fcTest.skip(true, "Seeded PO not visible in FC My Approval list");
         return;

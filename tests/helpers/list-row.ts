@@ -14,6 +14,18 @@ import type { Locator } from "@playwright/test";
  * there is what let the callers carry on against a page they never navigated to.
  */
 export async function openRecordFromRow(row: Locator, timeout = 10_000): Promise<void> {
+  // Guard against the header row. `page.getByRole("row").filter({ hasText: /received/i })`
+  // happily matches the <thead> row of a table with a "Received By" column, and
+  // then the "first button in the row" is a column-sort control — so the test
+  // sorted the list and carried on believing it had opened a record.
+  const isHeader = await row.evaluate(
+    (el) => el.closest("thead") !== null || el.querySelector("th") !== null,
+  );
+  if (isHeader) {
+    throw new Error(
+      "openRecordFromRow: this is the table's header row, not a record — scope the row lookup to tbody",
+    );
+  }
   const link = row.getByRole("link").first();
   if ((await link.count()) > 0) {
     await link.click({ timeout });

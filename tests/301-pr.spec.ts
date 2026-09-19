@@ -220,7 +220,7 @@ requestorTest.describe("PR — Edit", () => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
       // Open first draft PR found (best-effort; depends on seeded data)
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) {
         requestorTest.skip(true, "No draft PR available for editing in this environment");
         return;
@@ -251,7 +251,7 @@ requestorTest.describe("PR — Edit", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const returnedRow = page.getByRole("row").filter({ hasText: /returned|rejected/i }).first();
+      const returnedRow = page.locator("tbody").getByRole("row").filter({ hasText: /returned|rejected/i }).first();
       if ((await returnedRow.count()) === 0) {
         requestorTest.skip(true, "No returned PR available in this environment");
         return;
@@ -303,13 +303,18 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) {
         requestorTest.skip(true, "No draft PR available for submission in this environment");
         return;
       }
       await openRecordFromRow(draftRow);
-      await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.submitButton().click({ timeout: 10_000 });
+      // Submitting opens a confirm dialog ("Submit Purchase Request — This will
+      // submit the PR for approval. Are you sure?") whose button is labelled
+      // Submit, not Confirm/OK/Yes. Without pressing it nothing is sent and no
+      // toast ever appears.
+      await pr.confirmDialogButton(/^submit$|confirm|ok|yes/i).click({ timeout: 10_000 });
       await pr.expectSavedToast();
     },
   );
@@ -438,7 +443,7 @@ requestorTest.describe("PR — View — Requestor", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const pendingRow = page.getByRole("row").filter({ hasText: /in.progress|pending/i }).first();
+      const pendingRow = page.locator("tbody").getByRole("row").filter({ hasText: /in.progress|pending/i }).first();
       if ((await pendingRow.count()) === 0) {
         requestorTest.skip(true, "No pending PR available in this environment");
         return;
@@ -492,7 +497,7 @@ hodTest.describe("PR — View — Approver perspective", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const approvedRow = page.getByRole("row").filter({ hasText: /^approved$/i }).first();
+      const approvedRow = page.locator("tbody").getByRole("row").filter({ hasText: /^approved$/i }).first();
       if ((await approvedRow.count()) === 0) {
         hodTest.skip(true, "No fully-approved PR available in this environment");
         return;
@@ -502,7 +507,11 @@ hodTest.describe("PR — View — Approver perspective", () => {
     },
   );
 
-  hodTest(
+  // Not in this build — do not restore the silent version.
+  // The PR detail renders no attachments section at all: the word "attach" does
+  // not appear anywhere on the page, and there are no tabs. Restore this when the
+  // feature lands, against whatever markup it ships with.
+  hodTest.fixme(
     "TC-PR-040004 View PR with missing attachments",
     {
       annotation: [
@@ -554,7 +563,7 @@ hodTest.describe("PR — Approve", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const pendingRow = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const pendingRow = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await pendingRow.count()) === 0) {
         hodTest.skip(true, "No PR pending approval for HOD in this environment");
         return;
@@ -584,7 +593,7 @@ hodTest.describe("PR — Approve", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No pending PR for HOD-only approval");
         return;
@@ -613,7 +622,7 @@ hodTest.describe("PR — Approve", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No pending PR with multi-stage approval available");
         return;
@@ -683,7 +692,7 @@ hodTest.describe("PR — Reject", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No pending PR available to reject");
         return;
@@ -725,7 +734,7 @@ hodTest.describe("PR — Reject", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No pending PR available");
         return;
@@ -767,7 +776,7 @@ hodTest.describe("PR — Reject", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No pending PR available");
         return;
@@ -846,7 +855,7 @@ gmTest.describe("PR — Reject — High-value GM scope", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         gmTest.skip(true, "No high-value pending PR for GM");
         return;
@@ -955,7 +964,12 @@ requestorTest.describe("PR — Recall — Feature pending", () => {
 // TC-PR-900008 — Cancel PR
 // ─────────────────────────────────────────────────────────────────────────
 requestorTest.describe("PR — Cancel — Requestor", () => {
-  requestorTest(
+  // No such action exists — do not restore the silent version.
+  // A PR offers Edit / Delete / Submit plus More (Duplicate, Comment, Activity,
+  // Print). Nothing is called "Cancel", so `cancelPRButton()` matched nothing and
+  // the swallowed click meant the confirm dialog never opened. Delete is the
+  // nearest real equivalent; re-point this once the intent is decided.
+  requestorTest.fixme(
     "TC-PR-080001 Cancel PR - Happy Path",
     {
       annotation: [
@@ -973,7 +987,7 @@ requestorTest.describe("PR — Cancel — Requestor", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /draft|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /draft|in.progress/i }).first();
       if ((await row.count()) === 0) {
         requestorTest.skip(true, "No active PR available to cancel");
         return;
@@ -1000,7 +1014,7 @@ requestorTest.describe("PR — Cancel — Requestor", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /completed/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /completed/i }).first();
       if ((await row.count()) === 0) {
         requestorTest.skip(true, "No completed PR available");
         return;
@@ -1068,7 +1082,7 @@ hodTest.describe("PR — Cancel — Department manager", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No pending-approval PR available for cancellation");
         return;
@@ -1103,7 +1117,7 @@ requestorTest.describe("PR — Attachments", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /draft|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /draft|in.progress/i }).first();
       if ((await row.count()) === 0) {
         requestorTest.skip(true, "No PR available for attachment upload");
         return;
@@ -1318,7 +1332,7 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /^approved$/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /^approved$/i }).first();
       if ((await row.count()) === 0) {
         purchaseTest.skip(true, "No approved PR available to convert to PO");
         return;
@@ -1347,7 +1361,7 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /^approved$/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /^approved$/i }).first();
       if ((await row.count()) === 0) {
         purchaseTest.skip(true, "No approved PR available");
         return;
@@ -1376,7 +1390,7 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /^approved$/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /^approved$/i }).first();
       if ((await row.count()) === 0) {
         purchaseTest.skip(true, "No approved PR with missing delivery date");
         return;
@@ -1402,7 +1416,7 @@ requestorTest.describe("PR — Convert to PO — Permission denial", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /^approved$/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /^approved$/i }).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
       const convert = pr.convertToPOButton();
@@ -1617,7 +1631,12 @@ requestorTest.describe("PR — Pricing visibility", () => {
       await pr.openCreateDialog();
       await pr.fillHeader({ deliveryDate: FUTURE_DATE, description: "Visible price PR", justification: "E2E test" });
       await pr.addLineItem({ product: "Test Product", quantity: 5, uom: "ea", vendor: "Test Vendor", unitPrice: 100, discount: 5, taxRate: 7 });
-      await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.submitButton().click({ timeout: 10_000 });
+      // Submitting opens a confirm dialog ("Submit Purchase Request — This will
+      // submit the PR for approval. Are you sure?") whose button is labelled
+      // Submit, not Confirm/OK/Yes. Without pressing it nothing is sent and no
+      // toast ever appears.
+      await pr.confirmDialogButton(/^submit$|confirm|ok|yes/i).click({ timeout: 10_000 });
       await pr.expectSavedToast();
     },
   );
@@ -1770,13 +1789,15 @@ fcTest.describe("PR — Delivery details — Permission denial", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const newBtn = pr.newButton();
-      // Either button is hidden (correct) or click yields permission error
-      if ((await newBtn.count()) === 0) {
-        expect(true).toBe(true);
-      } else {
-        await newBtn.click().catch(() => {});
-      }
+      // Assert the guard instead of shrugging at it: the old body was
+      // `expect(true).toBe(true)` on one branch and a swallowed click on the
+      // other, so it proved nothing either way. Like PO, the create route is
+      // wrapped in CreateWorkflowGate — a role that is not a creator in any PR
+      // workflow gets RESTRICTED / Permission Denied.
+      await page.goto("/procurement/purchase-request/new");
+      await expect(
+        page.getByText(/permission denied|restricted/i).first(),
+      ).toBeVisible({ timeout: 15_000 });
     },
   );
 });
@@ -1803,7 +1824,7 @@ hodTest.describe("PR — Approve detail review", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No pending PR for approval review");
         return;
@@ -1832,7 +1853,7 @@ hodTest.describe("PR — Approve detail review", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No pending PR for return-for-revision");
         return;
@@ -1862,7 +1883,7 @@ hodTest.describe("PR — Approve detail review", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No PR with hidden prices to approve");
         return;
@@ -1891,7 +1912,7 @@ hodTest.describe("PR — Approve detail review", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No high-override PR to approve");
         return;
@@ -1925,7 +1946,7 @@ purchaseTest.describe("PR — Edit pricing", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /in.progress|pending/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /in.progress|pending/i }).first();
       if ((await row.count()) === 0) {
         purchaseTest.skip(true, "No in-progress PR available for pricing edit");
         return;
@@ -1954,7 +1975,7 @@ purchaseTest.describe("PR — Edit pricing", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /in.progress|pending/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /in.progress|pending/i }).first();
       if ((await row.count()) === 0) {
         purchaseTest.skip(true, "No PR available for pricing edit");
         return;
@@ -1982,7 +2003,7 @@ purchaseTest.describe("PR — Edit pricing", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /in.progress|pending/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /in.progress|pending/i }).first();
       if ((await row.count()) === 0) {
         purchaseTest.skip(true, "No PR available for pricing edit");
         return;
@@ -2015,7 +2036,7 @@ hodTest.describe("PR — Return for revision", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No pending PR available to return");
         return;
@@ -2045,7 +2066,7 @@ hodTest.describe("PR — Return for revision", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No pending PR available");
         return;
@@ -2075,7 +2096,7 @@ hodTest.describe("PR — Return for revision", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No pending PR available");
         return;
@@ -2143,7 +2164,7 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         purchaseTest.skip(true, "No PR available");
         return;
@@ -2172,7 +2193,7 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         purchaseTest.skip(true, "No PR available");
         return;
@@ -2201,7 +2222,7 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         purchaseTest.skip(true, "No high-value PR available");
         return;
@@ -2231,7 +2252,7 @@ requestorTest.describe("PR — Submit after vendor allocation — Permission den
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
       const submit = pr.submitButton();
@@ -2267,7 +2288,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         purchaseTest.skip(true, "No PR available to reject");
         return;
@@ -2308,7 +2329,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         purchaseTest.skip(true, "No PR available");
         return;
@@ -2350,7 +2371,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         purchaseTest.skip(true, "No PR available");
         return;
@@ -2391,7 +2412,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /void|rejected/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /void|rejected/i }).first();
       if ((await row.count()) === 0) {
         purchaseTest.skip(true, "No previously-rejected PR available");
         return;
@@ -2427,7 +2448,7 @@ requestorTest.describe("PR — Reject by Purchase Staff — Permission denial", 
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
       const reject = pr.rejectButton();
@@ -2642,7 +2663,7 @@ fcTest.describe("PR — Budget allocation", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         fcTest.skip(true, "No PR available for budget allocation");
         return;
@@ -2675,7 +2696,7 @@ fcTest.describe("PR — Budget allocation", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         fcTest.skip(true, "No PR available");
         return;
@@ -2702,7 +2723,7 @@ fcTest.describe("PR — Budget allocation", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         fcTest.skip(true, "No PR available");
         return;
@@ -2729,7 +2750,7 @@ fcTest.describe("PR — Budget allocation", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         fcTest.skip(true, "No PR available");
         return;
@@ -2794,7 +2815,7 @@ hodTest.describe("PR — Split", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No pending PR available to split");
         return;
@@ -2853,7 +2874,7 @@ hodTest.describe("PR — Split", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /^approved$/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /^approved$/i }).first();
       if ((await row.count()) === 0) {
         hodTest.skip(true, "No fully-approved PR available");
         return;
@@ -2880,7 +2901,7 @@ hodTest.describe("PR — Split", () => {
     async ({ page }) => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoApprovals();
-      const row = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
       await pr.splitButton().click({ timeout: 5_000 }).catch(() => {});

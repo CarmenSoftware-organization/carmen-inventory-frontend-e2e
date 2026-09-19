@@ -569,7 +569,7 @@ purchaseTest.describe("GRN — Edit Header", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) {
         purchaseTest.skip(true, "No draft GRN");
         return;
@@ -600,7 +600,7 @@ purchaseTest.describe("GRN — Edit Header", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
       await grn.editButton().click({ timeout: 5_000 }).catch(() => {});
@@ -625,7 +625,7 @@ purchaseTest.describe("GRN — Edit Header", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
       await grn.editButton().click({ timeout: 5_000 }).catch(() => {});
@@ -654,7 +654,7 @@ purchaseTest.describe("GRN — Edit Header", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
       await grn.editButton().click({ timeout: 5_000 }).catch(() => {});
@@ -720,7 +720,7 @@ purchaseTest.describe("GRN — Add Line Item", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) {
         purchaseTest.skip(true, "No draft GRN");
         return;
@@ -750,7 +750,7 @@ purchaseTest.describe("GRN — Add Line Item", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
       const items = grn.itemsTab();
@@ -779,7 +779,7 @@ purchaseTest.describe("GRN — Add Line Item", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
       const items = grn.itemsTab();
@@ -917,7 +917,7 @@ purchaseTest.describe("GRN — Edit Line Item", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const receivedRow = page.getByRole("row").filter({ hasText: /received/i }).first();
+      const receivedRow = page.locator("tbody").getByRole("row").filter({ hasText: /received/i }).first();
       if ((await receivedRow.count()) === 0) return;
       await openRecordFromRow(receivedRow);
       const edit = grn.editButton();
@@ -976,7 +976,7 @@ purchaseTest.describe("GRN — Delete Line Item", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
     },
@@ -1000,7 +1000,7 @@ purchaseTest.describe("GRN — Delete Line Item", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const receivedRow = page.getByRole("row").filter({ hasText: /received/i }).first();
+      const receivedRow = page.locator("tbody").getByRole("row").filter({ hasText: /received/i }).first();
       if ((await receivedRow.count()) === 0) return;
       await openRecordFromRow(receivedRow);
     },
@@ -1024,7 +1024,7 @@ purchaseTest.describe("GRN — Delete Line Item", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
     },
@@ -1167,7 +1167,7 @@ purchaseTest.describe("GRN — Commit", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const receivedRow = page.getByRole("row").filter({ hasText: /received/i }).first();
+      const receivedRow = page.locator("tbody").getByRole("row").filter({ hasText: /received/i }).first();
       if ((await receivedRow.count()) === 0) {
         purchaseTest.skip(true, "No received GRN to commit");
         return;
@@ -1195,7 +1195,7 @@ purchaseTest.describe("GRN — Commit", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const receivedRow = page.getByRole("row").filter({ hasText: /received/i }).first();
+      const receivedRow = page.locator("tbody").getByRole("row").filter({ hasText: /received/i }).first();
       if ((await receivedRow.count()) === 0) return;
       await openRecordFromRow(receivedRow);
       await grn.commitButton().click({ timeout: 5_000 }).catch(() => {});
@@ -1280,7 +1280,7 @@ purchaseTest.describe("GRN — Void", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const receivedRow = page.getByRole("row").filter({ hasText: /received/i }).first();
+      const receivedRow = page.locator("tbody").getByRole("row").filter({ hasText: /received/i }).first();
       if ((await receivedRow.count()) === 0) return;
       await openRecordFromRow(receivedRow);
       await grn.voidButton().click({ timeout: 5_000 }).catch(() => {});
@@ -1305,7 +1305,7 @@ purchaseTest.describe("GRN — Void", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const committedRow = page.getByRole("row").filter({ hasText: /committed/i }).first();
+      const committedRow = page.locator("tbody").getByRole("row").filter({ hasText: /committed/i }).first();
       if ((await committedRow.count()) === 0) return;
       await openRecordFromRow(committedRow);
       await grn.voidButton().click({ timeout: 5_000 }).catch(() => {});
@@ -1493,7 +1493,7 @@ purchaseTest.describe("GRN — Stock Movements", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const committedRow = page.getByRole("row").filter({ hasText: /committed/i }).first();
+      const committedRow = page.locator("tbody").getByRole("row").filter({ hasText: /committed/i }).first();
       if ((await committedRow.count()) === 0) return;
       await openRecordFromRow(committedRow);
       const tab = grn.stockMovementsTab();
@@ -1519,7 +1519,7 @@ purchaseTest.describe("GRN — Stock Movements", () => {
     async ({ page }) => {
       const grn = new GRNPage(page);
       await grn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft|received/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft|received/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
     },
