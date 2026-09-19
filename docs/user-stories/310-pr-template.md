@@ -1526,4 +1526,4 @@ Server ตอบกลับด้วย timeout error เมื่อพยา�
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 86ff54e</sub>
+<sub>Last regenerated: 2026-09-19 · git d5ce0c1</sub>

@@ -1,9 +1,28 @@
-import { expect } from "@playwright/test";
+import { expect, type Locator } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { MyApprovalsPage, LIST_PATH } from "./pages/my-approvals.page";
 import { BU_CODE } from "./test-users";
 import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
+
+/**
+ * Open the record a list row points at.
+ *
+ * A `<tr>` in this app is not clickable — the record opens from a link (or a
+ * link-styled `<button>`) inside the row whose text is the document number. The
+ * old `row.click()` therefore waited for a `<tr>` to become "actionable", and
+ * with actionTimeout at 0 that burned the whole test timeout with nothing to
+ * point at. Bounded on purpose.
+ */
+async function openRecordFromRow(row: Locator): Promise<void> {
+  const link = row.getByRole("link").first();
+  if ((await link.count()) > 0) {
+    await link.click({ timeout: 10_000 });
+    return;
+  }
+  await row.getByRole("button").first().click({ timeout: 10_000 });
+}
+
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Approver == hod@blueledgers.com (Department Manager).
@@ -240,9 +259,9 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
         hodTest.skip(true, "No pending PR to reject");
         return;
       }
-      await pendingRow.click();
+      await openRecordFromRow(pendingRow);
       await ma.rejectButton().click({ timeout: 5_000 }).catch(() => {});
-      await ma.reasonInput().fill("Rejected. Budget not available for this purchase.").catch(() => {});
+      await ma.reasonInput().fill("Rejected. Budget not available for this purchase.", { timeout: 10_000 }).catch(() => {});
       await ma.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -267,7 +286,7 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
       await ma.gotoPRList();
       const pendingRow = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await pendingRow.count()) === 0) return;
-      await pendingRow.click();
+      await openRecordFromRow(pendingRow);
       await ma.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await ma.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(ma.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
@@ -294,9 +313,9 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
       await ma.gotoPRList();
       const pendingRow = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await pendingRow.count()) === 0) return;
-      await pendingRow.click();
+      await openRecordFromRow(pendingRow);
       await ma.rejectButton().click({ timeout: 5_000 }).catch(() => {});
-      await ma.reasonInput().fill("Rejected. Incorrect PO number - please check PO-123456789.").catch(() => {});
+      await ma.reasonInput().fill("Rejected. Incorrect PO number - please check PO-123456789.", { timeout: 10_000 }).catch(() => {});
       await ma.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -323,7 +342,7 @@ requestorTest.describe("My Approvals — Reject — Permission denial", () => {
       await ma.gotoPRList();
       const pendingRow = page.getByRole("row").filter({ hasText: /pending|in.progress/i }).first();
       if ((await pendingRow.count()) === 0) return;
-      await pendingRow.click();
+      await openRecordFromRow(pendingRow);
       const reject = ma.rejectButton();
       // Either button is hidden (correct) or click yields permission error
       if ((await reject.count()) === 0) {
