@@ -255,7 +255,11 @@ purchaseTest.describe("Step 2 — Create PO", () => {  // ─ Blank method (4 TC
       await item.click();
       // Wizard either opens a dialog or navigates; assert one or the other occurred
       await expect(
-        page.getByRole("dialog").or(page.getByText(/select vendor|step 1/i)).first(),
+        page
+          .locator('[role="dialog"], [role="alertdialog"]')
+          .last()
+          .or(page.getByText(/select vendor|step 1/i).first())
+          .first(),
       ).toBeVisible({ timeout: 10_000 });
     },
   );
@@ -399,7 +403,11 @@ purchaseTest.describe("Step 2 — Create PO", () => {  // ─ Blank method (4 TC
       }
       await item.click();
       await expect(
-        page.getByRole("dialog").or(page.getByText(/select.*pr|purchase request|step 1/i)).first(),
+        page
+          .locator('[role="dialog"], [role="alertdialog"]')
+          .last()
+          .or(page.getByText(/select.*pr|purchase request|step 1/i).first())
+          .first(),
       ).toBeVisible({ timeout: 10_000 });
     },
   );

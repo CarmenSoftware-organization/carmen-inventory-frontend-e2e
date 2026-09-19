@@ -239,7 +239,8 @@ Item action toolbar visible บนแถว
 
 1. เลือกรายการ
 2. กด Reject ใน toolbar
-3. ตรวจสอบ badge + ปุ่ม footer
+3. ยืนยันใน dialog
+4. ตรวจสอบ badge + ปุ่ม footer
 
 **Expected**
 
@@ -448,4 +449,4 @@ status badge เปลี่ยนเป็น APPROVED/SENT หลังกา�
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 76a2530</sub>
+<sub>Last regenerated: 2026-09-19 · git 0d65afe</sub>

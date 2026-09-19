@@ -636,4 +636,4 @@ Login เป็น requestor@blueledgers.com สถานะ SR เป็น Com
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 76a2530</sub>
+<sub>Last regenerated: 2026-09-19 · git 0d65afe</sub>

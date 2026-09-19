@@ -266,7 +266,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level markin
     {
       annotation: [
         { type: "preconditions", description: "Item action toolbar visible บนแถว" },
-        { type: "steps", description: "1. เลือกรายการ\n2. กด Reject ใน toolbar\n3. ตรวจสอบ badge + ปุ่ม footer" },
+        { type: "steps", description: "1. เลือกรายการ\n2. กด Reject ใน toolbar\n3. ยืนยันใน dialog\n4. ตรวจสอบ badge + ปุ่ม footer" },
         { type: "expected", description: "แถวรายการแสดง badge Reject; ปุ่ม Reject ของเอกสาร visible ใน footer" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
@@ -288,6 +288,11 @@ fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level markin
         return;
       }
       await reject.click({ timeout: 5_000 });
+      // Unlike Approve and Review, rejecting a line opens a confirmation first
+      // ("Reject Purchase Order — …Please provide a reason." with an optional
+      // REASON field). The row keeps its old state until that is confirmed, so
+      // asserting the badge straight after the click always failed.
+      await po.confirmDialogButton(/^reject$/i).click({ timeout: 10_000 });
       await expect(po.itemBadge(0, "rejected")).toBeVisible({ timeout: 10_000 });
       await expect(po.documentRejectButton()).toBeVisible({ timeout: 10_000 });
     },
@@ -356,7 +361,12 @@ fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level markin
         return;
       }
       await docApprove.click({ timeout: 5_000 });
-      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 10_000 });
+      // Confirmations are Radix AlertDialog (role="alertdialog"), which
+      // getByRole("dialog") does not match; .last() skips the always-mounted
+      // Command Palette.
+      await expect(
+        page.locator('[role="dialog"], [role="alertdialog"]').last(),
+      ).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -435,7 +445,12 @@ fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level markin
         return;
       }
       await sendBack.click({ timeout: 5_000 });
-      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 10_000 });
+      // Confirmations are Radix AlertDialog (role="alertdialog"), which
+      // getByRole("dialog") does not match; .last() skips the always-mounted
+      // Command Palette.
+      await expect(
+        page.locator('[role="dialog"], [role="alertdialog"]').last(),
+      ).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -511,7 +526,12 @@ fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level markin
         return;
       }
       await docReject.click({ timeout: 5_000 });
-      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 10_000 });
+      // Confirmations are Radix AlertDialog (role="alertdialog"), which
+      // getByRole("dialog") does not match; .last() skips the always-mounted
+      // Command Palette.
+      await expect(
+        page.locator('[role="dialog"], [role="alertdialog"]').last(),
+      ).toBeVisible({ timeout: 10_000 });
     },
   );
 
