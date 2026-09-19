@@ -568,3 +568,39 @@ workflow เหมือน PO) — เทสต์ไม่ควรเดา�
   ปุ่มนั้น
 - `TC-PE-010005` "Closed Current Period" — assert ว่าปุ่มปิดงวดถูก disable "เมื่องวด
   ปิดแล้ว" แต่ไม่ได้ทำให้งวดปิดก่อน ถ้างวดยังเปิด ปุ่มที่ใช้งานได้คือพฤติกรรมที่ถูกต้อง
+
+## G — `159-pl` ยกเครื่อง page object (8 ล้ม → **34 ผ่าน / 0 ล้ม / 3 skip**)
+
+ฟอร์มสร้าง price list เปลี่ยนไปทั้งใบ locator เดิมที่ใช้ `getByLabel` ได้ **0 element
+ทุกตัว** — มองไม่เห็นมาตลอดเพราะ `.catch()` กลืนไว้
+
+| ของเดิม | ของจริงตอนนี้ |
+|---|---|
+| `numberInput` = label "price list number" | ไม่มีเลขที่แล้ว ใช้ **Name** (`#pl-name`) |
+| `vendorTrigger` = label "vendor" | ปุ่ม **"Select Vendor"** เปิด dialog การ์ด |
+| `validFrom/ToInput` = label "valid from/to" | ปุ่ม date picker **"Pick a date"** — `fill()` โยน "Element is not an `<input>`" |
+| `notesInput` = label "notes" | `textarea[name=description]` |
+| `productInput` = label "product" | ปุ่ม **"Select Product"** |
+| `moq/unitPrice/leadTime` = label | `input[name="pricelist_detail.<n>.*"]` |
+| `statusFilter` = combobox "status" | ย้ายเข้าไปใน popover ของปุ่ม **Filter** (Status / Currency / Vendor / Effective Period) |
+
+**กับดักที่ไม่คาดคิด:** `[name="description"]` เฉย ๆ ไปโดน `<meta name="description">`
+ใน `<head>` ซึ่งกรอกไม่ได้ — `fill()` เลยรอจนหมดเวลาโดยที่ locator "เจอ" element
+พอดี ต้อง scope เป็น `input/textarea`
+
+**Tax Profile เป็น required บนทุกแถวรายการ** และไม่มีค่าเริ่มต้น บันทึกไม่ผ่านจะค้างที่
+`/new` พร้อม `aria-invalid` บนคอนโทรลนั้นและ **ไม่มี toast** — นี่คือเหตุผลที่ "สร้าง
+price list" ดูเหมือนล้มเหลวเงียบ ๆ แม้ product picker จะทำงานแล้ว มันเป็น Radix
+combobox ไม่ใช่ button และในแถวมีสองอัน (Select Unit / Select Tax Profile) ต้องกรอง
+ด้วยข้อความ ไม่ใช่เลือกด้วย index
+
+### เทสต์ที่ premise หายไปกับการเปลี่ยน UI
+
+- `TC-PL-040002` "Invalid Date Input" → `fixme` — Effective From/To เป็น calendar
+  picker กรอกวันที่ผิดรูปแบบไม่ได้เลย ต้องมีช่องที่พิมพ์ได้หรือทดสอบที่ระดับ API
+- `TC-PL-010002` เดิมกรอกช่องค้นหาแล้ว**ไม่ได้กด Enter** ซึ่ง `SearchInput` ยิง
+  `onSearch` เมื่อกด Enter เท่านั้น การค้นหาจึงไม่เคยเกิดขึ้น
+- `TC-PL-030001` คลิก `<tr>` ซึ่งไม่ใช่สิ่งที่คลิกได้ — เอกสารเปิดจากปุ่มในแถว
+- `TC-PL-080003` เปลี่ยนจาก `expect` เป็น `skip` พร้อมเหตุผล: BU นี้มีแต่ price list
+  สถานะ DRAFT และไม่มีอะไรในชุดเทสต์ที่เลื่อนสถานะเป็น active — เป็นช่องว่างของ
+  fixture ไม่ใช่แอปพัง ควรอ่านว่า "ไม่ได้ทดสอบ" ไม่ใช่ "ผ่าน"
