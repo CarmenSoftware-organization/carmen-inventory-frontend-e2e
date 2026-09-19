@@ -1180,4 +1180,4 @@ campaign ทั้งหมดแสดงพร้อมจำนวนผล�
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 42ac156</sub>
+<sub>Last regenerated: 2026-09-19 · git 1c30202</sub>

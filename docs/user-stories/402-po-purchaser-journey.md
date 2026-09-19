@@ -35,7 +35,7 @@ _Generated from `tests/402-po-purchaser-journey.spec.ts` annotations. Edit annot
 | TC-PO-060401 | Click Edit on DRAFT → edit mode active (Save/Cancel visible) | High | Smoke |
 | TC-PO-060402 | Modify line item quantity → Save → URL stays on detail | High | CRUD |
 | TC-PO-060403 | Add new line item in edit mode → Save | Medium | CRUD |
-| TC-PO-060404 | Cancel edit (no unsaved changes) → exits without dialog | Medium | Functional |
+| TC-PO-060404 | Cancel edit → ยืนยัน Discard แล้วกลับสู่ view mode | Medium | Functional |
 | TC-PO-060405 | Submit Draft PO → confirmation dialog → status moves to IN PROGRESS | High | CRUD |
 | TC-PO-060406 | Delete IN PROGRESS PO via Edit Mode | Medium | CRUD |
 | TC-PO-060501 | Approved PO has Send to Vendor + Close buttons (seeded via seedApprovedPO) | High | Functional |
@@ -556,7 +556,7 @@ edit mode active บน Draft PO
 
 ---
 
-## TC-PO-060404 — Cancel edit (no unsaved changes) → exits without dialog
+## TC-PO-060404 — Cancel edit → ยืนยัน Discard แล้วกลับสู่ view mode
 
 > **As a** Purchase user, **I want** this Po Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -573,7 +573,7 @@ edit mode active บน Draft PO โดยไม่มีการเปลี�
 
 **Expected**
 
-Form กลับสู่ view mode (ปุ่ม Edit visible อีกครั้ง)
+มี dialog ยืนยัน Keep editing/Discard เสมอแม้ไม่ได้แก้อะไร; กด Discard แล้วกลับสู่ view mode (ปุ่ม Edit visible, ปุ่ม Save หาย)
 
 ---
 
@@ -741,4 +741,4 @@ URL ยังคงอยู่ที่ PO ref หลัง Send to Vendor (lif
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 42ac156</sub>
+<sub>Last regenerated: 2026-09-19 · git 1c30202</sub>

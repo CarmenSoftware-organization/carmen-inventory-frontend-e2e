@@ -706,12 +706,12 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
   );
 
   purchaseTest(
-    "TC-PO-060404 Cancel edit (no unsaved changes) → exits without dialog",
+    "TC-PO-060404 Cancel edit → ยืนยัน Discard แล้วกลับสู่ view mode",
     {
       annotation: [
         { type: "preconditions", description: "edit mode active บน Draft PO โดยไม่มีการเปลี่ยนแปลงที่พิมพ์" },
         { type: "steps", description: "1. เข้าสู่ edit mode\n2. กด Cancel โดยไม่ทำการเปลี่ยนแปลง" },
-        { type: "expected", description: "Form กลับสู่ view mode (ปุ่ม Edit visible อีกครั้ง)" },
+        { type: "expected", description: "มี dialog ยืนยัน Keep editing/Discard เสมอแม้ไม่ได้แก้อะไร; กด Discard แล้วกลับสู่ view mode (ปุ่ม Edit visible, ปุ่ม Save หาย)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
@@ -725,8 +725,12 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
         return;
       }
       await po.enterEditMode();
+      // The app prompts "Keep editing / Discard" even with nothing changed —
+      // entering edit mode alone marks the form dirty. The old title promised
+      // "exits without dialog", which this build never does.
       await po.cancelEditMode();
       await expect(po.editModeButton()).toBeVisible({ timeout: 10_000 });
+      await expect(po.saveButton()).toBeHidden({ timeout: 10_000 });
     },
   );
 

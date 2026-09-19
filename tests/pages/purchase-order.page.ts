@@ -282,18 +282,27 @@ export class PurchaseOrderPage extends BasePage {
     await this.selectDeliveryDate();
     await this.addItemButton().click({ timeout: 10_000 });
 
-    // Rows are prepended, so the row being filled is the first body row. Wait for
-    // the row's own location trigger rather than for the <tr>: right after the
-    // click the first body row is still the "No Items Yet" placeholder, and a
-    // lookup scoped to it finds no triggers at all — which used to return quietly
-    // and leave every later step on an unfilled row.
+    // Rows are prepended, so the row being filled is the first body row. Wait on
+    // something inside it rather than on the <tr>: right after the click the first
+    // body row is still the "No Items Yet" placeholder, and a lookup scoped to it
+    // finds no triggers at all — which used to return quietly and leave every
+    // later step on an unfilled row.
+    //
+    // Which trigger to wait on depends on where we are. On a brand-new PO the row
+    // starts empty and offers "Select Location". Adding a row to a PO that already
+    // has items pre-fills the location from the existing line, so that button
+    // never appears and "Select Product" is the first thing to act on — waiting
+    // for "Select Location" there simply timed out.
     const row = this.page.locator("tbody tr").first();
     await row
-      .getByRole("button", { name: /select location/i })
+      .getByRole("button", { name: /select location|select product/i })
       .first()
       .waitFor({ state: "visible", timeout: 10_000 });
 
-    await this.pickFromRowTrigger(row, /select location/i);
+    const locationTrigger = row.getByRole("button", { name: /select location/i });
+    if ((await locationTrigger.count()) > 0) {
+      await this.pickFromRowTrigger(row, /select location/i);
+    }
     if (data.product !== undefined) {
       await this.pickFromRowTrigger(row, /select product/i);
     }
@@ -370,9 +379,22 @@ export class PurchaseOrderPage extends BasePage {
     await this.page.waitForLoadState("networkidle", { timeout: 15_000 }).catch(() => {});
   }
 
+  /**
+   * Leave edit mode. The app asks to confirm ("Keep editing" / "Discard") even
+   * when nothing was changed — entering edit mode is enough to mark the form
+   * dirty — so a bare Cancel click leaves the dialog on screen and the page stuck
+   * in edit mode. Confirm it.
+   */
   async cancelEditMode() {
     const cancel = this.page.getByRole("button", { name: /^cancel$/i }).first();
-    if ((await cancel.count()) > 0) await cancel.click({ timeout: 5_000 }).catch(() => {});
+    if ((await cancel.count()) === 0) return;
+    await cancel.click({ timeout: 5_000 });
+    const discard = this.page
+      .locator('[role="dialog"], [role="alertdialog"]')
+      .last()
+      .getByRole("button", { name: /^discard$/i })
+      .first();
+    await discard.click({ timeout: 5_000 }).catch(() => {});
   }
 
   // ── Submit / Delete (Edit Mode actions) ──────────────────────────────
