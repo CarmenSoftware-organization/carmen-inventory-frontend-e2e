@@ -775,10 +775,24 @@ procurementManagerTest.describe("Pricelist Template — Search and View", () => 
         procurementManagerTest.skip(true, "Name column header not visible");
         return;
       }
-      await header.click().catch(() => {});
-      await header.click().catch(() => {});
-      // Asc → Desc; verify sort indicator if present
-      await expect(header).toHaveAttribute("aria-sort", /desc/i, { timeout: 5_000 });
+      // Click the header's own button, not the <th>: the <th> wraps a ghost
+      // <button> and clicking the cell does nothing at all (the rows never
+      // reorder). Verified against the live table.
+      const sortButton = header.getByRole("button").first();
+      await sortButton.click({ timeout: 10_000 });
+      await page.waitForTimeout(1_000);
+      const ascending = await page.locator("tbody tr td:nth-child(2)").allInnerTexts();
+
+      await sortButton.click({ timeout: 10_000 });
+      await page.waitForTimeout(1_000);
+      const descending = await page.locator("tbody tr td:nth-child(2)").allInnerTexts();
+
+      // Assert the order itself, not `aria-sort` — this table never sets that
+      // attribute, so the old expectation could not pass however the sort behaved.
+      expect(descending.length, "no rows to sort").toBeGreaterThan(1);
+      expect(descending, "second click should reverse the order").not.toEqual(ascending);
+      const sortedDesc = [...descending].sort((a, b) => b.localeCompare(a));
+      expect(descending).toEqual(sortedDesc);
     },
   );
 });

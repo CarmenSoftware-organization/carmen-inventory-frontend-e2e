@@ -631,7 +631,12 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
     },
   );
 
-  purchaseTest(
+  // Feature is not in this build — do not restore the silent version.
+  // The campaign (Request for Pricing) detail toolbar offers only Edit / Delete /
+  // Activity / Print; there is no Send Reminder control and no vendors tab, and
+  // grepping the frontend for "reminder" finds nothing at all. This only ever
+  // "passed" because the button click and the assertion were both swallowed.
+  purchaseTest.fixme(
     "TC-CAM-060005 Send Reminder - Empty Reminder Message",
     {
       annotation: [
@@ -809,10 +814,13 @@ purchaseTest.describe("Campaign — Delete", () => {
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
       await openRecordFromRow(row);
-      const dropdown = cam.actionsDropdown();
-      if ((await dropdown.count()) > 0) await dropdown.click().catch(() => {});
-      await cam.actionMenuItem(/^delete$/i).click({ timeout: 5_000 }).catch(() => {});
-      await cam.confirmDialogButton(/^delete$/i).click({ timeout: 5_000 });
+      // Delete is a plain button on the detail toolbar (Edit / Delete / Activity /
+      // Print) — there is no actions dropdown here, so the old body opened nothing
+      // and then waited out a confirm dialog that never appeared.
+      const del = page.getByRole("button", { name: /^delete$/i }).first();
+      await expect(del).toBeVisible({ timeout: 10_000 });
+      await del.click({ timeout: 10_000 });
+      await cam.confirmDialogButton(/^delete$/i).click({ timeout: 10_000 });
     },
   );
 
