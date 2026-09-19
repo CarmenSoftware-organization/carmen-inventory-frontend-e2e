@@ -506,7 +506,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level markin
       await sendBack.click({ timeout: 5_000 });
       const reason = po.reasonInput();
       if ((await reason.count()) > 0) await reason.fill(SEND_BACK_REASON).catch(() => {});
-      await po.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 });
       await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 15_000 });
     },
   );

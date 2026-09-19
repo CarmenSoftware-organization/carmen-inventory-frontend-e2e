@@ -759,7 +759,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
         return;
       }
       await submit.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 });
       await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 15_000 });
     },
   );
@@ -790,7 +790,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
         return;
       }
       await del.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|delete|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|delete|yes/i).click({ timeout: 5_000 });
       await expect(page).toHaveURL(/\/procurement\/purchase-order($|\?)/, { timeout: 10_000 });
     },
   );
@@ -842,7 +842,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
         return;
       }
       await send.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 });
       await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
     },
   );
@@ -875,7 +875,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
         return;
       }
       await close.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|close|complete|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|close|complete|yes/i).click({ timeout: 5_000 });
       await expect(
         page
           .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
@@ -907,7 +907,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
         return;
       }
       await close.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|close|void|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|close|void|yes/i).click({ timeout: 5_000 });
       await expect(
         page
           .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
@@ -948,7 +948,7 @@ purchaseTest.describe.serial("Golden Journey", () => {
 
       // Step 6: Send to Vendor
       await send.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 });
 
       await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 15_000 });
     },

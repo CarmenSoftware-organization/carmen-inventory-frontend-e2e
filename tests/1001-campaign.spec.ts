@@ -655,7 +655,7 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
       const tab = cam.vendorsTab();
       if ((await tab.count()) > 0) await tab.click().catch(() => {});
       await cam.sendReminderButton().click({ timeout: 5_000 }).catch(() => {});
-      await cam.confirmDialogButton(/^send$/i).click({ timeout: 5_000 }).catch(() => {});
+      await cam.confirmDialogButton(/^send$/i).click({ timeout: 5_000 });
       await expect(cam.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
@@ -812,7 +812,7 @@ purchaseTest.describe("Campaign — Delete", () => {
       const dropdown = cam.actionsDropdown();
       if ((await dropdown.count()) > 0) await dropdown.click().catch(() => {});
       await cam.actionMenuItem(/^delete$/i).click({ timeout: 5_000 }).catch(() => {});
-      await cam.confirmDialogButton(/^delete$/i).click({ timeout: 5_000 }).catch(() => {});
+      await cam.confirmDialogButton(/^delete$/i).click({ timeout: 5_000 });
     },
   );
 

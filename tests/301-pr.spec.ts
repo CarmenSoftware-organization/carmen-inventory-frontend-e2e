@@ -561,7 +561,7 @@ hodTest.describe("PR — Approve", () => {
       }
       await openRecordFromRow(pendingRow);
       await pr.approveButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.confirmDialogButton(/approve|confirm|ok/i).click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton(/approve|confirm|ok/i).click({ timeout: 5_000 });
       await pr.expectSavedToast();
     },
   );
@@ -591,7 +591,7 @@ hodTest.describe("PR — Approve", () => {
       }
       await openRecordFromRow(row);
       await pr.approveButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 
@@ -691,7 +691,7 @@ hodTest.describe("PR — Reject", () => {
       await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(VALID_REASON).catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
       await pr.expectSavedToast();
     },
   );
@@ -722,7 +722,7 @@ hodTest.describe("PR — Reject", () => {
       await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(SHORT_REASON).catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
       await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
@@ -752,7 +752,7 @@ hodTest.describe("PR — Reject", () => {
       }
       await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
       await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
@@ -821,7 +821,7 @@ gmTest.describe("PR — Reject — High-value GM scope", () => {
       await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(VALID_REASON).catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 });
@@ -937,7 +937,7 @@ requestorTest.describe("PR — Cancel — Requestor", () => {
       await openRecordFromRow(row);
       await pr.cancelPRButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill("Incorrect item description").catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
       await pr.expectSavedToast();
     },
   );
@@ -1032,7 +1032,7 @@ hodTest.describe("PR — Cancel — Department manager", () => {
       await openRecordFromRow(row);
       await pr.cancelPRButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill("Change in requirement").catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 });
@@ -1766,7 +1766,7 @@ hodTest.describe("PR — Approve detail review", () => {
       }
       await openRecordFromRow(row);
       await pr.approveButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 
@@ -1796,7 +1796,7 @@ hodTest.describe("PR — Approve detail review", () => {
       await openRecordFromRow(row);
       await pr.sendBackButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill("Please update vendor and resubmit").catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 
@@ -1825,7 +1825,7 @@ hodTest.describe("PR — Approve detail review", () => {
       }
       await openRecordFromRow(row);
       await pr.approveButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 
@@ -1854,7 +1854,7 @@ hodTest.describe("PR — Approve detail review", () => {
       }
       await openRecordFromRow(row);
       await pr.approveButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 });
@@ -1979,7 +1979,7 @@ hodTest.describe("PR — Return for revision", () => {
       await openRecordFromRow(row);
       await pr.sendBackButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill("Please revise vendor").catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 
@@ -2008,7 +2008,7 @@ hodTest.describe("PR — Return for revision", () => {
       }
       await openRecordFromRow(row);
       await pr.sendBackButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
       await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
@@ -2039,7 +2039,7 @@ hodTest.describe("PR — Return for revision", () => {
       await openRecordFromRow(row);
       await pr.sendBackButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill("ten char re").catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 });
@@ -2231,7 +2231,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
       await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill("Items discontinued").catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 
@@ -2261,7 +2261,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
       await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(SHORT_REASON).catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
       await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
@@ -2291,7 +2291,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
       }
       await openRecordFromRow(row);
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
       await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
@@ -2400,7 +2400,7 @@ hodTest.describe("PR — Bulk actions", () => {
       }
       await trigger.click().catch(() => {});
       await pr.bulkActionItem(/approve/i).click().catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 
@@ -2436,7 +2436,7 @@ hodTest.describe("PR — Bulk actions", () => {
       await trigger.click().catch(() => {});
       await pr.bulkActionItem(/reject/i).click().catch(() => {});
       await pr.reasonInput().fill(VALID_REASON).catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 
@@ -2808,7 +2808,7 @@ hodTest.describe("PR — Split", () => {
       await openRecordFromRow(row);
       await pr.splitButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(SHORT_REASON).catch(() => {});
-      await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton().click({ timeout: 5_000 });
       await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );

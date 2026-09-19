@@ -498,7 +498,7 @@ purchaseTest.describe("PO — Change Order", () => {
       }
       await change.click().catch(() => {});
       await po.reasonInput().fill("Updated specifications").catch(() => {});
-      await po.confirmDialogButton(/submit|confirm/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/submit|confirm/i).click({ timeout: 5_000 });
       await po.expectSavedToast();
     },
   );
@@ -527,7 +527,7 @@ purchaseTest.describe("PO — Change Order", () => {
       const change = po.requestChangeOrderButton();
       if ((await change.count()) === 0) return;
       await change.click().catch(() => {});
-      await po.confirmDialogButton(/submit/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/submit/i).click({ timeout: 5_000 });
       await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
@@ -638,7 +638,7 @@ purchaseTest.describe("PO — Cancel", () => {
       await openRecordFromRow(activeRow);
       await po.cancelPOButton().click({ timeout: 5_000 }).catch(() => {});
       await po.reasonInput().fill("Order no longer needed").catch(() => {});
-      await po.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton().click({ timeout: 5_000 });
       await po.expectSavedToast();
     },
   );

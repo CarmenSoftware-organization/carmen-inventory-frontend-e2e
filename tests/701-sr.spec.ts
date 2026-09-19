@@ -420,7 +420,7 @@ purchaseTest.describe("Store Requisition — Submit", () => {
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
       await sr.submitForApprovalButton().click({ timeout: 5_000 }).catch(() => {});
-      await sr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await sr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 
@@ -653,7 +653,7 @@ purchaseTest.describe("Store Requisition — Approve", () => {
       if ((await inProgressRow.count()) === 0) return;
       await openRecordFromRow(inProgressRow);
       await sr.approveButton().click({ timeout: 5_000 }).catch(() => {});
-      await sr.confirmDialogButton(/^approve$/i).click({ timeout: 5_000 }).catch(() => {});
+      await sr.confirmDialogButton(/^approve$/i).click({ timeout: 5_000 });
     },
   );
 
@@ -977,7 +977,7 @@ purchaseTest.describe("Store Requisition — Reject", () => {
       await openRecordFromRow(inProgressRow);
       await sr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await sr.reasonInput().fill("Specific policy violation", { timeout: 10_000 }).catch(() => {});
-      await sr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await sr.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 

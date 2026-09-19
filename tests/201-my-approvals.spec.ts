@@ -246,7 +246,7 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
       await openRecordFromRow(pendingRow);
       await ma.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await ma.reasonInput().fill("Rejected. Budget not available for this purchase.", { timeout: 10_000 }).catch(() => {});
-      await ma.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await ma.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 
@@ -272,7 +272,7 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
       if ((await pendingRow.count()) === 0) return;
       await openRecordFromRow(pendingRow);
       await ma.rejectButton().click({ timeout: 5_000 }).catch(() => {});
-      await ma.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await ma.confirmDialogButton().click({ timeout: 5_000 });
       await expect(ma.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
@@ -300,7 +300,7 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
       await openRecordFromRow(pendingRow);
       await ma.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await ma.reasonInput().fill("Rejected. Incorrect PO number - please check PO-123456789.", { timeout: 10_000 }).catch(() => {});
-      await ma.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await ma.confirmDialogButton().click({ timeout: 5_000 });
     },
   );
 });
