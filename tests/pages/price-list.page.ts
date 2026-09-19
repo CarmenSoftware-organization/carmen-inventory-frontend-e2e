@@ -37,7 +37,13 @@ export class PriceListPage extends BasePage {
 
   // ── List page ────────────────────────────────────────────────────────
   addNewButton(): Locator {
-    return this.page.getByRole("button", { name: /add new|new price.?list|^new$|^create$/i }).first();
+    // The list header button reads "Add Price List". The old pattern wanted
+    // "new price list" / "add new", neither of which matches it, so every test
+    // that opened the create form was asserting against a locator that found
+    // nothing — invisible until the swallowing .catch() came off.
+    return this.page
+      .getByRole("button", { name: /add price list|add new|new price.?list|^new$|^create$/i })
+      .first();
   }
 
   searchButton(): Locator {
