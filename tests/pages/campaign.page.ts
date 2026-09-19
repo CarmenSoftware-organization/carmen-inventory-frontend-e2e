@@ -22,7 +22,12 @@ export class CampaignPage extends BasePage {
 
   // ── List page ────────────────────────────────────────────────────────
   newCampaignButton(): Locator {
-    return this.page.getByRole("button", { name: /create new campaign|new campaign|^new$|^create$/i }).first();
+    // The module is "Request for Pricing" in the UI and its create button reads
+    // "New Price Request" — none of the old alternatives matched it, so every
+    // test that opened the create flow worked against an empty locator.
+    return this.page
+      .getByRole("button", { name: /new price request|create new campaign|new campaign|^new$|^create$/i })
+      .first();
   }
 
   statusFilter(): Locator {

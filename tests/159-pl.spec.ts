@@ -569,7 +569,16 @@ purchaseTest.describe("Price List — Export", () => {
 });
 
 requestorTest.describe("Price List — Export — Permission denial", () => {
-  requestorTest(
+    // App finding, not a test bug — do not restore the silent version.
+  // The button is present and **enabled** for this role; the assertion only ever
+  // "passed" because it was wrapped in .catch(() => {}) (the other branch was the
+  // equally empty `expect(true).toBe(true)`). These modules have no client-side
+  // role gate at all: unlike Purchase Order, whose /new route is wrapped in
+  // `CreateWorkflowGate` and answers "RESTRICTED — Permission Denied", the
+  // vendor-management routes carry no guard, and requestor@ can open the create
+  // form directly. Whether that is intended is a product decision — un-fixme once
+  // it is settled, and assert whatever the answer turns out to be.
+requestorTest.fixme(
     "TC-PL-060002 Negative - Invalid Export Permission",
     {
       annotation: [
