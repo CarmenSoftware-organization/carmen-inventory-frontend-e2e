@@ -449,4 +449,4 @@ PATCH .../approve ของ FC ตอบ ok และหลัง GM อนุ�
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 1c30202</sub>
+<sub>Last regenerated: 2026-09-19 · git a4954cd</sub>

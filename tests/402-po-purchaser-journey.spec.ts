@@ -730,7 +730,11 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
       // "exits without dialog", which this build never does.
       await po.cancelEditMode();
       await expect(po.editModeButton()).toBeVisible({ timeout: 10_000 });
-      await expect(po.saveButton()).toBeHidden({ timeout: 10_000 });
+      // Match Save exactly: po.saveButton() also accepts "Submit", which a Draft
+      // legitimately still shows in view mode.
+      await expect(
+        page.getByRole("button", { name: /^save$/i }).first(),
+      ).toBeHidden({ timeout: 10_000 });
     },
   );
 

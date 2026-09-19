@@ -50,8 +50,14 @@ export class PurchaseOrderPage extends BasePage {
   // The create picker is a dialog of plain <button> cards (po-create-dialog.tsx),
   // not a dropdown menu — "Blank PO" / "From PR" / "From Price List", each of which
   // navigates to its own route (/new, /from-pr, /from-price-list).
+  // `/from pr/i` also matches "From **Pr**ice List" — the picker's three cards are
+  // "Blank PO", "From Price List" and "From PR", and a substring match on the
+  // wrong one silently sent every "create from PR" test into the price-list
+  // wizard. Anchor on the card's own heading text.
   createFromPRMenuItem(): Locator {
-    return this.page.getByRole("button", { name: /from pr|create from purchase request/i }).first();
+    return this.page
+      .getByRole("button", { name: /^from pr$|^from pr\b(?!ice)|create from purchase request/i })
+      .first();
   }
 
   manualPOMenuItem(): Locator {
@@ -431,8 +437,11 @@ export class PurchaseOrderPage extends BasePage {
     return this.page.getByRole("button", { name: /from price list|price list/i }).first();
   }
 
+  // Same "From Pr[ice List]" collision as createFromPRMenuItem — see the note there.
   fromPRMenuItem(): Locator {
-    return this.page.getByRole("button", { name: /from pr|from purchase request|create from purchase request/i }).first();
+    return this.page
+      .getByRole("button", { name: /^from pr$|^from pr\b(?!ice)|from purchase request|create from purchase request/i })
+      .first();
   }
 
   priceListWizardSubmit(): Locator {

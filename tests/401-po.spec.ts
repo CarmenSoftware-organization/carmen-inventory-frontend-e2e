@@ -55,7 +55,9 @@ purchaseTest.describe("PO — Create from PR", () => {
         purchaseTest.skip(true, "No approved PR available");
         return;
       }
-      await firstPR.click();
+      // Bounded: a <tr> is not clickable in this app, and with actionTimeout at 0
+      // an un-timed click waits for it to become actionable until the test dies.
+      await firstPR.click({ timeout: 10_000 }).catch(() => {});
       await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
       await po.expectSavedToast().catch(() => {});
     },
@@ -114,7 +116,9 @@ purchaseTest.describe("PO — Create from PR", () => {
       await fromPR.click().catch(() => {});
       const firstPR = page.getByRole("row").nth(1);
       if ((await firstPR.count()) === 0) return;
-      await firstPR.click();
+      // Bounded: a <tr> is not clickable in this app, and with actionTimeout at 0
+      // an un-timed click waits for it to become actionable until the test dies.
+      await firstPR.click({ timeout: 10_000 }).catch(() => {});
       await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
     },

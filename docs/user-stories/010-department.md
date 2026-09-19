@@ -597,4 +597,4 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /config/departme
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 1c30202</sub>
+<sub>Last regenerated: 2026-09-19 · git a4954cd</sub>
