@@ -207,7 +207,7 @@ purchaseTest.describe("Stock Issue — Search & Filter", () => {
       await si.gotoList();
       const search = si.searchInput();
       if ((await search.count()) > 0) await search.fill("__INVALID_SR_E2E__").catch(() => {});
-      await expect(si.emptyState()).toBeVisible({ timeout: 10_000 }).catch(() => {});
+      await expect(si.emptyState()).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -535,7 +535,7 @@ requestorTest.describe("Stock Issue — Print — Permission denial", () => {
       if ((await print.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(print).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(print).toBeDisabled({ timeout: 5_000 });
       }
     },
   );

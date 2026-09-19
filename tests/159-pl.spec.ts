@@ -37,7 +37,7 @@ purchaseTest.describe("Price List — List & Filter", () => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
       await expect(page).toHaveURL(/vendor-management\/price-list/);
-      await expect(pl.addNewButton()).toBeVisible({ timeout: 10_000 }).catch(() => {});
+      await expect(pl.addNewButton()).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -61,7 +61,7 @@ purchaseTest.describe("Price List — List & Filter", () => {
       await pl.gotoList();
       const search = pl.searchInput();
       if ((await search.count()) > 0) await search.fill("__NONEXISTENT_E2E_abcd__");
-      await expect(pl.emptyState()).toBeVisible({ timeout: 10_000 }).catch(() => {});
+      await expect(pl.emptyState()).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -191,7 +191,7 @@ purchaseTest.describe("Price List — Create", () => {
       await pl.fillHeader({ number: `PL-NOVEN-${uid}`, validFrom: "2099-01-01" });
       await pl.addLineItem({ product: "Test Product", unitPrice: 100 });
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pl.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pl.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -217,7 +217,7 @@ purchaseTest.describe("Price List — Create", () => {
       await pl.fillHeader({ number: `PL-NOPR-${uid}`, validFrom: "2099-01-01" });
       await pl.addLineItem({ product: "Test Product", moq: 10 });
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pl.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pl.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 });
@@ -247,7 +247,7 @@ purchaseTest.describe("Price List — View detail", () => {
       const row = page.getByRole("row").nth(1);
       expect(await row.count(), "No price list to view").toBeGreaterThan(0);
       await row.click();
-      await expect(page).toHaveURL(/price-list\/[^/]+$/, { timeout: 10_000 }).catch(() => {});
+      await expect(page).toHaveURL(/price-list\/[^/]+$/, { timeout: 10_000 });
     },
   );
 
@@ -327,7 +327,7 @@ requestorTest.describe("Price List — View / Edit — Permission denial", () =>
       if ((await edit.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(edit).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(edit).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -414,7 +414,7 @@ purchaseTest.describe("Price List — Edit", () => {
       await pl.editButton().click({ timeout: 5_000 }).catch(() => {});
       await pl.fillHeader({ validFrom: "not-a-date", validTo: "also-bad" });
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pl.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pl.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 });
@@ -473,7 +473,7 @@ purchaseTest.describe("Price List — Duplicate", () => {
       // Best-effort: check empty state vs duplicate availability
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) {
-        await expect(pl.emptyState()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+        await expect(pl.emptyState()).toBeVisible({ timeout: 5_000 });
       }
     },
   );
@@ -592,7 +592,7 @@ requestorTest.describe("Price List — Export — Permission denial", () => {
       if ((await exp.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(exp).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(exp).toBeDisabled({ timeout: 5_000 });
       }
     },
   );

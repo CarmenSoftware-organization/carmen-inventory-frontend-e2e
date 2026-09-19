@@ -108,7 +108,7 @@ purchaseTest.describe("Period End — List page", () => {
       if ((await startClose.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(startClose).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(startClose).toBeDisabled({ timeout: 5_000 });
       }
     },
   );

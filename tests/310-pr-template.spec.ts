@@ -104,7 +104,7 @@ purchaseTest.describe("PR Template — Create", () => {
       const tpl = new PRTemplatePage(page);
       await tpl.gotoNew();
       await tpl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(tpl.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(tpl.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 });
@@ -348,7 +348,7 @@ requestorTest.describe("PR Template — Edit — Permission denial", () => {
       if ((await edit.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(edit).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(edit).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -561,7 +561,7 @@ requestorTest.describe("PR Template — Clone — Permission denial", () => {
       if ((await clone.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(clone).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(clone).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -1322,7 +1322,7 @@ purchaseTest.describe("PR Template — Budget Code", () => {
       const tpl = new PRTemplatePage(page);
       await tpl.gotoNew();
       await tpl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(tpl.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(tpl.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 

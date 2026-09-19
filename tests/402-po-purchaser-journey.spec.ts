@@ -337,7 +337,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {  // ─ Blank method (4 TC
         return;
       }
       await submit.click({ timeout: 5_000 }).catch(() => {});
-      await expect(page).toHaveURL(/purchase-order\/(?!new$)/, { timeout: 15_000 }).catch(() => {});
+      await expect(page).toHaveURL(/purchase-order\/(?!new$)/, { timeout: 15_000 });
       // Fallback assertion: list page or detail page reached
       await expect(page).toHaveURL(new RegExp(LIST_PATH));
     },

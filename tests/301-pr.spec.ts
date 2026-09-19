@@ -148,7 +148,7 @@ requestorTest.describe("PR — Create", () => {
       await pr.openCreateDialog();
       await pr.fillHeader({ prType: "general", deliveryDate: PAST_DATE });
       await pr.saveDraftButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -173,7 +173,7 @@ requestorTest.describe("PR — Create", () => {
       await pr.gotoList();
       await pr.openCreateDialog();
       await pr.addLineItem({ product: "Zero Item", quantity: 0, uom: "ea", unitPrice: 0 });
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 });
@@ -256,7 +256,7 @@ requestorTest.describe("PR — Edit", () => {
         return;
       }
       await returnedRow.click();
-      await expect(pr.editButton()).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.editButton()).toBeDisabled({ timeout: 5_000 });
     },
   );
 
@@ -333,7 +333,7 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
       await pr.gotoList();
       await pr.openCreateDialog();
       await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -358,7 +358,7 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
       await pr.openCreateDialog();
       await pr.addLineItem({ product: "Large", quantity: 999999999, uom: "ea", unitPrice: 999999999 });
       await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -383,7 +383,7 @@ requestorTest.describe("PR — Submit — Requestor flows", () => {
       await pr.openCreateDialog();
       await pr.addLineItem({ product: "INVALID-ITEM-CODE-XYZ-9999", quantity: 1, uom: "ea", unitPrice: 1 });
       await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 });
@@ -410,7 +410,7 @@ fcTest.describe("PR — Submit — FC permission denial", () => {
         return;
       }
       await submitBtn.click({ timeout: 5_000 }).catch(() => {});
-      await expect(page.getByText(/insufficient|permission|not authorized/i).first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(page.getByText(/insufficient|permission|not authorized/i).first()).toBeVisible({ timeout: 5_000 });
     },
   );
 });
@@ -443,7 +443,7 @@ requestorTest.describe("PR — View — Requestor", () => {
         return;
       }
       await pendingRow.click();
-      await expect(pr.statusBadge()).toBeVisible({ timeout: 10_000 }).catch(() => {});
+      await expect(pr.statusBadge()).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -497,7 +497,7 @@ hodTest.describe("PR — View — Approver perspective", () => {
         return;
       }
       await approvedRow.click();
-      await expect(pr.statusBadge()).toBeVisible({ timeout: 10_000 }).catch(() => {});
+      await expect(pr.statusBadge()).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -526,7 +526,7 @@ hodTest.describe("PR — View — Approver perspective", () => {
         return;
       }
       await anyRow.click();
-      await expect(page.getByText(/attachment/i).first()).toBeVisible({ timeout: 10_000 }).catch(() => {});
+      await expect(page.getByText(/attachment/i).first()).toBeVisible({ timeout: 10_000 });
     },
   );
 });
@@ -654,7 +654,7 @@ fcTest.describe("PR — Approve — FC permission denial", () => {
         expect(true).toBe(true);
       } else {
         await approve.click().catch(() => {});
-        await expect(page.getByText(/insufficient|denied|not authorized/i).first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+        await expect(page.getByText(/insufficient|denied|not authorized/i).first()).toBeVisible({ timeout: 5_000 });
       }
     },
   );
@@ -722,7 +722,7 @@ hodTest.describe("PR — Reject", () => {
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(SHORT_REASON).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -752,7 +752,7 @@ hodTest.describe("PR — Reject", () => {
       await row.click();
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 });
@@ -787,7 +787,7 @@ fcTest.describe("PR — Reject — Permission denial", () => {
         expect(true).toBe(true);
       } else {
         await reject.click().catch(() => {});
-        await expect(page.getByText(/insufficient|permission|denied/i).first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+        await expect(page.getByText(/insufficient|permission|denied/i).first()).toBeVisible({ timeout: 5_000 });
       }
     },
   );
@@ -966,7 +966,7 @@ requestorTest.describe("PR — Cancel — Requestor", () => {
       if ((await cancel.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(cancel).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(cancel).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -998,7 +998,7 @@ fcTest.describe("PR — Cancel — Permission denial", () => {
         expect(true).toBe(true);
       } else {
         await cancel.click().catch(() => {});
-        await expect(page.getByText(/insufficient|permission/i).first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+        await expect(page.getByText(/insufficient|permission/i).first()).toBeVisible({ timeout: 5_000 });
       }
     },
   );
@@ -1182,7 +1182,7 @@ requestorTest.describe("PR — Comments", () => {
       await addComment.click().catch(() => {});
       const post = page.getByRole("button", { name: /post comment/i }).first();
       if ((await post.count()) > 0) await post.click().catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -1217,7 +1217,7 @@ requestorTest.describe("PR — Comments", () => {
       if ((await ta.count()) > 0) await ta.fill(LONG_TEXT_2001).catch(() => {});
       const post = page.getByRole("button", { name: /post comment/i }).first();
       if ((await post.count()) > 0) await post.click().catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 });
@@ -1313,7 +1313,7 @@ purchaseTest.describe("PR — Convert to PO — Purchase Staff", () => {
       if ((await vendor.count()) > 0) await vendor.fill("INVALID_VENDOR_XYZ");
       const create = page.getByRole("button", { name: /create po/i }).first();
       if ((await create.count()) > 0) await create.click().catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -1598,7 +1598,7 @@ requestorTest.describe("PR — Pricing visibility", () => {
       await pr.openCreateDialog();
       await pr.fillHeader({ deliveryDate: PAST_DATE });
       await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -1677,7 +1677,7 @@ requestorTest.describe("PR — Delivery details", () => {
       await pr.openCreateDialog();
       await pr.fillHeader({ deliveryDate: PAST_DATE });
       await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -2008,7 +2008,7 @@ hodTest.describe("PR — Return for revision", () => {
       await row.click();
       await pr.sendBackButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -2105,7 +2105,7 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
       }
       await row.click();
       await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -2134,7 +2134,7 @@ purchaseTest.describe("PR — Submit after vendor allocation", () => {
       }
       await row.click();
       await pr.submitButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -2261,7 +2261,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(SHORT_REASON).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -2291,7 +2291,7 @@ purchaseTest.describe("PR — Reject by Purchase Staff", () => {
       await row.click();
       await pr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -2752,7 +2752,7 @@ hodTest.describe("PR — Split", () => {
       if ((await split.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(split).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(split).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -2808,7 +2808,7 @@ hodTest.describe("PR — Split", () => {
       await pr.splitButton().click({ timeout: 5_000 }).catch(() => {});
       await pr.reasonInput().fill(SHORT_REASON).catch(() => {});
       await pr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(pr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 });

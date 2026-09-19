@@ -96,7 +96,7 @@ purchaseTest.describe("Store Requisition — Create", () => {
       await sr.gotoList();
       await sr.newRequisitionButton().click({ timeout: 5_000 }).catch(() => {});
       await sr.saveAsDraftButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(sr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(sr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -146,7 +146,7 @@ requestorTest.describe("Store Requisition — Create — Permission denial", () 
       if ((await btn.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(btn).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(btn).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -480,7 +480,7 @@ purchaseTest.describe("Store Requisition — Submit", () => {
       const sr = new StoreRequisitionPage(page);
       await sr.gotoNew();
       await sr.submitForApprovalButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(sr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(sr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 

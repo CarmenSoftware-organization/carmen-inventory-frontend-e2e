@@ -289,7 +289,7 @@ hodTest.describe("My Approvals — Reject from PR detail", () => {
       await openRecordFromRow(pendingRow);
       await ma.rejectButton().click({ timeout: 5_000 }).catch(() => {});
       await ma.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(ma.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(ma.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 

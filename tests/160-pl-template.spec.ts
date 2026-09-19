@@ -366,7 +366,7 @@ procurementManagerTest.describe("Pricelist Template — Edit", () => {
       await firstRow.click();
       await tpl.editButton().click({ timeout: 5_000 }).catch(() => {});
       await tpl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(tpl.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(tpl.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -777,7 +777,7 @@ procurementManagerTest.describe("Pricelist Template — Search and View", () => 
       await header.click().catch(() => {});
       await header.click().catch(() => {});
       // Asc → Desc; verify sort indicator if present
-      await expect(header).toHaveAttribute("aria-sort", /desc/i, { timeout: 5_000 }).catch(() => {});
+      await expect(header).toHaveAttribute("aria-sort", /desc/i, { timeout: 5_000 });
     },
   );
 });
