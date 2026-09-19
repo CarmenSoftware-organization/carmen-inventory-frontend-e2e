@@ -107,7 +107,7 @@ fcTest.describe("Step 2 — PO Detail (FC view)", () => {
       await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`));
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /in.progress/i })
           .first(),
       ).toBeVisible({ timeout: 10_000 });
@@ -395,7 +395,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level markin
       await po.confirmDialogButton(/confirm|approve|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /approved|sent/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });
@@ -552,7 +552,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level markin
       await po.confirmDialogButton(/confirm|reject|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /rejected/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });
@@ -632,7 +632,7 @@ fcTest.describe.serial("Golden Journey", () => {
       // Hard assertion
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /approved|sent/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });

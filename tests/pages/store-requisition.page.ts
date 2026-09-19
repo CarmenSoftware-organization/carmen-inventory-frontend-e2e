@@ -43,7 +43,7 @@ export class StoreRequisitionPage extends BasePage {
 
   pendingApprovalsBadge(): Locator {
     return this.page
-      .locator("[data-slot='badge'], [class*='badge']")
+      .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
       .filter({ hasText: /pending/i })
       .first();
   }
@@ -160,7 +160,7 @@ export class StoreRequisitionPage extends BasePage {
   // override: filters to SR-specific status text
   statusBadge(): Locator {
     return this.page
-      .locator("[data-slot='badge'], [class*='badge']")
+      .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
       .filter({ hasText: /draft|in.progress|approved|rejected|complete|ready.*issuance/i })
       .first();
   }

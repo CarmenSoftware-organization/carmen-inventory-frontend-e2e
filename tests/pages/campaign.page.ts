@@ -133,7 +133,7 @@ export class CampaignPage extends BasePage {
   // override: filters to campaign-specific status text
   statusBadge(): Locator {
     return this.page
-      .locator("[data-slot='badge'], [class*='badge']")
+      .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
       .filter({ hasText: /draft|active|expired|completed/i })
       .first();
   }

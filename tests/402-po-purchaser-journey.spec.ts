@@ -3,6 +3,7 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { PurchaseOrderPage, LIST_PATH } from "./pages/purchase-order.page";
 import {
   submitPOAsPurchaser,
+  createDraftPOAsPurchaser,
   seedApprovedPO,
   gotoPODetail,
 } from "./pages/po-approver.helpers";
@@ -529,7 +530,7 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
       ],
     },
     async ({ page, browser }) => {
-      const created = await submitPOAsPurchaser(browser);
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`));
     },
@@ -573,9 +574,13 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
+      // Must stay in Draft: submitting hands the creator role = "view_only" and
+      // Edit / Delete / Submit all disappear, so seeding with
+      // submitPOAsPurchaser made this assert something the app never shows.
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       await expect(po.editModeButton()).toBeVisible({ timeout: 10_000 });
+      await expect(po.submitButton()).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -628,7 +633,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       if ((await po.editModeButton().count()) === 0) {
         purchaseTest.skip(true, "Edit button not present");
@@ -652,7 +657,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       if ((await po.editModeButton().count()) === 0) {
         purchaseTest.skip(true, "Edit button not present");
@@ -679,7 +684,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       if ((await po.editModeButton().count()) === 0) {
         purchaseTest.skip(true, "Edit button not present");
@@ -705,7 +710,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       if ((await po.editModeButton().count()) === 0) {
         purchaseTest.skip(true, "Edit button not present");
@@ -730,7 +735,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       const submit = po.submitButton();
       if ((await submit.count()) === 0) {
@@ -857,7 +862,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
       await po.confirmDialogButton(/confirm|close|complete|yes/i).click({ timeout: 5_000 }).catch(() => {});
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /completed/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });
@@ -889,7 +894,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
       await po.confirmDialogButton(/confirm|close|void|yes/i).click({ timeout: 5_000 }).catch(() => {});
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /voided|cancelled/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });

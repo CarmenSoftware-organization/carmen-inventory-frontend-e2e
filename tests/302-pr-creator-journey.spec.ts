@@ -244,7 +244,7 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoNew();
       await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
-      const draftBadge = page.locator("[data-slot='badge'], [class*='badge']").filter({ hasText: /draft/i }).first();
+      const draftBadge = page.locator("[data-slot='status'], [data-slot='badge'], [class*='badge']").filter({ hasText: /draft/i }).first();
       if ((await draftBadge.count()) > 0) {
         await expect(draftBadge).toBeVisible();
       }

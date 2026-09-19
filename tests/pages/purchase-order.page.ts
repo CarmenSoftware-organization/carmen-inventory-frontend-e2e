@@ -38,7 +38,13 @@ export class PurchaseOrderPage extends BasePage {
 
   // ── List page ────────────────────────────────────────────────────────
   newPODropdown(): Locator {
-    return this.page.getByRole("button", { name: /new po|create purchase order|^create$/i }).first();
+    // The list header button reads "New Purchase Order". The old pattern had
+    // `new po`, which does not match that string (after "New P" comes "u"), so
+    // every test that opened the create picker sat on an un-clickable locator
+    // until its timeout.
+    return this.page
+      .getByRole("button", { name: /new purchase order|new po\b|create purchase order|^create$/i })
+      .first();
   }
 
   // The create picker is a dialog of plain <button> cards (po-create-dialog.tsx),
@@ -196,7 +202,7 @@ export class PurchaseOrderPage extends BasePage {
   // override: filters to PO-specific status text
   statusBadge(): Locator {
     return this.page
-      .locator("[data-slot='badge'], [class*='badge']")
+      .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
       .filter({ hasText: /draft|sent|approved|acknowledged|received|cancelled|completed|rejected/i })
       .first();
   }
@@ -443,7 +449,7 @@ export class PurchaseOrderPage extends BasePage {
   itemBadge(index: number, status?: string): Locator {
     const row = this.page.getByRole("row").nth(index + 1);
     const re = status ? new RegExp(status, "i") : /approved|review|rejected/i;
-    return row.locator("[data-slot='badge'], [class*='badge']").filter({ hasText: re }).first();
+    return row.locator("[data-slot='status'], [data-slot='badge'], [class*='badge']").filter({ hasText: re }).first();
   }
 
   // Document-level footer buttons — scoped to footer / dialog area to avoid

@@ -355,7 +355,7 @@ export class PurchaseRequestPage extends BasePage {
   // override: filters to PR-specific status text
   statusBadge(): Locator {
     return this.page
-      .locator("[data-slot='badge'], [class*='badge']")
+      .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
       .filter({ hasText: /draft|in.progress|approved|void|completed|returned|rejected|cancelled/i })
       .first();
   }
@@ -501,7 +501,7 @@ export class PurchaseRequestPage extends BasePage {
   async expectStatus(status: string) {
     await expect(
       this.page
-        .locator("[data-slot='badge'], [class*='badge']")
+        .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
         .filter({ hasText: new RegExp(status, "i") })
         .first(),
     ).toBeVisible({ timeout: 10_000 });

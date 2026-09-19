@@ -91,7 +91,7 @@ export class PeriodEndPage extends BasePage {
   // override: filters to period-end-specific status text
   statusBadge(): Locator {
     return this.page
-      .locator("[data-slot='badge'], [class*='badge']")
+      .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
       .filter({ hasText: /open|closed|in.progress|closing|closed/i })
       .first();
   }

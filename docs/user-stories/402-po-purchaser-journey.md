@@ -38,7 +38,7 @@ _Generated from `tests/402-po-purchaser-journey.spec.ts` annotations. Edit annot
 | TC-PO-060404 | Cancel edit (no unsaved changes) → exits without dialog | Medium | Functional |
 | TC-PO-060405 | Submit Draft PO → confirmation dialog → status moves to IN PROGRESS | High | CRUD |
 | TC-PO-060406 | Delete IN PROGRESS PO via Edit Mode | Medium | CRUD |
-| TC-PO-060501 | Approved PO has Send to Vendor + Close buttons (seeded via approveAsFC) | High | Functional |
+| TC-PO-060501 | Approved PO has Send to Vendor + Close buttons (seeded via seedApprovedPO) | High | Functional |
 | TC-PO-060502 | Click Send to Vendor → status updates / toast | High | CRUD |
 | TC-PO-060503 | Close PO with items received → COMPLETED | Medium | CRUD |
 | TC-PO-060504 | Close PO without items received → VOIDED | Medium | CRUD |
@@ -622,7 +622,7 @@ URL navigate กลับไปยัง list (PO ถูกลบ)
 
 ---
 
-## TC-PO-060501 — Approved PO has Send to Vendor + Close buttons (seeded via approveAsFC)
+## TC-PO-060501 — Approved PO has Send to Vendor + Close buttons (seeded via seedApprovedPO)
 
 > **As a** Purchase user, **I want** this Po Purchaser Journey interaction to behave as expected, **so that** the workflow stays predictable.
 
@@ -630,7 +630,7 @@ URL navigate กลับไปยัง list (PO ถูกลบ)
 
 **Preconditions**
 
-มี PO ที่ approved (seeded ผ่าน submitPOAsPurchaser + approveAsFC)
+มี PO ที่ approved (seeded ผ่าน seedApprovedPO: submit + FC + GM)
 
 **Steps**
 
@@ -741,4 +741,4 @@ URL ยังคงอยู่ที่ PO ref หลัง Send to Vendor (lif
 ---
 
 
-<sub>Last regenerated: 2026-09-18 · git c6d77eb</sub>
+<sub>Last regenerated: 2026-09-19 · git 4de147e</sub>

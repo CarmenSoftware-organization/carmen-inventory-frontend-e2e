@@ -42,6 +42,58 @@ async function withRoleContext<T>(
   }
 }
 
+/** Fill the PO form and save, leaving the record in Draft. Shared by the seeders. */
+async function createDraftOnPage(
+  page: Page,
+  opts: { description?: string; vendor?: string } | undefined,
+  who: string,
+): Promise<CreatedPO> {
+  const po = new PurchaseOrderPage(page);
+  await po.gotoNew();
+  await expect(page).toHaveURL(/purchase-order\/new/, { timeout: 10_000 });
+
+  if (opts?.vendor) {
+    const trigger = po.vendorTrigger();
+    if ((await trigger.count()) > 0) await trigger.fill(opts.vendor).catch(() => {});
+  }
+  const desc = po.descriptionInput();
+  if ((await desc.count()) > 0) {
+    await desc.fill(opts?.description ?? "[E2E-POP] approver-fixture").catch(() => {});
+  }
+  const date = po.deliveryDateInput();
+  if ((await date.count()) > 0) await date.fill(FUTURE_DATE).catch(() => {});
+
+  await po.addItemToPO({ product: "Test Item", quantity: 1, uom: "ea", unitPrice: 100 });
+
+  await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
+  await page.waitForURL(/purchase-order\/(?!new$)[^\/?#]+$/, { timeout: 15_000 }).catch(() => {});
+
+  const url = page.url();
+  if (url.endsWith("/new") || url.includes("/new?")) {
+    throw new Error(`${who}: save did not redirect — still on ${url}. PO was not created.`);
+  }
+  const ref = url.match(/purchase-order\/([^\/?#]+)/)?.[1];
+  if (!ref || ref === "new") {
+    throw new Error(`${who}: could not extract PO ref from URL: ${url}`);
+  }
+  return { ref, url };
+}
+
+/**
+ * Seed a PO that is still in **Draft**. Tests about the creator's own draft
+ * (Edit / Delete / Submit visible, edit-mode behaviour) need this: once a PO is
+ * submitted the backend hands its creator `role = "view_only"` and those buttons
+ * are gone, so seeding with submitPOAsPurchaser made them assert the impossible.
+ */
+export async function createDraftPOAsPurchaser(
+  browser: Browser,
+  opts?: { description?: string; vendor?: string },
+): Promise<CreatedPO> {
+  return await withRoleContext(browser, "purchase@blueledgers.com", (page) =>
+    createDraftOnPage(page, opts, "createDraftPOAsPurchaser"),
+  );
+}
+
 /**
  * Cross-context helper: opens a fresh BrowserContext, logs in as Purchaser,
  * creates a Draft PO with header + 1 item, submits it for approval, and
@@ -57,39 +109,7 @@ export async function submitPOAsPurchaser(
 ): Promise<CreatedPO> {
   return await withRoleContext(browser, "purchase@blueledgers.com", async (page) => {
     const po = new PurchaseOrderPage(page);
-    await po.gotoNew();
-    await expect(page).toHaveURL(/purchase-order\/new/, { timeout: 10_000 });
-
-    if (opts?.vendor) {
-      const trigger = po.vendorTrigger();
-      if ((await trigger.count()) > 0) await trigger.fill(opts.vendor).catch(() => {});
-    }
-    const desc = po.descriptionInput();
-    if ((await desc.count()) > 0) {
-      await desc.fill(opts?.description ?? "[E2E-POP] approver-fixture").catch(() => {});
-    }
-    const date = po.deliveryDateInput();
-    if ((await date.count()) > 0) await date.fill(FUTURE_DATE).catch(() => {});
-
-    await po.addItemToPO({
-      product: "Test Item",
-      quantity: 1,
-      uom: "ea",
-      unitPrice: 100,
-    });
-
-    await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
-    await page.waitForURL(/purchase-order\/(?!new$)[^\/?#]+$/, { timeout: 15_000 }).catch(() => {});
-
-    const url = page.url();
-    if (url.endsWith("/new") || url.includes("/new?")) {
-      throw new Error(`submitPOAsPurchaser: save did not redirect — still on ${url}. PO was not created.`);
-    }
-    const refMatch = url.match(/purchase-order\/([^\/?#]+)/);
-    const ref = refMatch?.[1];
-    if (!ref || ref === "new") {
-      throw new Error(`submitPOAsPurchaser: could not extract PO ref from URL: ${url}`);
-    }
+    const { ref, url } = await createDraftOnPage(page, opts, "submitPOAsPurchaser");
 
     // Submit for approval. Two things made this look like it worked while the PO
     // stayed in Draft:

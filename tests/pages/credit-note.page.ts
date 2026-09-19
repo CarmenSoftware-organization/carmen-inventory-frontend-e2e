@@ -140,7 +140,7 @@ export class CreditNotePage extends BasePage {
   // override: filters to credit-note-specific status text
   statusBadge(): Locator {
     return this.page
-      .locator("[data-slot='badge'], [class*='badge']")
+      .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
       .filter({ hasText: /draft|committed|void|open|closed|posted/i })
       .first();
   }
