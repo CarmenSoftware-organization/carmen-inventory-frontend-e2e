@@ -733,3 +733,39 @@ Confirm/OK/Yes** แต่ default regex ของ `confirmDialogButton()` ใ�
 | `401-po` | 19 | **0** |
 | `403-po-approver-journey` | 14 | 1 |
 | `201-my-approvals` | 8 | **0** |
+
+### H-6 — ปิด 15 ตัวสุดท้าย → **399 ผ่าน / 0 ล้ม / 252 skip** (12 สเปก, 30.3 นาที)
+
+| เคส | สาเหตุจริง |
+|---|---|
+| `TC-PO-070309` Send Back | dialog "Send for Review" ต้องเลือก **stage** ซึ่งเป็น radio ปุ่ม Send Back disabled จนกว่าจะเลือก และ `reasonInput()` ใน 3 page object ใช้ `getByRole("dialog")` ซึ่งไม่แมตช์ alertdialog ช่อง reason จึงไม่เคยถูกกรอก |
+| `TC-PO-060504` Close | ปิด PO แล้วได้ **CLOSED** ไม่ใช่ VOIDED — บิลด์นี้ไม่มีสถานะ voided สำหรับ PO เลย |
+| `TC-PO-060205` wizard | From Price List เป็นหน้าเต็ม ขั้นแรกชื่อ "Order & Vendor" ไม่ใช่ "Select Vendor"/"step 1" |
+| `TC-PO-060210` wizard | `getByRole("row").or(getByRole("checkbox")).nth(1)` เป็น union ที่ resolve ทั้งสอง role พร้อมกัน ไปลงที่แถว header จึงไม่เคยรายงานว่าไม่มีข้อมูล |
+| `TC-PT-060005` sort | หัวคอลัมน์ห่อปุ่มไว้ข้างใน คลิกที่ `<th>` ไม่เกิดอะไร และตารางนี้ **ไม่เคยตั้ง `aria-sort`** |
+| `TC-CAM-080001` delete | Delete เป็นปุ่มตรง ๆ ไม่ใช่ dropdown |
+| `TC-SR-010004` | ปุ่มจริงชื่อ "New Store Requisition" และฟอร์มใช้ "Save" ไม่ใช่ "Save as Draft" |
+| `TC-PR-030001` / `440001` | submit เปิด dialog ยืนยันที่ปุ่มชื่อ **Submit** ถ้าไม่กดก็ไม่มีอะไรถูกส่ง |
+| `TC-GRN-110003` | ตัวกรอง `/received/i` แมตช์แถว **header** (ตารางมีคอลัมน์ "Received By") |
+
+**สองกับดักเชิงโครงสร้างที่เจอระหว่างทาง**
+
+1. **แถว header ถูกนับเป็นข้อมูล** — scope การเลือกแถวเป็น `tbody` ทั้งหมด 103 จุด
+   ใน 12 สเปก และให้ `openRecordFromRow` โยน error ถ้าได้แถว header มา
+2. **ตารางว่างยัง render หนึ่งแถว** ("No data found") การเช็ค `count() === 0` จึง
+   ไม่มีวันเป็นจริง — เพิ่ม `recordRows()` ที่จับเฉพาะแถวที่มีลิงก์/ปุ่มของเอกสารจริง
+
+**timeout ที่ปรับขึ้นมีตัวเลขรองรับทุกครั้ง** `TC-PR-010002` / `TC-PR-440001` ล้มที่
+**30.1 วินาทีเป๊ะ** = budget หมด ไม่ใช่ค้าง (การสร้าง PR หนึ่งใบเดินทั้ง cascade แล้ว
+submit วัดได้ ~30 วินาที)
+
+**`TC-CAM-080001` ตั้ง fixme ทั้งที่แก้ให้ทำงานได้แล้ว** — พอมันลบจริง มันกินเรคคอร์ด
+Request-for-Pricing ตัวเดียวของ BU เทสต์อีก 8 ตัวหลังจากนั้นจึงเจอ list ว่าง และไม่มี
+flow สร้างให้ seed (`TC-CAM-020001` กรอกแค่ชื่อกับคำอธิบายแล้วไม่ได้เซฟ) ปลด fixme
+เมื่อเทสต์สร้าง campaign ที่จะลบเองได้
+
+### ผลรวมสุดท้าย
+
+| spec | ผ่าน | ล้ม |
+|---|---|---|
+| ทั้ง 12 สเปก | **399** | **0** |
