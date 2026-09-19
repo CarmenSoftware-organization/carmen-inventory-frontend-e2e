@@ -167,11 +167,14 @@ purchaseTest.describe("Price List — Create", () => {
     async ({ page }) => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
-      await pl.addNewButton().click({ timeout: 5_000 }).catch(() => {});
-      await pl.fillHeader({ number: `PL-E2E-${uid}`, validFrom: "2099-01-01" });
+      await pl.addNewButton().click({ timeout: 10_000 });
+      // Both dates are required — passing only validFrom left Effective To unset,
+      // so the save was blocked and no toast ever appeared. The swallowed click
+      // and swallowed toast assertion hid that from view.
+      await pl.fillHeader({ number: `PL-E2E-${uid}`, validFrom: "x", validTo: "x" });
       await pl.addLineItem({ product: "Test Product", moq: 10, unitPrice: 100, leadTime: 7 });
-      await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await pl.expectSavedToast().catch(() => {});
+      await pl.saveButton().click({ timeout: 10_000 });
+      await pl.expectSavedToast();
     },
   );
 
@@ -390,11 +393,12 @@ purchaseTest.describe("Price List — Edit", () => {
       await pl.gotoList();
       const row = page.getByRole("row").nth(1);
       expect(await row.count(), "No price list to edit").toBeGreaterThan(0);
-      await row.click();
-      await pl.editButton().click({ timeout: 5_000 }).catch(() => {});
+      // A <tr> is not clickable — open the record from its own button.
+      await row.getByRole("button").first().click({ timeout: 10_000 });
+      await pl.editButton().click({ timeout: 10_000 });
       await pl.fillHeader({ validFrom: "2099-02-01", validTo: "2099-12-31", notes: "edited by E2E" });
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await pl.expectSavedToast().catch(() => {});
+      await pl.expectSavedToast();
     },
   );
 
@@ -423,8 +427,9 @@ purchaseTest.describe("Price List — Edit", () => {
       await pl.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
-      await pl.editButton().click({ timeout: 5_000 }).catch(() => {});
+      // A <tr> is not clickable — open the record from its own button.
+      await row.getByRole("button").first().click({ timeout: 10_000 });
+      await pl.editButton().click({ timeout: 10_000 });
       await pl.fillHeader({ validFrom: "not-a-date", validTo: "also-bad" });
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(pl.anyError().first()).toBeVisible({ timeout: 5_000 });
@@ -436,7 +441,14 @@ purchaseTest.describe("Price List — Edit", () => {
 // TC-PL-900005 — Duplicate
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Price List — Duplicate", () => {
-  purchaseTest(
+  // Feature is gone from the UI — do not restore the silent version.
+  // Neither the row-actions menu (Activity / Delete only) nor the detail page
+  // (Edit / Delete / Activity) offers Duplicate or Mark-as-Expired any more, and
+  // no such wording appears on either screen. These only ever "passed" because
+  // both the action click and the toast assertion sat inside .catch(() => {}).
+  // Re-point them at whatever replaces the feature, or drop them — but do not let
+  // them assert nothing again.
+  purchaseTest.fixme(
     "TC-PL-050001 Happy Path - Duplicate Price List",
     {
       annotation: [
@@ -461,7 +473,7 @@ purchaseTest.describe("Price List — Duplicate", () => {
       await trigger.click().catch(() => {});
       await pl.actionMenuItem(/duplicate/i).click({ timeout: 5_000 }).catch(() => {});
       await pl.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await pl.expectSavedToast().catch(() => {});
+      await pl.expectSavedToast();
     },
   );
 
@@ -694,7 +706,14 @@ requestorTest.describe("Price List — Delete — Permission denial", () => {
 // TC-PL-900008 — Mark as Expired
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("Price List — Mark as Expired", () => {
-  purchaseTest(
+  // Feature is gone from the UI — do not restore the silent version.
+  // Neither the row-actions menu (Activity / Delete only) nor the detail page
+  // (Edit / Delete / Activity) offers Duplicate or Mark-as-Expired any more, and
+  // no such wording appears on either screen. These only ever "passed" because
+  // both the action click and the toast assertion sat inside .catch(() => {}).
+  // Re-point them at whatever replaces the feature, or drop them — but do not let
+  // them assert nothing again.
+  purchaseTest.fixme(
     "TC-PL-080001 Happy Path - Mark Price List as Expired",
     {
       annotation: [
@@ -712,13 +731,13 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
     async ({ page }) => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
-      const row = page.getByRole("row").filter({ hasText: /active|valid/i }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: /active|valid/i }).first();
       expect(await row.count(), "No active price list available").toBeGreaterThan(0);
       const trigger = row.getByRole("button", { name: /actions|more|menu/i }).first();
       expect(await trigger.count(), "Actions menu not exposed").toBeGreaterThan(0);
       await trigger.click().catch(() => {});
       await pl.actionMenuItem(/mark.*expired/i).click({ timeout: 5_000 }).catch(() => {});
-      await pl.expectSavedToast().catch(() => {});
+      await pl.expectSavedToast();
     },
   );
 
@@ -740,7 +759,7 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
     async ({ page }) => {
       const pl = new PriceListPage(page);
       await pl.gotoList();
-      const rows = page.getByRole("row").filter({ hasText: /active|valid/i });
+      const rows = page.locator("tbody").getByRole("row").filter({ hasText: /active|valid/i });
       const total = await rows.count();
       if (total < 2) {
         // A fixture gap, not a product failure: this BU's price lists are all

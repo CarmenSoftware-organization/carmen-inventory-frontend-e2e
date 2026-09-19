@@ -22,7 +22,12 @@ export class StoreRequisitionPage extends BasePage {
 
   // ── List page ────────────────────────────────────────────────────────
   newRequisitionButton(): Locator {
-    return this.page.getByRole("button", { name: /new requisition|^new$|^create$/i }).first();
+    // The list header button reads "New Store Requisition" — none of the old
+    // alternatives matched it, so every test that opened the create form was
+    // clicking nothing.
+    return this.page
+      .getByRole("button", { name: /new store requisition|new requisition|^new$|^create$/i })
+      .first();
   }
 
   sortByButton(): Locator {
@@ -93,7 +98,11 @@ export class StoreRequisitionPage extends BasePage {
 
   // ── Actions ──────────────────────────────────────────────────────────
   saveAsDraftButton(): Locator {
-    return this.page.getByRole("button", { name: /save as draft|save draft/i }).first();
+    // The create form's button is plain "Save" — there is no "Save as Draft" here
+    // (saving *is* what produces the draft; Submit is the separate action).
+    return this.page
+      .getByRole("button", { name: /save as draft|save draft|^save$/i })
+      .first();
   }
 
   saveAndCloseButton(): Locator {
@@ -134,8 +143,13 @@ export class StoreRequisitionPage extends BasePage {
 
   // ── Confirmation dialog ──────────────────────────────────────────────
   reasonInput(): Locator {
+    // Both roles: confirmation popups here are Radix AlertDialog, which
+    // getByRole("dialog") never matches — the reason box then stayed unfilled and
+    // the dialog's own confirm button stayed disabled. `.last()` skips the
+    // always-mounted Command Palette.
     return this.page
-      .getByRole("dialog")
+      .locator('[role="dialog"], [role="alertdialog"]')
+      .last()
       .locator("textarea, input[type='text']")
       .first();
   }

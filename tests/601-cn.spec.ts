@@ -1,6 +1,7 @@
 import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { CreditNotePage, LIST_PATH } from "./pages/credit-note.page";
+import { openRecordFromRow } from "./helpers/list-row";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Purchasing/Receiving role == purchase@blueledgers.com.
@@ -316,7 +317,7 @@ purchaseTest.describe("Credit Note — View Detail", () => {
         purchaseTest.skip(true, "No credit note to view");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
     },
   );
 
@@ -399,12 +400,12 @@ purchaseTest.describe("Credit Note — Edit", () => {
     async ({ page }) => {
       const cn = new CreditNotePage(page);
       await cn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) {
         purchaseTest.skip(true, "No draft CN to edit");
         return;
       }
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await cn.editButton().click({ timeout: 5_000 }).catch(() => {});
       const reason = cn.reasonInput();
       if ((await reason.count()) > 0) await reason.fill("Return of goods").catch(() => {});
@@ -432,9 +433,9 @@ purchaseTest.describe("Credit Note — Edit", () => {
     async ({ page }) => {
       const cn = new CreditNotePage(page);
       await cn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await cn.editButton().click({ timeout: 5_000 }).catch(() => {});
       const amt = cn.amountInput();
       if ((await amt.count()) > 0) await amt.fill("invalid amount").catch(() => {});
@@ -486,7 +487,7 @@ requestorTest.describe("Credit Note — Edit — Permission denial", () => {
       await cn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const edit = cn.editButton();
       // Either button is hidden (correct) or disabled
       if ((await edit.count()) === 0) {
@@ -520,9 +521,9 @@ purchaseTest.describe("Credit Note — Items & Lots", () => {
     async ({ page }) => {
       const cn = new CreditNotePage(page);
       await cn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await cn.addItemButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -589,7 +590,7 @@ requestorTest.describe("Credit Note — Items & Lots — Permission denial", () 
       await cn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const add = cn.addItemButton();
       // Either button is hidden (correct) or disabled
       if ((await add.count()) === 0) {
@@ -769,7 +770,7 @@ purchaseTest.describe("Credit Note — Comments & Attachments", () => {
       await cn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const addComment = cn.addCommentButton();
       if ((await addComment.count()) > 0) await addComment.click().catch(() => {});
     },
@@ -850,7 +851,7 @@ requestorTest.describe("Credit Note — Comments & Attachments — Permission de
       await cn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const addComment = cn.addCommentButton();
       // Either button is hidden (correct) or disabled
       if ((await addComment.count()) === 0) {
@@ -882,12 +883,12 @@ purchaseTest.describe("Credit Note — Commit", () => {
     async ({ page }) => {
       const cn = new CreditNotePage(page);
       await cn.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) {
         purchaseTest.skip(true, "No draft CN to commit");
         return;
       }
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await cn.commitButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -910,9 +911,9 @@ purchaseTest.describe("Credit Note — Commit", () => {
     async ({ page }) => {
       const cn = new CreditNotePage(page);
       await cn.gotoList();
-      const committedRow = page.getByRole("row").filter({ hasText: /committed/i }).first();
+      const committedRow = page.locator("tbody").getByRole("row").filter({ hasText: /committed/i }).first();
       if ((await committedRow.count()) === 0) return;
-      await committedRow.click();
+      await openRecordFromRow(committedRow);
       const commit = cn.commitButton();
       // Either button is hidden (correct) or disabled
       if ((await commit.count()) === 0) {
@@ -987,7 +988,7 @@ requestorTest.describe("Credit Note — Commit — Permission denial", () => {
       await cn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const commit = cn.commitButton();
       // Either button is hidden (correct) or disabled
       if ((await commit.count()) === 0) {
@@ -1021,9 +1022,9 @@ purchaseTest.describe("Credit Note — Void Committed", () => {
     async ({ page }) => {
       const cn = new CreditNotePage(page);
       await cn.gotoList();
-      const committedRow = page.getByRole("row").filter({ hasText: /committed/i }).first();
+      const committedRow = page.locator("tbody").getByRole("row").filter({ hasText: /committed/i }).first();
       if ((await committedRow.count()) === 0) return;
-      await committedRow.click();
+      await openRecordFromRow(committedRow);
       await cn.voidButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -1113,7 +1114,7 @@ requestorTest.describe("Credit Note — Void Committed — Permission denial", (
       await cn.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const voidBtn = cn.voidButton();
       // Either button is hidden (correct) or disabled
       if ((await voidBtn.count()) === 0) {

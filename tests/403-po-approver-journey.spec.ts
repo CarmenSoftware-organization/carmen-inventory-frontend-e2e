@@ -79,7 +79,7 @@ fcTest.describe("Step 1 — My Approval", () => {
         await page.goto("/procurement/purchase-requests/my-approvals");
       });
       await page.waitForLoadState("networkidle").catch(() => {});
-      const row = page.getByRole("row").filter({ hasText: created.ref }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: created.ref }).first();
       if ((await row.count()) === 0) {
         fcTest.skip(true, "Seeded PO not visible in FC My Approval list");
         return;
@@ -504,9 +504,24 @@ fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level markin
         return;
       }
       await sendBack.click({ timeout: 5_000 });
+
+      // The dialog ("Send for Review") asks for the **stage** to send back to and
+      // an optional reason. The stage is a radio, and the Send Back button stays
+      // disabled until one is chosen — filling only the reason left it disabled,
+      // which read as "the confirm button cannot be clicked" rather than "a
+      // required field is unset".
+      const dialog = page.locator('[role="dialog"], [role="alertdialog"]').last();
+      const stage = dialog.getByRole("radio").first();
+      if ((await stage.count()) > 0) await stage.check({ force: true, timeout: 10_000 });
+
       const reason = po.reasonInput();
-      if ((await reason.count()) > 0) await reason.fill(SEND_BACK_REASON).catch(() => {});
-      await po.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      if ((await reason.count()) > 0) {
+        await reason.fill(SEND_BACK_REASON, { timeout: 10_000 }).catch(() => {});
+      }
+
+      const confirm = po.confirmDialogButton(/^send back$|^send$|confirm|ok|yes/i);
+      await expect(confirm).toBeEnabled({ timeout: 10_000 });
+      await confirm.click({ timeout: 10_000 });
       await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 15_000 });
     },
   );

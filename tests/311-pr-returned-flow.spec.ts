@@ -245,7 +245,7 @@ requestorTest.describe("7c — Resubmit", () => {
         return;
       }
       await submit.click({ timeout: 5_000 });
-      await pr.confirmDialogButton(/confirm|submit|resubmit|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton(/confirm|submit|resubmit|ok|yes/i).click({ timeout: 5_000 });
       await expect(
         page
           .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
@@ -311,7 +311,7 @@ requestorTest.describe("7d — Edge cases", () => {
         return;
       }
       await del.click({ timeout: 5_000 });
-      await pr.confirmDialogButton(/confirm|delete|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton(/confirm|delete|yes/i).click({ timeout: 5_000 });
       await expect(page).toHaveURL(/\/procurement\/purchase-request($|\?)/, { timeout: 10_000 });
     },
   );
@@ -365,7 +365,7 @@ requestorTest.describe.serial("Golden Journey", () => {
         return;
       }
       await submit.click({ timeout: 5_000 });
-      await pr.confirmDialogButton(/confirm|submit|resubmit|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await pr.confirmDialogButton(/confirm|submit|resubmit|ok|yes/i).click({ timeout: 5_000 });
 
       // Step 7: Status In Progress
       await expect(

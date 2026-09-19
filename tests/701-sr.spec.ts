@@ -1,24 +1,8 @@
-import { expect, type Locator } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { StoreRequisitionPage, LIST_PATH } from "./pages/store-requisition.page";
+import { openRecordFromRow } from "./helpers/list-row";
 
-/**
- * Open the record a list row points at.
- *
- * A `<tr>` in this app is not clickable — the record opens from a link (or a
- * link-styled `<button>`) inside the row whose text is the document number. The
- * old `row.click()` therefore waited for a `<tr>` to become "actionable", and
- * with actionTimeout at 0 that burned the whole test timeout with nothing to
- * point at. Bounded on purpose.
- */
-async function openRecordFromRow(row: Locator): Promise<void> {
-  const link = row.getByRole("link").first();
-  if ((await link.count()) > 0) {
-    await link.click({ timeout: 10_000 });
-    return;
-  }
-  await row.getByRole("button").first().click({ timeout: 10_000 });
-}
 
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -123,7 +107,15 @@ purchaseTest.describe("Store Requisition — Create", () => {
 });
 
 requestorTest.describe("Store Requisition — Create — Permission denial", () => {
-  requestorTest(
+  // App finding, not a test bug — see D-5 in docs/sync-report-2026-09-18.md.
+  // "New Store Requisition" is present and **enabled** for requestor@, and that
+  // role opens /store-operation/store-requisition/new directly with no
+  // RESTRICTED page — this module has no client-side role gate, unlike Purchase
+  // Order whose /new route is wrapped in CreateWorkflowGate. The old body proved
+  // nothing either way (`expect(true).toBe(true)` on one branch). Whether store
+  // requisitions should be gated is a product decision; assert the answer once it
+  // is made.
+  requestorTest.fixme(
     "TC-SR-010002 Negative - User Not Assigned to Department",
     {
       annotation: [
@@ -174,7 +166,7 @@ purchaseTest.describe("Store Requisition — Add Items", () => {
     async ({ page }) => {
       const sr = new StoreRequisitionPage(page);
       await sr.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
       await sr.addItemButton().click({ timeout: 5_000 }).catch(() => {});
@@ -432,11 +424,18 @@ purchaseTest.describe("Store Requisition — Submit", () => {
     async ({ page }) => {
       const sr = new StoreRequisitionPage(page);
       await sr.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
       await openRecordFromRow(draftRow);
-      await sr.submitForApprovalButton().click({ timeout: 5_000 }).catch(() => {});
-      await sr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      // The action buttons render only when this role is the actor for the stage
+      // the requisition is sitting at. Say so rather than waiting out a confirm
+      // dialog that was never opened.
+      if ((await sr.submitForApprovalButton().count()) === 0) {
+        purchaseTest.skip(true, "Requisition offers no Submit for this role/stage");
+        return;
+      }
+      await sr.submitForApprovalButton().click({ timeout: 10_000 });
+      await sr.confirmDialogButton(/^submit$|confirm|ok|yes/i).click({ timeout: 10_000 });
     },
   );
 
@@ -665,11 +664,15 @@ purchaseTest.describe("Store Requisition — Approve", () => {
     async ({ page }) => {
       const sr = new StoreRequisitionPage(page);
       await sr.gotoList();
-      const inProgressRow = page.getByRole("row").filter({ hasText: /in.progress/i }).first();
+      const inProgressRow = page.locator("tbody").getByRole("row").filter({ hasText: /in.progress/i }).first();
       if ((await inProgressRow.count()) === 0) return;
       await openRecordFromRow(inProgressRow);
-      await sr.approveButton().click({ timeout: 5_000 }).catch(() => {});
-      await sr.confirmDialogButton(/^approve$/i).click({ timeout: 5_000 }).catch(() => {});
+      if ((await sr.approveButton().count()) === 0) {
+        purchaseTest.skip(true, "Requisition offers no Approve for this role/stage");
+        return;
+      }
+      await sr.approveButton().click({ timeout: 10_000 });
+      await sr.confirmDialogButton(/^approve$|confirm|ok|yes/i).click({ timeout: 10_000 });
     },
   );
 
@@ -988,12 +991,16 @@ purchaseTest.describe("Store Requisition — Reject", () => {
     async ({ page }) => {
       const sr = new StoreRequisitionPage(page);
       await sr.gotoList();
-      const inProgressRow = page.getByRole("row").filter({ hasText: /in.progress/i }).first();
+      const inProgressRow = page.locator("tbody").getByRole("row").filter({ hasText: /in.progress/i }).first();
       if ((await inProgressRow.count()) === 0) return;
       await openRecordFromRow(inProgressRow);
-      await sr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
+      if ((await sr.rejectButton().count()) === 0) {
+        purchaseTest.skip(true, "Requisition offers no Reject for this role/stage");
+        return;
+      }
+      await sr.rejectButton().click({ timeout: 10_000 });
       await sr.reasonInput().fill("Specific policy violation", { timeout: 10_000 }).catch(() => {});
-      await sr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
+      await sr.confirmDialogButton(/^reject$|confirm|ok|yes/i).click({ timeout: 10_000 });
     },
   );
 
@@ -1083,7 +1090,7 @@ purchaseTest.describe("Store Requisition — Issuance", () => {
     async ({ page }) => {
       const sr = new StoreRequisitionPage(page);
       await sr.gotoList();
-      const readyRow = page.getByRole("row").filter({ hasText: /ready.*issuance/i }).first();
+      const readyRow = page.locator("tbody").getByRole("row").filter({ hasText: /ready.*issuance/i }).first();
       if ((await readyRow.count()) === 0) return;
       await openRecordFromRow(readyRow);
       await sr.recordIssuanceButton().click({ timeout: 5_000 }).catch(() => {});

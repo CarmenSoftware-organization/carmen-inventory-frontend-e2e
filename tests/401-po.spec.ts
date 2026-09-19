@@ -1,6 +1,8 @@
 import { test as baseTest, expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { PurchaseOrderPage, LIST_PATH } from "./pages/purchase-order.page";
+import { seedApprovedPO, gotoPODetail } from "./pages/po-approver.helpers";
+import { openRecordFromRow } from "./helpers/list-row";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Purchasing Staff/Manager == purchase@blueledgers.com.
@@ -43,23 +45,27 @@ purchaseTest.describe("PO — Create from PR", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      await po.newPODropdown().click({ timeout: 5_000 }).catch(() => {});
+      await po.newPODropdown().click({ timeout: 10_000 });
       const fromPR = po.createFromPRMenuItem();
-      if ((await fromPR.count()) === 0) {
-        purchaseTest.skip(true, "Create from PR menu not exposed");
+      await expect(fromPR).toBeVisible({ timeout: 10_000 });
+      await fromPR.click({ timeout: 10_000 });
+      await expect(page).toHaveURL(/purchase-order\/from-pr/, { timeout: 15_000 });
+
+      // Count data rows, not every <tr>: the wizard renders a header row even
+      // when it has nothing to offer, so `getByRole("row").nth(1)` looked like
+      // data and the test walked on into a page with no PR to select. This BU
+      // currently holds no purchase requests at all (verified against
+      // /api/BLAVG/purchase-requests), so state the gap instead of failing on it.
+      const prRows = page.locator("tbody tr").filter({ hasText: /PR\d{6,}/ });
+      const available = await prRows.count();
+      if (available === 0) {
+        purchaseTest.skip(true, "No approved PR available to build a PO from");
         return;
       }
-      await fromPR.click().catch(() => {});
-      const firstPR = page.getByRole("row").nth(1);
-      if ((await firstPR.count()) === 0) {
-        purchaseTest.skip(true, "No approved PR available");
-        return;
-      }
-      // Bounded: a <tr> is not clickable in this app, and with actionTimeout at 0
-      // an un-timed click waits for it to become actionable until the test dies.
-      await firstPR.click({ timeout: 10_000 }).catch(() => {});
-      await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await po.expectSavedToast().catch(() => {});
+
+      await prRows.first().getByRole("button").first().click({ timeout: 10_000 });
+      await po.saveButton().click({ timeout: 10_000 });
+      await po.expectSavedToast();
     },
   );
 
@@ -190,11 +196,17 @@ purchaseTest.describe("PO — Create manual", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      await po.newPODropdown().click({ timeout: 5_000 }).catch(() => {});
+      await po.newPODropdown().click({ timeout: 10_000 });
       const manual = po.manualPOMenuItem();
-      if ((await manual.count()) > 0) await manual.click().catch(() => {});
-      await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await po.expectSavedToast().catch(() => {});
+      if ((await manual.count()) > 0) await manual.click({ timeout: 10_000 });
+      // "with Valid Data" — but the body used to fill nothing at all and then
+      // press Save, so the form was rejected and the toast never came. Both the
+      // click and the toast check were swallowed, so it read as a pass.
+      // addItemToPO drives the whole cascade: workflow, vendor, delivery date,
+      // then the line item.
+      await po.addItemToPO({ product: "Test Item", quantity: 1, uom: "ea", unitPrice: 100 });
+      await po.saveButton().click({ timeout: 10_000 });
+      await po.expectSavedToast();
     },
   );
 
@@ -334,18 +346,30 @@ purchaseTest.describe("PO — Send to Vendor", () => {
         { type: "testType", description: "Happy Path" },
       ],
     },
-    async ({ page }) => {
+    async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      await po.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
-      if ((await draftRow.count()) === 0) {
-        purchaseTest.skip(true, "No draft PO available");
-        return;
-      }
-      await draftRow.click();
-      await po.sendToVendorButton().click({ timeout: 5_000 }).catch(() => {});
-      await po.confirmDialogButton(/^send$|confirm/i).click({ timeout: 5_000 }).catch(() => {});
-      await po.expectSavedToast().catch(() => {});
+      // Seed a genuinely Approved PO: "Send to vendor" only exists once the
+      // document is approved, so the old body — which opened a *Draft* row and
+      // pressed a button that is not there — could never have worked. Both the
+      // click and the toast check were swallowed, so it read as a pass.
+      purchaseTest.setTimeout(180_000);
+      const created = await seedApprovedPO(browser, { description: "[E2E-PO] TC-PO-030001" });
+      await gotoPODetail(page, created.ref);
+
+      await expect(po.sendToVendorButton()).toBeVisible({ timeout: 15_000 });
+      await po.sendToVendorButton().click({ timeout: 10_000 });
+
+      // The action opens a compose dialog (sender profile, template, To, CC,
+      // subject, body) rather than a yes/no confirm. Assert that it opens and is
+      // bound to this PO.
+      const dialog = page.locator('[role="dialog"], [role="alertdialog"]').last();
+      await expect(dialog).toBeVisible({ timeout: 10_000 });
+      await expect(dialog).toContainText(/send purchase order to vendor/i);
+      await expect(dialog.getByRole("button", { name: /^send$/i })).toBeVisible();
+
+      // Deliberately not pressing Send: "To" comes up empty because this vendor
+      // has no email on file, and completing the flow would dispatch a real
+      // message. Finishing it needs a vendor fixture that carries an address.
     },
   );
 
@@ -371,9 +395,9 @@ purchaseTest.describe("PO — Send to Vendor", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await po.sendToVendorButton().click({ timeout: 5_000 }).catch(() => {});
       await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
@@ -397,9 +421,9 @@ purchaseTest.describe("PO — Send to Vendor", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
+      const draftRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await po.sendToVendorButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -422,12 +446,12 @@ purchaseTest.describe("PO — Send to Vendor", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const rejectedRow = page.getByRole("row").filter({ hasText: /rejected/i }).first();
+      const rejectedRow = page.locator("tbody").getByRole("row").filter({ hasText: /rejected/i }).first();
       if ((await rejectedRow.count()) === 0) {
         purchaseTest.skip(true, "No rejected PO available");
         return;
       }
-      await rejectedRow.click();
+      await openRecordFromRow(rejectedRow);
       const send = po.sendToVendorButton();
       // Either button is hidden/disabled (correct) or click yields error
       if ((await send.count()) === 0) {
@@ -461,12 +485,12 @@ purchaseTest.describe("PO — Change Order", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const approvedRow = page.getByRole("row").filter({ hasText: /^approved$/i }).first();
+      const approvedRow = page.locator("tbody").getByRole("row").filter({ hasText: /^approved$/i }).first();
       if ((await approvedRow.count()) === 0) {
         purchaseTest.skip(true, "No approved PO available");
         return;
       }
-      await approvedRow.click();
+      await openRecordFromRow(approvedRow);
       const change = po.requestChangeOrderButton();
       if ((await change.count()) === 0) {
         purchaseTest.skip(true, "Change Order UI not exposed");
@@ -474,8 +498,8 @@ purchaseTest.describe("PO — Change Order", () => {
       }
       await change.click().catch(() => {});
       await po.reasonInput().fill("Updated specifications").catch(() => {});
-      await po.confirmDialogButton(/submit|confirm/i).click({ timeout: 5_000 }).catch(() => {});
-      await po.expectSavedToast().catch(() => {});
+      await po.confirmDialogButton(/submit|confirm/i).click({ timeout: 5_000 });
+      await po.expectSavedToast();
     },
   );
 
@@ -497,13 +521,13 @@ purchaseTest.describe("PO — Change Order", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const approvedRow = page.getByRole("row").filter({ hasText: /^approved$/i }).first();
+      const approvedRow = page.locator("tbody").getByRole("row").filter({ hasText: /^approved$/i }).first();
       if ((await approvedRow.count()) === 0) return;
-      await approvedRow.click();
+      await openRecordFromRow(approvedRow);
       const change = po.requestChangeOrderButton();
       if ((await change.count()) === 0) return;
       await change.click().catch(() => {});
-      await po.confirmDialogButton(/submit/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/submit/i).click({ timeout: 5_000 });
       await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
@@ -526,12 +550,12 @@ purchaseTest.describe("PO — Change Order", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const sentRow = page.getByRole("row").filter({ hasText: /^sent$/i }).first();
+      const sentRow = page.locator("tbody").getByRole("row").filter({ hasText: /^sent$/i }).first();
       if ((await sentRow.count()) === 0) {
         purchaseTest.skip(true, "No sent PO available");
         return;
       }
-      await sentRow.click();
+      await openRecordFromRow(sentRow);
       const change = po.requestChangeOrderButton();
       // Either button is hidden/disabled (correct) or click yields error
       if ((await change.count()) === 0) {
@@ -564,7 +588,7 @@ requestorTest.describe("PO — Change Order — Permission denial", () => {
       await po.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const change = po.requestChangeOrderButton();
       // Either button is hidden (correct) or click yields permission error
       if ((await change.count()) === 0) {
@@ -580,7 +604,15 @@ requestorTest.describe("PO — Change Order — Permission denial", () => {
 // TC-PO-900005 — Cancel PO
 // ═════════════════════════════════════════════════════════════════════════
 purchaseTest.describe("PO — Cancel", () => {
-  purchaseTest(
+  // No such action exists any more — do not restore the silent version.
+  // An Approved PO offers Close / Send to vendor / More (Comment, Activity,
+  // Print); a Draft offers Edit / Delete / Submit. Nothing anywhere is called
+  // "Cancel Purchase Order" or "Void", so `cancelPOButton()` matches zero
+  // elements. The old body also opened the record by clicking a <tr>, which is
+  // not clickable here. It only ever "passed" because every step, including the
+  // toast assertion, sat inside .catch(() => {}). Re-point this at Close (or at
+  // Delete for a Draft) once the intended replacement is decided.
+  purchaseTest.fixme(
     "TC-PO-050001 Happy Path - Cancel Active Purchase Order",
     {
       annotation: [
@@ -598,16 +630,16 @@ purchaseTest.describe("PO — Cancel", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const activeRow = page.getByRole("row").filter({ hasText: /draft|sent|approved/i }).first();
+      const activeRow = page.locator("tbody").getByRole("row").filter({ hasText: /draft|sent|approved/i }).first();
       if ((await activeRow.count()) === 0) {
         purchaseTest.skip(true, "No active PO available");
         return;
       }
-      await activeRow.click();
+      await openRecordFromRow(activeRow);
       await po.cancelPOButton().click({ timeout: 5_000 }).catch(() => {});
       await po.reasonInput().fill("Order no longer needed").catch(() => {});
-      await po.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
-      await po.expectSavedToast().catch(() => {});
+      await po.confirmDialogButton().click({ timeout: 5_000 });
+      await po.expectSavedToast();
     },
   );
 
@@ -629,12 +661,12 @@ purchaseTest.describe("PO — Cancel", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const completedRow = page.getByRole("row").filter({ hasText: /completed/i }).first();
+      const completedRow = page.locator("tbody").getByRole("row").filter({ hasText: /completed/i }).first();
       if ((await completedRow.count()) === 0) {
         purchaseTest.skip(true, "No completed PO available");
         return;
       }
-      await completedRow.click();
+      await openRecordFromRow(completedRow);
       const cancel = po.cancelPOButton();
       // Either button is hidden/disabled (correct) or click yields error
       if ((await cancel.count()) === 0) {
@@ -663,9 +695,9 @@ purchaseTest.describe("PO — Cancel", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const sentRow = page.getByRole("row").filter({ hasText: /sent|shipped/i }).first();
+      const sentRow = page.locator("tbody").getByRole("row").filter({ hasText: /sent|shipped/i }).first();
       if ((await sentRow.count()) === 0) return;
-      await sentRow.click();
+      await openRecordFromRow(sentRow);
       await po.cancelPOButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -817,7 +849,7 @@ purchaseTest.describe("PO — QR Code", () => {
         purchaseTest.skip(true, "No PO available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
       const qr = po.qrCodeImage();
       if ((await qr.count()) === 0) {
         purchaseTest.skip(true, "QR Code section not exposed");
@@ -870,7 +902,7 @@ purchaseTest.describe("PO — QR Code", () => {
       await po.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       await page.reload();
       await page.waitForLoadState("networkidle");
     },

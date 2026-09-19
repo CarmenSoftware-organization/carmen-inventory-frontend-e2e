@@ -238,7 +238,7 @@ test.describe("Vendor — Create happy path", () => {
     try {
       await vendor.gotoList();
       await vendor.list.search(name);
-      const row = page.getByRole("row").filter({ hasText: name }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: name }).first();
       await row.getByRole("button", { name: /row actions|actions|more/i }).first().click({ timeout: 5_000 });
       await page.getByRole("menuitem", { name: /delete|trash|ลบ/i }).first().click({ timeout: 5_000 });
       await page.getByRole("alertdialog").getByRole("button", { name: /confirm|delete|ลบ|ok/i }).first().click({ timeout: 5_000 });
@@ -620,7 +620,7 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
     const vendor = new VendorPage(page);
     await vendor.gotoList();
     await vendor.list.search(NAME_UPDATED);
-    const row = page.getByRole("row").filter({ hasText: NAME_UPDATED }).first();
+    const row = page.locator("tbody").getByRole("row").filter({ hasText: NAME_UPDATED }).first();
 
     // Open row actions (dropdown)
     const actionsBtn = row.getByRole("button", { name: /row actions|actions|more/i }).first();
@@ -651,7 +651,7 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
     const vendor = new VendorPage(page);
     await vendor.gotoList();
     await vendor.list.search(NAME_UPDATED);
-    const row = page.getByRole("row").filter({ hasText: NAME_UPDATED }).first();
+    const row = page.locator("tbody").getByRole("row").filter({ hasText: NAME_UPDATED }).first();
 
     const actionsBtn = row.getByRole("button", { name: /row actions|actions|more/i }).first();
     await actionsBtn.click();
@@ -705,7 +705,7 @@ test.afterAll(async ({ browser }) => {
       try {
         await vendor.gotoList();
         await vendor.list.search(name);
-        const row = page.getByRole("row").filter({ hasText: name }).first();
+        const row = page.locator("tbody").getByRole("row").filter({ hasText: name }).first();
         if ((await row.count()) === 0) continue;
 
         const actionsBtn = row
@@ -869,7 +869,7 @@ adminTest.describe.serial("Vendor — admin@BLAVG CRUD", () => {
       const vendor = new VendorPage(page);
       await vendor.gotoList();
       await vendor.list.search(ADMIN_NAME_UPDATED);
-      const row = page.getByRole("row").filter({ hasText: ADMIN_NAME_UPDATED }).first();
+      const row = page.locator("tbody").getByRole("row").filter({ hasText: ADMIN_NAME_UPDATED }).first();
 
       const actionsBtn = row.getByRole("button", { name: /row actions|actions|more/i }).first();
       await actionsBtn.click();

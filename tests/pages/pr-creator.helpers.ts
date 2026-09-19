@@ -90,6 +90,6 @@ export async function deleteDraftPR(page: Page, ref: string): Promise<void> {
     await page.waitForLoadState("networkidle");
   }
   await pr.deleteButton().click({ timeout: 5_000 }).catch(() => {});
-  await pr.confirmDialogButton(/confirm|delete|yes/i).click({ timeout: 5_000 }).catch(() => {});
+  await pr.confirmDialogButton(/confirm|delete|yes/i).click({ timeout: 5_000 });
   await page.waitForURL(/\/procurement\/purchase-request($|\?)/, { timeout: 10_000 }).catch(() => {});
 }

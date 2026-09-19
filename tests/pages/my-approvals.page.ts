@@ -69,8 +69,29 @@ export class MyApprovalsPage extends BasePage {
     return this.page.getByRole("button", { name: /^approve$/i }).first();
   }
 
+  /**
+   * Approve / Reject / Send for Review exist **only in edit mode** on a PR detail
+   * — the view page offers just Edit and More. Call `enterEditMode()` first; a
+   * test that goes straight for this locator finds nothing and then times out on
+   * the confirm dialog that never opened.
+   */
   rejectButton(): Locator {
     return this.page.getByRole("button", { name: /^reject$/i }).first();
+  }
+
+  editModeButton(): Locator {
+    return this.page.getByRole("button", { name: /^edit$|edit pr|edit mode/i }).first();
+  }
+
+  async enterEditMode(): Promise<void> {
+    const edit = this.editModeButton();
+    await edit.waitFor({ state: "visible", timeout: 15_000 });
+    await edit.click({ timeout: 10_000 });
+    // The verdict buttons are the signal that edit mode is live.
+    await this.page
+      .getByRole("button", { name: /^reject$/i })
+      .first()
+      .waitFor({ state: "visible", timeout: 15_000 });
   }
 
   requestMoreInfoButton(): Locator {
@@ -78,8 +99,13 @@ export class MyApprovalsPage extends BasePage {
   }
 
   reasonInput(): Locator {
+    // Both roles: confirmation popups here are Radix AlertDialog, which
+    // getByRole("dialog") never matches — the reason box then stayed unfilled and
+    // the dialog's own confirm button stayed disabled. `.last()` skips the
+    // always-mounted Command Palette.
     return this.page
-      .getByRole("dialog")
+      .locator('[role="dialog"], [role="alertdialog"]')
+      .last()
       .locator("textarea, input[type='text']")
       .first();
   }
