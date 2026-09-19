@@ -169,4 +169,4 @@ User ถูก redirect ออกจาก /config/exchange-rate หรือ �
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git d32a234</sub>
+<sub>Last regenerated: 2026-09-19 · git 406597d</sub>

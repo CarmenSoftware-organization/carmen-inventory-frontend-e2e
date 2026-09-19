@@ -45,11 +45,11 @@ Login เป็น admin@blueledgers.com ผ่าน auth fixture
 
 **Steps**
 
-1. ไปที่ /config/certification
+1. ไปที่ /vendor-management/certification
 
 **Expected**
 
-URL ตรงกับ /config/certification; หน้า list render สำเร็จ
+URL ตรงกับ /vendor-management/certification; หน้า list render สำเร็จ
 
 ---
 
@@ -61,11 +61,11 @@ URL ตรงกับ /config/certification; หน้า list render สำเ
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/certification
+Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-management/certification
 
 **Steps**
 
-1. ไปที่ /config/certification
+1. ไปที่ /vendor-management/certification
 
 **Expected**
 
@@ -81,11 +81,11 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /config/certific
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/certification
+Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-management/certification
 
 **Steps**
 
-1. ไปที่ /config/certification
+1. ไปที่ /vendor-management/certification
 2. พิมพ์ 'test' ในช่องค้นหา
 
 **Expected**
@@ -102,11 +102,11 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /config/certific
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/certification
+Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-management/certification
 
 **Steps**
 
-1. ไปที่ /config/certification
+1. ไปที่ /vendor-management/certification
 2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)
 
 **Expected**
@@ -305,11 +305,11 @@ Delete dialog ปิดโดยไม่ลบ; record ยังปรากฏ
 
 **Preconditions**
 
-Logged in user with permission to access /config/certification; XSS dialog guard attached
+Logged in user with permission to access /vendor-management/certification; XSS dialog guard attached
 
 **Steps**
 
-1. เปิด list /config/certification
+1. เปิด list /vendor-management/certification
 2. คลิก Add เพื่อเปิด dialog
 3. กรอก name ด้วย XSS payload "<script>alert('xss-e2e')</script>"
 4. กด Save
@@ -328,11 +328,11 @@ Logged in user with permission to access /config/certification; XSS dialog guard
 
 **Preconditions**
 
-Logged in user with permission to access /config/certification
+Logged in user with permission to access /vendor-management/certification
 
 **Steps**
 
-1. เปิด list /config/certification
+1. เปิด list /vendor-management/certification
 2. พิมพ์ SQL injection payload "'; DROP TABLE users; --" ลงในช่องค้นหา
 
 **Expected**
@@ -349,11 +349,11 @@ Logged in user with permission to access /config/certification
 
 **Preconditions**
 
-Logged in user with permission to access /config/certification
+Logged in user with permission to access /vendor-management/certification
 
 **Steps**
 
-1. เปิด list /config/certification
+1. เปิด list /vendor-management/certification
 2. คลิก Add เพื่อเปิด dialog
 3. กรอก name ด้วย string ยาว 200 ตัวอักษร ('a' x 200)
 
@@ -371,17 +371,17 @@ Logged in user with permission to access /config/certification
 
 **Preconditions**
 
-Test user requestor@blueledgers.com (low-privilege role) มีอยู่จริง; module list path = /config/certification
+Test user requestor@blueledgers.com (low-privilege role) มีอยู่จริง; module list path = /vendor-management/certification
 
 **Steps**
 
 1. เปิด browser context ใหม่
 2. login เป็น requestor@blueledgers.com
-3. ไปที่ /config/certification
+3. ไปที่ /vendor-management/certification
 
 **Expected**
 
-User ถูก redirect ออกจาก /config/certification หรือ ปุ่ม Add ไม่ปรากฏ (count = 0)
+User ถูก redirect ออกจาก /vendor-management/certification หรือ ปุ่ม Add ไม่ปรากฏ (count = 0)
 
 ---
 
@@ -393,7 +393,7 @@ User ถูก redirect ออกจาก /config/certification หรือ �
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/certification
+Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-management/certification
 
 **Steps**
 
@@ -453,4 +453,4 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git c0e11cb</sub>
+<sub>Last regenerated: 2026-09-19 · git 406597d</sub>

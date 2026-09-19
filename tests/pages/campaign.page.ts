@@ -22,7 +22,12 @@ export class CampaignPage extends BasePage {
 
   // ── List page ────────────────────────────────────────────────────────
   newCampaignButton(): Locator {
-    return this.page.getByRole("button", { name: /create new campaign|new campaign|^new$|^create$/i }).first();
+    // The module is "Request for Pricing" in the UI and its create button reads
+    // "New Price Request" — none of the old alternatives matched it, so every
+    // test that opened the create flow worked against an empty locator.
+    return this.page
+      .getByRole("button", { name: /new price request|create new campaign|new campaign|^new$|^create$/i })
+      .first();
   }
 
   statusFilter(): Locator {
@@ -113,15 +118,27 @@ export class CampaignPage extends BasePage {
   }
 
   // ── Confirmation dialog ──────────────────────────────────────────────
+  /**
+   * Confirmations in this app are Radix **AlertDialog** — `role="alertdialog"`,
+   * which `getByRole("dialog")` does NOT match. This resolved to nothing, and
+   * since almost every call site wraps the click in `.catch(() => {})`, the step
+   * silently did nothing: PO Submit left the record in Draft while reporting
+   * success. Match both roles, and take `.last()` so the always-mounted Command
+   * Palette (also a dialog) never wins.
+   */
   confirmDialogButton(name: RegExp = /confirm|delete|ok|yes|send/i): Locator {
-    return this.page.getByRole("dialog").getByRole("button", { name }).first();
+    return this.page
+      .locator('[role="dialog"], [role="alertdialog"]')
+      .last()
+      .getByRole("button", { name })
+      .first();
   }
 
   // ── Verification ─────────────────────────────────────────────────────
   // override: filters to campaign-specific status text
   statusBadge(): Locator {
     return this.page
-      .locator("[data-slot='badge'], [class*='badge']")
+      .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
       .filter({ hasText: /draft|active|expired|completed/i })
       .first();
   }

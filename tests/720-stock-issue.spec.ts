@@ -207,7 +207,7 @@ purchaseTest.describe("Stock Issue — Search & Filter", () => {
       await si.gotoList();
       const search = si.searchInput();
       if ((await search.count()) > 0) await search.fill("__INVALID_SR_E2E__").catch(() => {});
-      await expect(si.emptyState()).toBeVisible({ timeout: 10_000 }).catch(() => {});
+      await expect(si.emptyState()).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -509,7 +509,16 @@ purchaseTest.describe("Stock Issue — Print", () => {
 });
 
 requestorTest.describe("Stock Issue — Print — Permission denial", () => {
-  requestorTest(
+    // App finding, not a test bug — do not restore the silent version.
+  // The button is present and **enabled** for this role; the assertion only ever
+  // "passed" because it was wrapped in .catch(() => {}) (the other branch was the
+  // equally empty `expect(true).toBe(true)`). These modules have no client-side
+  // role gate at all: unlike Purchase Order, whose /new route is wrapped in
+  // `CreateWorkflowGate` and answers "RESTRICTED — Permission Denied", the
+  // vendor-management routes carry no guard, and requestor@ can open the create
+  // form directly. Whether that is intended is a product decision — un-fixme once
+  // it is settled, and assert whatever the answer turns out to be.
+requestorTest.fixme(
     "TC-SI-050002 Negative: User without permission attempts to print",
     {
       annotation: [
@@ -535,7 +544,7 @@ requestorTest.describe("Stock Issue — Print — Permission denial", () => {
       if ((await print.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(print).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(print).toBeDisabled({ timeout: 5_000 });
       }
     },
   );

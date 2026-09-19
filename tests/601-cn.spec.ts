@@ -195,7 +195,7 @@ purchaseTest.describe("Credit Note — Create from GRN", () => {
       const cn = new CreditNotePage(page);
       await cn.gotoNew();
       await cn.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(cn.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(cn.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -267,7 +267,7 @@ purchaseTest.describe("Credit Note — Create (additional)", () => {
       const amount = cn.amountInput();
       if ((await amount.count()) > 0) await amount.fill("100").catch(() => {});
       await cn.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(cn.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(cn.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -439,7 +439,7 @@ purchaseTest.describe("Credit Note — Edit", () => {
       const amt = cn.amountInput();
       if ((await amt.count()) > 0) await amt.fill("invalid amount").catch(() => {});
       await cn.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(cn.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(cn.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -492,7 +492,7 @@ requestorTest.describe("Credit Note — Edit — Permission denial", () => {
       if ((await edit.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(edit).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(edit).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -595,7 +595,7 @@ requestorTest.describe("Credit Note — Items & Lots — Permission denial", () 
       if ((await add.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(add).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(add).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -717,7 +717,7 @@ purchaseTest.describe("Credit Note — Credit Reason & Description", () => {
       const cn = new CreditNotePage(page);
       await cn.gotoNew();
       await cn.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(cn.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(cn.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -918,7 +918,7 @@ purchaseTest.describe("Credit Note — Commit", () => {
       if ((await commit.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(commit).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(commit).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -993,7 +993,7 @@ requestorTest.describe("Credit Note — Commit — Permission denial", () => {
       if ((await commit.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(commit).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(commit).toBeDisabled({ timeout: 5_000 });
       }
     },
   );

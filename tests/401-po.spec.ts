@@ -55,7 +55,9 @@ purchaseTest.describe("PO — Create from PR", () => {
         purchaseTest.skip(true, "No approved PR available");
         return;
       }
-      await firstPR.click();
+      // Bounded: a <tr> is not clickable in this app, and with actionTimeout at 0
+      // an un-timed click waits for it to become actionable until the test dies.
+      await firstPR.click({ timeout: 10_000 }).catch(() => {});
       await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
       await po.expectSavedToast().catch(() => {});
     },
@@ -90,7 +92,14 @@ purchaseTest.describe("PO — Create from PR", () => {
     },
   );
 
-  purchaseTest(
+  // The body never assigned a vendor at all — it opened the From-PR wizard,
+  // clicked a row, pressed Save and asserted "some error is visible", with every
+  // step swallowed by .catch(). It only ever "passed" because the assertion was
+  // swallowed too. The scenario is also not reachable through this UI: the vendor
+  // is picked from a dialog of existing vendor cards, so an invalid one cannot be
+  // entered. Rewrite it against a reachable case (e.g. saving with no vendor
+  // chosen) or drop it — do not restore the silent version.
+  purchaseTest.fixme(
     "TC-PO-010004 Negative - Invalid Vendor Assignment",
     {
       annotation: [
@@ -114,9 +123,11 @@ purchaseTest.describe("PO — Create from PR", () => {
       await fromPR.click().catch(() => {});
       const firstPR = page.getByRole("row").nth(1);
       if ((await firstPR.count()) === 0) return;
-      await firstPR.click();
+      // Bounded: a <tr> is not clickable in this app, and with actionTimeout at 0
+      // an un-timed click waits for it to become actionable until the test dies.
+      await firstPR.click({ timeout: 10_000 }).catch(() => {});
       await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 });
@@ -131,7 +142,7 @@ requestorTest.describe("PO — Create from PR — Permission denial", () => {
           type: "steps",
           description: "1. ไปที่ /procurement/purchase-order\n2. กดปุ่ม dropdown 'New PO'\n3. เลือก 'Create from Purchase Requests'",
         },
-        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ" },
+        { type: "expected", description: "ปุ่ม New Purchase Order แสดงแต่ถูก disable และการเปิด /purchase-order/new ตรง ๆ ได้หน้า RESTRICTED — Permission Denied" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Negative" },
       ],
@@ -139,13 +150,20 @@ requestorTest.describe("PO — Create from PR — Permission denial", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const btn = po.newPODropdown();
-      // Either button is hidden (correct) or click yields permission error
-      if ((await btn.count()) === 0) {
-        expect(true).toBe(true);
-      } else {
-        await btn.click().catch(() => {});
-      }
+
+      // The app keeps the button in the toolbar but disables it for roles that
+      // cannot create a PO — it never hides it. The old body asserted nothing
+      // (`expect(true).toBe(true)` on one branch, a swallowed click on the
+      // other) and only "passed" because the locator matched no element at all.
+      // Clicking a disabled button is also the actionTimeout=0 hang.
+      await expect(po.newPODropdown()).toBeVisible({ timeout: 10_000 });
+      await expect(po.newPODropdown()).toBeDisabled({ timeout: 10_000 });
+
+      // ...and the route itself is guarded, not just the button.
+      await page.goto("/procurement/purchase-order/new");
+      await expect(
+        page.getByText(/permission denied|restricted/i).first(),
+      ).toBeVisible({ timeout: 10_000 });
     },
   );
 });
@@ -204,7 +222,7 @@ purchaseTest.describe("PO — Create manual", () => {
       const vendor = po.vendorTrigger();
       if ((await vendor.count()) > 0) await vendor.fill("__NONEXISTENT_VENDOR__").catch(() => {});
       await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -230,7 +248,7 @@ purchaseTest.describe("PO — Create manual", () => {
       const manual = po.manualPOMenuItem();
       if ((await manual.count()) > 0) await manual.click().catch(() => {});
       await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -271,7 +289,7 @@ requestorTest.describe("PO — Create manual — Permission denial", () => {
           description:
             "1. ไปที่ /procurement/purchase-order\n2. กด 'Create Purchase Order' แล้วกดปุ่ม 'Manual PO'",
         },
-        { type: "expected", description: "ระบบแสดงข้อความแจ้งข้อผิดพลาดว่าสิทธิ์ไม่เพียงพอ" },
+        { type: "expected", description: "ปุ่ม New Purchase Order แสดงแต่ถูก disable และการเปิด /purchase-order/new ตรง ๆ ได้หน้า RESTRICTED — Permission Denied" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Negative" },
       ],
@@ -279,13 +297,20 @@ requestorTest.describe("PO — Create manual — Permission denial", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const btn = po.newPODropdown();
-      // Either button is hidden (correct) or click yields permission error
-      if ((await btn.count()) === 0) {
-        expect(true).toBe(true);
-      } else {
-        await btn.click().catch(() => {});
-      }
+
+      // The app keeps the button in the toolbar but disables it for roles that
+      // cannot create a PO — it never hides it. The old body asserted nothing
+      // (`expect(true).toBe(true)` on one branch, a swallowed click on the
+      // other) and only "passed" because the locator matched no element at all.
+      // Clicking a disabled button is also the actionTimeout=0 hang.
+      await expect(po.newPODropdown()).toBeVisible({ timeout: 10_000 });
+      await expect(po.newPODropdown()).toBeDisabled({ timeout: 10_000 });
+
+      // ...and the route itself is guarded, not just the button.
+      await page.goto("/procurement/purchase-order/new");
+      await expect(
+        page.getByText(/permission denied|restricted/i).first(),
+      ).toBeVisible({ timeout: 10_000 });
     },
   );
 });
@@ -324,7 +349,11 @@ purchaseTest.describe("PO — Send to Vendor", () => {
     },
   );
 
-  purchaseTest(
+  // Same shape: the body opened a **Draft** PO and pressed "Send to Vendor",
+  // which a Draft never shows — the click was swallowed, then so was the
+  // assertion. Exercising this needs an Approved PO whose vendor has no email on
+  // file, which this suite has no fixture for.
+  purchaseTest.fixme(
     "TC-PO-030002 Negative - Missing Vendor Email",
     {
       annotation: [
@@ -346,7 +375,7 @@ purchaseTest.describe("PO — Send to Vendor", () => {
       if ((await draftRow.count()) === 0) return;
       await draftRow.click();
       await po.sendToVendorButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -404,7 +433,7 @@ purchaseTest.describe("PO — Send to Vendor", () => {
       if ((await send.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(send).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(send).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -475,7 +504,7 @@ purchaseTest.describe("PO — Change Order", () => {
       if ((await change.count()) === 0) return;
       await change.click().catch(() => {});
       await po.confirmDialogButton(/submit/i).click({ timeout: 5_000 }).catch(() => {});
-      await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(po.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -508,7 +537,7 @@ purchaseTest.describe("PO — Change Order", () => {
       if ((await change.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(change).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(change).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -611,7 +640,7 @@ purchaseTest.describe("PO — Cancel", () => {
       if ((await cancel.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(cancel).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(cancel).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -794,7 +823,7 @@ purchaseTest.describe("PO — QR Code", () => {
         purchaseTest.skip(true, "QR Code section not exposed");
         return;
       }
-      await expect(qr).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(qr).toBeVisible({ timeout: 5_000 });
     },
   );
 

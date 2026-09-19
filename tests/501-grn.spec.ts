@@ -177,7 +177,7 @@ purchaseTest.describe("GRN — Filter / Search", () => {
       await grn.gotoList();
       const search = grn.searchInput();
       if ((await search.count()) > 0) await search.fill("__NONEXISTENT_GRN_E2E__");
-      await expect(grn.emptyState()).toBeVisible({ timeout: 10_000 }).catch(() => {});
+      await expect(grn.emptyState()).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -490,7 +490,7 @@ purchaseTest.describe("GRN — Manual creation", () => {
       const grn = new GRNPage(page);
       await grn.gotoNew();
       await grn.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(grn.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(grn.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -631,7 +631,7 @@ purchaseTest.describe("GRN — Edit Header", () => {
       const inv = grn.invoiceNumberInput();
       if ((await inv.count()) > 0) await inv.fill("").catch(() => {});
       await grn.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(grn.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(grn.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -691,7 +691,7 @@ requestorTest.describe("GRN — Edit Header — Permission denial", () => {
       if ((await edit.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(edit).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(edit).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -756,7 +756,7 @@ purchaseTest.describe("GRN — Add Line Item", () => {
       if ((await items.count()) > 0) await items.click().catch(() => {});
       await grn.addItemButton().click({ timeout: 5_000 }).catch(() => {});
       await grn.saveButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(grn.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(grn.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -817,7 +817,7 @@ requestorTest.describe("GRN — Add Line Item — Permission denial", () => {
       if ((await add.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(add).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(add).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -924,7 +924,7 @@ purchaseTest.describe("GRN — Edit Line Item", () => {
       if ((await edit.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(edit).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(edit).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -1138,7 +1138,7 @@ requestorTest.describe("GRN — Extra Costs — Permission denial", () => {
       if ((await extra.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(extra).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(extra).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -1198,7 +1198,7 @@ purchaseTest.describe("GRN — Commit", () => {
       if ((await receivedRow.count()) === 0) return;
       await receivedRow.click();
       await grn.commitButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(grn.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(grn.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -1251,7 +1251,7 @@ requestorTest.describe("GRN — Commit — Permission denial", () => {
       if ((await commit.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(commit).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(commit).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -1360,7 +1360,7 @@ requestorTest.describe("GRN — Void — Permission denial", () => {
       if ((await voidBtn.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(voidBtn).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(voidBtn).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -1605,7 +1605,7 @@ purchaseTest.describe("GRN — Comments", () => {
       const tab = grn.commentsTab();
       if ((await tab.count()) > 0) await tab.click().catch(() => {});
       await grn.addCommentButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(grn.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(grn.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -1809,7 +1809,7 @@ requestorTest.describe("GRN — Attachments — Permission denial", () => {
       if ((await upload.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(upload).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(upload).toBeDisabled({ timeout: 5_000 });
       }
     },
   );

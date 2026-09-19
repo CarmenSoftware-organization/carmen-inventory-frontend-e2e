@@ -3,7 +3,8 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { PurchaseOrderPage, LIST_PATH } from "./pages/purchase-order.page";
 import {
   submitPOAsPurchaser,
-  approveAsFC,
+  createDraftPOAsPurchaser,
+  seedApprovedPO,
   gotoPODetail,
 } from "./pages/po-approver.helpers";
 
@@ -128,8 +129,7 @@ purchaseTest.describe("Step 1 — PO List", () => {
   );
 });
 
-purchaseTest.describe("Step 2 — Create PO", () => {
-  // ─ Blank method (4 TCs) ─────────────────────────────────────────────
+purchaseTest.describe("Step 2 — Create PO", () => {  // ─ Blank method (4 TCs) ─────────────────────────────────────────────
   purchaseTest(
     "TC-PO-060201 Open Create dropdown → Blank → form loads",
     {
@@ -255,7 +255,11 @@ purchaseTest.describe("Step 2 — Create PO", () => {
       await item.click();
       // Wizard either opens a dialog or navigates; assert one or the other occurred
       await expect(
-        page.getByRole("dialog").or(page.getByText(/select vendor|step 1/i)).first(),
+        page
+          .locator('[role="dialog"], [role="alertdialog"]')
+          .last()
+          .or(page.getByText(/select vendor|step 1/i).first())
+          .first(),
       ).toBeVisible({ timeout: 10_000 });
     },
   );
@@ -333,7 +337,7 @@ purchaseTest.describe("Step 2 — Create PO", () => {
         return;
       }
       await submit.click({ timeout: 5_000 }).catch(() => {});
-      await expect(page).toHaveURL(/purchase-order\/(?!new$)/, { timeout: 15_000 }).catch(() => {});
+      await expect(page).toHaveURL(/purchase-order\/(?!new$)/, { timeout: 15_000 });
       // Fallback assertion: list page or detail page reached
       await expect(page).toHaveURL(new RegExp(LIST_PATH));
     },
@@ -399,7 +403,11 @@ purchaseTest.describe("Step 2 — Create PO", () => {
       }
       await item.click();
       await expect(
-        page.getByRole("dialog").or(page.getByText(/select.*pr|purchase request|step 1/i)).first(),
+        page
+          .locator('[role="dialog"], [role="alertdialog"]')
+          .last()
+          .or(page.getByText(/select.*pr|purchase request|step 1/i).first())
+          .first(),
       ).toBeVisible({ timeout: 10_000 });
     },
   );
@@ -530,7 +538,7 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
       ],
     },
     async ({ page, browser }) => {
-      const created = await submitPOAsPurchaser(browser);
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`));
     },
@@ -574,9 +582,13 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
+      // Must stay in Draft: submitting hands the creator role = "view_only" and
+      // Edit / Delete / Submit all disappear, so seeding with
+      // submitPOAsPurchaser made this assert something the app never shows.
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       await expect(po.editModeButton()).toBeVisible({ timeout: 10_000 });
+      await expect(po.submitButton()).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -629,7 +641,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       if ((await po.editModeButton().count()) === 0) {
         purchaseTest.skip(true, "Edit button not present");
@@ -653,7 +665,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       if ((await po.editModeButton().count()) === 0) {
         purchaseTest.skip(true, "Edit button not present");
@@ -680,7 +692,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       if ((await po.editModeButton().count()) === 0) {
         purchaseTest.skip(true, "Edit button not present");
@@ -694,27 +706,35 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
   );
 
   purchaseTest(
-    "TC-PO-060404 Cancel edit (no unsaved changes) → exits without dialog",
+    "TC-PO-060404 Cancel edit → ยืนยัน Discard แล้วกลับสู่ view mode",
     {
       annotation: [
         { type: "preconditions", description: "edit mode active บน Draft PO โดยไม่มีการเปลี่ยนแปลงที่พิมพ์" },
         { type: "steps", description: "1. เข้าสู่ edit mode\n2. กด Cancel โดยไม่ทำการเปลี่ยนแปลง" },
-        { type: "expected", description: "Form กลับสู่ view mode (ปุ่ม Edit visible อีกครั้ง)" },
+        { type: "expected", description: "มี dialog ยืนยัน Keep editing/Discard เสมอแม้ไม่ได้แก้อะไร; กด Discard แล้วกลับสู่ view mode (ปุ่ม Edit visible, ปุ่ม Save หาย)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
       ],
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       if ((await po.editModeButton().count()) === 0) {
         purchaseTest.skip(true, "Edit button not present");
         return;
       }
       await po.enterEditMode();
+      // The app prompts "Keep editing / Discard" even with nothing changed —
+      // entering edit mode alone marks the form dirty. The old title promised
+      // "exits without dialog", which this build never does.
       await po.cancelEditMode();
       await expect(po.editModeButton()).toBeVisible({ timeout: 10_000 });
+      // Match Save exactly: po.saveButton() also accepts "Submit", which a Draft
+      // legitimately still shows in view mode.
+      await expect(
+        page.getByRole("button", { name: /^save$/i }).first(),
+      ).toBeHidden({ timeout: 10_000 });
     },
   );
 
@@ -731,7 +751,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
+      const created = await createDraftPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
       const submit = po.submitButton();
       if ((await submit.count()) === 0) {
@@ -778,10 +798,10 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
 
 purchaseTest.describe("Step 5 — Post-approval", () => {
   purchaseTest(
-    "TC-PO-060501 Approved PO has Send to Vendor + Close buttons (seeded via approveAsFC)",
+    "TC-PO-060501 Approved PO has Send to Vendor + Close buttons (seeded via seedApprovedPO)",
     {
       annotation: [
-        { type: "preconditions", description: "มี PO ที่ approved (seeded ผ่าน submitPOAsPurchaser + approveAsFC)" },
+        { type: "preconditions", description: "มี PO ที่ approved (seeded ผ่าน seedApprovedPO: submit + FC + GM)" },
         { type: "steps", description: "1. Seed Approved PO\n2. เปิดหน้า detail\n3. ตรวจสอบ action toolbar" },
         { type: "expected", description: "ปุ่ม Send to Vendor visible ความ visible ของปุ่ม Close เป็นรอง (ไม่ assert hard ถ้าไม่มี)" },
         { type: "priority", description: "High" },
@@ -790,8 +810,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
-      await approveAsFC(browser, created.ref);
+      const created = await seedApprovedPO(browser);
       await gotoPODetail(page, created.ref);
       const send = po.sendToVendorButton();
       if ((await send.count()) === 0) {
@@ -815,8 +834,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
-      await approveAsFC(browser, created.ref);
+      const created = await seedApprovedPO(browser);
       await gotoPODetail(page, created.ref);
       const send = po.sendToVendorButton();
       if ((await send.count()) === 0) {
@@ -860,7 +878,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
       await po.confirmDialogButton(/confirm|close|complete|yes/i).click({ timeout: 5_000 }).catch(() => {});
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /completed/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });
@@ -881,8 +899,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
     },
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
-      const created = await submitPOAsPurchaser(browser);
-      await approveAsFC(browser, created.ref);
+      const created = await seedApprovedPO(browser);
       await gotoPODetail(page, created.ref);
       const close = po.closePOButton();
       if ((await close.count()) === 0) {
@@ -893,7 +910,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
       await po.confirmDialogButton(/confirm|close|void|yes/i).click({ timeout: 5_000 }).catch(() => {});
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /voided|cancelled/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });
@@ -916,17 +933,16 @@ purchaseTest.describe.serial("Golden Journey", () => {
     async ({ page, browser }) => {
       const po = new PurchaseOrderPage(page);
 
-      // Step 1-3: Create and submit (helper does it all)
-      const created = await submitPOAsPurchaser(browser, { description: "[E2E-POP] TC-PO-060901 golden" });
-
-      // Step 4: FC approves via cross-context
-      await approveAsFC(browser, created.ref);
+      // Step 1-4: create, submit, and walk BOTH approve stages. General PO is
+      // Create Request -> FC -> GM -> Completed, so FC alone leaves the PO at GM
+      // and Send to Vendor never appears.
+      const created = await seedApprovedPO(browser, { description: "[E2E-POP] TC-PO-060901 golden" });
 
       // Step 5: Reload as Purchaser and verify Approved state has Send button
       await gotoPODetail(page, created.ref);
       const send = po.sendToVendorButton();
       if ((await send.count()) === 0) {
-        purchaseTest.skip(true, "Send to Vendor button not present after FC approval");
+        purchaseTest.skip(true, "Send to Vendor button not present after full approval");
         return;
       }
 

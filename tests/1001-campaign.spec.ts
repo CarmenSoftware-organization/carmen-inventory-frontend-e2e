@@ -171,7 +171,7 @@ purchaseTest.describe("Campaign — Create wizard", () => {
       const name = cam.campaignNameInput();
       if ((await name.count()) > 0) await name.fill("Partial Campaign").catch(() => {});
       await cam.nextButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(cam.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(cam.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -446,7 +446,7 @@ requestorTest.describe("Campaign — Edit — Permission denial", () => {
       if ((await edit.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(edit).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(edit).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -551,7 +551,7 @@ requestorTest.describe("Campaign — Duplicate — Permission denial", () => {
       if ((await dup.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(dup).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(dup).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -655,7 +655,7 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
       if ((await tab.count()) > 0) await tab.click().catch(() => {});
       await cam.sendReminderButton().click({ timeout: 5_000 }).catch(() => {});
       await cam.confirmDialogButton(/^send$/i).click({ timeout: 5_000 }).catch(() => {});
-      await expect(cam.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(cam.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 });
@@ -964,7 +964,16 @@ purchaseTest.describe("Campaign — Export", () => {
 });
 
 requestorTest.describe("Campaign — Export — Permission denial", () => {
-  requestorTest(
+    // App finding, not a test bug — do not restore the silent version.
+  // The button is present and **enabled** for this role; the assertion only ever
+  // "passed" because it was wrapped in .catch(() => {}) (the other branch was the
+  // equally empty `expect(true).toBe(true)`). These modules have no client-side
+  // role gate at all: unlike Purchase Order, whose /new route is wrapped in
+  // `CreateWorkflowGate` and answers "RESTRICTED — Permission Denied", the
+  // vendor-management routes carry no guard, and requestor@ can open the create
+  // form directly. Whether that is intended is a product decision — un-fixme once
+  // it is settled, and assert whatever the answer turns out to be.
+requestorTest.fixme(
     "TC-CAM-090002 Export campaign data - no permission",
     {
       annotation: [
@@ -987,7 +996,7 @@ requestorTest.describe("Campaign — Export — Permission denial", () => {
       if ((await exp.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(exp).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(exp).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -1087,7 +1096,7 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
       await cam.gotoList();
       const search = cam.searchInput();
       if ((await search.count()) > 0) await search.fill("__NONEXISTENT_CAM_TERM__").catch(() => {});
-      await expect(cam.emptyState()).toBeVisible({ timeout: 10_000 }).catch(() => {});
+      await expect(cam.emptyState()).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -1171,7 +1180,7 @@ adminTest.describe("Campaign — admin@BLAVG", () => {
         page.getByRole("heading", { name: /request for pricing/i }).first(),
       ).toBeVisible({ timeout: 15_000 });
       await expect(
-        page.getByRole("button", { name: /add request|create new campaign|^add$/i }).first(),
+        page.getByRole("button", { name: /new price request|add request|create new campaign|^add$/i }).first(),
       ).toBeVisible({ timeout: 10_000 });
     },
   );

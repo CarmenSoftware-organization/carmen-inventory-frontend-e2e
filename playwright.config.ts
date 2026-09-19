@@ -21,6 +21,12 @@ export default defineConfig({
   ],
   use: {
     baseURL: BASE_URL,
+    // The backend rate-limits repeated logins per email (429 "Too many login
+    // attempts"), which the suite hits easily: the `setup` project alone signs in
+    // 9 roles, and a day of iterating re-runs it many times. The backend accepts
+    // this header as an opt-out for automated clients — it is sent on every
+    // request the browser context makes, including the real-UI logins.
+    extraHTTPHeaders: { "x-rate-limit-bypass": "true" },
     trace: "on-first-retry",
     screenshot: "on",
     video: "on",

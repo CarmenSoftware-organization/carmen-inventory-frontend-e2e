@@ -204,33 +204,99 @@ export class PriceListTemplatePage extends BasePage {
     // the interface only for backward compatibility with older callers.
   }
 
-  // ── Inline product table (redesigned add-products flow) ─────────────
-  // The old "Add Products" dialog (checkbox picker + Confirm Selection) was
-  // replaced by an inline product table on the create/edit form: an
-  // "Add product" button appends a row (product lookup + unit + qty + note),
-  // and each row carries a "Remove tier" (X) button. The table is shown only
-  // when the form is editable (create / edit mode), never in read-only view.
-  addProductButton(): Locator {
-    // rendered both in the section header and inside the empty-state card
-    return this.page.getByRole("button", { name: /add product/i }).first();
+  // ── Product selection (tree lookup, no add-row button) ──────────────
+  // Two redesigns happened here. The original "Add Products" dialog (checkbox
+  // picker + Confirm Selection) became an inline table with an "Add product"
+  // button; that button is gone too. In create/edit mode the form now renders
+  // <TreeProductLookup> (components/share/tree-product-lookup.tsx) on the left
+  // — a searchable tree of category → product with a checkbox per node — and the
+  // chosen products appear as cards on the right (plt-item-fields.tsx:155-180).
+  // There is no "empty row" to create any more: a row exists only because a
+  // product was ticked.
+  //
+  // The "Add Item" button still exists, but only in the *view* mode empty state
+  // (plt-item-fields.tsx:146), where it is a shortcut into edit mode — not the
+  // control that adds a row.
+  productLookupSearch(): Locator {
+    return this.page.getByPlaceholder(/search by code or name/i).first();
+  }
+
+  /** Checkboxes inside the lookup tree: group nodes and leaf products alike. */
+  productLookupCheckboxes(): Locator {
+    return this.page.getByRole("checkbox");
+  }
+
+  /**
+   * Tick exactly one product in the lookup tree.
+   *
+   * Group nodes carry their own checkbox that selects every product beneath them
+   * — ticking the wrong one silently adds hundreds of rows (measured: 450), which
+   * then makes "remove one product" leave the list far from empty. So narrow the
+   * tree with the search box first and take a leaf: leaf rows have no expander
+   * button next to their checkbox, group rows do.
+   */
+  async pickFirstProduct(search = "a") {
+    const box = this.productLookupSearch();
+    if ((await box.count()) > 0) {
+      await box.fill(search, { timeout: 10_000 });
+      await this.page.waitForTimeout(600);
+    }
+    const leafRow = this.page
+      .locator("div")
+      .filter({ has: this.page.getByRole("checkbox") })
+      .filter({ hasNot: this.page.getByRole("button", { name: /expand|collapse/i }) })
+      .last();
+    const leafBox = leafRow.getByRole("checkbox").last();
+    await leafBox.waitFor({ state: "visible", timeout: 10_000 });
+    await leafBox.click({ timeout: 10_000 });
+    await this.page.waitForTimeout(500);
+  }
+
+  /** Cards for the products already added to the template. */
+  productCards(): Locator {
+    return this.page.getByRole("button", { name: /remove product|remove tier/i });
   }
 
   productsEmptyState(): Locator {
-    return this.page.getByText(/no products yet/i).first();
+    return this.page.getByText(/no products yet|no items/i).first();
   }
 
-  /** Per-row remove (X) button; its presence proves an inline product row exists. */
+  /** Per-row remove (X) button; its presence proves a product row exists. */
   removeProductRowButton(): Locator {
-    return this.page.getByRole("button", { name: /remove tier/i });
+    return this.page.getByRole("button", { name: /remove tier|remove product/i });
+  }
+
+  /**
+   * Remove the first product and confirm the dialog that follows.
+   *
+   * Removing is not immediate: the app raises a "Remove Product …" confirmation
+   * ("Removing this product will delete all of its MOQ …"), so a test that clicks
+   * the X and then checks for the empty state sees the row still there.
+   */
+  async removeFirstProduct() {
+    await this.removeProductRowButton().first().click({ timeout: 10_000 });
+    const dialog = this.page.getByRole("alertdialog").or(this.page.getByRole("dialog")).last();
+    await dialog.waitFor({ state: "visible", timeout: 5_000 }).catch(() => {});
+    const confirm = dialog
+      .getByRole("button", { name: /^(remove|delete|confirm|ลบ|ยืนยัน)$/i })
+      .first();
+    if (await confirm.isVisible({ timeout: 3_000 }).catch(() => false)) {
+      await confirm.click({ timeout: 10_000 });
+      await dialog.waitFor({ state: "hidden", timeout: 10_000 }).catch(() => {});
+    }
   }
 
   // ── Status (redesigned activate / deactivate flow) ──────────────────
-  // Dedicated Activate/Deactivate buttons were removed; the template status is
-  // now a Select in the form's summary <aside>, rendered only in create/edit
-  // mode. The global layout uses <nav> for navigation, so on this page the
-  // <aside> is unique and holds exactly one combobox — the status control.
+  // Dedicated Activate/Deactivate buttons were removed; the status is a Select in
+  // the form, rendered only in create/edit mode. It used to sit in an <aside>, but
+  // the layout no longer has one at all (verified 2026-09-19: `aside` count is 0),
+  // so match on the control's own value instead — the page has exactly two
+  // comboboxes, the currency one showing "THB" and this one showing the status.
   statusSelect(): Locator {
-    return this.page.locator("aside").getByRole("combobox").first();
+    return this.page
+      .getByRole("combobox")
+      .filter({ hasText: /draft|active|inactive/i })
+      .first();
   }
 
   async selectStatus(label: "Active" | "Inactive" | "Draft") {

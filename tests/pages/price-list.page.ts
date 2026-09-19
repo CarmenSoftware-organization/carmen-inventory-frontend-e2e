@@ -37,15 +37,39 @@ export class PriceListPage extends BasePage {
 
   // ── List page ────────────────────────────────────────────────────────
   addNewButton(): Locator {
-    return this.page.getByRole("button", { name: /add new|new price.?list|^new$|^create$/i }).first();
+    // The list header button reads "Add Price List". The old pattern wanted
+    // "new price list" / "add new", neither of which matches it, so every test
+    // that opened the create form was asserting against a locator that found
+    // nothing — invisible until the swallowing .catch() came off.
+    return this.page
+      .getByRole("button", { name: /add price list|add new|new price.?list|^new$|^create$/i })
+      .first();
   }
 
   searchButton(): Locator {
     return this.page.getByRole("button", { name: /^search$/i }).first();
   }
 
+  /**
+   * Status is no longer a combobox in the toolbar — the list has a single
+   * "Filter" button whose popover offers Status / Currency / Vendor / Effective
+   * Period (plus Clear and "Save current filters as view"). The old locator found
+   * nothing, so the filter tests never filtered anything.
+   */
+  filterButton(): Locator {
+    return this.page.getByRole("button", { name: /^filter$/i }).first();
+  }
+
+  /** Open the filter popover and reveal the Status entry. */
   statusFilter(): Locator {
-    return this.page.getByRole("combobox", { name: /status/i }).first();
+    return this.page.getByText(/^status$/i).last();
+  }
+
+  async openStatusFilter(): Promise<void> {
+    await this.filterButton().click({ timeout: 10_000 });
+    const status = this.statusFilter();
+    await status.waitFor({ state: "visible", timeout: 10_000 });
+    await status.click({ timeout: 10_000 });
   }
 
   statusOption(name: RegExp | string): Locator {
@@ -70,40 +94,132 @@ export class PriceListPage extends BasePage {
   }
 
   // ── Form ─────────────────────────────────────────────────────────────
+  /**
+   * The create form has no "price list number" any more — the record is
+   * identified by a **Name** (`#pl-name`, placeholder "e.g. Quotation - Fresh
+   * Produce"); the number is generated. Every label-based locator on this form
+   * resolved to zero elements, which is why the header was never filled.
+   */
   numberInput(): Locator {
-    return this.page.getByLabel(/price list number|number/i).first();
+    return this.page.locator("#pl-name");
   }
 
+  /** Vendor is picked from a dialog of "<code> <name>" button cards, not typed. */
   vendorTrigger(): Locator {
-    return this.page.getByLabel(/vendor/i).first();
+    return this.page.getByRole("button", { name: /select vendor/i }).first();
+  }
+
+  async selectFirstVendor(): Promise<void> {
+    const trigger = this.vendorTrigger();
+    if ((await trigger.count()) === 0) return; // already chosen
+    await trigger.click({ timeout: 10_000 });
+    const card = this.page
+      .locator('[role="dialog"], [role="alertdialog"]')
+      .last()
+      .getByRole("button")
+      .filter({ hasText: /^[A-Z]\d{3}/ })
+      .first();
+    await card.waitFor({ state: "visible", timeout: 10_000 });
+    await card.click({ timeout: 10_000 });
   }
 
   currencyTrigger(): Locator {
     return this.page.getByLabel(/currency/i).first();
   }
 
-  validFromInput(): Locator {
-    return this.page.getByLabel(/valid from/i).first();
+  /**
+   * Effective From / To are date-picker **buttons** ("Pick a date"), not inputs —
+   * `fill()` on them threw "Element is not an <input>…". Once a date is chosen the
+   * button's own label becomes the date, so the remaining "Pick a date" button is
+   * always the next one to set.
+   */
+  datePickerTrigger(): Locator {
+    return this.page.getByRole("button", { name: /pick a date/i }).first();
   }
 
-  validToInput(): Locator {
-    return this.page.getByLabel(/valid to/i).first();
+  /** Open the next unset date picker and take `day` from the month on show. */
+  async pickNextDate(day = 15): Promise<void> {
+    const trigger = this.datePickerTrigger();
+    if ((await trigger.count()) === 0) return;
+    await trigger.click({ timeout: 10_000 });
+    const cell = this.page
+      .getByRole("gridcell")
+      .filter({ hasText: new RegExp(`^${day}$`) })
+      .first();
+    await cell.waitFor({ state: "visible", timeout: 10_000 });
+    await cell.click({ timeout: 10_000 });
   }
 
+  /**
+   * Scoped to a form control on purpose: a bare `[name="description"]` also picks
+   * up the document's `<meta name="description">`, which is never fillable — the
+   * call then waited out its timeout on an element in <head>.
+   */
   notesInput(): Locator {
-    return this.page.getByLabel(/^notes$/i).first();
+    return this.page
+      .locator('input[name="description"], textarea[name="description"]')
+      .first();
   }
 
   addItemButton(): Locator {
     return this.page.getByRole("button", { name: /add item/i }).first();
   }
 
+  /** The item row's first cell is a "Select Product" **button**, not a text box. */
   productInput(): Locator {
-    return this.page.getByLabel(/product/i).first();
+    return this.page.getByRole("button", { name: /select product/i }).first();
+  }
+
+  /** Open the product picker on the first item row and take the first entry. */
+  async selectFirstProduct(): Promise<void> {
+    const trigger = this.productInput();
+    if ((await trigger.count()) === 0) return;
+    await trigger.click({ timeout: 10_000 });
+    const option = this.page
+      .locator('[role="dialog"], [role="alertdialog"]')
+      .last()
+      .getByRole("button")
+      .filter({ hasText: /\S/ })
+      .first()
+      .or(this.page.getByRole("option").first())
+      .first();
+    await option.waitFor({ state: "visible", timeout: 10_000 });
+    await option.click({ timeout: 10_000 });
+  }
+
+  // The item fields are react-hook-form controls named `pricelist_detail.<n>.*`;
+  // none of them carries a label the old getByLabel patterns could find.
+  /**
+   * Tax Profile is **required** on every item row and starts unset. Saving without
+   * it leaves the form on /new with `aria-invalid="true"` on this very button and
+   * no toast — which is what made "create a price list" look like it silently
+   * failed even once the product picker worked.
+   */
+  taxProfileTrigger(): Locator {
+    // A Radix Select (role="combobox"), not a button — the row holds two of them
+    // ("Select Unit" and this one), so filter by the value text rather than
+    // taking an index.
+    return this.page
+      .getByRole("combobox")
+      .filter({ hasText: /select tax profile/i })
+      .first();
+  }
+
+  async selectFirstTaxProfile(): Promise<void> {
+    const trigger = this.taxProfileTrigger();
+    if ((await trigger.count()) === 0) return;
+    await trigger.click({ timeout: 10_000 });
+    // Skip "None" — it is the placeholder-ish entry, not a profile.
+    const option = this.page
+      .getByRole("option")
+      .filter({ hasText: /vat|tax|\d/i })
+      .first();
+    await option.waitFor({ state: "visible", timeout: 10_000 });
+    await option.click({ timeout: 10_000 });
   }
 
   moqInput(): Locator {
-    return this.page.getByLabel(/moq|minimum order/i).first();
+    return this.page.locator('input[name$=".moq_qty"]').first();
   }
 
   unitInput(): Locator {
@@ -111,11 +227,11 @@ export class PriceListPage extends BasePage {
   }
 
   unitPriceInput(): Locator {
-    return this.page.getByLabel(/unit price/i).first();
+    return this.page.locator('input[name$=".price"]').first();
   }
 
   leadTimeInput(): Locator {
-    return this.page.getByLabel(/lead time/i).first();
+    return this.page.locator('input[name$=".lead_time_days"]').first();
   }
 
   // override: also matches Submit button in some flows
@@ -136,52 +252,74 @@ export class PriceListPage extends BasePage {
   }
 
   // ── Confirmation dialog ──────────────────────────────────────────────
+  /**
+   * Confirmations in this app are Radix **AlertDialog** — `role="alertdialog"`,
+   * which `getByRole("dialog")` does NOT match. This resolved to nothing, and
+   * since almost every call site wraps the click in `.catch(() => {})`, the step
+   * silently did nothing: PO Submit left the record in Draft while reporting
+   * success. Match both roles, and take `.last()` so the always-mounted Command
+   * Palette (also a dialog) never wins.
+   */
   confirmDialogButton(name: RegExp = /confirm|delete|ok|yes/i): Locator {
-    return this.page.getByRole("dialog").getByRole("button", { name }).first();
+    return this.page
+      .locator('[role="dialog"], [role="alertdialog"]')
+      .last()
+      .getByRole("button", { name })
+      .first();
   }
 
   cancelDialogButton(): Locator {
-    return this.page.getByRole("dialog").getByRole("button", { name: /^cancel$/i }).first();
+    return this.page
+      .locator('[role="dialog"], [role="alertdialog"]')
+      .last()
+      .getByRole("button", { name: /^cancel$/i })
+      .first();
   }
 
   // ── Form fill helpers ────────────────────────────────────────────────
+  /**
+   * Fill the create form. `validFrom` / `validTo` are honoured as "set this date
+   * field", not as literal values: the form offers a calendar, so the day comes
+   * from the month on show rather than from the string. Tests that need a
+   * specific date must drive the picker themselves.
+   */
   async fillHeader(data: PriceListHeaderInput) {
     if (data.number !== undefined) {
       const i = this.numberInput();
-      if ((await i.count()) > 0) await i.fill(data.number);
+      if ((await i.count()) > 0) await i.fill(data.number, { timeout: 10_000 });
     }
-    if (data.validFrom !== undefined) {
-      const i = this.validFromInput();
-      if ((await i.count()) > 0) await i.fill(data.validFrom);
+    if (data.vendor !== undefined || data.number !== undefined) {
+      // Vendor is required; pick one whenever we are filling the form for real.
+      await this.selectFirstVendor();
     }
-    if (data.validTo !== undefined) {
-      const i = this.validToInput();
-      if ((await i.count()) > 0) await i.fill(data.validTo);
-    }
+    if (data.validFrom !== undefined) await this.pickNextDate(15);
+    if (data.validTo !== undefined) await this.pickNextDate(20);
     if (data.notes !== undefined) {
       const i = this.notesInput();
-      if ((await i.count()) > 0) await i.fill(data.notes);
+      if ((await i.count()) > 0) await i.fill(data.notes, { timeout: 10_000 });
     }
   }
 
   async addLineItem(data: PriceListItemInput) {
-    await this.addItemButton().click({ timeout: 5_000 }).catch(() => {});
+    await this.addItemButton().click({ timeout: 10_000 });
     if (data.product !== undefined) {
-      const i = this.productInput();
-      if ((await i.count()) > 0) await i.fill(data.product);
+      // Picked from a dialog — `fill()` used to throw "Element is not an <input>"
+      // here, which is what stopped every create test from ever adding a line.
+      await this.selectFirstProduct();
     }
     if (data.moq !== undefined) {
       const i = this.moqInput();
-      if ((await i.count()) > 0) await i.fill(String(data.moq));
+      if ((await i.count()) > 0) await i.fill(String(data.moq), { timeout: 10_000 });
     }
     if (data.unitPrice !== undefined) {
       const i = this.unitPriceInput();
-      if ((await i.count()) > 0) await i.fill(String(data.unitPrice));
+      if ((await i.count()) > 0) await i.fill(String(data.unitPrice), { timeout: 10_000 });
     }
     if (data.leadTime !== undefined) {
       const i = this.leadTimeInput();
-      if ((await i.count()) > 0) await i.fill(String(data.leadTime));
+      if ((await i.count()) > 0) await i.fill(String(data.leadTime), { timeout: 10_000 });
     }
+    await this.selectFirstTaxProfile();
   }
 
   // ── Verification ─────────────────────────────────────────────────────

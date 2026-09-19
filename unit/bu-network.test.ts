@@ -202,8 +202,18 @@ describe("ensureActiveBu", () => {
   });
 
   it("clicks the aliased label but waits on a toast carrying the name alone", async () => {
-    const before = [bu({ code: "BLAVG", name: "Blue Hotel", alias_name: "BLAVG" })];
-    const after = [bu({ code: "BLAVG", name: "Blue Hotel", alias_name: "BLAVG", is_default: true })];
+    // Another BU must be active first, otherwise there is nothing to switch:
+    // the frontend resolves the active BU as `find(is_default) ?? units[0]`
+    // (hooks/use-profile.ts), so a target that already resolves that way is a
+    // no-op. See the fast-path note in ensureActiveBu.
+    const before = [
+      bu({ code: "OTHER", name: "Other Hotel", is_default: true }),
+      bu({ code: "BLAVG", name: "Blue Hotel", alias_name: "BLAVG" }),
+    ];
+    const after = [
+      bu({ code: "OTHER", name: "Other Hotel" }),
+      bu({ code: "BLAVG", name: "Blue Hotel", alias_name: "BLAVG", is_default: true }),
+    ];
     const page = stubPage({
       profiles: [{ data: { business_unit: before } }, { data: { business_unit: after } }],
     });
@@ -218,8 +228,15 @@ describe("ensureActiveBu", () => {
 
   it("escapes regex metacharacters in the BU name before building the toast pattern", async () => {
     const name = "Blue (Hotel) +1";
-    const before = [bu({ code: "BLAVG", name })];
-    const after = [bu({ code: "BLAVG", name, is_default: true })];
+    // Same reason as above: give the switch something to switch away from.
+    const before = [
+      bu({ code: "OTHER", name: "Other Hotel", is_default: true }),
+      bu({ code: "BLAVG", name }),
+    ];
+    const after = [
+      bu({ code: "OTHER", name: "Other Hotel" }),
+      bu({ code: "BLAVG", name, is_default: true }),
+    ];
     const page = stubPage({
       profiles: [{ data: { business_unit: before } }, { data: { business_unit: after } }],
     });

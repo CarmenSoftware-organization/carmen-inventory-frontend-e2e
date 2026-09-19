@@ -89,7 +89,14 @@ purchaseTest.describe("Period End — List page", () => {
     },
   );
 
-  purchaseTest(
+  // The test never establishes its own precondition. It asserts that "Start
+  // period close" is disabled *when the current period is already closed*, but
+  // does nothing to close it — against an open period an enabled button is the
+  // correct behaviour, so this can only pass by luck. It previously passed every
+  // time because the assertion sat inside .catch(() => {}) (and the other branch
+  // was `expect(true).toBe(true)`). Give it a real fixture, or read the period's
+  // state first and assert the matching expectation, before re-enabling.
+  purchaseTest.fixme(
     "TC-PE-010005 Edge Case - Closed Current Period",
     {
       annotation: [
@@ -108,7 +115,7 @@ purchaseTest.describe("Period End — List page", () => {
       if ((await startClose.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(startClose).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(startClose).toBeDisabled({ timeout: 5_000 });
       }
     },
   );

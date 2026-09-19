@@ -3,6 +3,7 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { PurchaseOrderPage, LIST_PATH } from "./pages/purchase-order.page";
 import {
   submitPOAsPurchaser,
+  approveAsGM,
   gotoPODetail,
 } from "./pages/po-approver.helpers";
 
@@ -107,7 +108,7 @@ fcTest.describe("Step 2 — PO Detail (FC view)", () => {
       await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`));
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /in.progress/i })
           .first(),
       ).toBeVisible({ timeout: 10_000 });
@@ -167,8 +168,7 @@ fcTest.describe("Step 2 — PO Detail (FC view)", () => {
   );
 });
 
-fcTest.describe("Step 3 — Approval Actions", () => {
-  // ─ Item-level marking (4 TCs) ───────────────────────────────────────
+fcTest.describe("Step 3 — Approval Actions", () => {  // ─ Item-level marking (4 TCs) ───────────────────────────────────────
   fcTest(
     "TC-PO-070301 Edit mode → select item → Approve toolbar appears",
     {
@@ -267,7 +267,7 @@ fcTest.describe("Step 3 — Approval Actions", () => {
     {
       annotation: [
         { type: "preconditions", description: "Item action toolbar visible บนแถว" },
-        { type: "steps", description: "1. เลือกรายการ\n2. กด Reject ใน toolbar\n3. ตรวจสอบ badge + ปุ่ม footer" },
+        { type: "steps", description: "1. เลือกรายการ\n2. กด Reject ใน toolbar\n3. ยืนยันใน dialog\n4. ตรวจสอบ badge + ปุ่ม footer" },
         { type: "expected", description: "แถวรายการแสดง badge Reject; ปุ่ม Reject ของเอกสาร visible ใน footer" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
@@ -289,6 +289,11 @@ fcTest.describe("Step 3 — Approval Actions", () => {
         return;
       }
       await reject.click({ timeout: 5_000 });
+      // Unlike Approve and Review, rejecting a line opens a confirmation first
+      // ("Reject Purchase Order — …Please provide a reason." with an optional
+      // REASON field). The row keeps its old state until that is confirmed, so
+      // asserting the badge straight after the click always failed.
+      await po.confirmDialogButton(/^reject$/i).click({ timeout: 10_000 });
       await expect(po.itemBadge(0, "rejected")).toBeVisible({ timeout: 10_000 });
       await expect(po.documentRejectButton()).toBeVisible({ timeout: 10_000 });
     },
@@ -357,17 +362,22 @@ fcTest.describe("Step 3 — Approval Actions", () => {
         return;
       }
       await docApprove.click({ timeout: 5_000 });
-      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 10_000 });
+      // Confirmations are Radix AlertDialog (role="alertdialog"), which
+      // getByRole("dialog") does not match; .last() skips the always-mounted
+      // Command Palette.
+      await expect(
+        page.locator('[role="dialog"], [role="alertdialog"]').last(),
+      ).toBeVisible({ timeout: 10_000 });
     },
   );
 
   fcTest(
-    "TC-PO-070307 Confirm Approve → status moves to APPROVED/SENT",
+    "TC-PO-070307 Confirm Approve → PATCH approve สำเร็จ และใบเลื่อนไปขั้น GM",
     {
       annotation: [
         { type: "preconditions", description: "Confirmation dialog ของ Document Approve เปิดอยู่" },
         { type: "steps", description: "1. approve รายการ\n2. กด Document Approve\n3. ยืนยัน dialog" },
-        { type: "expected", description: "text ของ status badge ตรงกับ /approved|sent/i หลังการยืนยัน" },
+        { type: "expected", description: "PATCH .../approve ตอบ ok; ใบยังเป็น IN PROGRESS (เลื่อนไปขั้น GM ตาม workflow General PO) และ FC ไม่เห็นปุ่ม Edit อีก" },
         { type: "priority", description: "High" },
         { type: "testType", description: "CRUD" },
       ],
@@ -392,14 +402,31 @@ fcTest.describe("Step 3 — Approval Actions", () => {
         fcTest.skip(true, "Document Approve button not visible");
         return;
       }
+      // Prove the approve actually reached the backend rather than reading the
+      // UI: the .catch() below used to swallow a confirm that never fired.
+      const approved = page.waitForResponse(
+        (r) => /\/purchase-orders\/[^/]+\/approve/.test(r.url()) && r.request().method() === "PATCH",
+        { timeout: 20_000 },
+      );
       await docApprove.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|approve|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|approve|ok|yes/i).click({ timeout: 10_000 });
+      const res = await approved;
+      expect(res.ok()).toBe(true);
+
+      // NOT approved/sent yet: the General PO workflow is
+      // Create Request → FC → GM → Completed, so FC's signature advances the PO
+      // to GM and the document stays IN PROGRESS. Asserting /approved|sent/ here
+      // was asserting a state this workflow never reaches at this stage.
+      // Re-open the record: confirming an action routes back to the PO list.
+      await gotoPODetail(page, created.ref);
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
-          .filter({ hasText: /approved|sent/i })
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
+          .filter({ hasText: /in.progress/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });
+      // FC is done with it — the approver's own actions are gone.
+      await expect(po.editModeButton()).toBeHidden({ timeout: 15_000 });
     },
   );
 
@@ -436,7 +463,12 @@ fcTest.describe("Step 3 — Approval Actions", () => {
         return;
       }
       await sendBack.click({ timeout: 5_000 });
-      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 10_000 });
+      // Confirmations are Radix AlertDialog (role="alertdialog"), which
+      // getByRole("dialog") does not match; .last() skips the always-mounted
+      // Command Palette.
+      await expect(
+        page.locator('[role="dialog"], [role="alertdialog"]').last(),
+      ).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -506,28 +538,48 @@ fcTest.describe("Step 3 — Approval Actions", () => {
         return;
       }
       await po.markItemRejectButton().click({ timeout: 5_000 });
+      // Rejecting a line opens its own confirmation before the row changes
+      // state; without it the "document" Reject found below is really this
+      // dialog's own button.
+      await po.confirmDialogButton(/^reject$/i).click({ timeout: 10_000 });
+      await expect(po.itemBadge(0, "rejected")).toBeVisible({ timeout: 10_000 });
       const docReject = po.documentRejectButton();
       if ((await docReject.count()) === 0) {
         fcTest.skip(true, "Document Reject button not visible");
         return;
       }
       await docReject.click({ timeout: 5_000 });
-      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 10_000 });
+      // Confirmations are Radix AlertDialog (role="alertdialog"), which
+      // getByRole("dialog") does not match; .last() skips the always-mounted
+      // Command Palette.
+      await expect(
+        page.locator('[role="dialog"], [role="alertdialog"]').last(),
+      ).toBeVisible({ timeout: 10_000 });
     },
   );
 
-  fcTest(
+  // App bug, not a test bug — do not work around it.
+  // Confirming the document-level Reject fires **no request at all**: no
+  // PATCH .../reject, no toast, and the PO keeps its status. Its dialog also
+  // contradicts itself — the copy reads "Please provide a reason." while the
+  // dialog contains zero inputs (verified against the DOM), unlike the per-item
+  // reject dialog which does carry a REASON field. TC-PO-070310 still covers the
+  // dialog opening; un-fixme this once the confirm actually submits.
+  fcTest.fixme(
     "TC-PO-070311 Confirm Reject → PO marked REJECTED",
     {
       annotation: [
         { type: "preconditions", description: "Reject dialog เปิดอยู่" },
         { type: "steps", description: "1. ทำเครื่องหมายรายการว่า Reject\n2. กด Document Reject\n3. กรอกเหตุผล (optional)\n4. ยืนยัน" },
-        { type: "expected", description: "text ของ status badge ตรงกับ /rejected/i หลังการยืนยัน" },
+        { type: "expected", description: "text ของ status badge ตรงกับ /rejected/i หลังการยืนยัน (ปัจจุบันการยืนยันไม่ยิง request ใด ๆ — บั๊กแอป)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "CRUD" },
       ],
     },
     async ({ page, browser }) => {
+      // Seed + edit mode + per-item reject + document reject in one test; the
+      // default 30s ran out before the reject request was even sent.
+      fcTest.setTimeout(120_000);
       const po = new PurchaseOrderPage(page);
       const created = await submitPOAsPurchaser(browser);
       await gotoPODetail(page, created.ref);
@@ -542,18 +594,37 @@ fcTest.describe("Step 3 — Approval Actions", () => {
         return;
       }
       await po.markItemRejectButton().click({ timeout: 5_000 });
+      // Rejecting a line opens its own confirmation before the row changes
+      // state; without it the "document" Reject found below is really this
+      // dialog's own button.
+      await po.confirmDialogButton(/^reject$/i).click({ timeout: 10_000 });
+      await expect(po.itemBadge(0, "rejected")).toBeVisible({ timeout: 10_000 });
       const docReject = po.documentRejectButton();
       if ((await docReject.count()) === 0) {
         fcTest.skip(true, "Document Reject not visible");
         return;
       }
+      // Prove the reject reached the backend, then re-read the record. The old
+      // body swallowed the confirm in .catch() and asserted straight away against
+      // a page that had not been told anything changed.
+      const rejected = page.waitForResponse(
+        (r) => /\/purchase-orders\/[^/]+\/reject/.test(r.url()) && r.request().method() === "PATCH",
+        { timeout: 20_000 },
+      );
       await docReject.click({ timeout: 5_000 });
       const reason = po.reasonInput();
-      if ((await reason.count()) > 0) await reason.fill(REJECT_REASON).catch(() => {});
-      await po.confirmDialogButton(/confirm|reject|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      if ((await reason.count()) > 0) {
+        await reason.fill(REJECT_REASON, { timeout: 10_000 }).catch(() => {});
+      }
+      await po.confirmDialogButton(/confirm|reject|ok|yes/i).click({ timeout: 10_000 });
+      expect((await rejected).ok()).toBe(true);
+
+      // Re-open the record: confirming an action routes back to the PO list, so a
+      // plain reload() would re-read the list instead of this document.
+      await gotoPODetail(page, created.ref);
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /rejected/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });
@@ -589,17 +660,24 @@ fcTest.describe("Step 3 — Approval Actions", () => {
 
 fcTest.describe.serial("Golden Journey", () => {
   fcTest(
-    "TC-PO-070901 Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → Sent",
+    "TC-PO-070901 Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → GM approve → APPROVED",
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น FC; มี IN PROGRESS PO ใหม่ที่ seed ผ่าน submitPOAsPurchaser" },
         { type: "steps", description: "1. Seed IN PROGRESS PO\n2. เปิดหน้า detail ของ PO\n3. กด Edit\n4. เลือกรายการแรก\n5. ทำเครื่องหมาย Approve\n6. กด Document Approve\n7. ยืนยัน dialog" },
-        { type: "expected", description: "status badge เปลี่ยนเป็น APPROVED/SENT หลังการยืนยัน" },
+        { type: "expected", description: "PATCH .../approve ของ FC ตอบ ok และหลัง GM อนุมัติต่อ status badge เป็น APPROVED/SENT" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
     },
     async ({ page, browser }) => {
+      // Measured, not guessed: this one test drives three roles end to end —
+      // Purchaser creates and submits (~11s), FC marks items and approves, then
+      // GM approves in its own context (the submit+FC+GM chain alone timed at
+      // ~38s). It was failing at exactly 30.1s, which is the default budget
+      // running out, not a hang.
+      fcTest.setTimeout(150_000);
+
       const po = new PurchaseOrderPage(page);
 
       // Seed
@@ -627,13 +705,26 @@ fcTest.describe.serial("Golden Journey", () => {
         fcTest.skip(true, "Document Approve button not visible after item approval");
         return;
       }
+      const approved = page.waitForResponse(
+        (r) => /\/purchase-orders\/[^/]+\/approve/.test(r.url()) && r.request().method() === "PATCH",
+        { timeout: 20_000 },
+      );
       await docApprove.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|approve|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|approve|ok|yes/i).click({ timeout: 10_000 });
+      expect((await approved).ok()).toBe(true);
+
+      // FC's signature hands the PO to GM — General PO is
+      // Create Request → FC → GM → Completed — so the document only reaches
+      // APPROVED once GM signs too. Walk that last leg so the journey ends where
+      // its title says it does instead of asserting a state FC alone can't reach.
+      await approveAsGM(browser, created.ref);
 
       // Hard assertion
+      // Re-open the record: confirming an action routes back to the PO list.
+      await gotoPODetail(page, created.ref);
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /approved|sent/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });

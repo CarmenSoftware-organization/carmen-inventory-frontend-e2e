@@ -4,7 +4,7 @@ import { BasePage } from "./base.page";
 
 /**
  * Dedicated page object for the **eco** (eco-certification / eco-label) config
- * module (`/config/eco`).
+ * module (`/product-management/eco`).
  *
  * Like {@link ./certification.page.ts}, this module intentionally does NOT use
  * the shared `DialogCrudHelper`: it has a `code` field that is the unique key
@@ -15,7 +15,7 @@ import { BasePage } from "./base.page";
  * The dialog/row locators below are modelled on the proven ones in
  * `DialogCrudHelper` (which works against this exact `ConfigListTemplate`).
  */
-const PATH = "/config/eco";
+const PATH = "/product-management/eco";
 
 class _BasePageImpl extends BasePage {}
 

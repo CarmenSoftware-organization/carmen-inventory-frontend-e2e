@@ -9,7 +9,7 @@ import { BuSwitcherPage } from "./pages/bu-switcher.page";
 import { uid, fakeCode, fakeName, buildEntity } from "./helpers/test-data";
 
 const test = createAuthTest("admin@blueledgers.com");
-const PATH = "/config/certification";
+const PATH = "/vendor-management/certification";
 const { code: CODE, name: NAME, nameUpdated: NAME_UPDATED } = buildEntity({ codePrefix: "EC", tag: "CERT" });
 
 // Security cases only exercise name/list/dialog — reuse the proven shared
@@ -21,17 +21,25 @@ const secOpts = {
   activeSwitchId: "certification-is-active",
 };
 
-// BLOCKED: admin@blueledgers.com does not have permission for the certification
-// module under BU=BLAVG — the list page renders a "Permission Denied" dialog
-// ("You do not have the required permissions for BU(s): BLAVG"). certification
-// is a newly-migrated config module (FE commit 9b4be10) whose RBAC has not yet
-// been granted to BLAVG. Only TC-CERT-010001 (URL load) and TC-CERT-010005
-// (BU-assert) pass; every test touching list/dialog content is RBAC-blocked.
-// The spec + page object are complete and verified-by-structure; flip
-// `test.describe.fixme` → `test.describe` once BLAVG is granted certification
-// permission (and apply the doc_version PATCH fix in certification-dialog.tsx,
-// mirroring the other config modules — TC-CERT-040003 will need it).
-test.describe.fixme("Certification — Smoke & CRUD", () => {
+// BLOCKED (writes only): the backend rejects every create/update/delete on
+// `/api/config/{bu}/vendor-master-certificates` with 400 "metadata field is
+// required" — certification-dialog.tsx still posts a flat body
+// (`{code, name, description, is_active}`) instead of wrapping it the way the
+// other migrated config modules do (see eco-dialog.tsx:67,
+// `metadata: { ...fields, doc_version }`). Verified 2026-09-18 against the
+// local backend on :4000.
+//
+// The note that used to live here blamed RBAC ("Permission Denied for BU(s):
+// BLAVG"). That was a misdiagnosis caused by a stale route: the spec pointed at
+// `/config/certification`, but the module had moved to
+// `/vendor-management/certification`. With the correct path the list, search,
+// BU-assert and validation cases all pass as admin@blueledgers.com — only the
+// writes fail, and they fail on the payload contract, not on permissions.
+//
+// Flip the 9 `test.fixme` below back to `test` once certification-dialog.tsx
+// sends the metadata-wrapped payload (that change also supplies doc_version,
+// which TC-CERT-040003 needs on PATCH).
+test.describe("Certification — Smoke & CRUD", () => {
   test.beforeEach(async ({ page }) => {
     await ensureActiveBu(page, BU_CODE);
   });
@@ -41,8 +49,8 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture" },
-        { type: "steps", description: "1. ไปที่ /config/certification" },
-        { type: "expected", description: "URL ตรงกับ /config/certification; หน้า list render สำเร็จ" },
+        { type: "steps", description: "1. ไปที่ /vendor-management/certification" },
+        { type: "expected", description: "URL ตรงกับ /vendor-management/certification; หน้า list render สำเร็จ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -58,8 +66,8 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     "TC-CERT-010002 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/certification" },
-        { type: "steps", description: "1. ไปที่ /config/certification" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-management/certification" },
+        { type: "steps", description: "1. ไปที่ /vendor-management/certification" },
         { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
@@ -76,8 +84,8 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     "TC-CERT-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/certification" },
-        { type: "steps", description: "1. ไปที่ /config/certification\n2. พิมพ์ 'test' ในช่องค้นหา" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-management/certification" },
+        { type: "steps", description: "1. ไปที่ /vendor-management/certification\n2. พิมพ์ 'test' ในช่องค้นหา" },
         { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Smoke" },
@@ -95,8 +103,8 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     "TC-CERT-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/certification" },
-        { type: "steps", description: "1. ไปที่ /config/certification\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-management/certification" },
+        { type: "steps", description: "1. ไปที่ /vendor-management/certification\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
@@ -135,7 +143,7 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     "TC-CERT-200001 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/certification" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-management/certification" },
         { type: "steps", description: "1. เปิด Add dialog\n2. กด Save โดยไม่กรอก code/name" },
         { type: "expected", description: "Error message แสดงใน dialog (required validation); dialog ยังเปิดอยู่" },
         { type: "priority", description: "High" },
@@ -152,7 +160,7 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
   );
 
-  test(
+  test.fixme(
     "TC-CERT-030001 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
@@ -175,7 +183,7 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
   );
 
-  test(
+  test.fixme(
     "TC-CERT-040001 แก้ไขชื่อและบันทึก",
     {
       annotation: [
@@ -200,7 +208,7 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
   );
 
-  test(
+  test.fixme(
     "TC-CERT-200002 แก้ไข: clear name แล้วบันทึก ต้องแสดง error",
     {
       annotation: [
@@ -223,7 +231,7 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
   );
 
-  test(
+  test.fixme(
     "TC-CERT-050001 ลบรายการ",
     {
       annotation: [
@@ -246,7 +254,7 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
   );
 
-  test(
+  test.fixme(
     "TC-CERT-040002 toggle is_active แล้ว persist",
     {
       annotation: [
@@ -277,7 +285,7 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
   );
 
-  test(
+  test.fixme(
     "TC-CERT-040003 แก้ไขชื่อแล้ว persist",
     {
       annotation: [
@@ -318,7 +326,7 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
   );
 
-  test(
+  test.fixme(
     "TC-CERT-040004 ยกเลิกการแก้ไข ค่าต้องไม่ถูกบันทึก",
     {
       annotation: [
@@ -357,7 +365,7 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
   );
 
-  test(
+  test.fixme(
     "TC-CERT-200003 สร้าง code ซ้ำ ต้องถูก reject",
     {
       annotation: [
@@ -401,7 +409,7 @@ test.describe.fixme("Certification — Smoke & CRUD", () => {
     },
   );
 
-  test(
+  test.fixme(
     "TC-CERT-050002 ยกเลิกการลบ record ต้องยังอยู่",
     {
       annotation: [

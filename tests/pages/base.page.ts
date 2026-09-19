@@ -25,8 +25,13 @@ export abstract class BasePage {
   }
 
   anyError(): Locator {
+    // `.text-destructive` rather than `p.text-destructive`: the forms no longer
+    // render field errors as <p> (a price-list save with empty required fields
+    // gives 0 matches for the <p> form and 8 for the class alone). aria-invalid
+    // still carries the signal, so this mainly widens the net for forms that mark
+    // the message but not the control.
     return this.page.locator(
-      '[aria-invalid="true"], p.text-destructive, [role="alert"][data-slot="field-error"]',
+      '[aria-invalid="true"], .text-destructive, [role="alert"][data-slot="field-error"]',
     );
   }
 

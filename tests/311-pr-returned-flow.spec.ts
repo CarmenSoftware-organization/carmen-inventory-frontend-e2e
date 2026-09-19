@@ -84,7 +84,7 @@ requestorTest.describe("7a — View Returned PR", () => {
       await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`));
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /returned|sent back/i })
           .first(),
       ).toBeVisible({ timeout: 10_000 });
@@ -248,7 +248,7 @@ requestorTest.describe("7c — Resubmit", () => {
       await pr.confirmDialogButton(/confirm|submit|resubmit|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /in.progress/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });
@@ -370,7 +370,7 @@ requestorTest.describe.serial("Golden Journey", () => {
       // Step 7: Status In Progress
       await expect(
         page
-          .locator("[data-slot='badge'], [class*='badge']")
+          .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
           .filter({ hasText: /in.progress/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });

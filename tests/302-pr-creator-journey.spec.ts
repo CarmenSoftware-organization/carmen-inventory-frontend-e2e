@@ -207,6 +207,9 @@ requestorTest.describe("Step 1 — PR List", () => {
 });
 
 requestorTest.describe("Step 2 — Create PR (Blank)", () => {
+  // Each test fills the create form from scratch; one line item alone costs ~29s
+  // through the location → product → qty cascade. See "Step 4 — PR Detail".
+  requestorTest.describe.configure({ timeout: 90_000 });
   requestorTest(
     "TC-PR-050201 Open Create dialog → Blank → form loads",
     {
@@ -241,7 +244,7 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
       const pr = new PurchaseRequestPage(page);
       await pr.gotoNew();
       await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
-      const draftBadge = page.locator("[data-slot='badge'], [class*='badge']").filter({ hasText: /draft/i }).first();
+      const draftBadge = page.locator("[data-slot='status'], [data-slot='badge'], [class*='badge']").filter({ hasText: /draft/i }).first();
       if ((await draftBadge.count()) > 0) {
         await expect(draftBadge).toBeVisible();
       }
@@ -450,6 +453,8 @@ requestorTest.describe("Step 2 — Create PR (Blank)", () => {
 });
 
 requestorTest.describe("Step 3 — Create from Template", () => {
+  // Builds its own Draft PR per test — see the note on "Step 4 — PR Detail".
+  requestorTest.describe.configure({ timeout: 90_000 });
   requestorTest(
     "TC-PR-050301 Open Create dialog → Template option → picker opens",
     {
@@ -501,7 +506,10 @@ requestorTest.describe("Step 3 — Create from Template", () => {
         return;
       }
       await pr.selectFirstTemplate();
-      await expect(page).toHaveURL(/template_id=/, { timeout: 10_000 });
+      // The wizard hands the chosen items to /new through router state, not a
+      // query string — the URL is a plain /new (from-template-content.tsx:54).
+      await expect(page).toHaveURL(/purchase-request\/new/, { timeout: 10_000 });
+      await expect(pr.itemRowByIndex(0)).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -601,6 +609,13 @@ requestorTest.describe("Step 3 — Create from Template", () => {
 });
 
 requestorTest.describe("Step 4 — PR Detail", () => {
+  // Every test here builds its own Draft PR through the UI, and that path grew
+  // longer when the item grid started gating qty on a chosen product
+  // (list → create → workflow → location → product → qty → save ≈ 32s measured
+  // 2026-09-18). That is just over Playwright's 30s default, so the whole block
+  // times out on setup rather than on anything it means to assert.
+  requestorTest.describe.configure({ timeout: 90_000 });
+
   requestorTest(
     "TC-PR-050401 Draft PR detail loads with Items tab default",
     {
@@ -699,6 +714,9 @@ requestorTest.describe("Step 4 — PR Detail", () => {
 });
 
 requestorTest.describe("Step 5 — Edit Draft", () => {
+  // Builds its own Draft PR per test — see the note on "Step 4 — PR Detail".
+  requestorTest.describe.configure({ timeout: 90_000 });
+
   requestorTest(
     "TC-PR-050501 Click Edit → enter edit mode",
     {
@@ -721,7 +739,13 @@ requestorTest.describe("Step 5 — Edit Draft", () => {
         return;
       }
       await pr.enterEditMode();
-      await expect(pr.saveDraftButton().or(pr.cancelFormButton())).toBeVisible({ timeout: 10_000 });
+      // .first() on the union, not on each side: `a.first().or(b.first())` still
+      // resolves to both matches (edit mode shows Cancel *and* Save), which trips
+      // strict mode. The assertion only needs one of them to prove the form is
+      // editable.
+      await expect(pr.saveDraftButton().or(pr.cancelFormButton()).first()).toBeVisible({
+        timeout: 10_000,
+      });
     },
   );
 
@@ -868,6 +892,9 @@ requestorTest.describe("Step 5 — Edit Draft", () => {
 });
 
 requestorTest.describe("Step 6 — Submit", () => {
+  // Builds its own Draft PR per test — see the note on "Step 4 — PR Detail".
+  requestorTest.describe.configure({ timeout: 90_000 });
+
   requestorTest(
     "TC-PR-050601 Submit → confirmation dialog appears",
     {
@@ -974,6 +1001,9 @@ requestorTest.describe("Step 6 — Submit", () => {
 });
 
 requestorTest.describe("Step 8 — Delete", () => {
+  // Builds its own Draft PR per test — see the note on "Step 4 — PR Detail".
+  requestorTest.describe.configure({ timeout: 90_000 });
+
   requestorTest(
     "TC-PR-050801 Click Delete → confirmation dialog",
     {
@@ -1053,6 +1083,9 @@ requestorTest.describe("Step 8 — Delete", () => {
 });
 
 requestorTest.describe.serial("Golden Journey", () => {
+  // Builds its own Draft PR per test — see the note on "Step 4 — PR Detail".
+  requestorTest.describe.configure({ timeout: 90_000 });
+
   requestorTest(
     "TC-PR-050901 Full Creator flow: List → Create → Save Draft → Edit → Submit → In Progress",
     {

@@ -1,14 +1,97 @@
-import type { Browser, Page } from "@playwright/test";
+import type { Browser, BrowserContext, Page } from "@playwright/test";
 import { expect } from "@playwright/test";
-import { LoginPage } from "./login.page";
 import { PurchaseOrderPage, LIST_PATH } from "./purchase-order.page";
-import { TEST_PASSWORD } from "../test-users";
+import { BU_CODE } from "../test-users";
+import { authFile } from "../fixtures/auth.paths";
+import { ensureActiveBu } from "../helpers/bu";
 
 const FUTURE_DATE = "2099-12-31";
 
 export interface CreatedPO {
   ref: string;
   url: string;
+}
+
+/**
+ * Opens an auxiliary BrowserContext pre-authenticated as `email` from the
+ * persisted storageState (.auth/<email>.json, written by auth.setup.ts) and runs
+ * `fn` with a fresh page in that context. The context is always closed.
+ *
+ * Booting from storageState instead of logging in through the UI is what keeps
+ * this usable from inside a test: a second context that tries a UI login while
+ * the calling test already holds its own authenticated context hangs hard — the
+ * PO journeys burned their whole timeout on exactly that, with no error to point
+ * at. The same fix already lives in pr-approver.helpers.ts. It is also far
+ * faster, and pinning the BU to BLAVG here gives the PO form's BU-dependent
+ * lookups (workflow, vendor, location) data to work with.
+ */
+async function withRoleContext<T>(
+  browser: Browser,
+  email: string,
+  fn: (page: Page) => Promise<T>,
+): Promise<T> {
+  const ctx: BrowserContext = await browser.newContext({
+    storageState: authFile(email),
+  });
+  try {
+    const page = await ctx.newPage();
+    await ensureActiveBu(page, BU_CODE);
+    return await fn(page);
+  } finally {
+    await ctx.close();
+  }
+}
+
+/** Fill the PO form and save, leaving the record in Draft. Shared by the seeders. */
+async function createDraftOnPage(
+  page: Page,
+  opts: { description?: string; vendor?: string } | undefined,
+  who: string,
+): Promise<CreatedPO> {
+  const po = new PurchaseOrderPage(page);
+  await po.gotoNew();
+  await expect(page).toHaveURL(/purchase-order\/new/, { timeout: 10_000 });
+
+  if (opts?.vendor) {
+    const trigger = po.vendorTrigger();
+    if ((await trigger.count()) > 0) await trigger.fill(opts.vendor).catch(() => {});
+  }
+  const desc = po.descriptionInput();
+  if ((await desc.count()) > 0) {
+    await desc.fill(opts?.description ?? "[E2E-POP] approver-fixture").catch(() => {});
+  }
+  const date = po.deliveryDateInput();
+  if ((await date.count()) > 0) await date.fill(FUTURE_DATE).catch(() => {});
+
+  await po.addItemToPO({ product: "Test Item", quantity: 1, uom: "ea", unitPrice: 100 });
+
+  await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
+  await page.waitForURL(/purchase-order\/(?!new$)[^\/?#]+$/, { timeout: 15_000 }).catch(() => {});
+
+  const url = page.url();
+  if (url.endsWith("/new") || url.includes("/new?")) {
+    throw new Error(`${who}: save did not redirect — still on ${url}. PO was not created.`);
+  }
+  const ref = url.match(/purchase-order\/([^\/?#]+)/)?.[1];
+  if (!ref || ref === "new") {
+    throw new Error(`${who}: could not extract PO ref from URL: ${url}`);
+  }
+  return { ref, url };
+}
+
+/**
+ * Seed a PO that is still in **Draft**. Tests about the creator's own draft
+ * (Edit / Delete / Submit visible, edit-mode behaviour) need this: once a PO is
+ * submitted the backend hands its creator `role = "view_only"` and those buttons
+ * are gone, so seeding with submitPOAsPurchaser made them assert the impossible.
+ */
+export async function createDraftPOAsPurchaser(
+  browser: Browser,
+  opts?: { description?: string; vendor?: string },
+): Promise<CreatedPO> {
+  return await withRoleContext(browser, "purchase@blueledgers.com", (page) =>
+    createDraftOnPage(page, opts, "createDraftPOAsPurchaser"),
+  );
 }
 
 /**
@@ -24,92 +107,139 @@ export async function submitPOAsPurchaser(
   browser: Browser,
   opts?: { description?: string; vendor?: string },
 ): Promise<CreatedPO> {
-  const ctx = await browser.newContext();
-  try {
-    const page = await ctx.newPage();
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.loginWithRetry("purchase@blueledgers.com", TEST_PASSWORD);
-    await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
-
+  return await withRoleContext(browser, "purchase@blueledgers.com", async (page) => {
     const po = new PurchaseOrderPage(page);
-    await po.gotoNew();
-    await expect(page).toHaveURL(/purchase-order\/new/, { timeout: 10_000 });
+    const { ref, url } = await createDraftOnPage(page, opts, "submitPOAsPurchaser");
 
-    if (opts?.vendor) {
-      const trigger = po.vendorTrigger();
-      if ((await trigger.count()) > 0) await trigger.fill(opts.vendor).catch(() => {});
-    }
-    const desc = po.descriptionInput();
-    if ((await desc.count()) > 0) {
-      await desc.fill(opts?.description ?? "[E2E-POP] approver-fixture").catch(() => {});
-    }
-    const date = po.deliveryDateInput();
-    if ((await date.count()) > 0) await date.fill(FUTURE_DATE).catch(() => {});
-
-    await po.addItemToPO({
-      product: "Test Item",
-      quantity: 1,
-      uom: "ea",
-      unitPrice: 100,
-    });
-
-    await po.saveButton().click({ timeout: 5_000 }).catch(() => {});
-    await page.waitForURL(/purchase-order\/(?!new$)[^\/?#]+$/, { timeout: 15_000 }).catch(() => {});
-
-    const url = page.url();
-    if (url.endsWith("/new") || url.includes("/new?")) {
-      throw new Error(`submitPOAsPurchaser: save did not redirect — still on ${url}. PO was not created.`);
-    }
-    const refMatch = url.match(/purchase-order\/([^\/?#]+)/);
-    const ref = refMatch?.[1];
-    if (!ref || ref === "new") {
-      throw new Error(`submitPOAsPurchaser: could not extract PO ref from URL: ${url}`);
-    }
-
-    // Optionally submit for approval if a Submit button is present.
+    // Submit for approval. Two things made this look like it worked while the PO
+    // stayed in Draft:
+    //   1. the confirmation is a Radix AlertDialog, which `getByRole("dialog")`
+    //      never matched, so nothing ever confirmed (see confirmDialogButton);
+    //   2. once it did confirm, the app optimistically routes back to the list,
+    //      so the Submit button detaches *before* the PATCH lands — and
+    //      withRoleContext then closes the context, aborting the request
+    //      in flight. The record kept `last_action.state = "submitted"` with a
+    //      null timestamp and `po_status = draft`.
+    // Waiting on the response itself is the only proof that holds: the workflow
+    // moves to the first approve stage (FC) only when this PATCH completes.
     const submit = po.submitButton();
-    if ((await submit.count()) > 0) {
-      await submit.click({ timeout: 5_000 }).catch(() => {});
-      await po.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
-      await page.waitForLoadState("networkidle").catch(() => {});
+    await submit.waitFor({ state: "visible", timeout: 20_000 });
+
+    const submitted = page.waitForResponse(
+      (r) => /\/purchase-orders\/[^/]+\/submit/.test(r.url()) && r.request().method() === "PATCH",
+      { timeout: 30_000 },
+    );
+    await submit.click({ timeout: 10_000 });
+    await po.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 10_000 });
+
+    const res = await submitted.catch(() => null);
+    if (!res) {
+      throw new Error(`submitPOAsPurchaser: PO ${ref} — no PATCH .../submit was ever sent`);
+    }
+    if (!res.ok()) {
+      throw new Error(
+        `submitPOAsPurchaser: PO ${ref} submit failed — ${res.status()} ${(await res.text().catch(() => "")).slice(0, 200)}`,
+      );
     }
 
     return { ref, url };
-  } finally {
-    await ctx.close();
-  }
+  });
 }
 
 /**
- * Cross-context helper: opens a fresh BrowserContext, logs in as FC,
- * navigates to the PO at ref, enters Edit Mode, and clicks Approve to
- * advance the PO from In Progress to Approved status. Closes the context
- * cleanly. Used by Step 5 post-approval setup.
+ * Cross-context helper: opens a fresh BrowserContext as FC and walks the PO from
+ * In Progress to Approved.
+ *
+ * Approving a PO is not one button. `po-footer-action.tsx` only renders the
+ * footer Approve when `role === "approve"` **and** `computePoAction(itemStatuses)`
+ * is `"approved"` — and a freshly submitted PO has every item at `""`, which
+ * that function maps to `"none"`. So the approver must first mark the lines:
+ * enter Edit mode, select the item rows (the bulk bar needs `isEditMode` *and* a
+ * selection), press the item-table Approve, and only then does the footer offer
+ * Approve. The old helper looked for Approve straight after Edit, found nothing,
+ * and blamed the workflow.
+ *
+ * FC is the right approver here: the backend's General PO workflow lists
+ * `purchase@blueledgers.com` on Create Request and `fc@blueledgers.com` on the
+ * first approve stage, and the PO form only ever offers that one workflow.
  */
 export async function approveAsFC(browser: Browser, ref: string): Promise<void> {
-  const ctx = await browser.newContext();
-  try {
-    const page = await ctx.newPage();
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await loginPage.loginWithRetry("fc@blueledgers.com", TEST_PASSWORD);
-    await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
+  await approveAsRole(browser, "fc@blueledgers.com", ref);
+}
+
+/**
+ * The GM leg. FC's approval only moves the PO to the next approve stage — the
+ * General PO workflow is Create Request → FC → GM → Completed — so a PO is not
+ * actually Approved (and has no Send to Vendor / Close) until GM signs too.
+ */
+export async function approveAsGM(browser: Browser, ref: string): Promise<void> {
+  await approveAsRole(browser, "gm@blueledgers.com", ref);
+}
+
+/** Submit as Purchaser, then walk both approve stages, leaving an Approved PO. */
+export async function seedApprovedPO(
+  browser: Browser,
+  opts?: { description?: string; vendor?: string },
+): Promise<CreatedPO> {
+  const created = await submitPOAsPurchaser(browser, opts);
+  await approveAsFC(browser, created.ref);
+  await approveAsGM(browser, created.ref);
+  return created;
+}
+
+async function approveAsRole(browser: Browser, email: string, ref: string): Promise<void> {
+  await withRoleContext(browser, email, async (page) => {
     await gotoPODetail(page, ref);
     const po = new PurchaseOrderPage(page);
-    if ((await po.editModeButton().count()) > 0) {
-      await po.enterEditMode();
+
+    // Edit is the approver's gate: it renders only once the backend hands this
+    // user role="approve" on this PO. If it never shows, the PO is not at FC's
+    // stage and there is nothing to approve — say so instead of timing out.
+    await po
+      .editModeButton()
+      .waitFor({ state: "visible", timeout: 20_000 })
+      .catch(() => {
+        throw new Error(
+          `approveAsRole(${email}): PO ${ref} never offered Edit — it is not sitting at this role's approve stage`,
+        );
+      });
+    await po.enterEditMode();
+
+    const rowCheckboxes = page.locator("tbody").getByRole("checkbox");
+    await rowCheckboxes.first().waitFor({ state: "visible", timeout: 10_000 });
+    const rows = await rowCheckboxes.count();
+    for (let i = 0; i < rows; i++) {
+      await rowCheckboxes.nth(i).click({ timeout: 5_000 });
     }
+
+    // Item-table Approve — marks every selected line approved in the form state.
+    const itemApprove = page.getByRole("button", { name: /^approve$/i }).first();
+    await itemApprove.waitFor({ state: "visible", timeout: 10_000 });
+    await itemApprove.click({ timeout: 5_000 });
+
+    // Footer Approve only appears now that no line is left pending.
     const approve = po.approveButton();
-    if ((await approve.count()) === 0) {
-      throw new Error(`approveAsFC: Approve button not found on PO ${ref}`);
-    }
+    await approve.waitFor({ state: "visible", timeout: 10_000 }).catch(() => {
+      throw new Error(
+        `approveAsRole(${email}): PO ${ref} — items were marked approved but the footer Approve never appeared`,
+      );
+    });
+
+    const approved = page.waitForResponse(
+      (r) => /\/purchase-orders\/[^/]+\/approve/.test(r.url()) && r.request().method() === "PATCH",
+      { timeout: 30_000 },
+    );
     await approve.click({ timeout: 5_000 });
-    await po.confirmDialogButton(/confirm|approve|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
-    await page.waitForLoadState("networkidle").catch(() => {});
-  } finally {
-    await ctx.close();
-  }
+    await po.confirmDialogButton(/confirm|approve|ok|yes/i).click({ timeout: 10_000 });
+
+    const res = await approved.catch(() => null);
+    if (!res) throw new Error(`approveAsRole(${email}): PO ${ref} — no PATCH .../approve was ever sent`);
+    if (!res.ok()) {
+      throw new Error(
+        `approveAsRole(${email}): PO ${ref} approve failed — ${res.status()} ${(await res.text().catch(() => "")).slice(0, 200)}`,
+      );
+    }
+  });
 }
 
 /**
@@ -117,5 +247,5 @@ export async function approveAsFC(browser: Browser, ref: string): Promise<void> 
  */
 export async function gotoPODetail(page: Page, ref: string): Promise<void> {
   await page.goto(`${LIST_PATH}/${ref}`);
-  await page.waitForLoadState("networkidle");
+  await page.waitForLoadState("networkidle", { timeout: 20_000 }).catch(() => {});
 }

@@ -1140,7 +1140,7 @@ row ยังคงอยู่ใน table (ไม่ถูกลบเมื�
 
 **Expected**
 
-ระบบแสดง error duplicate/exists/already และไม่บันทึก
+ระบบแสดง error duplicate/exists/already และไม่บันทึก (ปัจจุบันแอปแสดงข้อความ concurrency แทน — บั๊ก frontend)
 
 ---
 
@@ -1215,4 +1215,4 @@ name input ตัดข้อความให้ยาวไม่เกิน
 ---
 
 
-<sub>Last regenerated: 2026-06-16 · git 18bd4be</sub>
+<sub>Last regenerated: 2026-09-19 · git 406597d</sub>

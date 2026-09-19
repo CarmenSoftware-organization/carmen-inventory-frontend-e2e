@@ -1,6 +1,25 @@
-import { expect } from "@playwright/test";
+import { expect, type Locator } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { StoreRequisitionPage, LIST_PATH } from "./pages/store-requisition.page";
+
+/**
+ * Open the record a list row points at.
+ *
+ * A `<tr>` in this app is not clickable — the record opens from a link (or a
+ * link-styled `<button>`) inside the row whose text is the document number. The
+ * old `row.click()` therefore waited for a `<tr>` to become "actionable", and
+ * with actionTimeout at 0 that burned the whole test timeout with nothing to
+ * point at. Bounded on purpose.
+ */
+async function openRecordFromRow(row: Locator): Promise<void> {
+  const link = row.getByRole("link").first();
+  if ((await link.count()) > 0) {
+    await link.click({ timeout: 10_000 });
+    return;
+  }
+  await row.getByRole("button").first().click({ timeout: 10_000 });
+}
+
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Requestor/Approver/Storekeeper == purchase@blueledgers.com.
@@ -77,7 +96,7 @@ purchaseTest.describe("Store Requisition — Create", () => {
       await sr.gotoList();
       await sr.newRequisitionButton().click({ timeout: 5_000 }).catch(() => {});
       await sr.saveAsDraftButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(sr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(sr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -127,7 +146,7 @@ requestorTest.describe("Store Requisition — Create — Permission denial", () 
       if ((await btn.count()) === 0) {
         expect(true).toBe(true);
       } else {
-        await expect(btn).toBeDisabled({ timeout: 5_000 }).catch(() => {});
+        await expect(btn).toBeDisabled({ timeout: 5_000 });
       }
     },
   );
@@ -157,7 +176,7 @@ purchaseTest.describe("Store Requisition — Add Items", () => {
       await sr.gotoList();
       const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await sr.addItemButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -415,7 +434,7 @@ purchaseTest.describe("Store Requisition — Submit", () => {
       await sr.gotoList();
       const draftRow = page.getByRole("row").filter({ hasText: /draft/i }).first();
       if ((await draftRow.count()) === 0) return;
-      await draftRow.click();
+      await openRecordFromRow(draftRow);
       await sr.submitForApprovalButton().click({ timeout: 5_000 }).catch(() => {});
       await sr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
     },
@@ -461,7 +480,7 @@ purchaseTest.describe("Store Requisition — Submit", () => {
       const sr = new StoreRequisitionPage(page);
       await sr.gotoNew();
       await sr.submitForApprovalButton().click({ timeout: 5_000 }).catch(() => {});
-      await expect(sr.anyError().first()).toBeVisible({ timeout: 5_000 }).catch(() => {});
+      await expect(sr.anyError().first()).toBeVisible({ timeout: 5_000 });
     },
   );
 
@@ -648,7 +667,7 @@ purchaseTest.describe("Store Requisition — Approve", () => {
       await sr.gotoList();
       const inProgressRow = page.getByRole("row").filter({ hasText: /in.progress/i }).first();
       if ((await inProgressRow.count()) === 0) return;
-      await inProgressRow.click();
+      await openRecordFromRow(inProgressRow);
       await sr.approveButton().click({ timeout: 5_000 }).catch(() => {});
       await sr.confirmDialogButton(/^approve$/i).click({ timeout: 5_000 }).catch(() => {});
     },
@@ -971,9 +990,9 @@ purchaseTest.describe("Store Requisition — Reject", () => {
       await sr.gotoList();
       const inProgressRow = page.getByRole("row").filter({ hasText: /in.progress/i }).first();
       if ((await inProgressRow.count()) === 0) return;
-      await inProgressRow.click();
+      await openRecordFromRow(inProgressRow);
       await sr.rejectButton().click({ timeout: 5_000 }).catch(() => {});
-      await sr.reasonInput().fill("Specific policy violation").catch(() => {});
+      await sr.reasonInput().fill("Specific policy violation", { timeout: 10_000 }).catch(() => {});
       await sr.confirmDialogButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -1066,7 +1085,7 @@ purchaseTest.describe("Store Requisition — Issuance", () => {
       await sr.gotoList();
       const readyRow = page.getByRole("row").filter({ hasText: /ready.*issuance/i }).first();
       if ((await readyRow.count()) === 0) return;
-      await readyRow.click();
+      await openRecordFromRow(readyRow);
       await sr.recordIssuanceButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );

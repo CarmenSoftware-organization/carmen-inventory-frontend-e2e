@@ -9,7 +9,7 @@ import { BuSwitcherPage } from "./pages/bu-switcher.page";
 import { uid, fakeCode, fakeName, buildEntity } from "./helpers/test-data";
 
 const test = createAuthTest("admin@blueledgers.com");
-const PATH = "/config/eco";
+const PATH = "/product-management/eco";
 const { code: CODE, name: NAME, nameUpdated: NAME_UPDATED } = buildEntity({ codePrefix: "EE", tag: "ECO" });
 
 // Security cases only exercise name/list/dialog — reuse the proven shared
@@ -30,8 +30,8 @@ test.describe("Eco — Smoke & CRUD", () => {
     {
       annotation: [
         { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture" },
-        { type: "steps", description: "1. ไปที่ /config/eco" },
-        { type: "expected", description: "URL ตรงกับ /config/eco; หน้า list render สำเร็จ" },
+        { type: "steps", description: "1. ไปที่ /product-management/eco" },
+        { type: "expected", description: "URL ตรงกับ /product-management/eco; หน้า list render สำเร็จ" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -47,8 +47,8 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-010002 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/eco" },
-        { type: "steps", description: "1. ไปที่ /config/eco" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /product-management/eco" },
+        { type: "steps", description: "1. ไปที่ /product-management/eco" },
         { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
@@ -65,8 +65,8 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/eco" },
-        { type: "steps", description: "1. ไปที่ /config/eco\n2. พิมพ์ 'test' ในช่องค้นหา" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /product-management/eco" },
+        { type: "steps", description: "1. ไปที่ /product-management/eco\n2. พิมพ์ 'test' ในช่องค้นหา" },
         { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Smoke" },
@@ -84,8 +84,8 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/eco" },
-        { type: "steps", description: "1. ไปที่ /config/eco\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /product-management/eco" },
+        { type: "steps", description: "1. ไปที่ /product-management/eco\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Functional" },
@@ -124,7 +124,7 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-200001 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/eco" },
+        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /product-management/eco" },
         { type: "steps", description: "1. เปิด Add dialog\n2. กด Save โดยไม่กรอก code/name" },
         { type: "expected", description: "Error message แสดงใน dialog (required validation); dialog ยังเปิดอยู่" },
         { type: "priority", description: "High" },
