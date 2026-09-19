@@ -26,14 +26,19 @@ export class DeliveryPointListPage extends BasePage {
   }
 
   async search(query: string) {
-    const input = this.searchInput();
-    await input.click();
-    await input.fill("");
+    // .first() and bounded actions: `searchInput()` deliberately returns the whole
+    // collection so callers can count it, and this page carries more than one
+    // "Search" placeholder — the un-scoped click was strict-mode-ambiguous, and
+    // with actionTimeout at 0 it waited for a stable element forever instead of
+    // failing. That burned the full test timeout inside a beforeEach.
+    const input = this.searchInput().first();
+    await input.click({ timeout: 10_000 });
+    await input.fill("", { timeout: 10_000 });
     if (query) {
-      await input.pressSequentially(query, { delay: 20 });
+      await input.pressSequentially(query, { delay: 20, timeout: 15_000 });
     }
-    await input.press("Enter");
-    await this.page.waitForLoadState("networkidle");
+    await input.press("Enter", { timeout: 10_000 });
+    await this.page.waitForLoadState("networkidle", { timeout: 20_000 }).catch(() => {});
   }
 
   rowByName(name: string): Locator {
