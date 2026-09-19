@@ -23,13 +23,13 @@ _Generated from `tests/403-po-approver-journey.spec.ts` annotations. Edit annota
 | TC-PO-070304 | Mark item Reject → reject badge + footer Reject button appears | Medium | CRUD |
 | TC-PO-070305 | All items Approved → Document Approve button enabled in footer | High | Functional |
 | TC-PO-070306 | Click Approve PO → confirmation dialog ('Once approved, PO will be sent to vendor') | High | Smoke |
-| TC-PO-070307 | Confirm Approve → status moves to APPROVED/SENT | High | CRUD |
+| TC-PO-070307 | Confirm Approve → PATCH approve สำเร็จ และใบเลื่อนไปขั้น GM | High | CRUD |
 | TC-PO-070308 | Click Send Back → dialog with stage selector + per-item reason | Medium | Smoke |
 | TC-PO-070309 | Confirm Send Back → PO returned (status updates) | Medium | CRUD |
 | TC-PO-070310 | Click Reject → dialog with optional reason field | Medium | Smoke |
 | TC-PO-070311 | Confirm Reject → PO marked REJECTED | Medium | CRUD |
 | TC-PO-070312 | Cancel edit mode (no item marked) → exits without saving | Low | Functional |
-| TC-PO-070901 | Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → Sent | High | Smoke |
+| TC-PO-070901 | Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → GM approve → APPROVED | High | Smoke |
 
 ---
 
@@ -291,9 +291,9 @@ Confirmation dialog visible
 
 ---
 
-## TC-PO-070307 — Confirm Approve → status moves to APPROVED/SENT
+## TC-PO-070307 — Confirm Approve → PATCH approve สำเร็จ และใบเลื่อนไปขั้น GM
 
-> **As a** FC user, **I want** to manage Po Approver Journey records via CRUD, **so that** the data stays correct over time.
+> **As a** GM user, **I want** to manage Po Approver Journey records via CRUD, **so that** the data stays correct over time.
 
 **Priority:** High · **Test Type:** CRUD
 
@@ -309,7 +309,7 @@ Confirmation dialog ของ Document Approve เปิดอยู่
 
 **Expected**
 
-text ของ status badge ตรงกับ /approved|sent/i หลังการยืนยัน
+PATCH .../approve ตอบ ok; ใบยังเป็น IN PROGRESS (เลื่อนไปขั้น GM ตาม workflow General PO) และ FC ไม่เห็นปุ่ม Edit อีก
 
 ---
 
@@ -422,7 +422,7 @@ Form กลับสู่ view mode (ปุ่ม Edit visible อีกคร�
 
 ---
 
-## TC-PO-070901 — Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → Sent
+## TC-PO-070901 — Full FC flow: My Approval → open PO → Edit → mark all items Approved → Document Approve → GM approve → APPROVED
 
 > **As a** FC user, **I want** core Po Approver Journey interactions to work, **so that** day-to-day usage stays smooth.
 
@@ -444,9 +444,9 @@ Login เป็น FC; มี IN PROGRESS PO ใหม่ที่ seed ผ่�
 
 **Expected**
 
-status badge เปลี่ยนเป็น APPROVED/SENT หลังการยืนยัน
+PATCH .../approve ของ FC ตอบ ok และหลัง GM อนุมัติต่อ status badge เป็น APPROVED/SENT
 
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 0d65afe</sub>
+<sub>Last regenerated: 2026-09-19 · git 86ff54e</sub>

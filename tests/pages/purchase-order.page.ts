@@ -317,9 +317,14 @@ export class PurchaseOrderPage extends BasePage {
    */
   private async pickFromRowTrigger(row: Locator, name: RegExp) {
     const trigger = row.getByRole("button", { name }).first();
-    if ((await trigger.count()) === 0) {
+    // waitFor, not count(): count() answers immediately, and each pick re-renders
+    // the row, so the next trigger is briefly absent from the DOM. Reading the
+    // count at that instant threw "the row layout changed" on a row that was
+    // merely mid-render — an intermittent failure that took out whichever test
+    // happened to seed at the wrong moment.
+    await trigger.waitFor({ state: "attached", timeout: 10_000 }).catch(() => {
       throw new Error(`addItemToPO: no "${name}" trigger in the item row — the row layout changed`);
-    }
+    });
     // Wait for the cascade to unlock this step instead of blocking on the click.
     await expect(trigger).toBeEnabled({ timeout: 10_000 });
     await trigger.click({ timeout: 10_000 });
