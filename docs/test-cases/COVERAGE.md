@@ -7,8 +7,8 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Status | Meaning | Modules |
 | --- | --- | --- |
 | ✅ spec | an automated Playwright spec drives this module | 36 |
-| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 23 |
-| ❌ none | neither — this is the coverage gap | 43 |
+| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 28 |
+| ❌ none | neither — this is the coverage gap | 38 |
 
 ## *
 
@@ -38,10 +38,10 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
 | `/config` | 1 | `002-spa-smoke.spec.ts` | — | ✅ spec |
-| `/config/account-mapping` | 1 | — | — | ❌ none |
+| `/config/account-mapping` | 1 | — | `081-account-mapping.md` | 📄 catalog |
 | `/config/adjustment-type` | 1 | `031-adjustment-type.spec.ts` | — | ✅ spec |
 | `/config/business-type` | 1 | `029-business-type.spec.ts` | — | ✅ spec |
-| `/config/chart-of-accounts` | 1 | — | — | ❌ none |
+| `/config/chart-of-accounts` | 1 | — | `082-chart-of-accounts.md` | 📄 catalog |
 | `/config/credit-note-reason` | 1 | `602-cn-reason.spec.ts` | — | ✅ spec |
 | `/config/credit-term` | 1 | `032-credit-term.spec.ts` | — | ✅ spec |
 | `/config/currency` | 1 | `040-currency.spec.ts` | — | ✅ spec |
@@ -50,7 +50,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | `/config/exchange-rate` | 1 | `041-exchange-rate.spec.ts` | — | ✅ spec |
 | `/config/extra-cost` | 1 | `030-extra-cost.spec.ts` | — | ✅ spec |
 | `/config/location` | 3 | `080-location.spec.ts` | — | ✅ spec |
-| `/config/shelf` | 1 | — | — | ❌ none |
+| `/config/shelf` | 1 | — | `083-shelf.md` | 📄 catalog |
 | `/config/tax-profile` | 1 | `042-tax-profile.spec.ts` | — | ✅ spec |
 | `/config/unit` | 1 | `002-spa-smoke.spec.ts`<br>`020-unit.spec.ts` | — | ✅ spec |
 
@@ -189,9 +189,9 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | `/system-admin` | 1 | — | `1113-signature-config.md` | 📄 catalog |
 | `/system-admin/activity-log` | 1 | — | `1109-activity-log.md` | 📄 catalog |
 | `/system-admin/business-setting` | 1 _(redirect)_ | — | — | ❌ none |
-| `/system-admin/company-profile` | 1 | — | — | ❌ none |
+| `/system-admin/company-profile` | 1 | — | `1114-company-profile.md` | 📄 catalog |
 | `/system-admin/dashboard-dataset` | 1 | — | `1112-dashboard-dataset.md` | 📄 catalog |
-| `/system-admin/default-setting` | 1 | — | — | ❌ none |
+| `/system-admin/default-setting` | 1 | — | `1115-default-setting.md` | 📄 catalog |
 | `/system-admin/document` | 1 | — | `1107-document.md` | 📄 catalog |
 | `/system-admin/email-profile` | 1 | — | — | ❌ none |
 | `/system-admin/email-template` | 1 | — | — | ❌ none |

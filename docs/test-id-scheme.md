@@ -79,7 +79,7 @@ These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/
 | `test-cases/1102-user.md` | `USR` | Platform / System Admin | 01–05, 10–19, 90 |
 | `test-cases/1103-workflow.md` | `WF` | Platform / System Admin | 01–05, 10–19, 20, 40, 90 |
 | `test-cases/1104-notification-template.md` | `NTPL` | Platform / System Admin | 01–05, 10, 20 |
-| `test-cases/1105-system-period.md` | `SPER` | Platform / System Admin | 01–05, 10, 20, 30, 40 |
+| `test-cases/1105-system-period.md` | `SPER` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
 | `test-cases/1106-user-activity.md` | `UACT` | Platform / System Admin | 01–02, 10–19, 30 |
 | `test-cases/1107-document.md` | `DOC` | Platform / System Admin | 01, 03, 05, 10, 20 |
 | `test-cases/1108-query-dataset.md` | `QDS` | Platform / System Admin | 01–05, 10, 20, 30, 40 |
@@ -93,6 +93,14 @@ These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/
 | `test-cases/1202-report.md` | `RPT` | Cross-cutting | 01, 10, 30, 40 |
 | `test-cases/1203-notifications.md` | `NTFY` | Cross-cutting | 01–02, 04, 10, 90 |
 | `test-cases/1204-section-landing.md` | `LAND` | Cross-cutting | 01, 10, 40, 90 |
+| `test-cases/081-account-mapping.md` | `ACMAP` | Config (master data) | 01–05, 10, 20, 30, 40, 90 |
+| `test-cases/082-chart-of-accounts.md` | `COA` | Config (master data) | 01–05, 10, 20, 30, 40, 90 |
+| `test-cases/083-shelf.md` | `SHLF` | Config (master data) | 01–05, 10, 20, 30, 40, 90 |
+| `test-cases/1114-company-profile.md` | `COMP` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
+| `test-cases/1115-default-setting.md` | `DSET` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
+| `test-cases/1116-email-profile.md` | `EPROF` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
+| `test-cases/1117-email-template.md` | `ETPL` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
+| `test-cases/1118-interface.md` | `INTF` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
 
 ## Adding a new module
 
