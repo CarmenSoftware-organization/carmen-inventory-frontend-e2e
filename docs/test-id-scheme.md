@@ -37,7 +37,7 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `042-tax-profile.spec.ts` | `TP` | 01, 03–05, 10, 20 | CRUD + security |
 | `043-certification.spec.ts` | `CERT` | 01, 03–05, 10, 20 | CRUD + security |
 | `044-eco.spec.ts` | `ECO` | 01, 03–05, 10, 20 | CRUD + security |
-| `081-account-mapping.spec.ts` | `ACMAP` | 01, 10, 40, 90 | List/Search/Tabs + security |
+| `081-chart-of-account-mapping.spec.ts` | `ACMAP` | 01, 10, 40, 90 | List/Search/Tabs + security |
 | `082-chart-of-accounts.spec.ts` | `COA` | 01–05, 10, 20, 30, 90 | CRUD + validation |
 | `083-shelf.spec.ts` | `SHLF` | 01–05, 10, 20, 30, 90 | Smoke + error-state stubs (backend endpoint pending) |
 | `110-op-category.spec.ts` | `OPCAT` | 01–05, 10, 20, 90 | CRUD + security |

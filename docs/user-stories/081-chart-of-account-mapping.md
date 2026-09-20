@@ -1,9 +1,9 @@
-# Account Mapping — User Stories
+# Chart Of Account Mapping — User Stories
 
-_Generated from `tests/081-account-mapping.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
+_Generated from `tests/081-chart-of-account-mapping.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
-**Module:** Account Mapping
-**Spec:** `tests/081-account-mapping.spec.ts`
+**Module:** Chart Of Account Mapping
+**Spec:** `tests/081-chart-of-account-mapping.spec.ts`
 **Default role:** Admin
 **Total test cases:** 13 (6 High / 7 Medium / 0 Low)
 
@@ -11,7 +11,7 @@ _Generated from `tests/081-account-mapping.spec.ts` annotations. Edit annotation
 
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-ACMAP-010001 | แสดงหน้า Account Mapping พร้อมตารางของแท็บ AP | High | Smoke |
+| TC-ACMAP-010001 | แสดงหน้า Chart of Account Mapping พร้อมตารางของแท็บ AP | High | Smoke |
 | TC-ACMAP-010002 | ตารางแสดงคอลัมน์ครบตามที่กำหนด | High | Functional |
 | TC-ACMAP-010003 | ค้นหาด้วยรหัสบัญชี (Account Code) | High | Functional |
 | TC-ACMAP-010007 | ค้นหาแล้วไม่พบข้อมูล แสดง empty state | Medium | Negative |
@@ -27,36 +27,36 @@ _Generated from `tests/081-account-mapping.spec.ts` annotations. Edit annotation
 
 ---
 
-## TC-ACMAP-010001 — แสดงหน้า Account Mapping พร้อมตารางของแท็บ AP
+## TC-ACMAP-010001 — แสดงหน้า Chart of Account Mapping พร้อมตารางของแท็บ AP
 
-> **As a** Admin user, **I want** core Account Mapping interactions to work, **so that** day-to-day usage stays smooth.
+> **As a** Admin user, **I want** core Chart Of Account Mapping interactions to work, **so that** day-to-day usage stays smooth.
 
 **Priority:** High · **Test Type:** Smoke
 
 **Preconditions**
 
-Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; ข้อมูลหน้านี้มาจาก mock am-mock.ts (12 แถว — AP 8 / GL 4)
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; ข้อมูลหน้านี้มาจาก mock coam-mock.ts (12 แถว — AP 8 / GL 4)
 
 **Steps**
 
-1. ไปที่ /config/account-mapping
+1. ไปที่ /config/chart-of-account-mapping
 2. รอให้ DataGrid โหลดเสร็จ
 
 **Expected**
 
-เห็นหัวข้อ Account Mapping พร้อมแถบแท็บ Posting to AP / Posting to GL โดยแท็บ Posting to AP ถูกเลือกอยู่ และตารางแสดงแถวของ mapping type AP
+เห็นหัวข้อ Chart of Account Mapping พร้อมแถบแท็บ Posting to AP / Posting to GL โดยแท็บ Posting to AP ถูกเลือกอยู่ และตารางแสดงแถวของ mapping type AP
 
 ---
 
 ## TC-ACMAP-010002 — ตารางแสดงคอลัมน์ครบตามที่กำหนด
 
-> **As a** Admin user, **I want** this Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Chart Of Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** High · **Test Type:** Functional
 
 **Preconditions**
 
-อยู่ที่หน้า /config/account-mapping และตารางโหลดข้อมูลแล้ว
+อยู่ที่หน้า /config/chart-of-account-mapping และตารางโหลดข้อมูลแล้ว
 
 **Steps**
 
@@ -70,13 +70,13 @@ Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; ข้
 
 ## TC-ACMAP-010003 — ค้นหาด้วยรหัสบัญชี (Account Code)
 
-> **As a** Admin user, **I want** this Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Chart Of Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** High · **Test Type:** Functional
 
 **Preconditions**
 
-อยู่ที่หน้า /config/account-mapping; แท็บ Posting to AP ถูกเลือกอยู่
+อยู่ที่หน้า /config/chart-of-account-mapping; แท็บ Posting to AP ถูกเลือกอยู่
 
 **Steps**
 
@@ -92,14 +92,14 @@ Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; ข้
 
 ## TC-ACMAP-010007 — ค้นหาแล้วไม่พบข้อมูล แสดง empty state
 
-> **As a** Admin user, **I want** this Account Mapping behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Chart Of Account Mapping behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Negative
 
 **Preconditions**
 
-อยู่ที่หน้า /config/account-mapping
+อยู่ที่หน้า /config/chart-of-account-mapping
 
 **Steps**
 
@@ -113,14 +113,14 @@ _(no steps documented)_
 
 ## TC-ACMAP-010008 — ล้างคำค้นด้วยปุ่มกากบาทแล้วรายการกลับมาครบ
 
-> **As a** Admin user, **I want** this Account Mapping behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Chart Of Account Mapping behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Alternate Flow
 
 **Preconditions**
 
-อยู่ที่หน้า /config/account-mapping และค้นหาไว้แล้วจนรายการถูกกรอง
+อยู่ที่หน้า /config/chart-of-account-mapping และค้นหาไว้แล้วจนรายการถูกกรอง
 
 **Steps**
 
@@ -145,7 +145,7 @@ _(no steps documented)_
 
 **Steps**
 
-1. เปิด URL /config/account-mapping ตรงๆ โดยไม่มี session
+1. เปิด URL /config/chart-of-account-mapping ตรงๆ โดยไม่มี session
 
 **Expected**
 
@@ -155,7 +155,7 @@ _(no steps documented)_
 
 ## TC-ACMAP-100002 — ผู้ใช้ที่ล็อกอินแล้วทุก role เข้าหน้านี้ได้ (ยังไม่ผูก permission/license)
 
-> **As a** low-privilege user, **I should NOT** see Add/edit controls on Account Mapping, **so that** role separation is enforced.
+> **As a** low-privilege user, **I should NOT** see Add/edit controls on Chart Of Account Mapping, **so that** role separation is enforced.
 
 **Priority:** Medium · **Test Type:** Authorization
 
@@ -166,7 +166,7 @@ Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่�
 **Steps**
 
 1. Login เป็น carmensoftware.dev+requestor@gmail.com
-2. ไปที่ /config/account-mapping
+2. ไปที่ /config/chart-of-account-mapping
 
 **Expected**
 
@@ -176,13 +176,13 @@ Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่�
 
 ## TC-ACMAP-400001 — สลับแท็บ Posting to AP ↔ Posting to GL
 
-> **As a** Admin user, **I want** this Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Chart Of Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** High · **Test Type:** Functional
 
 **Preconditions**
 
-อยู่ที่หน้า /config/account-mapping และแท็บ Posting to AP ถูกเลือกอยู่
+อยู่ที่หน้า /config/chart-of-account-mapping และแท็บ Posting to AP ถูกเลือกอยู่
 
 **Steps**
 
@@ -198,13 +198,13 @@ Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่�
 
 ## TC-ACMAP-400002 — ตัวเลขบนหัวแท็บตรงกับจำนวนแถวในตารางของแท็บนั้น
 
-> **As a** Admin user, **I want** this Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Chart Of Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
 **Preconditions**
 
-อยู่ที่หน้า /config/account-mapping โดยยังไม่ได้ค้นหา
+อยู่ที่หน้า /config/chart-of-account-mapping โดยยังไม่ได้ค้นหา
 
 **Steps**
 
@@ -219,13 +219,13 @@ Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่�
 
 ## TC-ACMAP-400004 — คอลัมน์ Mapped แสดงเครื่องหมายถูก/กากบาทตามสถานะ
 
-> **As a** Admin user, **I want** this Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Chart Of Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** High · **Test Type:** Functional
 
 **Preconditions**
 
-อยู่ที่หน้า /config/account-mapping; ข้อมูลมีทั้งแถวที่ผูกแล้วและยังไม่ผูก
+อยู่ที่หน้า /config/chart-of-account-mapping; ข้อมูลมีทั้งแถวที่ผูกแล้วและยังไม่ผูก
 
 **Steps**
 
@@ -239,13 +239,13 @@ Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่�
 
 ## TC-ACMAP-400006 — แถบเครื่องมือแสดงปุ่มครบทั้ง 5 ปุ่ม
 
-> **As a** Admin user, **I want** this Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Chart Of Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
 **Preconditions**
 
-อยู่ที่หน้า /config/account-mapping
+อยู่ที่หน้า /config/chart-of-account-mapping
 
 **Steps**
 
@@ -259,13 +259,13 @@ Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่�
 
 ## TC-ACMAP-400007 — แต่ละแถวมีเฉพาะปุ่มดินสอในคอลัมน์ท้ายสุด
 
-> **As a** Admin user, **I want** this Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
+> **As a** Admin user, **I want** this Chart Of Account Mapping interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
 **Preconditions**
 
-อยู่ที่หน้า /config/account-mapping และตารางมีข้อมูลอย่างน้อย 1 แถว
+อยู่ที่หน้า /config/chart-of-account-mapping และตารางมีข้อมูลอย่างน้อย 1 แถว
 
 **Steps**
 
@@ -279,14 +279,14 @@ Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่�
 
 ## TC-ACMAP-900001 — พิมพ์คำค้นแล้วยังไม่กด Enter ตารางไม่เปลี่ยน
 
-> **As a** Admin user, **I want** this Account Mapping behavior verified, **so that** the feature works as expected.
+> **As a** Admin user, **I want** this Chart Of Account Mapping behavior verified, **so that** the feature works as expected.
 <!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Edge Case
 
 **Preconditions**
 
-อยู่ที่หน้า /config/account-mapping; ช่อง Search ว่างอยู่
+อยู่ที่หน้า /config/chart-of-account-mapping; ช่อง Search ว่างอยู่
 
 **Steps**
 
@@ -300,4 +300,4 @@ Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่�
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git e45b917</sub>
+<sub>Last regenerated: 2026-09-20 · git d2b35a1</sub>

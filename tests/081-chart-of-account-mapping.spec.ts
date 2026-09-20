@@ -6,19 +6,19 @@ import { ensureActiveBu } from "./helpers/bu";
 import { uid } from "./helpers/test-data";
 
 /**
- * Account Mapping (ACMAP) — List / Search / Tab-switching tests.
+ * Chart of Account Mapping (ACMAP) — List / Search / Tab-switching tests.
  *
  * Note: as of the catalog date (2026-09-20) this page reads from mock data
- * (`am-mock.ts`, 12 rows — AP 8 / GL 4) and the toolbar buttons (Import /
+ * (`coam-mock.ts`, 12 rows — AP 8 / GL 4) and the toolbar buttons (Import /
  * Export / Scan / Bulk Map / Edit) and row pencil buttons have no wired
  * handlers. CRUD test cases are therefore omitted; they must be revisited once
  * the real `/api/config/{bu_code}/account-mappings` endpoint is live.
  */
 
 const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
-const PATH = "/config/account-mapping";
+const PATH = "/config/chart-of-account-mapping";
 
-test.describe("Account Mapping — List / Search / Tabs", () => {
+test.describe("Chart of Account Mapping — List / Search / Tabs", () => {
   test.beforeEach(async ({ page }) => {
     await ensureActiveBu(page, BU_CODE);
   });
@@ -27,12 +27,12 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
   // TC-ACMAP-010001 — Smoke
   // ------------------------------------------------------------------
   test(
-    "TC-ACMAP-010001 แสดงหน้า Account Mapping พร้อมตารางของแท็บ AP",
+    "TC-ACMAP-010001 แสดงหน้า Chart of Account Mapping พร้อมตารางของแท็บ AP",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; ข้อมูลหน้านี้มาจาก mock am-mock.ts (12 แถว — AP 8 / GL 4)" },
-        { type: "steps", description: "1. ไปที่ /config/account-mapping\n2. รอให้ DataGrid โหลดเสร็จ" },
-        { type: "expected", description: "เห็นหัวข้อ Account Mapping พร้อมแถบแท็บ Posting to AP / Posting to GL โดยแท็บ Posting to AP ถูกเลือกอยู่ และตารางแสดงแถวของ mapping type AP" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; ข้อมูลหน้านี้มาจาก mock coam-mock.ts (12 แถว — AP 8 / GL 4)" },
+        { type: "steps", description: "1. ไปที่ /config/chart-of-account-mapping\n2. รอให้ DataGrid โหลดเสร็จ" },
+        { type: "expected", description: "เห็นหัวข้อ Chart of Account Mapping พร้อมแถบแท็บ Posting to AP / Posting to GL โดยแท็บ Posting to AP ถูกเลือกอยู่ และตารางแสดงแถวของ mapping type AP" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Smoke" },
       ],
@@ -41,8 +41,8 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
       await page.goto(PATH);
       await page.waitForLoadState("networkidle");
       await expect(page).toHaveURL(new RegExp(PATH));
-      // Heading contains "Account Mapping"
-      await expect(page.getByRole("heading", { name: /Account Mapping/i }).first()).toBeVisible({ timeout: 10_000 });
+      // Heading contains "Chart of Account Mapping"
+      await expect(page.getByRole("heading", { name: /Chart of Account Mapping/i }).first()).toBeVisible({ timeout: 10_000 });
       // Both tabs present
       await expect(page.getByRole("tab", { name: /Posting to AP/i }).first()).toBeVisible({ timeout: 10_000 });
       await expect(page.getByRole("tab", { name: /Posting to GL/i }).first()).toBeVisible({ timeout: 10_000 });
@@ -56,7 +56,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     "TC-ACMAP-010002 ตารางแสดงคอลัมน์ครบตามที่กำหนด",
     {
       annotation: [
-        { type: "preconditions", description: "อยู่ที่หน้า /config/account-mapping และตารางโหลดข้อมูลแล้ว" },
+        { type: "preconditions", description: "อยู่ที่หน้า /config/chart-of-account-mapping และตารางโหลดข้อมูลแล้ว" },
         { type: "steps", description: "1. ดูแถวหัวตาราง" },
         { type: "expected", description: "หัวตารางมีคอลัมน์ Location, Category, Account Code, Mapped และคอลัมน์ action ท้ายสุด" },
         { type: "priority", description: "High" },
@@ -81,7 +81,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     "TC-ACMAP-010003 ค้นหาด้วยรหัสบัญชี (Account Code)",
     {
       annotation: [
-        { type: "preconditions", description: "อยู่ที่หน้า /config/account-mapping; แท็บ Posting to AP ถูกเลือกอยู่" },
+        { type: "preconditions", description: "อยู่ที่หน้า /config/chart-of-account-mapping; แท็บ Posting to AP ถูกเลือกอยู่" },
         { type: "steps", description: "1. คลิกช่อง Search\n2. พิมพ์รหัสบัญชีที่มีอยู่ เช่น '1106002'\n3. กด Enter" },
         { type: "expected", description: "ตารางแสดงเฉพาะแถวที่มีรหัสบัญชีนั้น" },
         { type: "priority", description: "High" },
@@ -107,7 +107,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     "TC-ACMAP-010007 ค้นหาแล้วไม่พบข้อมูล แสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "อยู่ที่หน้า /config/account-mapping" },
+        { type: "preconditions", description: "อยู่ที่หน้า /config/chart-of-account-mapping" },
         { type: "steps", description: `1. พิมพ์คำค้นที่ไม่ตรงกับข้อมูลใดเลย เช่น '__NOPE__${uid}'\n2. กด Enter` },
         { type: "expected", description: "ตารางของทั้งสองแท็บไม่มีแถวข้อมูล แสดง empty state แทน และตัวเลขบนหัวแท็บทั้ง AP และ GL เป็น 0" },
         { type: "priority", description: "Medium" },
@@ -129,7 +129,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     "TC-ACMAP-010008 ล้างคำค้นด้วยปุ่มกากบาทแล้วรายการกลับมาครบ",
     {
       annotation: [
-        { type: "preconditions", description: "อยู่ที่หน้า /config/account-mapping และค้นหาไว้แล้วจนรายการถูกกรอง" },
+        { type: "preconditions", description: "อยู่ที่หน้า /config/chart-of-account-mapping และค้นหาไว้แล้วจนรายการถูกกรอง" },
         { type: "steps", description: "1. ค้นหาจนรายการถูกกรอง\n2. คลิกปุ่มกากบาท (Clear search) ที่อยู่ท้ายช่อง Search" },
         { type: "expected", description: "ช่อง Search ว่าง และตารางกลับมาแสดงรายการทั้งหมดของแท็บที่เปิดอยู่" },
         { type: "priority", description: "Medium" },
@@ -165,7 +165,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     {
       annotation: [
         { type: "preconditions", description: "ไม่มี session (browser context ที่ยังไม่ได้ล็อกอิน)" },
-        { type: "steps", description: "1. เปิด URL /config/account-mapping ตรงๆ โดยไม่มี session" },
+        { type: "steps", description: "1. เปิด URL /config/chart-of-account-mapping ตรงๆ โดยไม่มี session" },
         { type: "expected", description: "ถูก redirect ไปหน้า /login และไม่เห็นข้อมูลผังการผูกบัญชี" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Auth-guard" },
@@ -189,7 +189,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     {
       annotation: [
         { type: "preconditions", description: "Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่น carmensoftware.dev+requestor@gmail.com; leaf ของหน้านี้ใน constant/module-list.ts ยังไม่ประกาศ permission" },
-        { type: "steps", description: "1. Login เป็น carmensoftware.dev+requestor@gmail.com\n2. ไปที่ /config/account-mapping" },
+        { type: "steps", description: "1. Login เป็น carmensoftware.dev+requestor@gmail.com\n2. ไปที่ /config/chart-of-account-mapping" },
         { type: "expected", description: "หน้าแสดงได้ตามปกติ ไม่มีกล่อง Access Denied และไม่ถูก redirect (RouteGuard ปล่อยผ่าน leaf ที่ไม่ประกาศ permission)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Authorization" },
@@ -220,7 +220,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     "TC-ACMAP-400001 สลับแท็บ Posting to AP ↔ Posting to GL",
     {
       annotation: [
-        { type: "preconditions", description: "อยู่ที่หน้า /config/account-mapping และแท็บ Posting to AP ถูกเลือกอยู่" },
+        { type: "preconditions", description: "อยู่ที่หน้า /config/chart-of-account-mapping และแท็บ Posting to AP ถูกเลือกอยู่" },
         { type: "steps", description: "1. คลิกแท็บ Posting to GL\n2. ดูข้อมูลในตาราง\n3. คลิกแท็บ Posting to AP กลับ" },
         { type: "expected", description: "เนื้อหาตารางเปลี่ยนเป็นชุดของแท็บที่เลือกทุกครั้ง โดยไม่มีการเปลี่ยน URL" },
         { type: "priority", description: "High" },
@@ -252,7 +252,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     "TC-ACMAP-400002 ตัวเลขบนหัวแท็บตรงกับจำนวนแถวในตารางของแท็บนั้น",
     {
       annotation: [
-        { type: "preconditions", description: "อยู่ที่หน้า /config/account-mapping โดยยังไม่ได้ค้นหา" },
+        { type: "preconditions", description: "อยู่ที่หน้า /config/chart-of-account-mapping โดยยังไม่ได้ค้นหา" },
         { type: "steps", description: "1. อ่านตัวเลขที่ต่อท้ายชื่อแท็บ Posting to AP แล้วนับจำนวนแถวในตาราง\n2. คลิกแท็บ Posting to GL แล้วทำแบบเดียวกัน" },
         { type: "expected", description: "ตัวเลขบนหัวแท็บแต่ละอันเท่ากับจำนวนแถวในตารางของแท็บนั้น" },
         { type: "priority", description: "Medium" },
@@ -275,7 +275,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     "TC-ACMAP-400004 คอลัมน์ Mapped แสดงเครื่องหมายถูก/กากบาทตามสถานะ",
     {
       annotation: [
-        { type: "preconditions", description: "อยู่ที่หน้า /config/account-mapping; ข้อมูลมีทั้งแถวที่ผูกแล้วและยังไม่ผูก" },
+        { type: "preconditions", description: "อยู่ที่หน้า /config/chart-of-account-mapping; ข้อมูลมีทั้งแถวที่ผูกแล้วและยังไม่ผูก" },
         { type: "steps", description: "1. ดูคอลัมน์ Mapped ของแถวต่างๆ" },
         { type: "expected", description: "แถวที่ผูกแล้วแสดงไอคอนเครื่องหมายถูก (Mapped) ส่วนแถวที่ยังไม่ผูกแสดงไอคอนกากบาท (Not mapped)" },
         { type: "priority", description: "High" },
@@ -298,7 +298,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     "TC-ACMAP-400006 แถบเครื่องมือแสดงปุ่มครบทั้ง 5 ปุ่ม",
     {
       annotation: [
-        { type: "preconditions", description: "อยู่ที่หน้า /config/account-mapping" },
+        { type: "preconditions", description: "อยู่ที่หน้า /config/chart-of-account-mapping" },
         { type: "steps", description: "1. ดูปุ่มด้านขวาของแถบเครื่องมือ" },
         { type: "expected", description: "เห็นปุ่มครบทั้ง 5 ปุ่มและกดได้: Import, Export, Scan for New Code, Bulk Map, Edit" },
         { type: "priority", description: "Medium" },
@@ -321,7 +321,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     "TC-ACMAP-400007 แต่ละแถวมีเฉพาะปุ่มดินสอในคอลัมน์ท้ายสุด",
     {
       annotation: [
-        { type: "preconditions", description: "อยู่ที่หน้า /config/account-mapping และตารางมีข้อมูลอย่างน้อย 1 แถว" },
+        { type: "preconditions", description: "อยู่ที่หน้า /config/chart-of-account-mapping และตารางมีข้อมูลอย่างน้อย 1 แถว" },
         { type: "steps", description: "1. ดูคอลัมน์ท้ายสุดของแถวแรก" },
         { type: "expected", description: "แถวมีปุ่มดินสอ (aria-label Edit) ในคอลัมน์ท้ายสุด" },
         { type: "priority", description: "Medium" },
@@ -347,7 +347,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     "TC-ACMAP-900001 พิมพ์คำค้นแล้วยังไม่กด Enter ตารางไม่เปลี่ยน",
     {
       annotation: [
-        { type: "preconditions", description: "อยู่ที่หน้า /config/account-mapping; ช่อง Search ว่างอยู่" },
+        { type: "preconditions", description: "อยู่ที่หน้า /config/chart-of-account-mapping; ช่อง Search ว่างอยู่" },
         { type: "steps", description: "1. พิมพ์คำค้นลงในช่อง Search โดยยังไม่กด Enter\n2. คลิกพื้นที่ว่างนอกช่อง Search" },
         { type: "expected", description: "จำนวนแถวในตารางและตัวเลขบนหัวแท็บยังเท่าเดิม (การค้นหาทำงานเมื่อกด Enter เท่านั้น)" },
         { type: "priority", description: "Medium" },

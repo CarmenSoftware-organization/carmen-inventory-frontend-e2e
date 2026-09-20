@@ -2,13 +2,13 @@
 
 **Generated file — do not edit.** Run `bun audit:coverage` to refresh.
 
-Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **102 modules**.
+Parsed from the frontend router (`routes/router.tsx`): **168 routes** across **103 modules**.
 
 > **What `spec` means here:** a spec names the module's URL, in its own file or in a page object it imports. A spec that reaches a route only by *clicking* — never by `goto()` — is invisible to this matcher, so the route reads as uncovered. `/procurement/purchase-request/from-template` is the known case: `302-pr-creator-journey` drives it through `selectFirstTemplate()`, which clicks a card. Check the spec before concluding a gap is real.
 
 | Status | Meaning | Modules |
 | --- | --- | --- |
-| ✅ spec | an automated Playwright spec drives this module | 43 |
+| ✅ spec | an automated Playwright spec drives this module | 44 |
 | 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 43 |
 | ❌ none | neither — this is the coverage gap | 16 |
 
@@ -40,9 +40,10 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
 | `/config` | 1 | `002-spa-smoke.spec.ts` | `1204-section-landing.md` | ✅ spec |
-| `/config/account-mapping` | 1 | `081-account-mapping.spec.ts` | — | ✅ spec |
+| `/config/account-mapping` | 1 _(redirect → `/config/chart-of-account-mapping`)_ | `081-chart-of-account-mapping.spec.ts` | — | ✅ spec |
 | `/config/adjustment-type` | 1 | `031-adjustment-type.spec.ts` | — | ✅ spec |
 | `/config/business-type` | 1 | `029-business-type.spec.ts` | — | ✅ spec |
+| `/config/chart-of-account-mapping` | 1 | `081-chart-of-account-mapping.spec.ts` | — | ✅ spec |
 | `/config/chart-of-accounts` | 1 | `082-chart-of-accounts.spec.ts` | — | ✅ spec |
 | `/config/credit-note-reason` | 1 | `602-cn-reason.spec.ts` | — | ✅ spec |
 | `/config/credit-term` | 1 | `032-credit-term.spec.ts` | — | ✅ spec |
