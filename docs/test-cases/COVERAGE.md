@@ -8,8 +8,8 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Status | Meaning | Modules |
 | --- | --- | --- |
-| ✅ spec | an automated Playwright spec drives this module | 36 |
-| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 50 |
+| ✅ spec | an automated Playwright spec drives this module | 41 |
+| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 45 |
 | ❌ none | neither — this is the coverage gap | 16 |
 
 ## *
@@ -40,10 +40,10 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
 | `/config` | 1 | `002-spa-smoke.spec.ts` | `1204-section-landing.md` | ✅ spec |
-| `/config/account-mapping` | 1 | — | `081-account-mapping.md` | 📄 catalog |
+| `/config/account-mapping` | 1 | `081-account-mapping.spec.ts` | — | ✅ spec |
 | `/config/adjustment-type` | 1 | `031-adjustment-type.spec.ts` | — | ✅ spec |
 | `/config/business-type` | 1 | `029-business-type.spec.ts` | — | ✅ spec |
-| `/config/chart-of-accounts` | 1 | — | `082-chart-of-accounts.md` | 📄 catalog |
+| `/config/chart-of-accounts` | 1 | `082-chart-of-accounts.spec.ts` | — | ✅ spec |
 | `/config/credit-note-reason` | 1 | `602-cn-reason.spec.ts` | — | ✅ spec |
 | `/config/credit-term` | 1 | `032-credit-term.spec.ts` | — | ✅ spec |
 | `/config/currency` | 1 | `040-currency.spec.ts` | — | ✅ spec |
@@ -52,7 +52,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | `/config/exchange-rate` | 1 | `041-exchange-rate.spec.ts` | — | ✅ spec |
 | `/config/extra-cost` | 1 | `030-extra-cost.spec.ts` | — | ✅ spec |
 | `/config/location` | 3 | `080-location.spec.ts` | — | ✅ spec |
-| `/config/shelf` | 1 | — | `083-shelf.md` | 📄 catalog |
+| `/config/shelf` | 1 | `083-shelf.spec.ts` | — | ✅ spec |
 | `/config/tax-profile` | 1 | `042-tax-profile.spec.ts` | — | ✅ spec |
 | `/config/unit` | 1 | `002-spa-smoke.spec.ts`<br>`020-unit.spec.ts` | — | ✅ spec |
 
@@ -102,8 +102,8 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
 | `/operation-plan` | 1 | — | `1204-section-landing.md` | 📄 catalog |
-| `/operation-plan/category` | 3 | — | `110-op-category.md` | 📄 catalog |
-| `/operation-plan/cuisine` | 3 | — | `111-cuisine.md` | 📄 catalog |
+| `/operation-plan/category` | 3 | `110-op-category.spec.ts` | — | ✅ spec |
+| `/operation-plan/cuisine` | 3 | `111-cuisine.spec.ts` | — | ✅ spec |
 | `/operation-plan/equipment` | 3 | — | `130-equipment.md` | 📄 catalog |
 | `/operation-plan/equipment-category` | 1 | `131-equipment-category.spec.ts` | — | ✅ spec |
 | `/operation-plan/recipe` | 3 | — | `120-recipe.md` | 📄 catalog |

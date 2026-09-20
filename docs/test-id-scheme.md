@@ -37,6 +37,11 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `042-tax-profile.spec.ts` | `TP` | 01, 03–05, 10, 20 | CRUD + security |
 | `043-certification.spec.ts` | `CERT` | 01, 03–05, 10, 20 | CRUD + security |
 | `044-eco.spec.ts` | `ECO` | 01, 03–05, 10, 20 | CRUD + security |
+| `081-account-mapping.spec.ts` | `ACMAP` | 01, 10, 40, 90 | List/Search/Tabs + security |
+| `082-chart-of-accounts.spec.ts` | `COA` | 01–05, 10, 20, 30, 90 | CRUD + validation |
+| `083-shelf.spec.ts` | `SHLF` | 01–05, 10, 20, 30, 90 | Smoke + error-state stubs (backend endpoint pending) |
+| `110-op-category.spec.ts` | `OPCAT` | 01–05, 10, 20, 90 | CRUD + security |
+| `111-cuisine.spec.ts` | `CUIS` | 01–05, 10, 20, 90 | CRUD + validation |
 | `079-delivery-point.spec.ts` | `DP` | 01, 03–05, 10–19, 20 | CRUD + security |
 | `080-location.spec.ts` | `LOC` | 01, 03–05, 10, 20 | CRUD + security |
 | `101-product-category.spec.ts` | `CAT` | 01–15, 20–29, 90 | Multi-prefix collapse (CATEG/PRODU/RECIP) |
@@ -64,8 +69,6 @@ These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/
 | Catalog doc | Prefix | Area | Sections used |
 |-------------|--------|------|---------------|
 | `test-cases/100-product.md` | `PROD` | Product Management | 01–05, 10, 20, 40, 90 |
-| `test-cases/110-op-category.md` | `OPCAT` | Operation Plan | 01–05, 10, 20, 90 |
-| `test-cases/111-cuisine.md` | `CUIS` | Operation Plan | 01–05, 10, 20, 90 |
 | `test-cases/120-recipe.md` | `RCP` | Operation Plan | 01–05, 10, 20, 40–44 |
 | `test-cases/130-equipment.md` | `EQP` | Operation Plan | 01–05, 10, 20, 40–42 |
 | `test-cases/710-wastage-reporting.md` | `WAST` | Store Operation | 01–05, 10, 20, 90 |
@@ -90,9 +93,7 @@ These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/
 | `test-cases/1202-report.md` | `RPT` | Cross-cutting | 01–05, 10, 20 |
 | `test-cases/1203-notifications.md` | `NTFY` | Cross-cutting | 01–02, 04, 09–10 |
 | `test-cases/1204-section-landing.md` | `LAND` | Cross-cutting | 01, 10, 40, 90 |
-| `test-cases/081-account-mapping.md` | `ACMAP` | Config (master data) | 01, 10, 40, 90 |
-| `test-cases/082-chart-of-accounts.md` | `COA` | Config (master data) | 01–05, 10, 20, 30, 90 |
-| `test-cases/083-shelf.md` | `SHLF` | Config (master data) | 01–05, 10, 20, 30, 90 |
+
 | `test-cases/1114-company-profile.md` | `COMP` | Platform / System Admin | 01–02, 04, 10, 20, 40, 90 |
 | `test-cases/1115-default-setting.md` | `DSET` | Platform / System Admin | 01–02, 04, 10, 30, 40, 90 |
 | `test-cases/1116-email-profile.md` | `EPROF` | Platform / System Admin | 01, 03–05, 10, 20, 30, 40, 90 |

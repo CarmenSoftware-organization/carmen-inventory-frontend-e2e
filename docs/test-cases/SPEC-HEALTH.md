@@ -8,16 +8,16 @@ that runs without an `expect(...)`, reports green and checks nothing.
 
 | | Count |
 | --- | --- |
-| Cases declared | 1194 |
-| **Running** | **959** |
+| Cases declared | 1261 |
+| **Running** | **1020** |
 | Skipped | 201 |
-| Fixme | 34 |
-| **Dormant** (skipped + fixme) | **20%** |
+| Fixme | 40 |
+| **Dormant** (skipped + fixme) | **19%** |
 | Running cases asserting only through a page-object helper | 18 |
-| **Running cases asserting nothing at all** | **284** |
+| **Running cases asserting nothing at all** | **285** |
 | Running cases whose assertions are all trivial | 25 |
 | Running cases behind an in-body skip guard | 223 |
-| Assertions in running cases | 1103 |
+| Assertions in running cases | 1228 |
 
 **Trivial** means the assertion cannot fail — `expect(true).toBe(true)` and friends.
 **Helper** counts calls like `pr.expectSavedToast()`: the page object asserts, so the case is fine —
@@ -44,6 +44,7 @@ Sorted by dormant share, then by cases that assert nothing.
 | Spec | Run | Skip | Fixme | Dormant | Asserts nothing | Helper only | Trivial only | Guarded | Assertions | Catch |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `900-period-end.spec.ts` | 4 | 30 | 1 | 89% | 0 | 0 | 0 | **1** | 4 | 1 |
+| `083-shelf.spec.ts` | 2 | 0 | 6 | 75% | 0 | 0 | 0 | 0 | 4 | 1 |
 | `601-cn.spec.ts` | 45 | 79 | 0 | 64% | **33** | 0 | **2** | **3** | 16 | 22 |
 | `201-my-approvals.spec.ts` | 8 | 12 | 0 | 60% | **3** | 0 | **1** | **1** | 6 | 3 |
 | `043-certification.spec.ts` | 6 | 0 | 9 | 60% | 0 | 0 | 0 | 0 | 7 | 1 |
@@ -63,6 +64,7 @@ Sorted by dormant share, then by cases that assert nothing.
 | `079-delivery-point.spec.ts` | 49 | 0 | 1 | 2% | 0 | 0 | 0 | **25** | 67 | 34 |
 | `501-grn.spec.ts` | 76 | 0 | 0 | 0% | **57** | 0 | **4** | **6** | 26 | 49 |
 | `310-pr-template.spec.ts` | 61 | 0 | 0 | 0% | **51** | 0 | **4** | 0 | 13 | 11 |
+| `111-cuisine.spec.ts` | 17 | 0 | 0 | 0% | **1** | 0 | 0 | 0 | 30 | 7 |
 | `302-pr-creator-journey.spec.ts` | 42 | 0 | 0 | 0% | **1** | 0 | 0 | **21** | 52 | 10 |
 | `002-spa-smoke.spec.ts` | 5 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 14 | 0 |
 | `010-department.spec.ts` | 21 | 0 | 0 | 0% | 0 | 0 | 0 | **2** | 57 | 0 |
@@ -75,6 +77,9 @@ Sorted by dormant share, then by cases that assert nothing.
 | `042-tax-profile.spec.ts` | 15 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 34 | 0 |
 | `044-eco.spec.ts` | 15 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 28 | 1 |
 | `080-location.spec.ts` | 17 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 37 | 0 |
+| `081-account-mapping.spec.ts` | 13 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 26 | 0 |
+| `082-chart-of-accounts.spec.ts` | 16 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 37 | 1 |
+| `110-op-category.spec.ts` | 13 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 28 | 4 |
 | `121-recipe-equipment-category.spec.ts` | 12 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 22 | 0 |
 | `131-equipment-category.spec.ts` | 12 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 22 | 0 |
 | `303-pr-approver-journey.spec.ts` | 28 | 0 | 0 | 0% | 0 | 0 | 0 | **22** | 37 | 10 |

@@ -1,273 +1,408 @@
-# Cuisine Type — User Stories
+# Cuisine — User Stories
 
-_Authored from the test-case catalog `docs/test-cases/111-cuisine.md` (documentation only — no automated spec yet)._
+_Generated from `tests/111-cuisine.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
-**Module:** Operation Plan — Cuisine Type
-**Frontend route:** `routes/operation-plan/cuisine`  •  **URL:** `/operation-plan/cuisine`
-**Prefix:** `CUIS`
-**Default role:** Operation Planner / Admin (admin@blueledgers.com, active BU = BLAVG)
-**Total test cases:** 15
+**Module:** Cuisine
+**Spec:** `tests/111-cuisine.spec.ts`
+**Default role:** Admin
+**Total test cases:** 17 (7 High / 7 Medium / 3 Low)
 
 ## Test Cases at a Glance
+
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
-| TC-CUIS-010001 | แสดงรายการ Cuisine | High | Smoke |
+| TC-CUIS-010001 | แสดงรายการ Cuisine Type | High | Smoke |
 | TC-CUIS-010002 | ค้นหา Cuisine ด้วยชื่อ | High | Functional |
-| TC-CUIS-010003 | กรองตามสถานะ Active/Inactive | Medium | Functional |
-| TC-CUIS-010004 | แสดง Region badge ในตาราง | Low | Functional |
-| TC-CUIS-020001 | เปิดหน้าแก้ไข Cuisine จาก list | Medium | Happy Path |
+| TC-CUIS-010007 | สลับมุมมองตาราง ↔ การ์ด | Medium | Functional |
+| TC-CUIS-010010 | ปุ่ม Export / Print แสดงแบบปิดใช้งาน | Low | Functional |
+| TC-CUIS-020001 | เปิดหน้ารายละเอียด Cuisine จาก list | Medium | Happy Path |
+| TC-CUIS-020003 | เปิด id ที่ไม่มีอยู่จริงแล้วเจอสถานะไม่พบข้อมูล | Medium | Negative |
+| TC-CUIS-020004 | ปุ่ม Back กลับหน้า list | Low | Happy Path |
 | TC-CUIS-030001 | สร้าง Cuisine ใหม่สำเร็จ | High | CRUD |
-| TC-CUIS-030002 | สร้าง Cuisine พร้อม popular dishes / key ingredients | Medium | Happy Path |
-| TC-CUIS-040001 | แก้ไขชื่อและ region แล้วค่าคงอยู่ | High | CRUD |
+| TC-CUIS-030003 | กด Cancel ตอนกรอกฟอร์มใหม่ค้างไว้แล้วเจอ Discard dialog | Medium | Alternate Flow |
+| TC-CUIS-040001 | แก้ไขชื่อและ Region แล้วค่าคงอยู่ | High | CRUD |
 | TC-CUIS-040002 | สลับสถานะ Active เป็น Inactive | Medium | CRUD |
-| TC-CUIS-050001 | ลบ Cuisine สำเร็จ | High | CRUD |
+| TC-CUIS-040003 | กด Cancel ในโหมด edit แล้วค่าเดิมกลับคืน | Medium | Alternate Flow |
+| TC-CUIS-050001 | ลบ Cuisine จากเมนูแถวในตารางสำเร็จ | High | CRUD |
 | TC-CUIS-050002 | ยกเลิกการลบใน dialog | Medium | Alternate Flow |
-| TC-CUIS-100001 | ผู้ใช้ไม่มีสิทธิ์เข้าถึงหน้า Cuisine | High | Authorization |
+| TC-CUIS-100001 | เข้าหน้า Cuisine โดยไม่มี session แล้วถูกส่งไป /login | High | Auth-guard |
 | TC-CUIS-200001 | บันทึกไม่ได้เมื่อเว้น Name ว่าง | High | Validation |
-| TC-CUIS-200002 | Region เป็นฟิลด์บังคับ | Medium | Validation |
 | TC-CUIS-900001 | ค้นหาด้วยคำที่ไม่มีผลลัพธ์ | Low | Edge Case |
 
 ---
-## TC-CUIS-010001 — แสดงรายการ Cuisine
-> **As an** Operation Planner, **I want** the cuisine list page to load, **so that** I can review the cuisine types available for recipes.
+
+## TC-CUIS-010001 — แสดงรายการ Cuisine Type
+
+> **As a** Admin user, **I want** core Cuisine interactions to work, **so that** day-to-day usage stays smooth.
 
 **Priority:** High · **Test Type:** Smoke
 
 **Preconditions**
+
 Login เป็น admin@blueledgers.com; active BU = BLAVG; มี cuisine อย่างน้อย 1 รายการ
 
 **Steps**
-1. ไปที่ `/operation-plan/cuisine`
+
+1. ไปที่ /operation-plan/cuisine
 2. รอให้ DataGrid โหลดเสร็จ
 
 **Expected**
-ตารางแสดงคอลัมน์ Name และ Region (เป็น badge สี) พร้อม badge จำนวนรายการที่หัวหน้า
+
+หัวหน้าแสดงชื่อ 'Cuisine Type'; ตารางมีคอลัมน์ Name, Region, Status; ปุ่ม 'Add Cuisine Type' แสดงอยู่มุมขวาบน
 
 ---
+
 ## TC-CUIS-010002 — ค้นหา Cuisine ด้วยชื่อ
-> **As an** Operation Planner, **I want** to search cuisines by name, **so that** I can quickly find the one I need.
+
+> **As a** Admin user, **I want** this Cuisine interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** High · **Test Type:** Functional
 
 **Preconditions**
-อยู่ที่หน้า `/operation-plan/cuisine`; มีหลาย cuisine
+
+อยู่ที่หน้า /operation-plan/cuisine; มี cuisine หลายรายการ
 
 **Steps**
-1. คลิกที่ช่อง Search
+
+1. คลิกช่อง Search
 2. พิมพ์ชื่อ cuisine ที่มีอยู่
 3. กด Enter
 
 **Expected**
-ตารางแสดงเฉพาะ cuisine ที่ตรงกับคำค้นหา
+
+ตารางแสดงเฉพาะ cuisine ที่ตรงกับคำค้น
 
 ---
-## TC-CUIS-010003 — กรองตามสถานะ Active/Inactive
-> **As an** Operation Planner, **I want** to filter cuisines by status, **so that** I can focus on active or retired cuisines.
+
+## TC-CUIS-010007 — สลับมุมมองตาราง ↔ การ์ด
+
+> **As a** Admin user, **I want** this Cuisine interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
 
 **Preconditions**
-มี cuisine ทั้งสถานะ active และ inactive
+
+อยู่ที่หน้า /operation-plan/cuisine บนจอขนาด desktop; มี cuisine อย่างน้อย 1 รายการ
 
 **Steps**
-1. เปิด Status filter
-2. เลือก Inactive
+
+1. กดปุ่มไอคอน 'Grid view'
+2. สังเกตเนื้อหาที่แสดง
+3. กดปุ่ม 'List view' เพื่อกลับ
 
 **Expected**
-ตารางแสดงเฉพาะ cuisine ที่ inactive
+
+โหมด grid แสดงการ์ด; กดกลับ List view แล้วกลับมาเป็น DataGrid
 
 ---
-## TC-CUIS-010004 — แสดง Region badge ในตาราง
-> **As an** Operation Planner, **I want** each cuisine's region shown as a colored badge, **so that** I can scan regions at a glance.
+
+## TC-CUIS-010010 — ปุ่ม Export / Print แสดงแบบปิดใช้งาน
+
+> **As a** Admin user, **I want** this Cuisine interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Low · **Test Type:** Functional
 
 **Preconditions**
-มี cuisine ที่กำหนด region (เช่น ASIA, EUROPE) อยู่
+
+อยู่ที่หน้า /operation-plan/cuisine บนจอขนาด desktop
 
 **Steps**
-1. เปิดหน้า `/operation-plan/cuisine`
-2. สังเกตคอลัมน์ Region
+
+1. สังเกตปุ่มฝั่งขวาของหัวหน้า list
 
 **Expected**
-แต่ละแถวแสดง region เป็น Badge พร้อม label และสีตามค่า config ของ region นั้น
+
+ปุ่ม 'Export' และ 'Print' อยู่ในสถานะ disabled พร้อม title='Coming soon'
 
 ---
-## TC-CUIS-020001 — เปิดหน้าแก้ไข Cuisine จาก list
-> **As an** Operation Planner, **I want** to open a cuisine from the list, **so that** I can view and edit its details.
+
+## TC-CUIS-020001 — เปิดหน้ารายละเอียด Cuisine จาก list
+
+> **As a** Admin user, **I want** this Cuisine behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Happy Path
 
 **Preconditions**
-มี cuisine อย่างน้อย 1 รายการ
+
+อยู่ที่หน้า /operation-plan/cuisine; มี cuisine อย่างน้อย 1 รายการ
 
 **Steps**
-1. คลิกที่ Name ของ cuisine ในตาราง
+
+1. คลิกที่ชื่อ cuisine ในคอลัมน์ Name (เป็นปุ่ม ไม่ใช่ลิงก์)
 
 **Expected**
-นำทางไปที่ `/operation-plan/cuisine/{id}` และฟอร์มแสดงข้อมูลเดิมในโหมด view
+
+นำทางไปที่ /operation-plan/cuisine/{id}; ทุกช่องกรอกอยู่ในสถานะ disabled และ toolbar แสดงปุ่ม 'Activity' กับ 'Edit'
 
 ---
-## TC-CUIS-030001 — สร้าง Cuisine ใหม่สำเร็จ
-> **As an** Operation Planner, **I want** to create a new cuisine type, **so that** recipes can be tagged with it.
 
-**Priority:** High · **Test Type:** CRUD
+## TC-CUIS-020003 — เปิด id ที่ไม่มีอยู่จริงแล้วเจอสถานะไม่พบข้อมูล
+
+> **As a** Admin user, **I want** this Cuisine behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Negative
 
 **Preconditions**
+
 Login เป็น admin@blueledgers.com; active BU = BLAVG
 
 **Steps**
-1. คลิกปุ่ม Add
-2. กรอก Name ด้วยค่าที่ไม่ซ้ำ
-3. เลือก Region (ค่าเริ่มต้นคือ ASIA)
-4. คลิก Create
+
+1. เข้า URL /operation-plan/cuisine/00000000-0000-0000-0000-000000000000
 
 **Expected**
-แสดง toast สร้างสำเร็จ และ cuisine ใหม่ปรากฏในรายการ
+
+แสดงกล่อง role='alert' หรือหน้าไม่พบข้อมูล; ไม่มี crash ของแอป
 
 ---
-## TC-CUIS-030002 — สร้าง Cuisine พร้อม popular dishes / key ingredients
-> **As an** Operation Planner, **I want** to capture popular dishes and key ingredients for a cuisine, **so that** the cuisine record carries useful culinary context.
 
-**Priority:** Medium · **Test Type:** Happy Path
+## TC-CUIS-020004 — ปุ่ม Back กลับหน้า list
+
+> **As a** Admin user, **I want** this Cuisine behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Low · **Test Type:** Happy Path
 
 **Preconditions**
-อยู่ในฟอร์มสร้าง cuisine ใหม่
+
+อยู่ที่ /operation-plan/cuisine/{id}
 
 **Steps**
-1. กรอก Name และเลือก Region
-2. กรอกรายการ Popular Dishes และ Key Ingredients (คั่นบรรทัด)
-3. คลิก Create
+
+1. คลิกปุ่มย้อนกลับบนหน้ารายละเอียด
 
 **Expected**
-cuisine ถูกสร้างพร้อมข้อมูล popular dishes และ key ingredients ที่บันทึกไว้
+
+กลับไปที่ /operation-plan/cuisine โดยไม่มีการเปลี่ยนแปลงข้อมูล
 
 ---
-## TC-CUIS-040001 — แก้ไขชื่อและ region แล้วค่าคงอยู่
-> **As an** Operation Planner, **I want** edits to name and region to persist, **so that** the cuisine record stays accurate.
+
+## TC-CUIS-030001 — สร้าง Cuisine ใหม่สำเร็จ
+
+> **As a** Admin user, **I want** to create a new Cuisine record, **so that** it becomes available for downstream operations.
 
 **Priority:** High · **Test Type:** CRUD
 
 **Preconditions**
-มี cuisine ที่สร้างไว้แล้ว
+
+Login เป็น admin@blueledgers.com; active BU = BLAVG; อยู่ที่หน้า /operation-plan/cuisine
 
 **Steps**
-1. เปิด cuisine แล้วคลิก Edit
-2. แก้ Name และเปลี่ยน Region
-3. คลิก Save
-4. reload หน้า
+
+1. คลิกปุ่ม 'Add Cuisine Type'
+2. ตรวจว่า URL เป็น /operation-plan/cuisine/new
+3. กรอก Name
+4. คลิกปุ่ม 'Create'
 
 **Expected**
-แสดง toast อัปเดตสำเร็จ; ชื่อและ region ใหม่แสดงในตารางและคงอยู่หลัง reload
+
+แสดง toast 'Cuisine Type created successfully'; เด้งกลับไปที่ /operation-plan/cuisine และ cuisine ใหม่ปรากฏในตาราง
 
 ---
-## TC-CUIS-040002 — สลับสถานะ Active เป็น Inactive
-> **As an** Operation Planner, **I want** to deactivate a cuisine, **so that** it is no longer offered for new recipes.
 
-**Priority:** Medium · **Test Type:** CRUD
+## TC-CUIS-030003 — กด Cancel ตอนกรอกฟอร์มใหม่ค้างไว้แล้วเจอ Discard dialog
 
-**Preconditions**
-มี cuisine ที่ active อยู่
-
-**Steps**
-1. เปิด cuisine แล้วคลิก Edit
-2. ปิด StatusSwitch (is_active)
-3. คลิก Save
-
-**Expected**
-cuisine เปลี่ยนเป็นสถานะ inactive และแสดงเมื่อกรองด้วย Inactive filter
-
----
-## TC-CUIS-050001 — ลบ Cuisine สำเร็จ
-> **As an** Operation Planner, **I want** to delete an unused cuisine, **so that** the list stays relevant.
-
-**Priority:** High · **Test Type:** CRUD
-
-**Preconditions**
-มี cuisine ที่สามารถลบได้
-
-**Steps**
-1. คลิก Delete ที่ cuisine
-2. ยืนยันใน DeleteDialog
-3. reload หน้า
-
-**Expected**
-แสดง toast ลบสำเร็จ; cuisine หายไปจากตารางและไม่กลับมาหลัง reload
-
----
-## TC-CUIS-050002 — ยกเลิกการลบใน dialog
-> **As an** Operation Planner, **I want** to cancel a delete I started by mistake, **so that** the cuisine is not removed.
+> **As a** Admin user, **I want** this Cuisine behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
 
 **Priority:** Medium · **Test Type:** Alternate Flow
 
 **Preconditions**
+
+อยู่ที่ /operation-plan/cuisine/new
+
+**Steps**
+
+1. กรอก Name บางส่วน (ฟอร์มกลายเป็น dirty)
+2. คลิกปุ่มย้อนกลับหรือ Cancel
+3. ในกล่องเตือน คลิก 'Keep editing'
+4. คลิกย้อนกลับอีกครั้ง แล้วคลิก 'Discard'
+
+**Expected**
+
+กล่อง 'Discard changes?' ปรากฏ; 'Keep editing' คืนสู่หน้า /new; 'Discard' พากลับไป /operation-plan/cuisine
+
+---
+
+## TC-CUIS-040001 — แก้ไขชื่อและ Region แล้วค่าคงอยู่
+
+> **As a** Admin user, **I want** to edit an existing Cuisine record, **so that** its data stays accurate.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+มีหมวดหมู่ cuisine ที่สร้างไว้แล้ว (NAME จาก TC-CUIS-030001)
+
+**Steps**
+
+1. ค้นหา cuisine ที่สร้างไว้
+2. เปิดหน้ารายละเอียด
+3. คลิก 'Edit'
+4. แก้ไขชื่อเป็นค่าใหม่
+5. คลิก 'Save'
+
+**Expected**
+
+แสดง toast 'Cuisine Type updated successfully'; เด้งกลับไปหน้า list; ชื่อใหม่แสดงในตาราง
+
+---
+
+## TC-CUIS-040002 — สลับสถานะ Active เป็น Inactive
+
+> **As a** Admin user, **I want** to manage Cuisine records via CRUD, **so that** the data stays correct over time.
+
+**Priority:** Medium · **Test Type:** CRUD
+
+**Preconditions**
+
+มี cuisine ที่สถานะ Active; อยู่ที่หน้ารายละเอียด
+
+**Steps**
+
+1. เปิดรายละเอียด cuisine
+2. คลิก 'Edit'
+3. สลับสวิตช์สถานะ Active → Inactive
+4. คลิก 'Save'
+
+**Expected**
+
+แสดง toast อัปเดตสำเร็จ; เด้งกลับ list; แถวนั้นแสดง Status = Inactive
+
+---
+
+## TC-CUIS-040003 — กด Cancel ในโหมด edit แล้วค่าเดิมกลับคืน
+
+> **As a** Admin user, **I want** this Cuisine behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Alternate Flow
+
+**Preconditions**
+
+มี cuisine ที่ edit ได้; อยู่ที่หน้ารายละเอียด
+
+**Steps**
+
+1. เปิดรายละเอียด cuisine
+2. คลิก 'Edit'
+3. แก้ชื่อเป็น 'UNSAVED_CHANGE_XYZ'
+4. คลิก 'Cancel'
+
+**Expected**
+
+กลับสู่โหมดอ่านอย่างเดียวและชื่อยังเป็นค่าเดิม
+
+---
+
+## TC-CUIS-050001 — ลบ Cuisine จากเมนูแถวในตารางสำเร็จ
+
+> **As a** Admin user, **I want** to delete a Cuisine record, **so that** the list reflects only valid entries.
+
+**Priority:** High · **Test Type:** CRUD
+
+**Preconditions**
+
+มี cuisine ที่ไม่ถูกอ้างอิงและสามารถลบได้
+
+**Steps**
+
+1. สร้าง cuisine ใหม่สำหรับลบ
+2. คลิกเมนูจุดสามจุด (Row actions)
+3. คลิก 'Delete'
+4. ยืนยันใน dialog
+
+**Expected**
+
+แสดง toast ลบสำเร็จ; cuisine หายจากตาราง
+
+---
+
+## TC-CUIS-050002 — ยกเลิกการลบใน dialog
+
+> **As a** Admin user, **I want** this Cuisine behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Alternate Flow
+
+**Preconditions**
+
 มี cuisine อย่างน้อย 1 รายการ
 
 **Steps**
-1. คลิก Delete ที่ cuisine
-2. ใน DeleteDialog คลิก Cancel
+
+1. เปิดเมนูจุดสามจุดของแถว แล้วคลิก 'Delete'
+2. ในกล่องยืนยัน คลิก 'Cancel'
 
 **Expected**
-Dialog ปิดลงโดยไม่ลบ และ cuisine ยังคงอยู่ในตาราง
+
+กล่องปิดลงโดยไม่มีการลบ; cuisine ยังอยู่ในตาราง
 
 ---
-## TC-CUIS-100001 — ผู้ใช้ไม่มีสิทธิ์เข้าถึงหน้า Cuisine
-> **As a** user without cuisine permission, **I want** access to be blocked, **so that** unauthorized data is not exposed.
 
-**Priority:** High · **Test Type:** Authorization
+## TC-CUIS-100001 — เข้าหน้า Cuisine โดยไม่มี session แล้วถูกส่งไป /login
+
+> **As an** unauthenticated user hitting a protected route, **I want** to be redirected to /login, **so that** protected screens stay protected.
+
+**Priority:** High · **Test Type:** Auth-guard
 
 **Preconditions**
-Login ด้วยบัญชีที่ไม่มีสิทธิ์ดู cuisine
+
+ไม่มี session (browser context ที่ยังไม่ได้ล็อกอิน)
 
 **Steps**
-1. ไปที่ `/operation-plan/cuisine`
+
+1. เปิด URL /operation-plan/cuisine ตรงๆ โดยไม่มี session
 
 **Expected**
-ผู้ใช้ถูกปฏิเสธสิทธิ์ (redirect หรือเห็นข้อความ error) และไม่เห็นข้อมูล cuisine
+
+ถูก redirect ไปหน้า /login และไม่เห็นข้อมูล cuisine ใดๆ
 
 ---
+
 ## TC-CUIS-200001 — บันทึกไม่ได้เมื่อเว้น Name ว่าง
-> **As an** Operation Planner, **I want** the form to block an empty name, **so that** every cuisine has a name.
+
+> **As a** Admin user, **I want** the system to block invalid Cuisine submissions, **so that** data quality is preserved.
 
 **Priority:** High · **Test Type:** Validation
 
 **Preconditions**
-อยู่ในฟอร์มสร้าง cuisine ใหม่
+
+อยู่ที่ /operation-plan/cuisine/new
 
 **Steps**
-1. ปล่อยช่อง Name ว่าง
-2. คลิก Create
+
+1. ปล่อยช่อง Name ว่างไว้
+2. คลิกปุ่ม 'Create'
 
 **Expected**
-แสดงข้อความ error "Name is required"; ไม่มีการสร้าง cuisine
+
+แสดงข้อความ error ใต้ช่อง Name; ยังอยู่หน้า /new ไม่มี toast และไม่มีการสร้าง cuisine
 
 ---
-## TC-CUIS-200002 — Region เป็นฟิลด์บังคับ
-> **As an** Operation Planner, **I want** the form to require a region, **so that** each cuisine is geographically classified.
 
-**Priority:** Medium · **Test Type:** Validation
-
-**Preconditions**
-อยู่ในฟอร์มสร้าง/แก้ไข cuisine
-
-**Steps**
-1. ล้างค่า Region (ถ้าทำได้) แล้วพยายาม Save โดยกรอกเฉพาะ Name
-
-**Expected**
-แสดงข้อความ error "Region is required" หากไม่ได้เลือก region
-
----
 ## TC-CUIS-900001 — ค้นหาด้วยคำที่ไม่มีผลลัพธ์
-> **As an** Operation Planner, **I want** a clear empty state when nothing matches, **so that** I know my search returned no results.
+
+> **As a** Admin user, **I want** this Cuisine behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
 
 **Priority:** Low · **Test Type:** Edge Case
 
 **Preconditions**
-อยู่ที่หน้า `/operation-plan/cuisine`
+
+อยู่ที่หน้า /operation-plan/cuisine
 
 **Steps**
-1. พิมพ์คำค้นหาที่ไม่ตรงกับ cuisine ใด
-2. กด Enter
+
+_(no steps documented)_
 
 **Expected**
-ตารางไม่มีข้อมูลและแสดงสถานะว่าง (EmptyComponent)
+
+ตารางไม่มีแถวข้อมูล และแสดงสถานะว่าง
+
+---
+
+
+<sub>Last regenerated: 2026-09-20 · git b1a268f</sub>
