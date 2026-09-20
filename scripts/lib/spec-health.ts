@@ -37,6 +37,19 @@ export interface TestCase {
    * sees a case, the runner reports it green, and nothing was checked.
    */
   trivialAssertions: number;
+  /**
+   * Runtime guards inside the body, e.g. `purchaseTest.skip(row === 0, "no data")`.
+   *
+   * Playwright's in-body `skip` is a different thing from the declaration-level
+   * `test.skip(title, fn)`: the case is declared as running, the reporter shows
+   * it, and whether it executes is decided at runtime by a locator count or a
+   * seeded row. `304-pr-purchaser-journey.spec.ts` reads as 0% dormant here
+   * while four of its cases skip every run, because `itemRow(i)` searches a
+   * collapsed row for fields that only exist in the expanded panel. A guard is
+   * legitimate; a guard that is always true is a case that never runs and never
+   * says so, which is why the count is reported.
+   */
+  conditionalSkips: number;
 }
 
 export interface SpecHealth {
@@ -60,6 +73,8 @@ export interface SpecSummary {
   trivialOnly: number;
   assertions: number;
   catchCalls: number;
+  /** Running cases holding at least one in-body `skip`/`fixme` guard. */
+  guarded: number;
   /** Share of declared cases that never execute, 0–100. */
   dormantPct: number;
 }
@@ -125,6 +140,23 @@ function countAssertions(node: ts.Node): { total: number; trivial: number; helpe
   return { total, trivial, helper };
 }
 
+/**
+ * Count in-body `skip`/`fixme` guards: a `<name>test.skip(...)` call nested in
+ * the case body rather than declaring it.
+ */
+function countConditionalSkips(node: ts.Node): number {
+  let guards = 0;
+  const visit = (n: ts.Node): void => {
+    if (ts.isCallExpression(n)) {
+      const callee = readCallee(n.expression);
+      if (callee && callee.mode !== "run") guards++;
+    }
+    ts.forEachChild(n, visit);
+  };
+  visit(node);
+  return guards;
+}
+
 /** Parse one spec file. */
 export function parseSpecHealth(source: string, file = "spec.ts"): SpecHealth {
   const sf = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
@@ -154,6 +186,7 @@ export function parseSpecHealth(source: string, file = "spec.ts"): SpecHealth {
           assertions: counts.total,
           helperAssertions: counts.helper,
           trivialAssertions: counts.trivial,
+          conditionalSkips: body ? countConditionalSkips(body) : 0,
         });
       }
     }
@@ -180,6 +213,7 @@ export function summarize(health: SpecHealth): SpecSummary {
     trivialOnly: run.filter((c) => c.assertions > 0 && c.assertions === c.trivialAssertions).length,
     assertions: run.reduce((sum, c) => sum + c.assertions, 0),
     catchCalls: health.catchCalls,
+    guarded: run.filter((c) => c.conditionalSkips > 0).length,
     dormantPct: declared ? Math.round(((skipped + fixme) * 100) / declared) : 0,
   };
 }
