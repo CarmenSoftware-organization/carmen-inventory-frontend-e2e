@@ -795,3 +795,47 @@ dialog เลือก stage (radio) + เหตุผล — โครงเด
 เอกสาร ส่วนสิ่งที่ขยับคือ stage) ตั้ง `TC-PR-080702` / `TC-PR-080704` เป็น `fixme`
 พร้อมสิ่งที่วัดได้ ต้องตัดสินก่อนว่า PR ที่ถูกส่งกลับควรอ่านว่า RETURNED และผู้สร้าง
 ควรแก้ไขได้หรือไม่
+
+## J — รอบ regression ทั้งชุด (ไม่รวม PR/PO) — **666 ผ่าน / 11 ล้ม / 191 skip**
+
+29 สเปก, 49.3 นาที, รันทั้ง project `login` และ `chromium`
+
+| module | ผ่าน / ล้ม | | module | ผ่าน / ล้ม |
+|---|---|---|---|---|
+| `501-grn` | 72 / 0 | | `080-location` | 17 / 0 |
+| `601-cn` | 45 / 0 | | `029-business-type` | 15 / 0 |
+| `701-sr` | 43 / 0 | | `030-extra-cost` | 15 / 0 |
+| `1001-campaign` | 42 / 0 | | `031-adjustment-type` | 15 / 0 |
+| `079-delivery-point` | 37 / 0 | | `032-credit-term` | 15 / 0 |
+| `001-login` | 32 / **10** | | `042-tax-profile` | 15 / 0 |
+| `160-pl-template` | 31 / 0 | | `044-eco` | 15 / 0 |
+| `150-vendor` | 28 / **1** | | `602-cn-reason` | 14 / 0 |
+| `720-stock-issue` | 24 / 0 | | `040-currency` | 14 / 0 |
+| `159-pl` | 23 / 0 | | `020-unit` | 13 / 0 |
+| `101-product-category` | 21 / 0 | | `121-recipe-equipment-category` | 12 / 0 |
+| `010-department` | 19 / 0 | | `131-equipment-category` | 12 / 0 |
+| `201-my-approvals` | 8 / 0 | | `002-spa-smoke` | 6 / 0 |
+| `043-certification` | 6 / 0 | | `041-exchange-rate` | 3 / 0 |
+| `900-period-end` | 3 / 0 | | | |
+
+**27 จาก 29 สเปกเขียวสนิท** — รวมถึงทุกสเปกที่แก้ไปใน PR #57 ซึ่งยืนยันว่างานรอบหลัง
+(ถอด `.catch` 293 จุด, scope แถวเป็น tbody 103 จุด, `openRecordFromRow`,
+`recordRows`) ไม่ได้ทำให้โมดูลอื่นถอยหลัง
+
+### `001-login` — flaky ไม่ใช่พังถาวร
+
+ล้ม **10 ตัวในรอบเต็ม** แต่ล้ม **7 ตัวตอนรันเดี่ยว** และ **เป็นคนละชุดกัน** อาการ
+เหมือนกันหมด: กด submit แล้วค้างอยู่ `/login` ไม่ไป `/dashboard`
+
+ที่ตรวจแล้ว: backend รับ login ของบัญชีเหล่านั้นปกติ (`POST /api/auth/login` → 200
+ทั้งที่มีและไม่มี header bypass) และ `extraHTTPHeaders` ระดับบนสุดไม่ได้ถูก project
+`login` override (project `use` merge ทับเป็นราย key เท่านั้น)
+
+ยังไม่ได้สรุปสาเหตุ — ข้อสังเกตที่ควรตามต่อ: ไฟล์นี้ทำ UI login จริงราว 40 ครั้ง
+ติดกันภายใต้ `workers: 1` และ `TC-LOGIN-010042` **ตั้งใจยิงให้ติด rate-limit** เพื่อ
+ทดสอบ countdown ซึ่งอาจกวนเทสต์ข้างเคียงถ้า limiter นับแบบ per-IP
+
+### `150-vendor` TC-VEN-010005
+
+ตัวกรองสถานะเปิดแล้วไม่มี `role="option"` ให้เลือก — คนละรูปแบบกับ combobox ที่อื่น
+น่าจะย้ายเข้า popover "Filter" แบบเดียวกับ price list (ดูหัวข้อ G)
