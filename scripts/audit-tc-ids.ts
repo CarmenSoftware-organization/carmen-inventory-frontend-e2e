@@ -270,11 +270,11 @@ export async function auditAll(opts: { legacyMode?: boolean } = {}): Promise<Aud
 
 if (import.meta.main) {
   const legacy = process.argv.includes("--legacy-mode");
-  // Catalog findings are reported but do not fail the build yet: the 32
-  // catalogs written before this check exist ARE the drift it looks for, and
-  // failing CI on them would block the very phases that clean them up.
-  // `--strict-docs` is what the last of those phases turns on for good.
-  const strictDocs = process.argv.includes("--strict-docs");
+  // Catalog findings fail the build unless `--lenient-docs` is passed. They did
+  // not at first: the catalogs written before this check existed WERE the drift
+  // it looks for. That backlog was cleared in P3 (2026-09-20) and the audit has
+  // been at zero findings since, so a finding now means something new broke.
+  const strictDocs = !process.argv.includes("--lenient-docs");
 
   auditAll({ legacyMode: legacy }).then((specResults) => {
     const docResults = auditAllCatalogs();
