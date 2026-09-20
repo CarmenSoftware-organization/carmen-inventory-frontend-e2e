@@ -78,7 +78,7 @@ Sorted by dormant share, then by cases that assert nothing.
 | `042-tax-profile.spec.ts` | 15 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 34 | 0 |
 | `044-eco.spec.ts` | 15 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 28 | 1 |
 | `080-location.spec.ts` | 17 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 37 | 0 |
-| `081-account-mapping.spec.ts` | 13 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 26 | 0 |
+| `081-chart-of-account-mapping.spec.ts` | 13 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 26 | 0 |
 | `082-chart-of-accounts.spec.ts` | 16 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 37 | 1 |
 | `110-op-category.spec.ts` | 13 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 28 | 4 |
 | `121-recipe-equipment-category.spec.ts` | 12 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 22 | 0 |
