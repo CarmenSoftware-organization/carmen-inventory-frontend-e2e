@@ -8,6 +8,8 @@ Each file follows the TC-ID scheme in [`../test-id-scheme.md`](../test-id-scheme
 
 **Totals:** 32 catalogs · 674 documented test cases.
 
+> **Where the gaps are:** [`COVERAGE.md`](COVERAGE.md) is the generated matrix of every frontend route against the spec or catalog that covers it — 102 modules, and it names the ones with neither. It also lists catalogs whose declared route the app no longer serves. Refresh it with `bun audit:coverage` (or `bun audit:coverage:check` in CI); never edit it by hand. The tables below stay as the human-readable index of what each catalog contains.
+
 ## Platform / System Admin (the "platform module")
 
 | Doc | Module | Prefix | URL | TCs |

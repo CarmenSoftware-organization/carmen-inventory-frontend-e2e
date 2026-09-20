@@ -59,7 +59,7 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 
 ## Documented-only test-case catalogs (no spec yet)
 
-These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/`](test-cases/) — coverage gaps that do not yet have an automated spec (including the entire Platform / System-Admin module). The `bun audit:tc-ids` gate scans specs only, so these do **not** affect CI. When a catalog graduates into a spec, move its row into the **Module catalog** table above.
+These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/`](test-cases/) — coverage gaps that do not yet have an automated spec (including the entire Platform / System-Admin module). `bun audit:tc-ids` scans these catalogs too, but reports their findings as **warnings**: the drift that predates the check is exactly what it looks for, and failing CI on it would block the phases that clean it up. `bun audit:tc-ids:strict` treats them as errors — the gate to switch on once the catalogs are reconciled. When a catalog graduates into a spec, move its row into the **Module catalog** table above **and delete the catalog** — leaving both makes two files own the same IDs, which the audit reports as a cross-file duplicate.
 
 | Catalog doc | Prefix | Area | Sections used |
 |-------------|--------|------|---------------|
