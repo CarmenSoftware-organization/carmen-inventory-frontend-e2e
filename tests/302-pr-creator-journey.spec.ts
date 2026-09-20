@@ -9,7 +9,7 @@ import { BuSwitcherPage } from "./pages/bu-switcher.page";
 // Persona-journey spec — Creator (Requestor). Runs alongside 301-pr.spec.ts
 // (per-action multi-role) without modifying it. Source docs:
 // docs/persona-doc/Purchase Request/Creator/INDEX.md and step-01..08.md.
-const requestorTest = createAuthTest("requestor@blueledgers.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
 
 const FUTURE_DATE = "2099-12-31";
 const PAST_DATE = "2020-01-01";
@@ -21,7 +21,7 @@ requestorTest.describe("Step 1 — PR List", () => {
     "TC-PR-050150 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com ผ่าน auth fixture" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com ผ่าน auth fixture" },
         { type: "steps", description: "1. เรียก ensureActiveBu(BLAVG)\n2. อ่าน profile API\n3. หา business unit ที่ is_default\n4. อ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -42,7 +42,7 @@ requestorTest.describe("Step 1 — PR List", () => {
     "TC-PR-050101 List loads with My Pending tab and Creator's PRs visible",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น Requestor (requestor@blueledgers.com)" },
+        { type: "preconditions", description: "Login เป็น Requestor (carmensoftware.dev+requestor@gmail.com)" },
         { type: "steps", description: "1. ไปที่ /procurement/purchase-request\n2. ตรวจสอบว่า My Pending tab ถูกเลือกเป็นค่าเริ่มต้น\n3. ตรวจสอบว่าตาราง list แสดงผล" },
         { type: "expected", description: "URL เป็น /procurement/purchase-request, ปุ่ม viewMode 'My Pending' แสดง (เป็น view เริ่มต้น), ตารางหรือ empty-state แสดงผล" },
         { type: "priority", description: "High" },

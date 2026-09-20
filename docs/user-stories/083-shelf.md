@@ -30,7 +30,7 @@ _Generated from `tests/083-shelf.spec.ts` annotations. Edit annotations, not thi
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -51,7 +51,7 @@ URL ตรงกับ /config/shelf; หน้าแสดงชื่อ 'Shel
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; อยู่ที่หน้า /config/shelf; backend มี endpoint /api/config/{bu_code}/shelves
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; อยู่ที่หน้า /config/shelf; backend มี endpoint /api/config/{bu_code}/shelves
 
 **Steps**
 
@@ -200,4 +200,4 @@ backend ของ BU ที่ใช้ทดสอบยังไม่มี e
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

@@ -4,12 +4,12 @@ import { GRNPage, LIST_PATH } from "./pages/grn.page";
 import { openRecordFromRow } from "./helpers/list-row";
 
 // ─────────────────────────────────────────────────────────────────────────
-// Multi-role auth — Receiving/Procurement Staff == purchase@blueledgers.com.
-// Permission denial uses requestor@blueledgers.com.
+// Multi-role auth — Receiving/Procurement Staff == carmensoftware.dev+purchase@gmail.com.
+// Permission denial uses carmensoftware.dev+requestor@gmail.com.
 // requestor declared LAST so doc default role reads "Purchase".
 // ─────────────────────────────────────────────────────────────────────────
-const requestorTest = createAuthTest("requestor@blueledgers.com");
-const purchaseTest = createAuthTest("purchase@blueledgers.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
+const purchaseTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 // ═════════════════════════════════════════════════════════════════════════
 // TC-GRN-900001 — View GRN List

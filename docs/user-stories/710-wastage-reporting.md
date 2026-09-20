@@ -42,7 +42,7 @@ _Generated from `tests/710-wastage-reporting.spec.ts` annotations. Edit annotati
 
 **Preconditions**
 
-เข้าสู่ระบบเป็น Admin (admin@blueledgers.com); active BU = BLAVG; BU มี license store_operations.wastage_reporting
+เข้าสู่ระบบเป็น Admin (carmensoftware.dev+admin@gmail.com); active BU = BLAVG; BU มี license store_operations.wastage_reporting
 
 **Steps**
 
@@ -459,4 +459,4 @@ sv ถูกล้างออกจาก URL และตารางยัง
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

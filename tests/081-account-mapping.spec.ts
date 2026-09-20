@@ -15,7 +15,7 @@ import { uid } from "./helpers/test-data";
  * the real `/api/config/{bu_code}/account-mappings` endpoint is live.
  */
 
-const test = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
 const PATH = "/config/account-mapping";
 
 test.describe("Account Mapping — List / Search / Tabs", () => {
@@ -30,7 +30,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     "TC-ACMAP-010001 แสดงหน้า Account Mapping พร้อมตารางของแท็บ AP",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; ข้อมูลหน้านี้มาจาก mock am-mock.ts (12 แถว — AP 8 / GL 4)" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; ข้อมูลหน้านี้มาจาก mock am-mock.ts (12 แถว — AP 8 / GL 4)" },
         { type: "steps", description: "1. ไปที่ /config/account-mapping\n2. รอให้ DataGrid โหลดเสร็จ" },
         { type: "expected", description: "เห็นหัวข้อ Account Mapping พร้อมแถบแท็บ Posting to AP / Posting to GL โดยแท็บ Posting to AP ถูกเลือกอยู่ และตารางแสดงแถวของ mapping type AP" },
         { type: "priority", description: "High" },
@@ -188,8 +188,8 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
     "TC-ACMAP-100002 ผู้ใช้ที่ล็อกอินแล้วทุก role เข้าหน้านี้ได้ (ยังไม่ผูก permission/license)",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่น requestor@blueledgers.com; leaf ของหน้านี้ใน constant/module-list.ts ยังไม่ประกาศ permission" },
-        { type: "steps", description: "1. Login เป็น requestor@blueledgers.com\n2. ไปที่ /config/account-mapping" },
+        { type: "preconditions", description: "Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่น carmensoftware.dev+requestor@gmail.com; leaf ของหน้านี้ใน constant/module-list.ts ยังไม่ประกาศ permission" },
+        { type: "steps", description: "1. Login เป็น carmensoftware.dev+requestor@gmail.com\n2. ไปที่ /config/account-mapping" },
         { type: "expected", description: "หน้าแสดงได้ตามปกติ ไม่มีกล่อง Access Denied และไม่ถูก redirect (RouteGuard ปล่อยผ่าน leaf ที่ไม่ประกาศ permission)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Authorization" },
@@ -202,7 +202,7 @@ test.describe("Account Mapping — List / Search / Tabs", () => {
       const { TEST_PASSWORD } = await import("./test-users");
       const loginPage = new LoginPage(page);
       await loginPage.goto();
-      await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+      await loginPage.loginWithRetry("carmensoftware.dev+requestor@gmail.com", TEST_PASSWORD);
       await page.waitForURL(/dashboard/, { timeout: 15_000 });
       await page.goto(PATH);
       await page.waitForLoadState("networkidle");

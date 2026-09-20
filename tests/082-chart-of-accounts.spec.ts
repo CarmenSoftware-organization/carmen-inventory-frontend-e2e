@@ -19,7 +19,7 @@ import { uid, fakeCode, fakeName } from "./helpers/test-data";
  *  - Carmen GL import (TC-COA-300001–300004) — requires GL interface setup
  */
 
-const test = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
 const PATH = "/config/chart-of-accounts";
 
 // Unique test data for this run
@@ -40,7 +40,7 @@ test.describe("Chart of Accounts — CRUD & Validation", () => {
     "TC-COA-010001 แสดงรายการผังบัญชีในตาราง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มีรหัสบัญชีอย่างน้อย 1 รายการใน BU นี้" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มีรหัสบัญชีอย่างน้อย 1 รายการใน BU นี้" },
         { type: "steps", description: "1. ไปที่ /config/chart-of-accounts\n2. รอให้ DataGrid โหลดเสร็จ" },
         { type: "expected", description: "หัวข้อหน้าแสดง 'Chart of Accounts'; ตารางแสดงคอลัมน์ Code, Account name, Debit / Credit, Type, Status; มีแถบ pagination ด้านล่าง" },
         { type: "priority", description: "High" },
@@ -211,7 +211,7 @@ test.describe("Chart of Accounts — CRUD & Validation", () => {
     "TC-COA-030001 สร้างบัญชีใหม่ด้วยค่าเริ่มต้น Debit + Balance sheet",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; เตรียมรหัสบัญชีที่ยังไม่ถูกใช้งาน" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; เตรียมรหัสบัญชีที่ยังไม่ถูกใช้งาน" },
         { type: "steps", description: "1. คลิกปุ่ม Add Account\n2. ตรวจค่าตั้งต้น Debit / Balance sheet\n3. กรอก Code และ Account name\n4. คลิกปุ่ม Create" },
         { type: "expected", description: "แสดง toast สร้างสำเร็จ; dialog ปิดลง; แถวใหม่ปรากฏในตาราง" },
         { type: "priority", description: "High" },

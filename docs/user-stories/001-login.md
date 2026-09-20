@@ -65,7 +65,7 @@ _Generated from `tests/001-login.spec.ts` annotations. Edit annotations, not thi
 
 **Preconditions**
 
-User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
@@ -88,7 +88,7 @@ User requestor@blueledgers.com มีอยู่จริงและ active; b
 
 **Preconditions**
 
-User hod@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+hod@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
@@ -111,7 +111,7 @@ User hod@blueledgers.com มีอยู่จริงและ active; browser
 
 **Preconditions**
 
-User purchase@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+purchase@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
@@ -134,7 +134,7 @@ User purchase@blueledgers.com มีอยู่จริงและ active; br
 
 **Preconditions**
 
-User fc@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+fc@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
@@ -157,7 +157,7 @@ User fc@blueledgers.com มีอยู่จริงและ active; browser 
 
 **Preconditions**
 
-User gm@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+gm@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
@@ -180,7 +180,7 @@ User gm@blueledgers.com มีอยู่จริงและ active; browser 
 
 **Preconditions**
 
-User owner@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+owner@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
@@ -203,7 +203,7 @@ User owner@blueledgers.com มีอยู่จริงและ active; brows
 
 **Preconditions**
 
-User requestor@blueledgers.com (Requestor) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
+User carmensoftware.dev+requestor@gmail.com (Requestor) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
 
 **Steps**
 
@@ -226,7 +226,7 @@ Session ถูกล้างและ redirect กลับมาที่ /log
 
 **Preconditions**
 
-User hod@blueledgers.com (HOD) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
+User carmensoftware.dev+hod@gmail.com (HOD) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
 
 **Steps**
 
@@ -249,7 +249,7 @@ Session ถูกล้างและ redirect กลับมาที่ /log
 
 **Preconditions**
 
-User purchase@blueledgers.com (Purchase) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
+User carmensoftware.dev+purchase@gmail.com (Purchase) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
 
 **Steps**
 
@@ -272,7 +272,7 @@ Session ถูกล้างและ redirect กลับมาที่ /log
 
 **Preconditions**
 
-User fc@blueledgers.com (FC) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
+User carmensoftware.dev+fc@gmail.com (FC) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
 
 **Steps**
 
@@ -295,7 +295,7 @@ Session ถูกล้างและ redirect กลับมาที่ /log
 
 **Preconditions**
 
-User gm@blueledgers.com (GM) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
+User carmensoftware.dev+gm@gmail.com (GM) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
 
 **Steps**
 
@@ -318,7 +318,7 @@ Session ถูกล้างและ redirect กลับมาที่ /log
 
 **Preconditions**
 
-User owner@blueledgers.com (Owner) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
+User carmensoftware.dev+owner@gmail.com (Owner) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
 
 **Steps**
 
@@ -451,12 +451,12 @@ browser logged out; อยู่ที่ /login; ไม่มี user 'invalid@
 
 **Preconditions**
 
-User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
 1. เปิด /login
-2. กรอก email = requestor@blueledgers.com, password = 'wrong-password-xyz'
+2. กรอก email = carmensoftware.dev+requestor@gmail.com, password = 'wrong-password-xyz'
 3. กด Sign In
 
 **Expected**
@@ -473,7 +473,7 @@ User requestor@blueledgers.com มีอยู่จริงและ active; b
 
 **Preconditions**
 
-User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
@@ -517,12 +517,12 @@ Login fail และคงอยู่ที่ /login (password เป็น ca
 
 **Preconditions**
 
-User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
 1. เปิด /login
-2. กรอก email = '  requestor@blueledgers.com  ' (มีช่องว่างหน้า/หลัง) + password
+2. กรอก email = '  carmensoftware.dev+requestor@gmail.com  ' (มีช่องว่างหน้า/หลัง) + password
 3. กด Sign In
 
 **Expected**
@@ -560,7 +560,7 @@ Password input มี attribute type='password' (ตัวอักษรถู�
 
 **Preconditions**
 
-User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
@@ -582,7 +582,7 @@ Form submit และ redirect ไปที่ /dashboard เหมือนก�
 
 **Preconditions**
 
-User storemanager@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+storemanager@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
@@ -605,7 +605,7 @@ User storemanager@blueledgers.com มีอยู่จริงและ active
 
 **Preconditions**
 
-User budget@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+budget@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
@@ -628,7 +628,7 @@ User budget@blueledgers.com มีอยู่จริงและ active; brow
 
 **Preconditions**
 
-User storemanager@blueledgers.com (StoreManager) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
+User carmensoftware.dev+storemanager@gmail.com (StoreManager) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
 
 **Steps**
 
@@ -651,7 +651,7 @@ Session ถูกล้างและ redirect กลับมาที่ /log
 
 **Preconditions**
 
-User budget@blueledgers.com (Budget) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
+User carmensoftware.dev+budget@gmail.com (Budget) มีอยู่จริงและ active; browser logged out ก่อนเริ่ม test
 
 **Steps**
 
@@ -674,12 +674,12 @@ Session ถูกล้างและ redirect กลับมาที่ /log
 
 **Preconditions**
 
-User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out; /profile เป็น shell route ที่ requestor เข้าได้
+User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out; /profile เป็น shell route ที่ requestor เข้าได้
 
 **Steps**
 
 1. เปิด /login?next=/profile
-2. login ด้วย requestor@blueledgers.com
+2. login ด้วย carmensoftware.dev+requestor@gmail.com
 3. ตรวจสอบ URL ปลายทาง
 
 **Expected**
@@ -696,11 +696,11 @@ User requestor@blueledgers.com มีอยู่จริงและ active; b
 
 **Preconditions**
 
-User requestor@blueledgers.com login สำเร็จและอยู่ที่ /dashboard; refresh token ถูกเก็บใน localStorage
+User carmensoftware.dev+requestor@gmail.com login สำเร็จและอยู่ที่ /dashboard; refresh token ถูกเก็บใน localStorage
 
 **Steps**
 
-1. login ด้วย requestor@blueledgers.com
+1. login ด้วย carmensoftware.dev+requestor@gmail.com
 2. รอ /dashboard
 3. reload หน้า
 4. ตรวจสอบว่ายัง authenticated
@@ -719,7 +719,7 @@ User requestor@blueledgers.com login สำเร็จและอยู่ท�
 
 **Preconditions**
 
-User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
@@ -748,7 +748,7 @@ browser logged out; อยู่ที่ /login; mock /api/auth/login ให้
 
 1. intercept POST **/api/auth/login แล้ว abort
 2. เปิด /login
-3. กรอก requestor@blueledgers.com + password
+3. กรอก carmensoftware.dev+requestor@gmail.com + password
 4. กด Sign In
 
 **Expected**
@@ -853,11 +853,11 @@ Auth-guard redirect กลับไปที่ /login (ไม่อนุญา
 
 **Preconditions**
 
-User requestor@blueledgers.com login สำเร็จและมี active session อยู่แล้วที่ /dashboard
+User carmensoftware.dev+requestor@gmail.com login สำเร็จและมี active session อยู่แล้วที่ /dashboard
 
 **Steps**
 
-1. login ด้วย requestor@blueledgers.com
+1. login ด้วย carmensoftware.dev+requestor@gmail.com
 2. รอ /dashboard โหลดเสร็จ
 3. navigate ไปที่ /login อีกครั้ง
 
@@ -965,12 +965,12 @@ Response สุดท้ายเป็น HTTP 429 Too Many Requests และ�
 
 **Preconditions**
 
-User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out
+User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out
 
 **Steps**
 
 1. เปิด /login?next=//evil.example.com
-2. login ด้วย requestor@blueledgers.com
+2. login ด้วย carmensoftware.dev+requestor@gmail.com
 3. ตรวจสอบ origin/path ปลายทางหลัง login
 
 **Expected**
@@ -1009,11 +1009,11 @@ boot ใช้ refresh token ปลอม → backend ปฏิเสธ → tok
 
 **Preconditions**
 
-User requestor@blueledgers.com login สำเร็จและมี refresh token ใน localStorage
+User carmensoftware.dev+requestor@gmail.com login สำเร็จและมี refresh token ใน localStorage
 
 **Steps**
 
-1. login ด้วย requestor@blueledgers.com
+1. login ด้วย carmensoftware.dev+requestor@gmail.com
 2. ตรวจว่ามี refresh token
 3. logout
 4. ตรวจว่า refresh token ถูกลบ
@@ -1026,4 +1026,4 @@ User requestor@blueledgers.com login สำเร็จและมี refresh t
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

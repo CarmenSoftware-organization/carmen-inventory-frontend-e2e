@@ -48,7 +48,7 @@ export async function submitPRAsRequestor(
   browser: Browser,
   opts?: { items?: number; description?: string },
 ): Promise<CreatedPR> {
-  return withRoleContext(browser, "requestor@blueledgers.com", async (page) => {
+  return withRoleContext(browser, "carmensoftware.dev+requestor@gmail.com", async (page) => {
     const created = await createDraftPR(page, {
       items: opts?.items ?? 1,
       description: opts?.description ?? "approver-fixture",
@@ -154,7 +154,7 @@ export async function bulkSendForReview(
  * cleanly. Used by Purchaser tests to seed PRs at the Purchase stage.
  */
 export async function approveAsHOD(browser: Browser, ref: string): Promise<void> {
-  await withRoleContext(browser, "hod@blueledgers.com", async (page) => {
+  await withRoleContext(browser, "carmensoftware.dev+hod@gmail.com", async (page) => {
     await gotoPRDetail(page, ref);
     const pr = new PurchaseRequestPage(page);
     if ((await pr.editModeButton().count()) === 0) {
@@ -178,7 +178,7 @@ export async function sendForReviewAsHOD(
   ref: string,
   reason: string = "Please revise — returned for review",
 ): Promise<void> {
-  await withRoleContext(browser, "hod@blueledgers.com", async (page) => {
+  await withRoleContext(browser, "carmensoftware.dev+hod@gmail.com", async (page) => {
     await gotoPRDetail(page, ref);
     const pr = new PurchaseRequestPage(page);
     if ((await pr.editModeButton().count()) === 0) {

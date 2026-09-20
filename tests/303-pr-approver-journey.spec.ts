@@ -16,8 +16,8 @@ import { BuSwitcherPage } from "./pages/bu-switcher.page";
 // Persona-journey spec — Approver (HOD primary, FC for scope contrast).
 // Runs alongside 301-pr.spec.ts (per-action) and 302-pr-creator-journey.spec.ts.
 // Source docs: docs/persona-doc/Purchase Request/Approver/INDEX.md and step-01..04.md.
-const hodTest = createAuthTest("hod@blueledgers.com");
-const fcTest = createAuthTest("fc@blueledgers.com");
+const hodTest = createAuthTest("carmensoftware.dev+hod@gmail.com");
+const fcTest = createAuthTest("carmensoftware.dev+fc@gmail.com");
 
 const REJECT_REASON = "Items discontinued in catalogue";
 const REVIEW_REASON = "Please verify quantity";
@@ -30,7 +30,7 @@ hodTest.describe("Step 1 — My Approval Dashboard", () => {
     "TC-PR-060150 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น hod@blueledgers.com ผ่าน auth fixture" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+hod@gmail.com ผ่าน auth fixture" },
         { type: "steps", description: "1. เรียก ensureActiveBu(BLAVG)\n2. อ่าน profile API\n3. หา business unit ที่ is_default\n4. อ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -51,7 +51,7 @@ hodTest.describe("Step 1 — My Approval Dashboard", () => {
     "TC-PR-060101 Dashboard loads with Total Pending count visible",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น HOD (hod@blueledgers.com)" },
+        { type: "preconditions", description: "Login เป็น HOD (carmensoftware.dev+hod@gmail.com)" },
         { type: "steps", description: "1. ไปที่ My Approvals\n2. ตรวจสอบว่า badge จำนวน pending แสดงผล" },
         { type: "expected", description: "My Approvals dashboard โหลด; badge จำนวน pending แสดงผล" },
         { type: "priority", description: "High" },
@@ -746,7 +746,7 @@ fcTest.describe("Scope Contrast (FC)", () => {
     "TC-PR-060501 FC sees PRs from multiple departments",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น FC (fc@blueledgers.com); มี PR ที่ pending ในฐานข้อมูลจากหลายแผนก" },
+        { type: "preconditions", description: "Login เป็น FC (carmensoftware.dev+fc@gmail.com); มี PR ที่ pending ในฐานข้อมูลจากหลายแผนก" },
         { type: "steps", description: "1. ไปที่ PR list ในฐานะ FC\n2. เปิด tab All Documents\n3. อ่านค่าคอลัมน์ department จากแถว" },
         { type: "expected", description: "มีค่า department อย่างน้อย 2 ค่าที่แตกต่างกันปรากฏใน list (ข้ามหากฐานข้อมูลไม่มี PR ข้ามแผนก)" },
         { type: "priority", description: "High" },

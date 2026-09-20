@@ -6,7 +6,7 @@ import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
 import { uid, buildEntity } from "./helpers/test-data";
 
-const test = createAuthTest("purchase@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 const { code: CODE, name: NAME, nameUpdated: NAME_UPDATED } = buildEntity({
   codePrefix: "V",
@@ -18,7 +18,7 @@ test.describe("Vendor — List smoke", () => {
     "TC-VEN-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com via createAuthTest fixture; ผู้ใช้มีสิทธิ์เข้าถึง vendor-management" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+purchase@gmail.com via createAuthTest fixture; ผู้ใช้มีสิทธิ์เข้าถึง vendor-management" },
         { type: "steps", description: "1. ไปที่ /vendor-management/vendor" },
         { type: "expected", description: "URL ตรงกับ /vendor-management/vendor และปุ่ม Add visible ภายใน 10s" },
         { type: "priority", description: "High" },
@@ -36,7 +36,7 @@ test.describe("Vendor — List smoke", () => {
     "TC-VEN-010002 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor" },
         { type: "steps", description: "1. ไปที่ /vendor-management/vendor" },
         { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
         { type: "priority", description: "High" },
@@ -53,7 +53,7 @@ test.describe("Vendor — List smoke", () => {
     "TC-VEN-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor" },
         { type: "steps", description: "1. ไปที่ /vendor-management/vendor\n2. พิมพ์ 'test' ในช่องค้นหา" },
         { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
         { type: "priority", description: "Medium" },
@@ -71,7 +71,7 @@ test.describe("Vendor — List smoke", () => {
     "TC-VEN-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor" },
         { type: "steps", description: "1. ไปที่ /vendor-management/vendor\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
         { type: "priority", description: "Medium" },
@@ -89,7 +89,7 @@ test.describe("Vendor — List smoke", () => {
     "TC-VEN-010005 Filter status (active/inactive) ใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor" },
         { type: "steps", description: "1. ไปที่ /vendor-management/vendor\n2. คลิก trigger filter status (combobox/button)\n3. เลือก option Active (ถ้ามี) หรือกด Escape ปิดเมนู" },
         { type: "expected", description: "พบ filter trigger และ option (active/inactive/all); หลังเลือกแล้วปุ่ม Add ยังคง visible" },
         { type: "priority", description: "Medium" },
@@ -135,7 +135,7 @@ test.describe("Vendor — Create happy path", () => {
     "TC-VEN-030001 เปิดหน้า new form สำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; ผู้ใช้มีสิทธิ์สร้าง vendor" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+purchase@gmail.com; ผู้ใช้มีสิทธิ์สร้าง vendor" },
         { type: "steps", description: "1. ไปที่ /vendor-management/vendor/new" },
         { type: "expected", description: "URL ตรงกับ /vendor-management/vendor/new; code input, name input และปุ่ม Save visible" },
         { type: "priority", description: "High" },
@@ -155,7 +155,7 @@ test.describe("Vendor — Create happy path", () => {
     "TC-VEN-030002 เลือก business type จาก dropdown ได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new; backend มีข้อมูล business types อย่างน้อย 1 รายการ" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new; backend มีข้อมูล business types อย่างน้อย 1 รายการ" },
         { type: "steps", description: "1. เปิด new form\n2. ตรวจว่ามี business type option อย่างน้อย 1 รายการ\n3. เปิด business type dropdown\n4. เลือก option แรก" },
         { type: "expected", description: "มี option ให้เลือก (count > 0) และ trigger ของ business type แสดง label ของรายการที่เลือกภายใน 5s" },
         { type: "priority", description: "Medium" },
@@ -177,7 +177,7 @@ test.describe("Vendor — Create happy path", () => {
     "TC-VEN-030003 สร้าง vendor ขั้นต่ำ (code + name + business type) สำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; vendor CODE/NAME ยังไม่มีใน DB" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+purchase@gmail.com; vendor CODE/NAME ยังไม่มีใน DB" },
         { type: "steps", description: "1. เปิด new form\n2. กรอก code + name ใน tab General\n3. เลือก business type (ถ้ามี option)\n4. กด Save\n5. กลับ list และค้นหาด้วย NAME" },
         { type: "expected", description: "Save toast/feedback ปรากฏ และ vendor ใหม่ค้นเจอใน list ภายใน 10s" },
         { type: "priority", description: "High" },
@@ -207,7 +207,7 @@ test.describe("Vendor — Create happy path", () => {
     "TC-VEN-030004 สร้าง vendor พร้อม address 1 รายการ",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; vendor CODE+'A' ยังไม่มีใน DB" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+purchase@gmail.com; vendor CODE+'A' ยังไม่มีใน DB" },
         { type: "steps", description: "1. เปิด new form\n2. กรอก code + name\n3. เลือก business type (ถ้ามี)\n4. เพิ่ม address row 1 รายการ (mailing/international, line1, city, country)\n5. กด Save\n6. cleanup ลบ vendor (best-effort)" },
         { type: "expected", description: "Save toast/feedback ปรากฏ บ่งชี้ว่า vendor พร้อม address ถูกบันทึกสำเร็จ" },
         { type: "priority", description: "High" },
@@ -258,7 +258,7 @@ test.describe("Vendor — Create happy path", () => {
     "TC-VEN-030005 สร้าง vendor พร้อม contact 1 รายการ (primary)",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; vendor CODE+'C' ยังไม่มีใน DB" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+purchase@gmail.com; vendor CODE+'C' ยังไม่มีใน DB" },
         { type: "steps", description: "1. เปิด new form\n2. กรอก code + name\n3. เลือก business type (ถ้ามี)\n4. เพิ่ม contact row 1 รายการ (name/email/phone/is_primary=true)\n5. กด Save\n6. กลับ list ค้นหาด้วย name" },
         { type: "expected", description: "Save toast/feedback ปรากฏ และ vendor ที่มี contact ค้นเจอใน list ภายใน 10s" },
         { type: "priority", description: "High" },
@@ -292,7 +292,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     "TC-VEN-030007 เพิ่ม address row ได้หลาย row",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab address" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab address" },
         { type: "steps", description: "1. เปิด new form\n2. สลับไป tab address\n3. กดปุ่มเพิ่ม address 2 ครั้ง" },
         { type: "expected", description: "เริ่มจาก 0 row → เพิ่มได้เป็น 1 และ 2 row ตามลำดับ" },
         { type: "priority", description: "Medium" },
@@ -314,7 +314,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     "TC-VEN-030008 ลบ address row ได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab address" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab address" },
         { type: "steps", description: "1. เปิด new form\n2. สลับไป tab address\n3. เพิ่ม 2 row\n4. ลบ row index 0" },
         { type: "expected", description: "หลังลบ จำนวน address row เหลือ 1" },
         { type: "priority", description: "Medium" },
@@ -336,7 +336,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     "TC-VEN-030009 เพิ่ม contact row ได้หลาย row",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab contact" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab contact" },
         { type: "steps", description: "1. เปิด new form\n2. สลับไป tab contact\n3. กดปุ่มเพิ่ม contact 2 ครั้ง" },
         { type: "expected", description: "เริ่มจาก 0 row → เพิ่มได้เป็น 2 row" },
         { type: "priority", description: "Medium" },
@@ -357,7 +357,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     "TC-VEN-030010 ลบ contact row ได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab contact" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab contact" },
         { type: "steps", description: "1. เปิด new form\n2. สลับไป tab contact\n3. เพิ่ม 2 row และกรอกชื่อ\n4. ลบ row index 0" },
         { type: "expected", description: "หลังลบ จำนวน contact row เหลือ 1" },
         { type: "priority", description: "Medium" },
@@ -387,7 +387,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     "TC-VEN-030011 เปลี่ยน primary contact ได้ (radio exclusive)",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab contact" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab contact" },
         { type: "steps", description: "1. เปิด new form\n2. สลับไป tab contact\n3. เพิ่ม 2 row และกรอกชื่อ A, B\n4. setPrimary index 0\n5. setPrimary index 1" },
         { type: "expected", description: "เมื่อเปลี่ยน primary เป็น index 1 แล้ว index 0 ต้อง not checked (radio-exclusive behavior)" },
         { type: "priority", description: "Medium" },
@@ -413,7 +413,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     "TC-VEN-030012 เพิ่ม info row (label/value) ได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab info" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab info" },
         { type: "steps", description: "1. เปิด new form\n2. สลับไป tab info\n3. เพิ่ม info row 1 รายการ และกรอก label='Tax ID' / value='1234567890' / dataType='string'" },
         { type: "expected", description: "เริ่มจาก 0 row → หลังเพิ่มแล้วมี 1 row" },
         { type: "priority", description: "Medium" },
@@ -434,7 +434,7 @@ test.describe("Vendor — Tabs & dynamic arrays", () => {
     "TC-VEN-030013 ลบ info row ได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab info" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab info" },
         { type: "steps", description: "1. เปิด new form\n2. สลับไป tab info\n3. เพิ่ม 2 row\n4. ลบ row index 0" },
         { type: "expected", description: "หลังลบ จำนวน info row เหลือ 1" },
         { type: "priority", description: "Medium" },
@@ -458,7 +458,7 @@ test.describe("Vendor — Validation", () => {
     "TC-VEN-200001 บันทึกโดยไม่กรอก code ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new" },
         { type: "steps", description: "1. เปิด new form ที่ tab general\n2. กรอกเฉพาะ name (เว้น code)\n3. กด Save" },
         { type: "expected", description: "Error indicator ปรากฏและ URL ยังคงอยู่ที่ /new (form block submit)" },
         { type: "priority", description: "High" },
@@ -484,7 +484,7 @@ test.describe("Vendor — Validation", () => {
     "TC-VEN-200002 บันทึกโดยไม่กรอก name ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new" },
         { type: "steps", description: "1. เปิด new form ที่ tab general\n2. กรอกเฉพาะ code (เว้น name)\n3. กด Save" },
         { type: "expected", description: "Error indicator ปรากฏและ URL ยังคงอยู่ที่ /new (form block submit)" },
         { type: "priority", description: "High" },
@@ -508,7 +508,7 @@ test.describe("Vendor — Validation", () => {
     "TC-VEN-200003 code เกิน 10 ตัวอักษรต้องถูก reject",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new" },
         { type: "steps", description: "1. เปิด new form ที่ tab general\n2. พยายาม fill code 'X' ยาว 20 ตัวอักษร" },
         { type: "expected", description: "ค่าใน code input ต้องไม่เกิน 10 ตัวอักษร (input maxLength enforcement)" },
         { type: "priority", description: "Medium" },
@@ -529,7 +529,7 @@ test.describe("Vendor — Validation", () => {
     "TC-VEN-200004 name เกิน 100 ตัวอักษรต้องถูก reject",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new" },
         { type: "steps", description: "1. เปิด new form\n2. กรอก code + business type ที่ถูกต้อง\n3. กรอก name ยาว 150 ตัวอักษร\n4. กด Save" },
         { type: "expected", description: "zod name.max(100) บล็อก submit — ยังอยู่ที่ /new และไม่มี success toast" },
         { type: "priority", description: "Medium" },
@@ -556,7 +556,7 @@ test.describe("Vendor — Validation", () => {
     "TC-VEN-200006 contact email รูปแบบผิดต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new" },
         { type: "steps", description: "1. เปิด new form\n2. กรอก code + name + business type\n3. เพิ่ม contact row และกรอก email = 'not-an-email'\n4. กด Save" },
         { type: "expected", description: "URL ยังคงอยู่ที่ /new (HTML5 native email validation block submit)" },
         { type: "priority", description: "Medium" },
@@ -583,7 +583,7 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
     "TC-VEN-040001 แก้ name ของ vendor ที่สร้างแล้ว save สำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "TC-VEN-030003 ผ่านแล้ว → vendor ที่ NAME มีอยู่ใน DB; logged in as purchase@blueledgers.com" },
+        { type: "preconditions", description: "TC-VEN-030003 ผ่านแล้ว → vendor ที่ NAME มีอยู่ใน DB; logged in as carmensoftware.dev+purchase@gmail.com" },
         { type: "steps", description: "1. ไปที่ list และเปิด detail ของ vendor ตาม NAME\n2. กด Edit\n3. สลับไป tab general\n4. แก้ name เป็น NAME_UPDATED\n5. กด Save\n6. กลับ list ค้นหาด้วย NAME_UPDATED" },
         { type: "expected", description: "Save toast/feedback ปรากฏ และ NAME_UPDATED ค้นเจอใน list ภายใน 10s" },
         { type: "priority", description: "High" },
@@ -695,7 +695,7 @@ test.describe("Vendor — Edit, delete, cleanup", () => {
 test.afterAll(async ({ browser }) => {
   const { authFile } = await import("./fixtures/auth.paths");
   const context = await browser.newContext({
-    storageState: authFile("purchase@blueledgers.com"),
+    storageState: authFile("carmensoftware.dev+purchase@gmail.com"),
   });
   const page = await context.newPage();
   try {
@@ -727,11 +727,11 @@ test.afterAll(async ({ browser }) => {
   }
 });
 
-// ── admin@blueledgers.com + BLAVG CRUD ─────────────────────────────────────
-// The describes above run as purchase@blueledgers.com (authz coverage) and are
+// ── carmensoftware.dev+admin@gmail.com + BLAVG CRUD ─────────────────────────────────────
+// The describes above run as carmensoftware.dev+purchase@gmail.com (authz coverage) and are
 // left untouched. This block verifies an admin can CRUD vendors with the active
 // BU pinned to BLAVG.
-const adminTest = createAuthTest("admin@blueledgers.com");
+const adminTest = createAuthTest("carmensoftware.dev+admin@gmail.com");
 
 adminTest.describe.serial("Vendor — admin@BLAVG CRUD", () => {
   const { code: ADMIN_CODE, name: ADMIN_NAME, nameUpdated: ADMIN_NAME_UPDATED } =
@@ -764,7 +764,7 @@ adminTest.describe.serial("Vendor — admin@BLAVG CRUD", () => {
     "TC-VEN-010050 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
         { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -785,7 +785,7 @@ adminTest.describe.serial("Vendor — admin@BLAVG CRUD", () => {
     "TC-VEN-030050 สร้าง vendor (admin/BLAVG) สำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; vendor ADMIN_CODE/ADMIN_NAME ยังไม่มีใน DB" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; vendor ADMIN_CODE/ADMIN_NAME ยังไม่มีใน DB" },
         { type: "steps", description: "1. เปิด new form\n2. กรอก code + name ใน tab General\n3. เลือก business type (ถ้ามี option)\n4. กด Save\n5. กลับ list และค้นหาด้วย ADMIN_NAME" },
         { type: "expected", description: "Save toast/feedback ปรากฏ และ vendor ใหม่ค้นเจอใน list ภายใน 10s" },
         { type: "priority", description: "High" },
@@ -809,7 +809,7 @@ adminTest.describe.serial("Vendor — admin@BLAVG CRUD", () => {
     "TC-VEN-040050 แก้ name ของ vendor แล้ว persist",
     {
       annotation: [
-        { type: "preconditions", description: "TC-VEN-030050 ผ่านแล้ว → vendor ที่ ADMIN_NAME มีอยู่ใน DB; login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "TC-VEN-030050 ผ่านแล้ว → vendor ที่ ADMIN_NAME มีอยู่ใน DB; login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. ไปที่ list และเปิด detail ของ vendor ตาม ADMIN_NAME\n2. กด Edit\n3. สลับไป tab general\n4. แก้ name เป็น ADMIN_NAME_UPDATED\n5. กด Save\n6. กลับ list ค้นหาด้วย ADMIN_NAME_UPDATED" },
         { type: "expected", description: "Save toast/feedback ปรากฏ และ ADMIN_NAME_UPDATED ค้นเจอใน list ภายใน 10s (ค่าถูก persist)" },
         { type: "priority", description: "High" },
@@ -835,7 +835,7 @@ adminTest.describe.serial("Vendor — admin@BLAVG CRUD", () => {
     "TC-VEN-200050 สร้าง vendor code ซ้ำ ต้องถูก reject",
     {
       annotation: [
-        { type: "preconditions", description: "TC-VEN-040050 ผ่านแล้ว → vendor ที่ ADMIN_CODE มีอยู่ใน DB; login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "TC-VEN-040050 ผ่านแล้ว → vendor ที่ ADMIN_CODE มีอยู่ใน DB; login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. เปิด new form\n2. กรอก code = ADMIN_CODE (ซ้ำ) + name ใหม่\n3. เลือก business type (ถ้ามี)\n4. กด Save" },
         { type: "expected", description: "รายการที่สองไม่ถูกสร้าง: ยังอยู่ที่ form (/new) หรือมี error (backend reject duplicate code)" },
         { type: "priority", description: "High" },
@@ -858,7 +858,7 @@ adminTest.describe.serial("Vendor — admin@BLAVG CRUD", () => {
     "TC-VEN-050050 ลบ vendor (admin/BLAVG) cleanup",
     {
       annotation: [
-        { type: "preconditions", description: "TC-VEN-200050 ผ่านแล้ว → vendor ที่ ADMIN_NAME_UPDATED ยังคงอยู่ใน DB; login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "TC-VEN-200050 ผ่านแล้ว → vendor ที่ ADMIN_NAME_UPDATED ยังคงอยู่ใน DB; login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. ไปที่ list และค้นหาด้วย ADMIN_NAME_UPDATED\n2. เปิด row actions\n3. คลิก menuitem Delete\n4. ใน alertdialog กดยืนยัน Delete/Confirm" },
         { type: "expected", description: "Success toast ('success/deleted/สำเร็จ') ปรากฏภายใน 10s" },
         { type: "priority", description: "High" },

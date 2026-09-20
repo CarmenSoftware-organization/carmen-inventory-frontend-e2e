@@ -6,12 +6,12 @@ import { openRecordFromRow } from "./helpers/list-row";
 
 
 // ─────────────────────────────────────────────────────────────────────────
-// Multi-role auth — Requestor/Approver/Storekeeper == purchase@blueledgers.com.
-// Permission denial / no-department cases use requestor@blueledgers.com.
+// Multi-role auth — Requestor/Approver/Storekeeper == carmensoftware.dev+purchase@gmail.com.
+// Permission denial / no-department cases use carmensoftware.dev+requestor@gmail.com.
 // requestor declared LAST so doc default role reads "Purchase".
 // ─────────────────────────────────────────────────────────────────────────
-const requestorTest = createAuthTest("requestor@blueledgers.com");
-const purchaseTest = createAuthTest("purchase@blueledgers.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
+const purchaseTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 // ═════════════════════════════════════════════════════════════════════════
 // TC-SR-900001 — Create Requisition
@@ -21,7 +21,7 @@ purchaseTest.describe("Store Requisition — Create", () => {
     "TC-SR-010001 Happy Path - Create Store Requisition",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี role Requestor ถูก assign ให้ department และมีสิทธิ์เข้าถึง source location อย่างน้อยหนึ่งแห่ง" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com มี role Requestor ถูก assign ให้ department และมีสิทธิ์เข้าถึง source location อย่างน้อยหนึ่งแห่ง" },
         {
           type: "steps",
           description:
@@ -119,7 +119,7 @@ requestorTest.describe("Store Requisition — Create — Permission denial", () 
     "TC-SR-010002 Negative - User Not Assigned to Department",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com แต่ไม่ถูก assign ให้ department ใด" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com แต่ไม่ถูก assign ให้ department ใด" },
         {
           type: "steps",
           description:
@@ -771,7 +771,7 @@ requestorTest.describe("Store Requisition — Approve Item-level — Permission 
     "TC-SR-080003 Negative - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com มี role Storekeeper requisition อยู่ใน In Progress status item รอ approval และผู้ใช้มีสิทธิ์เข้าถึง" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com มี role Storekeeper requisition อยู่ใน In Progress status item รอ approval และผู้ใช้มีสิทธิ์เข้าถึง" },
         {
           type: "steps",
           description:

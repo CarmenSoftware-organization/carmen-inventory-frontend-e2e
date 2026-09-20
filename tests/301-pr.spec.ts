@@ -11,11 +11,11 @@ import { openRecordFromRow } from "./helpers/list-row";
 // Use the appropriate test object for each describe block based on the role
 // the TC requires.
 // ─────────────────────────────────────────────────────────────────────────
-const hodTest = createAuthTest("hod@blueledgers.com");
-const fcTest = createAuthTest("fc@blueledgers.com");
-const purchaseTest = createAuthTest("purchase@blueledgers.com");
-const gmTest = createAuthTest("gm@blueledgers.com");
-const requestorTest = createAuthTest("requestor@blueledgers.com");
+const hodTest = createAuthTest("carmensoftware.dev+hod@gmail.com");
+const fcTest = createAuthTest("carmensoftware.dev+fc@gmail.com");
+const purchaseTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
+const gmTest = createAuthTest("carmensoftware.dev+gm@gmail.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
 
 // `noAuthTest` is used for the "PR access without login" case.
 const noAuthTest = baseTest;
@@ -52,7 +52,7 @@ requestorTest.describe("PR — Create", () => {
     "TC-PR-010050 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com ผ่าน auth fixture" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com ผ่าน auth fixture" },
         { type: "steps", description: "1. เรียก ensureActiveBu(BLAVG)\n2. อ่าน profile API\n3. หา business unit ที่ is_default\n4. อ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -73,7 +73,7 @@ requestorTest.describe("PR — Create", () => {
     "TC-PR-010001 Create a basic purchase request with default values",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น Requestor (requestor@blueledgers.com); อยู่ที่หน้า list" },
+        { type: "preconditions", description: "Login เป็น Requestor (carmensoftware.dev+requestor@gmail.com); อยู่ที่หน้า list" },
         {
           type: "steps",
           description:

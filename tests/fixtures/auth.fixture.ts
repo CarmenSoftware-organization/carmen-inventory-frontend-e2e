@@ -8,7 +8,7 @@ import { authFile } from "./auth.paths";
  * Playwright project). Specs that previously relied on the
  * loginWithRetry auto-fixture keep their existing call shape:
  *
- *     const test = createAuthTest("purchase@blueledgers.com");
+ *     const test = createAuthTest("carmensoftware.dev+purchase@gmail.com");
  */
 export function createAuthTest(email: string) {
   return base.extend({

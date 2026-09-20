@@ -11,14 +11,14 @@ describe("resolveConfig", () => {
       SEED_BACKEND_URL: "http://localhost:4000/",
       SEED_X_APP_ID: "app-1",
       SEED_BU_CODE: "BLAVG",
-      SEED_EMAIL: "admin@blueledgers.com",
+      SEED_EMAIL: "carmensoftware.dev+admin@gmail.com",
       SEED_PASSWORD: "12345678",
     });
     expect(cfg).toEqual({
       backendUrl: "http://localhost:4000",
       xAppId: "app-1",
       buCode: "BLAVG",
-      email: "admin@blueledgers.com",
+      email: "carmensoftware.dev+admin@gmail.com",
       password: "12345678",
     });
   });

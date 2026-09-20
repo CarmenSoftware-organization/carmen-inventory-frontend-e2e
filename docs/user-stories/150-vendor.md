@@ -53,7 +53,7 @@ _Generated from `tests/150-vendor.spec.ts` annotations. Edit annotations, not th
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com via createAuthTest fixture; ผู้ใช้มีสิทธิ์เข้าถึง vendor-management
+Logged in as carmensoftware.dev+purchase@gmail.com via createAuthTest fixture; ผู้ใช้มีสิทธิ์เข้าถึง vendor-management
 
 **Steps**
 
@@ -73,7 +73,7 @@ URL ตรงกับ /vendor-management/vendor และปุ่ม Add visib
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com; on /vendor-management/vendor
+Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor
 
 **Steps**
 
@@ -93,7 +93,7 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com; on /vendor-management/vendor
+Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor
 
 **Steps**
 
@@ -114,7 +114,7 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com; on /vendor-management/vendor
+Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor
 
 **Steps**
 
@@ -135,7 +135,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com; on /vendor-management/vendor
+Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor
 
 **Steps**
 
@@ -157,7 +157,7 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
 
 **Steps**
 
@@ -179,7 +179,7 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com; ผู้ใช้มีสิทธิ์สร้าง vendor
+Logged in as carmensoftware.dev+purchase@gmail.com; ผู้ใช้มีสิทธิ์สร้าง vendor
 
 **Steps**
 
@@ -199,7 +199,7 @@ URL ตรงกับ /vendor-management/vendor/new; code input, name input แ
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new; backend มีข้อมูล business types อย่างน้อย 1 รายการ
+Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new; backend มีข้อมูล business types อย่างน้อย 1 รายการ
 
 **Steps**
 
@@ -222,7 +222,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new; backend
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com; vendor CODE/NAME ยังไม่มีใน DB
+Logged in as carmensoftware.dev+purchase@gmail.com; vendor CODE/NAME ยังไม่มีใน DB
 
 **Steps**
 
@@ -246,7 +246,7 @@ Save toast/feedback ปรากฏ และ vendor ใหม่ค้นเจ
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com; vendor CODE+'A' ยังไม่มีใน DB
+Logged in as carmensoftware.dev+purchase@gmail.com; vendor CODE+'A' ยังไม่มีใน DB
 
 **Steps**
 
@@ -271,7 +271,7 @@ Save toast/feedback ปรากฏ บ่งชี้ว่า vendor พร้
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com; vendor CODE+'C' ยังไม่มีใน DB
+Logged in as carmensoftware.dev+purchase@gmail.com; vendor CODE+'C' ยังไม่มีใน DB
 
 **Steps**
 
@@ -296,7 +296,7 @@ Save toast/feedback ปรากฏ และ vendor ที่มี contact ค
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab address
+Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab address
 
 **Steps**
 
@@ -318,7 +318,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab address
+Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab address
 
 **Steps**
 
@@ -341,7 +341,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab contact
+Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab contact
 
 **Steps**
 
@@ -363,7 +363,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab contact
+Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab contact
 
 **Steps**
 
@@ -386,7 +386,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab contact
+Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab contact
 
 **Steps**
 
@@ -410,7 +410,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab info
+Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab info
 
 **Steps**
 
@@ -432,7 +432,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 **Preconditions**
 
-Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที่ tab info
+Logged in as carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new ที่ tab info
 
 **Steps**
 
@@ -455,7 +455,7 @@ Logged in as purchase@blueledgers.com; on /vendor-management/vendor/new ที�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; vendor ADMIN_CODE/ADMIN_NAME ยังไม่มีใน DB
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; vendor ADMIN_CODE/ADMIN_NAME ยังไม่มีใน DB
 
 **Steps**
 
@@ -479,7 +479,7 @@ Save toast/feedback ปรากฏ และ vendor ใหม่ค้นเจ
 
 **Preconditions**
 
-TC-VEN-030003 ผ่านแล้ว → vendor ที่ NAME มีอยู่ใน DB; logged in as purchase@blueledgers.com
+TC-VEN-030003 ผ่านแล้ว → vendor ที่ NAME มีอยู่ใน DB; logged in as carmensoftware.dev+purchase@gmail.com
 
 **Steps**
 
@@ -504,7 +504,7 @@ Save toast/feedback ปรากฏ และ NAME_UPDATED ค้นเจอใ
 
 **Preconditions**
 
-TC-VEN-030050 ผ่านแล้ว → vendor ที่ ADMIN_NAME มีอยู่ใน DB; login เป็น admin@blueledgers.com; active BU = BLAVG
+TC-VEN-030050 ผ่านแล้ว → vendor ที่ ADMIN_NAME มีอยู่ใน DB; login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -596,7 +596,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ยืนยัน�
 
 **Preconditions**
 
-TC-VEN-200050 ผ่านแล้ว → vendor ที่ ADMIN_NAME_UPDATED ยังคงอยู่ใน DB; login เป็น admin@blueledgers.com; active BU = BLAVG
+TC-VEN-200050 ผ่านแล้ว → vendor ที่ ADMIN_NAME_UPDATED ยังคงอยู่ใน DB; login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -619,7 +619,7 @@ Success toast ('success/deleted/สำเร็จ') ปรากฏภายใ
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
+Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new
 
 **Steps**
 
@@ -641,7 +641,7 @@ Error indicator ปรากฏและ URL ยังคงอยู่ที�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
+Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new
 
 **Steps**
 
@@ -663,7 +663,7 @@ Error indicator ปรากฏและ URL ยังคงอยู่ที�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
+Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new
 
 **Steps**
 
@@ -684,7 +684,7 @@ Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
+Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new
 
 **Steps**
 
@@ -707,7 +707,7 @@ zod name.max(100) บล็อก submit — ยังอยู่ที่ /new
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com; on /vendor-management/vendor/new
+Login เป็น carmensoftware.dev+purchase@gmail.com; on /vendor-management/vendor/new
 
 **Steps**
 
@@ -731,7 +731,7 @@ URL ยังคงอยู่ที่ /new (HTML5 native email validation blo
 
 **Preconditions**
 
-TC-VEN-040050 ผ่านแล้ว → vendor ที่ ADMIN_CODE มีอยู่ใน DB; login เป็น admin@blueledgers.com; active BU = BLAVG
+TC-VEN-040050 ผ่านแล้ว → vendor ที่ ADMIN_CODE มีอยู่ใน DB; login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -747,4 +747,4 @@ TC-VEN-040050 ผ่านแล้ว → vendor ที่ ADMIN_CODE มีอ
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

@@ -177,7 +177,7 @@ import { DialogCrudHelper } from "./pages/dialog-crud.helper";
 import { addDialogSecurityCases } from "./helpers/security-cases";
 import { buildEntity } from "./helpers/test-data";
 
-const test = createAuthTest("purchase@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 const PATH = "/config/my-module";
 const { name: NAME } = buildEntity({ tag: "MM" });
 
@@ -324,15 +324,15 @@ Done.
 
 | Role | Email | Password |
 |---|---|---|
-| Requestor | `requestor@blueledgers.com` | `12345678` |
-| HOD | `hod@blueledgers.com` | `12345678` |
-| Purchase | `purchase@blueledgers.com` | `12345678` |
-| FC | `fc@blueledgers.com` | `12345678` |
-| GM | `gm@blueledgers.com` | `12345678` |
-| Owner | `owner@blueledgers.com` | `12345678` |
+| Requestor | `carmensoftware.dev+requestor@gmail.com` | `12345678` |
+| HOD | `carmensoftware.dev+hod@gmail.com` | `12345678` |
+| Purchase | `carmensoftware.dev+purchase@gmail.com` | `12345678` |
+| FC | `carmensoftware.dev+fc@gmail.com` | `12345678` |
+| GM | `carmensoftware.dev+gm@gmail.com` | `12345678` |
+| Owner | `carmensoftware.dev+owner@gmail.com` | `12345678` |
 
-- **Default ของ config tests:** `purchase@blueledgers.com` (มีสิทธิ์ admin config)
-- **Authorization tests (TC-XX00112):** `requestor@blueledgers.com` (สิทธิ์ต่ำ)
+- **Default ของ config tests:** `carmensoftware.dev+purchase@gmail.com` (มีสิทธิ์ admin config)
+- **Authorization tests (TC-XX00112):** `carmensoftware.dev+requestor@gmail.com` (สิทธิ์ต่ำ)
 
 ---
 

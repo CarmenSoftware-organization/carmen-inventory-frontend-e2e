@@ -153,7 +153,7 @@ template ถูกสร้างสำเร็จโดยไม่ต้อ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
 
 **Steps**
 
@@ -175,7 +175,7 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; template ชื่อ ADMIN_NAME ยังไม่มีใน DB; มี currency อย่างน้อย 1 รายการ
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; template ชื่อ ADMIN_NAME ยังไม่มีใน DB; มี currency อย่างน้อย 1 รายการ
 
 **Steps**
 
@@ -528,7 +528,7 @@ edit toolbar มีเพียง Cancel / Save / Delete — ไม่มีป
 
 **Preconditions**
 
-TC-PT-010051 ผ่านแล้ว → template ADMIN_NAME มีอยู่; login admin@blueledgers.com; active BU = BLAVG
+TC-PT-010051 ผ่านแล้ว → template ADMIN_NAME มีอยู่; login carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -552,7 +552,7 @@ success toast ปรากฏ และ ADMIN_NAME_UPDATED ค้นเจอใ
 
 **Preconditions**
 
-TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอยู่; login admin@blueledgers.com; active BU = BLAVG
+TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอยู่; login carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -679,7 +679,7 @@ Login เป็น Procurement Manager; มี currency อย่างน้อ
 
 **Preconditions**
 
-TC-PT-200050 ผ่านแล้ว → template ADMIN_NAME_UPDATED ยังอยู่ใน DB; login admin@blueledgers.com; active BU = BLAVG
+TC-PT-200050 ผ่านแล้ว → template ADMIN_NAME_UPDATED ยังอยู่ใน DB; login carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -703,7 +703,7 @@ template ADMIN_NAME_UPDATED ยังคงอยู่ใน list (ไม่ถ
 
 **Preconditions**
 
-TC-PT-050050 ผ่านแล้ว → template ADMIN_NAME_UPDATED ยังอยู่ใน DB; login admin@blueledgers.com; active BU = BLAVG
+TC-PT-050050 ผ่านแล้ว → template ADMIN_NAME_UPDATED ยังอยู่ใน DB; login carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -847,7 +847,7 @@ Login เข้า Carmen Inventory พร้อมสิทธิ์ดู temp
 
 **Preconditions**
 
-TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอยู่ใน DB; login admin@blueledgers.com; active BU = BLAVG
+TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอยู่ใน DB; login carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -862,4 +862,4 @@ TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอ�
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

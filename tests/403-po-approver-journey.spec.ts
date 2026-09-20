@@ -10,7 +10,7 @@ import {
 // Persona-journey spec — PO FC Approver. Runs alongside 401/402.
 // Source docs: docs/persona-doc/Purchase Order/Approver/INDEX.md
 // and step-01..03.md.
-const fcTest = createAuthTest("fc@blueledgers.com");
+const fcTest = createAuthTest("carmensoftware.dev+fc@gmail.com");
 
 const SEND_BACK_REASON = "Please verify pricing";
 const REJECT_REASON = "Vendor pricing exceeds budget";
@@ -20,7 +20,7 @@ fcTest.describe("Step 1 — My Approval", () => {
     "TC-PO-070101 My Approval dashboard loads with Total Pending count visible",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น FC (fc@blueledgers.com)" },
+        { type: "preconditions", description: "Login เป็น FC (carmensoftware.dev+fc@gmail.com)" },
         { type: "steps", description: "1. ไปที่ My Approvals (หรือ FC dashboard ที่เหมาะสม)\n2. ตรวจสอบว่า indicator total-pending ถูก render" },
         { type: "expected", description: "URL มี 'approval' หรือ 'dashboard'; count/badge หรือ row count visible" },
         { type: "priority", description: "High" },

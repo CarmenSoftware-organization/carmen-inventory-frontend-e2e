@@ -113,8 +113,8 @@ export function addDialogSecurityCases(
     `TC-${prefix}-100004 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`,
     {
       annotation: [
-        { type: "preconditions", description: `Test user requestor@blueledgers.com (low-privilege role) มีอยู่จริง; module list path = ${listPath}` },
-        { type: "steps", description: `1. เปิด browser context ใหม่\n2. login เป็น requestor@blueledgers.com\n3. ไปที่ ${listPath}` },
+        { type: "preconditions", description: `Test user carmensoftware.dev+requestor@gmail.com (low-privilege role) มีอยู่จริง; module list path = ${listPath}` },
+        { type: "steps", description: `1. เปิด browser context ใหม่\n2. login เป็น carmensoftware.dev+requestor@gmail.com\n3. ไปที่ ${listPath}` },
         { type: "expected", description: `User ถูก redirect ออกจาก ${listPath} หรือ ปุ่ม Add ไม่ปรากฏ (count = 0)` },
         { type: "priority", description: "High" },
         { type: "testType", description: "Authorization" },
@@ -131,7 +131,7 @@ export function addDialogSecurityCases(
     const { TEST_PASSWORD } = await import("../test-users");
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+    await loginPage.loginWithRetry("carmensoftware.dev+requestor@gmail.com", TEST_PASSWORD);
     await page.waitForURL(/dashboard/, { timeout: 15_000 });
     await page.goto(listPath);
     await page.waitForLoadState("networkidle");
@@ -234,8 +234,8 @@ export function addPageFormSecurityCases(
     `${tcAuth} user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`,
     {
       annotation: [
-        { type: "preconditions", description: `Test user requestor@blueledgers.com (low-privilege role) มีอยู่จริง; module list path = ${listPath}` },
-        { type: "steps", description: `1. เปิด browser context ใหม่\n2. login เป็น requestor@blueledgers.com\n3. ไปที่ ${listPath}` },
+        { type: "preconditions", description: `Test user carmensoftware.dev+requestor@gmail.com (low-privilege role) มีอยู่จริง; module list path = ${listPath}` },
+        { type: "steps", description: `1. เปิด browser context ใหม่\n2. login เป็น carmensoftware.dev+requestor@gmail.com\n3. ไปที่ ${listPath}` },
         { type: "expected", description: `User ถูก redirect ออกจาก ${listPath} หรือ ปุ่ม Add ไม่ปรากฏ (count = 0)` },
         { type: "priority", description: "High" },
         { type: "testType", description: "Authorization" },
@@ -252,7 +252,7 @@ export function addPageFormSecurityCases(
     const { TEST_PASSWORD } = await import("../test-users");
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+    await loginPage.loginWithRetry("carmensoftware.dev+requestor@gmail.com", TEST_PASSWORD);
     await page.waitForURL(/dashboard/, { timeout: 15_000 });
     await page.goto(listPath);
     await page.waitForLoadState("networkidle");
@@ -335,8 +335,8 @@ export function addListOnlySecurityCases(
     `TC-${prefix}-100004 user สิทธิ์ต่ำเข้าหน้านี้ต้องไม่เห็นปุ่ม Add หรือถูก redirect`,
     {
       annotation: [
-        { type: "preconditions", description: `Test user requestor@blueledgers.com (low-privilege role) มีอยู่จริง; module list path = ${listPath}` },
-        { type: "steps", description: `1. เปิด browser context ใหม่\n2. login เป็น requestor@blueledgers.com\n3. ไปที่ ${listPath}` },
+        { type: "preconditions", description: `Test user carmensoftware.dev+requestor@gmail.com (low-privilege role) มีอยู่จริง; module list path = ${listPath}` },
+        { type: "steps", description: `1. เปิด browser context ใหม่\n2. login เป็น carmensoftware.dev+requestor@gmail.com\n3. ไปที่ ${listPath}` },
         { type: "expected", description: `User ถูก redirect ออกจาก ${listPath} หรือ ปุ่ม Add ไม่ปรากฏ (count = 0)` },
         { type: "priority", description: "High" },
         { type: "testType", description: "Authorization" },
@@ -353,7 +353,7 @@ export function addListOnlySecurityCases(
     const { TEST_PASSWORD } = await import("../test-users");
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+    await loginPage.loginWithRetry("carmensoftware.dev+requestor@gmail.com", TEST_PASSWORD);
     await page.waitForURL(/dashboard/, { timeout: 15_000 });
     await page.goto(listPath);
     await page.waitForLoadState("networkidle");

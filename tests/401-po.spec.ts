@@ -5,13 +5,13 @@ import { seedApprovedPO, gotoPODetail } from "./pages/po-approver.helpers";
 import { openRecordFromRow } from "./helpers/list-row";
 
 // ─────────────────────────────────────────────────────────────────────────
-// Multi-role auth — Purchasing Staff/Manager == purchase@blueledgers.com.
-// Permission-denial cases use requestor@blueledgers.com (no PO permission).
+// Multi-role auth — Purchasing Staff/Manager == carmensoftware.dev+purchase@gmail.com.
+// Permission-denial cases use carmensoftware.dev+requestor@gmail.com (no PO permission).
 // requestor is declared LAST so doc default role reads "Purchase".
 // (See generate-user-stories.ts:findAuthRole — last createAuthTest wins.)
 // ─────────────────────────────────────────────────────────────────────────
-const requestorTest = createAuthTest("requestor@blueledgers.com");
-const purchaseTest = createAuthTest("purchase@blueledgers.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
+const purchaseTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 const noAuthTest = baseTest;
 

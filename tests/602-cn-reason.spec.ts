@@ -7,7 +7,7 @@ import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
 import { uid, fakeName } from "./helpers/test-data";
 
-const test = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
 const PATH = "/config/credit-note-reason";
 const NAME = fakeName({ tag: "CNR" });
 const NAME_UPDATED = fakeName({ tag: "CNR Upd" });
@@ -27,7 +27,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-010005 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
         { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -48,7 +48,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as admin@blueledgers.com via auth fixture" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+admin@gmail.com via auth fixture" },
         { type: "steps", description: "1. ไปที่ /config/credit-note-reason" },
         { type: "expected", description: "URL matches /config/credit-note-reason; ปุ่ม Add และช่องค้นหา visible บนหน้า list" },
         { type: "priority", description: "High" },
@@ -65,7 +65,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-010002 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as admin@blueledgers.com; on /config/credit-note-reason" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+admin@gmail.com; on /config/credit-note-reason" },
         { type: "steps", description: "1. ไปที่ /config/credit-note-reason" },
         { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
         { type: "priority", description: "High" },
@@ -82,7 +82,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as admin@blueledgers.com; on /config/credit-note-reason" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+admin@gmail.com; on /config/credit-note-reason" },
         { type: "steps", description: "1. ไปที่ /config/credit-note-reason\n2. พิมพ์ 'test' ในช่องค้นหา" },
         { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
         { type: "priority", description: "Medium" },
@@ -100,7 +100,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as admin@blueledgers.com; on /config/credit-note-reason" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+admin@gmail.com; on /config/credit-note-reason" },
         { type: "steps", description: "1. ไปที่ /config/credit-note-reason\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
         { type: "priority", description: "Medium" },
@@ -118,7 +118,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-200001 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as admin@blueledgers.com; on /config/credit-note-reason" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+admin@gmail.com; on /config/credit-note-reason" },
         { type: "steps", description: "1. เปิด Add dialog\n2. กด Save โดยไม่กรอก name\n3. กด Cancel เพื่อปิด dialog" },
         { type: "expected", description: "Error message ปรากฏใน dialog (form ไม่ submit; client-side validation block)" },
         { type: "priority", description: "High" },
@@ -138,7 +138,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-030001 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
-        { type: "preconditions", description: "Logged in as admin@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
+        { type: "preconditions", description: "Logged in as carmensoftware.dev+admin@gmail.com; record NAME ยังไม่มีอยู่ใน DB" },
         { type: "steps", description: "1. เปิด Add dialog\n2. กรอก name\n3. กด Save\n4. ค้นหาด้วย NAME ใน list" },
         { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี NAME ปรากฏใน list" },
         { type: "priority", description: "High" },
@@ -232,7 +232,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-040003 แก้ไขชื่อแล้ว persist",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง record\n2. เปิดแถวจาก list แก้ name แล้ว Save\n3. ยืนยัน list มี name ใหม่ ไม่พบ name เดิม\n4. ลบ record" },
         { type: "expected", description: "Updated; list มีแถว name ใหม่ และไม่พบ name เดิม (ค่าถูก persist จริง)" },
         { type: "priority", description: "High" },
@@ -270,7 +270,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-040004 ยกเลิกการแก้ไข ค่าต้องไม่ถูกบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง record\n2. เปิดแถวแก้ name เป็นค่าใหม่\n3. กด Cancel (dialog ปิดโดยไม่ save)\n4. เปิดแถวเดิมอีกครั้งเช็ค name\n5. ลบ record" },
         { type: "expected", description: "หลัง Cancel แล้วเปิดใหม่ name ยังเป็นค่าเดิม (การแก้ไขไม่ถูกบันทึก)" },
         { type: "priority", description: "Medium" },
@@ -311,7 +311,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-200003 สร้าง name ซ้ำ ต้องถูก reject",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง record ด้วย name X\n2. เปิด Add dialog กรอก name X เดิม กด Save" },
         { type: "expected", description: "รายการที่สองไม่ถูกสร้าง: dialog ยังเปิดอยู่ (backend reject name ซ้ำ)" },
         { type: "priority", description: "High" },
@@ -346,7 +346,7 @@ test.describe("Credit Note Reason — Smoke & CRUD", () => {
     "TC-CNR-050002 ยกเลิกการลบ record ต้องยังอยู่",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง record\n2. เปิด delete dialog แล้วกด Cancel\n3. ค้นหา record ใน list\n4. ลบ record (cleanup)" },
         { type: "expected", description: "Delete dialog ปิดโดยไม่ลบ; record ยังปรากฏใน list" },
         { type: "priority", description: "Medium" },

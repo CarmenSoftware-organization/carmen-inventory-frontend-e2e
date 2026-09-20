@@ -41,7 +41,7 @@ _Generated from `tests/029-business-type.spec.ts` annotations. Edit annotations,
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture
 
 **Steps**
 
@@ -61,7 +61,7 @@ URL ตรงกับ /config/business-type; หน้า list โหลดส�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/business-type
 
 **Steps**
 
@@ -81,7 +81,7 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /config/business
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/business-type
 
 **Steps**
 
@@ -102,7 +102,7 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /config/business
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/business-type
 
 **Steps**
 
@@ -123,7 +123,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
 
 **Steps**
 
@@ -145,7 +145,7 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB
+Login เป็น carmensoftware.dev+admin@gmail.com; record NAME ยังไม่มีอยู่ใน DB
 
 **Steps**
 
@@ -193,7 +193,7 @@ Updated/success toast ปรากฏ; แถวที่มี NAME_UPDATED ป
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -215,7 +215,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -238,7 +238,7 @@ Updated; list มีแถว name ใหม่ และไม่พบ name �
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -284,7 +284,7 @@ Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -395,7 +395,7 @@ User ถูก redirect ออกจาก /config/business-type หรือ �
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/business-type
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/business-type
 
 **Steps**
 
@@ -441,7 +441,7 @@ Error message ปรากฏใน dialog (form block submit; ยังคง�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -455,4 +455,4 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

@@ -4,12 +4,12 @@ import { CreditNotePage, LIST_PATH } from "./pages/credit-note.page";
 import { openRecordFromRow } from "./helpers/list-row";
 
 // ─────────────────────────────────────────────────────────────────────────
-// Multi-role auth — Purchasing/Receiving role == purchase@blueledgers.com.
-// Permission denial uses requestor@blueledgers.com.
+// Multi-role auth — Purchasing/Receiving role == carmensoftware.dev+purchase@gmail.com.
+// Permission denial uses carmensoftware.dev+requestor@gmail.com.
 // requestor declared LAST so doc default role reads "Purchase".
 // ─────────────────────────────────────────────────────────────────────────
-const requestorTest = createAuthTest("requestor@blueledgers.com");
-const purchaseTest = createAuthTest("purchase@blueledgers.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
+const purchaseTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 const SKIP_NOTE_BACKEND =
   "Backend / system-level behavior (server actions, sequence generation, journal entries, " +

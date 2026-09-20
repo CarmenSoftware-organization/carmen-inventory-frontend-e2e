@@ -7,7 +7,7 @@ import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
 import { uid, fakeName } from "./helpers/test-data";
 
-const test = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
 const PATH = "/operation-plan/equipment-category";
 const NAME = fakeName({ tag: "EQPC" });
 const NAME_UPDATED = fakeName({ tag: "EQPC Upd" });
@@ -28,7 +28,7 @@ test.describe("Equipment Category — Smoke & CRUD", () => {
     "TC-EQPC-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture" },
         { type: "steps", description: "1. ไปที่ /operation-plan/equipment-category" },
         { type: "expected", description: "URL ตรงกับ /operation-plan/equipment-category; หน้า list โหลดสำเร็จโดยไม่ error" },
         { type: "priority", description: "High" },
@@ -46,7 +46,7 @@ test.describe("Equipment Category — Smoke & CRUD", () => {
     "TC-EQPC-010002 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /operation-plan/equipment-category" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /operation-plan/equipment-category" },
         { type: "steps", description: "1. ไปที่ /operation-plan/equipment-category" },
         { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
         { type: "priority", description: "High" },
@@ -64,7 +64,7 @@ test.describe("Equipment Category — Smoke & CRUD", () => {
     "TC-EQPC-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /operation-plan/equipment-category" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /operation-plan/equipment-category" },
         { type: "steps", description: "1. ไปที่ /operation-plan/equipment-category\n2. พิมพ์ 'test' ในช่องค้นหา" },
         { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
         { type: "priority", description: "Medium" },
@@ -83,7 +83,7 @@ test.describe("Equipment Category — Smoke & CRUD", () => {
     "TC-EQPC-900001 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /operation-plan/equipment-category" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /operation-plan/equipment-category" },
         { type: "steps", description: "1. ไปที่ /operation-plan/equipment-category\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
         { type: "priority", description: "Low" },
@@ -102,7 +102,7 @@ test.describe("Equipment Category — Smoke & CRUD", () => {
     "TC-EQPC-010005 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
         { type: "steps", description: "1. อ่าน profile API\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -123,7 +123,7 @@ test.describe("Equipment Category — Smoke & CRUD", () => {
     "TC-EQPC-200001 บันทึกโดยไม่กรอกชื่อต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /operation-plan/equipment-category" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /operation-plan/equipment-category" },
         { type: "steps", description: "1. ไปที่ /operation-plan/equipment-category\n2. เปิด dialog Add\n3. กด Save โดยไม่กรอก name" },
         { type: "expected", description: "Error message ปรากฏใน dialog (form block submit ด้วย client-side validation)" },
         { type: "priority", description: "High" },
@@ -144,7 +144,7 @@ test.describe("Equipment Category — Smoke & CRUD", () => {
     "TC-EQPC-030001 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; record NAME ยังไม่มีอยู่ใน DB" },
         { type: "steps", description: "1. ไปที่ /operation-plan/equipment-category\n2. เปิด dialog Add\n3. กรอก name\n4. กด Save\n5. ค้นหาด้วย NAME" },
         { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี NAME ปรากฏใน list" },
         { type: "priority", description: "High" },
@@ -194,7 +194,7 @@ test.describe("Equipment Category — Smoke & CRUD", () => {
     "TC-EQPC-040002 toggle is_active แล้ว persist",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. เปิด Add dialog กรอก name ปิด switch is_active กด Save\n2. เปิดแถวอีกครั้งอ่านสถานะ switch\n3. ลบ record" },
         { type: "expected", description: "หลังเปิดแถวใหม่ switch is_active = false (ค่าถูก persist)" },
         { type: "priority", description: "Medium" },
@@ -272,7 +272,7 @@ test.describe("Equipment Category — Smoke & CRUD", () => {
     "TC-EQPC-050002 ยกเลิกการลบ record ต้องยังอยู่",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง record\n2. เปิด delete dialog แล้วกด Cancel\n3. ค้นหา record ใน list\n4. ลบ record (cleanup)" },
         { type: "expected", description: "Delete dialog ปิดโดยไม่ลบ; record ยังปรากฏใน list" },
         { type: "priority", description: "Medium" },

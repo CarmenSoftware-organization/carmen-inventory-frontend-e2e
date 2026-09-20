@@ -7,12 +7,12 @@ import { BuSwitcherPage } from "./pages/bu-switcher.page";
 import { uid } from "./helpers/test-data";
 
 // ─────────────────────────────────────────────────────────────────────────
-// Multi-role auth — Vendor Mgmt access == purchase@blueledgers.com.
-// Permission denial / no view-access cases use requestor@blueledgers.com.
+// Multi-role auth — Vendor Mgmt access == carmensoftware.dev+purchase@gmail.com.
+// Permission denial / no view-access cases use carmensoftware.dev+requestor@gmail.com.
 // requestor declared LAST so user-story doc default role reads "Purchase".
 // ─────────────────────────────────────────────────────────────────────────
-const requestorTest = createAuthTest("requestor@blueledgers.com");
-const purchaseTest = createAuthTest("purchase@blueledgers.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
+const purchaseTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 // ═════════════════════════════════════════════════════════════════════════
 // TC-PL-900001 — Login & List page access
@@ -781,13 +781,13 @@ purchaseTest.describe("Price List — Mark as Expired", () => {
 
 });
 
-// ── admin@blueledgers.com + BLAVG ──────────────────────────────────────────
+// ── carmensoftware.dev+admin@gmail.com + BLAVG ──────────────────────────────────────────
 // The describes above run as purchase/requestor (authz coverage) and are left
 // untouched. Price List create is a heavy document (vendor + currency +
 // valid-from + line items, dependent on seeded data), so this block is
 // intentionally LIGHT: BU precondition + BU-assert + a couple of hardened
 // read/list cases (no create chain). See the procurement-trio rollout spec.
-const adminTest = createAuthTest("admin@blueledgers.com");
+const adminTest = createAuthTest("carmensoftware.dev+admin@gmail.com");
 
 adminTest.describe("Price List — admin@BLAVG", () => {
   adminTest.beforeEach(async ({ page }) => {
@@ -798,7 +798,7 @@ adminTest.describe("Price List — admin@BLAVG", () => {
     "TC-PL-010050 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
         { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -819,7 +819,7 @@ adminTest.describe("Price List — admin@BLAVG", () => {
     "TC-PL-010051 หน้า list โหลดสำเร็จ (admin/BLAVG) + ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Vendor Management" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Vendor Management" },
         { type: "steps", description: "1. ไปที่ /vendor-management/price-list\n2. ตรวจสอบ URL และ heading 'Price List'\n3. ตรวจสอบว่าปุ่ม 'Add Price List' แสดง" },
         { type: "expected", description: "URL เป็น /vendor-management/price-list, heading 'Price List' แสดง, และปุ่ม Add แสดง (hard assert)" },
         { type: "priority", description: "High" },
@@ -843,7 +843,7 @@ adminTest.describe("Price List — admin@BLAVG", () => {
     "TC-PL-010052 ค้นหาคำที่ไม่มี → empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Price List" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Price List" },
         { type: "steps", description: "1. ไปที่ /vendor-management/price-list\n2. กรอกคำค้นหาที่ไม่มีอยู่จริงในช่อง Search\n3. ตรวจสอบว่าแสดง empty state" },
         { type: "expected", description: "ตารางแสดง empty state ('No data found') สำหรับคำค้นที่ไม่ตรง (hard assert)" },
         { type: "priority", description: "Medium" },

@@ -134,7 +134,7 @@ Login เข้าระบบแล้วแต่ไม่มีการต�
 
 **Preconditions**
 
-Login เป็น hod@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+Login เป็น carmensoftware.dev+hod@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
 
 **Steps**
 
@@ -562,4 +562,4 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

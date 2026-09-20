@@ -11,13 +11,13 @@ import { openRecordFromRow } from "./helpers/list-row";
 // across a worker restart (factory `uid` provides the same per-process semantics).
 
 // ─────────────────────────────────────────────────────────────────────────
-// Multi-role auth — Procurement Manager == purchase@blueledgers.com,
-// Procurement Staff (no template-edit permission) == requestor@blueledgers.com.
+// Multi-role auth — Procurement Manager == carmensoftware.dev+purchase@gmail.com,
+// Procurement Staff (no template-edit permission) == carmensoftware.dev+requestor@gmail.com.
 // requestorTest is declared LAST so the user-story doc reports the most-used
 // role as the default for the module. (See generate-user-stories.ts:findAuthRole)
 // ─────────────────────────────────────────────────────────────────────────
-const procurementStaffTest = createAuthTest("requestor@blueledgers.com");
-const procurementManagerTest = createAuthTest("purchase@blueledgers.com");
+const procurementStaffTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
+const procurementManagerTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 const VALID_NAME = "Office Supplies";
 const VALID_DESCRIPTION = "Office supplies pricelist for 2023";
@@ -820,12 +820,12 @@ procurementStaffTest.describe("Pricelist Template — Search and View — Permis
   );
 });
 
-// ── admin@blueledgers.com + BLAVG CRUD ─────────────────────────────────────
+// ── carmensoftware.dev+admin@gmail.com + BLAVG CRUD ─────────────────────────────────────
 // The describes above run as purchase/requestor (authz coverage) and are left
 // untouched. This block verifies an admin can CRUD pricelist templates with the
 // active BU pinned to BLAVG, driving the redesigned form through the migrated
 // PriceListTemplatePage page object.
-const adminTest = createAuthTest("admin@blueledgers.com");
+const adminTest = createAuthTest("carmensoftware.dev+admin@gmail.com");
 
 adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
   const ADMIN_NAME = fakeName({ tag: "PT" });
@@ -846,7 +846,7 @@ adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
     "TC-PT-010050 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
         { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -867,7 +867,7 @@ adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
     "TC-PT-010051 สร้าง pricelist template (admin/BLAVG) สำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; template ชื่อ ADMIN_NAME ยังไม่มีใน DB; มี currency อย่างน้อย 1 รายการ" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; template ชื่อ ADMIN_NAME ยังไม่มีใน DB; มี currency อย่างน้อย 1 รายการ" },
         { type: "steps", description: "1. เปิดหน้า /new\n2. กรอกชื่อ (hero NameField) = ADMIN_NAME\n3. เลือก Currency (required)\n4. กด 'Save'\n5. ตรวจสอบ success toast" },
         { type: "expected", description: "success toast ปรากฏ (template ถูกสร้าง) — ใช้เป็น seed ของ serial chain" },
         { type: "priority", description: "High" },
@@ -888,7 +888,7 @@ adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
     "TC-PT-040050 แก้ชื่อ template แล้ว persist",
     {
       annotation: [
-        { type: "preconditions", description: "TC-PT-010051 ผ่านแล้ว → template ADMIN_NAME มีอยู่; login admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "TC-PT-010051 ผ่านแล้ว → template ADMIN_NAME มีอยู่; login carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. ไป list แล้วเปิด template ADMIN_NAME\n2. กด 'Edit'\n3. แก้ชื่อเป็น ADMIN_NAME_UPDATED\n4. กด 'Save'\n5. กลับ list ค้นหา ADMIN_NAME_UPDATED" },
         { type: "expected", description: "success toast ปรากฏ และ ADMIN_NAME_UPDATED ค้นเจอใน list ภายใน 10s (ค่าถูก persist)" },
         { type: "priority", description: "High" },
@@ -917,7 +917,7 @@ adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
     "TC-PT-040051 แก้ชื่อแล้วกด Cancel — ค่าเดิมคงอยู่",
     {
       annotation: [
-        { type: "preconditions", description: "TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอยู่; login admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอยู่; login carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. ไป list เปิด template ADMIN_NAME_UPDATED\n2. กด 'Edit'\n3. แก้ชื่อเป็นค่าทิ้ง\n4. กด 'Cancel'\n5. กลับ list ค้นหา ADMIN_NAME_UPDATED" },
         { type: "expected", description: "ชื่อ template ยังเป็น ADMIN_NAME_UPDATED (การแก้ที่ยกเลิกไม่ถูกบันทึก)" },
         { type: "priority", description: "Medium" },
@@ -945,7 +945,7 @@ adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
     "TC-PT-200050 สร้าง template ชื่อซ้ำ ต้องถูก reject",
     {
       annotation: [
-        { type: "preconditions", description: "TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอยู่ใน DB; login admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "TC-PT-040050 ผ่านแล้ว → template ADMIN_NAME_UPDATED มีอยู่ใน DB; login carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. เปิดหน้า /new\n2. กรอกชื่อ = ADMIN_NAME_UPDATED (ซ้ำ) + เลือก currency\n3. กด 'Save'" },
         { type: "expected", description: "รายการที่สองไม่ถูกสร้าง: มี error toast (backend reject duplicate name) — ไม่มี success toast" },
         { type: "priority", description: "High" },
@@ -967,7 +967,7 @@ adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
     "TC-PT-050050 เปิด delete dialog แล้ว Cancel — template ยังอยู่",
     {
       annotation: [
-        { type: "preconditions", description: "TC-PT-200050 ผ่านแล้ว → template ADMIN_NAME_UPDATED ยังอยู่ใน DB; login admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "TC-PT-200050 ผ่านแล้ว → template ADMIN_NAME_UPDATED ยังอยู่ใน DB; login carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. ไป list ค้นหา ADMIN_NAME_UPDATED\n2. เปิด row actions\n3. กด 'Delete'\n4. ใน dialog กด 'Cancel'\n5. ตรวจสอบว่า template ยังอยู่" },
         { type: "expected", description: "template ADMIN_NAME_UPDATED ยังคงอยู่ใน list (ไม่ถูกลบ)" },
         { type: "priority", description: "Medium" },
@@ -998,7 +998,7 @@ adminTest.describe.serial("Pricelist Template — admin@BLAVG CRUD", () => {
     "TC-PT-050051 ลบ template (admin/BLAVG) cleanup",
     {
       annotation: [
-        { type: "preconditions", description: "TC-PT-050050 ผ่านแล้ว → template ADMIN_NAME_UPDATED ยังอยู่ใน DB; login admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "TC-PT-050050 ผ่านแล้ว → template ADMIN_NAME_UPDATED ยังอยู่ใน DB; login carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. ไป list ค้นหา ADMIN_NAME_UPDATED\n2. เปิด row actions\n3. กด 'Delete'\n4. ใน dialog ยืนยัน Delete\n5. ตรวจสอบ success toast" },
         { type: "expected", description: "success toast ('deleted/success/สำเร็จ') ปรากฏภายใน 10s (template ถูกลบ — ปิดท้าย serial chain)" },
         { type: "priority", description: "High" },

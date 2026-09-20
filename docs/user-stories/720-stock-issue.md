@@ -172,7 +172,7 @@ StoreRequisition อยู่ใน Issue stage destinationLocationType เป�
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com StoreRequisition อยู่ใน Issue stage destinationLocationType เป็น DIRECT และผู้ใช้ไม่มี view permission
+Login เป็น carmensoftware.dev+requestor@gmail.com StoreRequisition อยู่ใน Issue stage destinationLocationType เป็น DIRECT และผู้ใช้ไม่มี view permission
 
 **Steps**
 
@@ -270,7 +270,7 @@ SRs ทั้งหมดแสดงใน list
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com และไม่มีสิทธิ์เข้าถึง Stock Issues view
+Login เป็น carmensoftware.dev+requestor@gmail.com และไม่มีสิทธิ์เข้าถึง Stock Issues view
 
 **Steps**
 
@@ -323,7 +323,7 @@ SR 'SR-12345' ที่ตรงกับ filters ที่กำหนดแส
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com มี SR view permission และ Issue view แสดงอยู่
+Login เป็น carmensoftware.dev+purchase@gmail.com มี SR view permission และ Issue view แสดงอยู่
 
 **Steps**
 
@@ -346,7 +346,7 @@ Login เป็น purchase@blueledgers.com มี SR view permission และ 
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com แต่ไม่มี SR view permission และ Issue view แสดงอยู่
+Login เป็น carmensoftware.dev+requestor@gmail.com แต่ไม่มี SR view permission และ Issue view แสดงอยู่
 
 **Steps**
 
@@ -392,7 +392,7 @@ Error message แสดงว่า SR reference link ไม่ถูกต้�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com มี SR view permission และ Issue view แสดงพร้อม SR ใน Issue stage
+Login เป็น carmensoftware.dev+purchase@gmail.com มี SR view permission และ Issue view แสดงพร้อม SR ใน Issue stage
 
 **Steps**
 
@@ -416,7 +416,7 @@ Error message แสดงว่าผู้ใช้ไม่มีสิทธ
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com มี SR view และ print permission และ Issue view แสดงพร้อม SR ใน Issue stage
+Login เป็น carmensoftware.dev+purchase@gmail.com มี SR view และ print permission และ Issue view แสดงพร้อม SR ใน Issue stage
 
 **Steps**
 
@@ -464,7 +464,7 @@ Issue อยู่ใน Issue/Complete stage และผู้ใช้มี 
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com Issue อยู่ใน Issue/Complete stage แต่ผู้ใช้ไม่มี view permission
+Login เป็น carmensoftware.dev+requestor@gmail.com Issue อยู่ใน Issue/Complete stage แต่ผู้ใช้ไม่มี view permission
 
 **Steps**
 
@@ -578,7 +578,7 @@ Issue มีอยู่แต่อยู่ใน Cancel stage
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com สถานะ SR เป็น Completed และผู้ใช้ไม่มี permission ดู costs
+Login เป็น carmensoftware.dev+requestor@gmail.com สถานะ SR เป็น Completed และผู้ใช้ไม่มี permission ดู costs
 
 **Steps**
 
@@ -636,4 +636,4 @@ Login เป็น requestor@blueledgers.com สถานะ SR เป็น Com
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

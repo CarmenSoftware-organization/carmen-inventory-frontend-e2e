@@ -8,7 +8,7 @@ import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
 import { uid, fakeCode, fakeName, fakeDescription, buildEntity } from "./helpers/test-data";
 
-const test = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
 const PATH = "/config/department";
 const { code: CODE, name: NAME, nameUpdated: NAME_UPDATED } = buildEntity({
   codePrefix: "E2E",
@@ -32,7 +32,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture" },
         { type: "steps", description: "1. ไปที่ /config/department" },
         { type: "expected", description: "URL ตรงกับ /config/department; หน้า list โหลดสำเร็จและพร้อมใช้งาน" },
         { type: "priority", description: "High" },
@@ -49,7 +49,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-010005 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
         { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าใดๆ ที่มี navbar แล้วอ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -72,7 +72,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-010002 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/department" },
         { type: "steps", description: "1. ไปที่ /config/department\n2. ตรวจสอบว่าปุ่ม Add ปรากฏ" },
         { type: "expected", description: "ปุ่ม Add visible บนหน้า list (พร้อมเข้าสู่ flow create)" },
         { type: "priority", description: "High" },
@@ -89,7 +89,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/department" },
         { type: "steps", description: "1. ไปที่ /config/department\n2. พิมพ์ 'test' ในช่องค้นหา" },
         { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
         { type: "priority", description: "Medium" },
@@ -107,7 +107,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/department" },
         { type: "steps", description: "1. ไปที่ /config/department\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
         { type: "priority", description: "Medium" },
@@ -125,7 +125,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-200001 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/department/new" },
         { type: "steps", description: "1. เปิดฟอร์ม new\n2. กด Save โดยไม่กรอก code/name (รวมถึง parent ถ้ามี)" },
         { type: "expected", description: "URL ยังคงอยู่ที่ /new (ฟอร์ม block submit ด้วย client-side validation)" },
         { type: "priority", description: "High" },
@@ -149,7 +149,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-030001 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; record CODE/NAME ยังไม่มีอยู่ใน DB" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; record CODE/NAME ยังไม่มีอยู่ใน DB" },
         { type: "steps", description: "1. เปิด new form\n2. กรอก code + name (ใช้ default parent/hierarchy ถ้ามี)\n3. กด Save\n4. กลับ list และค้นหาด้วย NAME" },
         { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี NAME ปรากฏใน list" },
         { type: "priority", description: "High" },
@@ -174,7 +174,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-040001 แก้ไขชื่อและบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; TC-DEP-030001 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; TC-DEP-030001 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB" },
         { type: "steps", description: "1. ค้นหา NAME ใน list\n2. คลิกแถวเพื่อเปิด detail\n3. กดปุ่ม Edit\n4. clear name และกรอก NAME_UPDATED\n5. กด Save" },
         { type: "expected", description: "Updated/success toast ปรากฏ (updated/success/สำเร็จ)" },
         { type: "priority", description: "High" },
@@ -255,7 +255,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-040002 แก้ไขแล้ว persist หลัง reload",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง department (code+name)\n2. เปิด detail กด Edit เปลี่ยน name เป็นค่าใหม่ แล้ว Save\n3. reload หน้า detail\n4. กลับ list ค้นหา name ใหม่และ name เดิม" },
         { type: "expected", description: "หลัง reload ฟอร์มแสดง name ใหม่ (ค่าถูก persist จริง ไม่ใช่แค่ toast); list มีแถว name ใหม่ และไม่พบ name เดิม" },
         { type: "priority", description: "High" },
@@ -317,7 +317,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-010006 ค้นหาด้วย code เจอรายการ",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง department ด้วย code+name ที่รู้ค่า\n2. กลับ list แล้วค้นหาด้วย code\n3. ลบ record" },
         { type: "expected", description: "list แสดงแถวที่มี name ของ record เมื่อค้นด้วย code" },
         { type: "priority", description: "Medium" },
@@ -351,7 +351,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-200004 สร้าง code ซ้ำ ต้องถูก reject",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง department ด้วย code X\n2. สร้างอีกรายการด้วย code X เดิม (name ต่าง)\n3. กด Save" },
         { type: "expected", description: "รายการที่สองไม่ถูกสร้าง: ยังอยู่ที่ฟอร์ม /new (ไม่ navigate ไป detail) — backend reject code ซ้ำ" },
         { type: "priority", description: "High" },
@@ -391,7 +391,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-030003 toggle is_active แล้ว persist",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. เปิด new form\n2. ปิด switch is_active\n3. กรอก code+name แล้ว Save\n4. reload detail แล้วอ่านสถานะ switch" },
         { type: "expected", description: "หลัง save+reload switch is_active = false (ค่าถูก persist)" },
         { type: "priority", description: "High" },
@@ -430,7 +430,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-200003 code เกิน maxLength ต้องถูกจำกัดที่ 10",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/department/new" },
         { type: "steps", description: "1. เปิด new form\n2. พิมพ์ code ยาว 15 ตัวอักษร" },
         { type: "expected", description: "ค่าใน input ถูกตัดที่ 10 ตัวอักษร (maxLength=10)" },
         { type: "priority", description: "Medium" },
@@ -449,7 +449,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-200005 บันทึกโดยกรอก field เดียว ต้องถูก block",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/department/new" },
         { type: "steps", description: "1. เปิด new form กรอกเฉพาะ name (code ว่าง) กด Save\n2. เปิด new form ใหม่ กรอกเฉพาะ code (name ว่าง) กด Save" },
         { type: "expected", description: "ทั้งสองกรณีฟอร์ม block submit: ยังอยู่ที่ /new" },
         { type: "priority", description: "Medium" },
@@ -475,7 +475,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-030002 description สร้าง/แก้ไข + maxLength 256",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง department พร้อม description\n2. reload เช็คค่า description\n3. ตรวจ maxLength: พิมพ์ description ยาว 300 ตัว\n4. ลบ record" },
         { type: "expected", description: "description ถูก persist หลัง reload; ช่อง description ถูกจำกัดที่ 256 ตัวอักษร" },
         { type: "priority", description: "Medium" },
@@ -523,7 +523,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-040003 Cancel ขณะ form dirty ต้องเด้ง Discard dialog",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี record อยู่" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี record อยู่" },
         { type: "steps", description: "1. สร้าง record\n2. เปิด detail กด Edit เปลี่ยน name (form dirty)\n3. กด Cancel\n4. ยืนยัน Discard\n5. reload เช็ค name เดิม" },
         { type: "expected", description: "Discard dialog ปรากฏ; หลังยืนยันกลับ view mode และ name ยังเป็นค่าเดิม (ไม่ถูกบันทึก)" },
         { type: "priority", description: "Medium" },
@@ -569,7 +569,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-050002 ยกเลิกการลบ record ต้องยังอยู่",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี record อยู่" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี record อยู่" },
         { type: "steps", description: "1. สร้าง record\n2. เปิด detail กด Edit แล้วกด Delete\n3. ใน dialog กด Cancel\n4. กลับ list ค้นหา record" },
         { type: "expected", description: "Delete dialog ปิดโดยไม่ลบ; record ยังปรากฏใน list" },
         { type: "priority", description: "Medium" },
@@ -617,7 +617,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-040004 assign user เข้า department members",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip" },
         { type: "steps", description: "1. สร้าง record\n2. เปิด record จาก list แล้วกด Edit\n3. ใน section 'Department Members' เลือก user ตัวแรกแล้วย้ายไปขวา\n4. Save\n5. reload เปิด detail เช็คว่า user ปรากฏใน members" },
         { type: "expected", description: "user ที่ถูก assign แสดงใน section members หลัง reload — หรือ skip ถ้าไม่มี user ว่างให้ assign" },
         { type: "priority", description: "Medium" },
@@ -677,7 +677,7 @@ test.describe("Department — Smoke & CRUD", () => {
     "TC-DEP-040005 assign user เป็น Head of Department",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip" },
         { type: "steps", description: "1. สร้าง record\n2. เปิด record จาก list แล้วกด Edit\n3. ใน section 'Head of Department' เลือก user ตัวแรกแล้วย้ายไปขวา\n4. Save\n5. reload เปิด detail เช็คว่า user ปรากฏใน HOD" },
         { type: "expected", description: "user ที่ถูก assign แสดงใน section HOD หลัง reload — หรือ skip ถ้าไม่มี user ให้ assign" },
         { type: "priority", description: "Low" },

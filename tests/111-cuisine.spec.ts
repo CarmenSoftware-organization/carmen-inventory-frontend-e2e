@@ -32,7 +32,7 @@ import { uid, fakeName, fakeDescription } from "./helpers/test-data";
  *  - TC-CUIS-200003–200005 (boundary / JSON Info field)
  */
 
-const test = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
 const PATH = "/operation-plan/cuisine";
 
 // Unique test data for this run
@@ -60,7 +60,7 @@ test.describe("Cuisine Type — Smoke & CRUD", () => {
     "TC-CUIS-010001 แสดงรายการ Cuisine Type",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี cuisine อย่างน้อย 1 รายการ" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี cuisine อย่างน้อย 1 รายการ" },
         { type: "steps", description: "1. ไปที่ /operation-plan/cuisine\n2. รอให้ DataGrid โหลดเสร็จ" },
         { type: "expected", description: "หัวหน้าแสดงชื่อ 'Cuisine Type'; ตารางมีคอลัมน์ Name, Region, Status; ปุ่ม 'Add Cuisine Type' แสดงอยู่มุมขวาบน" },
         { type: "priority", description: "High" },
@@ -200,7 +200,7 @@ test.describe("Cuisine Type — Smoke & CRUD", () => {
     "TC-CUIS-020003 เปิด id ที่ไม่มีอยู่จริงแล้วเจอสถานะไม่พบข้อมูล",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. เข้า URL /operation-plan/cuisine/00000000-0000-0000-0000-000000000000" },
         { type: "expected", description: "แสดงกล่อง role='alert' หรือหน้าไม่พบข้อมูล; ไม่มี crash ของแอป" },
         { type: "priority", description: "Medium" },
@@ -256,7 +256,7 @@ test.describe("Cuisine Type — Smoke & CRUD", () => {
     "TC-CUIS-030001 สร้าง Cuisine ใหม่สำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; อยู่ที่หน้า /operation-plan/cuisine" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; อยู่ที่หน้า /operation-plan/cuisine" },
         { type: "steps", description: "1. คลิกปุ่ม 'Add Cuisine Type'\n2. ตรวจว่า URL เป็น /operation-plan/cuisine/new\n3. กรอก Name\n4. คลิกปุ่ม 'Create'" },
         { type: "expected", description: "แสดง toast 'Cuisine Type created successfully'; เด้งกลับไปที่ /operation-plan/cuisine และ cuisine ใหม่ปรากฏในตาราง" },
         { type: "priority", description: "High" },

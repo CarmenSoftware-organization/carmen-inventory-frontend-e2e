@@ -58,7 +58,7 @@ _Generated from `tests/900-period-end.spec.ts` annotations. Edit annotations, no
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com และมี period view permission
+Login เป็น carmensoftware.dev+purchase@gmail.com และมี period view permission
 
 **Steps**
 
@@ -80,7 +80,7 @@ Login เป็น purchase@blueledgers.com และมี period view permissi
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com แต่ไม่มี period view permission
+Login เป็น carmensoftware.dev+requestor@gmail.com แต่ไม่มี period view permission
 
 **Steps**
 
@@ -186,7 +186,7 @@ Current period card แสดงสถานะ closed และไม่สา�
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com แต่ไม่มี permission ดู period detail
+Login เป็น carmensoftware.dev+requestor@gmail.com แต่ไม่มี permission ดู period detail
 
 **Steps**
 
@@ -277,7 +277,7 @@ validation sections ทั้งหมดผ่าน และปุ่ม 'Clo
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com และ period ถูกปิดแล้ว
+Login เป็น carmensoftware.dev+purchase@gmail.com และ period ถูกปิดแล้ว
 
 **Steps**
 
@@ -398,7 +398,7 @@ Error message แสดงสำหรับ input ที่ไม่ถูก�
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com สถานะ period เป็น closing และ validation stages ทั้ง 3 ผ่าน
+Login เป็น carmensoftware.dev+requestor@gmail.com สถานะ period เป็น closing และ validation stages ทั้ง 3 ผ่าน
 
 **Steps**
 
@@ -560,7 +560,7 @@ Pending statuses สำหรับแต่ละ transaction type ถูกร
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com ด้วย credentials ที่ถูกต้องและมี permission ทำ validation
+Login เป็น carmensoftware.dev+purchase@gmail.com ด้วย credentials ที่ถูกต้องและมี permission ทำ validation
 
 **Steps**
 
@@ -750,7 +750,7 @@ physicalCountsFinalized เป็น true และไม่มี non-finalized
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com พร้อม permissions ทำ period actions
+Login เป็น carmensoftware.dev+purchase@gmail.com พร้อม permissions ทำ period actions
 
 **Steps**
 
@@ -864,4 +864,4 @@ Activity log entry ถูกสร้างพร้อมรายละเอ�
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

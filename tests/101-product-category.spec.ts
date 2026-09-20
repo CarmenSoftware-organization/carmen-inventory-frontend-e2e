@@ -7,16 +7,16 @@ import { BuSwitcherPage } from "./pages/bu-switcher.page";
 import { fakeCode, fakeName } from "./helpers/test-data";
 
 // ─────────────────────────────────────────────────────────────────────────
-// Multi-role auth — Product Manager / System Administrator == purchase@blueledgers.com.
-// Permission denial uses requestor@blueledgers.com.
+// Multi-role auth — Product Manager / System Administrator == carmensoftware.dev+purchase@gmail.com.
+// Permission denial uses carmensoftware.dev+requestor@gmail.com.
 // requestor declared LAST so doc default role reads "Purchase".
 //
 // CSV mixes 4 prefixes: 'TC-CAT', 'TC-PRODUCT_CATEGORIES' (>4 chars + underscore — incompatible
 // with reporter regex), 'TC-CATEGORY-VIEW' (>4 chars + dash), 'TC-RECIPE_COSTS' (cross-module).
 // All unified to 'TC-CAT<area3><sub2>' (5 digits) for cross-module consistency.
 // ─────────────────────────────────────────────────────────────────────────
-const requestorTest = createAuthTest("requestor@blueledgers.com");
-const purchaseTest = createAuthTest("purchase@blueledgers.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
+const purchaseTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 // ── Redesign cleanup (2026-06-22) ──────────────────────────────────────────
 // All `describe.skip` stubs were deleted — they covered either features removed
@@ -443,7 +443,7 @@ requestorTest.describe("Product Category — Search — Permission denial", () =
 // TC-CAT-900204 — Cross-module: Recipe Costs
 // ═════════════════════════════════════════════════════════════════════════
 
-// ── admin@blueledgers.com + BLAVG CRUD ─────────────────────────────────────
+// ── carmensoftware.dev+admin@gmail.com + BLAVG CRUD ─────────────────────────────────────
 // The describes above run as purchase/requestor (multi-role authz coverage) and
 // are left untouched. This block verifies an admin can CRUD product categories
 // with the active BU pinned to BLAVG.
@@ -455,7 +455,7 @@ requestorTest.describe("Product Category — Search — Permission denial", () =
 // therefore uses self-contained LOCAL locators (matching the live UI) instead of
 // the stale shared page object — the existing describes still depend on it, so it
 // is left unmodified.
-const adminTest = createAuthTest("admin@blueledgers.com");
+const adminTest = createAuthTest("carmensoftware.dev+admin@gmail.com");
 
 const CAT_CODE = fakeCode("E2E");
 const CAT_NAME = fakeName({ tag: "CAT" });
@@ -543,7 +543,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG CRUD", () => {
     "TC-CAT-010050 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
         { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -564,7 +564,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG CRUD", () => {
     "TC-CAT-030050 สร้าง root category สำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี Tax Profile ที่ active อย่างน้อย 1 รายการ" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี Tax Profile ที่ active อย่างน้อย 1 รายการ" },
         {
           type: "steps",
           description:
@@ -596,7 +596,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG CRUD", () => {
     "TC-CAT-040050 แก้ไขชื่อ category แล้วค่าคงอยู่",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; category จาก TC-CAT-030050 ถูกสร้างแล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; category จาก TC-CAT-030050 ถูกสร้างแล้ว" },
         {
           type: "steps",
           description:
@@ -630,7 +630,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG CRUD", () => {
     "TC-CAT-050050 ลบ category สำเร็จ (cleanup)",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; category (ชื่อที่แก้ไขแล้ว) จาก TC-CAT-040050 ยังมีอยู่" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; category (ชื่อที่แก้ไขแล้ว) จาก TC-CAT-040050 ยังมีอยู่" },
         {
           type: "steps",
           description:
@@ -660,7 +660,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG CRUD", () => {
   );
 });
 
-// ── admin@blueledgers.com + BLAVG subtree CRUD ─────────────────────────────
+// ── carmensoftware.dev+admin@gmail.com + BLAVG subtree CRUD ─────────────────────────────
 // Extends the root-only block above to the full tree the redesigned UI supports:
 // root → subcategory → item group, each child created via the per-node hover
 // "Add child" (Plus) action, then torn down in reverse. Children inherit the
@@ -686,7 +686,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG subtree CRUD", () =>
     "TC-CAT-030051 สร้าง root category (parent ของ subtree)",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มี Tax Profile ที่ active อย่างน้อย 1 รายการ" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี Tax Profile ที่ active อย่างน้อย 1 รายการ" },
         {
           type: "steps",
           description:
@@ -717,7 +717,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG subtree CRUD", () =>
     "TC-CAT-030052 สร้าง subcategory ใต้ root ผ่านปุ่ม Add child",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; root category จาก TC-CAT-030051 มีอยู่" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; root category จาก TC-CAT-030051 มีอยู่" },
         {
           type: "steps",
           description:
@@ -761,7 +761,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG subtree CRUD", () =>
     "TC-CAT-040051 สร้าง item group ใต้ subcategory ผ่านปุ่ม Add child",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; subcategory จาก TC-CAT-030052 มีอยู่" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; subcategory จาก TC-CAT-030052 มีอยู่" },
         {
           type: "steps",
           description:
@@ -796,7 +796,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG subtree CRUD", () =>
     "TC-CAT-050051 ลบ item group สำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; item group จาก TC-CAT-040051 มีอยู่" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; item group จาก TC-CAT-040051 มีอยู่" },
         {
           type: "steps",
           description:
@@ -826,7 +826,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG subtree CRUD", () =>
     "TC-CAT-050052 ลบ subcategory สำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; subcategory จาก TC-CAT-030052 ว่างจาก children แล้ว (ลบ item group ไปแล้ว)" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; subcategory จาก TC-CAT-030052 ว่างจาก children แล้ว (ลบ item group ไปแล้ว)" },
         {
           type: "steps",
           description:
@@ -856,7 +856,7 @@ adminTest.describe.serial("Product Category — admin@BLAVG subtree CRUD", () =>
     "TC-CAT-050053 ลบ root category สำเร็จ (cleanup)",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; root จาก TC-CAT-030051 ว่างจาก children แล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; root จาก TC-CAT-030051 ว่างจาก children แล้ว" },
         {
           type: "steps",
           description:

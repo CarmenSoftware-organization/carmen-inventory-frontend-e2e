@@ -41,7 +41,7 @@ _Generated from `tests/040-currency.spec.ts` annotations. Edit annotations, not 
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture
 
 **Steps**
 
@@ -61,7 +61,7 @@ URL matches /config/currency; ปุ่ม Add และช่องค้นห
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/currency
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/currency
 
 **Steps**
 
@@ -81,7 +81,7 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /config/currency
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/currency
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/currency
 
 **Steps**
 
@@ -102,7 +102,7 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /config/currency
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/currency
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/currency
 
 **Steps**
 
@@ -123,7 +123,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
 
 **Steps**
 
@@ -145,7 +145,7 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB; ISO code IDR เลือกได้จาก lookup
+Login เป็น carmensoftware.dev+admin@gmail.com; record NAME ยังไม่มีอยู่ใน DB; ISO code IDR เลือกได้จาก lookup
 
 **Steps**
 
@@ -196,7 +196,7 @@ Updated/success toast ปรากฏ; แถวที่มี Name = NAME_UPDA
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -218,7 +218,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -241,7 +241,7 @@ Updated; list มีแถว name ใหม่ และไม่พบ name �
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -288,7 +288,7 @@ Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -399,7 +399,7 @@ User ถูก redirect ออกจาก /config/currency หรือ ปุ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; เปิด add dialog ของ /config/currency
+Login เป็น carmensoftware.dev+admin@gmail.com; เปิด add dialog ของ /config/currency
 
 **Steps**
 
@@ -448,7 +448,7 @@ Error message ปรากฏใน dialog (form block submit ด้วย clien
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -462,4 +462,4 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

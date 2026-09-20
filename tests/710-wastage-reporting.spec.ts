@@ -16,7 +16,7 @@ import { ensureActiveBu } from "./helpers/bu";
  * - Navigating away: clicking grn_no button opens /procurement/goods-receive-note/{grn_id}.
  */
 
-const test = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
 const PATH = "/store-operation/wastage-reporting";
 
 test.describe("Wastage Reporting — Store Operations", () => {
@@ -31,7 +31,7 @@ test.describe("Wastage Reporting — Store Operations", () => {
     "TC-WAST-010001 หน้า list Wastage Reporting โหลดสำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "เข้าสู่ระบบเป็น Admin (admin@blueledgers.com); active BU = BLAVG; BU มี license store_operations.wastage_reporting" },
+        { type: "preconditions", description: "เข้าสู่ระบบเป็น Admin (carmensoftware.dev+admin@gmail.com); active BU = BLAVG; BU มี license store_operations.wastage_reporting" },
         { type: "steps", description: "1. ไปที่ /store-operation/wastage-reporting" },
         { type: "expected", description: "URL ตรงกับ /store-operation/wastage-reporting; หัวข้อหน้า 'Wastage Reporting' และคำอธิบายแสดง; toolbar มีช่องค้นหา, View selector และปุ่ม Filter (ไม่มีปุ่ม Add); DataGrid แสดงผลภายใน 10 วินาที" },
         { type: "priority", description: "High" },

@@ -6,15 +6,15 @@ import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 // ─────────────────────────────────────────────────────────────────────────
-// Multi-role auth — Procurement Staff/Manager == purchase@blueledgers.com.
-// Permission denial uses requestor@blueledgers.com.
+// Multi-role auth — Procurement Staff/Manager == carmensoftware.dev+purchase@gmail.com.
+// Permission denial uses carmensoftware.dev+requestor@gmail.com.
 // requestor declared LAST so doc default role reads "Purchase".
 //
 // CSV mixes 'TC-PRT' and 'TC-TPL' prefixes for the same module — unified
 // to 'TC-PRT<area3><sub2>' (5 digits) for cross-module consistency.
 // ─────────────────────────────────────────────────────────────────────────
-const requestorTest = createAuthTest("requestor@blueledgers.com");
-const purchaseTest = createAuthTest("purchase@blueledgers.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
+const purchaseTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 // ═════════════════════════════════════════════════════════════════════════
 // TC-PRT-900001 — Create Template
@@ -26,7 +26,7 @@ purchaseTest.describe("PR Template — Create", () => {
     "TC-PRT-010050 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com ผ่าน auth fixture" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com ผ่าน auth fixture" },
         { type: "steps", description: "1. เรียก ensureActiveBu(BLAVG)\n2. อ่าน profile API\n3. หา business unit ที่ is_default\n4. อ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },

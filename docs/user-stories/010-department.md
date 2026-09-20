@@ -47,7 +47,7 @@ _Generated from `tests/010-department.spec.ts` annotations. Edit annotations, no
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture
 
 **Steps**
 
@@ -67,7 +67,7 @@ URL ตรงกับ /config/department; หน้า list โหลดสำ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/department
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/department
 
 **Steps**
 
@@ -88,7 +88,7 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /config/departme
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/department
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/department
 
 **Steps**
 
@@ -109,7 +109,7 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /config/departme
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/department
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/department
 
 **Steps**
 
@@ -130,7 +130,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
 
 **Steps**
 
@@ -152,7 +152,7 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -195,7 +195,7 @@ _(no expected outcome documented)_
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -218,7 +218,7 @@ description ถูก persist หลัง reload; ช่อง description ถ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -241,7 +241,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; TC-DEP-030001 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB
+Login เป็น carmensoftware.dev+admin@gmail.com; TC-DEP-030001 ผ่านแล้ว → record CODE/NAME มีอยู่ใน DB
 
 **Steps**
 
@@ -265,7 +265,7 @@ Updated/success toast ปรากฏ (updated/success/สำเร็จ)
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -288,7 +288,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; มี record อยู่
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี record อยู่
 
 **Steps**
 
@@ -312,7 +312,7 @@ Discard dialog ปรากฏ; หลังยืนยันกลับ view 
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip
 
 **Steps**
 
@@ -336,7 +336,7 @@ user ที่ถูก assign แสดงใน section members หลัง r
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; ต้องมี user ที่ assign ได้ ไม่งั้น skip
 
 **Steps**
 
@@ -384,7 +384,7 @@ Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; มี record อยู่
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี record อยู่
 
 **Steps**
 
@@ -494,7 +494,7 @@ User ถูก redirect ออกจาก /config/department หรือ ป�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/department/new
 
 **Steps**
 
@@ -539,7 +539,7 @@ Save button ยังคง visible (form ไม่ submit; ยังอยู�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/department/new
 
 **Steps**
 
@@ -561,7 +561,7 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /config/departme
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -583,7 +583,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /config/department/new
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /config/department/new
 
 **Steps**
 
@@ -597,4 +597,4 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /config/departme
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

@@ -72,7 +72,7 @@ _Generated from `tests/079-delivery-point.spec.ts` annotations. Edit annotations
 
 **Preconditions**
 
-ผู้ใช้ admin@blueledgers.com (จาก createAuthTest) login แล้ว และมี delivery point ในระบบอย่างน้อย 1 รายการ
+ผู้ใช้ carmensoftware.dev+admin@gmail.com (จาก createAuthTest) login แล้ว และมี delivery point ในระบบอย่างน้อย 1 รายการ
 
 **Steps**
 
@@ -660,7 +660,7 @@ column name ยังถูกซ่อนเมื่อกลับมา tabl
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
 
 **Steps**
 
@@ -1215,4 +1215,4 @@ name input ตัดข้อความให้ยาวไม่เกิน
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

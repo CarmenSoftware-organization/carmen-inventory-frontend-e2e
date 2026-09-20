@@ -12,7 +12,7 @@ import {
 // Persona-journey spec — PO Purchaser. Runs alongside 401-po.spec.ts
 // (per-action multi-role) without modifying it. Source docs:
 // docs/persona-doc/Purchase Order/Purchaser/INDEX.md and step-01..05.md.
-const purchaseTest = createAuthTest("purchase@blueledgers.com");
+const purchaseTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 const FUTURE_DATE = "2099-12-31";
 
@@ -21,7 +21,7 @@ purchaseTest.describe("Step 1 — PO List", () => {
     "TC-PO-060101 List loads with PO statuses (DRAFT / IN PROGRESS / APPROVED / etc.)",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น Purchaser (purchase@blueledgers.com)" },
+        { type: "preconditions", description: "Login เป็น Purchaser (carmensoftware.dev+purchase@gmail.com)" },
         { type: "steps", description: "1. ไปที่ /procurement/purchase-order\n2. ตรวจสอบ URL และตรวจสอบว่า list table หรือ empty-state visible" },
         { type: "expected", description: "URL อยู่ที่หน้า list ของ PO; แท็บ My Pending ถูกเลือกเมื่อมี" },
         { type: "priority", description: "High" },

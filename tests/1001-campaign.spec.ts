@@ -8,8 +8,8 @@ import { fakeName } from "./helpers/test-data";
 import { openRecordFromRow, recordRows } from "./helpers/list-row";
 
 // ─────────────────────────────────────────────────────────────────────────
-// Multi-role auth — Procurement Staff/Manager == purchase@blueledgers.com.
-// Permission denial uses requestor@blueledgers.com.
+// Multi-role auth — Procurement Staff/Manager == carmensoftware.dev+purchase@gmail.com.
+// Permission denial uses carmensoftware.dev+requestor@gmail.com.
 // requestor declared LAST so doc default role reads "Purchase".
 //
 // Note: CSV mixes 'TC-CAM-' (3 letters) and 'TC-RP-' (2 letters) prefixes
@@ -17,8 +17,8 @@ import { openRecordFromRow, recordRows } from "./helpers/list-row";
 // unified 'TC-CAM<area3><sub2>' (5 digits) for cross-module consistency.
 // Mapping: TC-CAM-900001-01 → TC-CAM-010001, TC-RP-007-01 → TC-CAM-070001.
 // ─────────────────────────────────────────────────────────────────────────
-const requestorTest = createAuthTest("requestor@blueledgers.com");
-const purchaseTest = createAuthTest("purchase@blueledgers.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
+const purchaseTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 // ═════════════════════════════════════════════════════════════════════════
 // TC-CAM-900001 — View Campaign List
@@ -28,7 +28,7 @@ purchaseTest.describe("Campaign — List", () => {
     "TC-CAM-010001 View Campaign List - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และมี permission ดู campaign list" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com และมี permission ดู campaign list" },
         {
           type: "steps",
           description:
@@ -99,7 +99,7 @@ requestorTest.describe("Campaign — List — Permission denial", () => {
     "TC-CAM-010002 View Campaign List - Invalid Permissions",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com แต่ไม่มี permission ดู campaign list" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com แต่ไม่มี permission ดู campaign list" },
         {
           type: "steps",
           description:
@@ -128,7 +128,7 @@ purchaseTest.describe("Campaign — Create wizard", () => {
     "TC-CAM-020001 Happy Path - Create Campaign with All Valid Inputs",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com พร้อม permissions ที่จำเป็น" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com พร้อม permissions ที่จำเป็น" },
         {
           type: "steps",
           description:
@@ -229,7 +229,7 @@ purchaseTest.describe("Campaign — Detail", () => {
     "TC-CAM-030001 View active campaign detail",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และมี active campaign อยู่" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com และมี active campaign อยู่" },
         {
           type: "steps",
           description:
@@ -256,7 +256,7 @@ purchaseTest.describe("Campaign — Detail", () => {
     "TC-CAM-030003 Campaign detail with draft status",
     {
       annotation: [
-        { type: "preconditions", description: "Campaign อยู่ใน draft status และ Login เป็น purchase@blueledgers.com" },
+        { type: "preconditions", description: "Campaign อยู่ใน draft status และ Login เป็น carmensoftware.dev+purchase@gmail.com" },
         {
           type: "steps",
           description:
@@ -280,7 +280,7 @@ purchaseTest.describe("Campaign — Detail", () => {
     "TC-CAM-030004 View campaign detail with empty performance summary",
     {
       annotation: [
-        { type: "preconditions", description: "Campaign ไม่มี submissions และ Login เป็น purchase@blueledgers.com" },
+        { type: "preconditions", description: "Campaign ไม่มี submissions และ Login เป็น carmensoftware.dev+purchase@gmail.com" },
         {
           type: "steps",
           description:
@@ -304,7 +304,7 @@ purchaseTest.describe("Campaign — Detail", () => {
     "TC-CAM-030005 Campaign detail with future start date",
     {
       annotation: [
-        { type: "preconditions", description: "Campaign มี future start date และ Login เป็น purchase@blueledgers.com" },
+        { type: "preconditions", description: "Campaign มี future start date และ Login เป็น carmensoftware.dev+purchase@gmail.com" },
         {
           type: "steps",
           description:
@@ -327,7 +327,7 @@ requestorTest.describe("Campaign — Detail — Permission denial", () => {
     "TC-CAM-030002 User with no permission to view campaign detail",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com ด้วย role ที่ไม่มี permission ดู campaign details" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com ด้วย role ที่ไม่มี permission ดู campaign details" },
         {
           type: "steps",
           description:
@@ -425,7 +425,7 @@ requestorTest.describe("Campaign — Edit — Permission denial", () => {
     "TC-CAM-040003 Edit Campaign with No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com Campaign ถูกสร้างและบันทึกแล้ว และผู้ใช้ไม่มี permission แก้ไข campaigns" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com Campaign ถูกสร้างและบันทึกแล้ว และผู้ใช้ไม่มี permission แก้ไข campaigns" },
         {
           type: "steps",
           description:
@@ -461,7 +461,7 @@ purchaseTest.describe("Campaign — Duplicate", () => {
     "TC-CAM-050001 Duplicate Campaign - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และมีสิทธิ์เข้าถึง campaign list" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com และมีสิทธิ์เข้าถึง campaign list" },
         {
           type: "steps",
           description:
@@ -486,7 +486,7 @@ purchaseTest.describe("Campaign — Duplicate", () => {
     "TC-CAM-050003 Duplicate Campaign - Empty Campaign List",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และ campaign list ว่างเปล่า" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com และ campaign list ว่างเปล่า" },
         {
           type: "steps",
           description:
@@ -507,7 +507,7 @@ purchaseTest.describe("Campaign — Duplicate", () => {
     "TC-CAM-050004 Duplicate Campaign - Campaign with Attached Files",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และมี campaign ที่มี attached files อยู่ในระบบ" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com และมี campaign ที่มี attached files อยู่ในระบบ" },
         {
           type: "steps",
           description:
@@ -530,7 +530,7 @@ requestorTest.describe("Campaign — Duplicate — Permission denial", () => {
     "TC-CAM-050002 Duplicate Campaign - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com และไม่มี permission duplicate campaigns" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com และไม่มี permission duplicate campaigns" },
         {
           type: "steps",
           description:
@@ -566,7 +566,7 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
     "TC-CAM-060001 Send Reminder - Happy Path",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และมีสิทธิ์เข้าถึง vendor reminder feature" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com และมีสิทธิ์เข้าถึง vendor reminder feature" },
         {
           type: "steps",
           description:
@@ -593,7 +593,7 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
     "TC-CAM-060003 Send Reminder - Invalid Vendor Status",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com" },
         {
           type: "steps",
           description:
@@ -640,7 +640,7 @@ purchaseTest.describe("Campaign — Send Reminder", () => {
     "TC-CAM-060005 Send Reminder - Empty Reminder Message",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com" },
         {
           type: "steps",
           description:
@@ -671,7 +671,7 @@ requestorTest.describe("Campaign — Send Reminder — Permission denial", () =>
     "TC-CAM-060002 Send Reminder - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com ซึ่งไม่ใช่ Procurement Staff" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com ซึ่งไม่ใช่ Procurement Staff" },
         {
           type: "steps",
           description:
@@ -771,7 +771,7 @@ requestorTest.describe("Campaign — Mark as Expired — Permission denial", () 
     "TC-CAM-070002 Mark campaign as expired - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com ซึ่งไม่มีสิทธิ์ mark campaign เป็น expired" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com ซึ่งไม่มีสิทธิ์ mark campaign เป็น expired" },
         {
           type: "steps",
           description:
@@ -807,7 +807,7 @@ purchaseTest.describe("Campaign — Delete", () => {
     "TC-CAM-080001 Happy Path - Delete Campaign",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี role Procurement Manager และมี campaign อยู่ในรายการ" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com มี role Procurement Manager และมี campaign อยู่ในรายการ" },
         {
           type: "steps",
           description:
@@ -838,7 +838,7 @@ purchaseTest.describe("Campaign — Delete", () => {
     "TC-CAM-080002 Negative - No Campaign Selected",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี role Procurement Manager" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com มี role Procurement Manager" },
         {
           type: "steps",
           description:
@@ -859,7 +859,7 @@ purchaseTest.describe("Campaign — Delete", () => {
     "TC-CAM-080003 Edge Case - Multiple Campaigns Selected",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี role Procurement Manager และมีการเลือก campaign หลายรายการ" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com มี role Procurement Manager และมีการเลือก campaign หลายรายการ" },
         {
           type: "steps",
           description:
@@ -882,7 +882,7 @@ requestorTest.describe("Campaign — Delete — Permission denial", () => {
     "TC-CAM-080004 Negative - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com มี role Regular User" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com มี role Regular User" },
         {
           type: "steps",
           description:
@@ -916,7 +916,7 @@ purchaseTest.describe("Campaign — Export", () => {
     "TC-CAM-090001 Export campaign data - happy path",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข้อมูล campaign" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com มีสิทธิ์ export ข้อมูล campaign" },
         {
           type: "steps",
           description:
@@ -943,7 +943,7 @@ purchaseTest.describe("Campaign — Export", () => {
     "TC-CAM-090003 Export campaign data - large dataset",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข้อมูล campaign และมีชุดข้อมูลขนาดใหญ่" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com มีสิทธิ์ export ข้อมูล campaign และมีชุดข้อมูลขนาดใหญ่" },
         {
           type: "steps",
           description:
@@ -964,7 +964,7 @@ purchaseTest.describe("Campaign — Export", () => {
     "TC-CAM-090004 Export campaign data - multiple exports",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข้อมูล campaign" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com มีสิทธิ์ export ข้อมูล campaign" },
         {
           type: "steps",
           description:
@@ -996,7 +996,7 @@ requestorTest.fixme(
     "TC-CAM-090002 Export campaign data - no permission",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com ซึ่งไม่มีสิทธิ์ export ข้อมูล campaign" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com ซึ่งไม่มีสิทธิ์ export ข้อมูล campaign" },
         {
           type: "steps",
           description:
@@ -1029,7 +1029,7 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
     "TC-CAM-100001 Filter by Status - Active",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี role Procurement Staff และอยู่ที่หน้า Campaigns" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com มี role Procurement Staff และอยู่ที่หน้า Campaigns" },
         {
           type: "steps",
           description:
@@ -1055,7 +1055,7 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
     "TC-CAM-100002 Search by Text - Valid Term",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี role Procurement Staff และอยู่ที่หน้า Campaigns" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com มี role Procurement Staff และอยู่ที่หน้า Campaigns" },
         {
           type: "steps",
           description:
@@ -1078,7 +1078,7 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
     "TC-CAM-100003 Filter by Status - No Campaigns",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และอยู่ที่หน้า Campaigns ที่ไม่มี campaign ที่ Active" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com และอยู่ที่หน้า Campaigns ที่ไม่มี campaign ที่ Active" },
         {
           type: "steps",
           description:
@@ -1099,7 +1099,7 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
     "TC-CAM-100004 Search by Text - No Matching Terms",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และอยู่ที่หน้า Campaigns" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com และอยู่ที่หน้า Campaigns" },
         {
           type: "steps",
           description:
@@ -1123,7 +1123,7 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
     "TC-CAM-100005 Filter by Status - All Statuses",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และอยู่ที่หน้า Campaigns" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com และอยู่ที่หน้า Campaigns" },
         {
           type: "steps",
           description:
@@ -1146,13 +1146,13 @@ purchaseTest.describe("Campaign — Filter / Search", () => {
   );
 });
 
-// ── admin@blueledgers.com + BLAVG ──────────────────────────────────────────
+// ── carmensoftware.dev+admin@gmail.com + BLAVG ──────────────────────────────────────────
 // The describes above run as purchase/requestor (authz coverage) and are left
 // untouched. Campaign create is a multi-step wizard (name/desc/priority/date →
 // template → vendors → launch), so this block is intentionally LIGHT: BU
 // precondition + BU-assert + a couple of hardened list/filter cases (no wizard
 // create chain). See the procurement-trio rollout spec.
-const adminTest = createAuthTest("admin@blueledgers.com");
+const adminTest = createAuthTest("carmensoftware.dev+admin@gmail.com");
 
 adminTest.describe("Campaign — admin@BLAVG", () => {
   adminTest.beforeEach(async ({ page }) => {
@@ -1163,7 +1163,7 @@ adminTest.describe("Campaign — admin@BLAVG", () => {
     "TC-CAM-010050 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
         { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -1184,7 +1184,7 @@ adminTest.describe("Campaign — admin@BLAVG", () => {
     "TC-CAM-010051 หน้า list โหลดสำเร็จ (admin/BLAVG) + ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Vendor Management" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Vendor Management" },
         { type: "steps", description: "1. ไปที่ /vendor-management/request-price-list\n2. ตรวจสอบ URL และ heading 'Request for Pricing'\n3. ตรวจสอบว่าปุ่ม 'Add Request' แสดง" },
         { type: "expected", description: "URL เป็น /vendor-management/request-price-list, heading 'Request for Pricing' แสดง, และปุ่ม Add แสดง (hard assert)" },
         { type: "priority", description: "High" },
@@ -1208,7 +1208,7 @@ adminTest.describe("Campaign — admin@BLAVG", () => {
     "TC-CAM-010052 ค้นหาคำที่ไม่มี → empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Request for Pricing" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Request for Pricing" },
         { type: "steps", description: "1. ไปที่ /vendor-management/request-price-list\n2. กรอกคำค้นหาที่ไม่มีอยู่จริงในช่อง Search แล้วกด Enter\n3. ตรวจสอบว่าแสดง empty state" },
         { type: "expected", description: "ตารางแสดง empty state ('No data found') สำหรับคำค้นที่ไม่ตรง (hard assert)" },
         { type: "priority", description: "Medium" },

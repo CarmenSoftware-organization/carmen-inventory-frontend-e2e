@@ -41,7 +41,7 @@ _Generated from `tests/043-certification.spec.ts` annotations. Edit annotations,
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture
 
 **Steps**
 
@@ -61,7 +61,7 @@ URL ตรงกับ /vendor-management/certification; หน้า list rende
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-management/certification
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /vendor-management/certification
 
 **Steps**
 
@@ -81,7 +81,7 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-manageme
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-management/certification
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /vendor-management/certification
 
 **Steps**
 
@@ -102,7 +102,7 @@ Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-manageme
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-management/certification
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /vendor-management/certification
 
 **Steps**
 
@@ -123,7 +123,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
 
 **Steps**
 
@@ -145,7 +145,7 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; record CODE ยังไม่มีอยู่ใน DB
+Login เป็น carmensoftware.dev+admin@gmail.com; record CODE ยังไม่มีอยู่ใน DB
 
 **Steps**
 
@@ -191,7 +191,7 @@ Updated/success toast ปรากฏ (updated/success/สำเร็จ)
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -213,7 +213,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -236,7 +236,7 @@ Updated; list มีแถว name ใหม่ (ค่าถูก persist จ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -282,7 +282,7 @@ Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -393,7 +393,7 @@ User ถูก redirect ออกจาก /vendor-management/certification ห�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; อยู่ที่ /vendor-management/certification
+Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /vendor-management/certification
 
 **Steps**
 
@@ -438,7 +438,7 @@ Error message แสดงใน dialog (required validation); dialog ยัง�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -453,4 +453,4 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

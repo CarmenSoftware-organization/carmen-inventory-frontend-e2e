@@ -794,4 +794,4 @@ dialog ปิดลง, ไม่มีเอกสารใหม่เกิ�
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

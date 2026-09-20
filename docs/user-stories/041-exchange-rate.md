@@ -29,7 +29,7 @@ _Generated from `tests/041-exchange-rate.spec.ts` annotations. Edit annotations,
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน createAuthTest แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน createAuthTest แล้ว
 
 **Steps**
 
@@ -69,7 +69,7 @@ _(no steps documented)_
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
 
 **Steps**
 
@@ -169,4 +169,4 @@ User ถูก redirect ออกจาก /config/exchange-rate หรือ �
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

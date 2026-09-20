@@ -10,7 +10,7 @@ import { LoginPage } from "../pages/login.page";
  * detail pages). WIKI_CAPTURE_PASSWORD overrides the password (default shared).
  */
 export function captureEmail(): string {
-  return process.env.WIKI_CAPTURE_EMAIL ?? "admin@blueledgers.com";
+  return process.env.WIKI_CAPTURE_EMAIL ?? "carmensoftware.dev+admin@gmail.com";
 }
 
 function capturePassword(): string {

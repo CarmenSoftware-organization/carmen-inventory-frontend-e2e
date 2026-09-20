@@ -21,7 +21,7 @@ baseTest.describe.configure({ timeout: 180_000 });
 // Cross-persona spec — Creator's Step 7 (Returned PR flow). Runs alongside
 // 302/303/304. Source docs: docs/persona-doc/Purchase Request/Creator/
 // step-07-returned-pr.md.
-const requestorTest = createAuthTest("requestor@blueledgers.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
 
 requestorTest.describe("7a — View Returned PR", () => {
   // Transaction-module rollout: pin the creator session's active BU to BLAVG
@@ -30,7 +30,7 @@ requestorTest.describe("7a — View Returned PR", () => {
     "TC-PR-080750 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com ผ่าน auth fixture" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com ผ่าน auth fixture" },
         { type: "steps", description: "1. เรียก ensureActiveBu(BLAVG)\n2. อ่าน profile API\n3. หา business unit ที่ is_default\n4. อ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },

@@ -50,7 +50,7 @@ _Generated from `tests/303-pr-approver-journey.spec.ts` annotations. Edit annota
 
 **Preconditions**
 
-Login เป็น HOD (hod@blueledgers.com)
+Login เป็น HOD (carmensoftware.dev+hod@gmail.com)
 
 **Steps**
 
@@ -133,7 +133,7 @@ tab PR ถูกเลือก (ข้ามหาก dashboard ไม่มี
 
 **Preconditions**
 
-Login เป็น hod@blueledgers.com ผ่าน auth fixture
+Login เป็น carmensoftware.dev+hod@gmail.com ผ่าน auth fixture
 
 **Steps**
 
@@ -607,7 +607,7 @@ UI ของ Split ปรากฏ (dialog หรือ inline) — ยืนย
 
 **Preconditions**
 
-Login เป็น FC (fc@blueledgers.com); มี PR ที่ pending ในฐานข้อมูลจากหลายแผนก
+Login เป็น FC (carmensoftware.dev+fc@gmail.com); มี PR ที่ pending ในฐานข้อมูลจากหลายแผนก
 
 **Steps**
 
@@ -646,4 +646,4 @@ URL ยังคงอยู่ที่ ref ของ PR หลัง bulk appr
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

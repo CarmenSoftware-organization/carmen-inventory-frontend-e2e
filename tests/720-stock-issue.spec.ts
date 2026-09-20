@@ -4,12 +4,12 @@ import { StockIssuePage, LIST_PATH } from "./pages/stock-issue.page";
 import { openRecordFromRow } from "./helpers/list-row";
 
 // ─────────────────────────────────────────────────────────────────────────
-// Multi-role auth — Warehouse/Store-Operations Staff == purchase@blueledgers.com.
-// Permission denial uses requestor@blueledgers.com.
+// Multi-role auth — Warehouse/Store-Operations Staff == carmensoftware.dev+purchase@gmail.com.
+// Permission denial uses carmensoftware.dev+requestor@gmail.com.
 // requestor declared LAST so doc default role reads "Purchase".
 // ─────────────────────────────────────────────────────────────────────────
-const requestorTest = createAuthTest("requestor@blueledgers.com");
-const purchaseTest = createAuthTest("purchase@blueledgers.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
+const purchaseTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 // ═════════════════════════════════════════════════════════════════════════
 // TC-SI-900001 — View Issue List
@@ -140,7 +140,7 @@ requestorTest.describe("Stock Issue — View Detail — Permission denial", () =
     "TC-SI-020003 View issue without view permission",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com StoreRequisition อยู่ใน Issue stage destinationLocationType เป็น DIRECT และผู้ใช้ไม่มี view permission" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com StoreRequisition อยู่ใน Issue stage destinationLocationType เป็น DIRECT และผู้ใช้ไม่มี view permission" },
         {
           type: "steps",
           description:
@@ -264,7 +264,7 @@ requestorTest.describe("Stock Issue — Search & Filter — Permission denial", 
     "TC-SI-030004 Negative Case - No Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com และไม่มีสิทธิ์เข้าถึง Stock Issues view" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com และไม่มีสิทธิ์เข้าถึง Stock Issues view" },
         {
           type: "steps",
           description:
@@ -293,7 +293,7 @@ purchaseTest.describe("Stock Issue — View Full SR", () => {
     "TC-SI-040001 Happy Path - View Full SR from Issue Detail",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี SR view permission และ Issue view แสดงอยู่" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com มี SR view permission และ Issue view แสดงอยู่" },
         {
           type: "steps",
           description:
@@ -339,7 +339,7 @@ purchaseTest.describe("Stock Issue — View Full SR", () => {
     "TC-SI-040004 Negative - User at Issue Stage No Permissions",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี SR view permission และ Issue view แสดงพร้อม SR ใน Issue stage" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com มี SR view permission และ Issue view แสดงพร้อม SR ใน Issue stage" },
         {
           type: "steps",
           description:
@@ -360,7 +360,7 @@ purchaseTest.describe("Stock Issue — View Full SR", () => {
     "TC-SI-040005 Happy Path - Print SR",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com มี SR view และ print permission และ Issue view แสดงพร้อม SR ใน Issue stage" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com มี SR view และ print permission และ Issue view แสดงพร้อม SR ใน Issue stage" },
         {
           type: "steps",
           description:
@@ -387,7 +387,7 @@ requestorTest.describe("Stock Issue — View Full SR — Permission denial", () 
     "TC-SI-040002 Negative - No SR View Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com แต่ไม่มี SR view permission และ Issue view แสดงอยู่" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com แต่ไม่มี SR view permission และ Issue view แสดงอยู่" },
         {
           type: "steps",
           description:
@@ -523,7 +523,7 @@ requestorTest.fixme(
     "TC-SI-050002 Negative: User without permission attempts to print",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com Issue อยู่ใน Issue/Complete stage แต่ผู้ใช้ไม่มี view permission" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com Issue อยู่ใน Issue/Complete stage แต่ผู้ใช้ไม่มี view permission" },
         {
           type: "steps",
           description:
@@ -625,7 +625,7 @@ requestorTest.describe("Stock Issue — Expense Allocation — Permission denial
     "TC-SI-060002 Negative - No Permission to View Costs",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com สถานะ SR เป็น Completed และผู้ใช้ไม่มี permission ดู costs" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com สถานะ SR เป็น Completed และผู้ใช้ไม่มี permission ดู costs" },
         {
           type: "steps",
           description: "1. ไปที่ /store-operation/store-requisition\n2. กด 'View Expense Allocation'",

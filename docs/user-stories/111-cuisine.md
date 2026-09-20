@@ -39,7 +39,7 @@ _Generated from `tests/111-cuisine.spec.ts` annotations. Edit annotations, not t
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; มี cuisine อย่างน้อย 1 รายการ
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี cuisine อย่างน้อย 1 รายการ
 
 **Steps**
 
@@ -146,7 +146,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; มี cuisine อ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -187,7 +187,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; อยู่ที่หน้า /operation-plan/cuisine
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; อยู่ที่หน้า /operation-plan/cuisine
 
 **Steps**
 
@@ -405,4 +405,4 @@ _(no steps documented)_
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

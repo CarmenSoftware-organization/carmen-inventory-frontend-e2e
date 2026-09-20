@@ -162,7 +162,7 @@ category ทั้งหมดแสดงถูกต้องและสา�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
 
 **Steps**
 
@@ -230,7 +230,7 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; มี Tax Profile ที่ active อย่างน้อย 1 รายการ
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี Tax Profile ที่ active อย่างน้อย 1 รายการ
 
 **Steps**
 
@@ -254,7 +254,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; มี Tax Profile 
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; มี Tax Profile ที่ active อย่างน้อย 1 รายการ
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี Tax Profile ที่ active อย่างน้อย 1 รายการ
 
 **Steps**
 
@@ -278,7 +278,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; มี Tax Profile 
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; root category จาก TC-CAT-030051 มีอยู่
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; root category จาก TC-CAT-030051 มีอยู่
 
 **Steps**
 
@@ -325,7 +325,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; root category จ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; category จาก TC-CAT-030050 ถูกสร้างแล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; category จาก TC-CAT-030050 ถูกสร้างแล้ว
 
 **Steps**
 
@@ -350,7 +350,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; category จาก 
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; subcategory จาก TC-CAT-030052 มีอยู่
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; subcategory จาก TC-CAT-030052 มีอยู่
 
 **Steps**
 
@@ -398,7 +398,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; subcategory จา�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; category (ชื่อที่แก้ไขแล้ว) จาก TC-CAT-040050 ยังมีอยู่
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; category (ชื่อที่แก้ไขแล้ว) จาก TC-CAT-040050 ยังมีอยู่
 
 **Steps**
 
@@ -422,7 +422,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; category (ชื่
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; item group จาก TC-CAT-040051 มีอยู่
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; item group จาก TC-CAT-040051 มีอยู่
 
 **Steps**
 
@@ -445,7 +445,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; item group จา�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; subcategory จาก TC-CAT-030052 ว่างจาก children แล้ว (ลบ item group ไปแล้ว)
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; subcategory จาก TC-CAT-030052 ว่างจาก children แล้ว (ลบ item group ไปแล้ว)
 
 **Steps**
 
@@ -468,7 +468,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; subcategory จา�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; root จาก TC-CAT-030051 ว่างจาก children แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; root จาก TC-CAT-030051 ว่างจาก children แล้ว
 
 **Steps**
 
@@ -580,4 +580,4 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; root จาก TC-C
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

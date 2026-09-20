@@ -120,7 +120,7 @@ test.describe("เข้าสู่ระบบ", () => {
     async ({ page }) => {
       const loginPage = new LoginPage(page);
       await loginPage.goto();
-      await loginPage.emailInput().fill("requestor@blueledgers.com");
+      await loginPage.emailInput().fill("carmensoftware.dev+requestor@gmail.com");
       await loginPage.submitButton().click();
       await expect(page).toHaveURL(/login/);
     },
@@ -210,8 +210,8 @@ test.describe("เข้าสู่ระบบ", () => {
     "TC-LOGIN-010019 แสดง error เมื่ออีเมลถูกแต่รหัสผ่านผิด",
     {
       annotation: [
-        { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out" },
-        { type: "steps", description: "1. เปิด /login\n2. กรอก email = requestor@blueledgers.com, password = 'wrong-password-xyz'\n3. กด Sign In" },
+        { type: "preconditions", description: "User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out" },
+        { type: "steps", description: "1. เปิด /login\n2. กรอก email = carmensoftware.dev+requestor@gmail.com, password = 'wrong-password-xyz'\n3. กด Sign In" },
         { type: "expected", description: "แสดงข้อความ error (form หรือ alertdialog) และคงอยู่ที่ /login" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Validation" },
@@ -220,7 +220,7 @@ test.describe("เข้าสู่ระบบ", () => {
     async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.login("requestor@blueledgers.com", "wrong-password-xyz");
+    await loginPage.login("carmensoftware.dev+requestor@gmail.com", "wrong-password-xyz");
 
     const errorVisible = page.locator("form p.text-destructive");
     const dialogVisible = page.getByRole("alertdialog");
@@ -233,7 +233,7 @@ test.describe("เข้าสู่ระบบ", () => {
     "TC-LOGIN-010020 อีเมลไม่สนใจตัวพิมพ์ใหญ่-เล็ก",
     {
       annotation: [
-        { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out" },
+        { type: "preconditions", description: "User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out" },
         { type: "steps", description: "1. เปิด /login\n2. กรอก email = 'REQUESTOR@BLUELEDGERS.COM' (ตัวพิมพ์ใหญ่ทั้งหมด) + password ที่ถูกต้อง\n3. กด Sign In" },
         { type: "expected", description: "Login สำเร็จและ redirect ไปที่ /dashboard (อีเมลไม่ case-sensitive)" },
         { type: "priority", description: "Medium" },
@@ -270,8 +270,8 @@ test.describe("เข้าสู่ระบบ", () => {
     "TC-LOGIN-010022 รองรับช่องว่างหน้า/หลังอีเมล",
     {
       annotation: [
-        { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out" },
-        { type: "steps", description: "1. เปิด /login\n2. กรอก email = '  requestor@blueledgers.com  ' (มีช่องว่างหน้า/หลัง) + password\n3. กด Sign In" },
+        { type: "preconditions", description: "User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out" },
+        { type: "steps", description: "1. เปิด /login\n2. กรอก email = '  carmensoftware.dev+requestor@gmail.com  ' (มีช่องว่างหน้า/หลัง) + password\n3. กด Sign In" },
         { type: "expected", description: "ระบบ trim ช่องว่างและ login สำเร็จ ไปที่ /dashboard (หรือคงอยู่ที่ /login หากเลือก reject — accept ทั้งสองแบบ)" },
         { type: "priority", description: "Low" },
         { type: "testType", description: "Functional" },
@@ -280,7 +280,7 @@ test.describe("เข้าสู่ระบบ", () => {
     async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.login("  requestor@blueledgers.com  ", TEST_PASSWORD);
+    await loginPage.login("  carmensoftware.dev+requestor@gmail.com  ", TEST_PASSWORD);
     await expect(page).toHaveURL(/dashboard|login/, { timeout: 15_000 });
   });
 
@@ -305,7 +305,7 @@ test.describe("เข้าสู่ระบบ", () => {
     "TC-LOGIN-010024 กด Enter เพื่อ submit form ได้",
     {
       annotation: [
-        { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out" },
+        { type: "preconditions", description: "User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out" },
         { type: "steps", description: "1. เปิด /login\n2. กรอก email + password\n3. กด Enter ในช่อง password (แทนการคลิกปุ่ม Sign In)" },
         { type: "expected", description: "Form submit และ redirect ไปที่ /dashboard เหมือนกับการคลิกปุ่ม Sign In" },
         { type: "priority", description: "Medium" },
@@ -317,7 +317,7 @@ test.describe("เข้าสู่ระบบ", () => {
     for (let attempt = 0; attempt < 4; attempt++) {
       await loginPage.goto();
       await page.waitForLoadState("domcontentloaded");
-      await loginPage.emailInput().fill("requestor@blueledgers.com");
+      await loginPage.emailInput().fill("carmensoftware.dev+requestor@gmail.com");
       await loginPage.passwordInput().fill(TEST_PASSWORD);
       await Promise.all([
         page.waitForURL(/dashboard/, { timeout: 10_000 }).catch(() => null),
@@ -356,8 +356,8 @@ test.describe("เข้าสู่ระบบ", () => {
     "TC-LOGIN-100003 user ที่ login แล้วเข้า /login ต้อง redirect ไป dashboard",
     {
       annotation: [
-        { type: "preconditions", description: "User requestor@blueledgers.com login สำเร็จและมี active session อยู่แล้วที่ /dashboard" },
-        { type: "steps", description: "1. login ด้วย requestor@blueledgers.com\n2. รอ /dashboard โหลดเสร็จ\n3. navigate ไปที่ /login อีกครั้ง" },
+        { type: "preconditions", description: "User carmensoftware.dev+requestor@gmail.com login สำเร็จและมี active session อยู่แล้วที่ /dashboard" },
+        { type: "steps", description: "1. login ด้วย carmensoftware.dev+requestor@gmail.com\n2. รอ /dashboard โหลดเสร็จ\n3. navigate ไปที่ /login อีกครั้ง" },
         { type: "expected", description: "Auth-guard redirect กลับไปที่ /dashboard (ไม่ให้ user ที่ login แล้วเห็นหน้า /login ซ้ำ)" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Auth-guard" },
@@ -366,7 +366,7 @@ test.describe("เข้าสู่ระบบ", () => {
     async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+    await loginPage.loginWithRetry("carmensoftware.dev+requestor@gmail.com", TEST_PASSWORD);
     await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
     await page.waitForLoadState("networkidle");
 
@@ -477,8 +477,8 @@ test.describe("เข้าสู่ระบบ", () => {
     "TC-LOGIN-100008 next param แบบ external URL ต้องไม่ redirect ออกนอกเว็บ (open-redirect guard)",
     {
       annotation: [
-        { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out" },
-        { type: "steps", description: "1. เปิด /login?next=//evil.example.com\n2. login ด้วย requestor@blueledgers.com\n3. ตรวจสอบ origin/path ปลายทางหลัง login" },
+        { type: "preconditions", description: "User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out" },
+        { type: "steps", description: "1. เปิด /login?next=//evil.example.com\n2. login ด้วย carmensoftware.dev+requestor@gmail.com\n3. ตรวจสอบ origin/path ปลายทางหลัง login" },
         { type: "expected", description: "resolveNextPath ปฏิเสธ next ที่เป็น external URL → redirect ไป /dashboard บน origin เดิม (ไม่หลุดไป evil.example.com)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Security" },
@@ -488,7 +488,7 @@ test.describe("เข้าสู่ระบบ", () => {
       const loginPage = new LoginPage(page);
       await page.goto("/login?next=//evil.example.com");
       const origin = new URL(page.url()).origin;
-      await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+      await loginPage.loginWithRetry("carmensoftware.dev+requestor@gmail.com", TEST_PASSWORD);
 
       await expect(page).toHaveURL(/\/dashboard/, { timeout: 15_000 });
       // ต้องคงอยู่บน origin เดิม — open-redirect ต้องไม่พาออกนอกเว็บ
@@ -500,8 +500,8 @@ test.describe("เข้าสู่ระบบ", () => {
     "TC-LOGIN-010037 session คงอยู่หลัง reload (refresh-token boot)",
     {
       annotation: [
-        { type: "preconditions", description: "User requestor@blueledgers.com login สำเร็จและอยู่ที่ /dashboard; refresh token ถูกเก็บใน localStorage" },
-        { type: "steps", description: "1. login ด้วย requestor@blueledgers.com\n2. รอ /dashboard\n3. reload หน้า\n4. ตรวจสอบว่ายัง authenticated" },
+        { type: "preconditions", description: "User carmensoftware.dev+requestor@gmail.com login สำเร็จและอยู่ที่ /dashboard; refresh token ถูกเก็บใน localStorage" },
+        { type: "steps", description: "1. login ด้วย carmensoftware.dev+requestor@gmail.com\n2. รอ /dashboard\n3. reload หน้า\n4. ตรวจสอบว่ายัง authenticated" },
         { type: "expected", description: "หลัง reload boot ใช้ refresh token ออก access token ใหม่ → ยังอยู่ที่ /dashboard และ user menu ปรากฏ (ไม่เด้งไป /login)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Functional" },
@@ -510,7 +510,7 @@ test.describe("เข้าสู่ระบบ", () => {
     async ({ page }) => {
       const loginPage = new LoginPage(page);
       await loginPage.goto();
-      await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+      await loginPage.loginWithRetry("carmensoftware.dev+requestor@gmail.com", TEST_PASSWORD);
       await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
 
       await page.reload();
@@ -525,7 +525,7 @@ test.describe("เข้าสู่ระบบ", () => {
     {
       annotation: [
         { type: "preconditions", description: "browser logged out; อยู่ที่ /login; mock /api/auth/login ให้ fail (network error)" },
-        { type: "steps", description: "1. intercept POST **/api/auth/login แล้ว abort\n2. เปิด /login\n3. กรอก requestor@blueledgers.com + password\n4. กด Sign In" },
+        { type: "steps", description: "1. intercept POST **/api/auth/login แล้ว abort\n2. เปิด /login\n3. กรอก carmensoftware.dev+requestor@gmail.com + password\n4. กด Sign In" },
         { type: "expected", description: "แสดง alert ข้อความ 'Auth server unavailable' (ไม่ crash / ไม่โชว์ raw stack) และคงอยู่ที่ /login" },
         { type: "priority", description: "Medium" },
         { type: "testType", description: "Validation" },
@@ -535,7 +535,7 @@ test.describe("เข้าสู่ระบบ", () => {
       const loginPage = new LoginPage(page);
       await page.route("**/api/auth/login", (route) => route.abort());
       await loginPage.goto();
-      await loginPage.login("requestor@blueledgers.com", TEST_PASSWORD);
+      await loginPage.login("carmensoftware.dev+requestor@gmail.com", TEST_PASSWORD);
 
       await expect(loginPage.serverUnavailableMessage()).toBeVisible({ timeout: 15_000 });
       await expect(page).toHaveURL(/login/);
@@ -547,8 +547,8 @@ test.describe("เข้าสู่ระบบ", () => {
     "TC-LOGIN-010035 login พร้อม ?next= ที่ valid ต้อง redirect ไปปลายทางนั้น",
     {
       annotation: [
-        { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out; /profile เป็น shell route ที่ requestor เข้าได้" },
-        { type: "steps", description: "1. เปิด /login?next=/profile\n2. login ด้วย requestor@blueledgers.com\n3. ตรวจสอบ URL ปลายทาง" },
+        { type: "preconditions", description: "User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out; /profile เป็น shell route ที่ requestor เข้าได้" },
+        { type: "steps", description: "1. เปิด /login?next=/profile\n2. login ด้วย carmensoftware.dev+requestor@gmail.com\n3. ตรวจสอบ URL ปลายทาง" },
         { type: "expected", description: "หลัง login redirect ไป /profile (เคารพ ?next= ที่ปลอดภัย) ไม่ใช่ /dashboard" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Functional" },
@@ -557,7 +557,7 @@ test.describe("เข้าสู่ระบบ", () => {
     async ({ page }) => {
       const loginPage = new LoginPage(page);
       await page.goto("/login?next=/profile");
-      await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+      await loginPage.loginWithRetry("carmensoftware.dev+requestor@gmail.com", TEST_PASSWORD);
       await expect(page).toHaveURL(/\/profile(\?|$)/, { timeout: 15_000 });
     },
   );
@@ -611,7 +611,7 @@ test.describe("เข้าสู่ระบบ", () => {
     "TC-LOGIN-010039 ปุ่ม Sign In ถูก disable ระหว่าง request กำลังทำงาน (กัน double-submit)",
     {
       annotation: [
-        { type: "preconditions", description: "User requestor@blueledgers.com มีอยู่จริงและ active; browser logged out" },
+        { type: "preconditions", description: "User carmensoftware.dev+requestor@gmail.com มีอยู่จริงและ active; browser logged out" },
         { type: "steps", description: "1. เปิด /login\n2. กรอก credentials\n3. กด Sign In\n4. ตรวจสถานะปุ่มทันทีระหว่าง request" },
         { type: "expected", description: "ปุ่ม disabled ระหว่าง in-flight; ถ้า backend ตอบเร็วจน redirect ไป /dashboard ก่อนสังเกตได้ ถือว่าผ่าน (ไม่เปิดช่อง double-submit) — best-effort" },
         { type: "priority", description: "Medium" },
@@ -621,7 +621,7 @@ test.describe("เข้าสู่ระบบ", () => {
     async ({ page }) => {
       const loginPage = new LoginPage(page);
       await loginPage.goto();
-      await loginPage.emailInput().fill("requestor@blueledgers.com");
+      await loginPage.emailInput().fill("carmensoftware.dev+requestor@gmail.com");
       await loginPage.passwordInput().fill(TEST_PASSWORD);
       await loginPage.submitButton().click();
 
@@ -711,8 +711,8 @@ test.describe("ออกจากระบบ", () => {
     "TC-LOGIN-100010 logout ต้องลบ refresh token และเข้าถึง dashboard ไม่ได้",
     {
       annotation: [
-        { type: "preconditions", description: "User requestor@blueledgers.com login สำเร็จและมี refresh token ใน localStorage" },
-        { type: "steps", description: "1. login ด้วย requestor@blueledgers.com\n2. ตรวจว่ามี refresh token\n3. logout\n4. ตรวจว่า refresh token ถูกลบ\n5. navigate ไป /dashboard" },
+        { type: "preconditions", description: "User carmensoftware.dev+requestor@gmail.com login สำเร็จและมี refresh token ใน localStorage" },
+        { type: "steps", description: "1. login ด้วย carmensoftware.dev+requestor@gmail.com\n2. ตรวจว่ามี refresh token\n3. logout\n4. ตรวจว่า refresh token ถูกลบ\n5. navigate ไป /dashboard" },
         { type: "expected", description: "หลัง logout: refresh token ถูกลบจาก localStorage และเข้า /dashboard ไม่ได้ (เด้งกลับ /login)" },
         { type: "priority", description: "High" },
         { type: "testType", description: "Security" },
@@ -721,7 +721,7 @@ test.describe("ออกจากระบบ", () => {
     async ({ page }) => {
       const loginPage = new LoginPage(page);
       await loginPage.goto();
-      await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+      await loginPage.loginWithRetry("carmensoftware.dev+requestor@gmail.com", TEST_PASSWORD);
       await expect(page).toHaveURL(/dashboard/, { timeout: 15_000 });
 
       const before = await page.evaluate(() =>

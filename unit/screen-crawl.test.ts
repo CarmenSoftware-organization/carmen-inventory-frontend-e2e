@@ -120,8 +120,8 @@ describe("safeName", () => {
 
 describe("userFolder", () => {
   it("uses the email local part", () => {
-    expect(userFolder("admin@blueledgers.com")).toBe("admin");
-    expect(userFolder("storemanager@blueledgers.com")).toBe("storemanager");
+    expect(userFolder("admin@example.com")).toBe("admin");
+    expect(userFolder("storemanager@example.com")).toBe("storemanager");
   });
 
   it("sanitizes a local part containing punctuation", () => {
@@ -157,7 +157,7 @@ describe("selectUsers", () => {
 
   it("matches by email local part", () => {
     expect(selectUsers("purchase").map((u) => u.email)).toEqual([
-      "purchase@blueledgers.com",
+      "carmensoftware.dev+purchase@gmail.com",
     ]);
   });
 

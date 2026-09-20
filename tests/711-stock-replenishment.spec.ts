@@ -17,7 +17,7 @@ import { ensureActiveBu } from "./helpers/bu";
  * - Integration creation tests (300001-300003) mutate state and are stubbed with test.fixme.
  */
 
-const test = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
 const PATH = "/store-operation/stock-replenishment";
 
 test.describe("Stock Replenishment — Store Operations", () => {

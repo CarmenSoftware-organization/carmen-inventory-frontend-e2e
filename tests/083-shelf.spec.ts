@@ -24,7 +24,7 @@ import { uid, fakeCode, fakeName } from "./helpers/test-data";
  *    backend endpoint is live.
  */
 
-const test = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
 const PATH = "/config/shelf";
 
 test.describe("Shelf — Smoke & error-state", () => {
@@ -39,7 +39,7 @@ test.describe("Shelf — Smoke & error-state", () => {
     "TC-SHLF-010001 แสดงรายการชั้นวางพร้อมคอลัมน์มาตรฐาน",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. ไปที่ /config/shelf\n2. รอให้ DataGrid หรือ error-state โหลดเสร็จ" },
         { type: "expected", description: "URL ตรงกับ /config/shelf; หน้าแสดงชื่อ 'Shelf' หรือ 'ชั้นวาง' และ toolbar แสดงช่องค้นหาและปุ่มเพิ่ม (โดยไม่คำนึงว่าตารางจะมีข้อมูลหรือแสดง error-state เพราะ backend อาจยังไม่มี endpoint)" },
         { type: "priority", description: "High" },
@@ -109,7 +109,7 @@ test.describe("Shelf — CRUD (deferred)", () => {
     "TC-SHLF-030001 สร้างชั้นวางใหม่ด้วยฟิลด์บังคับ (รหัส + ชื่อ)",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; อยู่ที่หน้า /config/shelf; backend มี endpoint /api/config/{bu_code}/shelves" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; อยู่ที่หน้า /config/shelf; backend มี endpoint /api/config/{bu_code}/shelves" },
         { type: "steps", description: "1. คลิกปุ่ม 'เพิ่มชั้นวาง'\n2. กรอกรหัสที่ไม่ซ้ำ\n3. กรอกชื่อ\n4. คลิกปุ่มสร้าง" },
         { type: "expected", description: "แสดง toast 'สร้างชั้นวางสำเร็จ'; dialog ปิดเอง; ชั้นวางใหม่ปรากฏในรายการ" },
         { type: "priority", description: "High" },

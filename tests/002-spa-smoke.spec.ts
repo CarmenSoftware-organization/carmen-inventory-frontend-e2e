@@ -15,7 +15,7 @@
 import { test as base, expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 
-const test = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
 
 test.describe("SPA Smoke — auth guard", () => {
   // ใช้ base test (ไม่มี storageState) — ต้องเป็น context สะอาดเพื่อทดสอบ redirect

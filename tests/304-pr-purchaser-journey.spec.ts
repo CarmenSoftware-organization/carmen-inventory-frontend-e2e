@@ -15,7 +15,7 @@ import { BuSwitcherPage } from "./pages/bu-switcher.page";
 
 // Persona-journey spec — Purchaser. Runs alongside 301/302/303.
 // Source docs: docs/persona-doc/Purchase Request/Purchaser/INDEX.md and step-01..04.md.
-const purchaseTest = createAuthTest("purchase@blueledgers.com");
+const purchaseTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 const REJECT_REASON = "Vendor pricing exceeds budget";
 const REVIEW_REASON = "Please confirm vendor selection";
@@ -28,7 +28,7 @@ purchaseTest.describe("Step 1 — PR List (Purchaser View)", () => {
     "TC-PR-070150 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com ผ่าน auth fixture" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com ผ่าน auth fixture" },
         { type: "steps", description: "1. เรียก ensureActiveBu(BLAVG)\n2. อ่าน profile API\n3. หา business unit ที่ is_default\n4. อ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -49,7 +49,7 @@ purchaseTest.describe("Step 1 — PR List (Purchaser View)", () => {
     "TC-PR-070101 List loads, My Pending tab default (PRs at Purchase stage)",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น Purchaser (purchase@blueledgers.com)" },
+        { type: "preconditions", description: "Login เป็น Purchaser (carmensoftware.dev+purchase@gmail.com)" },
         { type: "steps", description: "1. ไปที่ /procurement/purchase-request\n2. ตรวจสอบ URL และแท็บ My Pending" },
         { type: "expected", description: "URL อยู่ที่หน้า PR list; แท็บ My Pending ถูกเลือกเมื่อมีอยู่" },
         { type: "priority", description: "High" },

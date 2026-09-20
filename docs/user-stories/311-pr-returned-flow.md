@@ -248,7 +248,7 @@ dialog ปิด; URL ยังคงอยู่ที่หน้า PR detail
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com ผ่าน auth fixture
+Login เป็น carmensoftware.dev+requestor@gmail.com ผ่าน auth fixture
 
 **Steps**
 
@@ -290,4 +290,4 @@ Status badge เปลี่ยนเป็น In Progress หลังจาก
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

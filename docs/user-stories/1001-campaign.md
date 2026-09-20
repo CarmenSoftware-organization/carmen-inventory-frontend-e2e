@@ -69,7 +69,7 @@ _Generated from `tests/1001-campaign.spec.ts` annotations. Edit annotations, not
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com และมี permission ดู campaign list
+Login เป็น carmensoftware.dev+purchase@gmail.com และมี permission ดู campaign list
 
 **Steps**
 
@@ -94,7 +94,7 @@ Login เป็น purchase@blueledgers.com และมี permission ดู ca
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com แต่ไม่มี permission ดู campaign list
+Login เป็น carmensoftware.dev+requestor@gmail.com แต่ไม่มี permission ดู campaign list
 
 **Steps**
 
@@ -161,7 +161,7 @@ Login เป็น requestor@blueledgers.com แต่ไม่มี permission
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
 
 **Steps**
 
@@ -183,7 +183,7 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Vendor Management
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Vendor Management
 
 **Steps**
 
@@ -206,7 +206,7 @@ URL เป็น /vendor-management/request-price-list, heading 'Request for Pri
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Request for Pricing
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มีสิทธิ์เข้าถึง Request for Pricing
 
 **Steps**
 
@@ -229,7 +229,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; มีสิทธ�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com พร้อม permissions ที่จำเป็น
+Login เป็น carmensoftware.dev+purchase@gmail.com พร้อม permissions ที่จำเป็น
 
 **Steps**
 
@@ -340,7 +340,7 @@ Campaign ถูกสร้างด้วยสถานะ 'active' และ 
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com และมี active campaign อยู่
+Login เป็น carmensoftware.dev+purchase@gmail.com และมี active campaign อยู่
 
 **Steps**
 
@@ -363,7 +363,7 @@ Login เป็น purchase@blueledgers.com และมี active campaign อ�
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com ด้วย role ที่ไม่มี permission ดู campaign details
+Login เป็น carmensoftware.dev+requestor@gmail.com ด้วย role ที่ไม่มี permission ดู campaign details
 
 **Steps**
 
@@ -386,7 +386,7 @@ Login เป็น requestor@blueledgers.com ด้วย role ที่ไม�
 
 **Preconditions**
 
-Campaign อยู่ใน draft status และ Login เป็น purchase@blueledgers.com
+Campaign อยู่ใน draft status และ Login เป็น carmensoftware.dev+purchase@gmail.com
 
 **Steps**
 
@@ -409,7 +409,7 @@ Campaign อยู่ใน draft status และ Login เป็น purchase@b
 
 **Preconditions**
 
-Campaign ไม่มี submissions และ Login เป็น purchase@blueledgers.com
+Campaign ไม่มี submissions และ Login เป็น carmensoftware.dev+purchase@gmail.com
 
 **Steps**
 
@@ -432,7 +432,7 @@ Performance summary cards แสดงค่าศูนย์หรือ place
 
 **Preconditions**
 
-Campaign มี future start date และ Login เป็น purchase@blueledgers.com
+Campaign มี future start date และ Login เป็น carmensoftware.dev+purchase@gmail.com
 
 **Steps**
 
@@ -508,7 +508,7 @@ Campaign ถูกสร้างและบันทึกในระบบ�
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com Campaign ถูกสร้างและบันทึกแล้ว และผู้ใช้ไม่มี permission แก้ไข campaigns
+Login เป็น carmensoftware.dev+requestor@gmail.com Campaign ถูกสร้างและบันทึกแล้ว และผู้ใช้ไม่มี permission แก้ไข campaigns
 
 **Steps**
 
@@ -556,7 +556,7 @@ Campaign ถูกสร้างและบันทึกในระบบ�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com และมีสิทธิ์เข้าถึง campaign list
+Login เป็น carmensoftware.dev+purchase@gmail.com และมีสิทธิ์เข้าถึง campaign list
 
 **Steps**
 
@@ -584,7 +584,7 @@ campaign ใหม่ถูก duplicate สำเร็จและผู้ใ
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com และไม่มี permission duplicate campaigns
+Login เป็น carmensoftware.dev+requestor@gmail.com และไม่มี permission duplicate campaigns
 
 **Steps**
 
@@ -608,7 +608,7 @@ Login เป็น requestor@blueledgers.com และไม่มี permission
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com และ campaign list ว่างเปล่า
+Login เป็น carmensoftware.dev+purchase@gmail.com และ campaign list ว่างเปล่า
 
 **Steps**
 
@@ -632,7 +632,7 @@ Login เป็น purchase@blueledgers.com และ campaign list ว่าง
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com และมี campaign ที่มี attached files อยู่ในระบบ
+Login เป็น carmensoftware.dev+purchase@gmail.com และมี campaign ที่มี attached files อยู่ในระบบ
 
 **Steps**
 
@@ -656,7 +656,7 @@ campaign ใหม่ถูก duplicate พร้อม settings, vendor select
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com และมีสิทธิ์เข้าถึง vendor reminder feature
+Login เป็น carmensoftware.dev+purchase@gmail.com และมีสิทธิ์เข้าถึง vendor reminder feature
 
 **Steps**
 
@@ -682,7 +682,7 @@ Reminder ถูกส่งไปยัง vendor reminder count เพิ่ม
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com ซึ่งไม่ใช่ Procurement Staff
+Login เป็น carmensoftware.dev+requestor@gmail.com ซึ่งไม่ใช่ Procurement Staff
 
 **Steps**
 
@@ -706,7 +706,7 @@ Login เป็น requestor@blueledgers.com ซึ่งไม่ใช่ Proc
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com
+Login เป็น carmensoftware.dev+purchase@gmail.com
 
 **Steps**
 
@@ -756,7 +756,7 @@ Vendor ได้รับ reminder ไปแล้วภายใน 24 ชั�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com
+Login เป็น carmensoftware.dev+purchase@gmail.com
 
 **Steps**
 
@@ -807,7 +807,7 @@ Login เป็น purchase@blueledgers.com
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com ซึ่งไม่มีสิทธิ์ mark campaign เป็น expired
+Login เป็น carmensoftware.dev+requestor@gmail.com ซึ่งไม่มีสิทธิ์ mark campaign เป็น expired
 
 **Steps**
 
@@ -879,7 +879,7 @@ campaign ที่เลือกถูก mark เป็น expired ไปแ�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com มี role Procurement Manager และมี campaign อยู่ในรายการ
+Login เป็น carmensoftware.dev+purchase@gmail.com มี role Procurement Manager และมี campaign อยู่ในรายการ
 
 **Steps**
 
@@ -904,7 +904,7 @@ campaign ถูกลบออกจากฐานข้อมูลและ�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com มี role Procurement Manager
+Login เป็น carmensoftware.dev+purchase@gmail.com มี role Procurement Manager
 
 **Steps**
 
@@ -927,7 +927,7 @@ Login เป็น purchase@blueledgers.com มี role Procurement Manager
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com มี role Procurement Manager และมีการเลือก campaign หลายรายการ
+Login เป็น carmensoftware.dev+purchase@gmail.com มี role Procurement Manager และมีการเลือก campaign หลายรายการ
 
 **Steps**
 
@@ -951,7 +951,7 @@ Login เป็น purchase@blueledgers.com มี role Procurement Manager แ�
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com มี role Regular User
+Login เป็น carmensoftware.dev+requestor@gmail.com มี role Regular User
 
 **Steps**
 
@@ -975,7 +975,7 @@ Login เป็น requestor@blueledgers.com มี role Regular User
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข้อมูล campaign
+Login เป็น carmensoftware.dev+purchase@gmail.com มีสิทธิ์ export ข้อมูล campaign
 
 **Steps**
 
@@ -999,7 +999,7 @@ Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข�
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com ซึ่งไม่มีสิทธิ์ export ข้อมูล campaign
+Login เป็น carmensoftware.dev+requestor@gmail.com ซึ่งไม่มีสิทธิ์ export ข้อมูล campaign
 
 **Steps**
 
@@ -1022,7 +1022,7 @@ Login เป็น requestor@blueledgers.com ซึ่งไม่มีสิ�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข้อมูล campaign และมีชุดข้อมูลขนาดใหญ่
+Login เป็น carmensoftware.dev+purchase@gmail.com มีสิทธิ์ export ข้อมูล campaign และมีชุดข้อมูลขนาดใหญ่
 
 **Steps**
 
@@ -1046,7 +1046,7 @@ Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข้อมูล campaign
+Login เป็น carmensoftware.dev+purchase@gmail.com มีสิทธิ์ export ข้อมูล campaign
 
 **Steps**
 
@@ -1070,7 +1070,7 @@ Login เป็น purchase@blueledgers.com มีสิทธิ์ export ข�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com มี role Procurement Staff และอยู่ที่หน้า Campaigns
+Login เป็น carmensoftware.dev+purchase@gmail.com มี role Procurement Staff และอยู่ที่หน้า Campaigns
 
 **Steps**
 
@@ -1094,7 +1094,7 @@ Login เป็น purchase@blueledgers.com มี role Procurement Staff แล
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com มี role Procurement Staff และอยู่ที่หน้า Campaigns
+Login เป็น carmensoftware.dev+purchase@gmail.com มี role Procurement Staff และอยู่ที่หน้า Campaigns
 
 **Steps**
 
@@ -1117,7 +1117,7 @@ campaign ที่มีคำว่า 'Inventory' ถูก filter และ�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com และอยู่ที่หน้า Campaigns ที่ไม่มี campaign ที่ Active
+Login เป็น carmensoftware.dev+purchase@gmail.com และอยู่ที่หน้า Campaigns ที่ไม่มี campaign ที่ Active
 
 **Steps**
 
@@ -1141,7 +1141,7 @@ Login เป็น purchase@blueledgers.com และอยู่ที่หน
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com และอยู่ที่หน้า Campaigns
+Login เป็น carmensoftware.dev+purchase@gmail.com และอยู่ที่หน้า Campaigns
 
 **Steps**
 
@@ -1164,7 +1164,7 @@ Login เป็น purchase@blueledgers.com และอยู่ที่หน
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com และอยู่ที่หน้า Campaigns
+Login เป็น carmensoftware.dev+purchase@gmail.com และอยู่ที่หน้า Campaigns
 
 **Steps**
 
@@ -1180,4 +1180,4 @@ campaign ทั้งหมดแสดงพร้อมจำนวนผล�
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

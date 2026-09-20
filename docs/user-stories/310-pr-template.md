@@ -179,7 +179,7 @@ Purchase request template ถูกสร้างและบันทึกส
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com ผ่าน auth fixture
+Login เป็น carmensoftware.dev+purchase@gmail.com ผ่าน auth fixture
 
 **Steps**
 
@@ -1526,4 +1526,4 @@ Server ตอบกลับด้วย timeout error เมื่อพยา�
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

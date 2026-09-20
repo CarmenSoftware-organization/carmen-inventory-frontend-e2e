@@ -35,7 +35,7 @@ _Generated from `tests/081-account-mapping.spec.ts` annotations. Edit annotation
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; ข้อมูลหน้านี้มาจาก mock am-mock.ts (12 แถว — AP 8 / GL 4)
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; ข้อมูลหน้านี้มาจาก mock am-mock.ts (12 แถว — AP 8 / GL 4)
 
 **Steps**
 
@@ -161,11 +161,11 @@ _(no steps documented)_
 
 **Preconditions**
 
-Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่น requestor@blueledgers.com; leaf ของหน้านี้ใน constant/module-list.ts ยังไม่ประกาศ permission
+Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่น carmensoftware.dev+requestor@gmail.com; leaf ของหน้านี้ใน constant/module-list.ts ยังไม่ประกาศ permission
 
 **Steps**
 
-1. Login เป็น requestor@blueledgers.com
+1. Login เป็น carmensoftware.dev+requestor@gmail.com
 2. ไปที่ /config/account-mapping
 
 **Expected**
@@ -300,4 +300,4 @@ Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่�
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

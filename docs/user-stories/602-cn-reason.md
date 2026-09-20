@@ -40,7 +40,7 @@ _Generated from `tests/602-cn-reason.spec.ts` annotations. Edit annotations, not
 
 **Preconditions**
 
-Logged in as admin@blueledgers.com via auth fixture
+Logged in as carmensoftware.dev+admin@gmail.com via auth fixture
 
 **Steps**
 
@@ -60,7 +60,7 @@ URL matches /config/credit-note-reason; ปุ่ม Add และช่อง�
 
 **Preconditions**
 
-Logged in as admin@blueledgers.com; on /config/credit-note-reason
+Logged in as carmensoftware.dev+admin@gmail.com; on /config/credit-note-reason
 
 **Steps**
 
@@ -80,7 +80,7 @@ Logged in as admin@blueledgers.com; on /config/credit-note-reason
 
 **Preconditions**
 
-Logged in as admin@blueledgers.com; on /config/credit-note-reason
+Logged in as carmensoftware.dev+admin@gmail.com; on /config/credit-note-reason
 
 **Steps**
 
@@ -101,7 +101,7 @@ Logged in as admin@blueledgers.com; on /config/credit-note-reason
 
 **Preconditions**
 
-Logged in as admin@blueledgers.com; on /config/credit-note-reason
+Logged in as carmensoftware.dev+admin@gmail.com; on /config/credit-note-reason
 
 **Steps**
 
@@ -122,7 +122,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
 
 **Steps**
 
@@ -144,7 +144,7 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 
 **Preconditions**
 
-Logged in as admin@blueledgers.com; record NAME ยังไม่มีอยู่ใน DB
+Logged in as carmensoftware.dev+admin@gmail.com; record NAME ยังไม่มีอยู่ใน DB
 
 **Steps**
 
@@ -191,7 +191,7 @@ Updated/success toast ปรากฏ; แถวที่มี NAME_UPDATED ป
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -214,7 +214,7 @@ Updated; list มีแถว name ใหม่ และไม่พบ name �
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -260,7 +260,7 @@ Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -371,7 +371,7 @@ User ถูก redirect ออกจาก /config/credit-note-reason หรื�
 
 **Preconditions**
 
-Logged in as admin@blueledgers.com; on /config/credit-note-reason
+Logged in as carmensoftware.dev+admin@gmail.com; on /config/credit-note-reason
 
 **Steps**
 
@@ -418,7 +418,7 @@ Error message ปรากฏใน dialog (form ไม่ submit; ยังอ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -432,4 +432,4 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

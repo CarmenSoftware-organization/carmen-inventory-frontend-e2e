@@ -54,7 +54,7 @@ _Generated from `tests/402-po-purchaser-journey.spec.ts` annotations. Edit annot
 
 **Preconditions**
 
-Login เป็น Purchaser (purchase@blueledgers.com)
+Login เป็น Purchaser (carmensoftware.dev+purchase@gmail.com)
 
 **Steps**
 
@@ -741,4 +741,4 @@ URL ยังคงอยู่ที่ PO ref หลัง Send to Vendor (lif
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

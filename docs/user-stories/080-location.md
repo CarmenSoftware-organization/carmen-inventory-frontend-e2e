@@ -43,7 +43,7 @@ _Generated from `tests/080-location.spec.ts` annotations. Edit annotations, not 
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture
 
 **Steps**
 
@@ -63,7 +63,7 @@ URL matches /config/location; หน้า list render สำเร็จโด�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; on /config/location
+Login เป็น carmensoftware.dev+admin@gmail.com; on /config/location
 
 **Steps**
 
@@ -83,7 +83,7 @@ Login เป็น admin@blueledgers.com; on /config/location
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; on /config/location
+Login เป็น carmensoftware.dev+admin@gmail.com; on /config/location
 
 **Steps**
 
@@ -104,7 +104,7 @@ Login เป็น admin@blueledgers.com; on /config/location
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; on /config/location
+Login เป็น carmensoftware.dev+admin@gmail.com; on /config/location
 
 **Steps**
 
@@ -125,7 +125,7 @@ Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
+Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว
 
 **Steps**
 
@@ -147,7 +147,7 @@ default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใ
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; record CODE/NAME ยังไม่มีอยู่ใน DB
+Login เป็น carmensoftware.dev+admin@gmail.com; record CODE/NAME ยังไม่มีอยู่ใน DB
 
 **Steps**
 
@@ -173,7 +173,7 @@ Success toast (created/success/สำเร็จ); แถวใหม่ที�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; record CODE_DIRECT/NAME_DIRECT ยังไม่มีอยู่ใน DB
+Login เป็น carmensoftware.dev+admin@gmail.com; record CODE_DIRECT/NAME_DIRECT ยังไม่มีอยู่ใน DB
 
 **Steps**
 
@@ -200,7 +200,7 @@ Created toast → แถวปรากฏใน list → Deleted toast หล�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; record CODE_CONSIGN/NAME_CONSIGN ยังไม่มีอยู่ใน DB
+Login เป็น carmensoftware.dev+admin@gmail.com; record CODE_CONSIGN/NAME_CONSIGN ยังไม่มีอยู่ใน DB
 
 **Steps**
 
@@ -251,7 +251,7 @@ Updated/success toast ปรากฏ (updated/success/สำเร็จ)
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG
 
 **Steps**
 
@@ -274,7 +274,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery poi
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG
 
 **Steps**
 
@@ -297,7 +297,7 @@ Updated/success toast; หลังเปิด detail ใหม่ nameInput �
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG
 
 **Steps**
 
@@ -345,7 +345,7 @@ Deleted/success toast ปรากฏ (deleted/success/สำเร็จ)
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG
 
 **Steps**
 
@@ -456,7 +456,7 @@ User ถูก redirect ออกจาก /config/location หรือ ปุ�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; on /config/location/new
+Login เป็น carmensoftware.dev+admin@gmail.com; on /config/location/new
 
 **Steps**
 
@@ -502,7 +502,7 @@ Save button ยังคง visible (form ไม่ submit; ยังอยู�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มี delivery point อย่างน้อย 1 รายการใน BLAVG
 
 **Steps**
 
@@ -516,4 +516,4 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; มี delivery poi
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

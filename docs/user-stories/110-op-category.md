@@ -35,7 +35,7 @@ _Generated from `tests/110-op-category.spec.ts` annotations. Edit annotations, n
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; มีหมวดหมู่สูตรอาหารอย่างน้อย 1 รายการ
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มีหมวดหมู่สูตรอาหารอย่างน้อย 1 รายการ
 
 **Steps**
 
@@ -78,7 +78,7 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG; มีหมวด�
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG; อยู่ที่หน้า /operation-plan/category
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; อยู่ที่หน้า /operation-plan/category
 
 **Steps**
 
@@ -298,7 +298,7 @@ _(no steps documented)_
 
 **Preconditions**
 
-Login เป็น admin@blueledgers.com; active BU = BLAVG
+Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG
 
 **Steps**
 
@@ -311,4 +311,4 @@ Login เป็น admin@blueledgers.com; active BU = BLAVG
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

@@ -8,7 +8,7 @@ import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
 import { uid, fakeCode, fakeName, buildEntity } from "./helpers/test-data";
 
-const test = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
 const PATH = "/product-management/eco";
 const { code: CODE, name: NAME, nameUpdated: NAME_UPDATED } = buildEntity({ codePrefix: "EE", tag: "ECO" });
 
@@ -29,7 +29,7 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-010001 หน้า list โหลดสำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture" },
         { type: "steps", description: "1. ไปที่ /product-management/eco" },
         { type: "expected", description: "URL ตรงกับ /product-management/eco; หน้า list render สำเร็จ" },
         { type: "priority", description: "High" },
@@ -47,7 +47,7 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-010002 ปุ่ม Add แสดง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /product-management/eco" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /product-management/eco" },
         { type: "steps", description: "1. ไปที่ /product-management/eco" },
         { type: "expected", description: "ปุ่ม Add visible บนหน้า list" },
         { type: "priority", description: "High" },
@@ -65,7 +65,7 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-010003 ช่องค้นหาใช้งานได้",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /product-management/eco" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /product-management/eco" },
         { type: "steps", description: "1. ไปที่ /product-management/eco\n2. พิมพ์ 'test' ในช่องค้นหา" },
         { type: "expected", description: "ช่องค้นหา visible และรับค่า input ได้โดยไม่ error" },
         { type: "priority", description: "Medium" },
@@ -84,7 +84,7 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-010004 ค้นหาคำที่ไม่มีต้องแสดง empty state",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /product-management/eco" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /product-management/eco" },
         { type: "steps", description: "1. ไปที่ /product-management/eco\n2. ค้นหาด้วยคำที่ไม่มี (`__NOPE__<UID>`)" },
         { type: "expected", description: "Empty-state placeholder ปรากฏภายใน 10s (ไม่มีแถวที่ตรงกับคำค้น)" },
         { type: "priority", description: "Medium" },
@@ -103,7 +103,7 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-010005 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
         { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -124,7 +124,7 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-200001 บันทึกโดยไม่กรอก code/name ต้องแสดง error",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; อยู่ที่ /product-management/eco" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; อยู่ที่ /product-management/eco" },
         { type: "steps", description: "1. เปิด Add dialog\n2. กด Save โดยไม่กรอก code/name" },
         { type: "expected", description: "Error message แสดงใน dialog (required validation); dialog ยังเปิดอยู่" },
         { type: "priority", description: "High" },
@@ -145,7 +145,7 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-030001 สร้างรายการใหม่และปรากฏในตาราง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; record CODE ยังไม่มีอยู่ใน DB" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; record CODE ยังไม่มีอยู่ใน DB" },
         { type: "steps", description: "1. เปิด Add dialog\n2. กรอก code = CODE, name = NAME\n3. กด Save\n4. ค้นหาด้วย CODE" },
         { type: "expected", description: "Success toast (created/success/สำเร็จ); แถวใหม่ที่มี CODE ปรากฏใน list" },
         { type: "priority", description: "High" },
@@ -239,7 +239,7 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-040002 toggle is_active แล้ว persist",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง record ด้วย is_active = false\n2. เปิดแถวอีกครั้งอ่านสถานะ switch\n3. ลบ record" },
         { type: "expected", description: "หลังเปิดแถวใหม่ switch is_active = false (ค่าถูก persist)" },
         { type: "priority", description: "Medium" },
@@ -270,7 +270,7 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-040003 แก้ไขชื่อแล้ว persist",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง record\n2. เปิดแถวจาก list แก้ name แล้ว Save\n3. ยืนยัน list มี name ใหม่\n4. ลบ record" },
         { type: "expected", description: "Updated; list มีแถว name ใหม่ (ค่าถูก persist จริง)" },
         { type: "priority", description: "High" },
@@ -311,7 +311,7 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-040004 ยกเลิกการแก้ไข ค่าต้องไม่ถูกบันทึก",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง record\n2. เปิดแถวแก้ name เป็นค่าใหม่\n3. กด Cancel (dialog ปิดโดยไม่ save)\n4. เปิดแถวเดิมอีกครั้งเช็ค name\n5. ลบ record" },
         { type: "expected", description: "หลัง Cancel แล้วเปิดใหม่ name ยังเป็นค่าเดิม (การแก้ไขไม่ถูกบันทึก)" },
         { type: "priority", description: "Medium" },
@@ -350,7 +350,7 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-200003 สร้าง code ซ้ำ ต้องถูก reject",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง record ด้วย code X\n2. เปิด Add dialog กรอก code X เดิม + name อื่น กด Save\n3. ลบ record(s) (cleanup)" },
         { type: "expected", description: "รายการที่สองไม่ถูกสร้าง: dialog ยังเปิดอยู่ (backend reject code ซ้ำ)" },
         { type: "priority", description: "High" },
@@ -394,7 +394,7 @@ test.describe("Eco — Smoke & CRUD", () => {
     "TC-ECO-050002 ยกเลิกการลบ record ต้องยังอยู่",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. สร้าง record\n2. เปิด delete dialog แล้วกด Cancel\n3. ค้นหา record ใน list\n4. ลบ record (cleanup)" },
         { type: "expected", description: "Delete dialog ปิดโดยไม่ลบ; record ยังปรากฏใน list" },
         { type: "priority", description: "Medium" },

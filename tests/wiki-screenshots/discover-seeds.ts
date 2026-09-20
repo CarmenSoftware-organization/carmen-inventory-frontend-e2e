@@ -2,7 +2,7 @@
 // For each route group it loads the list page, gathers candidate ids from the
 // entity-matched JSON responses, then confirms a candidate by opening the detail
 // page and checking it renders (no permission/error notice, not stuck loading).
-// Captures as the WIKI_CAPTURE_EMAIL user (default admin@blueledgers.com).
+// Captures as the WIKI_CAPTURE_EMAIL user (default carmensoftware.dev+admin@gmail.com).
 //
 // Output: tests/wiki-screenshots/seed-ids.json  ({ "<route>": "<id>" })
 // Run: bun run tests/wiki-screenshots/discover-seeds.ts

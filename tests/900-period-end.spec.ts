@@ -3,12 +3,12 @@ import { createAuthTest } from "./fixtures/auth.fixture";
 import { PeriodEndPage, LIST_PATH } from "./pages/period-end.page";
 
 // ─────────────────────────────────────────────────────────────────────────
-// Multi-role auth — Inventory Manager == purchase@blueledgers.com.
-// Permission denial uses requestor@blueledgers.com.
+// Multi-role auth — Inventory Manager == carmensoftware.dev+purchase@gmail.com.
+// Permission denial uses carmensoftware.dev+requestor@gmail.com.
 // requestor declared LAST so doc default role reads "Purchase".
 // ─────────────────────────────────────────────────────────────────────────
-const requestorTest = createAuthTest("requestor@blueledgers.com");
-const purchaseTest = createAuthTest("purchase@blueledgers.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
+const purchaseTest = createAuthTest("carmensoftware.dev+purchase@gmail.com");
 
 const SKIP_NOTE_BACKEND =
   "Backend / system-level behavior (validation engines, transaction status checks, " +
@@ -29,7 +29,7 @@ purchaseTest.describe("Period End — List page", () => {
     "TC-PE-010001 Happy Path - View Current Period",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และมี period view permission" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com และมี period view permission" },
         {
           type: "steps",
           description:
@@ -126,7 +126,7 @@ requestorTest.describe("Period End — List page — Permission denial", () => {
     "TC-PE-010002 Negative - User Without Permission",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com แต่ไม่มี period view permission" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com แต่ไม่มี period view permission" },
         { type: "steps", description: "1. ไปที่ /inventory-management/period-end" },
         { type: "expected", description: "ผู้ใช้ถูก redirect ไปยังหน้า permission denied" },
         { type: "priority", description: "High" },
@@ -211,7 +211,7 @@ requestorTest.describe("Period End — Detail page — Permission denial — Fea
     "TC-PE-020003 View period detail with no permission",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com แต่ไม่มี permission ดู period detail" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com แต่ไม่มี permission ดู period detail" },
         {
           type: "steps",
           description:
@@ -254,7 +254,7 @@ purchaseTest.describe("Period End — Close workflow — Feature pending", () =>
     "TC-PE-030003 Edge Case - Period Already Closed",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com และ period ถูกปิดแล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com และ period ถูกปิดแล้ว" },
         {
           type: "steps",
           description:
@@ -394,7 +394,7 @@ requestorTest.describe("Period End — Close action — Permission denial — Fe
     "TC-PE-040003 Close Period - Permission Denied",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น requestor@blueledgers.com สถานะ period เป็น closing และ validation stages ทั้ง 3 ผ่าน" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+requestor@gmail.com สถานะ period เป็น closing และ validation stages ทั้ง 3 ผ่าน" },
         {
           type: "steps",
           description:
@@ -497,7 +497,7 @@ purchaseTest.describe("Period End — Spot check validation — Backend only", (
     "TC-PE-320001 Happy Path - Successful Spot Check Validation",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com ด้วย credentials ที่ถูกต้องและมี permission ทำ validation" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com ด้วย credentials ที่ถูกต้องและมี permission ทำ validation" },
         {
           type: "steps",
           description:
@@ -653,7 +653,7 @@ purchaseTest.describe("Period End — Activity log — Backend only", () => {
     "TC-PE-340001 Happy Path - Log Activity Entry",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น purchase@blueledgers.com พร้อม permissions ทำ period actions" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+purchase@gmail.com พร้อม permissions ทำ period actions" },
         {
           type: "steps",
           description:

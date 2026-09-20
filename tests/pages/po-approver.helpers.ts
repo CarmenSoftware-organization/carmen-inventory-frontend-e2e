@@ -89,7 +89,7 @@ export async function createDraftPOAsPurchaser(
   browser: Browser,
   opts?: { description?: string; vendor?: string },
 ): Promise<CreatedPO> {
-  return await withRoleContext(browser, "purchase@blueledgers.com", (page) =>
+  return await withRoleContext(browser, "carmensoftware.dev+purchase@gmail.com", (page) =>
     createDraftOnPage(page, opts, "createDraftPOAsPurchaser"),
   );
 }
@@ -107,7 +107,7 @@ export async function submitPOAsPurchaser(
   browser: Browser,
   opts?: { description?: string; vendor?: string },
 ): Promise<CreatedPO> {
-  return await withRoleContext(browser, "purchase@blueledgers.com", async (page) => {
+  return await withRoleContext(browser, "carmensoftware.dev+purchase@gmail.com", async (page) => {
     const po = new PurchaseOrderPage(page);
     const { ref, url } = await createDraftOnPage(page, opts, "submitPOAsPurchaser");
 
@@ -160,11 +160,11 @@ export async function submitPOAsPurchaser(
  * and blamed the workflow.
  *
  * FC is the right approver here: the backend's General PO workflow lists
- * `purchase@blueledgers.com` on Create Request and `fc@blueledgers.com` on the
+ * `carmensoftware.dev+purchase@gmail.com` on Create Request and `carmensoftware.dev+fc@gmail.com` on the
  * first approve stage, and the PO form only ever offers that one workflow.
  */
 export async function approveAsFC(browser: Browser, ref: string): Promise<void> {
-  await approveAsRole(browser, "fc@blueledgers.com", ref);
+  await approveAsRole(browser, "carmensoftware.dev+fc@gmail.com", ref);
 }
 
 /**
@@ -173,7 +173,7 @@ export async function approveAsFC(browser: Browser, ref: string): Promise<void> 
  * actually Approved (and has no Send to Vendor / Close) until GM signs too.
  */
 export async function approveAsGM(browser: Browser, ref: string): Promise<void> {
-  await approveAsRole(browser, "gm@blueledgers.com", ref);
+  await approveAsRole(browser, "carmensoftware.dev+gm@gmail.com", ref);
 }
 
 /** Submit as Purchaser, then walk both approve stages, leaving an Approved PO. */

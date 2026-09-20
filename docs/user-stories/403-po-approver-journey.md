@@ -41,7 +41,7 @@ _Generated from `tests/403-po-approver-journey.spec.ts` annotations. Edit annota
 
 **Preconditions**
 
-Login เป็น FC (fc@blueledgers.com)
+Login เป็น FC (carmensoftware.dev+fc@gmail.com)
 
 **Steps**
 
@@ -449,4 +449,4 @@ PATCH .../approve ของ FC ตอบ ok และหลัง GM อนุ�
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

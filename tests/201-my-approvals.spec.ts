@@ -9,8 +9,8 @@ import { openRecordFromRow } from "./helpers/list-row";
 
 
 // ─────────────────────────────────────────────────────────────────────────
-// Multi-role auth — Approver == hod@blueledgers.com (Department Manager).
-// Permission denial uses requestor@blueledgers.com (no approver authority).
+// Multi-role auth — Approver == carmensoftware.dev+hod@gmail.com (Department Manager).
+// Permission denial uses carmensoftware.dev+requestor@gmail.com (no approver authority).
 // requestor declared LAST so doc default role reads "HOD".
 //
 // Note: Test ID prefix in source CSV mixes 'TC-MY_APPROVALS-' (>4 letters,
@@ -18,8 +18,8 @@ import { openRecordFromRow } from "./helpers/list-row";
 // flattened to 'TC-MA<area3><sub2>' (5 digits) for consistency across the
 // module. See generate-user-stories.ts:TC_REGEX.
 // ─────────────────────────────────────────────────────────────────────────
-const requestorTest = createAuthTest("requestor@blueledgers.com");
-const hodTest = createAuthTest("hod@blueledgers.com");
+const requestorTest = createAuthTest("carmensoftware.dev+requestor@gmail.com");
+const hodTest = createAuthTest("carmensoftware.dev+hod@gmail.com");
 
 const SKIP_NOTE_NOT_IMPLEMENTED =
   "Approval queue / bulk-action / delegation / request-more-info workflows are not yet " +
@@ -46,7 +46,7 @@ hodTest.describe("My Approvals — Queue", () => {
     "TC-MA-010050 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น hod@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+hod@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
         { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },

@@ -48,7 +48,7 @@ _Generated from `tests/304-pr-purchaser-journey.spec.ts` annotations. Edit annot
 
 **Preconditions**
 
-Login เป็น Purchaser (purchase@blueledgers.com)
+Login เป็น Purchaser (carmensoftware.dev+purchase@gmail.com)
 
 **Steps**
 
@@ -153,7 +153,7 @@ URL ยังคงอยู่ที่หน้า PR list หลังจา�
 
 **Preconditions**
 
-Login เป็น purchase@blueledgers.com ผ่าน auth fixture
+Login เป็น carmensoftware.dev+purchase@gmail.com ผ่าน auth fixture
 
 **Steps**
 
@@ -609,4 +609,4 @@ URL ยังคงอยู่ที่ PR ref หลังจาก bulk appro
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

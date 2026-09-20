@@ -29,7 +29,7 @@ import { uid, buildEntity } from "./helpers/test-data";
  *  - TC-OPCAT-200003 (boundary: name 100 / description 256)
  */
 
-const test = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
 const PATH = "/operation-plan/category";
 
 const { code: CODE, name: NAME, nameUpdated: NAME_UPDATED } = buildEntity({
@@ -62,7 +62,7 @@ test.describe("Operation Plan Category — Smoke & CRUD", () => {
     "TC-OPCAT-010001 แสดงรายการหมวดหมู่สูตรอาหาร",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; มีหมวดหมู่สูตรอาหารอย่างน้อย 1 รายการ" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; มีหมวดหมู่สูตรอาหารอย่างน้อย 1 รายการ" },
         { type: "steps", description: "1. ไปที่ /operation-plan/category\n2. รอให้ DataGrid โหลดเสร็จ" },
         { type: "expected", description: "หัวข้อหน้าแสดง 'Recipe Category' พร้อม badge จำนวนรายการ; ตารางแสดงคอลัมน์ Code, Name, Parent, Status และเมนูจุดสามจุดท้ายแถว" },
         { type: "priority", description: "High" },
@@ -108,7 +108,7 @@ test.describe("Operation Plan Category — Smoke & CRUD", () => {
     "TC-OPCAT-030001 สร้างหมวดหมู่ใหม่สำเร็จ",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG; อยู่ที่หน้า /operation-plan/category" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG; อยู่ที่หน้า /operation-plan/category" },
         { type: "steps", description: "1. คลิกปุ่ม 'Add Category'\n2. ตรวจว่า URL เป็น /operation-plan/category/new\n3. กรอก Code และ Name ด้วยค่าที่ไม่ซ้ำ\n4. คลิกปุ่ม 'Create'" },
         { type: "expected", description: "แสดง toast 'Recipe Category created successfully'; แอปเด้งกลับไปที่ /operation-plan/category และหมวดหมู่ใหม่ปรากฏในตาราง" },
         { type: "priority", description: "High" },
@@ -349,7 +349,7 @@ test.describe("Operation Plan Category — Smoke & CRUD", () => {
       const { TEST_PASSWORD } = await import("./test-users");
       const loginPage = new LoginPage(page);
       await loginPage.goto();
-      await loginPage.loginWithRetry("requestor@blueledgers.com", TEST_PASSWORD);
+      await loginPage.loginWithRetry("carmensoftware.dev+requestor@gmail.com", TEST_PASSWORD);
       await page.waitForURL(/dashboard/, { timeout: 15_000 });
       await page.goto(PATH);
       await page.waitForLoadState("networkidle");
@@ -443,7 +443,7 @@ test.describe("Operation Plan Category — Smoke & CRUD", () => {
     "TC-OPCAT-900002 เปิดหมวดหมู่ด้วย id ที่ไม่มีอยู่จริง",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com; active BU = BLAVG" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com; active BU = BLAVG" },
         { type: "steps", description: "1. เข้า URL /operation-plan/category/{uuid ที่ไม่มีอยู่ในระบบ} ตรงๆ" },
         { type: "expected", description: "แสดงกล่อง role='alert' หัวข้อ 'Something went wrong' พร้อม 'Recipe category not found'; มีปุ่ม 'Back to list'" },
         { type: "priority", description: "Low" },

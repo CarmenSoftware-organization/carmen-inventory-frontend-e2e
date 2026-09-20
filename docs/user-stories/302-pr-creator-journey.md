@@ -64,7 +64,7 @@ _Generated from `tests/302-pr-creator-journey.spec.ts` annotations. Edit annotat
 
 **Preconditions**
 
-Login เป็น Requestor (requestor@blueledgers.com)
+Login เป็น Requestor (carmensoftware.dev+requestor@gmail.com)
 
 **Steps**
 
@@ -212,7 +212,7 @@ dialog สร้างใหม่เปิดขึ้น หรือ URL เ�
 
 **Preconditions**
 
-Login เป็น requestor@blueledgers.com ผ่าน auth fixture
+Login เป็น carmensoftware.dev+requestor@gmail.com ผ่าน auth fixture
 
 **Steps**
 
@@ -961,4 +961,4 @@ PR ถูกสร้าง (detail URL พร้อม ref), แก้ไขแ
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git da448c6</sub>
+<sub>Last regenerated: 2026-09-20 · git e45b917</sub>

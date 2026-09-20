@@ -19,7 +19,7 @@ import { ensureActiveBu, getBusinessUnits, defaultBu } from "./helpers/bu";
 import { BuSwitcherPage } from "./pages/bu-switcher.page";
 import { uid, fakeName } from "./helpers/test-data";
 
-const test = createAuthTest("admin@blueledgers.com");
+const test = createAuthTest("carmensoftware.dev+admin@gmail.com");
 
 // Pin the active BU to BLAVG for every test in this file (precondition).
 test.beforeEach(async ({ page }) => {
@@ -79,7 +79,7 @@ test.describe("จุดส่งของ — BU", () => {
     "TC-DP-010050 active BU = BLAVG",
     {
       annotation: [
-        { type: "preconditions", description: "Login เป็น admin@blueledgers.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
+        { type: "preconditions", description: "Login เป็น carmensoftware.dev+admin@gmail.com ผ่าน auth fixture; beforeEach เรียก ensureActiveBu(BLAVG) แล้ว" },
         { type: "steps", description: "1. อ่าน profile API (/api/proxy/api/user/profile)\n2. หา business unit ที่ is_default\n3. เปิดหน้าที่มี navbar แล้วอ่าน label ของ BU switcher" },
         { type: "expected", description: "default business unit มี code === 'BLAVG'; trigger ของ BU switcher ใน navbar แสดง label ของ BU นั้น" },
         { type: "priority", description: "High" },
@@ -104,7 +104,7 @@ test.describe("จุดส่งของ — อ่าน", () => {
     "TC-DP-010001 อ่านค่า table ของ delivery point ได้",
     {
       annotation: [
-        { type: "preconditions", description: "ผู้ใช้ admin@blueledgers.com (จาก createAuthTest) login แล้ว และมี delivery point ในระบบอย่างน้อย 1 รายการ" },
+        { type: "preconditions", description: "ผู้ใช้ carmensoftware.dev+admin@gmail.com (จาก createAuthTest) login แล้ว และมี delivery point ในระบบอย่างน้อย 1 รายการ" },
         { type: "steps", description: "1. เปิดหน้า /config/delivery-point\n2. รอ table โหลด\n3. ตรวจสอบปุ่ม Add" },
         { type: "expected", description: "URL ลงท้ายด้วย config/delivery-point, table แสดงผล และปุ่ม Add visible" },
         { type: "priority", description: "High" },
