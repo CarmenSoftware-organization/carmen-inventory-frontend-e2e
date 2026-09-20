@@ -170,8 +170,13 @@ export class PurchaseOrderPage extends BasePage {
 
   // ── Confirmation dialog ──────────────────────────────────────────────
   reasonInput(): Locator {
+    // Both roles: confirmation popups here are Radix AlertDialog, which
+    // getByRole("dialog") never matches — the reason box then stayed unfilled and
+    // the dialog's own confirm button stayed disabled. `.last()` skips the
+    // always-mounted Command Palette.
     return this.page
-      .getByRole("dialog")
+      .locator('[role="dialog"], [role="alertdialog"]')
+      .last()
       .locator("textarea, input[type='text']")
       .first();
   }
@@ -283,6 +288,10 @@ export class PurchaseOrderPage extends BasePage {
    * and the PO was never created — which is what made the PO journeys time out.
    */
   async addItemToPO(data: POLineItemInput) {
+    // Same reason as PriceListPage.fillHeader: the steps below decide what to do
+    // from an immediate `count()`, so a form that has not rendered yet makes all
+    // of them no-op. Wait for the item table's own control first.
+    await this.addItemButton().waitFor({ state: "visible", timeout: 15_000 });
     await this.selectFirstWorkflow();
     await this.selectFirstVendor();
     await this.selectDeliveryDate();

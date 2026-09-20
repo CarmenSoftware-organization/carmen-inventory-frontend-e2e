@@ -1,6 +1,7 @@
 import { expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { StockIssuePage, LIST_PATH } from "./pages/stock-issue.page";
+import { openRecordFromRow } from "./helpers/list-row";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Multi-role auth — Warehouse/Store-Operations Staff == purchase@blueledgers.com.
@@ -108,7 +109,7 @@ purchaseTest.describe("Stock Issue — View Detail", () => {
         purchaseTest.skip(true, "No SR available");
         return;
       }
-      await row.click();
+      await openRecordFromRow(row);
     },
   );
 
@@ -308,7 +309,7 @@ purchaseTest.describe("Stock Issue — View Full SR", () => {
       await si.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       await si.viewFullSRButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -375,7 +376,7 @@ purchaseTest.describe("Stock Issue — View Full SR", () => {
       await si.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       await si.printButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -402,7 +403,7 @@ requestorTest.describe("Stock Issue — View Full SR — Permission denial", () 
       await si.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const view = si.viewFullSRButton();
       // Either button is hidden (correct) or disabled
       if ((await view.count()) === 0) {
@@ -436,7 +437,7 @@ purchaseTest.describe("Stock Issue — Print", () => {
       await si.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       await si.printButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -501,9 +502,9 @@ purchaseTest.describe("Stock Issue — Print", () => {
     async ({ page }) => {
       const si = new StockIssuePage(page);
       await si.gotoList();
-      const cancelledRow = page.getByRole("row").filter({ hasText: /cancel/i }).first();
+      const cancelledRow = page.locator("tbody").getByRole("row").filter({ hasText: /cancel/i }).first();
       if ((await cancelledRow.count()) === 0) return;
-      await cancelledRow.click();
+      await openRecordFromRow(cancelledRow);
     },
   );
 });
@@ -538,7 +539,7 @@ requestorTest.fixme(
       await si.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const print = si.printButton();
       // Either button is hidden (correct) or disabled
       if ((await print.count()) === 0) {
@@ -571,9 +572,9 @@ purchaseTest.describe("Stock Issue — Expense Allocation", () => {
     async ({ page }) => {
       const si = new StockIssuePage(page);
       await si.gotoList();
-      const completedRow = page.getByRole("row").filter({ hasText: /complete/i }).first();
+      const completedRow = page.locator("tbody").getByRole("row").filter({ hasText: /complete/i }).first();
       if ((await completedRow.count()) === 0) return;
-      await completedRow.click();
+      await openRecordFromRow(completedRow);
       await si.viewExpenseAllocationButton().click({ timeout: 5_000 }).catch(() => {});
     },
   );
@@ -639,7 +640,7 @@ requestorTest.describe("Stock Issue — Expense Allocation — Permission denial
       await si.gotoList();
       const row = page.getByRole("row").nth(1);
       if ((await row.count()) === 0) return;
-      await row.click();
+      await openRecordFromRow(row);
       const exp = si.viewExpenseAllocationButton();
       // Either button is hidden (correct) or disabled
       if ((await exp.count()) === 0) {

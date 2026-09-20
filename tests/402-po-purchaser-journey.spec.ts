@@ -1,6 +1,7 @@
 import { test as baseTest, expect } from "@playwright/test";
 import { createAuthTest } from "./fixtures/auth.fixture";
 import { PurchaseOrderPage, LIST_PATH } from "./pages/purchase-order.page";
+import { recordRows } from "./helpers/list-row";
 import {
   submitPOAsPurchaser,
   createDraftPOAsPurchaser,
@@ -252,15 +253,14 @@ purchaseTest.describe("Step 2 — Create PO", () => {  // ─ Blank method (4 TC
         purchaseTest.skip(true, "From Price List menu item not present");
         return;
       }
-      await item.click();
-      // Wizard either opens a dialog or navigates; assert one or the other occurred
-      await expect(
-        page
-          .locator('[role="dialog"], [role="alertdialog"]')
-          .last()
-          .or(page.getByText(/select vendor|step 1/i).first())
-          .first(),
-      ).toBeVisible({ timeout: 10_000 });
+      await item.click({ timeout: 10_000 });
+      // The wizard is a full page, not a dialog, and its first step is labelled
+      // "Order & Vendor" — neither "Select Vendor" nor "step 1" appears anywhere,
+      // so the old union assertion could not match. Assert the route and the
+      // step rail the page actually renders.
+      await expect(page).toHaveURL(/purchase-order\/from-price-list/, { timeout: 15_000 });
+      await expect(page.getByText(/order & vendor/i).first()).toBeVisible({ timeout: 10_000 });
+      await expect(page.getByText(/select items/i).first()).toBeVisible({ timeout: 10_000 });
     },
   );
 
@@ -432,19 +432,27 @@ purchaseTest.describe("Step 2 — Create PO", () => {  // ─ Blank method (4 TC
         purchaseTest.skip(true, "From PR menu item not present");
         return;
       }
-      await item.click();
-      const prRow = page.getByRole("row").or(page.getByRole("checkbox")).nth(1);
-      if ((await prRow.count()) === 0) {
+      await item.click({ timeout: 10_000 });
+
+      // Count real PR rows. `getByRole("row").or(getByRole("checkbox")).nth(1)`
+      // is a union that resolves against both roles at once and happily settles on
+      // the header row or a stray checkbox, so it never reported "no data" even
+      // when the wizard had none — the test then pressed Next with nothing
+      // selected and waited out its timeout. This BU holds no purchase requests
+      // at all (verified against /api/BLAVG/purchase-requests).
+      const prRows = recordRows(page).filter({ hasText: /PR\d{6,}/ });
+      if ((await prRows.count()) === 0) {
         purchaseTest.skip(true, "No approved PR available in wizard step 1");
         return;
       }
-      await prRow.click({ timeout: 5_000 }).catch(() => {});
+      await prRows.first().getByRole("checkbox").first().check({ force: true, timeout: 10_000 });
+
       const next = page.getByRole("button", { name: /next|continue|review/i }).first();
       if ((await next.count()) === 0) {
         purchaseTest.skip(true, "Next button not present in From PR wizard");
         return;
       }
-      await next.click({ timeout: 5_000 });
+      await next.click({ timeout: 10_000 });
       await expect(page.getByText(/review|grouped|vendor|step 2/i).first()).toBeVisible({ timeout: 10_000 });
     },
   );
@@ -608,7 +616,7 @@ purchaseTest.describe("Step 3 — PO Detail", () => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
       // Find a row with SENT or COMPLETED status
-      const sentRow = page.getByRole("row").filter({ hasText: /sent|completed/i }).first();
+      const sentRow = page.locator("tbody").getByRole("row").filter({ hasText: /sent|completed/i }).first();
       if ((await sentRow.count()) === 0) {
         purchaseTest.skip(true, "No SENT/COMPLETED PO available for read-only check");
         return;
@@ -759,7 +767,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
         return;
       }
       await submit.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|submit|ok|yes/i).click({ timeout: 5_000 });
       await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 15_000 });
     },
   );
@@ -790,7 +798,7 @@ purchaseTest.describe("Step 4 — Edit Mode", () => {
         return;
       }
       await del.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|delete|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|delete|yes/i).click({ timeout: 5_000 });
       await expect(page).toHaveURL(/\/procurement\/purchase-order($|\?)/, { timeout: 10_000 });
     },
   );
@@ -842,7 +850,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
         return;
       }
       await send.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 });
       await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 10_000 });
     },
   );
@@ -862,7 +870,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
     async ({ page }) => {
       const po = new PurchaseOrderPage(page);
       await po.gotoList();
-      const sentRow = page.getByRole("row").filter({ hasText: /sent/i }).first();
+      const sentRow = page.locator("tbody").getByRole("row").filter({ hasText: /sent/i }).first();
       if ((await sentRow.count()) === 0) {
         purchaseTest.skip(true, "No SENT PO available for Close test");
         return;
@@ -875,7 +883,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
         return;
       }
       await close.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|close|complete|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|close|complete|yes/i).click({ timeout: 5_000 });
       await expect(
         page
           .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
@@ -886,7 +894,7 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
   );
 
   purchaseTest(
-    "TC-PO-060504 Close PO without items received → VOIDED",
+    "TC-PO-060504 Close PO without items received → CLOSED",
     {
       annotation: [
         { type: "preconditions", description: "มี Approved/SENT PO ที่ยังไม่มีรายการที่รับ" },
@@ -906,12 +914,20 @@ purchaseTest.describe("Step 5 — Post-approval", () => {
         purchaseTest.skip(true, "Close button not present on this Approved PO");
         return;
       }
-      await close.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|close|void|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await close.click({ timeout: 10_000 });
+      // "Close Purchase Order — …Please provide a reason." with an optional REASON
+      // box; the button is labelled Close.
+      await po.confirmDialogButton(/^close$|confirm|yes/i).click({ timeout: 10_000 });
+
+      // The document ends up **CLOSED**, not VOIDED — this build has no voided
+      // state for a PO at all (PO_STATUS has closed/completed; the old assertion
+      // waited for a badge the app never renders). Re-open the record because
+      // confirming routes back to the list.
+      await gotoPODetail(page, created.ref);
       await expect(
         page
           .locator("[data-slot='status'], [data-slot='badge'], [class*='badge']")
-          .filter({ hasText: /voided|cancelled/i })
+          .filter({ hasText: /closed/i })
           .first(),
       ).toBeVisible({ timeout: 15_000 });
     },
@@ -948,7 +964,7 @@ purchaseTest.describe.serial("Golden Journey", () => {
 
       // Step 6: Send to Vendor
       await send.click({ timeout: 5_000 });
-      await po.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 }).catch(() => {});
+      await po.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 });
 
       await expect(page).toHaveURL(new RegExp(`${LIST_PATH}/${created.ref}`), { timeout: 15_000 });
     },

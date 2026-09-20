@@ -205,17 +205,46 @@ export class PriceListPage extends BasePage {
       .first();
   }
 
+  /**
+   * The item row's Unit. Required like Tax Profile, and just as quiet about it:
+   * when it is empty the form marks the label with a `*` but sets **no**
+   * `aria-invalid`, and pressing Create fires no request, shows no toast and
+   * leaves you on /new. That combination reads exactly like a broken Save.
+   */
+  unitTrigger(): Locator {
+    // Scoped by position, not by text: the control reads "Select Unit" on a fresh
+    // row but goes **blank** once a product is chosen, so a hasText filter finds
+    // nothing exactly when it matters. Within the row the order is Unit then Tax
+    // Profile.
+    return this.page.locator("tbody tr").first().getByRole("combobox").first();
+  }
+
+  async selectFirstUnit(): Promise<void> {
+    const trigger = this.unitTrigger();
+    if ((await trigger.count()) === 0) return;
+    await trigger.click({ timeout: 10_000 });
+    const option = this.page.getByRole("option").first();
+    await option.waitFor({ state: "visible", timeout: 10_000 });
+    await option.click({ timeout: 10_000 });
+  }
+
   async selectFirstTaxProfile(): Promise<void> {
     const trigger = this.taxProfileTrigger();
     if ((await trigger.count()) === 0) return;
     await trigger.click({ timeout: 10_000 });
-    // Skip "None" — it is the placeholder-ish entry, not a profile.
-    const option = this.page
-      .getByRole("option")
-      .filter({ hasText: /vat|tax|\d/i })
-      .first();
-    await option.waitFor({ state: "visible", timeout: 10_000 });
-    await option.click({ timeout: 10_000 });
+    const options = this.page.getByRole("option");
+    await options.first().waitFor({ state: "visible", timeout: 10_000 });
+    // Pick a real VAT profile by name. Anything looser goes wrong here: this BU
+    // still holds `<script>alert('xss-e2e')</script>` as a tax-profile name from a
+    // security test, and `/vat|tax|\d/i` matched it via the "2" in "e2e". Nor can
+    // this be an `.or()` chain — a union resolves to both sides and `.first()`
+    // then takes whichever is first in the DOM, which is that same entry.
+    const vat = options.filter({ hasText: /^vat/i }).first();
+    if ((await vat.count()) > 0) {
+      await vat.click({ timeout: 10_000 });
+      return;
+    }
+    await options.nth(1).click({ timeout: 10_000 }); // nth(0) is "None"
   }
 
   moqInput(): Locator {
@@ -284,6 +313,12 @@ export class PriceListPage extends BasePage {
    * specific date must drive the picker themselves.
    */
   async fillHeader(data: PriceListHeaderInput) {
+    // Wait for the form before touching anything. Every field here is looked up
+    // with `count() > 0`, which answers immediately — so on a page that has not
+    // finished rendering the create form, *every* field silently skipped and the
+    // save then failed validation with no clue why. Callers should not have to
+    // sleep first.
+    await this.numberInput().waitFor({ state: "visible", timeout: 15_000 });
     if (data.number !== undefined) {
       const i = this.numberInput();
       if ((await i.count()) > 0) await i.fill(data.number, { timeout: 10_000 });
@@ -319,6 +354,7 @@ export class PriceListPage extends BasePage {
       const i = this.leadTimeInput();
       if ((await i.count()) > 0) await i.fill(String(data.leadTime), { timeout: 10_000 });
     }
+    await this.selectFirstUnit();
     await this.selectFirstTaxProfile();
   }
 

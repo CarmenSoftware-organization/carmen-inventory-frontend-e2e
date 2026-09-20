@@ -41,7 +41,7 @@ _Generated from `tests/402-po-purchaser-journey.spec.ts` annotations. Edit annot
 | TC-PO-060501 | Approved PO has Send to Vendor + Close buttons (seeded via seedApprovedPO) | High | Functional |
 | TC-PO-060502 | Click Send to Vendor → status updates / toast | High | CRUD |
 | TC-PO-060503 | Close PO with items received → COMPLETED | Medium | CRUD |
-| TC-PO-060504 | Close PO without items received → VOIDED | Medium | CRUD |
+| TC-PO-060504 | Close PO without items received → CLOSED | Medium | CRUD |
 | TC-PO-060901 | Full Purchaser flow: Create blank → Save Draft → Submit → FC approves → Send to Vendor | High | Smoke |
 
 ---
@@ -691,7 +691,7 @@ text ของ status ตรงกับ /completed/i หลัง close Skip �
 
 ---
 
-## TC-PO-060504 — Close PO without items received → VOIDED
+## TC-PO-060504 — Close PO without items received → CLOSED
 
 > **As a** Purchase user, **I want** to manage Po Purchaser Journey records via CRUD, **so that** the data stays correct over time.
 
@@ -741,4 +741,4 @@ URL ยังคงอยู่ที่ PO ref หลัง Send to Vendor (lif
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 406597d</sub>
+<sub>Last regenerated: 2026-09-20 · git 7d7ff7f</sub>
