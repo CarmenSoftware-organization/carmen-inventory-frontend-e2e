@@ -32,6 +32,7 @@ function render(rows: SpecSummary[]): string {
   const helperOnly = rows.reduce((s, r) => s + r.helperOnly, 0);
   const trivialOnly = rows.reduce((s, r) => s + r.trivialOnly, 0);
   const assertions = rows.reduce((s, r) => s + r.assertions, 0);
+  const guarded = rows.reduce((s, r) => s + r.guarded, 0);
   const dormantPct = declared ? Math.round(((skipped + fixme) * 100) / declared) : 0;
 
   const lines: string[] = [
@@ -53,6 +54,7 @@ function render(rows: SpecSummary[]): string {
     `| Running cases asserting only through a page-object helper | ${helperOnly} |`,
     `| **Running cases asserting nothing at all** | **${silent}** |`,
     `| Running cases whose assertions are all trivial | ${trivialOnly} |`,
+    `| Running cases behind an in-body skip guard | ${guarded} |`,
     `| Assertions in running cases | ${assertions} |`,
     "",
     "**Trivial** means the assertion cannot fail — `expect(true).toBe(true)` and friends.",
@@ -62,6 +64,14 @@ function render(rows: SpecSummary[]): string {
     "> **What this cannot see:** an assertion helper is recognised by its name (`expectSomething`).",
     "> A page-object method that asserts under another name — `verifyX`, `assertY` — still reads as",
     "> silent here. Open the case before acting on a number; the count is a place to look, not a verdict.",
+    "",
+    "**Guard** counts running cases holding an in-body `test.skip(condition, ...)`. Dormant does not",
+    "include them: the case is declared as running and the reporter shows it, but whether it executes",
+    "is decided at runtime by a locator count or a seeded row. A guard that is always true is a case",
+    "that never runs and never says so — `304-pr-purchaser-journey.spec.ts` reads as 0% dormant while",
+    "four of its cases skip every run, because the page object looks for fields in a collapsed row that",
+    "only exist once the row is expanded. A high guard count is a place to look, not a verdict.",
+    "",
     "**Catch** counts `.catch(...)` calls in the file; they usually wrap an action, but one",
     "wrapped around an assertion turns a failure into a pass, so a high count is worth a look.",
     "",
@@ -69,8 +79,8 @@ function render(rows: SpecSummary[]): string {
     "",
     "Sorted by dormant share, then by cases that assert nothing.",
     "",
-    "| Spec | Run | Skip | Fixme | Dormant | Asserts nothing | Helper only | Trivial only | Assertions | Catch |",
-    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+    "| Spec | Run | Skip | Fixme | Dormant | Asserts nothing | Helper only | Trivial only | Guarded | Assertions | Catch |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
   ];
 
   const sorted = [...rows].sort(
@@ -80,7 +90,8 @@ function render(rows: SpecSummary[]): string {
     const flag = (n: number) => (n > 0 ? `**${n}**` : "0");
     lines.push(
       `| \`${r.file}\` | ${r.run} | ${r.skipped} | ${r.fixme} | ${r.dormantPct}% |` +
-        ` ${flag(r.silent)} | ${r.helperOnly} | ${flag(r.trivialOnly)} | ${r.assertions} | ${r.catchCalls} |`,
+        ` ${flag(r.silent)} | ${r.helperOnly} | ${flag(r.trivialOnly)} |` +
+        ` ${flag(r.guarded)} | ${r.assertions} | ${r.catchCalls} |`,
     );
   }
   lines.push("");
