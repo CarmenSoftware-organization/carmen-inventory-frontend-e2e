@@ -3,6 +3,7 @@
 **Date:** 2026-09-20
 **Status:** approved (design), implementation pending
 **Scope:** documentation only — no Playwright specs are written by this work
+**Out of scope (รอบนี้):** `routes/accounting/*`
 
 ## Goal
 
@@ -32,9 +33,8 @@
 | **B** | มี catalog แต่ต้องสอบทานกับ route ปัจจุบัน | 32 module | แก้ไฟล์เดิมในที่ |
 | **C** | มี spec แล้ว | ~30 module | gap report เฉพาะส่วนที่ spec ไม่ครอบ |
 
-กลุ่ม A ที่ระบุได้ตอนสแกน: `accounting/*` (AP invoice/payment, AR invoice/receipt,
-journal-voucher, recurring-voucher, template-voucher, allocation-voucher,
-financial-reports), `config/account-mapping`, `config/chart-of-accounts`,
+กลุ่ม A ที่ระบุได้ตอนสแกน (accounting อยู่ในกลุ่มนี้แต่ถูก defer — ดูหัวข้อ phase):
+`accounting/*`, `config/account-mapping`, `config/chart-of-accounts`,
 `config/shelf`, `system-admin/company-profile`, `default-setting`, `email-profile`,
 `email-template`, `interface`, `inventory-period`, `business-setting`,
 auth peripherals (`register`, `register/verify`, `invitations/:token`,
@@ -93,9 +93,14 @@ catalog มือทับจะได้ source-of-truth สองชุดท�
 | P2 | auth peripherals + report sub-routes | ~8 | 1 |
 | P3 | refresh catalog เดิม 32 ไฟล์ | 32 | 1 |
 | P4 | `gaps/` ของ module ที่มี spec | ~30 | 1 |
-| P5 | accounting ทั้งก้อน | ~10 | 1 |
 
-accounting ถูกเลื่อนไปท้ายสุดตามที่เจ้าของงานสั่ง (2026-09-20)
+### ยังไม่ทำรอบนี้ (deferred)
+
+**`routes/accounting/*` ทั้งก้อน** (~10 module: AP invoice/payment, AR invoice/receipt,
+journal-voucher, recurring-voucher, template-voucher, allocation-voucher,
+financial-reports) — เจ้าของงานสั่งไม่ให้ทำในรอบนี้ (2026-09-20)
+`COVERAGE.md` ยัง**ต้องแสดง**ทุก route ของ accounting ด้วย status `none` เพื่อให้
+ช่องว่างนี้มองเห็นได้ แต่จะไม่มี catalog ใดถูกเขียนให้มัน
 
 ## สัญญาของ subagent (1 ตัว = 1 module)
 
