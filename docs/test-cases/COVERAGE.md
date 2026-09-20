@@ -7,8 +7,8 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Status | Meaning | Modules |
 | --- | --- | --- |
 | ✅ spec | an automated Playwright spec drives this module | 36 |
-| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 31 |
-| ❌ none | neither — this is the coverage gap | 35 |
+| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 33 |
+| ❌ none | neither — this is the coverage gap | 33 |
 
 ## *
 
@@ -21,10 +21,10 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
 | `/accounting` | 1 | — | — | ❌ none |
-| `/accounting/accounts-payable` | 1 _(redirect)_ | — | — | ❌ none |
+| `/accounting/accounts-payable` | 1 _(redirect → `/accounting/accounts-payable/invoice`)_ | — | — | ❌ none |
 | `/accounting/accounts-payable/invoice` | 2 | — | — | ❌ none |
 | `/accounting/accounts-payable/payment` | 2 | — | — | ❌ none |
-| `/accounting/accounts-receivable` | 1 _(redirect)_ | — | — | ❌ none |
+| `/accounting/accounts-receivable` | 1 _(redirect → `/accounting/accounts-receivable/invoice`)_ | — | — | ❌ none |
 | `/accounting/accounts-receivable/invoice` | 2 | — | — | ❌ none |
 | `/accounting/accounts-receivable/receipt` | 2 | — | — | ❌ none |
 | `/accounting/allocation-voucher` | 2 | — | — | ❌ none |
@@ -188,7 +188,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | --- | --- | --- | --- | --- |
 | `/system-admin` | 1 | — | `1113-signature-config.md` | 📄 catalog |
 | `/system-admin/activity-log` | 1 | — | `1109-activity-log.md` | 📄 catalog |
-| `/system-admin/business-setting` | 1 _(redirect)_ | — | — | ❌ none |
+| `/system-admin/business-setting` | 1 _(redirect → `/system-admin/company-profile`)_ | — | `1114-company-profile.md` | 📄 catalog |
 | `/system-admin/company-profile` | 1 | — | `1114-company-profile.md` | 📄 catalog |
 | `/system-admin/dashboard-dataset` | 1 | — | `1112-dashboard-dataset.md` | 📄 catalog |
 | `/system-admin/default-setting` | 1 | — | `1115-default-setting.md` | 📄 catalog |
@@ -198,7 +198,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | `/system-admin/interface` | 2 | — | `1118-interface.md` | 📄 catalog |
 | `/system-admin/inventory-period` | 1 | — | `1105-system-period.md` | 📄 catalog |
 | `/system-admin/notification-template` | 3 | — | `1104-notification-template.md` | 📄 catalog |
-| `/system-admin/period` | 1 _(redirect)_ | — | — | ❌ none |
+| `/system-admin/period` | 1 _(redirect → `/system-admin/inventory-period`)_ | — | `1105-system-period.md` | 📄 catalog |
 | `/system-admin/role` | 3 | — | `1101-role.md` | 📄 catalog |
 | `/system-admin/running-code` | 1 | — | `1110-running-code.md` | 📄 catalog |
 | `/system-admin/user` | 2 | — | `1102-user.md` | 📄 catalog |

@@ -57,6 +57,8 @@ export interface CoverageRow {
   redirectOnly: boolean;
   /** True for a section's index page (`/config`, `/dashboard`, `/procurement`). */
   isLanding: boolean;
+  /** For a redirect-only module, the module it lands on. */
+  redirectTarget?: string;
   specs: string[];
   catalogs: string[];
   status: CoverageStatus;
@@ -248,6 +250,7 @@ export function buildCoverage(input: {
   }
 
   const rows: CoverageRow[] = [];
+  const redirectTargets = new Map<string, string>();
   for (const [module, entries] of modules) {
     const specs = [...(specsByModule.get(module) ?? [])].sort();
     const catalogs = [...(catalogsByModule.get(module) ?? [])].sort();
@@ -261,7 +264,27 @@ export function buildCoverage(input: {
       catalogs,
       status: specs.length ? "spec" : catalogs.length ? "catalog" : "none",
     });
+    const target = entries.find((e) => e.redirectTo)?.redirectTo;
+    if (target) redirectTargets.set(module, collapseToModule(target));
   }
+
+  // A redirect-only URL is covered by whoever covers its destination: the
+  // catalog for inventory-period holds the case that opens `/system-admin/period`
+  // and asserts the bounce. Reporting the redirect as uncovered invites someone
+  // to write that case a second time.
+  const byModule = new Map(rows.map((r) => [r.module, r]));
+  for (const row of rows) {
+    if (!row.redirectOnly) continue;
+    const target = redirectTargets.get(row.module);
+    if (!target) continue;
+    row.redirectTarget = target;
+    const destination = byModule.get(target);
+    if (!destination || destination.status === "none") continue;
+    row.status = destination.status;
+    row.specs = destination.specs;
+    row.catalogs = destination.catalogs;
+  }
+
   return rows.sort((a, b) => a.module.localeCompare(b.module));
 }
 

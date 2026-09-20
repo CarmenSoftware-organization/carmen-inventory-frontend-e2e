@@ -148,7 +148,9 @@ function render(rows: CoverageRow[], orphans: UnmatchedCatalog[]): string {
     lines.push("| Module | Routes | Spec | Catalog | Status |");
     lines.push("| --- | --- | --- | --- | --- |");
     for (const row of areaRows.sort((a, b) => a.module.localeCompare(b.module))) {
-      const routeCell = row.redirectOnly ? `${row.urls.length} _(redirect)_` : String(row.urls.length);
+      const routeCell = row.redirectOnly
+        ? `${row.urls.length} _(redirect → \`${row.redirectTarget ?? "?"}\`)_`
+        : String(row.urls.length);
       lines.push(
         `| \`${row.module}\` | ${routeCell} | ${cell(row.specs)} | ${cell(row.catalogs)} | ${STATUS_LABEL[row.status]} |`,
       );
