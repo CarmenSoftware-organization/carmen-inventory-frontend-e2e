@@ -8,16 +8,16 @@ that runs without an `expect(...)`, reports green and checks nothing.
 
 | | Count |
 | --- | --- |
-| Cases declared | 1261 |
-| **Running** | **1020** |
+| Cases declared | 1317 |
+| **Running** | **1073** |
 | Skipped | 201 |
-| Fixme | 40 |
+| Fixme | 43 |
 | **Dormant** (skipped + fixme) | **19%** |
 | Running cases asserting only through a page-object helper | 18 |
 | **Running cases asserting nothing at all** | **285** |
 | Running cases whose assertions are all trivial | 25 |
 | Running cases behind an in-body skip guard | 223 |
-| Assertions in running cases | 1228 |
+| Assertions in running cases | 1310 |
 
 **Trivial** means the assertion cannot fail — `expect(true).toBe(true)` and friends.
 **Helper** counts calls like `pr.expectSavedToast()`: the page object asserts, so the case is fine —
@@ -53,6 +53,7 @@ Sorted by dormant share, then by cases that assert nothing.
 | `311-pr-returned-flow.spec.ts` | 10 | 0 | 2 | 17% | 0 | 0 | 0 | **9** | 14 | 6 |
 | `159-pl.spec.ts` | 24 | 0 | 4 | 14% | **1** | 1 | **2** | **1** | 32 | 21 |
 | `101-product-category.spec.ts` | 21 | 0 | 2 | 9% | 0 | 0 | 0 | 0 | 40 | 1 |
+| `711-stock-replenishment.spec.ts` | 33 | 0 | 3 | 8% | 0 | 0 | 0 | 0 | 47 | 16 |
 | `1001-campaign.spec.ts` | 43 | 0 | 3 | 7% | **33** | 0 | **1** | **2** | 16 | 26 |
 | `040-currency.spec.ts` | 14 | 0 | 1 | 7% | 0 | 0 | 0 | 0 | 33 | 1 |
 | `150-vendor.spec.ts` | 29 | 0 | 2 | 6% | 0 | 1 | 0 | 0 | 51 | 1 |
@@ -86,3 +87,4 @@ Sorted by dormant share, then by cases that assert nothing.
 | `304-pr-purchaser-journey.spec.ts` | 26 | 0 | 0 | 0% | 0 | 0 | 0 | **22** | 36 | 9 |
 | `402-po-purchaser-journey.spec.ts` | 32 | 0 | 0 | 0% | 0 | 0 | 0 | **26** | 42 | 17 |
 | `602-cn-reason.spec.ts` | 14 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 31 | 0 |
+| `710-wastage-reporting.spec.ts` | 20 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 35 | 6 |

@@ -8,8 +8,8 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Status | Meaning | Modules |
 | --- | --- | --- |
-| ✅ spec | an automated Playwright spec drives this module | 41 |
-| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 45 |
+| ✅ spec | an automated Playwright spec drives this module | 43 |
+| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 43 |
 | ❌ none | neither — this is the coverage gap | 16 |
 
 ## *
@@ -128,7 +128,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | `/procurement` | 1 | `002-spa-smoke.spec.ts` | `1204-section-landing.md` | ✅ spec |
 | `/procurement/approval` | 1 | `002-spa-smoke.spec.ts`<br>`201-my-approvals.spec.ts`<br>`303-pr-approver-journey.spec.ts` | — | ✅ spec |
 | `/procurement/credit-note` | 3 | `002-spa-smoke.spec.ts`<br>`601-cn.spec.ts` | — | ✅ spec |
-| `/procurement/goods-receive-note` | 3 | `002-spa-smoke.spec.ts`<br>`501-grn.spec.ts` | — | ✅ spec |
+| `/procurement/goods-receive-note` | 3 | `002-spa-smoke.spec.ts`<br>`501-grn.spec.ts`<br>`710-wastage-reporting.spec.ts` | — | ✅ spec |
 | `/procurement/goods-receive-note/from-po` | 1 | — | — | ❌ none |
 | `/procurement/purchase-order` | 3 | `002-spa-smoke.spec.ts`<br>`401-po.spec.ts`<br>`402-po-purchaser-journey.spec.ts`<br>`403-po-approver-journey.spec.ts`<br>_+1 more_ | — | ✅ spec |
 | `/procurement/purchase-order/from-pr` | 1 | — | — | ❌ none |
@@ -180,9 +180,9 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
 | `/store-operation` | 1 | — | `1204-section-landing.md` | 📄 catalog |
-| `/store-operation/stock-replenishment` | 1 | — | `711-stock-replenishment.md` | 📄 catalog |
+| `/store-operation/stock-replenishment` | 1 | `711-stock-replenishment.spec.ts` | — | ✅ spec |
 | `/store-operation/store-requisition` | 3 | `701-sr.spec.ts`<br>`720-stock-issue.spec.ts` | — | ✅ spec |
-| `/store-operation/wastage-reporting` | 1 | — | `710-wastage-reporting.md` | 📄 catalog |
+| `/store-operation/wastage-reporting` | 1 | `710-wastage-reporting.spec.ts` | — | ✅ spec |
 
 ## Platform / System Admin
 

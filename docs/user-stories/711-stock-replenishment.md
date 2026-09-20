@@ -1,342 +1,797 @@
 # Stock Replenishment — User Stories
 
-_Authored from the test-case catalog `docs/test-cases/711-stock-replenishment.md` (documentation only — no automated spec yet)._
+_Generated from `tests/711-stock-replenishment.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Stock Replenishment
-**Frontend route:** `routes/store-operation/stock-replenishment`  •  **URL:** `/store-operation/stock-replenishment`
-**Prefix:** `SRPL`
-**Default role:** Store Manager
-**Total test cases:** 23
-
-> หมายเหตุ: โมดูลนี้เป็นหน้าสรุป (read-only dashboard) ของสินค้าที่ต้องเติมสต็อก ไม่มีหน้า create/edit/delete เอกสารแยก — แสดงข้อมูลแบบจัดกลุ่มตาม location (collapsible) พร้อม status critical/warning/low และให้เลือกสินค้าเพื่อสร้าง PR/SR. ปัจจุบัน hook โหลดจาก mock data (ผูกกับ BU code ผ่าน `useBuCode`).
+**Spec:** `tests/711-stock-replenishment.spec.ts`
+**Default role:** Admin
+**Total test cases:** 36 (14 High / 17 Medium / 5 Low)
 
 ## Test Cases at a Glance
+
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
 | TC-SRPL-010001 | หน้า Stock Replenishment โหลดสำเร็จ | High | Smoke |
-| TC-SRPL-010002 | แถบสรุป (locations/items/critical/warning/low/totalNeed) แสดงครบ | High | Functional |
-| TC-SRPL-010003 | location แสดงแบบ collapsible พร้อม badge สรุปสถานะ | Medium | Functional |
+| TC-SRPL-010002 | แถบสรุป (locations/items/critical/warning/low/Total reorder) แสดงครบ | High | Functional |
+| TC-SRPL-010003 | แถบหัว location แสดง checkbox + รหัส/ชื่อคลัง + badge จำนวนและสถานะ | Medium | Functional |
 | TC-SRPL-010004 | ขยาย/ยุบ location เดี่ยวได้ | Medium | Functional |
-| TC-SRPL-010005 | ปุ่ม Expand All / Collapse All ทำงาน | Medium | Functional |
-| TC-SRPL-010006 | คอลัมน์ตารางสินค้า (สินค้า/หมวด/หมวดย่อย/กลุ่ม/current/par level/need/สถานะ) แสดงครบ | Medium | Functional |
-| TC-SRPL-010007 | ค้นหาด้วยชื่อสินค้า/หมวด/หมวดย่อย/กลุ่มสินค้า ใช้งานได้ | Medium | Functional |
+| TC-SRPL-010005 | ปุ่มสลับ Expand all / Collapse all ทำงาน | Medium | Functional |
+| TC-SRPL-010006 | คอลัมน์ตารางสินค้า (select/#/Product/Category/Sub Category/Item Group/On Hand/Min/Max/Par/Reorder/Status) แสดงครบ | Medium | Functional |
+| TC-SRPL-010007 | ค้นหาด้วยชื่อ/รหัส/ชื่อท้องถิ่น/หมวด/หมวดย่อย/กลุ่มสินค้า ใช้งานได้ | Medium | Functional |
 | TC-SRPL-010008 | ค้นหาคำที่ไม่มีต้องไม่แสดง location ใด ๆ | Medium | Functional |
 | TC-SRPL-010009 | ปุ่ม Refresh โหลดข้อมูลใหม่ | Low | Functional |
+| TC-SRPL-010010 | ล้างคำค้นด้วยปุ่ม X แล้วรายการกลับมาครบ | Low | Functional |
 | TC-SRPL-010050 | active BU = BLAVG | High | Smoke |
-| TC-SRPL-020001 | badge สถานะสินค้า (critical/warning/low) แสดงสีถูกต้อง | Medium | Functional |
-| TC-SRPL-020002 | คอลัมน์ need แสดงค่าจำนวนที่ต้องเติม (par level - current) | Medium | Functional |
+| TC-SRPL-020001 | badge สถานะสินค้า (Critical/Warning/Low) แสดงโทนถูกต้อง | Medium | Functional |
+| TC-SRPL-020002 | คอลัมน์ Reorder แสดง reorder_qty ตัวหนา และผลรวมตรงกับ Total reorder | Medium | Functional |
+| TC-SRPL-020003 | คอลัมน์ Product แสดงชื่อท้องถิ่นเป็นบรรทัดรอง | Low | Functional |
 | TC-SRPL-060001 | เลือกสินค้าในแถวเดียวด้วย checkbox ได้ | High | Functional |
-| TC-SRPL-060002 | เลือกทั้งหมดใน location ด้วย header checkbox ได้ | Medium | Functional |
-| TC-SRPL-060003 | header checkbox แสดงสถานะ indeterminate เมื่อเลือกบางส่วน | Medium | Functional |
+| TC-SRPL-060002 | เลือกทั้งหมดใน location ด้วย checkbox บนแถบหัว location | Medium | Functional |
+| TC-SRPL-060003 | checkbox แถบหัว location แสดงสถานะ indeterminate เมื่อเลือกบางส่วน | Medium | Functional |
 | TC-SRPL-060004 | เลือกข้ามหลาย location แล้วตัวนับรวมถูกต้อง | Medium | Functional |
 | TC-SRPL-060005 | ปุ่ม Create PR / Create SR แสดงเมื่อมีการเลือก พร้อมจำนวนที่เลือก | High | Functional |
 | TC-SRPL-060006 | ยกเลิกการเลือกทั้งหมดแล้วปุ่ม Create PR/SR หายไป | Medium | Functional |
-| TC-SRPL-100001 | ผู้ใช้ไม่มีสิทธิ์เข้าถึง Stock Replenishment ต้องถูกบล็อก | High | Authorization |
+| TC-SRPL-060007 | กด Create PR เปิด wizard พร้อมตารางรายการที่ติ๊ก | High | Functional |
+| TC-SRPL-060008 | ปุ่ม Create ใน PR wizard ปิดจนกว่าจะเลือก workflow + หน่วย + จำนวน > 0 | High | Validation |
+| TC-SRPL-060009 | ตัดแถวออกจาก PR wizard ด้วยปุ่มถังขยะ | Medium | Functional |
+| TC-SRPL-060010 | กด Create SR (ติ๊กคลังเดียว) เปิด wizard พร้อม Workflow / Request From / Deliver To | High | Functional |
+| TC-SRPL-060011 | ช่อง Request From ของ SR wizard ไม่มีคลังปลายทางให้เลือก | Medium | Functional |
+| TC-SRPL-060012 | ปิด wizard ด้วย Cancel แล้วไม่มีเอกสารเกิดขึ้นและรายการที่ติ๊กยังอยู่ | Medium | Functional |
+| TC-SRPL-100001 | ผู้ใช้ที่ไม่มีสิทธิ์เปิด URL ตรง ๆ ต้องเจอ Access Denied | High | Authorization |
 | TC-SRPL-100002 | ผู้ที่ไม่ได้ login เข้าหน้าตรง ๆ ต้องถูก redirect ไป /login | High | Auth-guard |
-| TC-SRPL-300001 | Create PR จากสินค้าที่เลือกนำสินค้าไปยังการสร้าง Purchase Request | High | Functional |
-| TC-SRPL-300002 | Create SR จากสินค้าที่เลือกนำสินค้าไปยังการสร้าง Store Requisition | High | Functional |
+| TC-SRPL-100003 | Admin เข้าหน้าได้แม้ไม่มี permission ตรง ๆ | Medium | Authorization |
+| TC-SRPL-300001 | Create PR สร้างใบขอซื้อจากรายการที่เลือกได้สำเร็จ | High | Integration |
+| TC-SRPL-300002 | Create SR สร้างใบเบิกจากรายการที่เลือกได้สำเร็จ | High | Integration |
+| TC-SRPL-300003 | ติ๊กข้ามหลายคลังแล้ว Create PR ได้ใบขอซื้อคลังละใบ | High | Integration |
 | TC-SRPL-900001 | กรณีไม่มีสินค้าต้องเติม / empty state | Low | Edge Case |
+| TC-SRPL-900002 | กด Create SR ขณะติ๊กข้าม 2 คลังขึ้นไป ต้องเตือนว่าใบเบิกทำได้ทีละคลัง | High | Edge Case |
+| TC-SRPL-900003 | ไม่มี workflow ที่เริ่มได้ กด Create PR/SR แล้วเด้ง Permission Denied | Medium | Edge Case |
+| TC-SRPL-900004 | โหลดข้อมูลล้มเหลวต้องแสดง error state พร้อมปุ่ม Try again | Low | Edge Case |
 
 ---
+
 ## TC-SRPL-010001 — หน้า Stock Replenishment โหลดสำเร็จ
-> **As a** Store Manager, **I want** the Stock Replenishment dashboard to load reliably, **so that** I can see which items need restocking.
+
+> **As a** Admin user, **I want** core Stock Replenishment interactions to work, **so that** day-to-day usage stays smooth.
 
 **Priority:** High · **Test Type:** Smoke
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG; มีสิทธิ์เข้าถึง Store Operation
+
+เข้าสู่ระบบเป็น Store Manager/Admin; active BU = BLAVG; บัญชีมีสิทธิ์ inventory_management.stock_in.view และ license store_operations.stock_replenishment
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
+
+1. ไปที่ /store-operation/stock-replenishment
+
 **Expected**
-URL ตรงกับ `/store-operation/stock-replenishment`; หัวข้อหน้าและคำอธิบายแสดง พร้อมรายการ location ที่ต้องเติมสต็อกภายใน 10 วินาที
+
+URL ตรงกับ /store-operation/stock-replenishment; หัวข้อหน้า 'Stock Replenishment' และคำอธิบายแสดง; แถบสรุปแสดงผลภายใน 10 วินาที
 
 ---
-## TC-SRPL-010002 — แถบสรุป (locations/items/critical/warning/low/totalNeed) แสดงครบ
-> **As a** Store Manager, **I want** a summary bar of totals and status counts, **so that** I can gauge the replenishment workload at a glance.
+
+## TC-SRPL-010002 — แถบสรุป (locations/items/critical/warning/low/Total reorder) แสดงครบ
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** High · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; มีข้อมูลสินค้าที่ต้องเติมอย่างน้อย 1 รายการ
+
+เข้าสู่ระบบเป็น Store Manager/Admin; อยู่ที่หน้า Stock Replenishment
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. ตรวจแถบสรุปด้านบน
+
+1. ไปที่ /store-operation/stock-replenishment
+2. ตรวจแถบสรุปด้านบนสุดของรายการ
+
 **Expected**
-แถบสรุปแสดงจำนวน locations, จำนวน items, badge critical/warning/low (ตามจำนวนแต่ละสถานะ) และ totalNeed (ผลรวมจำนวนที่ต้องเติมทั้งหมด)
+
+แถบสรุปแสดง locations, items, critical, warning, low badges และ Total reorder
 
 ---
-## TC-SRPL-010003 — location แสดงแบบ collapsible พร้อม badge สรุปสถานะ
-> **As a** Store Manager, **I want** each location shown as a collapsible row with status badges, **so that** I can focus on one storage area at a time.
+
+## TC-SRPL-010003 — แถบหัว location แสดง checkbox + รหัส/ชื่อคลัง + badge จำนวนและสถานะ
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; มีหลาย location ที่มีสินค้าต้องเติม
+
+เข้าสู่ระบบเป็น Store Manager/Admin; มีข้อมูล location
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. ตรวจหัวแถวของแต่ละ location
+
+1. ไปที่ /store-operation/stock-replenishment
+2. ตรวจแถบหัวของแต่ละ location
+
 **Expected**
-แต่ละ location แสดงเป็นแถบ collapsible พร้อมชื่อ location, badge จำนวน items และ badge critical/warning/low เฉพาะที่มีจำนวน > 0
+
+แถบ location ประกอบด้วย checkbox, chevron icon, location code/name และ badges
 
 ---
+
 ## TC-SRPL-010004 — ขยาย/ยุบ location เดี่ยวได้
-> **As a** Store Manager, **I want** to expand and collapse a single location, **so that** I can drill into its items without clutter from others.
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า Stock Replenishment
+
+เข้าสู่ระบบเป็น Store Manager/Admin; มีอย่างน้อย 1 location
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. กดที่หัวแถวของ location หนึ่ง
+
+1. กดที่ปุ่ม collapsible บนแถบหัว location
+2. กดซ้ำที่ปุ่มเดิม
+
 **Expected**
-location เปิดออกแสดงตารางสินค้าด้านใน (ไอคอน chevron หมุน); กดซ้ำเพื่อยุบกลับได้
+
+ครั้งแรกตารางสินค้าเปิดออก ครั้งที่สองตารางยุบกลับ
 
 ---
-## TC-SRPL-010005 — ปุ่ม Expand All / Collapse All ทำงาน
-> **As a** Store Manager, **I want** Expand All / Collapse All controls, **so that** I can quickly open or close every location at once.
+
+## TC-SRPL-010005 — ปุ่มสลับ Expand all / Collapse all ทำงาน
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; มี location มากกว่า 1 แห่ง
+
+เข้าสู่ระบบเป็น Store Manager/Admin; อยู่ที่หน้า Stock Replenishment
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. กดปุ่ม Expand All
-3. กดปุ่ม Collapse All
+
+1. กดปุ่ม 'Expand all'
+2. กดปุ่มเดิมอีกครั้ง ('Collapse all')
+
 **Expected**
-Expand All ขยายทุก location พร้อมกัน และปุ่มสลับเป็น Collapse All; Collapse All ยุบทุก location กลับ
+
+ปุ่มสลับป้ายระหว่าง Expand all และ Collapse all
 
 ---
-## TC-SRPL-010006 — คอลัมน์ตารางสินค้า (สินค้า/หมวด/หมวดย่อย/กลุ่ม/current/par level/need/สถานะ) แสดงครบ
-> **As a** Store Manager, **I want** the item table to show all stock columns, **so that** I can judge what and how much to reorder.
+
+## TC-SRPL-010006 — คอลัมน์ตารางสินค้า (select/#/Product/Category/Sub Category/Item Group/On Hand/Min/Max/Par/Reorder/Status) แสดงครบ
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; เปิด location ที่มีสินค้าอย่างน้อย 1 รายการ
+
+เข้าสู่ระบบเป็น Store Manager/Admin; ขยาย location หนึ่ง
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. ขยาย location หนึ่งและตรวจหัวตาราง
+
+1. ไปที่ /store-operation/stock-replenishment
+2. ตรวจสอบตารางสินค้าภายใน location
+
 **Expected**
-ตารางสินค้าแสดงคอลัมน์: checkbox เลือก, ลำดับ, สินค้า, หมวดหมู่, หมวดย่อย, กลุ่มสินค้า, current (ชิดขวา), par level (ชิดขวา), need (ชิดขวา ตัวหนา) และสถานะ (badge)
+
+ตารางแสดงคอลัมน์ถูกต้องตามลำดับ
 
 ---
-## TC-SRPL-010007 — ค้นหาด้วยชื่อสินค้า/หมวด/หมวดย่อย/กลุ่มสินค้า ใช้งานได้
-> **As a** Store Manager, **I want** to search across product name and categories, **so that** I can isolate the items I care about across locations.
+
+## TC-SRPL-010007 — ค้นหาด้วยชื่อ/รหัส/ชื่อท้องถิ่น/หมวด/หมวดย่อย/กลุ่มสินค้า ใช้งานได้
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; มีสินค้าหลายรายการในหลาย location
+
+เข้าสู่ระบบเป็น Store Manager/Admin; อยู่ที่หน้า Stock Replenishment
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. พิมพ์คำค้น (เช่น ชื่อสินค้าบางส่วน) ในช่อง Search
+
+1. พิมพ์คำค้นในช่อง Search
+2. กด Enter หรือไอคอนแว่นขยาย
+
 **Expected**
-แสดงเฉพาะ location ที่มีสินค้าตรงคำค้น และในแต่ละ location เหลือเฉพาะสินค้าที่ชื่อ/หมวด/หมวดย่อย/กลุ่มตรงกับคำค้น (case-insensitive)
+
+แสดงเฉพาะ location และสินค้าที่ตรงกับคำค้น
 
 ---
+
 ## TC-SRPL-010008 — ค้นหาคำที่ไม่มีต้องไม่แสดง location ใด ๆ
-> **As a** Store Manager, **I want** a no-match search to hide all locations, **so that** I get unambiguous feedback when nothing matches.
+
+> **As a** Admin user, **I want** a clear empty-state when no Stock Replenishment records match my search, **so that** I know nothing was found.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า Stock Replenishment
+
+เข้าสู่ระบบเป็น Store Manager/Admin
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. พิมพ์คำค้นที่ไม่มีในระบบ (เช่น "zzzznotfound")
+
+1. พิมพ์คำค้นที่ไม่มีในระบบแล้วกด Enter
+
 **Expected**
-ไม่มี location แสดง (location ที่ไม่มีสินค้าตรงคำค้นถูกกรองออกทั้งหมด); แถบสรุปแสดงจำนวนเป็น 0
+
+ไม่แสดง location ใด ๆ และตัวนับ items เป็น 0
 
 ---
+
 ## TC-SRPL-010009 — ปุ่ม Refresh โหลดข้อมูลใหม่
-> **As a** Store Manager, **I want** a Refresh button, **so that** I can pull the latest stock levels without reloading the whole page.
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Low · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า Stock Replenishment
+
+เข้าสู่ระบบเป็น Store Manager/Admin
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. กดปุ่ม Refresh มุมขวาบน
+
+1. กดปุ่ม Refresh บน toolbar
+
 **Expected**
-ข้อมูลถูก refetch และรายการ location/สรุปแสดงผลใหม่โดยไม่ต้อง reload ทั้งหน้า
+
+โหลดข้อมูลใหม่และหน้าไม่ crash
 
 ---
+
+## TC-SRPL-010010 — ล้างคำค้นด้วยปุ่ม X แล้วรายการกลับมาครบ
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** Low · **Test Type:** Functional
+
+**Preconditions**
+
+เข้าสู่ระบบเป็น Store Manager/Admin; มีคำค้นค้างอยู่
+
+**Steps**
+
+1. พิมพ์คำค้นในช่อง Search
+2. ล้างคำค้นและกด Enter
+
+**Expected**
+
+ช่องค้นว่างและรายการทั้งหมดกลับมา
+
+---
+
 ## TC-SRPL-010050 — active BU = BLAVG
-> **As a** Store Manager, **I want** replenishment data bound to BU BLAVG, **so that** I only see restocking needs for my own unit.
+
+> **As a** Admin user, **I want** core Stock Replenishment interactions to work, **so that** day-to-day usage stays smooth.
 
 **Priority:** High · **Test Type:** Smoke
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; ผู้ใช้ผูกกับ BU BLAVG
+
+เข้าสู่ระบบเป็น Admin/Store Manager; ผู้ใช้ผูกกับ BU BLAVG
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. ตรวจ BU ที่ active บน header/BU switcher
+
+1. ไปที่ /store-operation/stock-replenishment
+2. ตรวจ BU ที่ active
+
 **Expected**
-Business Unit ที่ active คือ BLAVG; ข้อมูล stock replenishment ถูกผูกกับ BU BLAVG (query key รวม buCode) และจะไม่ fetch จนกว่า buCode พร้อม
+
+Business Unit ที่ active คือ BLAVG
 
 ---
-## TC-SRPL-020001 — badge สถานะสินค้า (critical/warning/low) แสดงสีถูกต้อง
-> **As a** Store Manager, **I want** status badges color-coded by severity, **so that** I can spot critical shortages instantly.
+
+## TC-SRPL-020001 — badge สถานะสินค้า (Critical/Warning/Low) แสดงโทนถูกต้อง
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; มีสินค้าครบทั้ง 3 สถานะ
+
+เข้าสู่ระบบเป็น Store Manager/Admin
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. ขยาย location และตรวจ badge ในคอลัมน์สถานะ
+
+1. ตรวจสอบ badge สถานะในแถบสรุป
+
 **Expected**
-critical แสดง badge สี destructive, warning แสดง badge สี warning และ low แสดง badge สี secondary ตรงกับสถานะของแต่ละสินค้า
+
+badge แสดง Critical (แดง), Warning (เหลือง), Low (กลาง)
 
 ---
-## TC-SRPL-020002 — คอลัมน์ need แสดงค่าจำนวนที่ต้องเติม (par level - current)
-> **As a** Store Manager, **I want** the need column to show the quantity gap, **so that** I know exactly how much to order per item.
+
+## TC-SRPL-020002 — คอลัมน์ Reorder แสดง reorder_qty ตัวหนา และผลรวมตรงกับ Total reorder
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; เปิด location ที่มีสินค้า
+
+เข้าสู่ระบบเป็น Store Manager/Admin
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. ขยาย location และตรวจคอลัมน์ current, par level และ need
+
+1. ตรวจสอบค่า Total reorder บนแถบสรุป
+
 **Expected**
-คอลัมน์ need แสดงจำนวนที่ต้องเติม (ตัวหนา, ชิดขวา) สอดคล้องกับ par level เทียบกับ current; ค่ารวมตรงกับ totalNeed ในแถบสรุป
+
+Total reorder แสดงตัวเลขผลรวมชัดเจน
 
 ---
+
+## TC-SRPL-020003 — คอลัมน์ Product แสดงชื่อท้องถิ่นเป็นบรรทัดรอง
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** Low · **Test Type:** Functional
+
+**Preconditions**
+
+เข้าสู่ระบบเป็น Store Manager/Admin
+
+**Steps**
+
+1. ไปที่ /store-operation/stock-replenishment
+2. ตรวจสอบ layout สินค้า
+
+**Expected**
+
+คอมโพเนนต์ Product รองรับการแสดง subtext สำหรับชื่อท้องถิ่น
+
+---
+
 ## TC-SRPL-060001 — เลือกสินค้าในแถวเดียวด้วย checkbox ได้
-> **As a** Store Manager, **I want** to select a single item via checkbox, **so that** I can build a targeted replenishment set.
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** High · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; เปิด location ที่มีสินค้า
+
+เข้าสู่ระบบเป็น Store Manager/Admin; มีสินค้าในตาราง
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. ขยาย location หนึ่ง
-3. ติ๊ก checkbox ของสินค้า 1 รายการ
+
+1. ขยาย location หนึ่ง
+2. ติ๊ก checkbox หน้าสินค้าแถวแรก
+
 **Expected**
-แถวนั้นถูกเลือก; ปุ่ม Create PR / Create SR ปรากฏและแสดงจำนวนที่เลือก (1)
+
+checkbox ถูกเลือกและปุ่ม Create PR / Create SR ปรากฏ
 
 ---
-## TC-SRPL-060002 — เลือกทั้งหมดใน location ด้วย header checkbox ได้
-> **As a** Store Manager, **I want** a header checkbox to select all items in a location, **so that** I can act on a whole storage area at once.
+
+## TC-SRPL-060002 — เลือกทั้งหมดใน location ด้วย checkbox บนแถบหัว location
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; เปิด location ที่มีสินค้าหลายรายการ
+
+เข้าสู่ระบบเป็น Store Manager/Admin; มี location
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. ขยาย location
-3. ติ๊ก checkbox บน header ของตาราง
+
+1. ติ๊ก checkbox บนแถบหัว location
+
 **Expected**
-ทุกสินค้าใน location ถูกเลือก; ตัวนับจำนวนที่เลือกเท่ากับจำนวนสินค้าใน location นั้น
+
+สินค้าทั้งหมดใน location ถูกเลือก
 
 ---
-## TC-SRPL-060003 — header checkbox แสดงสถานะ indeterminate เมื่อเลือกบางส่วน
-> **As a** Store Manager, **I want** the header checkbox to show an indeterminate state on partial selection, **so that** I can tell at a glance the location is not fully selected.
+
+## TC-SRPL-060003 — checkbox แถบหัว location แสดงสถานะ indeterminate เมื่อเลือกบางส่วน
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; location มีสินค้าตั้งแต่ 2 รายการขึ้นไป
+
+เข้าสู่ระบบเป็น Store Manager/Admin; มี location ที่มีสินค้า > 1 ชิ้น
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. ขยาย location แล้วเลือกสินค้าเพียงบางรายการ (ไม่ครบทุกแถว)
+
+1. ติ๊กเลือกเฉพาะสินค้าบางชิ้นใน location
+
 **Expected**
-header checkbox แสดงสถานะ indeterminate (เลือกบางส่วน); เมื่อเลือกครบทุกแถวจึงกลายเป็น checked เต็ม
+
+checkbox แถบหัว location แสดงสถานะ indeterminate (data-state='indeterminate')
 
 ---
+
 ## TC-SRPL-060004 — เลือกข้ามหลาย location แล้วตัวนับรวมถูกต้อง
-> **As a** Store Manager, **I want** selections to accumulate across locations, **so that** one PR/SR can cover items from multiple storage areas.
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; มีอย่างน้อย 2 location ที่มีสินค้า
+
+เข้าสู่ระบบเป็น Store Manager/Admin
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. ขยาย location A เลือกสินค้า 2 รายการ
-3. ขยาย location B เลือกสินค้า 1 รายการ
+
+1. ติ๊กเลือกสินค้าข้าม location
+2. ดูตัวเลขบนปุ่ม Create PR
+
 **Expected**
-ตัวนับจำนวนที่เลือกบนปุ่ม Create PR/SR เท่ากับผลรวมข้ามทุก location (3) และการเลือกของแต่ละ location ถูกเก็บแยกกัน
+
+ปุ่ม Create PR แสดงจำนวนยอดรวมสินค้าที่เลือกทั้งหมด
 
 ---
+
 ## TC-SRPL-060005 — ปุ่ม Create PR / Create SR แสดงเมื่อมีการเลือก พร้อมจำนวนที่เลือก
-> **As a** Store Manager, **I want** the Create PR/SR buttons to appear only when items are selected, **so that** the toolbar stays clean until action is possible.
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** High · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า Stock Replenishment
+
+เข้าสู่ระบบเป็น Store Manager/Admin; มีการเลือกสินค้า
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. ก่อนเลือก: ตรวจ toolbar
-3. เลือกสินค้าอย่างน้อย 1 รายการ
+
+1. ติ๊กเลือกสินค้าอย่างน้อย 1 รายการ
+
 **Expected**
-ก่อนเลือกไม่มีปุ่ม Create PR/SR; หลังเลือกปุ่ม Create PR และ Create SR ปรากฏพร้อมจำนวนที่เลือกในวงเล็บ
+
+section ปุ่มสร้างเอกสารแสดงปุ่ม Create PR ({n}) และ Create SR ({n})
 
 ---
+
 ## TC-SRPL-060006 — ยกเลิกการเลือกทั้งหมดแล้วปุ่ม Create PR/SR หายไป
-> **As a** Store Manager, **I want** clearing all selections to hide the Create buttons, **so that** the action toolbar reflects the current selection accurately.
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; มีสินค้าที่ถูกเลือกอยู่
+
+เข้าสู่ระบบเป็น Store Manager/Admin; มีการเลือกสินค้าอยู่
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. เลือกสินค้าบางรายการ
-3. ยกเลิกการติ๊กทุกรายการ
+
+1. ติ๊กเลือกสินค้าแล้วติ๊กออกให้ไม่มีการเลือก
+
 **Expected**
-ตัวนับการเลือกกลับเป็น 0 และปุ่ม Create PR / Create SR หายไปจาก toolbar
+
+ปุ่ม Create PR และ Create SR หายไปจากหน้าจอ
 
 ---
-## TC-SRPL-100001 — ผู้ใช้ไม่มีสิทธิ์เข้าถึง Stock Replenishment ต้องถูกบล็อก
-> **As a** Store Manager, **I want** unauthorized users blocked from Stock Replenishment, **so that** replenishment data stays restricted.
+
+## TC-SRPL-060007 — กด Create PR เปิด wizard พร้อมตารางรายการที่ติ๊ก
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** High · **Test Type:** Functional
+
+**Preconditions**
+
+เข้าสู่ระบบเป็น Store Manager/Admin; ติ๊กเลือกสินค้าอย่างน้อย 1 รายการ
+
+**Steps**
+
+1. ติ๊กเลือกสินค้า
+2. กดปุ่ม Create PR
+
+**Expected**
+
+เปิด Dialog Wizard ของ PR พร้อมตารางแสดงรายการสินค้าที่เลือก
+
+---
+
+## TC-SRPL-060008 — ปุ่ม Create ใน PR wizard ปิดจนกว่าจะเลือก workflow + หน่วย + จำนวน > 0
+
+> **As a** Admin user, **I want** the system to block invalid Stock Replenishment submissions, **so that** data quality is preserved.
+
+**Priority:** High · **Test Type:** Validation
+
+**Preconditions**
+
+อยู่ที่ PR Wizard dialog
+
+**Steps**
+
+1. เปิด PR wizard โดยยังไม่เลือก workflow
+
+**Expected**
+
+ปุ่มยืนยัน Create ถูก disable หรือปิดการทำงาน
+
+---
+
+## TC-SRPL-060009 — ตัดแถวออกจาก PR wizard ด้วยปุ่มถังขยะ
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** Medium · **Test Type:** Functional
+
+**Preconditions**
+
+อยู่ที่ PR Wizard dialog ที่มีสินค้าหลายแถว
+
+**Steps**
+
+1. กดปุ่มถังขยะท้ายแถวสินค้าใน wizard
+
+**Expected**
+
+แถวนั้นถูกตัดออกจากรายการที่จะสร้าง PR
+
+---
+
+## TC-SRPL-060010 — กด Create SR (ติ๊กคลังเดียว) เปิด wizard พร้อม Workflow / Request From / Deliver To
+
+> **As a** Admin user, **I want** this Stock Replenishment interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** High · **Test Type:** Functional
+
+**Preconditions**
+
+เลือกสินค้าจาก location เดียว
+
+**Steps**
+
+1. กดปุ่ม Create SR
+
+**Expected**
+
+เปิด Dialog SR Wizard พร้อมฟิลด์ Workflow, Request From และ Deliver To
+
+---
+
+## TC-SRPL-060011 — ช่อง Request From ของ SR wizard ไม่มีคลังปลายทางให้เลือก
+
+> **As a** Admin user, **I want** a clear empty-state when no Stock Replenishment records match my search, **so that** I know nothing was found.
+
+**Priority:** Medium · **Test Type:** Functional
+
+**Preconditions**
+
+อยู่ที่ SR Wizard dialog
+
+**Steps**
+
+1. ตรวจสอบตัวเลือกใน dropdown Request From
+
+**Expected**
+
+คลังที่เป็นปลายทาง (Deliver To) จะไม่ปรากฏในตัวเลือกของ Request From
+
+---
+
+## TC-SRPL-060012 — ปิด wizard ด้วย Cancel แล้วไม่มีเอกสารเกิดขึ้นและรายการที่ติ๊กยังอยู่
+
+> **As a** Admin user, **I want** a clear empty-state when no Stock Replenishment records match my search, **so that** I know nothing was found.
+
+**Priority:** Medium · **Test Type:** Functional
+
+**Preconditions**
+
+อยู่ที่ PR หรือ SR Wizard dialog
+
+**Steps**
+
+1. กดปุ่ม Cancel ปิด dialog
+
+**Expected**
+
+dialog ปิดลง, ไม่มีเอกสารใหม่เกิดขึ้น และรายการที่ติ๊กไว้ยังคงถูกเลือกอยู่
+
+---
+
+## TC-SRPL-100001 — ผู้ใช้ที่ไม่มีสิทธิ์เปิด URL ตรง ๆ ต้องเจอ Access Denied
+
+> **As a** low-privilege user, **I should NOT** see Add/edit controls on Stock Replenishment, **so that** role separation is enforced.
 
 **Priority:** High · **Test Type:** Authorization
+
 **Preconditions**
-เข้าสู่ระบบด้วยบัญชีที่ไม่มีสิทธิ์ Store Operation / Stock Replenishment
+
+เข้าสู่ระบบด้วยบัญชีที่ไม่มีสิทธิ์ inventory_management.stock_in.view
+
 **Steps**
-1. พยายามเข้า `/store-operation/stock-replenishment` โดยตรง
+
+1. เปิด /store-operation/stock-replenishment โดยตรง
+
 **Expected**
-ระบบไม่แสดงข้อมูล stock replenishment; แสดงหน้า/ข้อความปฏิเสธสิทธิ์ หรือ redirect ออกจากหน้า
+
+แสดง AccessDeniedBlock (role='alert')
 
 ---
+
 ## TC-SRPL-100002 — ผู้ที่ไม่ได้ login เข้าหน้าตรง ๆ ต้องถูก redirect ไป /login
-> **As a** Store Manager, **I want** anonymous access redirected to login, **so that** the dashboard is never reachable without authentication.
+
+> **As an** unauthenticated user hitting a protected route, **I want** to be redirected to /login, **so that** protected screens stay protected.
 
 **Priority:** High · **Test Type:** Auth-guard
+
 **Preconditions**
-ไม่มี session (logout / ไม่มี token)
+
+ไม่มี session
+
 **Steps**
-1. เปิด `/store-operation/stock-replenishment` โดยตรงใน browser ที่ไม่มี session
+
+1. เปิด /store-operation/stock-replenishment โดยตรงใน browser context ใหม่
+
 **Expected**
-ถูก redirect ไปยัง `/login` และไม่มีข้อมูล stock replenishment ปรากฏ
+
+ถูก redirect ไปยัง /login
 
 ---
-## TC-SRPL-300001 — Create PR จากสินค้าที่เลือกนำสินค้าไปยังการสร้าง Purchase Request
-> **As a** Store Manager, **I want** selected items to flow into a new Purchase Request, **so that** I can reorder shortfalls from suppliers without re-keying them.
 
-**Priority:** High · **Test Type:** Functional
+## TC-SRPL-100003 — Admin เข้าหน้าได้แม้ไม่มี permission ตรง ๆ
+
+> **As a** low-privilege user, **I should NOT** see Add/edit controls on Stock Replenishment, **so that** role separation is enforced.
+
+**Priority:** Medium · **Test Type:** Authorization
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; เลือกสินค้าที่ต้องเติมไว้อย่างน้อย 1 รายการ
+
+เข้าสู่ระบบเป็น Admin
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. เลือกสินค้าที่ต้องการเติม
-3. กดปุ่ม Create PR
+
+1. ไปที่ /store-operation/stock-replenishment
+
 **Expected**
-สินค้าที่เลือกถูกส่งไปเป็นรายการตั้งต้นของการสร้าง Purchase Request (getSelectedProducts รวบรวมรายการที่ติ๊กข้ามทุก location)
+
+เข้าหน้าสำเร็จ (Admin permission bypass)
 
 ---
-## TC-SRPL-300002 — Create SR จากสินค้าที่เลือกนำสินค้าไปยังการสร้าง Store Requisition
-> **As a** Store Manager, **I want** selected items to flow into a new Store Requisition, **so that** I can request stock transfers internally without re-keying them.
 
-**Priority:** High · **Test Type:** Functional
+## TC-SRPL-300001 — Create PR สร้างใบขอซื้อจากรายการที่เลือกได้สำเร็จ
+
+> **As a** Admin user, **I want** this Stock Replenishment behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Integration
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; เลือกสินค้าที่ต้องเติมไว้อย่างน้อย 1 รายการ
+
+มี workflow PR ที่เริ่มได้; ติ๊กเลือกสินค้า
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. เลือกสินค้าที่ต้องการเติม
-3. กดปุ่ม Create SR
+
+1. เปิด PR wizard
+2. กรอกข้อมูลครบและกด Create PR
+
 **Expected**
-สินค้าที่เลือกถูกส่งไปเป็นรายการตั้งต้นของการสร้าง Store Requisition
+
+สร้างเอกสาร PR จริงในระบบสำเร็จ
 
 ---
+
+## TC-SRPL-300002 — Create SR สร้างใบเบิกจากรายการที่เลือกได้สำเร็จ
+
+> **As a** Admin user, **I want** this Stock Replenishment behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Integration
+
+**Preconditions**
+
+มี workflow SR ที่เริ่มได้; ติ๊กเลือกสินค้าคลังเดียว
+
+**Steps**
+
+1. เปิด SR wizard
+2. กรอกข้อมูลครบและกด Create SR
+
+**Expected**
+
+สร้างเอกสาร SR จริงในระบบสำเร็จ
+
+---
+
+## TC-SRPL-300003 — ติ๊กข้ามหลายคลังแล้ว Create PR ได้ใบขอซื้อคลังละใบ
+
+> **As a** Admin user, **I want** this Stock Replenishment behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Integration
+
+**Preconditions**
+
+เลือกสินค้าข้ามหลาย location
+
+**Steps**
+
+1. สร้าง PR สำหรับหลายคลัง
+
+**Expected**
+
+สร้างใบ PR แยกตามแต่ละคลังสำเร็จ
+
+---
+
 ## TC-SRPL-900001 — กรณีไม่มีสินค้าต้องเติม / empty state
-> **As a** Store Manager, **I want** a clear empty state when nothing needs restocking, **so that** I can trust that no action is required.
+
+> **As a** Admin user, **I want** this Stock Replenishment behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
 
 **Priority:** Low · **Test Type:** Edge Case
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; ไม่มี location ที่มีสินค้าต้องเติม (หรือ filter คำค้นไม่พบ)
+
+เข้าสู่ระบบเป็น Store Manager/Admin; BU ไม่มีสินค้าที่ต้องเติม
+
 **Steps**
-1. ไปที่ `/store-operation/stock-replenishment`
-2. ตรวจพื้นที่แสดงรายการ
+
+1. ไปที่ /store-operation/stock-replenishment
+
 **Expected**
-ไม่มีแถว location แสดง; แถบสรุปแสดงค่าเป็น 0 ทุกตัว และไม่มีปุ่ม Create PR/SR
+
+แถบสรุปแสดง 0 ทุกค่า และหน้าไม่ crash
+
+---
+
+## TC-SRPL-900002 — กด Create SR ขณะติ๊กข้าม 2 คลังขึ้นไป ต้องเตือนว่าใบเบิกทำได้ทีละคลัง
+
+> **As a** Admin user, **I want** this Stock Replenishment behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** High · **Test Type:** Edge Case
+
+**Preconditions**
+
+เลือกสินค้าจาก 2 location ขึ้นไป
+
+**Steps**
+
+1. กดปุ่ม Create SR
+
+**Expected**
+
+แสดง WarningDialog เตือนว่าใบเบิกสร้างได้ทีละ location เท่านั้น
+
+---
+
+## TC-SRPL-900003 — ไม่มี workflow ที่เริ่มได้ กด Create PR/SR แล้วเด้ง Permission Denied
+
+> **As a** Admin user, **I want** this Stock Replenishment behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Edge Case
+
+**Preconditions**
+
+บัญชีที่ไม่มีสิทธิ์เริ่ม workflow ของ PR หรือ SR
+
+**Steps**
+
+1. กดปุ่ม Create PR หรือ Create SR
+
+**Expected**
+
+แสดง dialog Permission Denied แจ้งเหตุผล
+
+---
+
+## TC-SRPL-900004 — โหลดข้อมูลล้มเหลวต้องแสดง error state พร้อมปุ่ม Try again
+
+> **As a** Admin user, **I want** this Stock Replenishment behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Low · **Test Type:** Edge Case
+
+**Preconditions**
+
+เข้าสู่ระบบเป็น Store Manager/Admin
+
+**Steps**
+
+1. ตั้ง route intercept ตอบ 500 สำหรับ endpoint stock-replenishments
+2. ไปที่หน้านี้
+3. ปลด intercept แล้วกด Try again
+
+**Expected**
+
+แสดง ErrorState พร้อมปุ่ม Try again และกู้คืนได้เมื่อกดลองใหม่
+
+---
+
+
+<sub>Last regenerated: 2026-09-20 · git da448c6</sub>

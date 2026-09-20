@@ -300,4 +300,4 @@ Login เป็นผู้ใช้ที่ไม่ใช่ admin เช่�
 ---
 
 
-<sub>Last regenerated: 2026-09-20 · git b1a268f</sub>
+<sub>Last regenerated: 2026-09-20 · git da448c6</sub>

@@ -1,388 +1,462 @@
 # Wastage Reporting — User Stories
 
-_Authored from the test-case catalog `docs/test-cases/710-wastage-reporting.md` (documentation only — no automated spec yet)._
+_Generated from `tests/710-wastage-reporting.spec.ts` annotations. Edit annotations, not this file. Regenerate with `bun docs:user-stories`._
 
 **Module:** Wastage Reporting
-**Frontend route:** `routes/store-operation/wastage-reporting`  •  **URL:** `/store-operation/wastage-reporting`
-**Prefix:** `WAST`
-**Default role:** Store Manager
-**Total test cases:** 26
+**Spec:** `tests/710-wastage-reporting.spec.ts`
+**Default role:** Admin
+**Total test cases:** 20 (7 High / 6 Medium / 7 Low)
 
 ## Test Cases at a Glance
+
 | TC | Title | Priority | Test Type |
 | --- | --- | --- | --- |
 | TC-WAST-010001 | หน้า list Wastage Reporting โหลดสำเร็จ | High | Smoke |
-| TC-WAST-010002 | คอลัมน์ตาราง (WR No/สถานที่/วันที่/จำนวนรวม/มูลค่าเสียหาย/ผู้รายงาน/สถานะ) แสดงครบ | Medium | Functional |
-| TC-WAST-010003 | ปุ่ม Add บน toolbar นำไปหน้า new | High | Smoke |
-| TC-WAST-010004 | ค้นหาด้วย WR No / สถานที่ / เหตุผล / ผู้รายงาน ใช้งานได้ | Medium | Functional |
+| TC-WAST-010002 | คอลัมน์ตาราง (GRN/สินค้า/สถานที่/lot/วันหมดอายุ/เหลือกี่วัน/สถานะ/ของเหลือ/ต้นทุน/มูลค่า) แสดงครบ | Medium | Functional |
+| TC-WAST-010004 | ค้นหาด้วยการกด Enter ในช่อง Search กรองรายการได้ | Medium | Functional |
 | TC-WAST-010005 | ค้นหาคำที่ไม่มีต้องแสดง empty state | Medium | Functional |
-| TC-WAST-010006 | filter สถานะ (pending/approved/rejected) ใช้งานได้ | Medium | Functional |
-| TC-WAST-010007 | pagination เปลี่ยนหน้าได้ | Low | Functional |
+| TC-WAST-010006 | filter สถานะ (Expired / Expiring) ใช้งานได้ | High | Functional |
+| TC-WAST-010007 | pagination เปลี่ยนหน้าและเปลี่ยนจำนวนแถวต่อหน้าได้ | Low | Functional |
+| TC-WAST-010008 | summary bar แสดงจำนวนรายการ/หมดอายุ/ใกล้หมดอายุ และจำนวน-มูลค่าที่เสี่ยง | High | Functional |
+| TC-WAST-010009 | chip ใน Active filter bar แก้ค่าและลบ filter ได้ | Medium | Functional |
+| TC-WAST-010010 | เรียงลำดับได้เฉพาะคอลัมน์ GRN No. และ Expiry Date | Medium | Functional |
+| TC-WAST-010011 | บันทึกและเรียกใช้ saved view ของหน้านี้ได้ | Low | Functional |
+| TC-WAST-010012 | ปุ่มล้างในช่องค้นหาคืนรายการทั้งหมด | Low | Alternate Flow |
 | TC-WAST-010050 | active BU = BLAVG | High | Smoke |
-| TC-WAST-020001 | คลิกแถวเปิดหน้า detail (view mode) สำเร็จ | High | Smoke |
-| TC-WAST-020002 | หน้า detail แสดงหัวเอกสาร (WR No + badge สถานะ) และรายการสินค้าครบ | Medium | Functional |
-| TC-WAST-030001 | เปิดหน้า new Wastage Report สำเร็จ | High | Smoke |
-| TC-WAST-030002 | สร้าง WR (วันที่/สถานที่/เหตุผล + 1 item) สำเร็จ | High | CRUD |
-| TC-WAST-030003 | ผู้รายงาน (Reporter) auto-fill จาก profile | Medium | Functional |
-| TC-WAST-030004 | เพิ่ม line item ได้หลายรายการ | Medium | Functional |
-| TC-WAST-030005 | ลบ line item ได้ (Remove dialog) | Medium | Functional |
-| TC-WAST-030006 | กด Cancel ในโหมด add กลับหน้า list โดยไม่บันทึก | Low | Alternate Flow |
-| TC-WAST-030050 | สร้าง Wastage Report (Store Manager/BLAVG) สำเร็จ | High | CRUD |
-| TC-WAST-040001 | แก้ไข WR (เหตุผล/จำนวน) แล้ว save สำเร็จ | High | CRUD |
-| TC-WAST-040002 | กด Cancel ในโหมด edit กลับสู่ view mode โดยไม่บันทึก | Medium | Alternate Flow |
-| TC-WAST-050001 | ลบ WR จากหน้า list (Delete dialog) สำเร็จ | High | CRUD |
-| TC-WAST-050002 | ลบ WR จากในฟอร์ม (โหมด edit) สำเร็จ | Medium | CRUD |
-| TC-WAST-100001 | ผู้ใช้ไม่มีสิทธิ์เข้าถึง Wastage Reporting ต้องถูกบล็อก | High | Authorization |
+| TC-WAST-020001 | กด GRN No. เปิดใบ GRN ต้นทาง | High | Smoke |
+| TC-WAST-020003 | คลิกเซลล์อื่นหรือตัวแถวไม่นำทางออกจากหน้า | Low | Functional |
+| TC-WAST-100001 | ผู้ใช้ไม่มีสิทธิ์ stock_out.view ต้องเห็นกล่องปฏิเสธสิทธิ์ | High | Authorization |
 | TC-WAST-100002 | ผู้ที่ไม่ได้ login เข้าหน้าตรง ๆ ต้องถูก redirect ไป /login | High | Auth-guard |
-| TC-WAST-200001 | บันทึกโดยไม่เลือกวันที่ / สถานที่ / เหตุผล ต้องแสดง error | High | Validation |
-| TC-WAST-200002 | line item ไม่เลือกสินค้า/หน่วย หรือ qty < 1 ต้องแสดง error | High | Validation |
-| TC-WAST-900001 | mobile แสดงรายการแบบ card list และฟอร์มใช้งานได้ | Low | Edge Case |
+| TC-WAST-100003 | BU ที่ไม่ได้ซื้อ feature wastage_reporting ถูกล็อกแม้เป็น admin | Low | Authorization |
+| TC-WAST-900001 | mobile ใช้ bottom sheet สำหรับ filter และตารางเลื่อนแนวนอนได้ | Low | Edge Case |
+| TC-WAST-900002 | API ล้มเหลวต้องแสดง ErrorState พร้อมปุ่มลองใหม่ | Medium | Edge Case |
+| TC-WAST-900003 | เปิดลิงก์ที่มี sv ของ view ที่ถูกลบแล้ว ต้องเตือนและล้างค่าออก | Low | Edge Case |
 
 ---
+
 ## TC-WAST-010001 — หน้า list Wastage Reporting โหลดสำเร็จ
-> **As a** Store Manager, **I want** to open the Wastage Reporting list and see it load reliably, **so that** I can review reported wastage for my store.
+
+> **As a** Admin user, **I want** the Wastage Reporting list page to load successfully, **so that** I can manage Wastage Reporting records.
 
 **Priority:** High · **Test Type:** Smoke
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG; มีสิทธิ์เข้าถึง Store Operation
+
+เข้าสู่ระบบเป็น Admin (admin@blueledgers.com); active BU = BLAVG; BU มี license store_operations.wastage_reporting
+
 **Steps**
-1. ไปที่ `/store-operation/wastage-reporting`
+
+1. ไปที่ /store-operation/wastage-reporting
+
 **Expected**
-URL ตรงกับ `/store-operation/wastage-reporting`; หัวข้อหน้าและคำอธิบายแสดง พร้อม DataGrid รายการ WR ภายใน 10 วินาที
+
+URL ตรงกับ /store-operation/wastage-reporting; หัวข้อหน้า 'Wastage Reporting' และคำอธิบายแสดง; toolbar มีช่องค้นหา, View selector และปุ่ม Filter (ไม่มีปุ่ม Add); DataGrid แสดงผลภายใน 10 วินาที
 
 ---
-## TC-WAST-010002 — คอลัมน์ตาราง (WR No/สถานที่/วันที่/จำนวนรวม/มูลค่าเสียหาย/ผู้รายงาน/สถานะ) แสดงครบ
-> **As a** Store Manager, **I want** every wastage column rendered, **so that** I can scan the key facts of each report at a glance.
+
+## TC-WAST-010002 — คอลัมน์ตาราง (GRN/สินค้า/สถานที่/lot/วันหมดอายุ/เหลือกี่วัน/สถานะ/ของเหลือ/ต้นทุน/มูลค่า) แสดงครบ
+
+> **As a** Admin user, **I want** this Wastage Reporting interaction to behave as expected, **so that** the workflow stays predictable.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า list และมีข้อมูล WR อย่างน้อย 1 รายการ
+
+เข้าสู่ระบบเป็น Admin; active BU = BLAVG; มี lot ใน BU อย่างน้อย 1 รายการ
+
 **Steps**
-1. ไปที่ `/store-operation/wastage-reporting`
+
+1. ไปที่ /store-operation/wastage-reporting
 2. ตรวจหัวตารางและเซลล์ในแถวแรก
+
 **Expected**
-ตารางแสดงคอลัมน์ WR No, สถานที่, วันที่, จำนวนรวม (totalQty, ชิดขวา), มูลค่าเสียหาย (lossValue, format เป็นสกุลเงิน ชิดขวา), ผู้รายงาน และสถานะ (badge); WR No เป็นลิงก์กดเปิด detail ได้
+
+หัวตารางแสดงคอลัมน์ครบถ้วนตาม schema ของ Wastage Reporting
 
 ---
-## TC-WAST-010003 — ปุ่ม Add บน toolbar นำไปหน้า new
-> **As a** Store Manager, **I want** the Add button to take me to a fresh form, **so that** I can start a new wastage report quickly.
 
-**Priority:** High · **Test Type:** Smoke
-**Preconditions**
-เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า list
-**Steps**
-1. ไปที่ `/store-operation/wastage-reporting`
-2. กดปุ่ม Add (ไอคอน +) มุมขวาบน
-**Expected**
-นำทางไปยัง `/store-operation/wastage-reporting/new` และแสดงฟอร์มสร้างใหม่
+## TC-WAST-010004 — ค้นหาด้วยการกด Enter ในช่อง Search กรองรายการได้
 
----
-## TC-WAST-010004 — ค้นหาด้วย WR No / สถานที่ / เหตุผล / ผู้รายงาน ใช้งานได้
-> **As a** Store Manager, **I want** to search by WR No, location, reason, or reporter, **so that** I can find a specific report fast.
+> **As a** Admin user, **I want** to filter the Wastage Reporting list, **so that** I can narrow results to relevant records.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; มีข้อมูล WR หลายรายการ
+
+เข้าสู่ระบบเป็น Admin; active BU = BLAVG; มีรายการในตารางหลายแถว
+
 **Steps**
-1. ไปที่ `/store-operation/wastage-reporting`
-2. พิมพ์คำค้น (เช่น WR No บางส่วน) ลงในช่อง Search แล้วกด Enter
+
+1. ไปที่ /store-operation/wastage-reporting
+2. พิมพ์คำค้นลงในช่อง Search
+3. กด Enter
+
 **Expected**
-ตารางกรองเหลือเฉพาะรายการที่ WR No, ชื่อสถานที่, เหตุผล หรือชื่อผู้รายงานตรงกับคำค้น
+
+URL เพิ่ม search=<คำค้น> และ page ถูกรีเซ็ต; ตารางยิง request ใหม่และแสดงเฉพาะรายการที่ตรงกับคำค้น
 
 ---
+
 ## TC-WAST-010005 — ค้นหาคำที่ไม่มีต้องแสดง empty state
-> **As a** Store Manager, **I want** a clear empty state for no-match searches, **so that** I know there are no matching reports rather than a broken page.
+
+> **As a** Admin user, **I want** a clear empty-state when no Wastage Reporting records match my search, **so that** I know nothing was found.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า list
+
+เข้าสู่ระบบเป็น Admin; อยู่ที่หน้า list
+
 **Steps**
-1. ไปที่ `/store-operation/wastage-reporting`
-2. พิมพ์คำค้นที่ไม่มีในระบบ (เช่น "zzzznotfound") แล้วกด Enter
+
+1. ไปที่ /store-operation/wastage-reporting
+2. พิมพ์คำค้นที่ไม่มีในระบบแล้วกด Enter
+
 **Expected**
-ตารางไม่แสดงแถวข้อมูล และแสดง empty component (ไม่พบข้อมูล) แทน
+
+ตารางไม่มีแถวข้อมูล และแสดง empty component ข้อความ 'No data found' แทน
 
 ---
-## TC-WAST-010006 — filter สถานะ (pending/approved/rejected) ใช้งานได้
-> **As a** Store Manager, **I want** to filter reports by status, **so that** I can focus on pending, approved, or rejected wastage.
 
-**Priority:** Medium · **Test Type:** Functional
+## TC-WAST-010006 — filter สถานะ (Expired / Expiring) ใช้งานได้
+
+> **As a** Admin user, **I want** to filter the Wastage Reporting list, **so that** I can narrow results to relevant records.
+
+**Priority:** High · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; มีข้อมูล WR หลายสถานะ
+
+เข้าสู่ระบบเป็น Admin; active BU = BLAVG; ใช้ viewport เดสก์ท็อป
+
 **Steps**
-1. ไปที่ `/store-operation/wastage-reporting`
-2. เปิด Status filter แล้วเลือกสถานะหนึ่ง (เช่น pending)
+
+1. ไปที่ /store-operation/wastage-reporting
+2. กดปุ่ม Filter
+3. เลือก Expired จาก submenu
+
 **Expected**
-ตารางแสดงเฉพาะรายการที่มีสถานะตรงกับตัวเลือก; เมื่อล้าง filter รายการกลับมาแสดงทั้งหมด
+
+URL เพิ่ม filter=status|string:expired และรีเซ็ต page; ปุ่ม Filter ขึ้น badge จำนวน 1
 
 ---
-## TC-WAST-010007 — pagination เปลี่ยนหน้าได้
-> **As a** Store Manager, **I want** pagination to work, **so that** I can browse beyond the first page of reports.
+
+## TC-WAST-010007 — pagination เปลี่ยนหน้าและเปลี่ยนจำนวนแถวต่อหน้าได้
+
+> **As a** Admin user, **I want** to paginate through Wastage Reporting records, **so that** I can browse large lists efficiently.
 
 **Priority:** Low · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; มีข้อมูล WR มากกว่า 1 หน้า (เกิน perpage)
+
+เข้าสู่ระบบเป็น Admin; active BU = BLAVG; มีข้อมูลมากกว่า 10 แถว
+
 **Steps**
-1. ไปที่ `/store-operation/wastage-reporting`
+
+1. ไปที่ /store-operation/wastage-reporting
 2. กดปุ่มไปหน้าถัดไปบนแถบ pagination
+3. เปลี่ยนจำนวนแถวต่อหน้าเป็น 25
+
 **Expected**
-DataGrid โหลดรายการชุดถัดไป และตัวบอกหน้าปัจจุบันอัปเดต
+
+URL เพิ่ม page=2 และ perpage=25 เมื่อเปลี่ยนค่า pagination
 
 ---
-## TC-WAST-010050 — active BU = BLAVG
-> **As a** Store Manager, **I want** the active Business Unit to be BLAVG, **so that** I only see and act on wastage data scoped to my unit.
 
-**Priority:** High · **Test Type:** Smoke
+## TC-WAST-010008 — summary bar แสดงจำนวนรายการ/หมดอายุ/ใกล้หมดอายุ และจำนวน-มูลค่าที่เสี่ยง
+
+> **As a** Admin user, **I want** this Wastage Reporting interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** High · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; ผู้ใช้ผูกกับ BU BLAVG
+
+เข้าสู่ระบบเป็น Admin; active BU = BLAVG; response มี summary
+
 **Steps**
-1. ไปที่ `/store-operation/wastage-reporting`
-2. ตรวจ BU ที่ active บน header/BU switcher
+
+1. ไปที่ /store-operation/wastage-reporting
+2. ตรวจแถบสรุปเหนือตาราง
+
 **Expected**
-Business Unit ที่ active คือ BLAVG และรายการ WR ที่แสดงเป็นของ BU BLAVG
+
+แถบสรุปแสดงจำนวนรายการ, หมดอายุ, ใกล้หมดอายุ, Qty at risk และ Value at risk
 
 ---
-## TC-WAST-020001 — คลิกแถวเปิดหน้า detail (view mode) สำเร็จ
-> **As a** Store Manager, **I want** clicking a WR No to open its detail in read-only view, **so that** I can inspect it without risk of accidental edits.
 
-**Priority:** High · **Test Type:** Smoke
-**Preconditions**
-เข้าสู่ระบบเป็น Store Manager; มีข้อมูล WR อย่างน้อย 1 รายการ
-**Steps**
-1. ไปที่ `/store-operation/wastage-reporting`
-2. คลิก WR No ในแถวแรก
-**Expected**
-นำทางไปยัง `/store-operation/wastage-reporting/{id}`; ฟอร์มเปิดในโหมด view (ฟิลด์ถูก disabled) และแสดงปุ่ม Edit
+## TC-WAST-010009 — chip ใน Active filter bar แก้ค่าและลบ filter ได้
 
----
-## TC-WAST-020002 — หน้า detail แสดงหัวเอกสาร (WR No + badge สถานะ) และรายการสินค้าครบ
-> **As a** Store Manager, **I want** the detail page to show the header and all line items, **so that** I can verify what was wasted and its current status.
+> **As a** Admin user, **I want** to filter the Wastage Reporting list, **so that** I can narrow results to relevant records.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า detail ของ WR ที่มี item อย่างน้อย 1 รายการ
+
+เข้าสู่ระบบเป็น Admin; อยู่ที่หน้า list โดยเลือก filter Status = Expired ไว้แล้ว
+
 **Steps**
-1. เปิด `/store-operation/wastage-reporting/{id}`
-2. ตรวจส่วนหัว, ฟิลด์ผู้รายงาน/วันที่/สถานที่/เหตุผล และส่วน Items
+
+1. เปิดหน้าพร้อม filter
+2. กดปุ่มล้าง filter บน chip หรือ Clear all
+
 **Expected**
-ส่วนหัวแสดง WR No พร้อม badge สถานะ; ฟิลด์ผู้รายงาน, วันที่, สถานที่ และเหตุผลตรงกับข้อมูล; ตาราง Items แสดงจำนวนรายการในวงเล็บและรายการสินค้าทั้งหมด
+
+chip หายไป, filter ถูกล้างจาก URL และตารางกลับมาแสดงทุกสถานะ
 
 ---
-## TC-WAST-030001 — เปิดหน้า new Wastage Report สำเร็จ
-> **As a** Store Manager, **I want** the new-report form to open in a clean add state, **so that** I can begin recording wastage from scratch.
 
-**Priority:** High · **Test Type:** Smoke
-**Preconditions**
-เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG
-**Steps**
-1. ไปที่ `/store-operation/wastage-reporting/new`
-**Expected**
-แสดงฟอร์มในโหมด add: หัวข้อสร้างใหม่, ฟิลด์ผู้รายงาน auto-fill, ช่องวันที่/สถานที่/เหตุผล ว่าง และส่วน Items ว่าง (มีปุ่ม Add Item)
+## TC-WAST-010010 — เรียงลำดับได้เฉพาะคอลัมน์ GRN No. และ Expiry Date
 
----
-## TC-WAST-030002 — สร้าง WR (วันที่/สถานที่/เหตุผล + 1 item) สำเร็จ
-> **As a** Store Manager, **I want** to create a wastage report with one item, **so that** the loss is recorded and routed for approval.
-
-**Priority:** High · **Test Type:** CRUD
-**Preconditions**
-เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG; มี location และ product ที่ใช้งานได้
-**Steps**
-1. ไปที่ `/store-operation/wastage-reporting/new`
-2. เลือกวันที่จาก DatePicker
-3. เลือกสถานที่จาก Lookup Location
-4. กรอกเหตุผลในช่อง Reason
-5. กด Add Item แล้วเลือกสินค้า, หน่วย, กรอก qty และ unit cost
-6. กดปุ่ม Save
-**Expected**
-แสดง toast createSuccess และนำทางกลับไปยัง `/store-operation/wastage-reporting`; รายการ WR ใหม่ปรากฏในตาราง
-
----
-## TC-WAST-030003 — ผู้รายงาน (Reporter) auto-fill จาก profile
-> **As a** Store Manager, **I want** the Reporter field auto-filled from my profile, **so that** I do not have to enter my own name on every report.
+> **As a** Admin user, **I want** to sort the Wastage Reporting list, **so that** I can find records in a useful order.
 
 **Priority:** Medium · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager ที่มีชื่อ-นามสกุลใน profile
+
+เข้าสู่ระบบเป็น Admin; active BU = BLAVG; มีข้อมูลอย่างน้อย 2 แถว
+
 **Steps**
-1. ไปที่ `/store-operation/wastage-reporting/new`
-2. ตรวจฟิลด์ Reporter ในส่วนหัวฟอร์ม
+
+1. ไปที่ /store-operation/wastage-reporting
+2. กดหัวคอลัมน์ Expiry Date
+3. ตรวจสอบ sort parameter ใน URL
+
 **Expected**
-ฟิลด์ Reporter แสดงชื่อ-นามสกุลของผู้ใช้ที่ login (จาก profile.user_info) โดยอัตโนมัติ และเป็น readonly
+
+URL เป็น sort=expired_at:asc หรือ expired_at:desc; คอลัมน์อื่นไม่มีปุ่ม sort
 
 ---
-## TC-WAST-030004 — เพิ่ม line item ได้หลายรายการ
-> **As a** Store Manager, **I want** to add multiple line items, **so that** I can report several wasted products on one document.
 
-**Priority:** Medium · **Test Type:** Functional
+## TC-WAST-010011 — บันทึกและเรียกใช้ saved view ของหน้านี้ได้
+
+> **As a** Admin user, **I want** this Wastage Reporting interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** Low · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า new หรือ edit
+
+เข้าสู่ระบบเป็น Admin; active BU = BLAVG; ใช้ viewport เดสก์ท็อป
+
 **Steps**
-1. ไปที่ `/store-operation/wastage-reporting/new`
-2. กด Add Item สามครั้งและกรอกข้อมูลแต่ละแถว
+
+1. ไปที่ /store-operation/wastage-reporting
+2. ตรวจสอบการมีอยู่ของปุ่ม View selector
+
 **Expected**
-ส่วน Items แสดง 3 แถว; ตัวนับจำนวนในหัวข้อ Items อัปเดตเป็น (3); รายการใหม่ถูก prepend ไว้ด้านบนสุด
+
+View selector มีอยู่บน toolbar
 
 ---
-## TC-WAST-030005 — ลบ line item ได้ (Remove dialog)
-> **As a** Store Manager, **I want** to remove a line item with a confirmation dialog, **so that** I do not delete the wrong row by accident.
 
-**Priority:** Medium · **Test Type:** Functional
-**Preconditions**
-เข้าสู่ระบบเป็น Store Manager; ฟอร์มมี line item อย่างน้อย 1 รายการ (โหมด add/edit)
-**Steps**
-1. เปิดฟอร์มในโหมด add/edit ที่มี item
-2. กดปุ่มลบของแถว item
-3. ยืนยันใน Remove dialog
-**Expected**
-Remove dialog แสดงคำอธิบายของรายการที่จะลบ; เมื่อยืนยัน แถวนั้นหายไปและตัวนับ Items ลดลง
+## TC-WAST-010012 — ปุ่มล้างในช่องค้นหาคืนรายการทั้งหมด
 
----
-## TC-WAST-030006 — กด Cancel ในโหมด add กลับหน้า list โดยไม่บันทึก
-> **As a** Store Manager, **I want** Cancel to discard an in-progress new report, **so that** nothing is saved when I change my mind.
+> **As a** Admin user, **I want** this Wastage Reporting behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
 
 **Priority:** Low · **Test Type:** Alternate Flow
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า new
+
+เข้าสู่ระบบเป็น Admin; อยู่ที่หน้า list และค้นหาคำหนึ่งไว้แล้ว
+
 **Steps**
-1. ไปที่ `/store-operation/wastage-reporting/new`
-2. กรอกข้อมูลบางส่วน
-3. กดปุ่ม Cancel
+
+1. ไปที่ /store-operation/wastage-reporting?search=SAMPLE
+2. กดปุ่มล้างในช่องค้นหา
+
 **Expected**
-นำทางกลับไปยัง `/store-operation/wastage-reporting` โดยไม่บันทึกข้อมูล และไม่แสดง toast สำเร็จ
+
+ช่องค้นว่าง และ search ถูกล้างจาก URL
 
 ---
-## TC-WAST-030050 — สร้าง Wastage Report (Store Manager/BLAVG) สำเร็จ
-> **As a** Store Manager, **I want** a created report to persist under BU BLAVG, **so that** my wastage record survives reloads and is correctly scoped.
 
-**Priority:** High · **Test Type:** CRUD
+## TC-WAST-010050 — active BU = BLAVG
+
+> **As a** Admin user, **I want** core Wastage Reporting interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; active BU = BLAVG
+
+เข้าสู่ระบบเป็น Admin; ผู้ใช้ผูกกับ BU BLAVG
+
 **Steps**
-1. ไปที่ `/store-operation/wastage-reporting/new`
-2. กรอกวันที่/สถานที่/เหตุผล และเพิ่ม 1 item ครบถ้วน
-3. กด Save แล้วรอกลับหน้า list
-4. ค้นหา WR ที่เพิ่งสร้าง
+
+1. ไปที่ /store-operation/wastage-reporting
+2. ตรวจ BU ที่ active บน header/BU switcher
+
 **Expected**
-WR ถูกสร้างภายใต้ BU BLAVG, แสดงในตาราง และคงอยู่หลัง reload หน้า
+
+Business Unit ที่ active คือ BLAVG
 
 ---
-## TC-WAST-040001 — แก้ไข WR (เหตุผล/จำนวน) แล้ว save สำเร็จ
-> **As a** Store Manager, **I want** to edit a report's reason and quantity and save, **so that** I can correct or update wastage details.
 
-**Priority:** High · **Test Type:** CRUD
+## TC-WAST-020001 — กด GRN No. เปิดใบ GRN ต้นทาง
+
+> **As a** Admin user, **I want** core Wastage Reporting interactions to work, **so that** day-to-day usage stays smooth.
+
+**Priority:** High · **Test Type:** Smoke
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; มี WR ที่แก้ไขได้อย่างน้อย 1 รายการ
+
+เข้าสู่ระบบเป็น Admin; active BU = BLAVG; มีรายการในตารางอย่างน้อย 1 แถว
+
 **Steps**
-1. เปิด `/store-operation/wastage-reporting/{id}` (view mode)
-2. กดปุ่ม Edit
-3. แก้ไขเหตุผลและ qty ของ item หนึ่งรายการ
-4. กดปุ่ม Save
+
+1. ไปที่ /store-operation/wastage-reporting
+2. กดที่ค่า GRN No. ในแถวแรก
+
 **Expected**
-แสดง toast updateSuccess และนำทางกลับไปยัง `/store-operation/wastage-reporting`; ค่าที่แก้คงอยู่เมื่อเปิดดูใหม่
+
+นำทางไปยัง /procurement/goods-receive-note/{grn_id}
 
 ---
-## TC-WAST-040002 — กด Cancel ในโหมด edit กลับสู่ view mode โดยไม่บันทึก
-> **As a** Store Manager, **I want** Cancel in edit mode to revert changes and return to view, **so that** unwanted edits are not saved.
 
-**Priority:** Medium · **Test Type:** Alternate Flow
+## TC-WAST-020003 — คลิกเซลล์อื่นหรือตัวแถวไม่นำทางออกจากหน้า
+
+> **As a** Admin user, **I want** this Wastage Reporting interaction to behave as expected, **so that** the workflow stays predictable.
+
+**Priority:** Low · **Test Type:** Functional
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า detail ของ WR
+
+เข้าสู่ระบบเป็น Admin; อยู่ที่หน้า list
+
 **Steps**
-1. เปิด detail แล้วกด Edit
-2. แก้ไขค่าบางฟิลด์
-3. กดปุ่ม Cancel
+
+1. คลิกที่เซลล์ Product หรือ Location
+2. ตรวจสอบ URL
+
 **Expected**
-ฟอร์ม reset กลับเป็นค่าเดิม และกลับสู่ view mode (ไม่นำทางออกจากหน้า) โดยไม่บันทึกการแก้ไข
+
+URL ยังคงเป็น /store-operation/wastage-reporting (ไม่มีการนำทาง)
 
 ---
-## TC-WAST-050001 — ลบ WR จากหน้า list (Delete dialog) สำเร็จ
-> **As a** Store Manager, **I want** to delete a report from the list with confirmation, **so that** obsolete wastage records are removed safely.
 
-**Priority:** High · **Test Type:** CRUD
-**Preconditions**
-เข้าสู่ระบบเป็น Store Manager; มี WR ที่ลบได้อย่างน้อย 1 รายการ
-**Steps**
-1. ไปที่ `/store-operation/wastage-reporting`
-2. กดปุ่มลบ (action column) ในแถวที่ต้องการ
-3. ยืนยันใน Delete dialog
-**Expected**
-Delete dialog แสดง WR No ที่จะลบ; เมื่อยืนยัน แสดง toast deleteSuccess และรายการหายจากตาราง
+## TC-WAST-100001 — ผู้ใช้ไม่มีสิทธิ์ stock_out.view ต้องเห็นกล่องปฏิเสธสิทธิ์
 
----
-## TC-WAST-050002 — ลบ WR จากในฟอร์ม (โหมด edit) สำเร็จ
-> **As a** Store Manager, **I want** to delete a report from within its edit form, **so that** I can remove it without returning to the list.
-
-**Priority:** Medium · **Test Type:** CRUD
-**Preconditions**
-เข้าสู่ระบบเป็น Store Manager; เปิด WR ในโหมด edit
-**Steps**
-1. เปิด detail แล้วกด Edit
-2. กดปุ่ม Delete (สีแดง) ในส่วนหัว
-3. ยืนยันใน Delete dialog
-**Expected**
-แสดง toast deleteSuccess และนำทางกลับไปยัง `/store-operation/wastage-reporting`; WR หายจากตาราง
-
----
-## TC-WAST-100001 — ผู้ใช้ไม่มีสิทธิ์เข้าถึง Wastage Reporting ต้องถูกบล็อก
-> **As a** Store Manager, **I want** users without permission to be blocked from Wastage Reporting, **so that** wastage data stays protected.
+> **As a** low-privilege user, **I should NOT** see Add/edit controls on Wastage Reporting, **so that** role separation is enforced.
 
 **Priority:** High · **Test Type:** Authorization
+
 **Preconditions**
-เข้าสู่ระบบด้วยบัญชีที่ไม่มีสิทธิ์ Store Operation / Wastage Reporting
+
+เข้าสู่ระบบด้วยบัญชีที่ไม่มี permission inventory_management.stock_out.view
+
 **Steps**
-1. พยายามเข้า `/store-operation/wastage-reporting` โดยตรง
+
+1. พยายามเข้า /store-operation/wastage-reporting โดยตรง
+
 **Expected**
-ระบบไม่แสดงข้อมูล WR; แสดงหน้า/ข้อความปฏิเสธสิทธิ์ หรือ redirect ออกจากหน้า
+
+แสดงกล่อง AccessDeniedBlock (role='alert') พร้อมข้อความปฏิเสธสิทธิ์
 
 ---
+
 ## TC-WAST-100002 — ผู้ที่ไม่ได้ login เข้าหน้าตรง ๆ ต้องถูก redirect ไป /login
-> **As a** Store Manager, **I want** anonymous access redirected to login, **so that** the module is never reachable without authentication.
+
+> **As an** unauthenticated user hitting a protected route, **I want** to be redirected to /login, **so that** protected screens stay protected.
 
 **Priority:** High · **Test Type:** Auth-guard
+
 **Preconditions**
-ไม่มี session (logout / ไม่มี token)
+
+ไม่มี session (browser context ที่ยังไม่ได้ล็อกอิน)
+
 **Steps**
-1. เปิด `/store-operation/wastage-reporting` โดยตรงใน browser ที่ไม่มี session
+
+1. เปิด /store-operation/wastage-reporting โดยตรงใน browser context ที่ไม่มี session
+
 **Expected**
-ถูก redirect ไปยัง `/login` และไม่มีข้อมูล WR ปรากฏ
+
+ถูก redirect ไปยัง /login และไม่มีข้อมูล lot ปรากฏบนจอ
 
 ---
-## TC-WAST-200001 — บันทึกโดยไม่เลือกวันที่ / สถานที่ / เหตุผล ต้องแสดง error
-> **As a** Store Manager, **I want** required header fields validated on save, **so that** I cannot submit an incomplete wastage report.
 
-**Priority:** High · **Test Type:** Validation
+## TC-WAST-100003 — BU ที่ไม่ได้ซื้อ feature wastage_reporting ถูกล็อกแม้เป็น admin
+
+> **As a** low-privilege user, **I should NOT** see Add/edit controls on Wastage Reporting, **so that** role separation is enforced.
+
+**Priority:** Low · **Test Type:** Authorization
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า new
+
+BU ที่ license ไม่รวม store_operations.wastage_reporting
+
 **Steps**
-1. ไปที่ `/store-operation/wastage-reporting/new`
-2. เว้นวันที่, สถานที่ และเหตุผลให้ว่าง
-3. กดปุ่ม Save
+
+1. เข้า /store-operation/wastage-reporting โดยตรง
+
 **Expected**
-ฟอร์มไม่ถูกส่ง; แสดงข้อความ required ใต้ฟิลด์ date, location และ reason; โฟกัสเลื่อนไปยังฟิลด์ที่ผิดพลาดแรก
+
+แสดงกล่องปฏิเสธสิทธิ์เหตุผล license หรือเข้าหน้าปกติหาก BU มี license
 
 ---
-## TC-WAST-200002 — line item ไม่เลือกสินค้า/หน่วย หรือ qty < 1 ต้องแสดง error
-> **As a** Store Manager, **I want** line-item fields validated on save, **so that** every reported item has a product, unit, and valid quantity.
 
-**Priority:** High · **Test Type:** Validation
-**Preconditions**
-เข้าสู่ระบบเป็น Store Manager; อยู่ที่หน้า new และเพิ่ม item ว่าง 1 แถว
-**Steps**
-1. ไปที่ `/store-operation/wastage-reporting/new`
-2. กด Add Item แต่ไม่เลือกสินค้า/หน่วย และตั้ง qty = 0
-3. กรอกฟิลด์หัวเอกสารให้ครบ แล้วกด Save
-**Expected**
-แสดง error: product required, unit required และ qty ต้องไม่น้อยกว่า 1; ฟอร์มไม่ถูกบันทึก
+## TC-WAST-900001 — mobile ใช้ bottom sheet สำหรับ filter และตารางเลื่อนแนวนอนได้
 
----
-## TC-WAST-900001 — mobile แสดงรายการแบบ card list และฟอร์มใช้งานได้
-> **As a** Store Manager, **I want** the list and form usable on a phone, **so that** I can report wastage on the floor without a desktop.
+> **As a** Admin user, **I want** this Wastage Reporting behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
 
 **Priority:** Low · **Test Type:** Edge Case
+
 **Preconditions**
-เข้าสู่ระบบเป็น Store Manager; ใช้ viewport ขนาดมือถือ
+
+เข้าสู่ระบบเป็น Admin; active BU = BLAVG; ใช้ viewport ขนาดมือถือ
+
 **Steps**
-1. เปิด `/store-operation/wastage-reporting` ด้วย viewport มือถือ
-2. กดเปิด WR หนึ่งรายการและตรวจฟอร์ม
+
+1. เปิด /store-operation/wastage-reporting ด้วย viewport มือถือ (375x667)
+2. กดปุ่ม Filter
+
 **Expected**
-รายการแสดงในรูปแบบที่อ่านได้บนจอแคบ; ฟอร์ม detail/edit ใช้งานได้โดยฟิลด์ไม่ล้นจอ
+
+ปุ่ม Filter เปิด bottom sheet; ตารางเลื่อนแนวนอนได้โดยหน้าไม่ล้น
+
+---
+
+## TC-WAST-900002 — API ล้มเหลวต้องแสดง ErrorState พร้อมปุ่มลองใหม่
+
+> **As a** Admin user, **I want** this Wastage Reporting behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Medium · **Test Type:** Edge Case
+
+**Preconditions**
+
+เข้าสู่ระบบเป็น Admin; active BU = BLAVG
+
+**Steps**
+
+1. ตั้ง route interception ให้ endpoint ตอบ 500
+2. เปิด /store-operation/wastage-reporting
+3. ปลด interception แล้วกดปุ่มลองใหม่
+
+**Expected**
+
+แสดง ErrorState พร้อมปุ่มลองใหม่ (Try again) และกดลองใหม่โหลดข้อมูลสำเร็จ
+
+---
+
+## TC-WAST-900003 — เปิดลิงก์ที่มี sv ของ view ที่ถูกลบแล้ว ต้องเตือนและล้างค่าออก
+
+> **As a** Admin user, **I want** this Wastage Reporting behavior verified, **so that** the feature works as expected.
+<!-- TODO: refine narrative -->
+
+**Priority:** Low · **Test Type:** Edge Case
+
+**Preconditions**
+
+เข้าสู่ระบบเป็น Admin; active BU = BLAVG
+
+**Steps**
+
+1. เปิด /store-operation/wastage-reporting?sv=invalid-uuid-0000
+
+**Expected**
+
+sv ถูกล้างออกจาก URL และตารางยังแสดงผลได้ตามปกติ
+
+---
+
+
+<sub>Last regenerated: 2026-09-20 · git da448c6</sub>

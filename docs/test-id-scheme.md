@@ -61,6 +61,8 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `720-stock-issue.spec.ts` | `SI` | 01–06, 90 | CRUD + sub-journeys + edge cases |
 | `900-period-end.spec.ts` | `PE` | 01–04, 31–34, 90 | CRUD + integration + edge cases |
 | `1001-campaign.spec.ts` | `CAM` | 01–10, 90 | CRUD + sub-journeys + edge cases |
+| `710-wastage-reporting.spec.ts` | `WAST` | 01–05, 10, 20, 90 | Lot-based wastage read-only |
+| `711-stock-replenishment.spec.ts` | `SRPL` | 01–02, 06, 10, 30, 90 | Replenishment + PR/SR wizard |
 
 ## Documented-only test-case catalogs (no spec yet)
 
@@ -71,8 +73,6 @@ These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/
 | `test-cases/100-product.md` | `PROD` | Product Management | 01–05, 10, 20, 40, 90 |
 | `test-cases/120-recipe.md` | `RCP` | Operation Plan | 01–05, 10, 20, 40–44 |
 | `test-cases/130-equipment.md` | `EQP` | Operation Plan | 01–05, 10, 20, 40–42 |
-| `test-cases/710-wastage-reporting.md` | `WAST` | Store Operation | 01–05, 10, 20, 90 |
-| `test-cases/711-stock-replenishment.md` | `SRPL` | Store Operation | 01–02, 06, 10, 30, 90 |
 | `test-cases/730-inventory-adjustment.md` | `IADJ` | Inventory Management | 01–06, 10, 20, 30, 90 |
 | `test-cases/740-stock-transaction.md` | `STKT` | Inventory Management | 01–03, 10, 90 |
 | `test-cases/750-physical-count.md` | `PCNT` | Inventory Management | 01, 03–08, 10, 20, 90 |
