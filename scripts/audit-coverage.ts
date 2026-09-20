@@ -172,7 +172,8 @@ function render(rows: CoverageRow[], orphans: UnmatchedCatalog[]): string {
     );
     for (const o of stale.sort((a, b) => a.catalog.file.localeCompare(b.catalog.file))) {
       const c = o.catalog;
-      lines.push(`| \`${c.file}\` | \`${c.prefix}\` | \`${c.url || "—"}\` | \`${c.routeDir || "—"}\` |`);
+      const urlCell = c.urls.length ? c.urls.map((u) => `\`${u}\``).join(", ") : "—";
+      lines.push(`| \`${c.file}\` | \`${c.prefix}\` | ${urlCell} | \`${c.routeDir || "—"}\` |`);
     }
     lines.push("");
   }

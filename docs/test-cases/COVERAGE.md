@@ -7,8 +7,8 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Status | Meaning | Modules |
 | --- | --- | --- |
 | ✅ spec | an automated Playwright spec drives this module | 36 |
-| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 33 |
-| ❌ none | neither — this is the coverage gap | 33 |
+| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 36 |
+| ❌ none | neither — this is the coverage gap | 30 |
 
 ## *
 
@@ -149,7 +149,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
 | `/profile` | 1 | `002-spa-smoke.spec.ts` | `1201-profile.md` | ✅ spec |
-| `/profile/setting` | 1 | — | — | ❌ none |
+| `/profile/setting` | 1 | — | `1201-profile.md` | 📄 catalog |
 
 ## register
 
@@ -163,9 +163,9 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
 | `/report` | 1 | — | `1202-report.md` | 📄 catalog |
-| `/report/history` | 1 | — | — | ❌ none |
-| `/report/list` | 1 | `002-spa-smoke.spec.ts` | — | ✅ spec |
-| `/report/schedules` | 1 | — | — | ❌ none |
+| `/report/history` | 1 | — | `1202-report.md` | 📄 catalog |
+| `/report/list` | 1 | `002-spa-smoke.spec.ts` | `1202-report.md` | ✅ spec |
+| `/report/schedules` | 1 | — | `1202-report.md` | 📄 catalog |
 
 ## reset-password
 

@@ -35,8 +35,14 @@ export interface CatalogInfo {
   /** Path relative to docs/test-cases/, e.g. `130-equipment.md`. */
   file: string;
   prefix: string;
-  /** URL from the header block, e.g. `/operation-plan/equipment`. */
-  url: string;
+  /**
+   * URLs from the header block, e.g. `["/operation-plan/equipment"]`.
+   *
+   * More than one when a catalog documents a flow that spans routes —
+   * `/register` and `/register/verify` are one sign-up journey, not two
+   * modules to write twice.
+   */
+  urls: string[];
   /** `routes/...` path from the header block. */
   routeDir: string;
   /** Declared "Total test cases". */
@@ -205,10 +211,12 @@ export function extractRouteLiterals(source: string): string[] {
 export function parseCatalogHeader(markdown: string, file: string): CatalogInfo | null {
   const prefix = markdown.match(/\*\*Prefix:\*\*\s*`([A-Z]{2,5})`/)?.[1];
   if (!prefix) return null;
-  const url = markdown.match(/\*\*URL:\*\*\s*`([^`]+)`/)?.[1] ?? "";
+  // A header may list several URLs: **URL:** `/register` · `/register/verify`
+  const urlLine = markdown.match(/\*\*URL:\*\*\s*(.+)/)?.[1] ?? "";
+  const urls = [...urlLine.matchAll(/`([^`]+)`/g)].map((m) => m[1]);
   const routeDir = markdown.match(/\*\*Frontend route:\*\*\s*`([^`]+)`/)?.[1] ?? "";
   const total = Number(markdown.match(/\*\*Total test cases:\*\*\s*(\d+)/)?.[1] ?? 0);
-  return { file, prefix, url, routeDir: routeDir.replace(/^routes\//, ""), total };
+  return { file, prefix, urls, routeDir: routeDir.replace(/^routes\//, ""), total };
 }
 
 /** Build the coverage table. */
@@ -242,11 +250,11 @@ export function buildCoverage(input: {
 
   const catalogsByModule = new Map<string, Set<string>>();
   for (const cat of input.catalogs) {
-    const key = matchCatalogToModule(cat, modules, landings);
-    if (!key) continue;
-    const bucket = catalogsByModule.get(key) ?? new Set<string>();
-    bucket.add(cat.file);
-    catalogsByModule.set(key, bucket);
+    for (const key of matchCatalogToModules(cat, modules, landings)) {
+      const bucket = catalogsByModule.get(key) ?? new Set<string>();
+      bucket.add(cat.file);
+      catalogsByModule.set(key, bucket);
+    }
   }
 
   const rows: CoverageRow[] = [];
@@ -296,15 +304,20 @@ export function buildCoverage(input: {
  * headers abbreviate — `100-product.md` writes `/product-management/product/...`
  * to mean "and its sub-pages", which matches nothing literally.
  */
-function matchCatalogToModule(
+function matchCatalogToModules(
   cat: CatalogInfo,
   modules: Map<string, unknown>,
   landings: Set<string>,
-): string | undefined {
-  const declared = cat.url.replace(/\/?\.{3}$/, "").replace(/\/$/, "");
-  if (declared.startsWith("/")) {
+): string[] {
+  const matched = new Set<string>();
+  for (const url of cat.urls) {
+    const declared = url.replace(/\/?\.{3}$/, "").replace(/\/$/, "");
+    if (!declared.startsWith("/")) continue;
     const byUrl = collapseToModule(declared);
-    if (modules.has(byUrl)) return byUrl;
+    if (modules.has(byUrl)) {
+      matched.add(byUrl);
+      continue;
+    }
 
     // Walk up, but never land on a section index: `/system-admin/query-dataset`
     // is a route the app no longer has, and letting it settle on `/system-admin`
@@ -314,14 +327,19 @@ function matchCatalogToModule(
       segments.pop();
       const candidate = `/${segments.join("/")}`;
       if (landings.has(candidate)) break;
-      if (modules.has(candidate)) return candidate;
+      if (modules.has(candidate)) {
+        matched.add(candidate);
+        break;
+      }
     }
   }
-  if (!cat.routeDir) return undefined;
+  if (matched.size) return [...matched];
+
+  if (!cat.routeDir) return [];
   for (const key of modules.keys()) {
-    if (key.replace(/^\//, "") === cat.routeDir) return key;
+    if (key.replace(/^\//, "") === cat.routeDir) return [key];
   }
-  return undefined;
+  return [];
 }
 
 /** Why a catalog could not be tied to a module. */
@@ -348,6 +366,8 @@ export function findOrphanCatalogs(
     .filter((c) => !claimed.has(c.file))
     .map((catalog) => ({
       catalog,
-      reason: catalog.url.startsWith("/") ? ("route-missing" as const) : ("no-url" as const),
+      reason: catalog.urls.some((u) => u.startsWith("/"))
+        ? ("route-missing" as const)
+        : ("no-url" as const),
     }));
 }
