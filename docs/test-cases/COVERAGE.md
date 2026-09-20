@@ -7,8 +7,8 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Status | Meaning | Modules |
 | --- | --- | --- |
 | ✅ spec | an automated Playwright spec drives this module | 36 |
-| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 28 |
-| ❌ none | neither — this is the coverage gap | 38 |
+| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 31 |
+| ❌ none | neither — this is the coverage gap | 35 |
 
 ## *
 
@@ -193,12 +193,12 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | `/system-admin/dashboard-dataset` | 1 | — | `1112-dashboard-dataset.md` | 📄 catalog |
 | `/system-admin/default-setting` | 1 | — | `1115-default-setting.md` | 📄 catalog |
 | `/system-admin/document` | 1 | — | `1107-document.md` | 📄 catalog |
-| `/system-admin/email-profile` | 1 | — | — | ❌ none |
-| `/system-admin/email-template` | 1 | — | — | ❌ none |
-| `/system-admin/interface` | 2 | — | — | ❌ none |
-| `/system-admin/inventory-period` | 1 | — | — | ❌ none |
+| `/system-admin/email-profile` | 1 | — | `1116-email-profile.md` | 📄 catalog |
+| `/system-admin/email-template` | 1 | — | `1117-email-template.md` | 📄 catalog |
+| `/system-admin/interface` | 2 | — | `1118-interface.md` | 📄 catalog |
+| `/system-admin/inventory-period` | 1 | — | `1105-system-period.md` | 📄 catalog |
 | `/system-admin/notification-template` | 3 | — | `1104-notification-template.md` | 📄 catalog |
-| `/system-admin/period` | 1 _(redirect)_ | — | `1105-system-period.md` | 📄 catalog |
+| `/system-admin/period` | 1 _(redirect)_ | — | — | ❌ none |
 | `/system-admin/role` | 3 | — | `1101-role.md` | 📄 catalog |
 | `/system-admin/running-code` | 1 | — | `1110-running-code.md` | 📄 catalog |
 | `/system-admin/user` | 2 | — | `1102-user.md` | 📄 catalog |
