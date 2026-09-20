@@ -9,4 +9,11 @@ pre-commit:
       run: bun audit:tc-ids && bun audit:spec-health:check
     audit-catalogs:
       glob: "docs/**/*.md"
-      run: bun audit:tc-ids && bun audit:coverage:check
+      run: bun audit:tc-ids && bun audit:coverage:check && bun audit:spec-health:check
+    # COVERAGE.md and SPEC-HEALTH.md are generated, so a change to either
+    # generator can stale them without touching a spec or a doc. Neither glob
+    # above sees that, which is how the commit that added the Guarded column
+    # got through with audit-specs printing "skip".
+    audit-generators:
+      glob: "scripts/**/*.ts"
+      run: bun audit:coverage:check && bun audit:spec-health:check
