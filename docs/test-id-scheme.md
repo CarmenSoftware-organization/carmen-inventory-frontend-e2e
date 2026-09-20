@@ -73,7 +73,7 @@ These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/
 | `test-cases/730-inventory-adjustment.md` | `IADJ` | Inventory Management | 01–06, 10, 20, 30, 90 |
 | `test-cases/740-stock-transaction.md` | `STKT` | Inventory Management | 01–03, 10, 90 |
 | `test-cases/750-physical-count.md` | `PCNT` | Inventory Management | 01, 03–08, 10, 20, 90 |
-| `test-cases/760-spot-check.md` | `SPC` | Inventory Management | 01, 03–07, 10, 20 |
+| `test-cases/760-spot-check.md` | `SPC` | Inventory Management | 01, 03, 06–07, 10, 20 |
 | `test-cases/1002-external-price-list.md` | `EPL` | Vendor Management | 01, 04, 10, 20, 30, 90 |
 | `test-cases/1101-role.md` | `ROLE` | Platform / System Admin | 01–05, 10, 20, 40 |
 | `test-cases/1102-user.md` | `USR` | Platform / System Admin | 01–02, 04–05, 10, 20, 40 |
@@ -88,7 +88,7 @@ These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/
 | `test-cases/1113-signature-config.md` | `SIGN` | Platform / System Admin | 02, 04, 10, 20, 30 |
 | `test-cases/1200-dashboard.md` | `DASH` | Cross-cutting | 01–05, 09–10 |
 | `test-cases/1201-profile.md` | `PROF` | Cross-cutting | 01–05, 10, 20 |
-| `test-cases/1202-report.md` | `RPT` | Cross-cutting | 01–04, 10 |
+| `test-cases/1202-report.md` | `RPT` | Cross-cutting | 01–05, 10, 20 |
 | `test-cases/1203-notifications.md` | `NTFY` | Cross-cutting | 01–02, 04, 09–10 |
 | `test-cases/1204-section-landing.md` | `LAND` | Cross-cutting | 01, 10, 40, 90 |
 | `test-cases/081-account-mapping.md` | `ACMAP` | Config (master data) | 01, 10, 40, 90 |
