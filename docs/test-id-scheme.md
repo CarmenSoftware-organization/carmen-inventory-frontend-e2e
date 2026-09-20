@@ -64,47 +64,47 @@ These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/
 | Catalog doc | Prefix | Area | Sections used |
 |-------------|--------|------|---------------|
 | `test-cases/100-product.md` | `PROD` | Product Management | 01–05, 10, 20, 40, 90 |
-| `test-cases/110-op-category.md` | `OPCAT` | Operation Plan | 01–05, 10, 20 |
-| `test-cases/111-cuisine.md` | `CUIS` | Operation Plan | 01–05, 10, 20 |
-| `test-cases/120-recipe.md` | `RCP` | Operation Plan | 01–05, 20, 40–44, 90 |
-| `test-cases/130-equipment.md` | `EQP` | Operation Plan | 01–05, 10, 20 |
-| `test-cases/710-wastage-reporting.md` | `WAST` | Store Operation | 01–05, 10–19, 20, 90 |
-| `test-cases/711-stock-replenishment.md` | `SRPL` | Store Operation | 01, 10–19, 30, 90 |
-| `test-cases/730-inventory-adjustment.md` | `IADJ` | Inventory Management | 01–05, 10–19, 20, 30, 40, 90 |
-| `test-cases/740-stock-transaction.md` | `STKT` | Inventory Management | 01–02, 10–19, 90 |
-| `test-cases/750-physical-count.md` | `PCNT` | Inventory Management | 01–07, 10–19, 20, 90 |
-| `test-cases/760-spot-check.md` | `SPC` | Inventory Management | 01–07, 10–19, 20, 90 |
+| `test-cases/110-op-category.md` | `OPCAT` | Operation Plan | 01–05, 10, 20, 90 |
+| `test-cases/111-cuisine.md` | `CUIS` | Operation Plan | 01–05, 10, 20, 90 |
+| `test-cases/120-recipe.md` | `RCP` | Operation Plan | 01–05, 10, 20, 40–44 |
+| `test-cases/130-equipment.md` | `EQP` | Operation Plan | 01–05, 10, 20, 40–42 |
+| `test-cases/710-wastage-reporting.md` | `WAST` | Store Operation | 01–05, 10, 20, 90 |
+| `test-cases/711-stock-replenishment.md` | `SRPL` | Store Operation | 01–02, 06, 10, 30, 90 |
+| `test-cases/730-inventory-adjustment.md` | `IADJ` | Inventory Management | 01–06, 10, 20, 30, 90 |
+| `test-cases/740-stock-transaction.md` | `STKT` | Inventory Management | 01–03, 10, 90 |
+| `test-cases/750-physical-count.md` | `PCNT` | Inventory Management | 01, 03–08, 10, 20, 90 |
+| `test-cases/760-spot-check.md` | `SPC` | Inventory Management | 01, 03–07, 10, 20 |
 | `test-cases/1002-external-price-list.md` | `EPL` | Vendor Management | 01, 04, 10, 20, 30, 90 |
-| `test-cases/1101-role.md` | `ROLE` | Platform / System Admin | 01–05, 10–19, 20, 40, 90 |
-| `test-cases/1102-user.md` | `USR` | Platform / System Admin | 01–05, 10–19, 90 |
-| `test-cases/1103-workflow.md` | `WF` | Platform / System Admin | 01–05, 10–19, 20, 40, 90 |
+| `test-cases/1101-role.md` | `ROLE` | Platform / System Admin | 01–05, 10, 20, 40 |
+| `test-cases/1102-user.md` | `USR` | Platform / System Admin | 01–02, 04–05, 10, 20, 40 |
+| `test-cases/1103-workflow.md` | `WF` | Platform / System Admin | 01–05, 10, 20, 40, 90 |
 | `test-cases/1104-notification-template.md` | `NTPL` | Platform / System Admin | 01–05, 10, 20 |
-| `test-cases/1105-system-period.md` | `SPER` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
-| `test-cases/1106-user-activity.md` | `UACT` | Platform / System Admin | 01–02, 10–19, 30 |
-| `test-cases/1107-document.md` | `DOC` | Platform / System Admin | 01, 03, 05, 10, 20 |
-| `test-cases/1108-query-dataset.md` | `QDS` | Platform / System Admin | 01–05, 10, 20, 30, 40 |
-| `test-cases/1109-activity-log.md` | `ALOG` | Platform / System Admin | 01–02, 10–19, 30 |
-| `test-cases/1110-running-code.md` | `RUNC` | Platform / System Admin | 01, 03–05, 10, 20, 30, 40 |
-| `test-cases/1111-config-email.md` | `CEML` | Platform / System Admin | 04, 10, 20, 30 |
-| `test-cases/1112-dashboard-dataset.md` | `DDS` | Platform / System Admin | 01, 10, 90 |
-| `test-cases/1113-signature-config.md` | `SIGN` | Platform / System Admin | 04, 10, 20, 40 |
-| `test-cases/1200-dashboard.md` | `DASH` | Cross-cutting | 01–02, 04, 05, 10, 90 |
-| `test-cases/1201-profile.md` | `PROF` | Cross-cutting | 01–02, 04, 10, 20 |
-| `test-cases/1202-report.md` | `RPT` | Cross-cutting | 01, 10, 30, 40 |
-| `test-cases/1203-notifications.md` | `NTFY` | Cross-cutting | 01–02, 04, 10, 90 |
+| `test-cases/1105-system-period.md` | `SPER` | Platform / System Admin | 01–05, 10, 20, 30, 90 |
+| `test-cases/1106-user-activity.md` | `UACT` | Platform / System Admin | 01–02, 04, 10, 30 |
+| `test-cases/1107-document.md` | `DOC` | Platform / System Admin | 01, 03, 05, 10, 20, 90 |
+| `test-cases/1108-query-dataset.md` | `QDS` | Platform / System Admin | 01–03, 05, 10, 20, 30 |
+| `test-cases/1109-activity-log.md` | `ALOG` | Platform / System Admin | 01–02, 04, 10, 30 |
+| `test-cases/1110-running-code.md` | `RUNC` | Platform / System Admin | 01, 03–05, 10, 20, 30 |
+| `test-cases/1111-config-email.md` | `CEML` | Platform / System Admin | 02, 04, 10, 20, 30 |
+| `test-cases/1112-dashboard-dataset.md` | `DDS` | Platform / System Admin | 01–02, 09–10 |
+| `test-cases/1113-signature-config.md` | `SIGN` | Platform / System Admin | 02, 04, 10, 20, 30 |
+| `test-cases/1200-dashboard.md` | `DASH` | Cross-cutting | 01–05, 09–10 |
+| `test-cases/1201-profile.md` | `PROF` | Cross-cutting | 01–05, 10, 20 |
+| `test-cases/1202-report.md` | `RPT` | Cross-cutting | 01–04, 10 |
+| `test-cases/1203-notifications.md` | `NTFY` | Cross-cutting | 01–02, 04, 09–10 |
 | `test-cases/1204-section-landing.md` | `LAND` | Cross-cutting | 01, 10, 40, 90 |
-| `test-cases/081-account-mapping.md` | `ACMAP` | Config (master data) | 01–05, 10, 20, 30, 40, 90 |
-| `test-cases/082-chart-of-accounts.md` | `COA` | Config (master data) | 01–05, 10, 20, 30, 40, 90 |
-| `test-cases/083-shelf.md` | `SHLF` | Config (master data) | 01–05, 10, 20, 30, 40, 90 |
-| `test-cases/1114-company-profile.md` | `COMP` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
-| `test-cases/1115-default-setting.md` | `DSET` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
-| `test-cases/1116-email-profile.md` | `EPROF` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
-| `test-cases/1117-email-template.md` | `ETPL` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
-| `test-cases/1118-interface.md` | `INTF` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
-| `test-cases/003-register.md` | `REG` | Auth (public) | 01–05, 10, 20, 30, 40, 90 |
-| `test-cases/004-invitation.md` | `INVT` | Auth (public) | 01–05, 10, 20, 30, 40, 90 |
-| `test-cases/005-password-recovery.md` | `PWD` | Auth (public) | 01–05, 10, 20, 30, 40, 90 |
-| `test-cases/006-legal.md` | `LEGAL` | Auth (public) | 01–05, 10, 20, 30, 40, 90 |
+| `test-cases/081-account-mapping.md` | `ACMAP` | Config (master data) | 01, 10, 40, 90 |
+| `test-cases/082-chart-of-accounts.md` | `COA` | Config (master data) | 01–05, 10, 20, 30, 90 |
+| `test-cases/083-shelf.md` | `SHLF` | Config (master data) | 01–05, 10, 20, 30, 90 |
+| `test-cases/1114-company-profile.md` | `COMP` | Platform / System Admin | 01–02, 04, 10, 20, 40, 90 |
+| `test-cases/1115-default-setting.md` | `DSET` | Platform / System Admin | 01–02, 04, 10, 30, 40, 90 |
+| `test-cases/1116-email-profile.md` | `EPROF` | Platform / System Admin | 01, 03–05, 10, 20, 30, 40, 90 |
+| `test-cases/1117-email-template.md` | `ETPL` | Platform / System Admin | 01, 03–05, 10, 20, 30, 40, 90 |
+| `test-cases/1118-interface.md` | `INTF` | Platform / System Admin | 01–02, 04, 10, 40, 90 |
+| `test-cases/003-register.md` | `REG` | Auth (public) | 01–03, 10, 20, 30, 40, 90 |
+| `test-cases/004-invitation.md` | `INVT` | Auth (public) | 01–03, 10, 20, 30, 40, 90 |
+| `test-cases/005-password-recovery.md` | `PWD` | Auth (public) | 01–04, 10, 20, 30, 90 |
+| `test-cases/006-legal.md` | `LEGAL` | Auth (public) | 01–02, 10, 40, 90 |
 
 ## Adding a new module
 
