@@ -1,6 +1,12 @@
 pre-commit:
   parallel: true
   commands:
-    audit-tc-ids:
+    # Split by path rather than one brace-expanded glob: lefthook matches a
+    # single pattern per command, so a "{a,b}" list silently matches nothing —
+    # which is how this gate spent its first commits skipping every run.
+    audit-specs:
       glob: "tests/**/*.spec.ts"
       run: bun audit:tc-ids
+    audit-catalogs:
+      glob: "docs/**/*.md"
+      run: bun audit:tc-ids && bun audit:coverage:check
