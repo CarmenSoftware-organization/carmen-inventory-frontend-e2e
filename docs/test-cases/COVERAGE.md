@@ -103,9 +103,9 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | `/operation-plan/category` | 3 | — | `110-op-category.md` | 📄 catalog |
 | `/operation-plan/cuisine` | 3 | — | `111-cuisine.md` | 📄 catalog |
 | `/operation-plan/equipment` | 3 | — | `130-equipment.md` | 📄 catalog |
-| `/operation-plan/equipment-category` | 1 | `131-equipment-category.spec.ts` | `131-equipment-category.md` | ✅ spec |
+| `/operation-plan/equipment-category` | 1 | `131-equipment-category.spec.ts` | — | ✅ spec |
 | `/operation-plan/recipe` | 3 | — | `120-recipe.md` | 📄 catalog |
-| `/operation-plan/recipe-equipment-category` | 1 | `121-recipe-equipment-category.spec.ts` | `121-recipe-equipment-category.md` | ✅ spec |
+| `/operation-plan/recipe-equipment-category` | 1 | `121-recipe-equipment-category.spec.ts` | — | ✅ spec |
 
 ## pl
 
@@ -221,12 +221,3 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | `/vendor-management/price-list-template` | 3 | `160-pl-template.spec.ts` | — | ✅ spec |
 | `/vendor-management/request-price-list` | 3 | `1001-campaign.spec.ts` | — | ✅ spec |
 | `/vendor-management/vendor` | 3 | `150-vendor.spec.ts` | — | ✅ spec |
-
-## Stale catalogs
-
-The declared route no longer matches any route in the app — renamed, moved, or removed. Each needs a decision: re-point it, or retire it.
-
-| Catalog | Prefix | Declared URL | Declared route dir |
-| --- | --- | --- | --- |
-| `1108-query-dataset.md` | `QDS` | `/system-admin/query-dataset` | `system-admin/query-dataset` |
-| `1111-config-email.md` | `CEML` | `/system-admin/config-email` | `system-admin/config-email` |

@@ -40,8 +40,8 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `079-delivery-point.spec.ts` | `DP` | 01, 03–05, 10–19, 20 | CRUD + security |
 | `080-location.spec.ts` | `LOC` | 01, 03–05, 10, 20 | CRUD + security |
 | `101-product-category.spec.ts` | `CAT` | 01–15, 20–29, 90 | Multi-prefix collapse (CATEG/PRODU/RECIP) |
-| `121-recipe-equipment-category.spec.ts` | `RECC` | 01, 03–05, 10, 20, 90 | CRUD + security (graduated draft — runtime-unverified) |
-| `131-equipment-category.spec.ts` | `EQPC` | 01, 03–05, 10, 20, 90 | CRUD + security (graduated draft — runtime-unverified) |
+| `121-recipe-equipment-category.spec.ts` | `RECC` | 01–05, 10, 20, 90 | CRUD + security (graduated draft — runtime-unverified) |
+| `131-equipment-category.spec.ts` | `EQPC` | 01–05, 10, 20, 90 | CRUD + security (graduated draft — runtime-unverified) |
 | `150-vendor.spec.ts` | `VEN` | 01, 03–05, 10–19, 20 | CRUD + security |
 | `159-pl.spec.ts` | `PL` | 01–08, 90 | CRUD + sub-journeys + edge cases |
 | `160-pl-template.spec.ts` | `PT` | 01–06, 20, 90 | CRUD + sub-journeys + edge cases |
@@ -59,7 +59,7 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 
 ## Documented-only test-case catalogs (no spec yet)
 
-These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/`](test-cases/) — coverage gaps that do not yet have an automated spec (including the entire Platform / System-Admin module). `bun audit:tc-ids` scans these catalogs too, but reports their findings as **warnings**: the drift that predates the check is exactly what it looks for, and failing CI on it would block the phases that clean it up. `bun audit:tc-ids:strict` treats them as errors — the gate to switch on once the catalogs are reconciled. When a catalog graduates into a spec, move its row into the **Module catalog** table above **and delete the catalog** — leaving both makes two files own the same IDs, which the audit reports as a cross-file duplicate.
+These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/`](test-cases/) — coverage gaps that do not yet have an automated spec (including the entire Platform / System-Admin module). `bun audit:tc-ids` scans these catalogs too, but reports their findings as **warnings**: the drift that predates the check is exactly what it looks for, and failing CI on it would block the phases that clean it up. `bun audit:tc-ids:strict` treats them as errors — the gate to switch on once the catalogs are reconciled. When a catalog graduates into a spec, move its row into the **Module catalog** table above **and delete the catalog** — or, if the spec covers only part of it, keep the remainder as a gap report under [`test-cases/gaps/`](test-cases/gaps/), which reuses the spec's own prefix and needs no row of its own — leaving both makes two files own the same IDs, which the audit reports as a cross-file duplicate.
 
 | Catalog doc | Prefix | Area | Sections used |
 |-------------|--------|------|---------------|
@@ -82,10 +82,8 @@ These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/
 | `test-cases/1105-system-period.md` | `SPER` | Platform / System Admin | 01–05, 10, 20, 30, 90 |
 | `test-cases/1106-user-activity.md` | `UACT` | Platform / System Admin | 01–02, 04, 10, 30 |
 | `test-cases/1107-document.md` | `DOC` | Platform / System Admin | 01, 03, 05, 10, 20, 90 |
-| `test-cases/1108-query-dataset.md` | `QDS` | Platform / System Admin | 01–03, 05, 10, 20, 30 |
 | `test-cases/1109-activity-log.md` | `ALOG` | Platform / System Admin | 01–02, 04, 10, 30 |
 | `test-cases/1110-running-code.md` | `RUNC` | Platform / System Admin | 01, 03–05, 10, 20, 30 |
-| `test-cases/1111-config-email.md` | `CEML` | Platform / System Admin | 02, 04, 10, 20, 30 |
 | `test-cases/1112-dashboard-dataset.md` | `DDS` | Platform / System Admin | 01–02, 09–10 |
 | `test-cases/1113-signature-config.md` | `SIGN` | Platform / System Admin | 02, 04, 10, 20, 30 |
 | `test-cases/1200-dashboard.md` | `DASH` | Cross-cutting | 01–05, 09–10 |

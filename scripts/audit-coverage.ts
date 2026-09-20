@@ -93,6 +93,13 @@ function localImports(source: string, fromDir: string): string[] {
   return out;
 }
 
+/**
+ * Catalogs, excluding `gaps/`.
+ *
+ * A gap report describes what a spec does NOT cover, so counting it as coverage
+ * would report the opposite of what it says. Its module already reads as
+ * covered through the spec itself.
+ */
 function loadCatalogs(): CatalogInfo[] {
   const files = readdirSync(CATALOG_DIR).filter(
     (f) => f.endsWith(".md") && f !== "README.md" && f !== "COVERAGE.md",

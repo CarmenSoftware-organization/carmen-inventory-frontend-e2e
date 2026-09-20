@@ -219,8 +219,10 @@ export function auditAllCatalogs(): AuditResult[] {
   const dir = resolve(process.cwd(), "docs", "test-cases");
   if (!existsSync(dir)) return [];
   const catalog = loadCatalog();
-  const files = readdirSync(dir).filter(
-    (f) => f.endsWith(".md") && f !== "README.md" && f !== "COVERAGE.md",
+  // Includes gaps/: a gap report reuses its spec's prefix, so it is exactly the
+  // place where a duplicate ID would go unnoticed.
+  const files = readdirSync(dir, { recursive: true, encoding: "utf8" }).filter(
+    (f) => f.endsWith(".md") && !f.endsWith("README.md") && !f.endsWith("COVERAGE.md"),
   );
   return files.map((f) => auditCatalogDoc(resolve(dir, f), catalog));
 }
