@@ -6,8 +6,10 @@ Each file follows the TC-ID scheme in [`../test-id-scheme.md`](../test-id-scheme
 
 > **Relationship to `docs/user-stories/`:** that folder holds the **generated** stakeholder views of modules that already have automated specs (login, config master-data, vendor, PR/PO/GRN/CN/SR suites, etc.). This folder (`docs/test-cases/`) holds **hand-authored catalogs for modules that do not yet have a spec** — i.e. the coverage gap, including the entire Platform / System-Admin module. To graduate any catalog into an automated spec, register its prefix in `../test-id-scheme.md` first (the audit gate scans specs only, so these catalogs do not affect CI today).
 
-**Totals:** 32 catalogs · 674 documented test cases.
+**Totals:** 40 catalogs · 1086 documented test cases (plus 2 gap reports · 7 cases in [`gaps/`](gaps/)).
 
+> **`gaps/`** holds the remainder of a catalog whose module has since gained a spec: only the cases the spec does **not** cover. It reuses the spec's own prefix, so it needs no row in the TC-ID scheme. Delete a case from there once it is automated, and delete the file when it empties.
+>
 > **Where the gaps are:** [`COVERAGE.md`](COVERAGE.md) is the generated matrix of every frontend route against the spec or catalog that covers it — 102 modules, and it names the ones with neither. It also lists catalogs whose declared route the app no longer serves. Refresh it with `bun audit:coverage` (or `bun audit:coverage:check` in CI); never edit it by hand. The tables below stay as the human-readable index of what each catalog contains.
 
 ## Platform / System Admin (the "platform module")

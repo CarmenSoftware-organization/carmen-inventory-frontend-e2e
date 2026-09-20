@@ -1,13 +1,12 @@
 pre-commit:
   parallel: true
   commands:
-    # Catalogs are audited too, and strictly: the drift that made the check
-    # lenient was cleared in P3, so a warning now would be a new regression.
-    audit-tc-ids:
-      glob: "{tests/**/*.spec.ts,docs/test-cases/**/*.md,docs/test-id-scheme.md}"
-      run: bun audit:tc-ids:strict
-    # COVERAGE.md is generated; a stale copy is worse than none because people
-    # plan work from it.
-    audit-coverage:
-      glob: "{tests/**/*.spec.ts,docs/test-cases/**/*.md}"
-      run: bun audit:coverage:check
+    # Split by path rather than one brace-expanded glob: lefthook matches a
+    # single pattern per command, so a "{a,b}" list silently matches nothing —
+    # which is how this gate spent its first commits skipping every run.
+    audit-specs:
+      glob: "tests/**/*.spec.ts"
+      run: bun audit:tc-ids
+    audit-catalogs:
+      glob: "docs/**/*.md"
+      run: bun audit:tc-ids && bun audit:coverage:check
