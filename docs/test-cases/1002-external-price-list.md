@@ -3,10 +3,12 @@
 _Test-case catalog (documentation only; no automated Playwright spec yet). Authored from the React app module at `routes/external/pl`. Follows the TC-ID scheme in `docs/test-id-scheme.md`._
 
 **Module:** External Price List — public vendor submission portal
-**Frontend route:** `routes/external/pl`  •  **URL:** `/external/pl/:url_token` (public — ไม่ต้อง login)
+**Frontend route:** `routes/external/pl`  •  **URL:** `/pl/:url_token` (public — ไม่ต้อง login)
 **Prefix:** `EPL`
 **Default role:** ไม่มี (เปิดผ่าน url token ที่ส่งให้ vendor ภายนอก ไม่ต้อง auth)
 **Total test cases:** 22
+
+> หมายเหตุสำคัญสำหรับผู้รีวิว: หัวเอกสารเคยระบุ URL ว่า `/external/pl/:url_token` ตามชื่อโฟลเดอร์ของ route module แต่ path ที่ router ประกาศจริงคือ `/pl/:url_token` (ดู `routes/router.tsx`) — แก้ให้ตรงเมื่อ 2026-09-20 เนื้อหาเทสเคสไม่เปลี่ยน
 
 > หน้านี้คือฝั่ง **vendor ภายนอก** ของ flow ขอราคา (Request-for-Pricing / Campaign — ดู `1001-campaign`). Carmen ส่งลิงก์พร้อม `url_token` ให้ vendor; vendor เปิดลิงก์ได้โดยไม่ต้อง login. หน้าโหลดข้อมูล price list ผ่าน token แล้วแสดง **Header** (เลขที่ `pricelist_no`, ชื่อ, status badge แบบตัวพิมพ์ใหญ่, Vendor Name, Currency, ช่วงวันที่มีผล effective from–to, และ Description/Note ถ้ามี). มีปุ่มสลับ **View Mode ↔ Edit Mode** (เริ่มต้นที่ View Mode). **View Mode** แสดงตารางแบบ group ตาม product (รวมหลาย MOQ/ราคา/หน่วยของสินค้าเดียวเป็นแถวเดียว) คอลัมน์ #, Product, MOQ (สรุป `moq+ unit→price (Nd)`), PWT (price without tax), Tax, Tax Profile. **Edit Mode** แสดงตารางราย detail แก้ไขได้ คอลัมน์ #, Product, Unit, MOQ, Price, Lead Time, PWT, Tax, Tax Profile และปุ่ม expand เพื่อดู/แก้ MOQ tiers (sub-table); มีปุ่ม **Save** และ **Submit** ท้ายตาราง. กฎสำคัญ: Save จะเตือน "No changes to save" ถ้าไม่มีการแก้ไข, สำเร็จขึ้น toast แล้วล้างสถานะ dirty; Submit ต้อง Save ให้หมดก่อน (ถ้ายัง dirty จะเตือน "Please save all changes before submitting"), สำเร็จขึ้น toast. ปุ่ม Save ถูก disable เมื่อไม่มีการแก้ไข; ปุ่ม Submit ถูก disable เมื่อยังมีการแก้ไขค้าง. token หมดอายุ/ไม่ถูกต้อง (HTTP 401) แสดงข้อความ "This link has expired"; error อื่นแสดง ErrorState พร้อมปุ่ม Retry.
 

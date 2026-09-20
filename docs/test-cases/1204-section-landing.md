@@ -3,10 +3,12 @@
 _Test-case catalog (documentation only; no automated Playwright spec yet). Authored from the React app module landings under `routes/*/page.tsx`, `components/dashboard-widget`, `components/module-landing`, and `components/not-found-component`. Follows the TC-ID scheme in `docs/test-id-scheme.md`._
 
 **Module:** Section landing / navigation shell pages + Not-Found (404)
-**Frontend route:** `routes/{config,inventory-management,operation-plan,procurement,product-management,vendor-management,store-operation,system-admin}/page.tsx`, `routes/not-found`
+**Frontend route:** `routes/<section>/<section>.route.tsx` (index route ของแต่ละหมวด), `routes/not-found`  •  **URL:** `/config` `/dashboard` `/inventory-management` `/operation-plan` `/procurement` `/product-management` `/store-operation` `/system-admin` `/vendor-management` `/*`
 **Prefix:** `LAND`
 **Default role:** Any authenticated user (404 page เข้าได้ทุกสถานะ)
 **Total test cases:** 16
+
+> หมายเหตุสำคัญสำหรับผู้รีวิว: หัวเอกสารเคยชี้ `routes/*/page.tsx` ซึ่งเป็นโครงของแอป Next.js เดิม แอปปัจจุบันประกาศ landing เป็น index route ใน `routes/router.tsx` จึง re-point เมื่อ 2026-09-20 และเพิ่มรายการ URL ที่เอกสารนี้ครอบจริงเพื่อให้ `bun audit:coverage` จับคู่ได้ เอกสารนี้**ไม่ครอบ** landing ของ `/report` และ `/accounting` (ยังไม่มีเคส)
 
 > แต่ละ section ของแอปมี **landing page** ที่ผู้ใช้เห็นเมื่อคลิกเมนูหลัก. มี 2 รูปแบบ: (1) **Dashboard widget grid** — `/config`, `/inventory-management`, `/operation-plan`, `/procurement`, `/product-management`, `/vendor-management` ใช้ `DashboardWidgetGrid` แสดง title + description + stat tiles (widgets) ของโมดูลนั้น พร้อมสถานะ loading (`aria-busy`), empty (ไม่มี widget), และ error (loadError). (2) **Module landing list** — `/store-operation` ใช้ `ModuleLanding` แสดงการ์ดของ sub-module ที่ผู้ใช้มีสิทธิ์ (แต่ละการ์ดเป็นลิงก์ไป route ของ sub-module; sub-module ที่ไม่มีสิทธิ์จะจาง opacity-50 และคลิกแล้ว dispatch permission-denied แทนการนำทาง) พร้อม badge นับจำนวน sub-module; `/system-admin` ใช้ `SystemAdminLanding` แบบ editorial chapters พร้อม CTA. หน้า **404 Not-Found** (`routes/not-found`) แสดงเลข 404, eyebrow, title, description และปุ่ม "Back to Dashboard" ที่ลิงก์ไป `/dashboard`. ทุก landing ต้องผ่าน auth guard (ยกเว้น 404 ที่เป็น fallback).
 

@@ -7,14 +7,14 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Status | Meaning | Modules |
 | --- | --- | --- |
 | ✅ spec | an automated Playwright spec drives this module | 36 |
-| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 36 |
-| ❌ none | neither — this is the coverage gap | 30 |
+| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 43 |
+| ❌ none | neither — this is the coverage gap | 23 |
 
 ## *
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/*` | 1 | — | — | ❌ none |
+| `/*` | 1 | — | `1204-section-landing.md` | 📄 catalog |
 
 ## Accounting
 
@@ -37,7 +37,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/config` | 1 | `002-spa-smoke.spec.ts` | — | ✅ spec |
+| `/config` | 1 | `002-spa-smoke.spec.ts` | `1204-section-landing.md` | ✅ spec |
 | `/config/account-mapping` | 1 | — | `081-account-mapping.md` | 📄 catalog |
 | `/config/adjustment-type` | 1 | `031-adjustment-type.spec.ts` | — | ✅ spec |
 | `/config/business-type` | 1 | `029-business-type.spec.ts` | — | ✅ spec |
@@ -58,7 +58,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/dashboard` | 1 | `001-login.spec.ts`<br>`002-spa-smoke.spec.ts` | `1200-dashboard.md` | ✅ spec |
+| `/dashboard` | 1 | `001-login.spec.ts`<br>`002-spa-smoke.spec.ts` | `1200-dashboard.md`<br>`1204-section-landing.md` | ✅ spec |
 
 ## forgot-password
 
@@ -70,7 +70,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/inventory-management` | 1 | — | — | ❌ none |
+| `/inventory-management` | 1 | — | `1204-section-landing.md` | 📄 catalog |
 | `/inventory-management/inventory-adjustment` | 3 | — | `730-inventory-adjustment.md` | 📄 catalog |
 | `/inventory-management/period-end` | 2 | `900-period-end.spec.ts` | — | ✅ spec |
 | `/inventory-management/physical-count` | 5 | — | `750-physical-count.md` | 📄 catalog |
@@ -99,7 +99,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/operation-plan` | 1 | — | — | ❌ none |
+| `/operation-plan` | 1 | — | `1204-section-landing.md` | 📄 catalog |
 | `/operation-plan/category` | 3 | — | `110-op-category.md` | 📄 catalog |
 | `/operation-plan/cuisine` | 3 | — | `111-cuisine.md` | 📄 catalog |
 | `/operation-plan/equipment` | 3 | — | `130-equipment.md` | 📄 catalog |
@@ -111,7 +111,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/pl` | 1 | — | — | ❌ none |
+| `/pl` | 1 | — | `1002-external-price-list.md` | 📄 catalog |
 
 ## privacy
 
@@ -123,7 +123,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/procurement` | 1 | `002-spa-smoke.spec.ts` | — | ✅ spec |
+| `/procurement` | 1 | `002-spa-smoke.spec.ts` | `1204-section-landing.md` | ✅ spec |
 | `/procurement/approval` | 1 | `002-spa-smoke.spec.ts`<br>`201-my-approvals.spec.ts`<br>`303-pr-approver-journey.spec.ts` | — | ✅ spec |
 | `/procurement/credit-note` | 3 | `002-spa-smoke.spec.ts`<br>`601-cn.spec.ts` | — | ✅ spec |
 | `/procurement/goods-receive-note` | 3 | `002-spa-smoke.spec.ts`<br>`501-grn.spec.ts` | — | ✅ spec |
@@ -139,7 +139,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/product-management` | 1 | — | — | ❌ none |
+| `/product-management` | 1 | — | `1204-section-landing.md` | 📄 catalog |
 | `/product-management/category` | 1 | `101-product-category.spec.ts` | — | ✅ spec |
 | `/product-management/eco` | 1 | `044-eco.spec.ts` | — | ✅ spec |
 | `/product-management/product` | 3 | — | `100-product.md` | 📄 catalog |
@@ -177,7 +177,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/store-operation` | 1 | — | — | ❌ none |
+| `/store-operation` | 1 | — | `1204-section-landing.md` | 📄 catalog |
 | `/store-operation/stock-replenishment` | 1 | — | `711-stock-replenishment.md` | 📄 catalog |
 | `/store-operation/store-requisition` | 3 | `701-sr.spec.ts`<br>`720-stock-issue.spec.ts` | — | ✅ spec |
 | `/store-operation/wastage-reporting` | 1 | — | `710-wastage-reporting.md` | 📄 catalog |
@@ -186,7 +186,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/system-admin` | 1 | — | `1113-signature-config.md` | 📄 catalog |
+| `/system-admin` | 1 | — | `1113-signature-config.md`<br>`1204-section-landing.md` | 📄 catalog |
 | `/system-admin/activity-log` | 1 | — | `1109-activity-log.md` | 📄 catalog |
 | `/system-admin/business-setting` | 1 _(redirect → `/system-admin/company-profile`)_ | — | `1114-company-profile.md` | 📄 catalog |
 | `/system-admin/company-profile` | 1 | — | `1114-company-profile.md` | 📄 catalog |
@@ -215,7 +215,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/vendor-management` | 1 | — | — | ❌ none |
+| `/vendor-management` | 1 | — | `1204-section-landing.md` | 📄 catalog |
 | `/vendor-management/certification` | 1 | `043-certification.spec.ts` | — | ✅ spec |
 | `/vendor-management/price-list` | 3 | `159-pl.spec.ts` | — | ✅ spec |
 | `/vendor-management/price-list-template` | 3 | `160-pl-template.spec.ts` | — | ✅ spec |
@@ -228,14 +228,5 @@ The declared route no longer matches any route in the app — renamed, moved, or
 
 | Catalog | Prefix | Declared URL | Declared route dir |
 | --- | --- | --- | --- |
-| `1002-external-price-list.md` | `EPL` | `/external/pl/:url_token` | `external/pl` |
 | `1108-query-dataset.md` | `QDS` | `/system-admin/query-dataset` | `system-admin/query-dataset` |
 | `1111-config-email.md` | `CEML` | `/system-admin/config-email` | `system-admin/config-email` |
-
-## Cross-cutting catalogs
-
-These document behaviour spread across many routes rather than one module, so they have no row above. Nothing to fix.
-
-| Catalog | Prefix |
-| --- | --- |
-| `1204-section-landing.md` | `LAND` |

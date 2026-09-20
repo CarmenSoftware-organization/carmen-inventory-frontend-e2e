@@ -101,6 +101,10 @@ These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/
 | `test-cases/1116-email-profile.md` | `EPROF` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
 | `test-cases/1117-email-template.md` | `ETPL` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
 | `test-cases/1118-interface.md` | `INTF` | Platform / System Admin | 01–05, 10, 20, 30, 40, 90 |
+| `test-cases/003-register.md` | `REG` | Auth (public) | 01–05, 10, 20, 30, 40, 90 |
+| `test-cases/004-invitation.md` | `INVT` | Auth (public) | 01–05, 10, 20, 30, 40, 90 |
+| `test-cases/005-password-recovery.md` | `PWD` | Auth (public) | 01–05, 10, 20, 30, 40, 90 |
+| `test-cases/006-legal.md` | `LEGAL` | Auth (public) | 01–05, 10, 20, 30, 40, 90 |
 
 ## Adding a new module
 
