@@ -104,18 +104,47 @@ export async function bulkSendForReview(
 ): Promise<void> {
   const pr = new PurchaseRequestPage(page);
   await pr.selectAllInEditMode();
-  await pr.bulkSendForReviewInEditMode().click({ timeout: 5_000 });
-  const input = pr.reasonInput();
-  if ((await input.count()) > 0) await input.fill(reason);
-  // Stage selector — best effort
-  const stageTrigger = page.getByLabel(/stage|return to/i).first();
-  if ((await stageTrigger.count()) > 0) {
-    await stageTrigger.click();
-    await page.getByRole("option", { name: new RegExp(stage, "i") }).first().click().catch(() => {});
+  await pr.bulkSendForReviewInEditMode().click({ timeout: 10_000 });
+
+  // Two separate actions, exactly like PO. "Send for Review" opens **no dialog**:
+  // it marks the selected rows there and then (each picks up
+  // `aria-label="REVIEW"`). Returning the *document* is the second step — a
+  // **Send Back** button that only appears once something is marked, carrying the
+  // stage + reason dialog.
+  //
+  // The old body did neither: it waited out a 5s timeout on a confirm button that
+  // never existed (which is what stopped this whole spec from seeding), then
+  // pressed Save. Save alone just persists the item decisions — "Purchase Request
+  // updated successfully" — and leaves the document IN PROGRESS at the approver's
+  // own stage, never returning it to the creator.
+  const sendBack = page.getByRole("button", { name: /^send back$/i }).first();
+  await sendBack.waitFor({ state: "visible", timeout: 10_000 });
+  await sendBack.click({ timeout: 10_000 });
+
+  const dialog = page.locator('[role="dialog"], [role="alertdialog"]').last();
+  await dialog.waitFor({ state: "visible", timeout: 10_000 });
+
+  const stageRadio = dialog.getByRole("radio").first();
+  if ((await stageRadio.count()) > 0) {
+    await stageRadio.check({ force: true, timeout: 10_000 });
+  } else {
+    const stageTrigger = page.getByLabel(/stage|return to/i).first();
+    if ((await stageTrigger.count()) > 0) {
+      await stageTrigger.click({ timeout: 10_000 });
+      await page
+        .getByRole("option", { name: new RegExp(stage, "i") })
+        .first()
+        .click({ timeout: 10_000 })
+        .catch(() => {});
+    }
   }
-  await pr.confirmDialogButton(/confirm|send|ok|yes/i).click({ timeout: 5_000 });
-  // Persist the decision (Send for Review marks the item; Save commits it).
-  await pr.saveEditMode();
+
+  const input = pr.reasonInput();
+  if ((await input.count()) > 0) await input.fill(reason, { timeout: 10_000 }).catch(() => {});
+
+  const confirm = pr.confirmDialogButton(/^send back$|confirm|send|ok|yes/i);
+  await expect(confirm).toBeEnabled({ timeout: 10_000 });
+  await confirm.click({ timeout: 10_000 });
 }
 
 /**

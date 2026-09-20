@@ -406,4 +406,4 @@ Error message ปรากฏใน dialog (validation block submit; dialog ไ�
 ---
 
 
-<sub>Last regenerated: 2026-09-19 · git 5fef170</sub>
+<sub>Last regenerated: 2026-09-20 · git 7d7ff7f</sub>
