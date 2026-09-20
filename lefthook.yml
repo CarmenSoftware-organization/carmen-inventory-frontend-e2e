@@ -6,7 +6,7 @@ pre-commit:
     # which is how this gate spent its first commits skipping every run.
     audit-specs:
       glob: "tests/**/*.spec.ts"
-      run: bun audit:tc-ids
+      run: bun audit:tc-ids && bun audit:spec-health:check
     audit-catalogs:
       glob: "docs/**/*.md"
       run: bun audit:tc-ids && bun audit:coverage:check
