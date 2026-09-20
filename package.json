@@ -35,6 +35,8 @@
     "audit:tc-ids:strict": "bun run scripts/audit-tc-ids.ts",
     "audit:tc-ids:lenient": "bun run scripts/audit-tc-ids.ts --lenient-docs",
     "audit:coverage": "bun run scripts/audit-coverage.ts",
+    "audit:spec-health": "bun run scripts/audit-spec-health.ts",
+    "audit:spec-health:check": "bun run scripts/audit-spec-health.ts --check",
     "audit:coverage:check": "bun run scripts/audit-coverage.ts --check",
     "migrate:tc-propose": "bun run scripts/migrate-tc-ids/propose.ts",
     "migrate:tc-apply": "bun run scripts/migrate-tc-ids/apply.ts",

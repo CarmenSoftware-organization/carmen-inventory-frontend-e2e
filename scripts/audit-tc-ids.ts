@@ -78,8 +78,14 @@ export async function auditFile(
   const ids: string[] = [];
   const prefixes = new Set<string>();
 
-  // Extract IDs from test() / test.skip() titles only (not comments or helper args)
-  const TEST_TITLE_RE = /\btest(?:\.skip)?\s*\(\s*(?:`|"|')([^`"']+)/g;
+  // Extract IDs from test titles only (not comments or helper args).
+  //
+  // Half the suite does not call `test()` directly: `createAuthTest(email)` returns
+  // a fixture-bound test, bound to names like `adminTest` / `purchaseTest`. A regex
+  // anchored on the literal word `test` matched none of them, so 19 specs holding
+  // 1,036 IDs went unscanned — and CROSS_FILE_DUPLICATE never covered them.
+  const TEST_TITLE_RE =
+    /\b[A-Za-z]*[Tt]est(?:\.(?:skip|fixme))?\s*\(\s*(?:`|"|')([^`"']+)/g;
   const TC_IN_TITLE = /\bTC-([A-Z]{2,5})-(\d{2})(\d{4})\b|\bTC[S]?-[A-Z]{1,5}[-]?\d{2,}\b/g;
 
   const titleIds: string[] = [];
@@ -122,7 +128,7 @@ export async function auditFile(
     errors.push({ code: "MULTI_PREFIX", message: `Multiple prefixes in one spec: ${[...prefixes].join(", ")}`, file });
   }
 
-  // 3. Duplicate check: a real duplicate is the same ID in 2+ test() titles.
+  // 3. Duplicate check: a real duplicate is the same ID in 2+ test titles.
   // Reset TEST_TITLE_RE for second pass
   TEST_TITLE_RE.lastIndex = 0;
   while ((titleMatch = TEST_TITLE_RE.exec(src)) !== null) {
