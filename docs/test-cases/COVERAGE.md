@@ -7,8 +7,8 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 | Status | Meaning | Modules |
 | --- | --- | --- |
 | ✅ spec | an automated Playwright spec drives this module | 36 |
-| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 43 |
-| ❌ none | neither — this is the coverage gap | 23 |
+| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 50 |
+| ❌ none | neither — this is the coverage gap | 16 |
 
 ## *
 
@@ -64,7 +64,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/forgot-password` | 1 | — | — | ❌ none |
+| `/forgot-password` | 1 | — | `005-password-recovery.md` | 📄 catalog |
 
 ## Inventory Management
 
@@ -81,7 +81,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/invitations` | 2 | — | — | ❌ none |
+| `/invitations` | 2 | — | `004-invitation.md` | 📄 catalog |
 
 ## login
 
@@ -117,7 +117,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/privacy` | 1 | — | — | ❌ none |
+| `/privacy` | 1 | — | `006-legal.md` | 📄 catalog |
 
 ## Procurement
 
@@ -155,8 +155,8 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/register` | 1 | — | — | ❌ none |
-| `/register/verify` | 1 | — | — | ❌ none |
+| `/register` | 1 | — | `003-register.md` | 📄 catalog |
+| `/register/verify` | 1 | — | `003-register.md` | 📄 catalog |
 
 ## Report
 
@@ -171,7 +171,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/reset-password` | 1 | — | — | ❌ none |
+| `/reset-password` | 1 | — | `005-password-recovery.md` | 📄 catalog |
 
 ## Store Operation
 
@@ -209,7 +209,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/terms` | 1 | — | — | ❌ none |
+| `/terms` | 1 | — | `006-legal.md` | 📄 catalog |
 
 ## Vendor Management
 
