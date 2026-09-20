@@ -85,7 +85,6 @@ These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/
 | `test-cases/1109-activity-log.md` | `ALOG` | Platform / System Admin | 01–02, 04, 10, 30 |
 | `test-cases/1110-running-code.md` | `RUNC` | Platform / System Admin | 01, 03–05, 10, 20, 30 |
 | `test-cases/1112-dashboard-dataset.md` | `DDS` | Platform / System Admin | 01–02, 09–10 |
-| `test-cases/1113-signature-config.md` | `SIGN` | Platform / System Admin | 02, 04, 10, 20, 30 |
 | `test-cases/1200-dashboard.md` | `DASH` | Cross-cutting | 01–05, 09–10 |
 | `test-cases/1201-profile.md` | `PROF` | Cross-cutting | 01–05, 10, 20 |
 | `test-cases/1202-report.md` | `RPT` | Cross-cutting | 01–05, 10, 20 |

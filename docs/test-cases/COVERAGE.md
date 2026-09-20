@@ -186,7 +186,7 @@ Parsed from the frontend router (`routes/router.tsx`): **167 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/system-admin` | 1 | — | `1113-signature-config.md`<br>`1204-section-landing.md` | 📄 catalog |
+| `/system-admin` | 1 | — | `1204-section-landing.md` | 📄 catalog |
 | `/system-admin/activity-log` | 1 | — | `1109-activity-log.md` | 📄 catalog |
 | `/system-admin/business-setting` | 1 _(redirect → `/system-admin/company-profile`)_ | — | `1114-company-profile.md` | 📄 catalog |
 | `/system-admin/company-profile` | 1 | — | `1114-company-profile.md` | 📄 catalog |

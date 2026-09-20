@@ -6,7 +6,7 @@ Each file follows the TC-ID scheme in [`../test-id-scheme.md`](../test-id-scheme
 
 > **Relationship to `docs/user-stories/`:** that folder holds the **generated** stakeholder views of modules that already have automated specs (login, config master-data, vendor, PR/PO/GRN/CN/SR suites, etc.). This folder (`docs/test-cases/`) holds **hand-authored catalogs for modules that do not yet have a spec** — i.e. the coverage gap, including the entire Platform / System-Admin module. To graduate any catalog into an automated spec, register its prefix in `../test-id-scheme.md` first (the audit gate scans specs only, so these catalogs do not affect CI today).
 
-**Totals:** 40 catalogs · 1086 documented test cases (plus 2 gap reports · 7 cases in [`gaps/`](gaps/)).
+**Totals:** 39 catalogs · 1377 documented test cases (plus 2 gap reports · 7 cases in [`gaps/`](gaps/)).
 
 > **`gaps/`** holds the remainder of a catalog whose module has since gained a spec: only the cases the spec does **not** cover. It reuses the spec's own prefix, so it needs no row in the TC-ID scheme. Delete a case from there once it is automated, and delete the file when it empties.
 >
@@ -28,7 +28,6 @@ Each file follows the TC-ID scheme in [`../test-id-scheme.md`](../test-id-scheme
 | [1110-running-code.md](1110-running-code.md) | Running Code (sequences) | `RUNC` | `/system-admin/running-code` | 19 |
 | [1111-config-email.md](1111-config-email.md) | Config Email (SMTP) | `CEML` | `/system-admin/config-email` | 14 |
 | [1112-dashboard-dataset.md](1112-dashboard-dataset.md) | Dashboard Dataset | `DDS` | `/system-admin/dashboard-dataset` | 13 |
-| [1113-signature-config.md](1113-signature-config.md) | Signature Config | `SIGN` | `/system-admin` | 15 |
 
 ## Inventory Management
 
