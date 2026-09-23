@@ -1,5 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { SHOTS } from "./manifest";
 import type { ProbeResult, ShotSpec } from "./types";
@@ -9,7 +9,7 @@ import { setEnLocale } from "./locale";
 import { loadSeedOverlay, applySeedOverlay } from "./seed-overlay";
 import { ensureCaptureState } from "./capture-user";
 import { loadRoleMatrix, ROLE_MATRIX_PATH, baselineFor, rolesToCapture } from "./role-matrix";
-import { resolvePath, outputFile } from "./shot-path";
+import { resolvePath, outputFile, wikiOutputs } from "./shot-path";
 import { ConfigListPage } from "../pages/config-list.page";
 
 const ASSETS_DIR =
@@ -23,8 +23,8 @@ const SEED_IDS = join(process.cwd(), "tests/wiki-screenshots/seed-ids.json");
 const DEFAULT_VIEWPORT = { width: 1440, height: 1600 };
 const HARD_TIMEOUT_MS = 60_000;
 
-/** One planned screenshot: a spec shot as a specific role, to a specific file. */
-type CaptureJob = { spec: ShotSpec; role: string; out: string };
+/** One planned screenshot: a spec shot as a specific role, to a specific file, plus wiki copies. */
+type CaptureJob = { spec: ShotSpec; role: string; out: string; copies: string[] };
 
 /** Skip reason recorded when the matrix says nobody reached a route. */
 const UNREACHABLE = "no role could reach this page";
@@ -135,7 +135,8 @@ function planJobs(shots: ShotSpec[], skipped: Record<string, string>): CaptureJo
         continue;
       }
       claimed.set(out, spec.path);
-      jobs.push({ spec, role, out });
+      const copies = role === base.role ? wikiOutputs(ASSETS_DIR, spec).filter((c) => c !== out) : [];
+      jobs.push({ spec, role, out, copies });
     }
   }
   return jobs;
@@ -153,7 +154,7 @@ function planSingleUserJobs(shots: ShotSpec[], skipped: Record<string, string>):
       continue;
     }
     claimed.set(out, spec.path);
-    jobs.push({ spec, role: "override", out });
+    jobs.push({ spec, role: "override", out, copies: wikiOutputs(ASSETS_DIR, spec).filter((c) => c !== out) });
   }
   return jobs;
 }
@@ -166,6 +167,8 @@ test("capture wiki screenshots", async ({ browser }) => {
   // WIKI_CAPTURE_DETAIL_ONLY captures just the dynamic (detail) routes, skipping
   // data-heavy static list pages whose screenshot can be enormous.
   if (process.env.WIKI_CAPTURE_DETAIL_ONLY) shots = shots.filter((s) => s.path.includes(":"));
+  // WIKI_CAPTURE_WIKI_ONLY captures just the shots that feed a wiki page.
+  if (process.env.WIKI_CAPTURE_WIKI_ONLY) shots = shots.filter((s) => s.wikiTarget);
   for (const spec of shots) {
     if (spec.path.includes(":") && !spec.seedId) skipped[spec.path] = "dynamic route without seedId";
   }
@@ -252,6 +255,10 @@ test("capture wiki screenshots", async ({ browser }) => {
             timer = setTimeout(() => reject(new Error("hard timeout after 60s")), HARD_TIMEOUT_MS);
           }),
         ]);
+        for (const copy of job.copies) {
+          mkdirSync(dirname(copy), { recursive: true });
+          copyFileSync(job.out, copy);
+        }
       } catch (err) {
         skipped[`${job.spec.path} [${job.role}]`] = (err as Error).message.split("\n")[0];
         failures++;

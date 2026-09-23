@@ -24,3 +24,10 @@ export function outputFile(
   const suffix = role === baselineRole ? "" : `--${role}`;
   return join(assetsDir, spec.module, `${stem}${suffix}.png`);
 }
+
+/** Absolute wiki target files for a spec; [] when the spec has no wikiTarget. Pure. */
+export function wikiOutputs(assetsDir: string, spec: ShotSpec): string[] {
+  const t = spec.wikiTarget;
+  if (!t) return [];
+  return (Array.isArray(t) ? t : [t]).map((stem) => join(assetsDir, `${stem}.png`));
+}

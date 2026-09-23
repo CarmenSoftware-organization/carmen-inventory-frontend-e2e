@@ -21,6 +21,13 @@ export type ShotSpec = {
   viewport?: { width: number; height: number };
   /** Extra UI state to open before shooting; omit to shoot the page as navigated. */
   interaction?: "add-dialog";
+  /**
+   * Wiki file(s) this shot also feeds, as "<module>/<file-stem>" relative to
+   * WIKI_ASSETS_DIR (no ".png"). Written only for the baseline role (or the
+   * WIKI_CAPTURE_EMAIL override user) so the wiki's curated images refresh in
+   * the same run as the route-derived catalog. Omit for catalog-only shots.
+   */
+  wikiTarget?: string | string[];
 };
 
 /** Result of visiting one route as one role. */
