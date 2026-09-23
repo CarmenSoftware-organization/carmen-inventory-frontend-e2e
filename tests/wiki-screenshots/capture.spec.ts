@@ -53,6 +53,16 @@ async function captureOne(page: Page, spec: ShotSpec, out: string): Promise<void
     await page.getByRole("button", { name: /^(close|ok|got it|dismiss)$/i }).first().click({ timeout: 2_000 }).catch(() => {});
     await page.waitForTimeout(400);
   }
+  // A notice that survives the dismissal is the page itself (e.g. the full-page
+  // "Permission Denied — not included in your organization's subscription" card),
+  // and a /login landing means the session is gone. Never save either as the
+  // screen: throw so the shot is recorded as a skip and no wiki copy is written.
+  if (/\/login(\/|$|\?)/.test(new URL(page.url()).pathname)) throw new Error("redirected to /login");
+  if (await blockedNotice.isVisible().catch(() => false)) throw new Error("permission denied / error page");
+  // Hubs of an unlicensed module render but show an inline "not included in your
+  // subscription" banner in place of their widgets — also not a documentation shot.
+  const unlicensed = page.getByText(/not included in your (organization's )?subscription/i).first();
+  if (await unlicensed.isVisible().catch(() => false)) throw new Error("module not included in subscription");
   // Clear transient chrome before shooting: Escape closes any popover or
   // dropdown left open (the notification bell's popover has been caught in
   // shots), and parking the pointer in a dead corner prevents a hover tooltip

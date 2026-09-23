@@ -173,6 +173,7 @@ export const SHOTS: ShotSpec[] = [
   { path: "/config/shelf", module: "shelf", slug: "index", wikiTarget: "master-data/shelf" },
   { path: "/system-admin/email-profile", module: "email-profile", slug: "index", wikiTarget: "system-config/config-email" },
   { path: "/system-admin/company-profile", module: "company-profile", slug: "index", wikiTarget: "system-config/company-profile" },
-  { path: "/system-admin/interface", module: "interface", slug: "index", wikiTarget: "system-config/application-config" },
+  // "/system-admin/interface" (system-config/application-config) is not shot: on dev it renders
+  // "Could not load interface settings" (rejected on visual review, 2026-09-23).
   { path: "/accounting/journal-voucher", module: "journal-voucher", slug: "index", wikiTarget: "general-ledger/index" },
 ];
