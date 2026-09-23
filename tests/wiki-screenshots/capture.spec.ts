@@ -120,6 +120,46 @@ function reportMatrixShape(matrix: ProbeResult[], shots: ShotSpec[]): void {
 }
 
 /**
+ * Claim one job's catalog file and wiki copies in `claimed` (file -> route).
+ *
+ * A catalog collision (two routes whose route-derived file is the same, e.g.
+ * /product-management/category and /operation-plan/category both writing
+ * category/index.png) no longer drops a shot that feeds wiki pages: it is written
+ * straight to its first wiki target instead. A wiki file already claimed by
+ * another route is reported and dropped rather than silently overwritten.
+ * Role-scoped keys: a collision on one role must not mark the whole route as
+ * skipped when another role's job for it still ran.
+ */
+function claimJob(
+  spec: ShotSpec,
+  role: string,
+  out: string,
+  wiki: string[],
+  claimed: Map<string, string>,
+  skipped: Record<string, string>,
+): CaptureJob | null {
+  const key = `${spec.path} [${role}]`;
+  const copies: string[] = [];
+  for (const target of wiki) {
+    if (target === out) continue;
+    const owner = claimed.get(target);
+    if (owner) {
+      skipped[`${key} -> ${target}`] = `wiki target collides with ${owner} (${target})`;
+      continue;
+    }
+    copies.push(target);
+  }
+  const owner = claimed.get(out);
+  if (owner && !copies.length) {
+    skipped[key] = `output path collides with ${owner} (${out})`;
+    return null;
+  }
+  const [primary, rest] = owner ? [copies[0], copies.slice(1)] : [out, copies];
+  for (const file of [primary, ...rest]) claimed.set(file, spec.path);
+  return { spec, role, out: primary, copies: rest };
+}
+
+/**
  * Turn the probe matrix into a capture plan: the baseline role for every
  * reachable route, plus each role whose screen genuinely differs.
  */
@@ -137,16 +177,9 @@ function planJobs(shots: ShotSpec[], skipped: Record<string, string>): CaptureJo
     }
     for (const role of [base.role, ...rolesToCapture(matrix, spec.path)]) {
       const out = outputFile(ASSETS_DIR, spec, role, base.role);
-      const owner = claimed.get(out);
-      if (owner) {
-        // Role-scoped key: a collision on one role must not mark the whole
-        // route as skipped when another role's job for it still ran.
-        skipped[`${spec.path} [${role}]`] = `output path collides with ${owner} (${out})`;
-        continue;
-      }
-      claimed.set(out, spec.path);
-      const copies = role === base.role ? wikiOutputs(ASSETS_DIR, spec).filter((c) => c !== out) : [];
-      jobs.push({ spec, role, out, copies });
+      const wiki = role === base.role ? wikiOutputs(ASSETS_DIR, spec) : [];
+      const job = claimJob(spec, role, out, wiki, claimed, skipped);
+      if (job) jobs.push(job);
     }
   }
   return jobs;
@@ -158,13 +191,8 @@ function planSingleUserJobs(shots: ShotSpec[], skipped: Record<string, string>):
   const claimed = new Map<string, string>();
   for (const spec of shots) {
     const out = outputFile(ASSETS_DIR, spec, "override", "override");
-    const owner = claimed.get(out);
-    if (owner) {
-      skipped[`${spec.path} [override]`] = `output path collides with ${owner} (${out})`;
-      continue;
-    }
-    claimed.set(out, spec.path);
-    jobs.push({ spec, role: "override", out, copies: wikiOutputs(ASSETS_DIR, spec).filter((c) => c !== out) });
+    const job = claimJob(spec, "override", out, wikiOutputs(ASSETS_DIR, spec), claimed, skipped);
+    if (job) jobs.push(job);
   }
   return jobs;
 }
