@@ -14,14 +14,35 @@ import { mapProduct } from "./mappers/product";
 
 type KeyOf = (x: any) => unknown;
 
+// The gateway caps perpage at 100 (perpage=-1 is rejected), so every list is
+// read page by page. Sorting by id keeps the pages stable while we walk them.
+const PAGE_SIZE = 100;
+const MAX_PAGES = 50;
+
+/**
+ * Every row of a list endpoint. Stops once `paginate.total` rows are in hand or
+ * a page comes back short; throws past MAX_PAGES rather than returning a partial
+ * list, because a key missing here makes the seed create a duplicate.
+ */
+export async function fetchAllRows(client: ApiClient, listPath: string): Promise<any[]> {
+  const rows: any[] = [];
+  for (let page = 1; page <= MAX_PAGES; page++) {
+    const res = await client.get(`${listPath}?page=${page}&perpage=${PAGE_SIZE}&sort=id:asc`);
+    if (!res.ok) throw new Error(`List failed ${listPath}: ${res.status} ${JSON.stringify(res.body)}`);
+    const data: any[] = res.body?.data ?? [];
+    rows.push(...data);
+    const total = res.body?.paginate?.total;
+    if (data.length < PAGE_SIZE || (typeof total === "number" && rows.length >= total)) return rows;
+  }
+  throw new Error(`List ${listPath} has more than ${MAX_PAGES * PAGE_SIZE} rows — raise MAX_PAGES`);
+}
+
 export async function fetchExistingKeys(
   client: ApiClient,
   listPath: string,
   keyOf: KeyOf,
 ): Promise<Set<string>> {
-  const res = await client.get(`${listPath}?perpage=-1`);
-  if (!res.ok) throw new Error(`List failed ${listPath}: ${res.status} ${JSON.stringify(res.body)}`);
-  const data: any[] = res.body?.data ?? [];
+  const data = await fetchAllRows(client, listPath);
   return new Set(data.map(keyOf).filter((k) => k != null).map(String));
 }
 
@@ -30,9 +51,7 @@ export async function fetchKeyToId(
   listPath: string,
   keyOf: KeyOf,
 ): Promise<Map<string, string>> {
-  const res = await client.get(`${listPath}?perpage=-1`);
-  if (!res.ok) throw new Error(`List failed ${listPath}: ${res.status} ${JSON.stringify(res.body)}`);
-  const data: any[] = res.body?.data ?? [];
+  const data = await fetchAllRows(client, listPath);
   const map = new Map<string, string>();
   for (const rec of data) {
     const k = keyOf(rec);
