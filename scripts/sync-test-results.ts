@@ -79,7 +79,6 @@ const SYNC_TARGETS: SyncTarget[] = [
   { jsonFile: "401-po-results.json", sheetTab: "PO" },
   { jsonFile: "402-po-purchaser-journey-results.json", sheetTab: "PO_Purchaser" },
   { jsonFile: "403-po-approver-journey-results.json", sheetTab: "PO_Approver" },
-  { jsonFile: "404-po-creator-journey-results.json", sheetTab: "PO_Creator" },
   { jsonFile: "501-grn-results.json", sheetTab: "GRN" },
   { jsonFile: "601-cn-results.json", sheetTab: "CN" },
   { jsonFile: "602-cn-reason-results.json", sheetTab: "CN_Reason" },
