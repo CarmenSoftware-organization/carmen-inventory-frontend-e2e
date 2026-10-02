@@ -1,13 +1,15 @@
 # E2E Test — คู่มือรัน & Sync Google Sheets
 
+คู่มือภาษาไทยสำหรับการรันและ sync ผล — ภาพรวม architecture ดู [`README.md`](./README.md) และ [`CLAUDE.md`](./CLAUDE.md)
+
 ## สารบัญ
 
 1. [Prerequisites](#prerequisites)
 2. [รันทีละ Module](#รันทีละ-module)
 3. [รัน Login แยก](#รัน-login-แยก)
 4. [รันทุก Module](#รันทุก-module)
-5. [Sync ผลขึ้น Google Sheets](#sync-ผลขึ้น-google-sheets)
-6. [Workflow แนะนำ](#workflow-แนะนำ)
+5. [รันกับ environment อื่น](#รันกับ-environment-อื่น)
+6. [Sync ผลขึ้น Google Sheets](#sync-ผลขึ้น-google-sheets)
 7. [ตัวเลือกเพิ่มเติม](#ตัวเลือกเพิ่มเติม)
 8. [Modules ทั้งหมด](#modules-ทั้งหมด)
 9. [โครงสร้างผลลัพธ์](#โครงสร้างผลลัพธ์)
@@ -21,73 +23,58 @@
 # 1. ติดตั้ง dependencies
 bun install
 
-# 2. ติดตั้ง Playwright browsers
-bunx playwright install chromium
+# 2. ติดตั้ง Playwright browsers (ครั้งเดียว)
+bun run install-browsers
 
-# 3. ตั้ง env สำหรับ Google Sheets sync
-export GOOGLE_SHEETS_SA_KEY_PATH="/path/to/service-account.json"
-export GOOGLE_SHEETS_SPREADSHEET_ID="your-spreadsheet-id"
+# 3. backend ต้องรันอยู่ที่ :4000 (Docker) — ถ้าไม่รัน project `setup` จะค้างเงียบ
+curl -s -o /dev/null -w "%{http_code}\n" http://localhost:4000
 
-# 4. dev server ต้องรันอยู่ (หรือ Playwright จะ start ให้อัตโนมัติ)
-bun dev
+# 4. (ไม่บังคับ) ตั้งค่า Google Sheets sync ใน .env.local — ดูหัวข้อ Sync
 ```
+
+frontend (`../carmen-inventory-frontend-react`, Vite `:3000`) ไม่ต้องสั่งเอง — Playwright `webServer` จะรัน `bun dev` ให้
+
+> ใช้ `bun run test` ไม่ใช่ `bun test` — `bun test` เรียก test runner ของ Bun เอง ไม่ใช่ script `test`
 
 ---
 
 ## รันทีละ Module
 
-### วิธีที่ 1: ใช้ shell script (แนะนำ — รันเสร็จ sync อัตโนมัติ)
+### วิธีที่ 1: shell script (แนะนำ — รันเสร็จ sync อัตโนมัติ)
 
 ```bash
-# รัน module เดียว → test → sync Google Sheets ทันที
-./tests/scripts/run-module.sh delivery-point
-./tests/scripts/run-module.sh currency
+./tests/scripts/run-module.sh                   # ไม่ใส่ชื่อ → เมนูให้เลือก
 ./tests/scripts/run-module.sh department
-```
-
-### วิธีที่ 2: ใช้ generic dispatcher
-
-```bash
-# run-module.sh <module-name> [flags...]
-./tests/scripts/run-module.sh delivery-point
 ./tests/scripts/run-module.sh currency --headed
-./tests/scripts/run-module.sh department --debug
+./tests/scripts/run-module.sh vendor --debug
 ```
 
-### วิธีที่ 3: ใช้ playwright โดยตรง (ไม่ auto-sync)
+ชื่อ module = ชื่อไฟล์ spec ที่ตัดเลขนำหน้าออก (`010-department.spec.ts` → `department`) — ดูตาราง [Modules ทั้งหมด](#modules-ทั้งหมด)
+
+### วิธีที่ 2: playwright โดยตรง (ไม่ auto-sync)
 
 ```bash
-# รัน spec file ตรงๆ
-bunx playwright test tests/delivery-point.spec.ts
+bun run test -- 010-department.spec.ts
 
-# รัน test case เดียวด้วย -g (grep pattern)
-bunx playwright test tests/delivery-point.spec.ts -g "TC-001"
+# รัน test case เดียวด้วย -g
+bun run test -- 010-department.spec.ts -g "TC-DEP-010001"
 
 # รันหลาย TC
-bunx playwright test tests/delivery-point.spec.ts -g "TC-001|TC-002|TC-003"
+bun run test -- -g "TC-DEP-010001|TC-DEP-010002"
 
 # ต้อง sync เอง
-bun e2e:sync
+bun run e2e:sync
 ```
 
 ---
 
 ## รัน Login แยก
 
-Login เป็น project แยกใน Playwright config:
+Login เป็น Playwright project แยก (`login`) ที่ไม่พึ่ง `setup` เพราะทดสอบการ login ผ่าน UI จริง:
 
 ```bash
-# รัน login spec
-bunx playwright test --project=login
-
-# หรือใช้ script
-./tests/scripts/run-module.sh login
-
-# รัน TC เดียว
-bunx playwright test tests/001-login.spec.ts -g "TC-L00101"
-
-# sync
-bun e2e:sync
+bun run test:login
+bun run test:login -- -g "TC-LOGIN-010001"
 ```
 
 ---
@@ -95,149 +82,136 @@ bun e2e:sync
 ## รันทุก Module
 
 ```bash
-# วิธีที่ 1: ทีละ module เรียงลำดับ (แนะนำ — เห็น pass/fail แต่ละตัว)
+# ทีละ module เรียงลำดับ (เห็น pass/fail แต่ละตัว + sync ทุก module)
 ./tests/scripts/run-all.sh
 
-# วิธีที่ 2: รันพร้อมกันทุก module (เร็วกว่า แต่ log ปนกัน)
+# รันพร้อมกันเป็น batch เดียว (เร็วกว่า แต่ log ปนกัน)
 ./tests/scripts/run-all.sh --workers=100%
 
-# วิธีที่ 3: ใช้ bun script
-bun e2e                # รันทุก spec
-bun e2e:sync           # sync ผลทั้งหมด
+# หรือผ่าน bun script (ไม่ auto-sync)
+bun run test
+bun run e2e:sync
 ```
 
-ผลลัพธ์ `run-all.sh`:
+---
 
+## รันกับ environment อื่น
+
+`scripts/run-env.ts` อ่าน `.env.<name>` แล้ว override ค่าจาก `.env` / `.env.local`:
+
+```bash
+bun run test:prod                         # ใช้ .env.prod
+bun run test:uat -- --project=login       # ใช้ .env.uat
+bun run scripts/run-env.ts <name>         # target อื่น ๆ
 ```
-================================================================
- Summary
-================================================================
-Passed (12):
-  ✓ adjustment-type
-  ✓ business-type
-  ✓ currency
-  ...
-Failed (0):
-```
+
+ไฟล์ `.env.*` ถูก gitignore — สร้างเองบนเครื่อง ตัวอย่างอยู่ท้าย `.env.example`
 
 ---
 
 ## Sync ผลขึ้น Google Sheets
 
-### ขั้นตอนการ sync
-
 ```bash
-# sync ผล CSV ทั้งหมดขึ้น Google Sheets
-bun e2e:sync
+bun run e2e:sync          # upsert ผล
+bun run e2e:sync:reset    # ล้าง data rows ทุก tab ก่อน (header คงอยู่; Title/Note ที่แก้มือจะหาย)
 ```
 
 ### การทำงาน
 
-1. อ่านไฟล์ CSV จาก `tests/results/` (สร้างอัตโนมัติจาก tc-csv-reporter)
-2. จับคู่ Test ID (เช่น `TC-001`, `TC-L00101`) กับ row ใน Google Sheet
-3. **Row มีอยู่แล้ว** → อัปเดต Status, Test Date, Duration, Error
-4. **Row ใหม่** → เพิ่มแถวท้าย sheet
-5. **Title** → เขียนเฉพาะตอนที่ cell ว่าง (ไม่ทับ title ที่แก้ด้วยมือ)
+1. reporter `tests/reporters/tc-json-reporter.ts` เขียน `tests/results/<spec>-results.json` หลังรันแต่ละ spec
+2. `scripts/sync-test-results.ts` จับคู่ Test ID กับ row ในแต่ละ tab ตาม `SYNC_TARGETS`
+3. **Row มีอยู่แล้ว** → เขียนทับ Status, Run Date, Duration, Error, Seq และ annotation (Preconditions, Steps, Expected Result, Priority, Test Type)
+4. **Row ใหม่** → เพิ่มแถวท้าย tab
+5. **Title / Note** → เขียนเฉพาะตอน cell ว่าง (ไม่ทับที่แก้ด้วยมือ)
+6. tab ว่าง → สร้าง header ให้; header ขาดคอลัมน์ → เติมต่อท้าย
 
-### ตั้งค่า Google Sheets
+### ตั้งค่า (ครั้งเดียว)
 
-1. สร้าง Service Account ใน Google Cloud Console
-2. เปิด Google Sheets API
-3. แชร์ Spreadsheet ให้ service account email (Editor)
-4. แต่ละ module ต้องมี tab ชื่อตรง:
+1. Google Cloud Console → เปิด **Google Sheets API**
+2. IAM → Service Accounts → สร้าง → ดาวน์โหลด JSON key
+3. แชร์ Spreadsheet ให้ service-account email เป็น Editor
+4. ใส่ใน `.env.local` (ห้าม commit):
+   ```
+   GOOGLE_SHEETS_SA_KEY_PATH=/absolute/path/to/service-account.json
+   GOOGLE_SHEETS_SPREADSHEET_ID=<sheet id จาก URL>
+   ```
 
-| CSV File | Sheet Tab |
-|----------|-----------|
-| `login-results.csv` | Login |
-| `delivery-point-results.csv` | Delivery Point |
-| `adjustment-type-results.csv` | Adjustment Type |
-| `business-type-results.csv` | Business Type |
-| `credit-note-reason-results.csv` | Credit Note Reason |
-| `credit-term-results.csv` | Credit Term |
-| `currency-results.csv` | Currency |
-| `department-results.csv` | Department |
-| `exchange-rate-results.csv` | Exchange Rate |
-| `extra-cost-results.csv` | Extra Cost |
-| `location-results.csv` | Location |
-| `tax-profile-results.csv` | Tax Profile |
-| `unit-results.csv` | Unit |
-
-5. Header row (แถวที่ 1) ต้องมี:
+Header มาตรฐาน (15 คอลัมน์):
 
 ```
-Test ID | Title | Status | Test Date | Duration (ms) | Error
+Seq | Test ID | Title | Preconditions | Steps | Expected Result | Priority | Test Type | Status | Run Date | Duration (ms) | Error | Note | Screenshot | Video
 ```
 
----
-
-## Workflow แนะนำ
-
-### รัน module เดียว + sync (ใช้บ่อยสุด)
-
-```bash
-# 1 คำสั่งจบ: รัน test → สร้าง CSV → sync Google Sheets
-./tests/scripts/run-module.sh delivery-point
-```
-
-### รัน test case เดียว + sync
-
-```bash
-bunx playwright test tests/delivery-point.spec.ts -g "TC-030" && bun e2e:sync
-```
-
-### รันทุกอย่าง + sync
-
-```bash
-./tests/scripts/run-all.sh
-# sync ทำอัตโนมัติในแต่ละ module แล้ว
-```
-
-### ดู report ใน browser
-
-```bash
-bun e2e:report
-```
+spec ใหม่ต้องเพิ่ม entry ใน `SYNC_TARGETS` ไม่งั้นผลไม่ขึ้น Sheet
 
 ---
 
 ## ตัวเลือกเพิ่มเติม
 
 ```bash
-# เปิด browser ให้เห็น (headed mode)
-./tests/scripts/run-module.sh currency --headed
-
-# Debug mode (step-by-step)
-./tests/scripts/run-module.sh currency --debug
-
-# Playwright UI (interactive)
-bun e2e:ui
-
-# Retry failed tests 2 ครั้ง
-bunx playwright test tests/currency.spec.ts --retries=2
-
-# รันด้วย trace
-bunx playwright test tests/currency.spec.ts --trace on
+bun run test:ui                                   # Playwright UI mode
+bun run test:headed                               # เห็น browser
+bun run test:debug                                # step-by-step
+bun run test -- 040-currency.spec.ts --retries=2
+bun run test -- 040-currency.spec.ts --trace on
+bun run report                                    # เปิด HTML report
 ```
 
 ---
 
 ## Modules ทั้งหมด
 
-| Module | Script | Spec File | TC Prefix |
-|--------|--------|-----------|-----------|
-| Login | `run-module.sh login` | `login.spec.ts` | TC-L |
-| Delivery Point | `run-module.sh delivery-point` | `delivery-point.spec.ts` | TC-001..049 |
-| Adjustment Type | `run-module.sh adjustment-type` | `adjustment-type.spec.ts` | TC-AT |
-| Business Type | `run-module.sh business-type` | `business-type.spec.ts` | TC-BT |
-| Credit Note Reason | `run-module.sh credit-note-reason` | `credit-note-reason.spec.ts` | TC-CNR |
-| Credit Term | `run-module.sh credit-term` | `credit-term.spec.ts` | TC-CT |
-| Currency | `run-module.sh currency` | `currency.spec.ts` | TC-CUR |
-| Department | `run-module.sh department` | `department.spec.ts` | TC-DEP |
-| Exchange Rate | `run-module.sh exchange-rate` | `exchange-rate.spec.ts` | TC-ER |
-| Extra Cost | `run-module.sh extra-cost` | `extra-cost.spec.ts` | TC-EC |
-| Location | `run-module.sh location` | `location.spec.ts` | TC-LOC |
-| Tax Profile | `run-module.sh tax-profile` | `tax-profile.spec.ts` | TC-TP |
-| Unit | `run-module.sh unit` | `unit.spec.ts` | TC-UN |
+<!-- AUTO-GENERATED: from tests/[0-9]*-*.spec.ts + SYNC_TARGETS in scripts/sync-test-results.ts — regenerate, don't hand-edit -->
+| Module (`run-module.sh`) | Spec | TC prefix | Sheet tab |
+|--------------------------|------|-----------|-----------|
+| `login` | `001-login.spec.ts` | TC-LOGIN | `Login` |
+| `spa-smoke` | `002-spa-smoke.spec.ts` | TC-SPA | — (ไม่ sync) |
+| `department` | `010-department.spec.ts` | TC-DEP | `Department` |
+| `unit` | `020-unit.spec.ts` | TC-UN | `Unit` |
+| `business-type` | `029-business-type.spec.ts` | TC-BT | `Business_Type` |
+| `extra-cost` | `030-extra-cost.spec.ts` | TC-EC | `Extra_Cost` |
+| `adjustment-type` | `031-adjustment-type.spec.ts` | TC-AT | `Adjustment_Type` |
+| `credit-term` | `032-credit-term.spec.ts` | TC-CT | `Credit_Term` |
+| `currency` | `040-currency.spec.ts` | TC-CUR, TC-DEP | `Currency` |
+| `exchange-rate` | `041-exchange-rate.spec.ts` | TC-ER | `Exchange_Rate` |
+| `tax-profile` | `042-tax-profile.spec.ts` | TC-TP | `Tax_Profile` |
+| `certification` | `043-certification.spec.ts` | TC-CERT | `Certification` |
+| `eco` | `044-eco.spec.ts` | TC-ECO | `Eco` |
+| `delivery-point` | `079-delivery-point.spec.ts` | TC-DP | `Delivery_Point` |
+| `location` | `080-location.spec.ts` | TC-LOC | `Location` |
+| `chart-of-account-mapping` | `081-chart-of-account-mapping.spec.ts` | TC-ACMAP | — (ไม่ sync) |
+| `chart-of-accounts` | `082-chart-of-accounts.spec.ts` | TC-COA | — (ไม่ sync) |
+| `shelf` | `083-shelf.spec.ts` | TC-SHLF | — (ไม่ sync) |
+| `product-category` | `101-product-category.spec.ts` | TC-CAT | `Product_Category` |
+| `op-category` | `110-op-category.spec.ts` | TC-OPCAT | — (ไม่ sync) |
+| `cuisine` | `111-cuisine.spec.ts` | TC-CUIS | — (ไม่ sync) |
+| `recipe-equipment-category` | `121-recipe-equipment-category.spec.ts` | TC-RECC | — (ไม่ sync) |
+| `equipment-category` | `131-equipment-category.spec.ts` | TC-EQPC | — (ไม่ sync) |
+| `vendor` | `150-vendor.spec.ts` | TC-VEN | `Vendor` |
+| `pl` | `159-pl.spec.ts` | TC-PL | `PL` |
+| `pl-template` | `160-pl-template.spec.ts` | TC-PT | `PL_Template` |
+| `my-approvals` | `201-my-approvals.spec.ts` | TC-MA | `My_Approvals` |
+| `pr` | `301-pr.spec.ts` | TC-PR | `PR` |
+| `pr-creator-journey` | `302-pr-creator-journey.spec.ts` | TC-PR | `PR_Creator` |
+| `pr-approver-journey` | `303-pr-approver-journey.spec.ts` | TC-PR | `PR_Approver` |
+| `pr-purchaser-journey` | `304-pr-purchaser-journey.spec.ts` | TC-PR | `PR_Purchaser` |
+| `pr-template` | `310-pr-template.spec.ts` | TC-PRT | `PR_Template` |
+| `pr-returned-flow` | `311-pr-returned-flow.spec.ts` | TC-PR | `PR_Returned_Flow` |
+| `po` | `401-po.spec.ts` | TC-PO | `PO` |
+| `po-purchaser-journey` | `402-po-purchaser-journey.spec.ts` | TC-PO | `PO_Purchaser` |
+| `po-approver-journey` | `403-po-approver-journey.spec.ts` | TC-PO | `PO_Approver` |
+| `grn` | `501-grn.spec.ts` | TC-GRN | `GRN` |
+| `cn` | `601-cn.spec.ts` | TC-CN | `CN` |
+| `cn-reason` | `602-cn-reason.spec.ts` | TC-CNR | `CN_Reason` |
+| `sr` | `701-sr.spec.ts` | TC-SR | `SR` |
+| `wastage-reporting` | `710-wastage-reporting.spec.ts` | TC-WAST | — (ไม่ sync) |
+| `stock-replenishment` | `711-stock-replenishment.spec.ts` | TC-SRPL | — (ไม่ sync) |
+| `stock-issue` | `720-stock-issue.spec.ts` | TC-SI | `Stock_Issue` |
+| `period-end` | `900-period-end.spec.ts` | TC-PE | `Period_End` |
+| `campaign` | `1001-campaign.spec.ts` | TC-CAM | `Campaign` |
+<!-- /AUTO-GENERATED -->
+
+รายการ prefix และ section ที่ลงทะเบียนไว้: [`docs/test-id-scheme.md`](./docs/test-id-scheme.md)
 
 ---
 
@@ -245,72 +219,45 @@ bunx playwright test tests/currency.spec.ts --trace on
 
 ```
 tests/results/
-├── login-results.csv
-├── delivery-point-results.csv
-├── adjustment-type-results.csv
-├── business-type-results.csv
-├── credit-note-reason-results.csv
-├── credit-term-results.csv
-├── currency-results.csv
-├── department-results.csv
-├── exchange-rate-results.csv
-├── extra-cost-results.csv
-├── location-results.csv
-├── tax-profile-results.csv
-└── unit-results.csv
+├── 001-login-results.json
+├── 010-department-results.json
+└── ...                         # หนึ่งไฟล์ต่อ spec: <spec-basename>-results.json
 ```
 
-ตัวอย่างเนื้อหา CSV:
-
-```csv
-Test ID,Title,Status,Duration (ms),Error,Test Date
-TC-001,อ่านค่า table ของ delivery point ได้,Pass,1234,,2026-04-10
-TC-002,แสดงข้อมูล default 10 รายการต่อหน้า,Pass,987,,2026-04-10
-TC-030,กรอก name แล้ว save ได้ ข้อมูลขึ้น table,Fail,5432,Timeout,2026-04-10
-```
+แต่ละไฟล์เป็น array ของ row (`TCResultRow` ใน `tests/reporters/tc-json-reporter.ts`) — Test ID, title, annotation, status, run date, duration, error, screenshot/video
 
 ---
 
 ## Troubleshooting
 
+### `setup` ค้างไม่มี output
+
+backend ที่ `:4000` ไม่ได้รัน — `curl http://localhost:4000` แล้วเปิด Docker
+
 ### Dev server ไม่ start
 
 ```bash
-# ตรวจว่า port 3000 ว่าง
-lsof -i :3000
-# หรือ start dev server ด้วยมือ
-bun dev
+lsof -i :3000            # port ถูกใช้อยู่?
 ```
+
+หรือรัน frontend เองแล้วใช้ `E2E_NO_WEBSERVER=1`
+
+### Login โดน 429
+
+backend rate-limit หลังใส่รหัสผิด 3 ครั้งต่อ email — ใช้ `LoginPage.loginWithRetry` และรอให้ limit หมดอายุ
 
 ### Google Sheets sync ไม่ทำงาน
 
 ```bash
-# ตรวจ env vars
-echo $GOOGLE_SHEETS_SA_KEY_PATH
-echo $GOOGLE_SHEETS_SPREADSHEET_ID
-
-# ตรวจว่า service account key file อยู่จริง
-cat "$GOOGLE_SHEETS_SA_KEY_PATH" | head -3
-
-# ตรวจว่า sheet tab ชื่อตรงกับ SYNC_TARGETS ใน scripts/sync-test-results.ts
+grep GOOGLE_SHEETS .env.local                  # มีครบ 2 ตัว?
+test -f "$GOOGLE_SHEETS_SA_KEY_PATH" && echo ok # key file อยู่จริง?
 ```
+
+แล้วตรวจว่า spec อยู่ใน `SYNC_TARGETS` (ดูคอลัมน์ Sheet tab ด้านบน)
 
 ### Test timeout
 
 ```bash
-# เพิ่ม timeout ของ test
-bunx playwright test tests/delivery-point.spec.ts --timeout=60000
-
-# หรือตรวจว่า dev server พร้อม
+bun run test -- 010-department.spec.ts --timeout=60000
 curl -s http://localhost:3000 | head -1
-```
-
-### ดูผล test ย้อนหลัง
-
-```bash
-# HTML report
-bun e2e:report
-
-# CSV ตรง
-cat tests/results/delivery-point-results.csv
 ```
