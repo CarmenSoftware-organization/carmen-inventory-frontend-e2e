@@ -11,7 +11,7 @@ Standalone Playwright end-to-end test suite for the **carmen-inventory-frontend-
 ```bash
 bun install                     # or: npm install
 bun run install-browsers        # one-time: installs Chromium
-bun test                        # all tests (starts the frontend via webServer)
+bun run test                    # all tests (starts the frontend via webServer) — not bare `bun test`, which runs Bun's own runner
 bun run test:ui                 # Playwright UI mode
 bun run test:headed             # headed browser
 bun run test:login              # only 001-login.spec.ts
@@ -32,7 +32,7 @@ bun only auto-loads `.env` / `.env.local`, never a custom name. `scripts/run-env
 
 ## Architecture
 
-- **`playwright.config.ts`** — three projects: `setup` (runs `auth.setup.ts` to pre-authenticate every role and persist storageState), `login` (runs `001-login.spec.ts`), and `chromium` (every other spec; depends on `setup` so cookies are pre-loaded). The split enables selective runs (`bun run test:login`) and keeps the noisy login suite out of the default reporter output when iterating on feature tests. The `chromium`→`setup` dependency is wired explicitly; `login` is independent on purpose because it exercises real UI login. `workers: 1` because (a) the backend rate-limits repeated failed logins (observable via TC-L00130-style tests) and (b) role-based tests share backend state and cannot safely interleave.
+- **`playwright.config.ts`** — five projects: `setup` (runs `auth.setup.ts` to pre-authenticate every role and persist storageState), `login` (runs `001-login.spec.ts`), and `chromium` (every other spec; depends on `setup` so cookies are pre-loaded). Two more, `wiki-screenshots` and `wiki-probe`, drive the wiki screenshot pipeline (`bun run wiki:capture` / `wiki:probe`). The split enables selective runs (`bun run test:login`) and keeps the noisy login suite out of the default reporter output when iterating on feature tests. The `chromium`→`setup` dependency is wired explicitly; `login` is independent on purpose because it exercises real UI login. `workers: 1` because (a) the backend rate-limits repeated failed logins (observable via TC-L00130-style tests) and (b) role-based tests share backend state and cannot safely interleave.
 - **`tests/pages/`** — page objects. Each class wraps a `Page` and exposes **locator factories** (arrow functions returning `Locator`), not pre-created locators — this avoids stale references across navigations.
 - **`tests/fixtures/auth.fixture.ts`** — `createAuthTest(email)` returns a `test` whose browser context boots from `.auth/<email>.json` (produced by the `setup` project). Specs that consume the helper need no other auth setup.
 - **`tests/auth.setup.ts`** — Playwright `setup` project. Runs once per `bun run test` invocation, logs in every entry of `TEST_USERS` via the real UI, and writes the resulting browser context to `.auth/<email>.json`. The `chromium` project depends on `setup`, so chromium tests start with cookies pre-loaded and never hit `/login`. The `login` project (`001-login.spec.ts`) deliberately does **not** depend on setup — it tests the UI login flow itself. `.auth/` is gitignored and regenerated each run.
@@ -139,25 +139,25 @@ context — no dependency on the `setup` project or `.auth/*.json`. The pure URL
 rules live in `scripts/lib/screen-crawl.ts` and are unit-tested in
 `unit/screen-crawl.test.ts`.
 
-## CSV reporter
+## JSON reporter
 
-`tests/reporters/tc-csv-reporter.ts` is registered in `playwright.config.ts` and writes one CSV per spec file into `tests/results/` keyed by the `TC-XXX` IDs parsed from test titles. The regex `\b(TCS?-[A-Z]{0,4}\d{2,})\b` extracts them — keep titles in the `TC-<area><NNNNN> <description>` shape or the row won't be recorded. The repo ships seed CSVs covering the known TC IDs; the reporter updates Status + Test Date on each run.
+`tests/reporters/tc-json-reporter.ts` is registered in `playwright.config.ts` and writes one `<spec-basename>-results.json` per spec file into `tests/results/`, keyed by the TC IDs parsed from test titles with `/\bTC-[A-Z]{2,5}-\d{6}\b/` — keep titles in the `TC-<PREFIX>-XXYYYY <description>` shape or the test won't be recorded. The repo ships seed JSONs; the reporter updates Status + Test Date on each run.
 
 ## Google Sheets sync (`e2e:sync`)
 
-`scripts/sync-test-results.ts` reads every `tests/results/*.csv` and upserts Status + Test Date into a Google Sheet by matching the `Test ID` column. Requires two env vars in `.env.local`:
+`scripts/sync-test-results.ts` reads every `tests/results/*.json` and upserts Status + Test Date into a Google Sheet by matching the `Test ID` column. Requires two env vars in `.env.local`:
 
 - `GOOGLE_SHEETS_SA_KEY_PATH` — absolute path to a service-account JSON key with "Google Sheets API" enabled and Editor access to the target sheet.
 - `GOOGLE_SHEETS_SPREADSHEET_ID` — the sheet ID from its URL.
 
-Tab names are hard-coded in `SYNC_TARGETS` inside the script (e.g. `login-results.csv` → tab "Login"). New CSVs need a matching entry there. The shell runners in `tests/scripts/` call `bun e2e:sync` after every playwright invocation; the call is wrapped in `|| true` so missing credentials don't fail the run.
+Tab names are hard-coded in `SYNC_TARGETS` inside the script (e.g. `001-login-results.json` → tab "Login"). New result files need a matching entry there. The shell runners in `tests/scripts/` call `bun e2e:sync` after every playwright invocation; the call is wrapped in `|| true` so missing credentials don't fail the run.
 
 ## Origin: the legacy Next.js app's in-tree `e2e/` suite
 
-This suite was mirrored from that app's in-tree `e2e/` directory — specs, page objects, fixtures, helpers, reporter, shell scripts, seed CSVs, and the Google Sheets sync script. **That repo no longer exists, so there is nothing left to sync from**; the substitutions below are kept only to explain why paths here differ from the ones the ported files assume:
+This suite was mirrored from that app's in-tree `e2e/` directory — specs, page objects, fixtures, helpers, reporter, shell scripts, seed result files, and the Google Sheets sync script. **That repo no longer exists, so there is nothing left to sync from**; the substitutions below are kept only to explain why paths here differ from the ones the ported files assume:
 
 - `testDir` is `./tests` (not `./e2e`).
-- CSV reporter `outputDir` is `tests/results` (not `e2e/results`).
+- Reporter `outputDir` is `tests/results` (not `e2e/results`).
 - Shell scripts resolve SPECs as `tests/<module>.spec.ts`.
 - `RESULTS_DIR` in `scripts/sync-test-results.ts` is `tests/results`.
 
