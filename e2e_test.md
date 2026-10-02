@@ -165,7 +165,7 @@ bun run report                                    # เปิด HTML report
 | Module (`run-module.sh`) | Spec | TC prefix | Sheet tab |
 |--------------------------|------|-----------|-----------|
 | `login` | `001-login.spec.ts` | TC-LOGIN | `Login` |
-| `spa-smoke` | `002-spa-smoke.spec.ts` | TC-SPA | — (ไม่ sync) |
+| `spa-smoke` | `002-spa-smoke.spec.ts` | TC-SPA | `SPA_Smoke` |
 | `department` | `010-department.spec.ts` | TC-DEP | `Department` |
 | `unit` | `020-unit.spec.ts` | TC-UN | `Unit` |
 | `business-type` | `029-business-type.spec.ts` | TC-BT | `Business_Type` |
@@ -179,14 +179,14 @@ bun run report                                    # เปิด HTML report
 | `eco` | `044-eco.spec.ts` | TC-ECO | `Eco` |
 | `delivery-point` | `079-delivery-point.spec.ts` | TC-DP | `Delivery_Point` |
 | `location` | `080-location.spec.ts` | TC-LOC | `Location` |
-| `chart-of-account-mapping` | `081-chart-of-account-mapping.spec.ts` | TC-ACMAP | — (ไม่ sync) |
-| `chart-of-accounts` | `082-chart-of-accounts.spec.ts` | TC-COA | — (ไม่ sync) |
-| `shelf` | `083-shelf.spec.ts` | TC-SHLF | — (ไม่ sync) |
+| `chart-of-account-mapping` | `081-chart-of-account-mapping.spec.ts` | TC-ACMAP | `Chart_Of_Account_Mapping` |
+| `chart-of-accounts` | `082-chart-of-accounts.spec.ts` | TC-COA | `Chart_Of_Accounts` |
+| `shelf` | `083-shelf.spec.ts` | TC-SHLF | `Shelf` |
 | `product-category` | `101-product-category.spec.ts` | TC-CAT | `Product_Category` |
-| `op-category` | `110-op-category.spec.ts` | TC-OPCAT | — (ไม่ sync) |
-| `cuisine` | `111-cuisine.spec.ts` | TC-CUIS | — (ไม่ sync) |
-| `recipe-equipment-category` | `121-recipe-equipment-category.spec.ts` | TC-RECC | — (ไม่ sync) |
-| `equipment-category` | `131-equipment-category.spec.ts` | TC-EQPC | — (ไม่ sync) |
+| `op-category` | `110-op-category.spec.ts` | TC-OPCAT | `OP_Category` |
+| `cuisine` | `111-cuisine.spec.ts` | TC-CUIS | `Cuisine` |
+| `recipe-equipment-category` | `121-recipe-equipment-category.spec.ts` | TC-RECC | `Recipe_Equipment_Category` |
+| `equipment-category` | `131-equipment-category.spec.ts` | TC-EQPC | `Equipment_Category` |
 | `vendor` | `150-vendor.spec.ts` | TC-VEN | `Vendor` |
 | `pl` | `159-pl.spec.ts` | TC-PL | `PL` |
 | `pl-template` | `160-pl-template.spec.ts` | TC-PT | `PL_Template` |
@@ -204,8 +204,8 @@ bun run report                                    # เปิด HTML report
 | `cn` | `601-cn.spec.ts` | TC-CN | `CN` |
 | `cn-reason` | `602-cn-reason.spec.ts` | TC-CNR | `CN_Reason` |
 | `sr` | `701-sr.spec.ts` | TC-SR | `SR` |
-| `wastage-reporting` | `710-wastage-reporting.spec.ts` | TC-WAST | — (ไม่ sync) |
-| `stock-replenishment` | `711-stock-replenishment.spec.ts` | TC-SRPL | — (ไม่ sync) |
+| `wastage-reporting` | `710-wastage-reporting.spec.ts` | TC-WAST | `Wastage_Reporting` |
+| `stock-replenishment` | `711-stock-replenishment.spec.ts` | TC-SRPL | `Stock_Replenishment` |
 | `stock-issue` | `720-stock-issue.spec.ts` | TC-SI | `Stock_Issue` |
 | `period-end` | `900-period-end.spec.ts` | TC-PE | `Period_End` |
 | `campaign` | `1001-campaign.spec.ts` | TC-CAM | `Campaign` |
