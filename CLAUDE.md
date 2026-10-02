@@ -90,7 +90,13 @@ bun run create:sitemap:screen                       # all 9 TEST_USERS, sequenti
 bun run create:sitemap:screen -- --user admin,hod   # by role or email local part
 bun run create:sitemap:screen -- --concurrency 3    # N users at a time
 bun run create:sitemap:screen -- --max-pages 20     # cap per user (default 300)
+bun run create:sitemap:screen -- --bu GR2VYNKQ      # BU to crawl in (default BU_CODE; `none` = account default)
 ```
+
+After login every user is switched to the `--bu` business unit (`ensureActiveBu`,
+which persists as the account's default BU). A user who is not a member of that
+BU is reported as `bu-failed` and not crawled — crawling the wrong BU yields a
+plausible-looking sitemap of "Permission Denied" pages.
 
 Output lands in `runs/screens/<datetime>/` (gitignored) — `index.html` (one card
 per user), `manifest.json`, and `<user>/sitemap.html` + `<user>/images/*.png`.

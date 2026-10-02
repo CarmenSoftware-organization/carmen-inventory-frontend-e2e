@@ -5,6 +5,7 @@
  *   bun run create:sitemap:screen
  *   bun run create:sitemap:screen -- --user admin,hod
  *   bun run create:sitemap:screen -- --concurrency 3 --max-pages 50
+ *   bun run create:sitemap:screen -- --bu GR2VYNKQ  (default: BU_CODE from tests/test-users.ts; --bu none keeps each user's own default BU)
  *
  * Output: runs/screens/<datetime>/
  *           index.html            overview, one card per user
@@ -19,6 +20,12 @@
  *
  * Auth is a fresh UI login per user every run — no dependency on the Playwright
  * `setup` project or .auth/*.json, so this runs standalone.
+ *
+ * After login each user is switched to the `--bu` business unit before the
+ * crawl. Without it the crawl runs in whatever BU the account defaults to, and
+ * a BU without the module subscription shows "Permission Denied" on every
+ * module — leaving only /system-admin and /profile, identical for every role.
+ * The switch persists server-side (it is the account's default BU).
  */
 import { chromium, type Browser, type Page } from "@playwright/test";
 import { mkdirSync, rmSync, writeFileSync, symlinkSync } from "node:fs";
@@ -26,7 +33,8 @@ import { spawn, type ChildProcess } from "node:child_process";
 import { resolve, join } from "node:path";
 
 import { LoginPage } from "../tests/pages/login.page";
-import { TEST_USERS, getPasswordFor } from "../tests/test-users";
+import { ensureActiveBu } from "../tests/helpers/bu";
+import { TEST_USERS, BU_CODE, getPasswordFor } from "../tests/test-users";
 import {
   enqueueUnseen,
   normalizeScreenUrl,
@@ -56,6 +64,8 @@ interface Options {
   users: typeof TEST_USERS[number][];
   concurrency: number;
   maxPages: number;
+  /** BU code to switch every user to after login, or null to keep their default. */
+  bu: string | null;
 }
 
 /** Read `--flag value` / `--flag=value` out of argv. Exported for tests. */
@@ -64,6 +74,14 @@ export function readFlag(argv: string[], name: string): string | undefined {
   if (eq) return eq.slice(name.length + 3);
   const i = argv.indexOf(`--${name}`);
   return i >= 0 ? argv[i + 1] : undefined;
+}
+
+/** Resolve `--bu`: BU_CODE (the suite's BU) when absent, null for "none" (keep the account's default BU). */
+export function selectBu(spec: string | undefined): string | null {
+  if (spec === undefined) return BU_CODE;
+  const code = spec.trim();
+  if (!code) throw new Error("--bu needs a business-unit code (or \"none\")");
+  return code.toLowerCase() === "none" ? null : code;
 }
 
 /**
@@ -101,6 +119,7 @@ function parseOptions(argv: string[]): Options {
     users: selectUsers(readFlag(argv, "user")),
     concurrency: num("concurrency", 1),
     maxPages: num("max-pages", 300),
+    bu: selectBu(readFlag(argv, "bu")),
   };
 }
 
@@ -180,8 +199,10 @@ interface UserResult {
   user: string;
   role: string;
   email: string;
-  status: "ok" | "login-failed" | "session-lost";
+  status: "ok" | "login-failed" | "bu-failed" | "session-lost";
   reason?: string;
+  /** BU the crawl ran in; null when --bu none left the account's default in place. */
+  bu: string | null;
   captures: ManifestEntry[];
 }
 
@@ -388,7 +409,7 @@ async function captureUser(
   const page = await context.newPage();
 
   const result: UserResult = {
-    user: folder, role: user.role, email: user.email, status: "ok", captures: [],
+    user: folder, role: user.role, email: user.email, status: "ok", bu: options.bu, captures: [],
   };
 
   try {
@@ -414,6 +435,20 @@ async function captureUser(
       result.reason = `still at ${page.url()} after login`;
       log(`login failed — ${result.reason}`);
       return result;
+    }
+
+    if (options.bu) {
+      try {
+        await ensureActiveBu(page, options.bu);
+        log(`active BU: ${options.bu}`);
+      } catch (err) {
+        // Crawling the wrong BU would produce a sitemap that looks valid but
+        // shows the wrong screens — stop this user instead.
+        result.status = "bu-failed";
+        result.reason = err instanceof Error ? err.message.split("\n")[0] : String(err);
+        log(`BU switch failed — ${result.reason}`);
+        return result;
+      }
     }
 
     const queue: CrawlTarget[] = [{ url: `${BASE_URL}/dashboard`, route: `${BASE_URL}/dashboard` }];
@@ -550,14 +585,14 @@ function renderUserSitemap(result: UserResult): string {
   return htmlPage(
     `${result.role} — screens ${RUN_ID}`,
     `  <h1>${escapeHtml(result.role)} <span class="count">(${escapeHtml(result.email)})</span></h1>
-  <div class="meta"><a href="../index.html">← all users</a> · ${RUN_ID} · ${escapeHtml(BASE_URL)} · ${ok} screen(s)${problem}</div>
+  <div class="meta"><a href="../index.html">← all users</a> · ${RUN_ID} · ${escapeHtml(BASE_URL)} · BU ${escapeHtml(result.bu ?? "(account default)")} · ${ok} screen(s)${problem}</div>
   <div class="grid">
 ${figures}
   </div>`,
   );
 }
 
-function renderIndex(results: UserResult[]): string {
+function renderIndex(results: UserResult[], bu: string | null): string {
   const cards = results
     .map((r) => {
       const ok = r.captures.filter((c) => c.status === "ok").length;
@@ -574,7 +609,7 @@ function renderIndex(results: UserResult[]): string {
   return htmlPage(
     `Screen capture — ${RUN_ID}`,
     `  <h1>Screen capture</h1>
-  <div class="meta">${RUN_ID} · ${escapeHtml(BASE_URL)} · ${results.length} user(s)</div>
+  <div class="meta">${RUN_ID} · ${escapeHtml(BASE_URL)} · BU ${escapeHtml(bu ?? "(account default)")} · ${results.length} user(s)</div>
   <div class="grid">
 ${cards}
   </div>`,
@@ -597,6 +632,7 @@ async function main(): Promise<void> {
   console.log(`  output:      ${RUN_DIR}`);
   console.log(`  users:       ${options.users.map((u) => u.role).join(", ")}`);
   console.log(`  concurrency: ${options.concurrency} · max pages/user: ${options.maxPages}`);
+  console.log(`  BU:          ${options.bu ?? "(each account's default)"}`);
 
   mkdirSync(RUN_DIR, { recursive: true });
   const runStartedAt = Date.now();
@@ -629,9 +665,9 @@ async function main(): Promise<void> {
 
     writeFileSync(
       join(RUN_DIR, "manifest.json"),
-      JSON.stringify({ runId: RUN_ID, baseUrl: BASE_URL, users: results }, null, 2),
+      JSON.stringify({ runId: RUN_ID, baseUrl: BASE_URL, bu: options.bu, users: results }, null, 2),
     );
-    writeFileSync(join(RUN_DIR, "index.html"), renderIndex(results));
+    writeFileSync(join(RUN_DIR, "index.html"), renderIndex(results, options.bu));
 
     try {
       rmSync(join(RUNS_ROOT, "latest"), { force: true });
