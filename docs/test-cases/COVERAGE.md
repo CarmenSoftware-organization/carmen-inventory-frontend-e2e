@@ -2,7 +2,7 @@
 
 **Generated file — do not edit.** Run `bun audit:coverage` to refresh.
 
-Parsed from the frontend router (`routes/router.tsx`): **168 routes** across **103 modules**.
+Parsed from the frontend router (`routes/router.tsx`): **175 routes** across **100 modules**.
 
 > **What `spec` means here:** a spec names the module's URL, in its own file or in a page object it imports. A spec that reaches a route only by *clicking* — never by `goto()` — is invisible to this matcher, so the route reads as uncovered. `/procurement/purchase-request/from-template` is the known case: `302-pr-creator-journey` drives it through `selectFirstTemplate()`, which clicks a card. Check the spec before concluding a gap is real.
 
@@ -10,7 +10,7 @@ Parsed from the frontend router (`routes/router.tsx`): **168 routes** across **1
 | --- | --- | --- |
 | ✅ spec | an automated Playwright spec drives this module | 44 |
 | 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 43 |
-| ❌ none | neither — this is the coverage gap | 16 |
+| ❌ none | neither — this is the coverage gap | 13 |
 
 ## *
 
@@ -22,24 +22,18 @@ Parsed from the frontend router (`routes/router.tsx`): **168 routes** across **1
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
-| `/accounting` | 1 | — | — | ❌ none |
-| `/accounting/accounts-payable` | 1 _(redirect → `/accounting/accounts-payable/invoice`)_ | — | — | ❌ none |
-| `/accounting/accounts-payable/invoice` | 2 | — | — | ❌ none |
-| `/accounting/accounts-payable/payment` | 2 | — | — | ❌ none |
-| `/accounting/accounts-receivable` | 1 _(redirect → `/accounting/accounts-receivable/invoice`)_ | — | — | ❌ none |
+| `/accounting` | 14 | — | — | ❌ none |
+| `/accounting/accounts-payable` | 5 | — | — | ❌ none |
+| `/accounting/accounts-payable/payment-approvals` | 1 _(redirect → `/accounting/accounts-payable/payment?lifecycle=submitted`)_ | — | — | ❌ none |
 | `/accounting/accounts-receivable/invoice` | 2 | — | — | ❌ none |
-| `/accounting/accounts-receivable/receipt` | 2 | — | — | ❌ none |
-| `/accounting/allocation-voucher` | 2 | — | — | ❌ none |
-| `/accounting/financial-reports` | 2 | — | — | ❌ none |
 | `/accounting/journal-voucher` | 2 | — | — | ❌ none |
-| `/accounting/recurring-voucher` | 2 | — | — | ❌ none |
-| `/accounting/template-voucher` | 2 | — | — | ❌ none |
 
 ## Config (master data)
 
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
 | `/config` | 1 | `002-spa-smoke.spec.ts` | `1204-section-landing.md` | ✅ spec |
+| `/config/account-grouping` | 1 | — | — | ❌ none |
 | `/config/account-mapping` | 1 _(redirect → `/config/chart-of-account-mapping`)_ | `081-chart-of-account-mapping.spec.ts` | — | ✅ spec |
 | `/config/adjustment-type` | 1 | `031-adjustment-type.spec.ts` | — | ✅ spec |
 | `/config/business-type` | 1 | `029-business-type.spec.ts` | — | ✅ spec |
@@ -55,6 +49,7 @@ Parsed from the frontend router (`routes/router.tsx`): **168 routes** across **1
 | `/config/location` | 3 | `080-location.spec.ts` | — | ✅ spec |
 | `/config/shelf` | 1 | `083-shelf.spec.ts` | — | ✅ spec |
 | `/config/tax-profile` | 1 | `042-tax-profile.spec.ts` | — | ✅ spec |
+| `/config/title-master` | 1 | — | — | ❌ none |
 | `/config/unit` | 1 | `002-spa-smoke.spec.ts`<br>`020-unit.spec.ts` | — | ✅ spec |
 
 ## Dashboard
@@ -62,6 +57,12 @@ Parsed from the frontend router (`routes/router.tsx`): **168 routes** across **1
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
 | `/dashboard` | 1 | `001-login.spec.ts`<br>`002-spa-smoke.spec.ts` | `1200-dashboard.md`<br>`1204-section-landing.md` | ✅ spec |
+
+## design-system
+
+| Module | Routes | Spec | Catalog | Status |
+| --- | --- | --- | --- | --- |
+| `/design-system` | 1 | — | — | ❌ none |
 
 ## forgot-password
 
@@ -91,6 +92,7 @@ Parsed from the frontend router (`routes/router.tsx`): **168 routes** across **1
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
 | `/login` | 1 | `001-login.spec.ts` | — | ✅ spec |
+| `/login/callback` | 1 | — | — | ❌ none |
 
 ## notifications
 

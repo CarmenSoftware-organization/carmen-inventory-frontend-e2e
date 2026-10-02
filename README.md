@@ -163,7 +163,7 @@ Tab mapping is hard-coded in `SYNC_TARGETS` inside `scripts/sync-test-results.ts
 - **`workers: 1`** in the config is intentional — backend state is shared across role-based accounts and tests cannot safely interleave.
 - **Test titles are in Thai** to match the product UX.
 
-See [CLAUDE.md](./CLAUDE.md) for the architecture deep-dive used by AI coding agents.
+See [docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md) for setup, test-writing rules and the PR checklist, [e2e_test.md](./e2e_test.md) for the Thai run guide, and [CLAUDE.md](./CLAUDE.md) for the architecture deep-dive used by AI coding agents.
 
 ## Default target: the React SPA
 
