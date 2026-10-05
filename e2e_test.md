@@ -213,6 +213,17 @@ bun run report                                    # เปิด HTML report
 
 รายการ prefix และ section ที่ลงทะเบียนไว้: [`docs/test-id-scheme.md`](./docs/test-id-scheme.md)
 
+### ชุด movement (ไม่อยู่ในรอบรันปกติ — ต้องสั่งเอง)
+
+ย้ายมาจาก `_movement_play/eop_bf/e2e` — ทดสอบการเคลื่อนไหวสต๊อกบน CARMEN-AVG / CARMEN-FIFO ด้วยบัญชี `@carmen.com` (`tests/movement-users.ts`) และตรวจผลถึงหลังบ้าน/DB จึงไม่รวมใน `bun run test` และ `run-module.sh` / `run-all.sh`
+
+| ชุด | Spec | TC | คำสั่ง |
+|-----|------|----|--------|
+| วงจรเอกสารตามบทบาท | `312-pr`, `404-po`, `502-grn`, `603-cn`, `702-sr`, `721-sr-issue`, `730-inventory-adjustment` (`*-doc-flow.spec.ts`) | section 70–71 ของ prefix โมดูล | `bun run test:movement` |
+| ปิดงวด (ทีละ phase) | `910`–`924-period-close-*.spec.ts` | TC-PE section 40–54 | `E2E_PERIOD_SCENARIO=<scenario> bun run test:period-close -- tests/<phase>.spec.ts` หรือ `./tests/scripts/run-period-close.sh <scenario>` |
+
+ต้องตั้ง `E2E_DB_URL` ใน `.env.local` ก่อน (ดู `.env.example`) · ครั้งแรกของแต่ละ environment รัน `bun run movement:setup-workflows` · ขั้นที่ย้อนไม่ได้ของปิดงวด (Start / ส่งใบนับ / Close) ต้องตั้ง `E2E_ALLOW_IRREVERSIBLE=<BU>:<งวด>` · ผลแต่ละ spec ขึ้นชีตของตัวเอง (`*_Doc_Flow`, `Period_Close_*`) ตาม `SYNC_TARGETS`
+
 ---
 
 ## โครงสร้างผลลัพธ์

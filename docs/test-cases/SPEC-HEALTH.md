@@ -8,16 +8,16 @@ that runs without an `expect(...)`, reports green and checks nothing.
 
 | | Count |
 | --- | --- |
-| Cases declared | 1317 |
-| **Running** | **1073** |
+| Cases declared | 1418 |
+| **Running** | **1174** |
 | Skipped | 201 |
 | Fixme | 43 |
-| **Dormant** (skipped + fixme) | **19%** |
-| Running cases asserting only through a page-object helper | 18 |
+| **Dormant** (skipped + fixme) | **17%** |
+| Running cases asserting only through a page-object helper | 38 |
 | **Running cases asserting nothing at all** | **285** |
 | Running cases whose assertions are all trivial | 25 |
-| Running cases behind an in-body skip guard | 223 |
-| Assertions in running cases | 1310 |
+| Running cases behind an in-body skip guard | 239 |
+| Assertions in running cases | 1522 |
 
 **Trivial** means the assertion cannot fail — `expect(true).toBe(true)` and friends.
 **Helper** counts calls like `pr.expectSavedToast()`: the page object asserts, so the case is fine —
@@ -85,6 +85,26 @@ Sorted by dormant share, then by cases that assert nothing.
 | `131-equipment-category.spec.ts` | 12 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 22 | 0 |
 | `303-pr-approver-journey.spec.ts` | 28 | 0 | 0 | 0% | 0 | 0 | 0 | **22** | 37 | 10 |
 | `304-pr-purchaser-journey.spec.ts` | 26 | 0 | 0 | 0% | 0 | 0 | 0 | **22** | 36 | 9 |
+| `312-pr-doc-flow.spec.ts` | 5 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 16 | 1 |
 | `402-po-purchaser-journey.spec.ts` | 32 | 0 | 0 | 0% | 0 | 0 | 0 | **26** | 42 | 17 |
+| `404-po-doc-flow.spec.ts` | 5 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 17 | 1 |
+| `502-grn-doc-flow.spec.ts` | 5 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 16 | 1 |
 | `602-cn-reason.spec.ts` | 14 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 31 | 0 |
+| `603-cn-doc-flow.spec.ts` | 7 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 20 | 1 |
+| `702-sr-doc-flow.spec.ts` | 5 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 18 | 1 |
 | `710-wastage-reporting.spec.ts` | 20 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 35 | 6 |
+| `721-sr-issue-doc-flow.spec.ts` | 12 | 0 | 0 | 0% | 0 | 9 | 0 | 0 | 10 | 1 |
+| `730-inventory-adjustment-doc-flow.spec.ts` | 12 | 0 | 0 | 0% | 0 | 11 | 0 | 0 | 1 | 1 |
+| `910-period-close-prestep.spec.ts` | 4 | 0 | 0 | 0% | 0 | 0 | 0 | **1** | 9 | 1 |
+| `911-period-close-blockers.spec.ts` | 1 | 0 | 0 | 0% | 0 | 0 | 0 | **1** | 2 | 0 |
+| `912-period-close-start-gate.spec.ts` | 7 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 9 | 0 |
+| `914-period-close-out-of-period-docs.spec.ts` | 7 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 14 | 0 |
+| `916-period-close-fix-guards.spec.ts` | 4 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 10 | 0 |
+| `917-period-close-new-rules.spec.ts` | 4 | 0 | 0 | 0% | 0 | 0 | 0 | **3** | 11 | 0 |
+| `918-period-close-start.spec.ts` | 1 | 0 | 0 | 0% | 0 | 0 | 0 | **1** | 6 | 0 |
+| `919-period-close-active-period.spec.ts` | 11 | 0 | 0 | 0% | 0 | 0 | 0 | **7** | 14 | 0 |
+| `920-period-close-close-gate.spec.ts` | 1 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 7 | 0 |
+| `921-period-close-count.spec.ts` | 1 | 0 | 0 | 0% | 0 | 0 | 0 | **1** | 3 | 0 |
+| `922-period-close-verify.spec.ts` | 4 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 9 | 0 |
+| `923-period-close-ledger-views.spec.ts` | 3 | 0 | 0 | 0% | 0 | 0 | 0 | 0 | 12 | 0 |
+| `924-period-close-close.spec.ts` | 2 | 0 | 0 | 0% | 0 | 0 | 0 | **2** | 8 | 0 |

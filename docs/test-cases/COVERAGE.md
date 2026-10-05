@@ -8,9 +8,9 @@ Parsed from the frontend router (`routes/router.tsx`): **175 routes** across **1
 
 | Status | Meaning | Modules |
 | --- | --- | --- |
-| ✅ spec | an automated Playwright spec drives this module | 44 |
-| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 43 |
-| ❌ none | neither — this is the coverage gap | 13 |
+| ✅ spec | an automated Playwright spec drives this module | 46 |
+| 📄 catalog | a hand-authored test-case catalog documents it, no spec yet | 40 |
+| ❌ none | neither — this is the coverage gap | 14 |
 
 ## *
 
@@ -75,8 +75,8 @@ Parsed from the frontend router (`routes/router.tsx`): **175 routes** across **1
 | Module | Routes | Spec | Catalog | Status |
 | --- | --- | --- | --- | --- |
 | `/inventory-management` | 1 | — | `1204-section-landing.md` | 📄 catalog |
-| `/inventory-management/inventory-adjustment` | 3 | — | `730-inventory-adjustment.md` | 📄 catalog |
-| `/inventory-management/period-end` | 2 | `900-period-end.spec.ts` | — | ✅ spec |
+| `/inventory-management/inventory-adjustment` | 3 | — | — | ❌ none |
+| `/inventory-management/period-end` | 2 | `900-period-end.spec.ts`<br>`914-period-close-out-of-period-docs.spec.ts`<br>`918-period-close-start.spec.ts`<br>`920-period-close-close-gate.spec.ts`<br>_+2 more_ | — | ✅ spec |
 | `/inventory-management/physical-count` | 5 | — | `750-physical-count.md` | 📄 catalog |
 | `/inventory-management/spot-check` | 4 | — | `760-spot-check.md` | 📄 catalog |
 | `/inventory-management/transaction` | 1 | — | `740-stock-transaction.md` | 📄 catalog |
@@ -130,13 +130,13 @@ Parsed from the frontend router (`routes/router.tsx`): **175 routes** across **1
 | --- | --- | --- | --- | --- |
 | `/procurement` | 1 | `002-spa-smoke.spec.ts` | `1204-section-landing.md` | ✅ spec |
 | `/procurement/approval` | 1 | `002-spa-smoke.spec.ts`<br>`201-my-approvals.spec.ts`<br>`303-pr-approver-journey.spec.ts` | — | ✅ spec |
-| `/procurement/credit-note` | 3 | `002-spa-smoke.spec.ts`<br>`601-cn.spec.ts` | — | ✅ spec |
+| `/procurement/credit-note` | 3 | `002-spa-smoke.spec.ts`<br>`601-cn.spec.ts`<br>`603-cn-doc-flow.spec.ts` | — | ✅ spec |
 | `/procurement/goods-receive-note` | 3 | `002-spa-smoke.spec.ts`<br>`501-grn.spec.ts`<br>`710-wastage-reporting.spec.ts` | — | ✅ spec |
 | `/procurement/goods-receive-note/from-po` | 1 | — | — | ❌ none |
-| `/procurement/purchase-order` | 3 | `002-spa-smoke.spec.ts`<br>`401-po.spec.ts`<br>`402-po-purchaser-journey.spec.ts`<br>`403-po-approver-journey.spec.ts`<br>_+1 more_ | — | ✅ spec |
+| `/procurement/purchase-order` | 3 | `002-spa-smoke.spec.ts`<br>`401-po.spec.ts`<br>`402-po-purchaser-journey.spec.ts`<br>`403-po-approver-journey.spec.ts`<br>_+3 more_ | — | ✅ spec |
 | `/procurement/purchase-order/from-pr` | 1 | — | — | ❌ none |
 | `/procurement/purchase-order/from-price-list` | 1 | — | — | ❌ none |
-| `/procurement/purchase-request` | 3 | `002-spa-smoke.spec.ts`<br>`201-my-approvals.spec.ts`<br>`301-pr.spec.ts`<br>`302-pr-creator-journey.spec.ts`<br>_+3 more_ | — | ✅ spec |
+| `/procurement/purchase-request` | 3 | `002-spa-smoke.spec.ts`<br>`201-my-approvals.spec.ts`<br>`301-pr.spec.ts`<br>`302-pr-creator-journey.spec.ts`<br>_+5 more_ | — | ✅ spec |
 | `/procurement/purchase-request-template` | 3 | `002-spa-smoke.spec.ts`<br>`310-pr-template.spec.ts` | — | ✅ spec |
 | `/procurement/purchase-request/from-template` | 1 | — | — | ❌ none |
 
@@ -184,7 +184,7 @@ Parsed from the frontend router (`routes/router.tsx`): **175 routes** across **1
 | --- | --- | --- | --- | --- |
 | `/store-operation` | 1 | — | `1204-section-landing.md` | 📄 catalog |
 | `/store-operation/stock-replenishment` | 1 | `711-stock-replenishment.spec.ts` | — | ✅ spec |
-| `/store-operation/store-requisition` | 3 | `701-sr.spec.ts`<br>`720-stock-issue.spec.ts` | — | ✅ spec |
+| `/store-operation/store-requisition` | 3 | `701-sr.spec.ts`<br>`702-sr-doc-flow.spec.ts`<br>`720-stock-issue.spec.ts`<br>`721-sr-issue-doc-flow.spec.ts`<br>_+1 more_ | — | ✅ spec |
 | `/store-operation/wastage-reporting` | 1 | `710-wastage-reporting.spec.ts` | — | ✅ spec |
 
 ## Platform / System Admin
@@ -196,7 +196,7 @@ Parsed from the frontend router (`routes/router.tsx`): **175 routes** across **1
 | `/system-admin/business-setting` | 1 _(redirect → `/system-admin/company-profile`)_ | — | `1114-company-profile.md` | 📄 catalog |
 | `/system-admin/company-profile` | 1 | — | `1114-company-profile.md` | 📄 catalog |
 | `/system-admin/dashboard-dataset` | 1 | — | `1112-dashboard-dataset.md` | 📄 catalog |
-| `/system-admin/default-setting` | 1 | — | `1115-default-setting.md` | 📄 catalog |
+| `/system-admin/default-setting` | 1 | `910-period-close-prestep.spec.ts` | `1115-default-setting.md` | ✅ spec |
 | `/system-admin/document` | 1 | — | `1107-document.md` | 📄 catalog |
 | `/system-admin/email-profile` | 1 | — | `1116-email-profile.md` | 📄 catalog |
 | `/system-admin/email-template` | 1 | — | `1117-email-template.md` | 📄 catalog |
@@ -206,7 +206,7 @@ Parsed from the frontend router (`routes/router.tsx`): **175 routes** across **1
 | `/system-admin/period` | 1 _(redirect → `/system-admin/inventory-period`)_ | — | `1105-system-period.md` | 📄 catalog |
 | `/system-admin/role` | 3 | — | `1101-role.md` | 📄 catalog |
 | `/system-admin/running-code` | 1 | — | `1110-running-code.md` | 📄 catalog |
-| `/system-admin/user` | 2 | — | `1102-user.md` | 📄 catalog |
+| `/system-admin/user` | 2 | `910-period-close-prestep.spec.ts` | `1102-user.md` | ✅ spec |
 | `/system-admin/user-activity` | 1 | — | `1106-user-activity.md` | 📄 catalog |
 | `/system-admin/workflow` | 6 | — | `1103-workflow.md` | 📄 catalog |
 

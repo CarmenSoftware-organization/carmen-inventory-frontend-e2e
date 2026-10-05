@@ -16,6 +16,8 @@ cd "$REPO_ROOT"
 shopt -s nullglob
 SPECS=()
 for spec in tests/[0-9]*-*.spec.ts; do
+  # Movement-suite specs run only in their opt-in projects (bun run test:movement / test:period-close).
+  case "$spec" in *-doc-flow.spec.ts|*/9[0-9][0-9]-period-close-*.spec.ts) continue ;; esac
   SPECS+=("$spec")
 done
 shopt -u nullglob

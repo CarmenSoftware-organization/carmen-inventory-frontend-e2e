@@ -32,7 +32,7 @@ bun only auto-loads `.env` / `.env.local`, never a custom name. `scripts/run-env
 
 ## Architecture
 
-- **`playwright.config.ts`** — five projects: `setup` (runs `auth.setup.ts` to pre-authenticate every role and persist storageState), `login` (runs `001-login.spec.ts`), and `chromium` (every other spec; depends on `setup` so cookies are pre-loaded). Two more, `wiki-screenshots` and `wiki-probe`, drive the wiki screenshot pipeline (`bun run wiki:capture` / `wiki:probe`). The split enables selective runs (`bun run test:login`) and keeps the noisy login suite out of the default reporter output when iterating on feature tests. The `chromium`→`setup` dependency is wired explicitly; `login` is independent on purpose because it exercises real UI login. `workers: 1` because (a) the backend rate-limits repeated failed logins (observable via TC-L00130-style tests) and (b) role-based tests share backend state and cannot safely interleave.
+- **`playwright.config.ts`** — five always-on projects (plus three opt-in ones for the movement suite, see below): `setup` (runs `auth.setup.ts` to pre-authenticate every role and persist storageState), `login` (runs `001-login.spec.ts`), and `chromium` (every other spec; depends on `setup` so cookies are pre-loaded). Two more, `wiki-screenshots` and `wiki-probe`, drive the wiki screenshot pipeline (`bun run wiki:capture` / `wiki:probe`). The split enables selective runs (`bun run test:login`) and keeps the noisy login suite out of the default reporter output when iterating on feature tests. The `chromium`→`setup` dependency is wired explicitly; `login` is independent on purpose because it exercises real UI login. `workers: 1` because (a) the backend rate-limits repeated failed logins (observable via TC-L00130-style tests) and (b) role-based tests share backend state and cannot safely interleave.
 - **`tests/pages/`** — page objects. Each class wraps a `Page` and exposes **locator factories** (arrow functions returning `Locator`), not pre-created locators — this avoids stale references across navigations.
 - **`tests/fixtures/auth.fixture.ts`** — `createAuthTest(email)` returns a `test` whose browser context boots from `.auth/<email>.json` (produced by the `setup` project). Specs that consume the helper need no other auth setup.
 - **`tests/auth.setup.ts`** — Playwright `setup` project. Runs once per `bun run test` invocation, logs in every entry of `TEST_USERS` via the real UI, and writes the resulting browser context to `.auth/<email>.json`. The `chromium` project depends on `setup`, so chromium tests start with cookies pre-loaded and never hit `/login`. The `login` project (`001-login.spec.ts`) deliberately does **not** depend on setup — it tests the UI login flow itself. `.auth/` is gitignored and regenerated each run.
@@ -71,6 +71,25 @@ bun only auto-loads `.env` / `.env.local`, never a custom name. `scripts/run-env
   bun audit:tc-ids
   ```
 - **Whenever you add or modify any annotation in any spec, regenerate the user-story docs in the same change**: run `bun docs:user-stories` and commit the resulting `docs/user-stories/*.md` alongside the spec edit. The two are coupled by design — never let them drift. Skip the regeneration only when no annotations changed (e.g. pure refactor, locator update).
+
+## Movement suite (opt-in: doc flows + period close)
+
+Merged from the standalone `_movement_play/eop_bf/e2e` suite. It tests inventory movement end to end on the **CARMEN-AVG / CARMEN-FIFO** tenant with its own accounts (`tests/movement-users.ts`, `@carmen.com`) — not the gmail `TEST_USERS` / BLAVG of the rest of the suite — and it verifies results in the backend (API) and the database (read-only SQL), not just on screen. Because none of that exists on UAT/prod targets and the specs post real stock, it is **excluded from `bun run test`** (chromium's `testIgnore`) and only registered when asked for:
+
+```bash
+bun run test:movement                          # E2E_MOVEMENT=1 → projects movement-setup + movement (*-doc-flow.spec.ts)
+E2E_PERIOD_SCENARIO=avg2607 bun run test:period-close -- tests/910-period-close-prestep.spec.ts   # one phase
+./tests/scripts/run-period-close.sh avg2607    # a whole round, stopping before each irreversible step on failure
+bun run movement:setup-workflows               # once per environment: give the role accounts' workflows products (restore: … restore)
+bun run movement:cleanup [--apply]             # list / clear documents the suite left behind
+```
+
+- **Doc-flow specs** (`312-pr`, `404-po`, `502-grn`, `603-cn`, `702-sr`, `721-sr-issue`, `730-inventory-adjustment` — all `*-doc-flow.spec.ts`) reuse their module's prefix with **section 70–71** (registered in `docs/test-id-scheme.md`). Each is a serial chain create → view → edit → delete → submit/commit as the real role (requestor / hod / fc).
+- **Period-close phases** (`910`–`924-period-close-*.spec.ts`, prefix `PE`, **section 40–54**, one per phase) follow the scenario in `E2E_PERIOD_SCENARIO` (`tests/helpers/period-close/scenarios.ts`; add a new scenario per round). Phases hand documents over through `runs/period-close/<scenario>/state.json` and keep per-sub-case evidence there (`results.json` + screenshots), which a rerun reads to skip steps that already ran. Start, count submit and Close are **irreversible** and run only with `E2E_ALLOW_IRREVERSIBLE=<BU>:<period>`.
+- **Fixture** `tests/fixtures/movement.fixture.ts`: `test.use({ user, bu })`; the BU is pinned in the browser only (profile response rewritten — the real switcher would move the shared account's default BU), and the auto `signals` fixture **fails a doc-flow test on any page error or unexpected API ≥ 400** (declare intended refusals with `signals.expectApiError`, harmless ones with `signals.minor`); period-close phases set `failOnSignals: false` — they provoke refusals on purpose and assert the backend's answers themselves.
+- **Known bugs are pinned with `test.fail(true, "known bug …")`**: green in Playwright, `Fail` in the results sheet, and red ("unexpectedly passed") once fixed — then drop the marker.
+- **Secrets**: the DB URL is `E2E_DB_URL` in `.env.local` only (`scripts/db-query.ts` runs the SQL under Bun; helpers accept SELECT/WITH only). The backend comes from `E2E_API_URL` + `E2E_X_APP_ID` or the running frontend's `/config.json`.
+- **Behaviour conflicts with the main suite** are flagged in the notes rather than resolved: an AVG GRN posts stock when *saved* (TC-GRN-700005 vs TC-GRN-140003), requestor may create POs on CARMEN-AVG (TC-PO-700001 vs TC-PO-010002), and the period card after Close (period-close vs gap TC-PE-040104). Settle them with the backend team before changing either side.
 
 ## User-story docs (`docs/user-stories/`)
 

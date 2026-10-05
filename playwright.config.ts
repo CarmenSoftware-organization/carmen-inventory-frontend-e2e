@@ -5,6 +5,26 @@ const FRONTEND_DIR =
   process.env.E2E_FRONTEND_DIR ?? "../carmen-inventory-frontend-react";
 const START_FRONTEND = process.env.E2E_NO_WEBSERVER !== "1";
 
+// Movement suite — opt-in, because it needs the CARMEN-AVG / CARMEN-FIFO tenant,
+// its own accounts (tests/movement-users.ts) and a read-only DB URL, none of
+// which exist on UAT/prod targets, and because its specs post real stock.
+//   E2E_MOVEMENT=1      doc-flow specs (`*-doc-flow.spec.ts`)
+//   E2E_PERIOD_CLOSE=1  period-close phases (`9xx-period-close-*.spec.ts`) — run one phase at a time
+const MOVEMENT = process.env.E2E_MOVEMENT === "1";
+const PERIOD_CLOSE = process.env.E2E_PERIOD_CLOSE === "1";
+const DOC_FLOW_SPECS = /-doc-flow\.spec\.ts$/;
+const PERIOD_CLOSE_SPECS = /9\d\d-period-close-[^/]+\.spec\.ts$/;
+const movementUse = {
+  ...devices["Desktop Chrome"],
+  viewport: { width: 1440, height: 900 },
+  // The date pickers are driven by `data-day` (toLocaleDateString) and documents are
+  // dated per period, so locale and timezone are pinned.
+  locale: "en-US",
+  timezoneId: "Asia/Bangkok",
+  actionTimeout: 20_000,
+  navigationTimeout: 60_000,
+};
+
 export default defineConfig({
   testDir: "./tests",
   fullyParallel: true,
@@ -47,10 +67,55 @@ export default defineConfig({
     },
     {
       name: "chromium",
-      testIgnore: /001-login\.spec\.ts$|auth\.setup\.ts$|wiki-screenshots\//,
+      testIgnore: [
+        /001-login\.spec\.ts$|auth\.setup\.ts$|movement\.setup\.ts$|wiki-screenshots\//,
+        DOC_FLOW_SPECS,
+        PERIOD_CLOSE_SPECS,
+      ],
       dependencies: ["setup"],
       use: { ...devices["Desktop Chrome"] },
     },
+    ...(MOVEMENT || PERIOD_CLOSE
+      ? [
+          {
+            name: "movement-setup",
+            testMatch: /movement\.setup\.ts$/,
+            retries: 2,
+            fullyParallel: false,
+            use: movementUse,
+          },
+        ]
+      : []),
+    ...(MOVEMENT
+      ? [
+          {
+            name: "movement",
+            testMatch: DOC_FLOW_SPECS,
+            dependencies: ["movement-setup"],
+            fullyParallel: false,
+            // Serial chains (create → edit → delete) share one document: a retry would
+            // rerun a single step against a document the earlier steps already changed.
+            retries: 0,
+            timeout: 5 * 60_000,
+            expect: { timeout: 15_000 },
+            use: movementUse,
+          },
+        ]
+      : []),
+    ...(PERIOD_CLOSE
+      ? [
+          {
+            name: "period-close",
+            testMatch: PERIOD_CLOSE_SPECS,
+            dependencies: ["movement-setup"],
+            fullyParallel: false,
+            retries: 0,
+            timeout: 10 * 60_000,
+            expect: { timeout: 15_000 },
+            use: movementUse,
+          },
+        ]
+      : []),
     {
       name: "wiki-screenshots",
       testMatch: /wiki-screenshots\/capture\.spec\.ts$/,
