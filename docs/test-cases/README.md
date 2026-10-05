@@ -35,7 +35,7 @@ Each file follows the TC-ID scheme in [`../test-id-scheme.md`](../test-id-scheme
 
 | Doc | Module | Prefix | URL | TCs |
 | --- | --- | --- | --- | --- |
-| [730-inventory-adjustment.md](730-inventory-adjustment.md) | Inventory Adjustment | `IADJ` | `/inventory-management/inventory-adjustment` | 32 |
+| [gaps/730-inventory-adjustment-gap.md](gaps/730-inventory-adjustment-gap.md) | Inventory Adjustment — gap report (spec: `tests/730-inventory-adjustment-doc-flow.spec.ts`, movement suite) | `IADJ` | `/inventory-management/inventory-adjustment` | 60 |
 | [740-stock-transaction.md](740-stock-transaction.md) | Stock Transaction / Movement | `STKT` | `/inventory-management/transaction` | 22 |
 | [750-physical-count.md](750-physical-count.md) | Physical Count | `PCNT` | `/inventory-management/physical-count` | 33 |
 | [760-spot-check.md](760-spot-check.md) | Spot Check | `SPC` | `/inventory-management/spot-check` | 32 |

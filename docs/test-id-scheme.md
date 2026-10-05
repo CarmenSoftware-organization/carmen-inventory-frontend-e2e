@@ -51,15 +51,16 @@ Strict regex: `^TC-[A-Z]{2,5}-\d{6}$`
 | `159-pl.spec.ts` | `PL` | 01–08, 90 | CRUD + sub-journeys + edge cases |
 | `160-pl-template.spec.ts` | `PT` | 01–06, 20, 90 | CRUD + sub-journeys + edge cases |
 | `201-my-approvals.spec.ts` | `MA` | 01–06, 90 | CRUD + edge cases |
-| `301-pr.spec.ts` | `PR` | 01–09, 10–13, 20–22, 30–39, 40–49, 60–63, 90 | Module entry point + sub-journeys (05–08) |
+| `301-pr.spec.ts` | `PR` | 01–09, 10–13, 20–22, 30–39, 40–49, 60–63, 70, 90 | Module entry point + sub-journeys (05–08); 70 = movement doc flow (`312-pr-doc-flow.spec.ts`) |
 | `310-pr-template.spec.ts` | `PRT` | 01–11, 20–29, 90 | CRUD + validation |
-| `401-po.spec.ts` | `PO` | 01–07, 10–19, 20–29, 30–39, 90 | Module entry point + sub-journeys (06–07) |
-| `501-grn.spec.ts` | `GRN` | 01–18, 90 | CRUD + sub-journeys + security + edge cases |
-| `601-cn.spec.ts` | `CN` | 01–11, 20–29, 30–39, 50–54, 90 | CRUD + validation + integration |
+| `401-po.spec.ts` | `PO` | 01–07, 10–19, 20–29, 30–39, 70, 90 | Module entry point + sub-journeys (06–07); 70 = movement doc flow (`404-po-doc-flow.spec.ts`) |
+| `501-grn.spec.ts` | `GRN` | 01–18, 70, 90 | CRUD + sub-journeys + security + edge cases; 70 = movement doc flow (`502-grn-doc-flow.spec.ts`) |
+| `601-cn.spec.ts` | `CN` | 01–11, 20–29, 30–39, 50–54, 70, 90 | CRUD + validation + integration; 70 = movement doc flow (`603-cn-doc-flow.spec.ts`) |
 | `602-cn-reason.spec.ts` | `CNR` | 01, 03–05, 10, 20 | CRUD + security |
-| `701-sr.spec.ts` | `SR` | 01–12, 90 | CRUD + sub-journeys + security + edge cases |
-| `720-stock-issue.spec.ts` | `SI` | 01–06, 90 | CRUD + sub-journeys + edge cases |
-| `900-period-end.spec.ts` | `PE` | 01–04, 31–34, 90 | CRUD + integration + edge cases |
+| `701-sr.spec.ts` | `SR` | 01–12, 70, 90 | CRUD + sub-journeys + security + edge cases; 70 = movement doc flow (`702-sr-doc-flow.spec.ts`) |
+| `720-stock-issue.spec.ts` | `SI` | 01–06, 70–71, 90 | CRUD + sub-journeys + edge cases; 70–71 = movement SR → Issue flow, AVG / FIFO (`721-sr-issue-doc-flow.spec.ts`) |
+| `730-inventory-adjustment-doc-flow.spec.ts` | `IADJ` | 01–06, 10, 20, 30, 70–71, 90 | Movement doc flow: 70 = Stock In, 71 = Stock Out; the rest are open cases in `test-cases/gaps/730-inventory-adjustment-gap.md` |
+| `900-period-end.spec.ts` | `PE` | 01–04, 31–34, 40–42, 44, 46–54, 90 | CRUD + integration + edge cases; 40–54 = movement period-close phases (`910`–`924-period-close-*.spec.ts`, one section per phase; 43 and 45 were p03-only regressions, dropped) |
 | `1001-campaign.spec.ts` | `CAM` | 01–10, 90 | CRUD + sub-journeys + edge cases |
 | `710-wastage-reporting.spec.ts` | `WAST` | 01–05, 10, 20, 90 | Lot-based wastage read-only |
 | `711-stock-replenishment.spec.ts` | `SRPL` | 01–02, 06, 10, 30, 90 | Replenishment + PR/SR wizard |
@@ -73,7 +74,6 @@ These prefixes are reserved by hand-authored test-case catalogs in [`test-cases/
 | `test-cases/100-product.md` | `PROD` | Product Management | 01–05, 10, 20, 40, 90 |
 | `test-cases/120-recipe.md` | `RCP` | Operation Plan | 01–05, 10, 20, 40–44 |
 | `test-cases/130-equipment.md` | `EQP` | Operation Plan | 01–05, 10, 20, 40–42 |
-| `test-cases/730-inventory-adjustment.md` | `IADJ` | Inventory Management | 01–06, 10, 20, 30, 90 |
 | `test-cases/740-stock-transaction.md` | `STKT` | Inventory Management | 01–03, 10, 90 |
 | `test-cases/750-physical-count.md` | `PCNT` | Inventory Management | 01, 03–08, 10, 20, 90 |
 | `test-cases/760-spot-check.md` | `SPC` | Inventory Management | 01, 03, 06–07, 10, 20 |

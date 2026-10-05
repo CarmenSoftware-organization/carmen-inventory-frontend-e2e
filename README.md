@@ -48,6 +48,8 @@ bun run report                  # open last HTML report
 | `bun run test:chromium` / `e2e:chromium` | Only the `chromium` project (runs `setup` first) |
 | `bun run test:uat` / `e2e:uat` | Run against `.env.uat` via `scripts/run-env.ts` |
 | `bun run test:prod` / `e2e:prod` | Run against `.env.prod` via `scripts/run-env.ts` |
+| `bun run test:movement` | Opt-in movement doc-flow specs (`*-doc-flow.spec.ts`, CARMEN-AVG/FIFO accounts) |
+| `bun run test:period-close` | Opt-in period-close phases (`9xx-period-close-*.spec.ts`) — needs `E2E_PERIOD_SCENARIO` |
 | `bun run test:unit` | Vitest unit tests (`unit/`) |
 | `bun run test:unit:coverage` | Vitest with coverage |
 | `bun run report` / `e2e:report` | Open the last HTML report |
@@ -66,6 +68,9 @@ bun run report                  # open last HTML report
 | `bun run wiki:probe` / `wiki:capture` | Playwright `wiki-probe` / `wiki-screenshots` projects |
 | `bun run seed:master` | Excel → REST master-data seeder (`scripts/seed-master`) |
 | `bun run create:sitemap:screen` | Crawl the app per test user → `runs/screens/<datetime>/` |
+| `bun run movement:setup-workflows` (`restore`) | Give the movement accounts' workflows products / put them back |
+| `bun run movement:setup-fifo-roles` (`restore`) | Roles + locations for the FIFO SR-issue variant / put them back |
+| `bun run movement:cleanup` (`--apply`) | List / clear documents the movement suite left behind |
 <!-- /AUTO-GENERATED -->
 
 > Use `bun run test`, not bare `bun test` — the latter invokes Bun's built-in test runner instead of the `test` script.
@@ -94,6 +99,14 @@ bun run report                  # open last HTML report
 | `WIKI_ASSETS_DIR` | No | Wiki screenshot output dir | `../carmen-wiki/assets/screenshots/inventory` |
 | `WIKI_SITEMAP_PATH` | No | Wiki sitemap output | `../carmen-wiki/sitemap.html` |
 | `WIKI_SPECS_DIR` | No | Wiki specs dir for `wiki:coverage` | `../carmen-wiki/.specs` |
+| `E2E_MOVEMENT` / `E2E_PERIOD_CLOSE` | No | `1` = register the opt-in movement / period-close projects | — |
+| `E2E_DB_URL` | For movement | Postgres URL of the tenant DB (read-only role is enough) — `.env.local` only | — |
+| `E2E_API_URL` / `E2E_X_APP_ID` | No | Backend for the movement API checks; falls back to the frontend's `/config.json` | — |
+| `E2E_MOVEMENT_DATE` | No | Date for stock-posting doc-flow documents | today / 15th of the current period |
+| `E2E_SRI_BU` / `E2E_SRI_PHASE` | No | SR → Issue flow: `FIFO` variant; AVG phase `pre` / `post` / `all` | AVG / `all` |
+| `E2E_PERIOD_SCENARIO` | For period-close | Scenario key in `tests/helpers/period-close/scenarios.ts` | `avg2607` |
+| `E2E_ALLOW_IRREVERSIBLE` | For Start / count / Close | `<BU>:<period>` gate for the irreversible period-close steps | `CARMEN-AVG:2607` |
+| `E2E_EVIDENCE_DIR` | No | Period-close evidence folder | `runs/period-close/<scenario>` |
 <!-- /AUTO-GENERATED -->
 
 Named targets: `.env.<name>` is loaded by `scripts/run-env.ts` and overrides `.env` / `.env.local`.
@@ -114,9 +127,12 @@ Any `playwright test` flag (`--headed`, `--ui`, `-g <pattern>`, `--debug`, …) 
 
 ```
 .
-├── playwright.config.ts          # 5 projects (setup, login, chromium, wiki-screenshots, wiki-probe); webServer; JSON reporter
+├── playwright.config.ts          # 5 projects (setup, login, chromium, wiki-screenshots, wiki-probe) + opt-in movement-setup / movement / period-close; webServer; JSON reporter
 ├── tests/
 │   ├── auth.setup.ts             # setup project — pre-authenticates every role once per run
+│   ├── movement.setup.ts         # movement-setup project — logs in the @carmen.com movement accounts
+│   ├── *-doc-flow.spec.ts        # movement suite: doc lifecycle per role on CARMEN-AVG (opt-in)
+│   ├── 9xx-period-close-*.spec.ts# movement suite: period-close phases (opt-in, partly irreversible)
 │   ├── *.spec.ts                 # 45 specs: 001-login, 010-department, …, 1001-campaign
 │   ├── pages/                    # page objects (locator factories)
 │   ├── fixtures/
@@ -126,7 +142,8 @@ Any `playwright test` flag (`--headed`, `--ui`, `-g <pattern>`, `--debug`, …) 
 │   ├── reporters/tc-json-reporter.ts
 │   ├── results/*.json            # per-spec result JSONs (checked in as seeds; updated each run)
 │   ├── scripts/                  # shell runners (run-module.sh, run-all.sh)
-│   └── test-users.ts             # role-based test accounts
+│   ├── test-users.ts             # role-based test accounts
+│   └── movement-users.ts         # movement-suite accounts (CARMEN-AVG / CARMEN-FIFO)
 ├── .auth/                        # runtime — gitignored; storageState files written by setup
 └── scripts/                      # run-env, sync-test-results, audits, seed-master, capture-screens
 ```

@@ -13,6 +13,8 @@
     "test:dev": "playwright test",
     "test:prod": "bun run scripts/run-env.ts prod",
     "test:uat": "bun run scripts/run-env.ts uat",
+    "test:movement": "E2E_MOVEMENT=1 playwright test --project=movement",
+    "test:period-close": "E2E_PERIOD_CLOSE=1 playwright test --project=period-close",
     "test:unit": "vitest run",
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",
@@ -48,7 +50,10 @@
     "wiki:capture": "playwright test --project=wiki-screenshots",
     "seed:master": "bun run scripts/seed-master/index.ts",
     "create:sitemap:screen": "bun run scripts/capture-screens.ts",
-    "test:unit:coverage": "vitest run --coverage"
+    "test:unit:coverage": "vitest run --coverage",
+    "movement:setup-workflows": "bun run scripts/movement/setup-workflows.ts",
+    "movement:setup-fifo-roles": "bun run scripts/movement/setup-fifo-roles.ts",
+    "movement:cleanup": "bun run scripts/movement/cleanup.ts"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.5.0",

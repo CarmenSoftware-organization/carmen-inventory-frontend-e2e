@@ -20,6 +20,8 @@ REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 shopt -s nullglob
 RAW=()
 for spec in "${REPO_ROOT}"/tests/[0-9]*-*.spec.ts; do
+  # Movement-suite specs run only in their opt-in projects (bun run test:movement / test:period-close).
+  case "$spec" in *-doc-flow.spec.ts|*/9[0-9][0-9]-period-close-*.spec.ts) continue ;; esac
   base=$(basename "$spec" .spec.ts)
   RAW+=("${base#*-}")            # strip leading digits + first dash
 done

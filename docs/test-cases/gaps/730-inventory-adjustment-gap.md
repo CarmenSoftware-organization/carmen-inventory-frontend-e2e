@@ -1,10 +1,11 @@
-# Inventory Adjustment — Test Cases
+# Inventory Adjustment — Gap Report
 
-_Test-case catalog (documentation only; no automated Playwright spec yet). สอบทานกับโค้ดจริงเมื่อ 2026-09-20 จากโมดูล `routes/inventory-management/inventory-adjustment` (`ia-component.tsx`, `use-ia-table.tsx`, `ia-card.tsx`, `ia-form.tsx`, `ia-form-hero.tsx`, `ia-doc-info.tsx`, `ia-item-fields.tsx`, `use-ia-item-table.tsx`, `ia-summary.tsx`, `ia-form-schema.ts`, `use-inventory-adjustment.ts`) + `constant/inventory-adjustment.ts`, `constant/module-list.ts`, `components/route-guard.tsx`, `components/list-filter/list-toolbar.tsx`, `messages/en.json`. Follows the TC-ID scheme in `docs/test-id-scheme.md`._
+_เคสที่ **สเปกอัตโนมัติยังไม่ครอบ** — โมดูลนี้มีสเปกแล้วคือ `tests/730-inventory-adjustment-doc-flow.spec.ts` (movement suite, opt-in: section 70 = Stock In, 71 = Stock Out บน CARMEN-AVG ด้วยบัญชี fc) ซึ่งเดินวงจรเอกสาร draft → ดู → แก้ → ลบ → Commit และตรวจผลในหลังบ้าน แต่ยังไม่ครอบเคสด้านล่างนี้ (หน้า list, ตัวกรอง, validation, void, สิทธิ์ ฯลฯ) — แคตตาล็อกเดิม: สอบทานกับโค้ดจริงเมื่อ 2026-09-20 จากโมดูล `routes/inventory-management/inventory-adjustment` (`ia-component.tsx`, `use-ia-table.tsx`, `ia-card.tsx`, `ia-form.tsx`, `ia-form-hero.tsx`, `ia-doc-info.tsx`, `ia-item-fields.tsx`, `use-ia-item-table.tsx`, `ia-summary.tsx`, `ia-form-schema.ts`, `use-inventory-adjustment.ts`) + `constant/inventory-adjustment.ts`, `constant/module-list.ts`, `components/route-guard.tsx`, `components/list-filter/list-toolbar.tsx`, `messages/en.json`. Follows the TC-ID scheme in `docs/test-id-scheme.md`._
 
 **Module:** Inventory Management — Inventory Adjustment
 **Frontend route:** `routes/inventory-management/inventory-adjustment`  •  **URL:** `/inventory-management/inventory-adjustment` (และ `/inventory-management/inventory-adjustment/new`, `/inventory-management/inventory-adjustment/:id`)
-**Prefix:** `IADJ`
+**Prefix:** `IADJ` (ชุดเดียวกับสเปก — gap report ใช้ prefix ของสเปก)
+**Spec ที่ครอบวงจรเอกสาร:** `tests/730-inventory-adjustment-doc-flow.spec.ts` (TC-IADJ-70xxxx / 71xxxx)
 **Default role:** Admin (admin@blueledgers.com, active BU = BLAVG)
 **Total test cases:** 60
 

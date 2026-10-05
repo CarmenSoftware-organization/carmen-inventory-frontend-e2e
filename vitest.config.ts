@@ -35,6 +35,15 @@ export default defineConfig({
         "tests/helpers/security-cases.ts", // Playwright test bodies (registration is tested in unit/security-cases.test.ts)
         "tests/wiki-screenshots/capture-user.ts", // browser
         "tests/wiki-screenshots/discover-seeds.ts", // browser
+        // Movement suite: browser actions, backend calls and scenario data. Its pure
+        // seams (db guard, DocState, Signals) are tested in unit/movement-helpers.test.ts.
+        "tests/helpers/movement/api.ts", // backend client
+        "tests/helpers/movement/docs.ts", // browser
+        "tests/helpers/movement/ui.ts", // browser
+        "tests/helpers/movement/doc-flow.ts", // test data + one backend call
+        "tests/helpers/period-close/**", // browser / DB / scenario data
+        "scripts/movement/**", // maintenance CLIs against the backend
+        "scripts/db-query.ts", // Bun Postgres CLI
       ],
       thresholds: {
         statements: 80,

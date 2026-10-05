@@ -36,6 +36,13 @@ const MODULE_NAME_OVERRIDES: Record<string, string> = {
   "159-pl": "Price List",
   "160-pl-template": "Price List Template",
   "701-sr": "Store Requisition",
+  "312-pr-doc-flow": "Purchase Request — Doc Flow (movement suite)",
+  "404-po-doc-flow": "Purchase Order — Doc Flow (movement suite)",
+  "502-grn-doc-flow": "GRN — Doc Flow (movement suite)",
+  "603-cn-doc-flow": "Credit Note — Doc Flow (movement suite)",
+  "702-sr-doc-flow": "Store Requisition — Doc Flow (movement suite)",
+  "721-sr-issue-doc-flow": "Store Requisition → Issue — Doc Flow (movement suite)",
+  "730-inventory-adjustment-doc-flow": "Inventory Adjustment — Doc Flow (movement suite)",
 };
 
 interface Annotations {
